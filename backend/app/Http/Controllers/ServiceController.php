@@ -20,6 +20,6 @@ class ServiceController extends Controller
             $imageData = base64_encode($data);
             $src = "data: $mime_type;base64,$imageData";
         }
-
+        return response($Money);
     }
 }

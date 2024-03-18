@@ -38,6 +38,5 @@ class CommitController extends Controller
         //     'commit_content'=>$request['commit_content']
         // ]);
 
-        return response($Case_name);
     }
 }
