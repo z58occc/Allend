@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
@@ -29,8 +29,12 @@ Route::post('/commit_crime', CommitController::class);
 //新增服務API
 Route::post('/service',ServiceController::class);
 //新增作品API
-Route::post('work',WorkController::class);
+Route::post('/work',WorkController::class);
 //新增影音
-Route::post('video',VideoController::class);
+Route::post('/video',VideoController::class);
 // 註冊
-Route::post('/register', [RegisterController::class, 'create']);
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    // Route::post('/register', 'register');
+});
