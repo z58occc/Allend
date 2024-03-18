@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
@@ -31,5 +32,5 @@ Route::post('/service',ServiceController::class);
 Route::post('work',WorkController::class);
 //新增影音
 Route::post('video',VideoController::class);
-
-
+// 註冊
+Route::post('/register', [RegisterController::class, 'create']);
