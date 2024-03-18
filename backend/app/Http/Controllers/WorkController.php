@@ -10,5 +10,12 @@ class WorkController extends Controller
     {
         $work_name = $request->work_name;
         $work_context = $request->work_context;
+
+        if(isset($request->image)){
+            $data = $request->image ->get();
+            $mime_type = $request->image->getMimeType();
+            $imageData = base64_encode($data);
+            $src = "data: $mime_type;base64,$imageData";
+        }
     }
 }
