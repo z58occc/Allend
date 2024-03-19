@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
+use App\Http\Controllers\IFindCommitController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
@@ -24,6 +25,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//發案分類
+Route::get('/category',IFindCommitController::class);
 //發案表單API
 Route::post('/commit_crime', CommitController::class);
 //服務API

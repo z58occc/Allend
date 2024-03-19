@@ -3,13 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $video_name = $request->video_name;
-        $video_context = $request->video_context;
-        $video_src = $request->video_src;
+
+        $this->validate($request,[
+            'v_name'=>['required'],
+            'v_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $video = DB::table('video')->insert([
+            'v_name'=> $request['v_name'],
+            'v_description' =>$request['v_description'],
+            'src'=>$request['src'],
+            'created_at'=>now()
+        ]);
+        return response($video);
     }
 }
