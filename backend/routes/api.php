@@ -36,5 +36,5 @@ Route::post('/video',VideoController::class);
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
-    // Route::post('/register', 'register');
+    Route::post('/updateprofiles', 'update');
 });

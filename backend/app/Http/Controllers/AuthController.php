@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'update']]);
     }
 
     // 註冊api
@@ -58,15 +58,14 @@ class AuthController extends Controller
         }
         $credentials = $request->only('email', 'password');
         // $token = auth()->attempt($credentials);
-        $token = auth()
+        $token = auth('api')
             ->setTTL(120) // 設置過期時間，單位(整數)分鐘
             ->attempt($credentials);
-        die(var_dump($token));
 
         if(!$token){
             return response()->json([
-                'message' => '未授權，請重新登入'
-            ], 401);
+                'message' => '帳號或密碼錯誤'
+            ]);
         }
 
         $user = Auth::user();
@@ -76,6 +75,14 @@ class AuthController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ]
+        ]);
+    }
+
+    // 修改資料
+    public function update(Request $request){
+        return response()->json([
+            'id' => $request->id,
+            'avatar' => $request->avatar
         ]);
     }
 }
