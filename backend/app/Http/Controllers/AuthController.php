@@ -15,6 +15,7 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
+
     // 註冊api
     public function register(Request $request){
         // 先進行驗證跟錯誤處理
@@ -35,7 +36,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-            return response('註冊成功!');
+            return response()->json([
+                'message' => '註冊成功!',
+            ]);
         }
         catch(Throwable $err){
             return response('email已被註冊過!');
@@ -54,13 +57,10 @@ class AuthController extends Controller
             return response('輸入資料格式錯誤');
         }
         $credentials = $request->only('email', 'password');
-        // die(var_dump($credentials));
-        $token = auth('api')->attempt($credentials);
-        // $token = auth();
-        // ->claims(["address" => "台中市"]) // 補一筆資料進token
-            // ->setTTL(120) // 設置過期時間，單位(整數)分鐘
-            // ->attempt($credentials);
-
+        // $token = auth()->attempt($credentials);
+        $token = auth()
+            ->setTTL(120) // 設置過期時間，單位(整數)分鐘
+            ->attempt($credentials);
         die(var_dump($token));
 
         if(!$token){

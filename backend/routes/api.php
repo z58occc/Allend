@@ -26,13 +26,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 //發案表單API
 Route::post('/commit_crime', CommitController::class);
-//新增服務API
+//服務API
 Route::post('/service',ServiceController::class);
-//新增作品API
+//作品API
 Route::post('/work',WorkController::class);
 //新增影音
 Route::post('/video',VideoController::class);
-// 註冊
+// 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
