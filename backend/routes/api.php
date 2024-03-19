@@ -40,4 +40,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
     Route::post('/updateprofiles', 'update');
+    // 獲取會員資料
+    Route::post('/mem-data', 'acquire');
 });
