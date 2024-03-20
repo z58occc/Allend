@@ -50,6 +50,7 @@ class CommitController extends Controller
             'd_unit'=>$request['d_unit'],
             'd_active_location'=>$country,
             'created_at'=>now(),
+            'updated_at'=>now(),
         ]);
         return response($commit);
     }

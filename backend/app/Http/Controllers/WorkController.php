@@ -26,6 +26,7 @@ class WorkController extends Controller
             'p_description'=>$request['p_description'],
             'image'=>$imageData,
             'created_at'=>now(),
+            'updated_at'=>now()
         ]);
         return response($work);
     }
