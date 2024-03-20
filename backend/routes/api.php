@@ -28,31 +28,32 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//發案分類
+// 發案分類
 Route::get('/findcommmit',IFindCommitController::class);
-//服務分類
+// 服務分類
 Route::get('/findpeople',IFindPeopleController::class);
-//發案表單API
+// 發案表單API
 Route::post('/commit_crime', CommitController::class);
-//服務API
+// 服務API
 Route::post('/service',ServiceController::class);
-//作品API
+// 作品API
 Route::post('/work',WorkController::class);
-//新增影音
+// 新增影音
 Route::post('/video',VideoController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
-    // Route::post('/login', 'login');
-    // Route::post('/updateprofiles', 'update');
-    // // 獲取會員資料
-    // Route::post('/mem-data', 'acquire');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
+    Route::post('/updateprofiles', 'update');
+    // 獲取會員資料
+    Route::post('/memdata', 'acquire');
+    // 會員儀表板
+    Route::post('/dashboard', 'dashboard');
+    // 寄忘記密碼信
+    Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
+    //->middleware('guest');
 });
-
-// Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-     ->middleware('guest')
-     ->name('password.email');
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
      ->middleware('guest')

@@ -13,7 +13,6 @@ class Member extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'members';
     /**
      * The attributes that are mass assignable.
      *

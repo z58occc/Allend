@@ -124,7 +124,7 @@ class AuthController extends Controller
         // area: "",
         // selectedDate: new Date(),
 
-        return response()->json([$request]);
+        return response()->json($request);
     }
 
     // public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -152,14 +152,19 @@ class AuthController extends Controller
     public function logout(Request $request){
         Auth::guard('api')->logout();
 
-        return redirect('/register');
+        return redirect('/login');
     }
 
     // 獲取會員資料
     public function acquire(Request $request){
+        // try{
+        //     $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        // }catch(Throwable $err){
+        //     return response('無效的請求');
+        // }
         $user = Auth::user();
         return response()->json([
-            'user' => $user,
+            'user' => $user->id,
         ]);
     }
 

@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'api',
-        'passwords' => 'members',
+        'passwords' => 'member',
     ],
 
     /*
@@ -100,10 +100,10 @@ return [
     */
 
     'passwords' => [
-        'members' => [
+        'member' => [
             'provider' => 'members',
-            'table' => 'members',
-            'expire' => 120,
+            'table' => 'members_reset_tokens',
+            'expire' => 30,
             'throttle' => 10,
         ],
     ],

@@ -16,11 +16,11 @@ class PasswordResetLinkController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request):RedirectResponse// JsonResponse
+    public function store(Request $request)//: JsonResponse
     {
-        // $request->validate([
-        //     'email' => ['required', 'email'],
-        // ]);
+        $request->validate([
+            'email' => ['required', 'email'],
+        ]);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
@@ -28,33 +28,14 @@ class PasswordResetLinkController extends Controller
         $status = Password::sendResetLink(
             $request->only('email')
         );
-        // return response()->json([
-        //     'message' => $status
-        // ]);
-        // if ($status === Password::RESET_LINK_SENT) {
-        //     return response()->json([
-        //         'message' => 'success'
-        //     ]);
-        //     // throw ValidationException::withMessages([
-        //     //     'email' => [__($status)],
-        //     // ]);
-        // }else {
-        //     // throw ValidationException::withMessages([
-        //     //     'email' => [__($status)],
-        //     // ]);
-        //     return response()->json([
-        //         'message' => 'fail'
-        //     ]);
-        // }
-        // return response()->json($request);
 
-        // return response()->json(['status' => __($status)]);
+        if ($status != Password::RESET_LINK_SENT) {
 
+            throw ValidationException::withMessages([
+                'email' => [__($status)],
+            ]);
+        }
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
-
+        return response()->json(['status' => __($status)]);
     }
 }
