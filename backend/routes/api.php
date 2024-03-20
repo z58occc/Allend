@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +40,17 @@ Route::post('/video',VideoController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
-    Route::post('/login', 'login');
-    Route::post('/updateprofiles', 'update');
-    // 獲取會員資料
-    Route::post('/mem-data', 'acquire');
+    // Route::post('/login', 'login');
+    // Route::post('/updateprofiles', 'update');
+    // // 獲取會員資料
+    // Route::post('/mem-data', 'acquire');
 });
+
+// Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+     ->middleware('guest')
+     ->name('password.email');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+     ->middleware('guest')
+     ->name('password.update');

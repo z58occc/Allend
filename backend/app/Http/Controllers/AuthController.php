@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+// use App\Models\User;
+use App\Models\Member;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Throwable;
 
@@ -14,7 +18,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'update']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register',]]);
     }
 
     // 註冊api
@@ -23,7 +27,7 @@ class AuthController extends Controller
         try{
             $request->validate([
                 'name' => 'required|string',
-                'email' => 'required|string|email|unique:users',
+                'email' => 'required|string|email|unique:members',
                 'password' => 'required|string|min:6',
             ]);
         }
@@ -32,17 +36,23 @@ class AuthController extends Controller
         }
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
-            User::create([
+            Member::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        //     User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        // ]);
             return response()->json([
                 'message' => '註冊成功!',
             ]);
         }
         catch(Throwable $err){
-            return response('email已被註冊過!');
+            // return response('email已被註冊過!');
+            return response($err);
         }
     }
 
@@ -71,11 +81,9 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
+            'user_tag' => $user,
+            'user_logintime' => date('Y-m-d H:i:s'),
+            'token' => $token,
         ]);
     }
 
@@ -87,13 +95,24 @@ class AuthController extends Controller
             return response('無效的請求');
         }
         $user_id = auth()->user()->id;
-        try{
-            User::where('id', $user_id)->update([
-                'identity' => $request->identity ? "A" : "B",
-            ]);
-        }catch(Throwable $err){
-            return response('修改失敗');
-        }
+        // try{
+        //     Member::where('id', $user_id)->update([
+        //         // 'avatar' => $request->,
+        //         // 'identity' => $request->identity ? "A" : "B",
+        //         // 'nickname' => $request->,
+        //         // 'seniority' => $request->,
+        //         // 'active_location' => $request->,
+        //         // 'mobile_phone' => $request->,
+        //         // 'name' => $request->,
+        //         // 'id_card' => $request->,
+        //         // 'gender' => $request->,
+        //         // 'location' => $request->,
+        //         'updated_at' => date('Y-m-d H:i:s'),
+        //     ]);
+        // }catch(Throwable $err){
+        //     return response('修改失敗');
+        // }
+
         // identity: "",
         // experience: "",
         // location: "",
@@ -105,7 +124,7 @@ class AuthController extends Controller
         // area: "",
         // selectedDate: new Date(),
 
-        return response()->json([$request->identity]);
+        return response()->json([$request]);
     }
 
     // public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -133,7 +152,7 @@ class AuthController extends Controller
     public function logout(Request $request){
         Auth::guard('api')->logout();
 
-        return redirect('/');
+        return redirect('/register');
     }
 
     // 獲取會員資料
