@@ -104,7 +104,7 @@ return [
             'provider' => 'members',
             'table' => 'members_reset_tokens',
             'expire' => 30,
-            'throttle' => 10,
+            'throttle' => 5,
         ],
     ],
 
