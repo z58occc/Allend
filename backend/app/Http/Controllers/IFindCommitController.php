@@ -46,10 +46,10 @@ class IFindCommitController extends Controller
                 // case '4':
                     //接案人數
                 default:
-                    $query->orderBy('demmand.created_at', 'desc');
+                    $query->orderBy('created_at', 'desc');
         
             }
-        }else{ $query->orderBy('demmand.created_at', 'desc');}
+        }else{ $query->orderBy('created_at', 'desc');}
 
         $demands = $query->get();
 
