@@ -1,0 +1,21 @@
+/* 移除 Accordion 的箭頭 */
+.no-arrow-accordion .accordion-button::after {
+    display: none !important;
+}
+
+/* 調整 Nav.Link 的顏色 */
+.nav-link-no-arrow {
+    color: black !important;
+}
+
+/* 設定 Accordion 和 Accordion.Header 的背景顏色 */
+.no-arrow-accordion .accordion-item {
+    background-color: rgb(165, 164, 164);
+}
+
+
+
+
+
+  
+  
