@@ -1,12 +1,12 @@
 import React from 'react'
-import Header from './HeaderNav';
-import Footer from './Footer'
+
+import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { GoTriangleDown } from "react-icons/go";
 import Category from './Category';
-import NextPage from './NextPage';
-import Orderbuttom from './Orderbuttom';
-import './App.css';
+import NextPage from '../homepage/NextPage';
+import Orderbuttom from '../homepage/Orderbuttom';
+import '../../src/App.css';
 import { CiStar } from "react-icons/ci";
 
 

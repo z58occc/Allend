@@ -1,9 +1,8 @@
 import React from 'react'
-import Header from './HeaderNav';
-import Footer from './Footer'
+import Footer from '../homepage/Footer';
 import Category from './Category'
 import { GoTriangleDown } from "react-icons/go";
-import NextPage from './NextPage'
+import NextPage from '../homepage/NextPage';
 
 function Findman() {
     return (

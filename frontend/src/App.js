@@ -1,23 +1,26 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Homepage from './homepage/homepage';
+import Findcase from './Components/Findcase';
+import Findman from './Components/Findman';
+import Member from './Components/page/Member/email';
+
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import { Login } from './Components/Login/Login';
 import { ProjectForm } from './Components/page/Member/ProjectForm';
 import { RegisterForm } from './Components/RegisterForm/RegisterForm';
 import { FreelancerForm } from './Components/page/Member/Receiver information';
 import { Forgot } from './Components/Forgot/Forgot';
-import Member from './Components/page/Member/email';
+
 import { Container } from 'react-bootstrap';
 import { Link, Routes, Route } from 'react-router-dom';
 import { NavLink } from 'react-bootstrap';
-import Nav from 'react-bootstrap/Nav'
-import Homepage from './Components/Homepage';
-import Findcase from './Components/Findcase';
-import Findman from './Components/Findman';
-import ourLogo from './Components/page/Member/ourLogo.jpg';
-import React, { useState } from 'react';
+import Nav from 'react-bootstrap/Nav';
+import ourLogo from './homepage/ourLogo.jpg';
+
 
 
 
@@ -51,22 +54,22 @@ function App() {
       <div className="container-fluid">
         <ul className="navbar-nav">
           <li className="nav-item" >
-            <NavLink href='/findcase' style={{ backgroundColor: color }} onClick={handleClick} className="nav-link active" >
+            <Nav.Link href='/findcase' style={{ backgroundColor: color }} onClick={handleClick} className="nav-link active" >
               我要接案
-            </NavLink>
+            </Nav.Link>
           </li>
           <li className="nav-item" >
-            <NavLink href='/findman' style={{ backgroundColor: color2 }} onClick={handleClick2} className="nav-link" >
+            <Nav.Link href='/findman' style={{ backgroundColor: color2 }} onClick={handleClick2} className="nav-link" >
               我要找人
-            </NavLink>
+            </Nav.Link>
           </li>
         </ul>
 
         <li>
-          <NavLink href='/case' style={{ backgroundColor: color2, float: 'right' }} onClick={handleClick2} className="nav-link">發案</NavLink>
+          <Nav.Link href='/case' style={{ backgroundColor: color2, float: 'right' }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
 
 
-          <NavLink href='/email' style={{ backgroundColor: color, float: 'right' }} onClick={handleClick} className="nav-link active"  >email</NavLink>
+          <Nav.Link href='/email' style={{ backgroundColor: color, float: 'right' }} onClick={handleClick} className="nav-link active"  >email</Nav.Link>
         </li>
 
       </div>
