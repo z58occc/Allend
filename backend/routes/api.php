@@ -33,11 +33,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::get('/findcommmit',IFindCommitController::class);
 // 服務分類
 Route::get('/findpeople',IFindPeopleController::class);
-// 發案表單API
+// 發案表單
 Route::post('/commit_crime', CommitController::class);
-// 服務API
+// 新增服務
 Route::post('/service',ServiceController::class);
-// 作品API
+// 新增作品
 Route::post('/work',WorkController::class);
 // 新增影音
 Route::post('/video',VideoController::class);
@@ -57,7 +57,11 @@ Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
     Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
-    Route::post('/memdata', 'acquire');
+    Route::post('/mem', 'getMemInfo');
+    // 服務管理頁面
+    Route::post('/servicemanagement', 'getService');
+    // 我的收藏
+    Route::post('/collection', 'getCollection');
 });
 // Route::post('/reset-password', [NewPasswordController::class, 'store'])
 //      ->middleware('guest')

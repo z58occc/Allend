@@ -81,7 +81,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-            'user_tag' => $user,
+            'user_tag' => $user->mid,
             'user_logintime' => date('Y-m-d H:i:s'),
             'token' => $token,
         ]);
@@ -94,7 +94,7 @@ class AuthController extends Controller
         }catch(Throwable $err){
             return response('無效的請求');
         }
-        $user_id = auth()->user()->id;
+        $user_id = auth()->user()->mid;
         // try{
         //     Member::where('id', $user_id)->update([
         //         // 'avatar' => $request->,
