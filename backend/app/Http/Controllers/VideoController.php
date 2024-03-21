@@ -20,7 +20,8 @@ class VideoController extends Controller
             'v_name'=> $request['v_name'],
             'v_description' =>$request['v_description'],
             'src'=>$request['src'],
-            'created_at'=>now()
+            'created_at'=>now(),
+            'updated_at'=>now(),
         ]);
         return response($video);
     }

@@ -81,7 +81,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-            'user_tag' => $user,
+            'user_tag' => $user->mid,
             'user_logintime' => date('Y-m-d H:i:s'),
             'token' => $token,
         ]);
@@ -94,7 +94,7 @@ class AuthController extends Controller
         }catch(Throwable $err){
             return response('無效的請求');
         }
-        $user_id = auth()->user()->id;
+        $user_id = auth()->user()->mid;
         // try{
         //     Member::where('id', $user_id)->update([
         //         // 'avatar' => $request->,
@@ -148,31 +148,13 @@ class AuthController extends Controller
 
     //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
     // }
+
     // 登出
     public function logout(Request $request){
-        Auth::guard('api')->logout();
+        Auth::guard()->logout();
 
         return redirect('/login');
     }
-
-    // 獲取會員資料
-    public function acquire(Request $request){
-        // try{
-        //     $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        // }catch(Throwable $err){
-        //     return response('無效的請求');
-        // }
-        $user = Auth::user();
-        return response()->json([
-            'user' => $user->id,
-        ]);
-    }
-
-
-
-
-
-
 
     //  // 從請求頭獲取 JWT
     //  $jwt = $request->bearerToken();

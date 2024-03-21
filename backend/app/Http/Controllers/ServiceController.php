@@ -21,7 +21,8 @@ class ServiceController extends Controller
             's_type'=>['required'], //類別
             's_description'=>['required'],//描述
             's_amount'=>['required'],//金額
-            's_acitve_location'=>['required'],//地點
+            's_unit'=>['required'],
+            's_active_location'=>['required'],//地點
         ]);
 
         if(isset($request->image)){
@@ -42,9 +43,11 @@ class ServiceController extends Controller
             's_type'=>$catid,
             's_description'=>$request['s_description'],
             's_amount'=>$request['s_amount'],
-            's_acitve_location'=>$country,
+            's_unit'=>$request['s_unit'],
+            's_active_location'=>$country,
             'image'=>$imageData,
             'created_at'=>now(),
+            'updated_at'=>now(),
         ]);
         return response($service);
 }
