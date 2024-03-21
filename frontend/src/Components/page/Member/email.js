@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import LeftVerticalNavbar from '../../../RatingPage/LeftVerticalNavbar';
 
 
-
-//接案人資料
-export function FreelancerForm() {
+function FreelancerForm() {
     const [formData, setFormData] = useState({
         identity: '',
         experience: '',
@@ -113,6 +112,8 @@ export function FreelancerForm() {
 
 
     return (
+       
+        <>
         <Container>
             <h2 className="text-center">接案人填寫資料</h2>
 
@@ -329,7 +330,7 @@ export function FreelancerForm() {
                 </Form>
             )}
         </Container>
-    
+    </>
     );
 }
 

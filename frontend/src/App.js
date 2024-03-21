@@ -6,11 +6,12 @@ import Findcase from './Components/Findcase';
 import Findman from './Components/Findman';
 import Member from './Components/page/Member/email';
 
+import ProjectForm from './Components/page/Member/ProjectForm';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 
 import { Login } from './Components/Login/Login';
-import { ProjectForm } from './Components/page/Member/ProjectForm';
+
 import { RegisterForm } from './Components/RegisterForm/RegisterForm';
 import { FreelancerForm } from './Components/page/Member/Receiver information';
 import { Forgot } from './Components/Forgot/Forgot';
@@ -66,7 +67,7 @@ function App() {
         </ul>
 
         <li>
-          <Nav.Link href='/case' style={{ backgroundColor: color2, float: 'right' }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
+          <Nav.Link href='/ProjectForm' style={{ backgroundColor: color2, float: 'right' }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
 
 
           <Nav.Link href='/email' style={{ backgroundColor: color, float: 'right' }} onClick={handleClick} className="nav-link active"  >email</Nav.Link>
@@ -81,6 +82,8 @@ function App() {
         <Route path='/findcase' element={<Findcase></Findcase>}></Route>
         <Route path='/findman' element={<Findman></Findman>}></Route>
         <Route path='/email' element={<Member></Member>}></Route>
+      
+        <Route path='/ProjectForm' element={<ProjectForm></ProjectForm>}></Route>
       </Routes>
     </div>
   )
