@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Homepage from './Components/Homepage';
+import Homepage from './homepage/homepage';
 import Findcase from './Components/Findcase';
 import Findman from './Components/Findman';
 import Member from './Components/page/Member/email';
-import ourLogo from './Components/page/Member/ourLogo.jpg';
+
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -18,8 +18,8 @@ import { Forgot } from './Components/Forgot/Forgot';
 import { Container } from 'react-bootstrap';
 import { Link, Routes, Route } from 'react-router-dom';
 import { NavLink } from 'react-bootstrap';
-import Nav from 'react-bootstrap/Nav'
-
+import Nav from 'react-bootstrap/Nav';
+import ourLogo from './homepage/ourLogo.jpg';
 
 
 

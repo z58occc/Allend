@@ -1,13 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import ourLogo from './ourLogo.jpg'
+import logo from '../logo.svg';
+import '../../src/App.css';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
-import Header from './HeaderNav';
+
 import { FaHtml5 } from "react-icons/fa";
-import violence from './violence.jpg';
+import violence from '../homepage/violence.jpg';
 
 
 function Homepage() {
