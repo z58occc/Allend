@@ -1,16 +1,19 @@
 import React from 'react';
-import { Navbar, Nav, Image } from 'react-bootstrap';
+import { Navbar, Nav, NavbarText } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
+import { FaRegUser } from "react-icons/fa";
 
-const LeftVerticalNavbar = ({ navItems, userProfile }) => {
+
+function LeftVerticalNavbar  ( {navItems, userProfile} )  {
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '250px' }}>
-            <Navbar.Brand href="#home">
-                <Image src={userProfile.avatar} roundedCircle className="mr-2" width="100" height="100" />
+            <Navbar.Brand>
+                <FaRegUser/>
             </Navbar.Brand>
-            <Navbar.Text style={{ fontSize: '20px' }}>{userProfile.name}</Navbar.Text>
+            <NavbarText style={{ fontSize: '20px' }}>{userProfile && userProfile.name}</NavbarText>
+
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto flex-column">

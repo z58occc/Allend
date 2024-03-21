@@ -1,6 +1,8 @@
 import React from 'react'
 import GridComponent from './GridComponent';
 import Rating from './Rating';
+import LeftVerticalNavbar from './LeftVerticalNavbar';
+
 function RatingPage() {
     const lines = [
         { title: '接案數', number: 5, path: '#home' },
@@ -14,6 +16,8 @@ function RatingPage() {
       ];
     
   return (
+    <>
+    <LeftVerticalNavbar/>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: 'calc(100% - 250px)', marginLeft: '20px' }}>
         <div style={{ display: 'flex', gap: '20px' }}>
           <GridComponent lines={lines} width="400px" fontSize="20px" />
@@ -21,6 +25,7 @@ function RatingPage() {
         </div>
         <Rating lines={line2} width="1060px" fontSize="20px" />
       </div>
+      </>  
   )
 }
 
