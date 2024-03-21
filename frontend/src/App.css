@@ -1,4 +1,64 @@
-.App {
+.noto-serif  {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+.search-container{
+  scale: 0.5;  
+  float: right;
+}
+.search-container input[type=text] {
+  padding: 6px;
+  font-size: 17px;
+  border: none;
+  }
+
+.search-container button {
+  padding: 6px 10px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+
+
+}
+nav button {
+  scale: 0.75;
+} 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +95,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
