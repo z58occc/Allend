@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from './HeaderNav'
 import Footer from './Footer'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
@@ -229,18 +228,30 @@ function Talent() {
                             <div style={{ textAlign: 'right' }}>2024/XX/XX 案主李XX</div>
                         </div>
                         <br></br>
-                        <div style={{ border: 'solid' }} className='mt-4 col-sm-10'>
-                            案主評價:
-                            <CiStar />
-                            <CiStar />
-                            <CiStar />
-                            <CiStar />
-                            <CiStar />
-                            <br></br>
-                            案主留言:服務很好很棒
-                            <br></br>
-                            <div style={{ textAlign: 'right' }}>2024/XX/XX 案主李XX</div>
+                        <div>
+                            成交件數(100):<br></br>
+
+
                         </div>
+                        <div className='col-sm-2'>
+
+                        </div>
+                        <div style={{ border: 'solid' }} className='mt-4 '>
+                            <span style={{ border: 'solid' }}>案件</span>
+                            <a>案件名稱</a>
+                            2024/XX/XX 案主:李XX
+                        </div>
+                        <div style={{ border: 'solid' }} className='mt-4 '>
+                            <span style={{ border: 'solid' }}>案件</span>
+                            <a>案件名稱</a>
+                            2024/XX/XX 案主:李XX
+                        </div>
+                        <div style={{ border: 'solid' }} className='mt-4 '>
+                            <span style={{ border: 'solid' }}>案件</span>
+                            <a>案件名稱</a>
+                            2024/XX/XX 案主:李XX
+                        </div>
+                        <br></br>
 
                     </div>
                 </div>

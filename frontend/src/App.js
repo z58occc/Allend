@@ -20,6 +20,8 @@ import { Link, Routes, Route } from 'react-router-dom';
 import { NavLink } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import ourLogo from './homepage/ourLogo.jpg';
+import Serve from './Components/Serve';
+import Talent from './Components/Talent'
 
 
 
@@ -81,6 +83,8 @@ function App() {
         <Route path='/findcase' element={<Findcase></Findcase>}></Route>
         <Route path='/findman' element={<Findman></Findman>}></Route>
         <Route path='/email' element={<Member></Member>}></Route>
+        <Route path='/serve' element={<Serve></Serve>}></Route>
+        <Route path='/talent' element={<Talent></Talent>}></Route>
       </Routes>
     </div>
   )

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from './HeaderNav';
 import Footer from './Footer';
 import twitter from './twitter.png'
 import { CiStar } from "react-icons/ci";
