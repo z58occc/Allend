@@ -53,8 +53,10 @@ Route::controller(AuthController::class)->group(function () {
     // 寄忘記密碼信
     Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
     //->middleware('guest');
+    // 完成修改密碼
+    Route::post('/resetpwd', [NewPasswordController::class, 'store']);
 });
 
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-     ->middleware('guest')
-     ->name('password.update');
+// Route::post('/reset-password', [NewPasswordController::class, 'store'])
+//      ->middleware('guest')
+//      ->name('password.update');
