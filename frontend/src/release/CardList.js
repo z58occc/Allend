@@ -1,47 +1,54 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Modal,Table} from 'react-bootstrap';
 import SearchPage from './SearchPage';
-
-const CardList = ({visibility}) => {
+import CaseDetailsModal1 from './CaseDetailsModal1'
+import CaseDetailsModal2 from './CaseDetailsModal2';
+const CardList = ({visibility,selectedComponent}) => {
   const [checked, setChecked] = useState(false);
+  // 全選功能
   const [selectedItems, setSelectedItems] = useState([false,false,false]); //設置selectedItems為空陣列，裡面為被選到的index值
-
   const handleChecked = (index) => {
-    
     const newSelectedItems = [...selectedItems];
-    console.log(newSelectedItems);
     newSelectedItems[index] = !newSelectedItems[index];
-    console.log(newSelectedItems);
-
-    setSelectedItems(newSelectedItems);
-    console.log(selectedItems);
-    
+    setSelectedItems(newSelectedItems);   
     const allSelected = newSelectedItems.every((item) => item);
-    console.log(allSelected)
     setChecked(allSelected);
   };
-
   const handleToggleAll = () => {
     const allSelected = !checked;
     setChecked(allSelected);
-
- 
     const newSelectedItems = data.map(() => allSelected);
     setSelectedItems(newSelectedItems);
   };
+   
+  // 子元件初始值
+  const [showModal1, setShowModal1] = useState(false)
+  const initial = {
+    caseNumber: '12345',
+    caseName: '',
+    caseCategory: '建築',
+    budgetAmount: '$100,000',
+    location: '台北市',
+    schedule: '2024-04-01 至 2024-06-30',
+    contractorName: '王小明',
+    contractorEmail: 'wang@example.com',
+    contractorPhone: '0912345678',
+  }
+  // 子元件編輯查看
+  const handleModalShow1 = () => setShowModal1(true);
+  const handleModalClose1 = () => setShowModal1(false);
 
+  // 查看報價按鈕控制
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
-  const handleShowModal = (item) => {
+  const handleShowQuoteModal = (item) => {
     setSelectedItem(item);
     setShowModal(true);
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
+  // CardList Data
   const data = [
     {
       title: '案件1',
@@ -72,6 +79,15 @@ const CardList = ({visibility}) => {
       count: 8,
     },
   ];
+  // CardList選擇子元件
+  let ComponentToRender;
+  if (selectedComponent === 'component1') {
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} caseData={initial}/> ;
+  } else if (selectedComponent === 'component2') {
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} caseData={initial} />;
+  }else if (selectedComponent === 'component3') {
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} caseData={initial} />;
+  }
   
 
   return (
@@ -106,15 +122,15 @@ const CardList = ({visibility}) => {
                 <Card.Text>人數: {item.count}</Card.Text>
               </div>
             </Card.Body>
-            <div className="d-flex flex-column justify-content-center">
-              <Button variant="primary" className="my-2" style={{ width: '110px', fontSize: '12px' }}>
+            <div className="d-flex flex-column justify-content-center" style={{visibility}}>
+              <Button variant="primary" className="my-2" style={{ width: '110px', fontSize: '12px' ,}} onClick={handleModalShow1}>
                 編輯
               </Button>
               <Button
                 variant="secondary"
                 className="my-2 d-inline-block"
                 style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center' }}
-                onClick={() => handleShowModal(item)}
+                onClick={() => handleShowQuoteModal(item)}
               >
                 查看報價
               </Button>
@@ -122,6 +138,10 @@ const CardList = ({visibility}) => {
           </div>
         </Card>
       ))}
+
+
+
+      {/* 查看報價Modal */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
       <Modal.Header closeButton>
           <Modal.Title>查看報價 - {selectedItem && selectedItem.title}</Modal.Title>
@@ -164,6 +184,9 @@ const CardList = ({visibility}) => {
           </Button>
         </Modal.Footer>
       </Modal>
+      {/*  */}
+      
+      {ComponentToRender}
     </div>
   );
 };
