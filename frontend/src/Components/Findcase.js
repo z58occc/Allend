@@ -7,7 +7,7 @@ import Category from './Category';
 import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
-import { CiStar } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 
 function Findcase() {
@@ -74,14 +74,14 @@ function Findcase() {
 
             {/* 案件 */}
             <div className='row'>
-                <text className='col-sm-2' style={{ border: 'solid' }}>
+                <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
                     案件名稱<br></br>
                     案件類別<br></br>
                     預算<br></br>
                     地點:<br></br>
                     案件期程:<br></br>
                     5分鐘前更新<br></br>
-                </text>
+                </Link>
                 <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                     案件說明
                     <div className='position-absolute bottom-0 end-0'>
@@ -91,14 +91,14 @@ function Findcase() {
 
             </div>
             <div className='row'>
-                <text className='col-sm-2' style={{ border: 'solid' }}>
+                <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
                     案件名稱<br></br>
                     案件類別<br></br>
                     預算<br></br>
                     地點:<br></br>
                     案件期程:<br></br>
                     5分鐘前更新<br></br>
-                </text>
+                </Link>
                 <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                     案件說明
                     <div className='position-absolute bottom-0 end-0'>
@@ -108,34 +108,24 @@ function Findcase() {
 
             </div>
             <div className='row'>
-                <text className='col-sm-2' style={{ border: 'solid' }}>
+                <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
                     案件名稱<br></br>
                     案件類別<br></br>
                     預算<br></br>
                     地點:<br></br>
                     案件期程:<br></br>
                     5分鐘前更新<br></br>
-                </text>
+                </Link>
                 <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                     案件說明
                     <div className='position-absolute bottom-0 end-0'>
                         <Orderbuttom ></Orderbuttom>
                     </div>
                 </div>
-                <div style={{ border: 'solid' }} className='mt-5'>
-                    案主評價:
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
-                    <br></br>
-                    案主留言:服務很好很棒
-                    <br></br>
-                    <div style={{ textAlign: 'right' }}>2024/XX/XX 案主李XX</div>
-                </div>
 
             </div>
+           
+            
 
             <br></br>
 
