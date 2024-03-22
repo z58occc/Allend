@@ -21,7 +21,7 @@ const Rating = ({ lines, width, fontSize }) => {
     
     <div className="container mt-4">
       <div className="row">
-        <div className="col-12">
+        <div className="col-8">
           <div className="card" style={cardStyle}><h2 style={{ textAlign: 'center' }}>評價等級</h2>
             <div className="card-body" style={textStyle}>
               {lines.map((line, index) => (

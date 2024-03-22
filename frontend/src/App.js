@@ -14,7 +14,7 @@ import Nav from 'react-bootstrap/Nav';
 import ourLogo from './homepage/ourLogo.jpg';
 import Serve from './Components/Serve';
 import Talent from './Components/Talent'
-
+import Email from './Components/page/Member/email';
 
 
 
@@ -78,7 +78,7 @@ function App() {
         <Route path='/ProjectForm' element={<ProjectForm></ProjectForm>}></Route>
         <Route path='/serve' element={<Serve></Serve>}></Route>
         <Route path='/talent' element={<Talent></Talent>}></Route>
-
+        <Route path='/email' element={<Email></Email>}></Route>
       </Routes>
     </div>
   )

@@ -16,7 +16,7 @@ const GridComponent = ({ lines, width, fontSize }) => {
   return (
     <div className="container mt-4">
       <div className="row">
-        <div className="col-6">
+        <div className="col-5">
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
               {lines.map((line, index) => (
@@ -27,7 +27,7 @@ const GridComponent = ({ lines, width, fontSize }) => {
             </div>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-5">
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
               {lines.map((line, index) => (
