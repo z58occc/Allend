@@ -5,7 +5,7 @@ import CardList from './CardList';
 const Screen2 = () => {
   // const visibility = 'hidden';
   return (
-    <div style={{ width: '100%', height: '1100px', background: 'lightpink' }}>
+    <div style={{ width: '100%', height: '100vh', background: 'lightgreen' }}>
       <CardList visibility= 'hidden' selectedComponent={'component2'}></CardList>    
     </div>
   );
