@@ -14,7 +14,7 @@ import Nav from 'react-bootstrap/Nav';
 import ourLogo from './homepage/ourLogo.jpg';
 import Serve from './Components/Serve';
 import Talent from './Components/Talent'
-
+import CaseContext from './Components/CaseContext'
 
 
 
@@ -78,6 +78,7 @@ function App() {
         <Route path='/ProjectForm' element={<ProjectForm></ProjectForm>}></Route>
         <Route path='/serve' element={<Serve></Serve>}></Route>
         <Route path='/talent' element={<Talent></Talent>}></Route>
+        <Route path='/casecontext' element={<CaseContext></CaseContext>}></Route>
 
       </Routes>
     </div>

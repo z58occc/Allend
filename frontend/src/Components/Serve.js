@@ -14,6 +14,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import violence from './violence.jpg';
 import Stick from './Stick';
+import { Link } from 'react-router-dom';
 const Lightbox = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
@@ -195,20 +196,21 @@ function Serve() {
                 <div className="card-footer " style={{ justifyContent: 'end' }}><Button>報價詳情</Button></div>
               </div>
             </div>
-            <div className="col-sm-4 ">
+            <Link to='/serve' className="col-sm-4 ">
               <div class="card">
                 <div class="card-header">Header</div>
                 <div class="card-body">Content</div>
                 <div class="card-footer">Footer</div>
               </div>
-            </div>
-            <div className="col-sm-4 ">
+            </Link>
+            <Link to='/serve' className="col-sm-4 ">
               <div class="card">
                 <div class="card-header">Header</div>
                 <div class="card-body">Content</div>
                 <div class="card-footer">Footer</div>
               </div>
-            </div>
+            </Link>
+            
 
 
 
