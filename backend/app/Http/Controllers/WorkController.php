@@ -12,7 +12,8 @@ class WorkController extends Controller
 
         $this->validate($request,[
             'p_name'=>['required'],
-            'p_description'=>['required']
+            'p_description'=>['required'],
+            'mid'=>['required'],
         ]);
 
         if(isset($request->image)){
@@ -24,6 +25,7 @@ class WorkController extends Controller
         $work = DB::table('project')->insert([
             'p_name'=>$request['p_name'],
             'p_description'=>$request['p_description'],
+            'mid'=>$request['mid'],
             'image'=>$imageData,
             'created_at'=>now(),
             'updated_at'=>now()

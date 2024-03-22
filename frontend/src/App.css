@@ -63,5 +63,9 @@
 }
 nav button {
   scale: 0.75;
+  background-color:paleturquoise;
+}
+.navbar {
+  background-color:peachpuff;
 }
 

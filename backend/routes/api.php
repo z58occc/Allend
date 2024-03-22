@@ -8,13 +8,17 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
+use App\Http\Controllers\demmandContentController;
 use App\Http\Controllers\IFindCommitController;
 use App\Http\Controllers\IFindPeopleController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\IWantQuoteController;
 use App\Http\Controllers\MeMInfoController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
-
+use Illuminate\Database\Query\IndexHint;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +35,14 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// 首頁
+Route::get('/index',IndexController::class);
+// 人才頁面
+Route::get('/Talent',TalentController::class);
+// 案件內容
+Route::get('/demmand_content',demmandContentController::class);
+// 我要報價
+Route::post('/quote', IWantQuoteController::class);
 // 發案分類
 Route::get('/findcommmit',IFindCommitController::class);
 // 服務分類

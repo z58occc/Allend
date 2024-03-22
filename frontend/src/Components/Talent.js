@@ -8,6 +8,7 @@ import facebook from './facebook.png'
 import Nav from 'react-bootstrap/Nav';
 import { GoTriangleDown } from "react-icons/go";
 import violence from './violence.jpg'
+import { Link } from 'react-router-dom';
 
 
 function Talent() {
@@ -190,26 +191,27 @@ function Talent() {
                                 <div className="card-footer " style={{ justifyContent: 'end' }}>2024/03/18</div>
                             </div>
                         </div>
-                        <div className="col-sm-4 ">
+                        <Link to='/serve' className="col-sm-4 ">
                             <div class="card">
                                 <div class="card-header">Header</div>
                                 <div class="card-body">Content</div>
                                 <div class="card-footer">Footer</div>
                             </div>
-                        </div>
-                        <div className="col-sm-4 ">
+                        </Link>
+                        <Link to='/serve' className="col-sm-4 ">
                             <div class="card">
                                 <div class="card-header">Header</div>
                                 <div class="card-body">Content</div>
                                 <div class="card-footer">Footer</div>
                             </div>
-                        </div>
+                        </Link>
+
                     </div>
                     <div className='mt-5 row'>
                         <div>
                             評價(100):<br></br>
                             <span style={{ border: 'solid' }}>案件</span>
-                            <a>案件名稱</a>
+                            <Link to='/casecontext'>案件名稱</Link>
                             價錢
                         </div>
                         <div className='col-sm-2'>
@@ -238,17 +240,17 @@ function Talent() {
                         </div>
                         <div style={{ border: 'solid' }} className='mt-4 '>
                             <span style={{ border: 'solid' }}>案件</span>
-                            <a>案件名稱</a>
+                            <Link to='/casecontext'>案件名稱</Link>
                             2024/XX/XX 案主:李XX
                         </div>
                         <div style={{ border: 'solid' }} className='mt-4 '>
                             <span style={{ border: 'solid' }}>案件</span>
-                            <a>案件名稱</a>
+                            <Link to='/casecontext'>案件名稱</Link>
                             2024/XX/XX 案主:李XX
                         </div>
                         <div style={{ border: 'solid' }} className='mt-4 '>
                             <span style={{ border: 'solid' }}>案件</span>
-                            <a>案件名稱</a>
+                            <Link to='/casecontext'>案件名稱</Link>
                             2024/XX/XX 案主:李XX
                         </div>
                         <br></br>

@@ -3,6 +3,7 @@ import Footer from '../homepage/Footer';
 import Category from './Category'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
+import { Link } from 'react-router-dom';
 
 function Findman() {
     return (
@@ -75,56 +76,60 @@ function Findman() {
                         <button>提案人數<GoTriangleDown /></button>
                     </div>
                     <div className="row ">
-                        <div className="col-sm-4 card ">
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
+                        </Link>
+                        
                     </div>
                     <div className="row ">
-                        <div className="col-sm-4 card ">
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
+                        </Link>
+                        
                     </div>
                     <div className="row ">
-                        <div className="col-sm-4 card ">
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
+                        </Link>
+                        <Link to='/talent' className="col-sm-4 card ">
                             <div className="card-header">Header</div>
                             <div className="card-body">Content</div>
                             <div className="card-footer">Footer</div>
-                        </div>
+                        </Link>
+                        
                     </div>
+                   
                 </div>
             </div>
             <NextPage></NextPage>

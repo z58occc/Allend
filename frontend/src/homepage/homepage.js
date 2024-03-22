@@ -7,6 +7,8 @@ import Footer from './Footer';
 
 import { FaHtml5 } from "react-icons/fa";
 import violence from '../homepage/violence.jpg';
+import { Route, Routes, Link } from 'react-router-dom';
+import Findcase from '../Components/Findcase';
 
 
 function Homepage() {
@@ -38,52 +40,40 @@ function Homepage() {
 
       <div className="container mt-5">
         <div className="row">
+
           <div className="col-sm-2 ">
-
-            <div className="p-1 fakeimg" style={{ textAlign: 'center' }}>
-              <span>專業諮詢</span>
-              <br></br>
-              <img src={violence} style={{ width: 60 }}></img>
-            </div>
-
-
+            <Link to='/findman' >
+              <div className="fakeimg">Fake Image</div>
+            </Link>
             <hr className="d-sm-none" />
           </div>
           <div className="col-sm-2 ">
-
-            <div className="fakeimg">Fake Image</div>
-
-
+            <Link to='/findman' >
+              <div className="fakeimg">Fake Image</div>
+            </Link>
             <hr className="d-sm-none" />
           </div>
           <div className="col-sm-2 ">
-
-            <div className="fakeimg">Fake Image</div>
-
-
+            <Link to='/findman' >
+              <div className="fakeimg">Fake Image</div>
+            </Link>
             <hr className="d-sm-none" />
           </div>
           <div className="col-sm-2 ">
-
-            <div className="fakeimg">Fake Image</div>
-
-
+            <Link to='/findman' >
+              <div className="fakeimg">Fake Image</div>
+            </Link>
             <hr className="d-sm-none" />
           </div>
           <div className="col-sm-2 ">
-
-            <div className="fakeimg">Fake Image</div>
-
-
+            <Link to='/findman' >
+              <div className="fakeimg">Fake Image</div>
+            </Link>
             <hr className="d-sm-none" />
           </div>
-          <div className="col-sm-2 ">
-
-            <div className="fakeimg">Fake Image</div>
 
 
-            <hr className="d-sm-none" />
-          </div>
+
 
         </div>
       </div>
@@ -107,20 +97,21 @@ function Homepage() {
             <div className="card-footer " style={{ justifyContent: 'end' }}>2024/03/18</div>
           </div>
         </div>
-        <div className="col-sm-4 ">
+        <Link to='./serve' className="col-sm-4 ">
           <div class="card">
             <div class="card-header">Header</div>
             <div class="card-body">Content</div>
             <div class="card-footer">Footer</div>
           </div>
-        </div>
-        <div className="col-sm-4 ">
+        </Link>
+        <Link to='./serve' className="col-sm-4 ">
           <div class="card">
             <div class="card-header">Header</div>
             <div class="card-body">Content</div>
             <div class="card-footer">Footer</div>
           </div>
-        </div>
+        </Link>
+
         {/* 先用col-sm-4包起來 裡面再用card不然會有奇怪的border線 */}
 
 
@@ -131,7 +122,7 @@ function Homepage() {
       {/* 最新刊登 */}
       <div className='row mt-5'>
         <p>最新刊登:</p>
-        <div className='col-sm-4'>
+        <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">Toast Header</strong>
@@ -140,60 +131,61 @@ function Homepage() {
               <p>Some text inside the toast body</p>
             </div>
           </div>
-        </div>
-        <div className='col-sm-4'>
+        </Link>
+        <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">Toast Header</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
               <p>Some text inside the toast body</p>
             </div>
           </div>
-        </div>
-        <div className='col-sm-4'>
+        </Link>
+        <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">Toast Header</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
               <p>Some text inside the toast body</p>
             </div>
           </div>
-        </div>
+        </Link>
+
 
 
       </div>
-      <Carousel className='mt-5'>
+      <Carousel className='mt-5 bg-primary'>
         <Carousel.Item>
           <img src={logo} text="First slide" />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <Link to='./talent'>
+              <h3>會員名稱</h3>
+            </Link>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img src={logo} text="Second slide" />
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <Link to='./talent'>
+              <h3>會員名稱</h3>
+            </Link>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img src={logo} text="Third slide" />
           <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
+            <Link to='./talent'>
+              <h3>會員名稱</h3>
+            </Link>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
 
 
       <Footer></Footer>
+
     </ div>
   )
 }

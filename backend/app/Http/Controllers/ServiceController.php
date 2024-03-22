@@ -21,7 +21,7 @@ class ServiceController extends Controller
             's_type'=>['required'], //類別
             's_description'=>['required'],//描述
             's_amount'=>['required'],//金額
-            's_unit'=>['required'],
+            's_unit'=>['required'],//單位
             's_active_location'=>['required'],//地點
         ]);
 

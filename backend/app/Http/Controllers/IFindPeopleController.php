@@ -11,7 +11,7 @@ class IFindPeopleController extends Controller
     {
         $query = DB::table('service');
         $member_query = DB::table('members');
-        $establised_query = DB::table('establised_case');
+        $establised_query = DB::table('established_case');
         $project_query = DB::table('project');
         
         //給類別
@@ -26,7 +26,7 @@ class IFindPeopleController extends Controller
         if($request->has('seniority')){
             $member_query->whereIn('seniority',explode(',',$request->seniority));
         }
-        //給地點
+        //給地點 
         if($request->has('s_acitve_location')){
             $query->whereIn('s_acitve_location',explode(',',$request->s_acitve_location));
         }
@@ -63,7 +63,7 @@ class IFindPeopleController extends Controller
         $Data_response=[
             'service'=>$query->get(),
             'members'=>$member_query->get(),
-            'establised_case'=>$establised_query->get(),
+            'established_case'=>$establised_query->get(),
             'project'=>$project_query->get(),
         ];
 
