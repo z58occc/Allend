@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +46,7 @@ Route::post('/video',VideoController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
+
     Route::post('/login', 'login');
     Route::post('/logout', 'logout');
     Route::post('/updateprofiles', 'update');
@@ -63,6 +66,21 @@ Route::controller(MeMInfoController::class)->group(function(){
     // 我的收藏
     Route::post('/collection', 'getCollection');
 });
-// Route::post('/reset-password', [NewPasswordController::class, 'store'])
-//      ->middleware('guest')
-//      ->name('password.update');
+    // 等待驗證網址 => 可以重發驗證信
+    Route::post('/waitingverification');
+  // 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
+  Route::get('/verifyemail/{mid}/{hash}', VerifyEmailController::class)
+  ->middleware('auth:api')
+//   ->middleware(['auth', 'signed', 'throttle:6,1'])
+  ->name('verifyemail');
+  // 重送驗證信
+  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
+  ->middleware(['auth', 'throttle:6,1']);
+
+// Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
+//                 ->middleware(['auth', 'signed', 'throttle:6,1'])
+//                 ->name('verification.verify');
+
+// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+//                 ->middleware(['auth', 'throttle:6,1'])
+//                 ->name('verification.send');

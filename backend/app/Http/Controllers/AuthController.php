@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Models\User;
 use App\Models\Member;
 use DateTime;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Validation\Rules;
 use Throwable;
 
 class AuthController extends Controller
@@ -22,37 +24,40 @@ class AuthController extends Controller
     }
 
     // 註冊api
-    public function register(Request $request){
+    public function register(Request $request):JsonResponse
+    {
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
                 'name' => 'required|string',
                 'email' => 'required|string|email|unique:members',
                 'password' => 'required|string|min:6',
+                // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
         }
         catch (ValidationException $exception){
-            return response('輸入資料格式有誤或是電子郵件已被註冊!');
+            return response()->json([
+                'message' => '輸入資料格式有誤或是電子郵件已被註冊!'
+            ]);
         }
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
-            Member::create([
+            $user = Member::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        //     User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        // ]);
+            Auth::login($user);
+            $user->sendEmailVerificationNotification();
             return response()->json([
                 'message' => '註冊成功!',
             ]);
         }
         catch(Throwable $err){
             // return response('email已被註冊過!');
-            return response($err);
+            return response()->json([
+                'message2' => $err
+            ]);
         }
     }
 
@@ -65,12 +70,13 @@ class AuthController extends Controller
             ]);
         }
         catch (ValidationException $exception){
-            return response('輸入資料格式錯誤');
+            return response()->json([
+                'message' => '輸入資料格式錯誤'
+            ]);
         }
         $credentials = $request->only('email', 'password');
-        // $token = auth()->attempt($credentials);
         $token = auth()
-            ->setTTL(120) // 設置過期時間，單位(整數)分鐘
+            ->setTTL(120)
             ->attempt($credentials);
 
         if(!$token){

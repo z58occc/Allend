@@ -19,6 +19,7 @@ class MeMInfoController extends Controller
     // 儀錶板
     public function dashboard(Request $request):JsonResponse
     {
+        return "OK";
         try{
             $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
         }catch(Throwable $err){
