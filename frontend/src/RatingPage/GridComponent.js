@@ -15,7 +15,7 @@ const GridComponent = ({ lines, width, fontSize }) => {
 
   return (
     <div className="container mt-4">
-      <div className="row">
+      <div className="row justify-content-between">
         <div className="col-5">
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>

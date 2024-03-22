@@ -7,7 +7,6 @@ import Category from './Category';
 import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
-import { CiStar } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 
 

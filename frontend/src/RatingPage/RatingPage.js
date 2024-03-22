@@ -2,7 +2,7 @@ import React from 'react'
 import GridComponent from './GridComponent';
 import Rating from './Rating';
 import LeftVerticalNavbar from './LeftVerticalNavbar';
-
+//會員中心
 function RatingPage() {
   const lines = [
     { title: '接案數', number: 5, path: '#home' },
@@ -26,7 +26,7 @@ function RatingPage() {
           <div className="col-10">
             <div class="row">
               <div class="col-12">
-                <GridComponent lines={lines} width="400px" fontSize="20px" />
+                <GridComponent lines={lines} width="" fontSize="20px" />
               </div>
               <div className="col-12">
                 <Rating lines={line2} width="1060px" fontSize="20px" />
