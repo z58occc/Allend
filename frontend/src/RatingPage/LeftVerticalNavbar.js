@@ -3,30 +3,16 @@ import { Navbar, Nav, Image } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
-import member from './member.png';
+import { FaRegUser } from "react-icons/fa";
 
 
-
-const LeftVerticalNavbar = () => {
-    const navItems = [
-        { link: '#home', text: '會員中心' },
-        { link: '#about', text: '會員維護' },
-        { link: '#services', text: '案件管理' },
-        { link: '#contact', text: '服務管理' },
-        { link: '#favorite', text: '收藏管理' },
-      ];
-    
-      const userProfile = {
-        name: '會員',
-        // 填入您的大頭貼圖片 URL
-      };
+function LeftVerticalNavbar  ( {navItems, userProfile} )  {
     return (
-        // width: '250px'
-        <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{  }}>
-            <Navbar.Brand href="#home">
-                <Image src={member} roundedCircle className="mr-2" width="100" height="100" />
+        <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '250px' }}>
+            <Navbar.Brand>
+                <FaRegUser/>
             </Navbar.Brand>
-            <Navbar.Text style={{ fontSize: '20px' }}>{userProfile.name}</Navbar.Text>
+            <NavbarText style={{ fontSize: '20px' }}>{userProfile && userProfile.name}</NavbarText>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -69,6 +55,3 @@ const LeftVerticalNavbar = () => {
 
 
 export default LeftVerticalNavbar;
-
-
-

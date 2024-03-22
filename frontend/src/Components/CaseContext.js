@@ -1,8 +1,6 @@
 import React from 'react'
-import Header from './HeaderNav';
 import Footer from './Footer'
 import { VscAccount } from "react-icons/vsc";
-import Orderbuttom from './Orderbuttom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { useState } from 'react';
@@ -33,7 +31,6 @@ function CaseContext() {
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
-            <Header></Header>
             <div className='row mt-5'>
                 <div className='col-sm-9' style={{ border: 'solid' }}>
                     案件編號:<br></br>

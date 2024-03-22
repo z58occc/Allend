@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Category() {
     return (
@@ -14,40 +15,36 @@ function Category() {
                 <div className="row">
 
                     <div className="col-sm-2 ">
-
-                        <div className="fakeimg">Fake Image</div>
-
-
+                        <Link to='/findman' >
+                            <div className="fakeimg">Fake Image</div>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-
-                        <div className="fakeimg">Fake Image</div>
-
-
+                        <Link to='/findman' >
+                            <div className="fakeimg">Fake Image</div>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-
-                        <div className="fakeimg">Fake Image</div>
-
-
+                        <Link to='/findman' >
+                            <div className="fakeimg">Fake Image</div>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-
-                        <div className="fakeimg">Fake Image</div>
-
-
+                        <Link to='/findman' >
+                            <div className="fakeimg">Fake Image</div>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-
-                        <div className="fakeimg">Fake Image</div>
-
-
+                        <Link to='/findman' >
+                            <div className="fakeimg">Fake Image</div>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
+                    
 
                 </div>
             </div>
