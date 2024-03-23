@@ -42,12 +42,12 @@ class demmandContentController extends Controller
                     }
                     $Last_member->lasted_login = $difference;
                 }
+                $data_response=[
+                    'dammand'=>$query->get(),
+                    'service_star_avg'=>$avg,
+                    'members'=>$Last,
+                ];
+                return response()->json($data_response);
         }
-        $data_response=[
-            'dammand'=>$query->get(),
-            'service_star_avg'=>$avg,
-            'members'=>$Last,
-        ];
-        return response()->json($data_response);
     }
 }

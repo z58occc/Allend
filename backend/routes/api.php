@@ -14,6 +14,7 @@ use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IWantQuoteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\ServiceContent;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
@@ -41,6 +42,8 @@ Route::get('/index',IndexController::class);
 Route::get('/Talent',TalentController::class);
 // 案件內容
 Route::get('/demmand_content',demmandContentController::class);
+//服務內容
+Route::get('/service_content',ServiceContent::class);
 // 我要報價
 Route::post('/quote', IWantQuoteController::class);
 // 發案分類
