@@ -43,7 +43,7 @@ class NewPasswordController extends Controller
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
-                    // 'remember_token' => Str::random(60),
+                    'remember_token' => Str::random(60),
                 ])->save();
 
                 event(new PasswordReset($user));
@@ -56,6 +56,10 @@ class NewPasswordController extends Controller
             ]);
         }
 
-        return response()->json(['status' => __($status), 'message' => '密碼修改成功，請重新登入', 'redirect' => '/login']);
-    }
+        return response()->json([
+            // 'status' => __($status),
+            'message' => '密碼修改成功，請重新登入',
+            'redirect' => '/login'
+        ]);
+        }
 }
