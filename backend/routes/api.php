@@ -14,6 +14,7 @@ use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IWantQuoteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\ServiceContent;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
@@ -31,9 +32,9 @@ use Illuminate\Database\Query\IndexHint;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // 首頁
 Route::get('/index',IndexController::class);
@@ -41,6 +42,8 @@ Route::get('/index',IndexController::class);
 Route::get('/Talent',TalentController::class);
 // 案件內容
 Route::get('/demmand_content',demmandContentController::class);
+//服務內容
+Route::get('/service_content',ServiceContent::class);
 // 我要報價
 Route::post('/quote', IWantQuoteController::class);
 // 發案分類
@@ -58,8 +61,7 @@ Route::post('/video',VideoController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
-
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');//->middleware('verified:api');
     Route::post('/logout', 'logout');
     Route::post('/updateprofiles', 'update');
     // 寄忘記密碼信
@@ -70,7 +72,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
-    Route::get('/dashboard', 'dashboard');
+    Route::get('/dashboard', 'dashboard')->middleware('verified:api');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
     // 服務管理頁面
@@ -79,19 +81,14 @@ Route::controller(MeMInfoController::class)->group(function(){
     Route::post('/collection', 'getCollection');
 });
     // 等待驗證網址 => 可以重發驗證信
-    Route::post('/waitingverification');
+    Route::post('/waitverifyemail');
   // 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
-  Route::get('/verifyemail/{mid}/{hash}', VerifyEmailController::class)
-  ->middleware('auth:api')
-//   ->middleware(['auth', 'signed', 'throttle:6,1'])
-  ->name('verifyemail');
+  Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+        // ->middleware(['auth', 'signed', 'throttle:6,1'])
+        ->name('verifyemail');
   // 重送驗證信
-  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-  ->middleware(['auth', 'throttle:6,1']);
-
-// Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
-//                 ->middleware(['auth', 'signed', 'throttle:6,1'])
-//                 ->name('verification.verify');
+  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store']);
+//   ->middleware(['auth:api', 'throttle:6,1']);
 
 // Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
 //                 ->middleware(['auth', 'throttle:6,1'])
