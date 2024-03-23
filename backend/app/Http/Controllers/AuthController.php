@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\User;
+
 use App\Models\Member;
 use DateTime;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\JWT;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Illuminate\Validation\Rules;
 use Throwable;
@@ -46,9 +46,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-            Auth::login($user);
-            $user->sendEmailVerificationNotification();
+            ]);
+            event(new Registered($user));
             return response()->json([
                 'message' => '註冊成功!',
             ]);
@@ -74,6 +73,7 @@ class AuthController extends Controller
                 'message' => '輸入資料格式錯誤'
             ]);
         }
+
         $credentials = $request->only('email', 'password');
         $token = auth()
             ->setTTL(120)
@@ -100,7 +100,7 @@ class AuthController extends Controller
         }catch(Throwable $err){
             return response('無效的請求');
         }
-        $user_id = auth()->user()->mid;
+        $user_id = Auth::user()->mid;
         // try{
         //     Member::where('id', $user_id)->update([
         //         // 'avatar' => $request->,
@@ -157,9 +157,9 @@ class AuthController extends Controller
 
     // 登出
     public function logout(Request $request){
-        Auth::guard()->logout();
+        JWTAuth::invalidate($request->bearerToken());
 
-        return redirect('/login');
+        return redirect(route('login'));
     }
 
     //  // 從請求頭獲取 JWT

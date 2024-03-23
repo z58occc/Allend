@@ -14,6 +14,8 @@ class Member extends Authenticatable implements JWTSubject, MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $primaryKey = 'mid';
+    protected $guard = 'api';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +26,7 @@ class Member extends Authenticatable implements JWTSubject, MustVerifyEmail
         // 'avatar',
         'email',
         'password',
+        'remember_token',
         // 'identity',
         // 'senority',
         // 'active_location',
