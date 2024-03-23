@@ -9,7 +9,7 @@ import member from './member.png';
 
 const LeftVerticalNavbar = () => {
     const navItems = [
-        { link: '#home', text: '會員中心' },
+        { link: '/member', text: '會員中心' },
         { link: '#about', text: '會員維護' },
         { link: '#services', text: '案件管理' },
         { link: '#contact', text: '服務管理' },
