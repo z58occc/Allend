@@ -3,45 +3,57 @@ import FinishedCase from './FinishedCase';
 // import SearchPage from './SearchPage';
 // import {Button} from 'react-bootstrap';
 const Screen3 = () => {
-    const data1 = [
-        {
-          title: '案件9',
-          startDate: '2024/03/25',
-          endDate: '2024/04/15',
-          amount: 'NTD$ 8000',
-          count: 8,
-          rating: 3,
-        },
-        {
-          title: '案件10',
-          startDate: '2024/03/25',
-          endDate: '2024/04/15',
-          amount: 'NTD$ 8000',
-          count: 8,
-          rating: 4,
-        },
-        {
-          title: '案件10',
-          startDate: '2024/03/25',
-          endDate: '2024/04/15',
-          amount: 'NTD$ 8000',
-          count: 8,
-          rating: 2,
-        },
-        {
-          title: '案件10',
-          startDate: '2024/03/25',
-          endDate: '2024/04/15',
-          amount: 'NTD$ 8000',
-          count: 8,
-          rating: 1,
-        },
-        // 可以根據需要添加更多的案件資料
-      ];
+  const data2 = [
+    { 
+      caseNumber: '12345',
+      caseName: '案件1',
+      caseCategory: '建築',
+      location: '台北市',
+      budgetAmount: '$100,000',
+      startDate: '2024/03/20',
+      endDate: '2024/04/10',
+      contractorName: '王小明',
+      contractorEmail: 'wang@example.com',
+      contractorPhone: '0912345678',
+      amount: 'NTD$ 5000',
+      count: 5,
+      rating: 4,
+    },
+    { 
+      caseNumber: '12345',
+      caseName: '案件2',
+      caseCategory: '建築',
+      location: '台北市',
+      budgetAmount: '$100,000',
+      startDate: '2024/03/20',
+      endDate: '2024/04/10',
+      contractorName: '王小明',
+      contractorEmail: 'wang@example.com',
+      contractorPhone: '0912345678',
+      amount: 'NTD$ 5000',
+      count: 5,
+      rating: 4,
+    },
+    { 
+      caseNumber: '7777',
+      caseName: '案件3',
+      caseCategory: '建築',
+      location: '台北市',
+      budgetAmount: '$100,000',
+      startDate: '2024/03/20',
+      endDate: '2024/04/10',
+      contractorName: '王8蛋',
+      contractorEmail: 'wang@example.com',
+      contractorPhone: '0912345678',
+      amount: 'NTD$ 5000',
+      count: 5,
+      rating: 4,
+    }
+  ];
   return (
     <div style={{ width: '100%', height: '100vh', background: 'lightblue' }}>
         
-        <FinishedCase data={data1}></FinishedCase>
+        <FinishedCase data={data2}></FinishedCase>
     </div>
     
   );
