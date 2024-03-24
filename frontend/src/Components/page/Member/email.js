@@ -16,7 +16,8 @@ function FreelancerForm() {
         phone: '',
         gender: 'male',
         area: '',
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        nickname: '',
     });
 
     const handleReset = () => {
@@ -39,6 +40,7 @@ function FreelancerForm() {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isFormComplete, setIsFormComplete] = useState(false);
+    const [isFreelancer, setIsFreelancer] = useState(true);
 
     useEffect(() => {
         // 检查表单是否完整
@@ -48,6 +50,12 @@ function FreelancerForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === "identity") {
+            // 根据用户选择的身份类型来更新isFreelancer状态
+            setIsFreelancer(value === "freelancer");
+        }
+
+
         if (name === "idCard") {
             const firstCharIsValid = /^[A-Z]/.test(value[0]);
             // 檢查後九位是否全部為數字
@@ -129,8 +137,8 @@ function FreelancerForm() {
 
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group as={Row}>
-                                    <Form.Label column sm={12}>接案人身分：</Form.Label>
-                                    <Col sm={2}>
+                                    <Form.Label column sm={6}>接案人身分：</Form.Label>
+                                    <Col sm={6}>
                                         <Form.Check
                                             type="radio"
                                             name="identity"
@@ -140,8 +148,8 @@ function FreelancerForm() {
                                             checked={formData.identity === "freelancer"}
                                             onChange={handleChange}
                                         />
-                                    </Col>
-                                    <Col sm={2}>
+                                    
+                                    
                                         <Form.Check
                                             type="radio"
                                             name="identity"
@@ -153,6 +161,16 @@ function FreelancerForm() {
                                         />
                                     </Col>
                                 </Form.Group>
+                                {isFreelancer && (
+                                <Form.Group as={Row}>
+                                    <Form.Label column sm={6}>暱稱：</Form.Label>
+                                    {isFreelancer && (
+                                        <Col sm={6}>
+                                            <Form.Control type="text" name="nickname" value={formData.nickname} onChange={handleChange} placeholder="請輸入暱稱"/>
+                                        </Col>
+                                    )}
+                                </Form.Group>
+                                )}
 
                                 <Form.Group as={Row}>
                                     <Form.Label column sm={6}>累積年資：</Form.Label>

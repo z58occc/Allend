@@ -27,8 +27,8 @@ import './App.css';
 
 
 function App() {
-  const [color, setColor] = useState('darkcyan');
-  const [color2, setColor2] = useState('darkcyan');
+  const [color, setColor] = useState('silver');
+  const [color2, setColor2] = useState('silver');
   const [showLogin, setShowLogin] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -53,9 +53,6 @@ function App() {
 
   }
 
-
-
-
   const handleClick = () => {
     setColor(color === 'red' ? 'blue' : 'red');
   };
@@ -65,22 +62,19 @@ function App() {
 
 
 
-
   return (
 
     <div>
-      <div className="p-1 bg-info" style={{ height: 50 }}  >
+      <div className="p-1 bg-info" style={{ display: 'flex', alignItems: 'center', height: 50 }}>
         <Link to="/">
           <img style={{ width: 50 }} src={ourLogo} alt='' />
         </Link>
-        <span>包您滿意</span>
-        <div className="search-container" >
-
+        <span style={{ marginLeft: 10 }}>包您滿意</span>
+        <div className="search-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
           <input type="text" placeholder="Search.." />
           <button type="submit">
             <i className="fa fa-search"></i>
           </button>
-
           <Button onClick={handleShow}>登入/註冊</Button>
         </div>
       </div>
@@ -98,16 +92,16 @@ function App() {
               </Nav.Link>
             </li>
           </ul>
+          <ul className="navbar-nav">
 
-          <ul>
-            <Nav.Link href='/ProjectForm' style={{ backgroundColor: color2, float: 'right' }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
-
-
-            <Nav.Link href='/member' style={{ backgroundColor: color, float: 'right' }} onClick={handleClick} className="nav-link active"  >Email</Nav.Link>
+            <li className="nav-item">
+              <Nav.Link href='/ProjectForm' style={{ backgroundColor: color2 }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
+            </li>
+            <li className="nav-item">
+              <Nav.Link href='/member' style={{ backgroundColor: color }} onClick={handleClick} className="nav-link active"  >Email</Nav.Link>
+            </li>
           </ul>
-
         </div>
-
       </nav>
 
       <Routes>
@@ -169,7 +163,6 @@ function App() {
             <a href="/Register" onClick={handleRegister}>立即註冊</a>
           </Form.Text>
         </Modal.Footer>
-
       </Modal>
 
       <Modal show={showForgotPassword} onHide={() => setShowForgotPassword(false)} centered>
@@ -195,8 +188,8 @@ function App() {
         <Modal.Header closeButton>
           <Modal.Title>註冊</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
 
+        <Modal.Body>
           <Form>
             {/* Form fields */}
             <Form.Group controlId="formBasicEmail">

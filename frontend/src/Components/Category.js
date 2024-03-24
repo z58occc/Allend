@@ -12,7 +12,7 @@ function Category() {
                 }}
             />
             <div className="container mt-5">
-                <div className="row">
+                <div className="row justify-content-center">
 
                     <div className="col-sm-2 ">
                         <Link to='/findman' >
