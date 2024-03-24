@@ -16,30 +16,41 @@ class IFindCommitController extends Controller
         ->select('d_name','d_required', 'type','d_description','d_amount','d_unit','country_city','updated_at');
 
 
-
+        //發案類別
         if($request->has('d_type')){
             $query->where('d_type',$request->d_type);
         }
 
+        //期程
         if($request->has('d_duration')){
             $query->where('d_duration',$request->d_duration);
         }
     
+        //發案地點
         if($request->has('d_active_location')){
             $query->whereIn('d_active_location',explode(',',$request->d_active_location));
         }
+
+        //預算
         if($request->has('d_amount')){
             $query->whereIn('d_amount',$request->d_amount);
         }
+
+        //排序
         if($request->has('order')){
             $order = $request->order;
         switch($order){
+                //最新刊登
                 case '1':
                     $query->orderBy('created_at','desc');
                     break;
+
+                //最新更新
                 case '2':
                     $query->orderBy('updated_at','desc');
                     break;
+
+                //預算由低到高
                 case '3':
                     $query->orderBy('d_amount','desc');
                     break;
@@ -53,6 +64,7 @@ class IFindCommitController extends Controller
 
         $demands = $query->get();
 
+        //上線時間
         foreach($demands as $demand){
             $updateAt = new \DateTime($demand->updated_at);
             $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));

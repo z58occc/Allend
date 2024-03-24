@@ -10,12 +10,9 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         //最新服務
-        $query = DB::table('service')->select('s_name','s_amount','created_at');
-        $member_query = DB::table('members')->select('name',);
-        //圖片
-        // if($request->has('image')){
-        //     $query->where('image',$request->image);
-        // }
+        $query = DB::table('service')->select('s_name','s_amount','created_at','image');
+        $member_query = DB::table('members')->select('name');
+
         //服務名稱
         if($request->has('s_name')){
             $query->where('s_name',$request->s_name);
