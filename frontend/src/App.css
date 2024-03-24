@@ -69,5 +69,13 @@ nav button {
   background-color:peachpuff;
 }
 .d-block.mx-auto {
-  background-color: white !important; /* 使用 !important 覆蓋其他樣式 */
+  background-color: white; /* 使用 !important 覆蓋其他樣式 */
 }
+
+.modal-content {
+  background-color:peachpuff !important; /* 更改為您想要的背景顏色 */
+}
+
+
+
+

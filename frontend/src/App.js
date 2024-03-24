@@ -16,6 +16,8 @@ import Fix from './Components/page/Member/fix';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import './App.css';
+
 
 
 
@@ -29,12 +31,14 @@ function App() {
   const [color2, setColor2] = useState('darkcyan');
   const [showLogin, setShowLogin] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [showRegister,setShowRegister] =useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
 
   const handleClose = () => setShowLogin(false);
-  const handleShow = () => setShowLogin(true);
-  
+  const handleShow = () =>
+    setShowLogin(true);
+
+
   const handleForgotPassword = (event) => {
     event.preventDefault(); // Prevent default anchor behavior
     setShowLogin(false);
@@ -48,6 +52,7 @@ function App() {
     setShowRegister(true);
 
   }
+
 
 
 
@@ -126,13 +131,14 @@ function App() {
             </div>
           </div>
         </Modal.Header>
+
         <Modal.Body>
           {/* Your login form goes here */}
           <Form>
             <div className="row">
               <div className="col-sm-6">
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email </Form.Label>
+                  <Form.Label>帳號</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" />
                 </Form.Group>
               </div>
@@ -146,10 +152,10 @@ function App() {
               <div className="row">
                 <div className="col-sm-6">
                   <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>密碼</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                     <Form.Text>
-                      <a href="/forgot-password" onClick={handleForgotPassword}>Forgot Password?</a>
+                      <a href="/forgot-password" onClick={handleForgotPassword}>忘記密碼?</a>
                     </Form.Text>
                   </Form.Group>
                 </div>
@@ -160,9 +166,10 @@ function App() {
         </Modal.Body>
         <Modal.Footer >
           <Form.Text>
-            <a href="/Register" onClick={handleRegister}>Register</a>
+            <a href="/Register" onClick={handleRegister}>立即註冊</a>
           </Form.Text>
         </Modal.Footer>
+
       </Modal>
 
       <Modal show={showForgotPassword} onHide={() => setShowForgotPassword(false)} centered>
@@ -176,7 +183,7 @@ function App() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
-            <br/>
+            <br />
             <Button variant="primary" type="submit">
               送出
             </Button>
@@ -184,32 +191,30 @@ function App() {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showRegister} onHide={() =>setShowRegister(false)} centered>
+      <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>註冊</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add your registration form here */}
-          {/* Example form */}
+
           <Form>
             {/* Form fields */}
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>帳號</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>密碼</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
+            <br />
             {/* Additional form fields... */}
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="info" type="submit">
+              提交
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          {/* Additional footer content if needed */}
-        </Modal.Footer>
+
       </Modal>
 
 
