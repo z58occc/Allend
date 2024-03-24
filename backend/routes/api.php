@@ -64,29 +64,30 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout');
     Route::post('/updateprofiles', 'update')->middleware('verified');
-    // 寄忘記密碼信
-    Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
-    // 完成修改密碼
-    Route::post('/resetpwd', [NewPasswordController::class, 'store']);
 });
+// 寄忘記密碼信
+Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
+// 完成修改密碼
+Route::post('/resetpwd', [NewPasswordController::class, 'store']);
 
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
-    Route::get('/dashboard', 'dashboard')->middleware('verified');
+    Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
     // 服務管理頁面
     Route::post('/servicemanagement', 'getService');
     // 我的收藏
     Route::post('/collection', 'getCollection');
-});
-    // 等待驗證網址 => 可以重發驗證信
-    Route::post('/waitverifyemail');
-  // 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
-  Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-        ->middleware(['auth', 'signed', 'throttle:6,1'])
-        ->name('verifyemail');
-  // 重送驗證信
+})->middleware(['verified']);
+
+// 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
+Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+    ->middleware(['auth:api', 'throttle:6,1'])
+    ->name('verifyemail');
+// 等待驗證網址 => 可以重發驗證信
+Route::post('/waitverifyemail');
+// 重送驗證信按鈕
   Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
   ->middleware(['auth:api', 'throttle:6,1']);
 

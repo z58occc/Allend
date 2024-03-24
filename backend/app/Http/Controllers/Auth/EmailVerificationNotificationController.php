@@ -21,7 +21,7 @@ class EmailVerificationNotificationController extends Controller
             return response()->json(["message" =>"信箱已完成驗證"]);
         }
 
-        $request->user()->sendEmailVerificationNotification();
+        $request->user('api')->sendEmailVerificationNotification();
 
         return response()->json(['message' => '驗證信已寄出']);
     }
