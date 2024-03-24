@@ -48,6 +48,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             ]);
             event(new Registered($user));
+            Auth::guard('api')->login($user);
             return response()->json([
                 'message' => '註冊成功!',
             ]);
@@ -96,7 +97,8 @@ class AuthController extends Controller
     // 修改資料
     public function update(Request $request){
         try{
-            $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+            // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+            Auth::user();
         }catch(Throwable $err){
             return response('無效的請求');
         }
