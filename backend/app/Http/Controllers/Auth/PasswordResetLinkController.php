@@ -35,6 +35,9 @@ class PasswordResetLinkController extends Controller
             ]);
         }
 
-        return response()->json(['status' => __($status)]);
+        return response()->json([
+            'message' => '已發出重設密碼信件',
+            'redirectUrl' => route('login'),
+        ]);
     }
 }
