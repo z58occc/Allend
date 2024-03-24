@@ -28,9 +28,27 @@ function App() {
   const [color, setColor] = useState('darkcyan');
   const [color2, setColor2] = useState('darkcyan');
   const [showLogin, setShowLogin] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showRegister,setShowRegister] =useState(false);
+
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
+  
+  const handleForgotPassword = (event) => {
+    event.preventDefault(); // Prevent default anchor behavior
+    setShowLogin(false);
+    setShowForgotPassword(true);
+  };
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+    setShowLogin(false);
+    setShowForgotPassword(false);
+    setShowRegister(true);
+
+  }
+
 
 
   const handleClick = () => {
@@ -40,9 +58,8 @@ function App() {
     setColor2(color2 === 'red' ? 'blue' : 'red');
   };
 
-  
-  
-  
+
+
 
   return (
 
@@ -53,11 +70,13 @@ function App() {
         </Link>
         <span>包您滿意</span>
         <div className="search-container" >
+
           <input type="text" placeholder="Search.." />
           <button type="submit">
-            <i className="fa fa-search" />
+            <i className="fa fa-search"></i>
           </button>
-          <Button variant="link" onClick={handleShow}>登入/注册</Button>
+
+          <Button onClick={handleShow}>登入/註冊</Button>
         </div>
       </div>
       <nav className="navbar navbar-expand-sm" >
@@ -96,35 +115,105 @@ function App() {
         <Route path='/email' element={<Email></Email>}></Route>
         <Route path='/member' element={<Member></Member>}></Route>
         <Route path='/fix' element={<Fix></Fix>}></Route>
-        
-
       </Routes>
-      <Modal show={showLogin} onHide={handleClose}>
+
+      <Modal show={showLogin} onHide={handleClose} centered>
+
         <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
+          <div className="row justify-content-center w-100">
+            <div className="col text-center">
+              <Modal.Title>會員中心</Modal.Title>
+            </div>
+          </div>
         </Modal.Header>
         <Modal.Body>
           {/* Your login form goes here */}
           <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+            <div className="row">
+              <div className="col-sm-6">
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email </Form.Label>
+                  <Form.Control type="email" placeholder="Enter email" />
+                </Form.Group>
+              </div>
+
+              <div className="col-sm-6  d-flex align-items-center justify-content-center" >
+                <Button type="submit" className="d-block mx-auto">
+                  <img style={{ width: 130 }} src={ourLogo} alt='' />
+                </Button>
+              </div>
+
+              <div className="row">
+                <div className="col-sm-6">
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Text>
+                      <a href="/forgot-password" onClick={handleForgotPassword}>Forgot Password?</a>
+                    </Form.Text>
+                  </Form.Group>
+                </div>
+              </div>
+
+            </div>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer >
+          <Form.Text>
+            <a href="/Register" onClick={handleRegister}>Register</a>
+          </Form.Text>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showForgotPassword} onHide={() => setShowForgotPassword(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>忘記密碼</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add your Forgot Password form here */}
+          <Form>
+            <Form.Group controlId="formForgotPasswordEmail">
+              <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-
+            <br/>
             <Button variant="primary" type="submit">
-              Login
+              送出
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
 
+      <Modal show={showRegister} onHide={() =>setShowRegister(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>註冊</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add your registration form here */}
+          {/* Example form */}
+          <Form>
+            {/* Form fields */}
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            {/* Additional form fields... */}
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          {/* Additional footer content if needed */}
+        </Modal.Footer>
+      </Modal>
 
-      
+
+
     </div>
   )
 }

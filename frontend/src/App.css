@@ -68,4 +68,6 @@ nav button {
 .navbar {
   background-color:peachpuff;
 }
-
+.d-block.mx-auto {
+  background-color: white !important; /* 使用 !important 覆蓋其他樣式 */
+}
