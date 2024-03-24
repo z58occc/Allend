@@ -58,9 +58,9 @@ Route::post('/video',VideoController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
-    Route::post('/login', 'login')->name('login');//->middleware('verified:api');
+    Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout');
-    Route::post('/updateprofiles', 'update');
+    Route::post('/updateprofiles', 'update')->middleware('verified');
     // 寄忘記密碼信
     Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
     // 完成修改密碼
@@ -69,7 +69,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
-    Route::get('/dashboard', 'dashboard')->middleware('verified:api');
+    Route::get('/dashboard', 'dashboard')->middleware('verified');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
     // 服務管理頁面
@@ -81,12 +81,9 @@ Route::controller(MeMInfoController::class)->group(function(){
     Route::post('/waitverifyemail');
   // 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
   Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-        // ->middleware(['auth', 'signed', 'throttle:6,1'])
+        ->middleware(['auth', 'signed', 'throttle:6,1'])
         ->name('verifyemail');
   // 重送驗證信
-  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store']);
-//   ->middleware(['auth:api', 'throttle:6,1']);
+  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
+  ->middleware(['auth:api', 'throttle:6,1']);
 
-// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-//                 ->middleware(['auth', 'throttle:6,1'])
-//                 ->name('verification.send');

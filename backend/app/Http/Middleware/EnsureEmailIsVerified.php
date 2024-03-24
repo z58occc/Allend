@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Member;
 use Closure;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
@@ -27,9 +28,14 @@ class EnsureEmailIsVerified
 
     //     return $next($request);
     // }
+    // public function __construct(Member $user)
+    // {
+    //     $this->user = $user;
+    // }
     public function handle(Request $request, Closure $next ,$guard = null, $redirectToRoute =null): Response
     {
-        // dd($request->);
+        // dd($request);
+        // $user = $this->user->find(Auth::id());
         // 先驗證登入的信箱是不是有經過驗證
         if (! $request->user($guard) ||
             ($request->user($guard) instanceof MustVerifyEmail &&
