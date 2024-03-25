@@ -14,7 +14,7 @@ const CaseDetailsModal3 = ({ show, onHide, caseData}) => {
               <strong>案件編號:</strong> {caseData.caseNumber}
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong> {caseData.caseName}
+              <strong>案件名稱:</strong> <input value={caseData.caseName}></input>
             </div>
           </div>
           <div>

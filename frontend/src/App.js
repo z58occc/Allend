@@ -206,9 +206,9 @@ function App() {
         <span style={{ marginLeft: 10 }}>包您滿意</span>
         <div className="search-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
           <input type="text" placeholder="Search.." />
-          <button type="submit">
+          <Button type="submit">
             <i className="fa fa-search"></i>
-          </button>
+          </Button>
           <Button onClick={handleShow}>登入/註冊</Button>
         </div>
       </div>
@@ -262,33 +262,40 @@ function App() {
 
         <Modal.Body>
           <Form>
-            <div className="row">
-              <div className="col-sm-6">
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>帳號</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" ref={LoginName}/>
-                </Form.Group>
-              </div>
+            <div className="container row">
+              <div className='col-6'>
+                <div className="row ">
+                  <div className="col-sm-12 ">
+                    <Form.Group controlId="formBasicEmail">
+                      <Form.Label>帳號</Form.Label>
+                      <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
+                  </div>
 
-              <div className="col-sm-6  d-flex align-items-center justify-content-center" >
-                <Button onClick={handleLogin} className="d-block mx-auto">
-                  <img style={{ width: 130 }} src={ourLogo} />
-                </Button>
-              </div>
 
-              <div className="row">
-                <div className="col-sm-6">
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>密碼</Form.Label>
-                    <Form.Control type="password" placeholder="Password" ref={LoginPassword}/>
-                    <Form.Text>
-                      <a href="/forgot-password" onClick={toForgotPassword}>忘記密碼?</a>
-                    </Form.Text>
-                  </Form.Group>
+                  <div className="col-sm-12">
+                    <Form.Group controlId="formBasicPassword">
+                      <Form.Label>密碼</Form.Label>
+                      <Form.Control type="password" placeholder="Password" />
+                      <Form.Text>
+                        <a href="/forgot-password" onClick={handleForgotPassword}>忘記密碼?</a>
+                      </Form.Text>
+                    </Form.Group>
+                  </div>
+
                 </div>
               </div>
 
+              <div className="col-sm-6 d-flex justify-content-center">
+                <Button id='login' type="submit" style={{}}>
+                  <img style={{ width: 130 }} src={ourLogo} alt='' />
+                </Button>
+              </div>
+
+
+
             </div>
+
           </Form>
         </Modal.Body>
         <Modal.Footer >
