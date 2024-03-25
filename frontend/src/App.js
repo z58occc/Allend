@@ -140,7 +140,7 @@ function App() {
   };
 
   const toForgotPassword = (event) => {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     setShowLogin(false);
     setShowForgotPassword(true);
   };

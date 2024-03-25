@@ -15,7 +15,7 @@ class MemberTakeCaseController extends Controller
 
             $Quote_query = DB::table('quote')
             ->join('demmand','quote.did','=','demmand.did')
-            ->select('demmand.d_name','q_amount')->where('quote.mid',$mid);
+            ->select('d_name','q_amount')->where('quote.mid',$mid);
 
             $Case_in_progress_query = DB::table('established_case')
             ->select('c_name','c_amount')

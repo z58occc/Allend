@@ -108,7 +108,7 @@ class MeMInfoController extends Controller
         if($mid){
             $Quote_query = DB::table('quote')
             ->join('demmand','quote.did','=','demmand.did')
-            ->select('demmand.d_name','q_amount')->where('quote.mid',$mid);
+            ->select('d_name','q_amount')->where('quote.mid',$mid);
 
             $Case_in_progress_query = DB::table('established_case')
             ->select('c_name','c_amount')
@@ -164,18 +164,104 @@ class MeMInfoController extends Controller
 
     }
 
-    // 獲取發案紀錄
-    public function getCommitCase(Request $request)
+    //  刪除接案紀錄
+    public function delTakeCase(Request $request)
     {
-        $mid = Auth::user()->mid;
+        // $mid = Auth::guard('api')->id();
+        $mid = $request->input('mid');
+        if($mid){
+            $selectQuote = $request->input('qid');
+            DB::table('quote')
+            ->where('mid',$mid)
+            ->whereIn('qid',$selectQuote)->delete();
+        }
+
+    }
+
+    // 獲取發案紀錄
+    public function getPublishCase(Request $request)
+    {
+        $mid = $request->input('mid');
+        if($mid){
+            //發案
+            $demmand_query = DB::table('demmand')
+            ->select('d_name','d_required','d_amount','d_unit','created_at')
+            ->where('mid',$mid);
+
+            //發案進行中
+            $demmand_progress_query = DB::table('established_case')
+            ->select('c_name','c_amount','created_at')
+            ->where('mid_service',$mid)
+            ->where('c_status',1);
+
+            //案件完成
+            $demmand_completed_query = DB::table('established_case')
+            ->select('c_name','c_amount','created_at')
+            ->where('mid_service',$mid)
+            ->where('c_status',2);
+
+            if($request->has('demmandSearch')){
+                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+            }
+
+            if($request->has('demmandProgressSearch')){
+                $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
+            }
+
+            if($request->has('demmandCompletedSearch')){
+                $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
+            }
+
+            $demmand_results = $demmand_query->get();
+            $demmand_progress_results = $demmand_progress_query->get();
+            $demmand_completed_results = $demmand_completed_query->get();
+
+            if($demmand_results->count()<6){
+                $demmand_paginated_results = $demmand_results;
+            }else{
+                $demmand_paginated_results = $demmand_query->paginate(6);
+            }
+            if($demmand_progress_results->count()<6){
+                $demmand_progress_paginated_results = $demmand_progress_results;
+            }else{
+                $demmand_progress_paginated_results = $demmand_progress_query->paginate(6);
+            }
+            if($demmand_completed_results->count()<6){
+                $demmand_completed_paginated_results = $demmand_completed_results;
+            }else{
+                $demmand_completed_paginated_results = $demmand_completed_query->paginate(6);
+            }
+            return response()->json([
+                'demmand' => $demmand_paginated_results,
+                'demmand_progress' => $demmand_progress_paginated_results,
+                'demmand_completed' => $demmand_completed_paginated_results
+            ]);
+
+        }
+
+    }
+
+    // 刪除發案紀錄
+    public function delPublishCase(Request $request)
+    {
+        if(Auth::guard('api')){
+            $userId = Auth::guard('api')->id();
+
+            $selectdemmand = $request->input('did');
+            DB::table('demmand')->whereIn('did',$selectdemmand)
+                                ->where('mid',$userId)
+                                ->delete();
+
+            return response()->json(['message'=>'刪除成功']);
+        }
 
     }
 
     // 獲取服務管理頁面
     public function getService(Request $request)
     {
-        $mid = Auth::user()->mid;
-        // $mid = $request->input('mid');
+        // $mid = Auth::user()->mid;
+        $mid = $request->input('mid');
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
 
@@ -208,25 +294,124 @@ class MeMInfoController extends Controller
         }
     }
 
+    // 新增服務
+    public function addService(Request $request)
+    {
+        // $Service_name = $request->Case_name;
+        // $Service_type = $request->Case_type;
+        // $LenghDate =$request->LenghDate;
+        // $Money = $request->Money;
+        // $Place = $request ->Place;
+
+        $this->validate($request,[
+            's_name'=>['required'], //服務名稱
+            's_type'=>['required'], //類別
+            's_description'=>['required'],//描述
+            's_amount'=>['required'],//金額
+            's_unit'=>['required'],//單位
+            's_active_location'=>['required'],//地點
+        ]);
+
+        if(isset($request->image)){
+            $data = $request->image ->get();
+            $mime_type = $request->image->getMimeType();
+            $imageData = base64_encode($data);
+            // $src = "data: $mime_type;base64,$imageData";
+        }
+
+        $type = $request['s_type'];
+        $catid = DB::table('category')->where('type',$type)->Value('catid');
+
+        $active_location = $request['s_active_location'];
+        $country = DB::table('country')->where('country_city',$active_location)->value('country_id');
+
+        $service = DB::table('service')->insert([
+            's_name'=>$request['s_name'],
+            's_type'=>$catid,
+            's_description'=>$request['s_description'],
+            's_amount'=>$request['s_amount'],
+            's_unit'=>$request['s_unit'],
+            's_active_location'=>$country,
+            'image'=>$imageData,
+            'created_at'=>now(),
+            'updated_at'=>now(),
+        ]);
+        return response($service);
+
+    }
+
     // 刪除服務
     public function delService(Request $request)
     {
-        $mid = Auth::user()->mid;
-        // $mid = $request->input('mid');
-        if($mid){
-            $selectservice = $request->input('sid');
-            DB::table('service')->whereIn('sid',$selectservice)->delete();
+        if(Auth::guard('api')->id()){
+            $userId = Auth::guard('api')->id();
 
+            $selectservice = $request->input('sid');
+            DB::table('service')->whereIn('sid',$selectservice)
+                                ->where('mid',$userId)
+                                ->delete();
             $selectproject = $request->input('pid');
-            DB::table('project')->whereIn('pid',$selectproject)->delete();
+            DB::table('project')->whereIn('pid',$selectproject)
+                                ->where('mid',$userId)
+                                ->delete();
 
             $selectvideo = $request->input('vid');
-            DB::table('video')->whereIn('vid',$selectvideo)->delete();
+            DB::table('video')->whereIn('vid',$selectvideo)
+                            ->where('mid',$userId)
+                            ->delete();
 
             return response()->json(['message'=>'刪除成功']);
         }
     }
 
+    // 新增作品
+    public function addWork(Request $request)
+    {
+        $this->validate($request,[
+            'p_name'=>['required'],
+            'p_description'=>['required'],
+            'mid'=>['required'],
+        ]);
+
+        if(isset($request->image)){
+            $data = $request->image->get();
+            $mime_type = $request->image->getMimeType();
+            $imageData = base64_encode($data);
+            // $src = "data: $mime_type;base64,$imageData";
+        }
+        $work = DB::table('project')->insert([
+            'p_name'=>$request['p_name'],
+            'p_description'=>$request['p_description'],
+            'mid'=>$request['mid'],
+            'image'=>$imageData,
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+        return response($work);
+
+    }
+
+    // 新增影音
+    public function addVideo(Request $request)
+    {
+        $this->validate($request,[
+            'v_name'=>['required'],
+            'mid'=>['required'],
+            'v_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $video = DB::table('video')->insert([
+            'v_name'=> $request['v_name'],
+            'v_description' =>$request['v_description'],
+            'src'=>$request['src'],
+            'mid'=>$request['mid'],
+            'created_at'=>now(),
+            'updated_at'=>now(),
+        ]);
+        return response($video);
+
+    }
     // 獲取我的收藏
     public function getCollection(){
 

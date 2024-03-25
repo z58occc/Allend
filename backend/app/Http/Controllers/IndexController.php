@@ -47,7 +47,6 @@ class IndexController extends Controller
             $dammand_query->where('created_at',$request->created_at);
         }
 
-
         //作品
         $project_query = DB::table('project')->select('image');
         //圖片
