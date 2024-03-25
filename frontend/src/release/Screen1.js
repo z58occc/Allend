@@ -10,10 +10,9 @@ const Screen1 = () => {
   return (
     <CaseProvider>
       <div style={{ width: '100%', height: '100vh', background: 'lightcoral' }}>
-      
         <CardList selectedComponent={'component1'} text={"編輯"}></CardList>
       </div>
- </CaseProvider> );
+    </CaseProvider> );
     
 };
 
