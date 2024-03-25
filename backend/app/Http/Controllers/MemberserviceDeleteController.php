@@ -10,17 +10,22 @@ class MemberserviceDeleteController extends Controller
 {
     public  function __invoke(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');
-        if($mid){
+        if(Auth::guard('api')->id()){
+            $userId = Auth::guard('api')->id();
+
             $selectservice = $request->input('sid');
-            DB::table('service')->whereIn('sid',$selectservice)->delete();
-            
+            DB::table('service')->whereIn('sid',$selectservice)
+                                ->where('mid',$userId)
+                                ->delete();
             $selectproject = $request->input('pid');
-            DB::table('project')->whereIn('pid',$selectproject)->delete();
+            DB::table('project')->whereIn('pid',$selectproject)
+                                ->where('mid',$userId)
+                                ->delete();
 
             $selectvideo = $request->input('vid');
-            DB::table('video')->whereIn('vid',$selectvideo)->delete();
+            DB::table('video')->whereIn('vid',$selectvideo)
+                            ->where('mid',$userId)
+                            ->delete();
             
             return response()->json(['message'=>'刪除成功']);
         }
