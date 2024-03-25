@@ -1,61 +1,42 @@
-
-import React, { useRef, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Homepage from './homepage/homepage';
-import Findcase from './Components/Findcase';
-import Findman from './Components/Findman';
-import Member from '../src/RatingPage/RatingPage';
-import ProjectForm from './Components/page/Member/ProjectForm';
-import { Link, Routes, Route } from 'react-router-dom';
-import ourLogo from './homepage/ourLogo.jpg';
-import Serve from './Components/Serve';
-import Talent from './Components/Talent'
-import Email from './Components/page/Member/email';
-import Fix from './Components/page/Member/fix';
-// import Nav from 'react-bootstrap/Nav';
-// import Modal from 'react-bootstrap/Modal';
-// import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form';
-import { Modal, Button, Form, Nav } from './Collection';
-import './App.css';
+import React, { useRef, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Homepage from "./homepage/homepage";
+import Findcase from "./Components/Findcase";
+import Findman from "./Components/Findman";
+import Member from "../src/RatingPage/RatingPage";
+import ProjectForm from "./Components/page/Member/ProjectForm";
+import { Link, Routes, Route } from "react-router-dom";
+import ourLogo from "./homepage/ourLogo.jpg";
+import Serve from "./Components/Serve";
+import Talent from "./Components/Talent";
+import Email from "./Components/page/Member/email";
+import Fix from "./Components/page/Member/fix";
+import { Modal, Button, Form, Nav } from "react-bootstrap";
+import "./App.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-
-
-
-
-
-
-
-
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [color, setColor] = useState('silver');
-  const [color2, setColor2] = useState('silver');
+  const [color, setColor] = useState("silver");
+  const [color2, setColor2] = useState("silver");
   const [showRegister, setShowRegister] = useState(false);
 
   const [showLogin, setShowLogin] = useState(false);
   const handleClose = () => setShowLogin(false);
-  const handleShow = () => 
-    setShowLogin(true);
-
-
-
-
+  const handleShow = () => setShowLogin(true);
 
   const toRegister = (event) => {
     event.preventDefault();
     setShowLogin(false);
     setShowForgotPassword(false);
     setShowRegister(true);
-
-  }
+  };
 
   // 註冊後直接登入
-  const RegisterEmail = useRef()
-  const RegisterPassword = useRef()
-  const RegisterConfPassword = useRef()
+  const RegisterEmail = useRef();
+  const RegisterPassword = useRef();
+  const RegisterConfPassword = useRef();
 
   // const handleRegister = () => {
   //   const email = RegisterEmail.current.value
@@ -101,47 +82,46 @@ function App() {
   //     })
   // }
   const registerUser = async (email, password, confirmPassword) => {
-    try{
+    try {
       const res = await axios.post(
-        'http://localhost/PHP/Allend/backend/public/api/register',
+        "http://localhost/PHP/Allend/backend/public/api/register",
         {
-          email:email,
-          password:password,
-          password_confirmation:confirmPassword
+          email: email,
+          password: password,
+          password_confirmation: confirmPassword,
         }
-      )
-      await loginUser(email, password)
-      return res.data
-    }catch (err){
-      console.log(err)
+      );
+      await loginUser(email, password);
+      return res.data;
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
   const loginUser = async (email, password) => {
-    try{
+    try {
       const res = await axios.post(
-        'http://localhost/PHP/Allend/backend/public/api/login',
+        "http://localhost/PHP/Allend/backend/public/api/login",
         {
-          email:email,
-          password:password
+          email: email,
+          password: password,
         }
-      )
-      Cookies.set('token', res.data.token)
-    }catch(err){
-      console.log(err)
+      );
+      Cookies.set("token", res.data.token);
+    } catch (err) {
+      console.log(err);
     }
-  }
-  const handleRegister = async() => {
-    const email = RegisterEmail.current.value
-    const password = RegisterPassword.current.value
-    const confirmPassword = RegisterConfPassword.current.value
-    try{
-      const data = await registerUser(email,password,confirmPassword)
-      console.log(data)
-    }catch(err){
-      console.log(err)
+  };
+  const handleRegister = async () => {
+    const email = RegisterEmail.current.value;
+    const password = RegisterPassword.current.value;
+    const confirmPassword = RegisterConfPassword.current.value;
+    try {
+      const data = await registerUser(email, password, confirmPassword);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
     }
-  }
-
+  };
 
   const LoginName = useRef();
   const LoginPassword = useRef();
@@ -164,14 +144,14 @@ function App() {
       .catch(($err) => {
         console.log($err);
       });
-  }
-  
+  };
+
   const toForgotPassword = (event) => {
     event.preventDefault(); // Prevent default anchor behavior
     setShowLogin(false);
     setShowForgotPassword(true);
   };
-  const ForgetName = useRef()
+  const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
       method: "post",
@@ -186,25 +166,28 @@ function App() {
       .catch(($err) => {
         console.log($err);
       });
-
-  }
+  };
   const handleClick = () => {
-    setColor(color === 'red' ? 'blue' : 'red');
+    setColor(color === "red" ? "blue" : "red");
   };
   const handleClick2 = () => {
-    setColor2(color2 === 'red' ? 'blue' : 'red');
+    setColor2(color2 === "red" ? "blue" : "red");
   };
-
-
 
   return (
     <>
-      <div className="p-1 bg-info" style={{ display: 'flex', alignItems: 'center', height: 50 }}>
+      <div
+        className="p-1 bg-info"
+        style={{ display: "flex", alignItems: "center", height: 50 }}
+      >
         <Link to="/">
-          <img style={{ width: 50 }} src={ourLogo} alt='' />
+          <img style={{ width: 50 }} src={ourLogo} alt="" />
         </Link>
         <span style={{ marginLeft: 10 }}>包您滿意</span>
-        <div className="search-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+        <div
+          className="search-container"
+          style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
+        >
           <input type="text" placeholder="Search.." />
           <Button type="submit">
             <i className="fa fa-search"></i>
@@ -212,42 +195,68 @@ function App() {
           <Button onClick={handleShow}>登入/註冊</Button>
         </div>
       </div>
-      <nav className="navbar navbar-expand-sm" >
+      <nav className="navbar navbar-expand-sm">
         <div className="container-fluid">
           <ul className="navbar-nav">
-            <li className="nav-item" >
-              <Nav.Link href='/findcase' style={{ backgroundColor: color }} onClick={handleClick} className="nav-link active" >
+            <li className="nav-item">
+              <Nav.Link
+                href="/findcase"
+                style={{ backgroundColor: color }}
+                onClick={handleClick}
+                className="nav-link active"
+              >
                 我要接案
               </Nav.Link>
             </li>
-            <li className="nav-item" >
-              <Nav.Link href='/findman' style={{ backgroundColor: color2 }} onClick={handleClick2} className="nav-link" >
+            <li className="nav-item">
+              <Nav.Link
+                href="/findman"
+                style={{ backgroundColor: color2 }}
+                onClick={handleClick2}
+                className="nav-link"
+              >
                 我要找人
               </Nav.Link>
             </li>
           </ul>
           <ul className="navbar-nav">
-
             <li className="nav-item">
-              <Nav.Link href='/ProjectForm' style={{ backgroundColor: color2 }} onClick={handleClick2} className="nav-link">發案</Nav.Link>
+              <Nav.Link
+                href="/ProjectForm"
+                style={{ backgroundColor: color2 }}
+                onClick={handleClick2}
+                className="nav-link"
+              >
+                發案
+              </Nav.Link>
             </li>
             <li className="nav-item">
-              <Nav.Link href='/member' style={{ backgroundColor: color }} onClick={handleClick} className="nav-link active"  >Email</Nav.Link>
+              <Nav.Link
+                href="/member"
+                style={{ backgroundColor: color }}
+                onClick={handleClick}
+                className="nav-link active"
+              >
+                Email
+              </Nav.Link>
             </li>
           </ul>
         </div>
       </nav>
 
       <Routes>
-        <Route path='/' element={<Homepage></Homepage>}></Route>
-        <Route path='/findcase' element={<Findcase></Findcase>}></Route>
-        <Route path='/findman' element={<Findman></Findman>}></Route>
-        <Route path='/ProjectForm' element={<ProjectForm></ProjectForm>}></Route>
-        <Route path='/serve' element={<Serve></Serve>}></Route>
-        <Route path='/talent' element={<Talent></Talent>}></Route>
-        <Route path='/email' element={<Email></Email>}></Route>
-        <Route path='/member' element={<Member></Member>}></Route>
-        <Route path='/fix' element={<Fix></Fix>}></Route>
+        <Route path="/" element={<Homepage></Homepage>}></Route>
+        <Route path="/findcase" element={<Findcase></Findcase>}></Route>
+        <Route path="/findman" element={<Findman></Findman>}></Route>
+        <Route
+          path="/ProjectForm"
+          element={<ProjectForm></ProjectForm>}
+        ></Route>
+        <Route path="/serve" element={<Serve></Serve>}></Route>
+        <Route path="/talent" element={<Talent></Talent>}></Route>
+        <Route path="/email" element={<Email></Email>}></Route>
+        <Route path="/member" element={<Member></Member>}></Route>
+        <Route path="/fix" element={<Fix></Fix>}></Route>
       </Routes>
 
       {/* 登入 */}
@@ -263,51 +272,61 @@ function App() {
         <Modal.Body>
           <Form>
             <div className="container row">
-              <div className='col-6'>
+              <div className="col-6">
                 <div className="row ">
                   <div className="col-sm-12 ">
                     <Form.Group controlId="formBasicEmail">
                       <Form.Label>帳號</Form.Label>
-                      <Form.Control type="email" placeholder="Enter email" ref={LoginName}/>
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        ref={LoginName}
+                      />
                     </Form.Group>
                   </div>
-
 
                   <div className="col-sm-12">
                     <Form.Group controlId="formBasicPassword">
                       <Form.Label>密碼</Form.Label>
-                      <Form.Control type="password" placeholder="Password" ref={LoginPassword}/>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        ref={LoginPassword}
+                      />
                       <Form.Text>
-                        <a href="/forgot-password" onClick={toForgotPassword}>忘記密碼?</a>
+                        <a href="/forgot-password" onClick={toForgotPassword}>
+                          忘記密碼?
+                        </a>
                       </Form.Text>
                     </Form.Group>
                   </div>
-
                 </div>
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button onClick={handleLogin} id='login'  style={{}}>
-                  <img style={{ width: 130 }} src={ourLogo} alt='' />
+                <Button onClick={handleLogin} id="login" style={{}}>
+                  <img style={{ width: 130 }} src={ourLogo} alt="" />
                 </Button>
               </div>
-
-
-
             </div>
-
           </Form>
         </Modal.Body>
-        <Modal.Footer >
+        <Modal.Footer>
           <Form.Text>
-            <a href="/Register" onClick={toRegister}>立即註冊</a>
+            <a href="/Register" onClick={toRegister}>
+              立即註冊
+            </a>
           </Form.Text>
         </Modal.Footer>
       </Modal>
-     {/* 登入 */}
+      {/* 登入 */}
 
       {/* 忘記密碼 */}
-      <Modal show={showForgotPassword} onHide={() => setShowForgotPassword(false)} centered>
+      <Modal
+        show={showForgotPassword}
+        onHide={() => setShowForgotPassword(false)}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>忘記密碼</Modal.Title>
         </Modal.Header>
@@ -315,7 +334,11 @@ function App() {
           <Form>
             <Form.Group controlId="formForgotPasswordEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" ref={ForgetName}/>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                ref={ForgetName}
+              />
             </Form.Group>
             <br />
             <Button variant="primary" onClick={sendForgetPWD}>
@@ -335,15 +358,27 @@ function App() {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>帳號</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" ref={RegisterEmail}/>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                ref={RegisterEmail}
+              />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>密碼</Form.Label>
-              <Form.Control type="password" placeholder="Password" ref={RegisterPassword}/>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                ref={RegisterPassword}
+              />
             </Form.Group>
             <Form.Group controlId="formBasicConfirmedPassword">
               <Form.Label>確認密碼</Form.Label>
-              <Form.Control type="password" placeholder="Confirmed Password" ref={RegisterConfPassword}/>
+              <Form.Control
+                type="password"
+                placeholder="Confirmed Password"
+                ref={RegisterConfPassword}
+              />
             </Form.Group>
             <br />
             <Button variant="info" onClick={handleRegister}>
@@ -354,7 +389,7 @@ function App() {
       </Modal>
       {/* 註冊 */}
     </>
-  )
+  );
 }
 
 export default App;
