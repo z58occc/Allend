@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './homepage/homepage';
 import Findcase from './Components/Findcase';
@@ -7,16 +7,19 @@ import Findman from './Components/Findman';
 import Member from '../src/RatingPage/RatingPage';
 import ProjectForm from './Components/page/Member/ProjectForm';
 import { Link, Routes, Route } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
 import ourLogo from './homepage/ourLogo.jpg';
 import Serve from './Components/Serve';
 import Talent from './Components/Talent'
 import Email from './Components/page/Member/email';
 import Fix from './Components/page/Member/fix';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+// import Nav from 'react-bootstrap/Nav';
+// import Modal from 'react-bootstrap/Modal';
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+import { Modal, Button, Form, Nav } from './Collection';
 import './App.css';
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
 
@@ -27,25 +30,21 @@ import './App.css';
 
 
 function App() {
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [color, setColor] = useState('silver');
   const [color2, setColor2] = useState('silver');
-  const [showLogin, setShowLogin] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
-
+  const [showLogin, setShowLogin] = useState(false);
   const handleClose = () => setShowLogin(false);
-  const handleShow = () =>
+  const handleShow = () => 
     setShowLogin(true);
 
 
-  const handleForgotPassword = (event) => {
-    event.preventDefault(); // Prevent default anchor behavior
-    setShowLogin(false);
-    setShowForgotPassword(true);
-  };
 
-  const handleRegister = (event) => {
+
+
+  const toRegister = (event) => {
     event.preventDefault();
     setShowLogin(false);
     setShowForgotPassword(false);
@@ -53,6 +52,142 @@ function App() {
 
   }
 
+  // 註冊後直接登入
+  const RegisterEmail = useRef()
+  const RegisterPassword = useRef()
+  const RegisterConfPassword = useRef()
+
+  // const handleRegister = () => {
+  //   const email = RegisterEmail.current.value
+  //   const password = RegisterPassword.current.value
+  //   const confirmpasswrod = RegisterConfPassword.current.value
+  //   const RegisterLogin = (data) => {
+  //     axios({
+  //       method:'post',
+  //       url:"http://localhost/PHP/Allend/backend/public/api/login",
+  //       data: {
+  //         email: data.email,
+  //         password:data.password
+  //       }
+  //     })
+  //     .then((res) => {return res.data;})
+  //     .then((data) => {
+  //       console.log(data);
+  //       Cookies.set('token', data.token);}
+  //       )
+  //   }
+
+  //   axios({
+  //     method: "post",
+  //     url: "http://localhost/PHP/Allend/backend/public/api/register",
+  //     data: {
+  //       email: RegisterEmail.current.value,
+  //       password: RegisterPassword.current.value,
+  //       password_confirmation: RegisterConfPassword.current.value,
+  //     },
+  //   })
+  //   // axios({
+  //   //   method:'post',
+  //   //   url:"http://localhost/PHP/Allend/backend/public/api/login",
+  //   //   data: {
+  //   //     email: email,
+  //   //     password:password
+  //   //   }
+  //   // })
+  //   .then((res) => {return res.data;})
+  //   .then((data) => {
+  //     console.log(data);
+  //     RegisterLogin(data)
+  //     })
+  // }
+  const registerUser = async (email, password, confirmPassword) => {
+    try{
+      const res = await axios.post(
+        'http://localhost/PHP/Allend/backend/public/api/register',
+        {
+          email:email,
+          password:password,
+          password_confirmation:confirmPassword
+        }
+      )
+      await loginUser(email, password)
+      return res.data
+    }catch (err){
+      console.log(err)
+    }
+  }
+  const loginUser = async (email, password) => {
+    try{
+      const res = await axios.post(
+        'http://localhost/PHP/Allend/backend/public/api/login',
+        {
+          email:email,
+          password:password
+        }
+      )
+      Cookies.set('token', res.data.token)
+    }catch(err){
+      console.log(err)
+    }
+  }
+  const handleRegister = async() => {
+    const email = RegisterEmail.current.value
+    const password = RegisterPassword.current.value
+    const confirmPassword = RegisterConfPassword.current.value
+    try{
+      const data = await registerUser(email,password,confirmPassword)
+      console.log(data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
+  const LoginName = useRef();
+  const LoginPassword = useRef();
+  const handleLogin = () => {
+    axios({
+      method: "post",
+      url: "http://localhost/PHP/Allend/backend/public/api/login",
+      data: {
+        email: LoginName.current.value,
+        password: LoginPassword.current.value,
+      },
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        console.log(data);
+        Cookies.set("token", data.token);
+      })
+      .catch(($err) => {
+        console.log($err);
+      });
+  }
+  
+  const toForgotPassword = (event) => {
+    event.preventDefault(); // Prevent default anchor behavior
+    setShowLogin(false);
+    setShowForgotPassword(true);
+  };
+  const ForgetName = useRef()
+  const sendForgetPWD = () => {
+    axios({
+      method: "post",
+      url: "http://localhost/PHP/Allend/backend/public/api/forgetpwd",
+      data: {
+        email: ForgetName.current.value,
+      },
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch(($err) => {
+        console.log($err);
+      });
+
+  }
   const handleClick = () => {
     setColor(color === 'red' ? 'blue' : 'red');
   };
@@ -63,8 +198,7 @@ function App() {
 
 
   return (
-
-    <div>
+    <>
       <div className="p-1 bg-info" style={{ display: 'flex', alignItems: 'center', height: 50 }}>
         <Link to="/">
           <img style={{ width: 50 }} src={ourLogo} alt='' />
@@ -116,8 +250,8 @@ function App() {
         <Route path='/fix' element={<Fix></Fix>}></Route>
       </Routes>
 
+      {/* 登入 */}
       <Modal show={showLogin} onHide={handleClose} centered>
-
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
             <div className="col text-center">
@@ -127,19 +261,18 @@ function App() {
         </Modal.Header>
 
         <Modal.Body>
-          {/* Your login form goes here */}
           <Form>
             <div className="row">
               <div className="col-sm-6">
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>帳號</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control type="email" placeholder="Enter email" ref={LoginName}/>
                 </Form.Group>
               </div>
 
               <div className="col-sm-6  d-flex align-items-center justify-content-center" >
-                <Button type="submit" className="d-block mx-auto">
-                  <img style={{ width: 130 }} src={ourLogo} alt='' />
+                <Button onClick={handleLogin} className="d-block mx-auto">
+                  <img style={{ width: 130 }} src={ourLogo} />
                 </Button>
               </div>
 
@@ -147,9 +280,9 @@ function App() {
                 <div className="col-sm-6">
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>密碼</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" placeholder="Password" ref={LoginPassword}/>
                     <Form.Text>
-                      <a href="/forgot-password" onClick={handleForgotPassword}>忘記密碼?</a>
+                      <a href="/forgot-password" onClick={toForgotPassword}>忘記密碼?</a>
                     </Form.Text>
                   </Form.Group>
                 </div>
@@ -160,59 +293,60 @@ function App() {
         </Modal.Body>
         <Modal.Footer >
           <Form.Text>
-            <a href="/Register" onClick={handleRegister}>立即註冊</a>
+            <a href="/Register" onClick={toRegister}>立即註冊</a>
           </Form.Text>
         </Modal.Footer>
       </Modal>
+     {/* 登入 */}
 
+      {/* 忘記密碼 */}
       <Modal show={showForgotPassword} onHide={() => setShowForgotPassword(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>忘記密碼</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add your Forgot Password form here */}
           <Form>
             <Form.Group controlId="formForgotPasswordEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" ref={ForgetName}/>
             </Form.Group>
             <br />
-            <Button variant="primary" type="submit">
+            <Button variant="primary" onClick={sendForgetPWD}>
               送出
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
+      {/* 忘記密碼 */}
 
+      {/* 註冊 */}
       <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>註冊</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
           <Form>
-            {/* Form fields */}
             <Form.Group controlId="formBasicEmail">
               <Form.Label>帳號</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" ref={RegisterEmail}/>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>密碼</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" ref={RegisterPassword}/>
+            </Form.Group>
+            <Form.Group controlId="formBasicConfirmedPassword">
+              <Form.Label>確認密碼</Form.Label>
+              <Form.Control type="password" placeholder="Confirmed Password" ref={RegisterConfPassword}/>
             </Form.Group>
             <br />
-            {/* Additional form fields... */}
-            <Button variant="info" type="submit">
+            <Button variant="info" onClick={handleRegister}>
               提交
             </Button>
           </Form>
         </Modal.Body>
-
       </Modal>
-
-
-
-    </div>
+      {/* 註冊 */}
+    </>
   )
 }
 

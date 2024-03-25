@@ -11,7 +11,6 @@ export function Forgot() {
 
         console.log({
             email,
-
         });
         setEmail('');
     };
