@@ -268,7 +268,7 @@ function App() {
                   <div className="col-sm-12 ">
                     <Form.Group controlId="formBasicEmail">
                       <Form.Label>帳號</Form.Label>
-                      <Form.Control type="email" placeholder="Enter email" />
+                      <Form.Control type="email" placeholder="Enter email" ref={LoginName}/>
                     </Form.Group>
                   </div>
 
@@ -276,9 +276,9 @@ function App() {
                   <div className="col-sm-12">
                     <Form.Group controlId="formBasicPassword">
                       <Form.Label>密碼</Form.Label>
-                      <Form.Control type="password" placeholder="Password" />
+                      <Form.Control type="password" placeholder="Password" ref={LoginPassword}/>
                       <Form.Text>
-                        <a href="/forgot-password" onClick={handleForgotPassword}>忘記密碼?</a>
+                        <a href="/forgot-password" onClick={toForgotPassword}>忘記密碼?</a>
                       </Form.Text>
                     </Form.Group>
                   </div>
@@ -287,7 +287,7 @@ function App() {
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button id='login' type="submit" style={{}}>
+                <Button onClick={handleLogin} id='login'  style={{}}>
                   <img style={{ width: 130 }} src={ourLogo} alt='' />
                 </Button>
               </div>
