@@ -3,9 +3,15 @@ import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import LeftVerticalNavbar from '../../../RatingPage/LeftVerticalNavbar';
+// import { useHistory } from 'react-router-dom';
+
+
 
 //接案 填寫資料
 function FreelancerForm() {
+    
+    // const history = useHistory();
+    
     const [formData, setFormData] = useState({
         identity: '',
         experience: '',
@@ -115,6 +121,10 @@ function FreelancerForm() {
             selectedDate: date
         }));
     };
+
+    // const handlePageChange = () => {
+    //     history.push(''); // 这里的 '/nextpage' 是你要跳转到的页面路径
+    // };
 
 
 
@@ -350,6 +360,7 @@ function FreelancerForm() {
 
                                 <Button type="submit" variant="danger" style={{ width: '50%', margin: '0 auto', display: 'block' }} disabled={!isFormComplete}>提交</Button>
                                 <Button variant="secondary" onClick={handleReset}>重置</Button>
+                                {/* <Button variant="primary" onClick={handlePageChange} style={{ position: 'fixed', bottom: '20px', right: '20px' }}>切換</Button> */}
                             </Form>
                         )}
 
