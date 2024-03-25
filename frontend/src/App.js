@@ -67,14 +67,7 @@ function App() {
   //       password_confirmation: RegisterConfPassword.current.value,
   //     },
   //   })
-  //   // axios({
-  //   //   method:'post',
-  //   //   url:"http://localhost/PHP/Allend/backend/public/api/login",
-  //   //   data: {
-  //   //     email: email,
-  //   //     password:password
-  //   //   }
-  //   // })
+ 
   //   .then((res) => {return res.data;})
   //   .then((data) => {
   //     console.log(data);

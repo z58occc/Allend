@@ -1,24 +1,24 @@
-// import React, { useState } from 'react';
-// import FreelancerForm from './email';
-// import ClientForm from './Perpetrator';
+import React, { useState } from 'react';
+import ClientForm from './ClientForm';
+import FreelancerForm from './FreelancerForm';
 
-// function FormSwitcher() {
-//     const [isFreelancerForm, setIsFreelancerForm] = useState(true);
+function MainForm() {
+    const [showClientForm, setShowClientForm] = useState(true); // 初始显示ClientForm
 
-//     const handleSwitchForm = () => {
-//         setIsFreelancerForm(prevState => !prevState);
-//     };
+    const handleToggleForm = () => {
+        setShowClientForm(prevState => !prevState); // 切换显示表单的状态
+    };
 
-//     return (
-//         <>
-//             <div className="text-center mt-3">
-//                 <button onClick={handleSwitchForm} className="btn btn-primary">
-//                     {isFreelancerForm ? "填写接案人资料" : "填写发案人资料"}
-//                 </button>
-//             </div>
-//             {isFreelancerForm ? <FreelancerForm /> : <ClientForm />}
-//         </>
-//     );
-// }
+    return (
+        <div>
+            {showClientForm ? (
+                <ClientForm onToggleForm={handleToggleForm} />
+            ) : (
+                <FreelancerForm onToggleForm={handleToggleForm} />
+            )}
+        </div>
+    );
+}
 
-// export default FormSwitcher;
+export default MainForm;
+
