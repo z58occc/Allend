@@ -4,7 +4,6 @@ import { Container, Row, Col, Nav} from 'react-bootstrap';
 import Screen3 from './Screen3';
 import Screen1 from './Screen1';
 import Screen2 from './Screen2';
-
 const MainScreen = () => {
   const [activeScreen, setActiveScreen] = useState('screen1'); // 當前顯示的主畫面
 
@@ -20,7 +19,7 @@ const MainScreen = () => {
           <Nav variant="tabs" defaultActiveKey="screen1">
             <Nav.Item>
               <Nav.Link eventKey="screen1" onClick={() => handleScreenChange('screen1')}>
-                接案數
+                未接案數
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -30,7 +29,7 @@ const MainScreen = () => {
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="screen3" onClick={() => handleScreenChange('screen3')}>
-                結案數
+                已結案
               </Nav.Link>
             </Nav.Item>
           </Nav>
