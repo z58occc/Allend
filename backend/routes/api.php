@@ -41,31 +41,54 @@ use Illuminate\Database\Query\IndexHint;
 
 // 首頁
 Route::get('/index',IndexController::class);
-// 人才頁面
+// 查看人才頁面
 Route::get('/Talent',TalentController::class);
-// 案件內容
+// 查看案件內容
 Route::get('/demmand_content',demmandContentController::class);
-// 服務內容
+// 查看服務內容
 Route::get('/service_content',ServiceContent::class);
-// 我要報價
+// 送出報價表單
 Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
-// 發案分類
+// 查看發案分類
 Route::get('/findcommmit',IFindCommitController::class);
-// 服務分類
+// 查看服務分類
 Route::get('/findpeople',IFindPeopleController::class);
-// 發案表單
+// 送出發案表單
 Route::post('/commit_crime', CommitController::class);
+
 // 新增服務
 Route::post('/service',ServiceController::class);
 // 新增作品
 Route::post('/work',WorkController::class);
 // 新增影音
 Route::post('/video',VideoController::class);
-//會員服務管理，刪除
-Route::get('/memservice',MemberServiceController::class);
-Route::post('/memserviceDelete',MemberserviceDeleteController::class);
-//會員接案紀錄
-Route::get('/memberTakeCase',MemberTakeCaseController::class);
+// 會員服務管理、刪除
+// Route::get('/memservice',MemberServiceController::class);
+// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
+// 會員接案紀錄
+// Route::get('/memTakeCase',MemberTakeCaseController::class);
+
+
+// 會員功能
+Route::controller(MeMInfoController::class)->group(function(){
+    // 會員儀表板
+    Route::get('/dashboard', 'dashboard');
+    // 獲取會員資料
+    Route::post('/mem', 'getMemInfo');
+    // 獲取會員接案紀錄
+    Route::get('/memtakecase', 'getTakeCase');
+    // 獲取會員發案紀錄
+    Route::get('/memcommitcast', 'getCommitCase');
+    // 獲取服務管理頁面
+    Route::get('/memserman', 'getService');
+    // 新增服務
+    Route::post('/addservice', );
+    // 刪除服務
+    Route::get('/memserdel', 'delService');
+    // 我的收藏
+    Route::post('/collection', 'getCollection');
+})->middleware(['verified']);
+
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
@@ -87,17 +110,5 @@ Route::post('/waitverifyemail');
 Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
 // 完成修改密碼
 Route::post('/resetpwd', [NewPasswordController::class, 'store']);
-
-// 會員功能
-Route::controller(MeMInfoController::class)->group(function(){
-    // 會員儀表板
-    Route::get('/dashboard', 'dashboard');
-    // 獲取會員資料
-    Route::post('/mem', 'getMemInfo');
-    // 服務管理頁面
-    Route::post('/servicemanagement', 'getService');
-    // 我的收藏
-    Route::post('/collection', 'getCollection');
-})->middleware(['verified']);
 
 

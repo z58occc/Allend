@@ -11,14 +11,14 @@ class MemberServiceController extends Controller
     public function __invoke(Request $request)
     {
         // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');                    
+        $mid = $request->input('mid');
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
-            
+
             $project_query = DB::table('project')->select('p_name','image')->where('mid',$mid);
 
             $video_query = DB::table('video')->select('v_name','src')->where('mid',$mid);
-            
+
             //服務搜尋
             if($request->has('servicesearch')){
                 $service_query->where('s_name','like','%'.$request->input('servicesearch').'%');
@@ -43,6 +43,6 @@ class MemberServiceController extends Controller
 
             ]);
         }
-        
+
     }
 }
