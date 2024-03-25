@@ -10,7 +10,8 @@ class MemberserviceDeleteController extends Controller
 {
     public  function __invoke(Request $request)
     {
-        $mid = Auth::guard('api')->id();
+        // $mid = Auth::guard('api')->id();
+        $mid = $request->input('mid');
         if($mid){
             $selectservice = $request->input('sid');
             DB::table('service')->whereIn('sid',$selectservice)->delete();
