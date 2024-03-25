@@ -10,21 +10,20 @@ class IWantQuoteController extends Controller
 {
     public function __invoke(Request $request)
     {  
-
+        $mid = Auth::guard('api')->id();
         
         $this->validate($request,[
-            'mid'=>['required'],
             'did'=>['required'],
-            'q_amount'=>['require'],
-            'q_content'=>['require'],
+            'q_amount'=>['required'],
+            'q_message'=>['required'],
         ]);
 
-        $mid = Auth::id();
-        $qoute = DB::table('qoute')->insert([
+
+        $qoute = DB::table('quote')->insert([
             'mid'=> $mid,
-            'did'=> $request['did'],
+            'did'=> $request->input('did'),
             'q_amount'=> $request->input('q_amount'),
-            'q_content' =>$request->input('q_content'),
+            'q_message' =>$request->input('q_message'),
         ]);
         return response($qoute);
 }
