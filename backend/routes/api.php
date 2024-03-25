@@ -16,7 +16,10 @@ use App\Http\Controllers\IWantQuoteController;
 use App\Http\Controllers\MemberServiceController;
 use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
+use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\PublishCaseController;
+use App\Http\Controllers\PublishCaseDeleteController;
 use App\Http\Controllers\ServiceContent;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
@@ -64,8 +67,13 @@ Route::post('/video',VideoController::class);
 //會員服務管理，刪除
 Route::get('/memservice',MemberServiceController::class);
 Route::post('/memserviceDelete',MemberserviceDeleteController::class);
-//會員接案紀錄
+//會員接案紀錄，刪除
 Route::get('/memberTakeCase',MemberTakeCaseController::class);
+Route::post('/memberTakeCaseDelete',MemberTakeCaseDeleteController::class);
+//會員發案紀錄，刪除
+Route::get('/publishCase',PublishCaseController::class);
+Route::post('/publishCaseDelete',PublishCaseDeleteController::class);
+
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
