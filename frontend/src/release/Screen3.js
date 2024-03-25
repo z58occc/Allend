@@ -42,7 +42,7 @@ const Screen3 = () => {
       budgetAmount: '$100,000',
       startDate: '2024/03/20',
       endDate: '2024/04/10',
-      contractorName: '王8蛋',
+      contractorName: '王',
       contractorEmail: 'wang@example.com',
       contractorPhone: '0912345678',
       amount: 'NTD$ 5000',

@@ -29,10 +29,10 @@ class AuthController extends Controller
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
-                'name' => 'required|string',
+                // 'name' => 'required|string',
                 'email' => 'required|string|email|unique:members',
-                'password' => 'required|string|min:6',
-                // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                // 'password' => 'required|string|min:6',
+                'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
             ]);
         }
         catch (ValidationException $exception){
@@ -43,14 +43,15 @@ class AuthController extends Controller
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
             $user = Member::create([
-            'name' => $request->name,
+            // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             ]);
             event(new Registered($user));
             Auth::guard('api')->login($user);
             return response()->json([
-                'message' => '註冊成功!',
+                'email' => $request->email,
+                'password' => $request->password,
             ]);
         }
         catch(Throwable $err){

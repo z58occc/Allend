@@ -48,10 +48,10 @@ Route::get('/index',IndexController::class);
 Route::get('/Talent',TalentController::class);
 // 案件內容
 Route::get('/demmand_content',demmandContentController::class);
-//服務內容
+// 服務內容
 Route::get('/service_content',ServiceContent::class);
 // 我要報價
-Route::post('/quote', IWantQuoteController::class);
+Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 發案分類
 Route::get('/findcommmit',IFindCommitController::class);
 // 服務分類
@@ -81,11 +81,22 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::post('/updateprofiles', 'update')->middleware('verified');
 });
+// 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
+Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+    ->middleware(['auth:api', 'throttle:6,1'])
+    ->name('verifyemail');
+// 等待驗證網址 => 可以重發驗證信
+Route::post('/waitverifyemail');
+// 重送驗證信按鈕
+  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
+  ->middleware(['auth:api', 'throttle:6,1']);
+
 // 寄忘記密碼信
 Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
 // 完成修改密碼
 Route::post('/resetpwd', [NewPasswordController::class, 'store']);
 
+// 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
     Route::get('/dashboard', 'dashboard');
@@ -97,13 +108,4 @@ Route::controller(MeMInfoController::class)->group(function(){
     Route::post('/collection', 'getCollection');
 })->middleware(['verified']);
 
-// 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
-Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth:api', 'throttle:6,1'])
-    ->name('verifyemail');
-// 等待驗證網址 => 可以重發驗證信
-Route::post('/waitverifyemail');
-// 重送驗證信按鈕
-  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-  ->middleware(['auth:api', 'throttle:6,1']);
 
