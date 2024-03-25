@@ -18,6 +18,7 @@ use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
 use App\Http\Controllers\PublishCaseDeleteController;
 use App\Http\Controllers\ServiceContent;
@@ -70,6 +71,7 @@ Route::post('/video',VideoController::class);
 // Route::post('/memserviceDelete',MemberserviceDeleteController::class);
 // 會員接案紀錄
 // Route::get('/memTakeCase',MemberTakeCaseController::class);
+Route::get('/Pop_quote',Pop_QuoteContorller::class);
 
 
 // 會員功能
