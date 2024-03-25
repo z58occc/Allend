@@ -47,29 +47,16 @@ Route::get('/Talent',TalentController::class);
 Route::get('/demmand_content',demmandContentController::class);
 // 查看服務內容
 Route::get('/service_content',ServiceContent::class);
-// 送出報價表單
-Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 查看發案分類
 Route::get('/findcommmit',IFindCommitController::class);
 // 查看服務分類
 Route::get('/findpeople',IFindPeopleController::class);
+// 送出報價表單
+Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 送出發案表單
 Route::post('/commit_crime', CommitController::class);
-
-// 新增服務
-// Route::post('/service',ServiceController::class);
-// 新增作品
-// Route::post('/work',WorkController::class);
-// 新增影音
-// Route::post('/video',VideoController::class);
-// 會員服務管理、刪除
-// Route::get('/memservice',MemberServiceController::class);
-// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
-// 會員接案紀錄
-// Route::get('/memTakeCase',MemberTakeCaseController::class);
 // 查看報價
 Route::get('/Pop_quote',Pop_QuoteContorller::class);
-
 
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
@@ -99,7 +86,7 @@ Route::controller(MeMInfoController::class)->group(function(){
     Route::post('/video', 'addVideo');
     // 我的收藏
     Route::post('/collection', 'getCollection');
-})->middleware(['verified']);
+});//->middleware(['verified']);
 
 //會員服務管理，刪除
 // Route::get('/memservice',MemberServiceController::class);
@@ -110,6 +97,17 @@ Route::controller(MeMInfoController::class)->group(function(){
 //會員發案紀錄，刪除
 // Route::get('/publishCase',PublishCaseController::class);
 // Route::post('/publishCaseDelete',PublishCaseDeleteController::class);
+// 新增服務
+// Route::post('/service',ServiceController::class);
+// 新增作品
+// Route::post('/work',WorkController::class);
+// 新增影音
+// Route::post('/video',VideoController::class);
+// 會員服務管理、刪除
+// Route::get('/memservice',MemberServiceController::class);
+// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
+// 會員接案紀錄
+// Route::get('/memTakeCase',MemberTakeCaseController::class);
 
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
@@ -125,8 +123,8 @@ Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
 // 等待驗證網址 => 可以重發驗證信 (在前端寫頁面)
 Route::post('/waitverifyemail');
 // 重送驗證信按鈕
-  Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-  ->middleware(['auth:api', 'throttle:6,1']);
+Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
+->middleware(['auth:api', 'throttle:6,1']);
 
 // 寄忘記密碼信
 Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);

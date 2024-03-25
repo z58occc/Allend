@@ -97,42 +97,33 @@ class AuthController extends Controller
 
     // 修改資料
     public function update(Request $request){
-        try{
-            // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-            Auth::user();
-        }catch(Throwable $err){
-            return response('無效的請求');
-        }
-        $user_id = Auth::user()->mid;
         // try{
-        //     Member::where('id', $user_id)->update([
-        //         // 'avatar' => $request->,
-        //         // 'identity' => $request->identity ? "A" : "B",
-        //         // 'nickname' => $request->,
-        //         // 'seniority' => $request->,
-        //         // 'active_location' => $request->,
-        //         // 'mobile_phone' => $request->,
-        //         // 'name' => $request->,
-        //         // 'id_card' => $request->,
-        //         // 'gender' => $request->,
-        //         // 'location' => $request->,
-        //         'updated_at' => date('Y-m-d H:i:s'),
-        //     ]);
+        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        //     Auth::user();
         // }catch(Throwable $err){
-        //     return response('修改失敗');
+        //     return response('無效的請求');
         // }
+        $request->validate([
+            'idCard' => 'max:10',
+        ]);
 
-        // identity: "",
-        // experience: "",
-        // location: "",
-        // idCard: "",
-        // email: "",
-        // name: "",
-        // phone: "",
-        // gender: "",
-        // area: "",
-        // selectedDate: new Date(),
-
+        $user_id = Auth::user()->mid;
+        try{
+            Member::where('id', $user_id)->update([
+                'identity' => $request->identity,
+                'nickname' => $request->nickname,
+                'seniority' => $request->exprience,
+                'active_location' => $request->location,
+                'mobile_phone' => $request->phone,
+                'name' => $request->name,
+                'id_card' => $request->idCard,
+                'gender' => $request->gender,
+                'location' => $request->area,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }catch(Throwable $err){
+            return response('修改失敗');
+        }
         return response()->json($request);
     }
 
