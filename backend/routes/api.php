@@ -13,6 +13,9 @@ use App\Http\Controllers\IFindCommitController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IWantQuoteController;
+use App\Http\Controllers\MemberServiceController;
+use App\Http\Controllers\MemberserviceDeleteController;
+use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MeMInfoController;
 use App\Http\Controllers\ServiceContent;
 use App\Http\Controllers\ServiceController;
@@ -58,6 +61,11 @@ Route::post('/service',ServiceController::class);
 Route::post('/work',WorkController::class);
 // 新增影音
 Route::post('/video',VideoController::class);
+//會員服務管理，刪除
+Route::get('/memservice',MemberServiceController::class);
+Route::post('/memserviceDelete',MemberserviceDeleteController::class);
+//會員接案紀錄
+Route::get('/memberTakeCase',MemberTakeCaseController::class);
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');

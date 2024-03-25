@@ -1,13 +1,25 @@
 import { createContext,useState } from "react";
 const CaseContext = createContext();
-
+// import axios from "axios";
 
 export const CaseProvider = ({ children }) => {
+    // axios('http://127.0.0.1/Allend/backend/public/api/demmand_content', {
+    //   method: 'GET',
+    //   // params: {
+    //   //   mid: 
+    //   // },
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    // })
+    // .then(response => console.log(response.json()))
+    // .then(data => console.log(data))
+
+
     const [Case, setCase] = useState
     (
       [
         { 
-        id: 0,
         caseNumber: '1',
         caseName: '案件1',
         caseCategory: '建築',
@@ -22,7 +34,6 @@ export const CaseProvider = ({ children }) => {
         count: 5,
         },
         { 
-        id: 1,
         caseNumber: '2',
         caseName: '案件2',
         caseCategory: '建築',
@@ -30,8 +41,8 @@ export const CaseProvider = ({ children }) => {
         budgetAmount: '$100,000',
         startDate: '2024/03/20',
         endDate: '2024/04/10',
-        contractorName: '王8',
-        contractorEmail: 'wang8egg@example.com',
+        contractorName: '王',
+        contractorEmail: 'wang@example.com',
         contractorPhone: '0912345678',
         amount: 'NTD$ 5000',
         count: 5,

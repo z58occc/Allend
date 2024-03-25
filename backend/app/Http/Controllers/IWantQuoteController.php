@@ -19,7 +19,7 @@ class IWantQuoteController extends Controller
             'q_content'=>['require'],
         ]);
 
-        $mid = Auth::id();
+        $mid = Auth::guard('api')->id();
         $qoute = DB::table('qoute')->insert([
             'mid'=> $mid,
             'did'=> $request['did'],

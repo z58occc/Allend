@@ -8,7 +8,11 @@ const CardList = ({visibility,selectedComponent,text}) => {
   const {Case} = useContext(CaseContext)
   const [checked, setChecked] = useState(false);
   // 控制key回傳對應Modal
-  // const [selectedDataKey, setSelectedDataKey] = useState(0);
+  const [selectedDataKey, setSelectedDataKey] = useState(0);
+  const handlesetSelectedDataKey = (index)=>{
+    setSelectedDataKey(index);
+    console.log(index);
+  }
   // 全選功能
   const [selectedItems, setSelectedItems] = useState([false,false,false]); //設置selectedItems為空陣列，裡面為被選到的index值
   const handleChecked = (index) => {
@@ -48,9 +52,9 @@ const CardList = ({visibility,selectedComponent,text}) => {
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
-    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1}/> ;
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/> ;
   } else if (selectedComponent === 'component2') {
-    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1}/>;
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/>;
   }
   
 
@@ -87,11 +91,10 @@ const CardList = ({visibility,selectedComponent,text}) => {
               </div>
             </Card.Body>
             <div className="d-flex flex-column justify-content-center" >
-              <Button variant="primary"  className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => handleModalShow1()} >
+              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
                 {text}
               </Button>
               <Button
-                key={index}
                 variant="secondary" 
                 className="my-2 d-inline-block"
                 style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center',visibility }}
