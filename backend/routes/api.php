@@ -39,10 +39,6 @@ use Illuminate\Database\Query\IndexHint;
 |
 */
 
-// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // 首頁
 Route::get('/index',IndexController::class);
 // 查看人才頁面
@@ -61,16 +57,17 @@ Route::get('/findpeople',IFindPeopleController::class);
 Route::post('/commit_crime', CommitController::class);
 
 // 新增服務
-Route::post('/service',ServiceController::class);
+// Route::post('/service',ServiceController::class);
 // 新增作品
-Route::post('/work',WorkController::class);
+// Route::post('/work',WorkController::class);
 // 新增影音
-Route::post('/video',VideoController::class);
+// Route::post('/video',VideoController::class);
 // 會員服務管理、刪除
 // Route::get('/memservice',MemberServiceController::class);
 // Route::post('/memserviceDelete',MemberserviceDeleteController::class);
 // 會員接案紀錄
 // Route::get('/memTakeCase',MemberTakeCaseController::class);
+// 查看報價
 Route::get('/Pop_quote',Pop_QuoteContorller::class);
 
 
@@ -80,29 +77,39 @@ Route::controller(MeMInfoController::class)->group(function(){
     Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
-    // 獲取會員接案紀錄
+
+    // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
-    // 獲取會員發案紀錄
-    Route::get('/memcommitcast', 'getCommitCase');
+    // 刪除接案紀錄
+    Route::post('/delmembertakecase', 'delTakeCase');
+    // 獲取發案紀錄
+    Route::get('/mempublishcase', 'getPublishCase');
+    // 刪除發案紀錄
+    Route::post('delpublishcase', 'delPublishCase');
+
     // 獲取服務管理頁面
-    Route::get('/memserman', 'getService');
+    Route::get('/memservice', 'getService');
     // 新增服務
-    Route::post('/addservice', );
+    Route::post('/addservice', 'addService');
     // 刪除服務
-    Route::get('/memserdel', 'delService');
+    Route::get('/delmemser', 'delService');
+    // 新增作品
+    Route::post('/work', 'addWork');
+    // 新增影音
+    Route::post('/video', 'addVideo');
     // 我的收藏
     Route::post('/collection', 'getCollection');
 })->middleware(['verified']);
 
 //會員服務管理，刪除
-Route::get('/memservice',MemberServiceController::class);
-Route::post('/memserviceDelete',MemberserviceDeleteController::class);
+// Route::get('/memservice',MemberServiceController::class);
+// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
 //會員接案紀錄，刪除
-Route::get('/memberTakeCase',MemberTakeCaseController::class);
-Route::post('/memberTakeCaseDelete',MemberTakeCaseDeleteController::class);
+// Route::get('/memberTakeCase',MemberTakeCaseController::class);
+// Route::post('/memberTakeCaseDelete',MemberTakeCaseDeleteController::class);
 //會員發案紀錄，刪除
-Route::get('/publishCase',PublishCaseController::class);
-Route::post('/publishCaseDelete',PublishCaseDeleteController::class);
+// Route::get('/publishCase',PublishCaseController::class);
+// Route::post('/publishCaseDelete',PublishCaseDeleteController::class);
 
 // 註冊、登入
 Route::controller(AuthController::class)->group(function () {
@@ -115,7 +122,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
     ->middleware(['auth:api', 'throttle:6,1'])
     ->name('verifyemail');
-// 等待驗證網址 => 可以重發驗證信
+// 等待驗證網址 => 可以重發驗證信 (在前端寫頁面)
 Route::post('/waitverifyemail');
 // 重送驗證信按鈕
   Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
