@@ -16,6 +16,8 @@ import writing from '../Components/img/writing.png'
 import cow from '../Components/img/cow.jpg'
 import beauty from '../Components/img/beauty.jpg'
 import product from '../Components/img/product.jfif'
+import product2 from '../Components/img/product2.jfif'
+import product3 from '../Components/img/product3.jpg'
 
 
 function Homepage() {
@@ -184,7 +186,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={cow}  text="Second slide" />
+          <img src={product2}  text="Second slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>
@@ -192,7 +194,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={beauty}  text="Third slide" />
+          <img src={product3}  text="Third slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>
