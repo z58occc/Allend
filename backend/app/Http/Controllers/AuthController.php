@@ -18,10 +18,10 @@ use Throwable;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register',]]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => ['login', 'register',]]);
+    // }
 
     // 註冊api
     public function register(Request $request):JsonResponse
