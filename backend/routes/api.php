@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcceptanceIssueController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -61,6 +62,9 @@ Route::get('/pop_quote',Pop_QuoteContorller::class);
 Route::get('/pop_agree',Pop_QuoteAgreeController::class,'Agree');
 Route::get('/pop_disagree',Pop_QuoteAgreeController::class,'Disagree');
 
+// 接發案內容
+Route::get('/pulish_view',AcceptanceIssueController::class,'getData');
+Route::post('/pulish_save',AcceptanceIssueController::class,'saveData');
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
