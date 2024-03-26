@@ -49,11 +49,12 @@ function PasswordForm() {
         <Col sm={2}>
           <LeftVerticalNavbar />
         </Col>
-
-        <Col sm={6}>
+        <Col sm={10}>
+          <Row className="justify-content-center">
+            <Col sm={6}>
             
               
-              <div> 
+              <div > 
                 <h2>修改密碼</h2>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formOldPassword">
@@ -79,7 +80,7 @@ function PasswordForm() {
                   </Form.Group>
                   <br />
                   <Form.Group controlId="formConfirmNewPassword">
-                    <Form.Label>确認新密碼：</Form.Label>
+                    <Form.Label>確認新密碼:</Form.Label>
                     <Form.Control
                       type="password"
                       value={confirmNewPassword}
@@ -95,8 +96,9 @@ function PasswordForm() {
                 </Form>
                 {message && <Alert variant="info">{message}</Alert>}
               </div>
-           
-            
+             
+              </Col>
+          </Row>
             </Col>
         </Row>
       </Container>

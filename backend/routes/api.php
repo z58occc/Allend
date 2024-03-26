@@ -28,6 +28,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,18 @@ Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation
 //結案畫面
 Route::get('/publishclose_view', [AcceptanceIssueController::class,'publishClose']); //結案畫面
 Route::get('/takeclose_view', [AcceptanceIssueController::class,'takeClose']); //結案畫面
+
+Route::controller(AuthController::class)->group(function(){
+    // 註冊
+    Route::post('/register', 'register');
+    // 登入
+    Route::post('/login', 'login');
+    // 更新資料
+    Route::post('/updateprofiles', 'update');
+    // 登出
+    Route::post('/logout', 'logout');
+});//->middleware('auth:api');
+
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板

@@ -37,41 +37,42 @@ function Findman() {
                     <div style={{ border: 'solid' }}>
                         接案人專長
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
+                        <input type='checkbox'></input>程式設計<br></br>
                         <input type='checkbox'></input>軟體程式<br></br>
                         <input type='checkbox'></input>文字語言<br></br>
                         <input type='checkbox'></input>網站設計<br></br>
                         <input type='checkbox'></input>專業諮詢<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                        接案人身分
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>個人<br></br>
+                        <input type='checkbox'></input>公司<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                    年資
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>5年以下(含5年)<br></br>
+                        <input type='checkbox'></input>6~10 年<br></br>
+                        <input type='checkbox'></input>11~15 年<br></br>
+                        <input type='checkbox'></input>16~20年<br></br>
+                        <input type='checkbox'></input>20年以上(不包含20年)<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                        地點
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>北部<br></br>
+                        <input type='checkbox'></input>中部<br></br>
+                        <input type='checkbox'></input>南部<br></br>
+                        <input type='checkbox'></input>東部<br></br>
+                        <input type='checkbox'></input>離島<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                 </div>
