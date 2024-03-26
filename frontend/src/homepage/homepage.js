@@ -10,15 +10,12 @@ import violence from '../homepage/violence.jpg';
 import { Route, Routes, Link } from 'react-router-dom';
 import Findcase from '../Components/Findcase';
 import Category from '../Components/Category';
-import webdesign from './webdesign.png'
-import luanguage from './language.png'
-import softdesign from './softdesign.png'
-import writing from './writing.png'
-import product from './product.jpg'
-import cow from './cow.jpg'
-import MRG from './MRG.jpg'
-import beauty from './beauty.jpg'
-
+import luanguage from '../Components/img/language.png'
+import softdesign from '../Components/img/softdesign.png'
+import writing from '../Components/img/writing.png'
+import cow from '../Components/img/cow.jpg'
+import beauty from '../Components/img/beauty.jpg'
+import product from '../Components/img/product.jfif'
 
 
 function Homepage() {
