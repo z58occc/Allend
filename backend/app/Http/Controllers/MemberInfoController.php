@@ -11,10 +11,10 @@ use Throwable;
 
 class MemberInfoController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     // 獲取儀錶板
     public function dashboard(Request $request):JsonResponse

@@ -43,7 +43,7 @@ class AcceptanceIssueController extends Controller
         $data = DB::table('established_case')
         ->join('country','c_active_location','=','country_id')
         ->join('members','mid_service','=','mid')
-        ->select('cid','c_name','c_type','c_amount','country_city','c_duration','c_description','c_status','name','email','phone')
+        ->select('cid','c_name','c_type','c_amount','country_city','c_duration','c_description','c_status','name','email','mobile_phone')
         ->where('cid',$request->input('cid'));
 
         return response()->json($data->get());
@@ -99,7 +99,7 @@ class AcceptanceIssueController extends Controller
     }
 
     //案主給予評價
-    public function publicClose(Request $request){
+    public function publishEvaluation(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')
         ->where('cid',$cid)
@@ -109,7 +109,7 @@ class AcceptanceIssueController extends Controller
         return response()->json(['message'=>'Evaluate Success']);
     }
 
-    public function takeClose(Request $request){
+    public function takeEvaluation(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')
         ->where('cid',$cid)

@@ -52,6 +52,7 @@ Route::get('/talent/{mid}', TalentController::class);
 Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
 Route::get('/service_content/{sid}', ServiceContentController::class);
+
 // 送出報價表單
 Route::post('/quote', IWantQuoteController::class);//->middleware('auth:api');
 // 送出發案表單
@@ -70,8 +71,12 @@ Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //�
 Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的提交按鈕
 Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
 Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
-Route::post('/publicClose', [AcceptanceIssueController::class,'publicClose']); //發案者的評價按鈕
-Route::post('/takeClose', [AcceptanceIssueController::class,'takeClose']); //接案者的評價按鈕
+Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publicEvaluation']); //發案者的評價按鈕
+Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
+
+//結案畫面
+Route::get('/publishclose_view', [AcceptanceIssueController::class,'publishClose']); //結案畫面
+Route::get('/takeclose_view', [AcceptanceIssueController::class,'takeClose']); //結案畫面
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
@@ -102,6 +107,19 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/collection', 'getCollection');
 });//->middleware(['verified']);
 
+// 接發案內容
+Route::controller(AcceptanceIssueController::class)->group(function (){
+    Route::get('/pulish_view', 'publishgetData'); // 發案主的刊登中
+    Route::post('/pulish_save', 'publishsaveData'); // 刊登中按鈕
+    Route::get('/publish_progress_view', 'publishprogressData'); // 發案主的進行中
+    Route::post('/publish_recevice', 'receviceData'); // 發案主收到的按鈕
+    Route::get('/take_view', 'takegetData'); // 接案者的儲存變更按鈕
+    Route::post('/take_save', 'takesaveData'); // 接案者的提交按鈕
+    Route::get('/take_progress_view', 'takeprogressData'); // 接案者的進行中
+    Route::post('/take_submit', 'submitData'); // 接案者的提交按鈕
+    Route::post('/publicClose', 'publicClose'); // 發案者的評價按鈕
+    Route::post('/takeClose', 'takeClose'); // 接案者的評價按鈕
+});
 
 //會員服務管理，刪除
 // Route::get('/memservice',MemberServiceController::class);
@@ -124,26 +142,6 @@ Route::controller(MemberInfoController::class)->group(function(){
 // 會員接案紀錄
 // Route::get('/memTakeCase',MemberTakeCaseController::class);
 
-// 註冊、登入
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/register', 'register');
-    Route::post('/login', 'login')->name('login');
-    Route::post('/logout', 'logout');
-    Route::post('/updateprofiles', 'update')->middleware('verified');
-});
-// 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
-Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth:api', 'throttle:6,1'])
-    ->name('verifyemail');
-// 等待驗證網址 => 可以重發驗證信 (在前端寫頁面)
-Route::post('/waitverifyemail');
-// 重送驗證信按鈕
-Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-->middleware(['auth:api', 'throttle:6,1']);
 
-// 寄忘記密碼信
-Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
-// 完成修改密碼
-Route::post('/resetpwd', [NewPasswordController::class, 'store']);
 
 
