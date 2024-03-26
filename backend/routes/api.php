@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
-use App\Http\Controllers\demmandContentController;
+use App\Http\Controllers\DemmandContentController;
 use App\Http\Controllers\IFindCommitController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
@@ -42,9 +42,9 @@ use Illuminate\Database\Query\IndexHint;
 // 首頁
 Route::get('/index',IndexController::class);
 // 查看人才頁面
-Route::get('/Talent',TalentController::class);
+Route::get('/talent',TalentController::class);
 // 查看案件內容
-Route::get('/demmand_content',demmandContentController::class);
+Route::get('/demmand_content/{did}',DemmandContentController::class);
 // 查看服務內容
 Route::get('/service_content',ServiceContent::class);
 // 查看發案分類
