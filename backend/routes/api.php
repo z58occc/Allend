@@ -70,8 +70,12 @@ Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //�
 Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的提交按鈕
 Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
 Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
-Route::post('/publicClose', [AcceptanceIssueController::class,'publicClose']); //發案者的評價按鈕
-Route::post('/takeClose', [AcceptanceIssueController::class,'takeClose']); //接案者的評價按鈕
+Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publicEvaluation']); //發案者的評價按鈕
+Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
+
+//結案畫面
+Route::get('/publishclose_view', [AcceptanceIssueController::class,'publishClose']); //結案畫面
+Route::get('/takeclose_view', [AcceptanceIssueController::class,'takeClose']); //結案畫面
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
