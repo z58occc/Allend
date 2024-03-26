@@ -19,7 +19,7 @@ class TalentController extends Controller
             $project_query = DB::table('project')->where('mid',$userID);
             $video_query = DB::table('video')->where('mid',$userID);
             $service_query = DB::table('service')->where('mid',$userID);
-            
+
             //評價星星
             $total_start = $establised_query->sum('demmand_star');
             $count = $establised_query->count();

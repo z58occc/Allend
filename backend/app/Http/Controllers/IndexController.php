@@ -58,8 +58,8 @@ class IndexController extends Controller
             'members'=>$member_query->get(),
             'demmand'=>$dammand_query->orderBy('created_at','desc')->get(),
             'project'=>$project_query->get(),
-
         ];
+
         return response()->json($Date_response);
     }
 }
