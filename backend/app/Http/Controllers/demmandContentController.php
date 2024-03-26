@@ -11,7 +11,7 @@ class DemmandContentController extends Controller
     {
         // 呈現案件詳細訊息
         $query = DB::table('demmand')
-        ->select('did','d_name','d_type','updated_at','d_amount','d_active_location','d_duration','d_description')
+        ->select('did','d_name','d_type','updated_at','d_amount','d_active_location','d_duration','d_description','d_unit')
         ->where('did', $did);
 
         $query_mid = DB::table('demmand')->select('mid')->where('did',$did)->first();
