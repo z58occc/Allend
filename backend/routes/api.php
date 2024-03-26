@@ -18,6 +18,7 @@ use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\Pop_QuoteAgreeController;
 use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
 use App\Http\Controllers\PublishCaseDeleteController;
@@ -55,8 +56,10 @@ Route::get('/findpeople',IFindPeopleController::class);
 Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 送出發案表單
 Route::post('/commit_crime', CommitController::class);
-// 查看報價
-Route::get('/Pop_quote',Pop_QuoteContorller::class);
+// 查看報價、同意、不同意
+Route::get('/pop_quote',Pop_QuoteContorller::class);
+Route::get('/pop_agree',Pop_QuoteAgreeController::class,'Agree');
+Route::get('/pop_disagree',Pop_QuoteAgreeController::class,'Disagree');
 
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
@@ -87,6 +90,7 @@ Route::controller(MeMInfoController::class)->group(function(){
     // 我的收藏
     Route::post('/collection', 'getCollection');
 });//->middleware(['verified']);
+
 
 //會員服務管理，刪除
 // Route::get('/memservice',MemberServiceController::class);
