@@ -15,7 +15,7 @@ class Pop_QuoteAgreeController extends Controller
                     ->select('demmand.mid as demmand_mid','quote.mid as quote_mid','d_name','d_type','d_duration','d_description','d_active_location','q_amount')
                     ->where('quote.mid',$request->input('mid'))
                     ->get();
-            
+
             foreach($agree as $row){
                 DB::table('established_case')->insert([
                     'mid_demmand' => $row->demmand_mid,

@@ -58,8 +58,8 @@ Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 Route::post('/commit_crime', CommitController::class);
 // 查看報價、同意、不同意
 Route::get('/pop_quote',Pop_QuoteContorller::class);
-Route::get('/pop_agree',Pop_QuoteAgreeController::class,'Agree');
-Route::get('/pop_disagree',Pop_QuoteAgreeController::class,'Disagree');
+Route::get('/pop_agree',[Pop_QuoteAgreeController::class,'Agree']);
+Route::get('/pop_disagree',[Pop_QuoteAgreeController::class,'Disagree']);
 
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
