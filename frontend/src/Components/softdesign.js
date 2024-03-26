@@ -8,12 +8,11 @@ import beauty from '../homepage/beauty.jpg'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import cow from '../homepage/cow.jpg'
-import product from '../homepage/product.jpg'
+import MRG from '../homepage/MRG.jpg'
 
 
 
-function Findman() {
+function Softdesign() {
     return (
         <div className='container'>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -87,7 +86,7 @@ function Findman() {
                         <div className="col-sm-4  ">
                             <div className='card' >
                                 <div className="card-header">
-                                    <img src={beauty} style={{ width: "100%" }}></img>
+                                    <img src={MRG} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:beauty
@@ -102,7 +101,7 @@ function Findman() {
                                     <br></br>
                                     成交數:XX
                                     <hr></hr>
-                                    專長:網站設計
+                                    專長:軟體程式
                                 </Link>
                                 <div className="card-footer">
                                     <FaHeart color='red'></FaHeart>
@@ -110,58 +109,7 @@ function Findman() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-4  ">
-                            <div className='card'>
-                                <div className="card-header">
-                                    <img src={cow} style={{ width: "100%" }}></img>
-                                </div>
-                                <Link to='/talent' className="card-body">
-                                    會員名稱:cow
-                                    <br></br>
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <br></br>
-                                    作品數:XX
-                                    <br></br>
-                                    成交數:XX
-                                    <hr></hr>
-                                    專長:網站設計
-                                </Link>
-                                <div className="card-footer">
-                                    <FaHeart color='red'></FaHeart>
-                                    <Buttom1></Buttom1>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-4  ">
-                            <div className='card'>
-                                <div className="card-header">
-                                    <img src={product} style={{ width: "100%" }}></img>
-                                </div>
-                                <Link to='/talent' className="card-body">
-                                    會員名稱:product
-                                    <br></br>
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <br></br>
-                                    作品數:XX
-                                    <br></br>
-                                    成交數:XX
-                                    <hr></hr>
-                                    專長:網站設計
-                                </Link>
-                                <div className="card-footer">
-                                    <FaHeart color='red'></FaHeart>
-                                    <Buttom1></Buttom1>
-                                </div>
-                            </div>
-                        </div>
+                        
                         
 
 
@@ -177,4 +125,4 @@ function Findman() {
     )
 }
 
-export default Findman
+export default Softdesign

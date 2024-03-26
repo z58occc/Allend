@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Throwable;
 
-class MeMInfoController extends Controller
+class MemberInfoController extends Controller
 {
     // public function __construct()
     // {

@@ -26,6 +26,7 @@ class Pop_QuoteAgreeController extends Controller
                     'c_description'=>$row->d_description,
                     'c_active_location'=>$row->d_active_location,
                     'c_amount'=>$row->q_amount,
+                    'c_status'=>1
                 ]);
             }
             DB::table('quote')->where('mid',$request->input('mid'))->delete();
