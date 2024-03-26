@@ -9,24 +9,25 @@ class IFindPeopleController extends Controller
 {
     public function __invoke(Request $request)
     {
+        // return $request->order;
         $query = DB::table('service');
         $member_query = DB::table('members');
         $establised_query = DB::table('established_case');
         $project_query = DB::table('project');
-        
-        //給類別
+
+        // 選擇類別
         if($request->has('s_type')){
             $query->where('s_type',$request->s_type);
         }
-        //接案身分 
+        // 選擇接案者身分
         if($$request->has('identity')){
             $member_query->whereIn('identity',explode(',',$request->identity));
         }
-        //給年資
+        // 選擇年資
         if($request->has('seniority')){
             $member_query->whereIn('seniority',explode(',',$request->seniority));
         }
-        //給地點 
+        // 選擇地點
         if($request->has('s_acitve_location')){
             $query->whereIn('s_acitve_location',explode(',',$request->s_acitve_location));
         }
@@ -59,7 +60,7 @@ class IFindPeopleController extends Controller
         }else{
                 $member_query->orderBy('last_login','desc');
             }
-        
+
         $Data_response=[
             'service'=>$query->get(),
             'members'=>$member_query->get(),

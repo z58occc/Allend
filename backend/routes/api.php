@@ -14,11 +14,11 @@ use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IWantQuoteController;
+use App\Http\Controllers\MemberInfoController;
 use App\Http\Controllers\MemberServiceController;
 use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MemberTakeCaseDeleteController;
-use App\Http\Controllers\MeMInfoController;
 use App\Http\Controllers\Pop_QuoteAgreeController;
 use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
@@ -28,7 +28,6 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
-use Illuminate\Database\Query\IndexHint;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,18 +44,18 @@ use Illuminate\Database\Query\IndexHint;
 Route::get('/index', IndexController::class);
 // 查看我要接案
 Route::get('/findcase/{d_type?}', IFindCaseController::class);
-// 查看我要找人
+// 查看我要找人.
 Route::get('/findpeople', IFindPeopleController::class);
 // 查看人才頁面
-Route::get('/talent', TalentController::class);
+Route::get('/talent/{mid}', TalentController::class);
 // 查看案件內容
 Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
 Route::get('/service_content/{sid}', ServiceContentController::class);
 // 送出報價表單
-Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
+Route::post('/quote', IWantQuoteController::class);//->middleware('auth:api');
 // 送出發案表單
-Route::post('/commit_crime', CommitController::class);
+Route::post('/commit_crime', CommitController::class);//->middleware('auth:api');
 // 查看報價、同意、不同意
 Route::get('/pop_quote', Pop_QuoteContorller::class);
 Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);
@@ -74,7 +73,7 @@ Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //
 Route::post('/publicClose', [AcceptanceIssueController::class,'publicClose']); //發案者的評價按鈕
 Route::post('/takeClose', [AcceptanceIssueController::class,'takeClose']); //接案者的評價按鈕
 // 會員功能
-Route::controller(MeMInfoController::class)->group(function(){
+Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
     Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
