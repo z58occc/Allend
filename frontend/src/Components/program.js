@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from '../homepage/Footer';
-import Category from './Category'
+import Category2 from './Category2'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Buttom1 from './Buttom1';
 import product from '../Components/img/product.jfif'
 import product2 from './img/product2.jfif'
 import product3 from './img/product3.jpg'
+import programdesign from './img/programdesign.jpg'
 
 
 
@@ -28,7 +29,7 @@ function Program() {
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
-            <Category></Category>
+            <Category2></Category2>
             <hr></hr>
             <div className='row'>
 
@@ -89,7 +90,7 @@ function Program() {
                         <div className="col-sm-4  ">
                             <div className='card' >
                                 <div className="card-header">
-                                    <img src={product} style={{ width: "100%" }}></img>
+                                    <img src={programdesign} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:beauty
@@ -104,7 +105,7 @@ function Program() {
                                     <br></br>
                                     成交數:XX
                                     <hr></hr>
-                                    專長:網站設計
+                                    專長:程式設計
                                 </Link>
                                 <div className="card-footer">
                                     <FaHeart color='red'></FaHeart>

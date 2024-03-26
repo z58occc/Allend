@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from '../homepage/Footer';
-import Category from './Category'
+import Category2 from './Category2'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
@@ -28,7 +28,7 @@ function Findman() {
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
-            <Category></Category>
+            <Category2></Category2>
             <hr></hr>
             <div className='row'>
 

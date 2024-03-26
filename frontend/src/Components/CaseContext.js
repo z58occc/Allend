@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from './Footer'
+import Footer from '../homepage/Footer'
 import { VscAccount } from "react-icons/vsc";
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
@@ -62,7 +62,7 @@ function CaseContext() {
                     <FaHeart style={{ color: 'red' }} />
                 </div>
             </div>
-            <div className='mt-5'>提醒:請勿在非公開場所赴約</div>
+            <div className='mt-5 '>提醒:請勿在非公開場所赴約</div>
 
 
 
@@ -101,6 +101,12 @@ function CaseContext() {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            
 
             <Footer></Footer>
         </div>
