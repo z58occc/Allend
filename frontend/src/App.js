@@ -28,6 +28,7 @@ function App() {
   const [color, setColor] = useState("silver");
   const [color2, setColor2] = useState("silver");
   const [showRegister, setShowRegister] = useState(false);
+  
 
   const [showLogin, setShowLogin] = useState(false);
   const handleClose = () => setShowLogin(false);
@@ -74,7 +75,7 @@ function App() {
   //       password_confirmation: RegisterConfPassword.current.value,
   //     },
   //   })
- 
+
   //   .then((res) => {return res.data;})
   //   .then((data) => {
   //     console.log(data);
@@ -173,6 +174,13 @@ function App() {
   const handleClick2 = () => {
     setColor2(color2 === "red" ? "blue" : "red");
   };
+
+
+
+
+
+
+
 
   return (
     <>
@@ -364,8 +372,11 @@ function App() {
               <Form.Control
                 type="email"
                 placeholder="Enter email"
+                required
                 ref={RegisterEmail}
+                
               />
+             
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>密碼</Form.Label>
