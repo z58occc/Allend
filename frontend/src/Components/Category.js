@@ -25,21 +25,21 @@ function Category() {
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-                        <Link to='/findman' >
+                        <Link to='/softdesign' >
                             <div >軟體程式</div>
                             <RiMiniProgramFill size={50}></RiMiniProgramFill>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-                        <Link to='/findman' >
+                        <Link to='/word' >
                             <div >文字語言</div>
                             <LuLanguages size={50}></LuLanguages>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 ">
-                        <Link to='/findman' >
+                        <Link to='/pro' >
                             <div >專業諮詢</div>
                             <FcAssistant size={50}></FcAssistant>
                         </Link>

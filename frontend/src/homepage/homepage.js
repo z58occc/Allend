@@ -14,6 +14,10 @@ import webdesign from './webdesign.png'
 import luanguage from './language.png'
 import softdesign from './softdesign.png'
 import writing from './writing.png'
+import product from './product.jpg'
+import cow from './cow.jpg'
+import MRG from './MRG.jpg'
+import beauty from './beauty.jpg'
 
 
 
@@ -43,12 +47,12 @@ function Homepage() {
       <br></br>
 
 
-      <div className='fakeimg mt-5'>新手教學?</div>
+      <div className=' mt-5'>新手教學</div>
       {/* 最新服務 */}
       <div className="row mt-5">
         <p>最新服務:</p>
         <div className="col-sm-4 " >
-          <Link to='./serve' className="card" >
+          <Link to='./serve' className="card" style={{width:"75%",fontSize:"10px"}} >
             <div className="card-header">
               <img src={writing} style={{ width: "100%" }}></img>
             </div>
@@ -63,7 +67,7 @@ function Homepage() {
           </Link>
         </div>
         <Link to='./serve' className="col-sm-4 ">
-          <div class="card">
+          <div class="card" style={{width:"75%",fontSize:"10px"}}>
             <div class="card-header">
               <img src={luanguage} style={{ width: "100%" }}></img>
             </div>
@@ -78,7 +82,7 @@ function Homepage() {
           </div>
         </Link>
         <Link to='./serve' className="col-sm-4 ">
-          <div class="card">
+          <div class="card" style={{width:"75%",fontSize:"10px"}}>
             <div class="card-header">
               <img src={softdesign} style={{ width: "100%" }}></img>
             </div>
@@ -105,7 +109,7 @@ function Homepage() {
       {/* 最新刊登 */}
       <div className='row mt-5'>
         <p>最新刊登:</p>
-        <Link to="./casecontext" className='col-sm-4'>
+        <Link to="./casecontext" className='col-sm-4'style={{width:"30%"}}>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">
@@ -126,7 +130,7 @@ function Homepage() {
             </div>
           </div>
         </Link>
-        <Link to="./casecontext" className='col-sm-4'>
+        <Link to="./casecontext" className='col-sm-4' style={{width:"30%"}}>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">
@@ -147,7 +151,7 @@ function Homepage() {
             </div>
           </div>
         </Link>
-        <Link to="./casecontext" className='col-sm-4'>
+        <Link to="./casecontext" className='col-sm-4' style={{width:"30%"}}>
           <div class="toast show ">
             <div class="toast-header">
               <strong class="me-auto">
@@ -173,9 +177,9 @@ function Homepage() {
 
 
       </div>
-      <Carousel className='mt-5 bg-primary'>
-        <Carousel.Item>
-          <img src={logo} text="First slide" />
+      <Carousel className='mt-5 'style={{ width: "50%" }}>
+        <Carousel.Item >
+          <img src={product}  text="First slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>
@@ -183,7 +187,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={logo} text="Second slide" />
+          <img src={cow}  text="Second slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>
@@ -191,7 +195,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={logo} text="Third slide" />
+          <img src={beauty}  text="Third slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>

@@ -8,6 +8,8 @@ import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link } from 'react-router-dom';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+
 
 
 function Findcase() {
@@ -49,9 +51,10 @@ function Findcase() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">5000以下</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">5001~1萬</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">1萬~5萬</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">5萬~10萬</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
