@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Throwable;
 
@@ -82,22 +83,54 @@ class MemberInfoController extends Controller
             return response('無效的請求');
         }
         $user = Auth::user();
-        $user_info = DB::table('members')->select(['email',
-                                                    'identity',
-                                                    'nickname',
-                                                    'seniority',
-                                                    'active_location',
-                                                    'mobile_phone',
-                                                    'name',
-                                                    'id_card',
-                                                    'gender',
-                                                    'location',
-                                                    ])
-                                        ->where('mid', $user->mid)->first();
-        return response()->json([
-            // 看要撈什麼資料
-            $user_info
-        ]);
+        $user_info = DB::table('members')
+        ->join('identity', 'members.identity', '=', 'identity.iid')
+        ->join('country as c1', 'c1.country_id', '=', 'active_location')
+        ->join('country as c2', 'c2.country_id', '=', 'location')
+        ->select(['email',
+                'i_identity as identity',
+                'nickname',
+                'seniority as experience',
+                'c1.country_city as locations',
+                'mobile_phone as phone',
+                'name',
+                'id_card as idCard',
+                'gender',
+                'c2.country_city as area',
+                ])
+        ->where('mid', $user->mid)->first();
+        // 確保沒有null值出去
+        foreach($user_info as $key => &$value){
+            if ($value === null){
+                $user_info->$key = "";
+            }
+        }
+        return response()->json($user_info);
+    }
+
+    // 修改密碼
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        try{
+            $request->validate([
+                'oldpassword' => ['required'],
+                'password' => ['required', 'confirmed', ]
+            ]);
+        }catch (Throwable $err){
+            return response()->json([
+                'message' => '資料有誤，重新輸入'
+            ]);
+        }
+        if (Hash::make($request->oldpassword) === DB::table('members')->select('password')->where('mid', $user->mid)->first()){
+            DB::create([
+                'password' => Hash::make($request->password)
+            ]);
+        }else{
+            return response()->json([
+                'message' => '舊密碼有誤，請重新輸入'
+            ]);
+        }
     }
 
     // 獲取接案紀錄
