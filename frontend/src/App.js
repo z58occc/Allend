@@ -20,6 +20,8 @@ import Word from "./Components/word";
 import Pro from "./Components/pro";
 import program from "./Components/program"
 import Program from "./Components/program";
+import casecontext from "./Components/CaseContext"
+import CaseContext from "./Components/CaseContext";
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -256,6 +258,8 @@ function App() {
         <Route path="/word" element={<Word></Word>}></Route>
         <Route path="/pro" element={<Pro></Pro>}></Route>
         <Route path="/program" element={<Program></Program>}></Route>
+        <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
+
       </Routes>
 
       {/* 登入 */}
