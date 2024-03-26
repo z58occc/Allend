@@ -10,24 +10,10 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         //最新服務
-        $query = DB::table('service')->select('s_name','s_amount','created_at','image');
-        $member_query = DB::table('members')->select('name');
-
-        //服務名稱
-        if($request->has('s_name')){
-            $query->where('s_name',$request->s_name);
-        }
-        //價錢
-        if($request->has('s_amount')){
-            $query->where('s_amount',$request->s_amount);
-        }
-        //服務人名稱
-        if($request->has('name')){
-            $member_query->where('name',$request->name);
-        }
-        if($request->has('created_at')){
-            $query->where('created_at',$request->created_at);
-        }
+        $query = DB::table('service')
+                ->join('members','service.mid','=','members.mid')
+                ->select('s_name','s_amount','service.created_at','name');
+        
 
         //最新刊登
         $dammand_query = DB::table('demmand')->select('d_name','d_amount','d_active_location','created_at');
@@ -55,7 +41,6 @@ class IndexController extends Controller
         }
         $Date_response = [
             'service' => $query->orderBy('created_at','desc')->get(),
-            'members'=>$member_query->get(),
             'demmand'=>$dammand_query->orderBy('created_at','desc')->get(),
             'project'=>$project_query->get(),
 
