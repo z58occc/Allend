@@ -10,6 +10,10 @@ import violence from '../homepage/violence.jpg';
 import { Route, Routes, Link } from 'react-router-dom';
 import Findcase from '../Components/Findcase';
 import Category from '../Components/Category';
+import webdesign from './webdesign.png'
+import luanguage from './language.png'
+import softdesign from './softdesign.png'
+import writing from './writing.png'
 
 
 
@@ -29,7 +33,7 @@ function Homepage() {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
       </div>
@@ -43,31 +47,51 @@ function Homepage() {
       {/* 最新服務 */}
       <div className="row mt-5">
         <p>最新服務:</p>
-        <div className="col-sm-4 ">
-          <div className="card" >
-            <div className="card-header"><img src={violence} style={{ width: 200 }}></img></div>
+        <div className="col-sm-4 " >
+          <Link to='./serve' className="card" >
+            <div className="card-header">
+              <img src={writing} style={{ width: "100%" }}></img>
+            </div>
             <div className="card-body">
-              揍你一拳
+              文案寫作
               <br></br>
-              $1000/拳
+              $1000/件
               <hr></hr>
-              接案人名稱:林一拳
+              接案人名稱:林*拳
             </div>
             <div className="card-footer " style={{ justifyContent: 'end' }}>2024/03/18</div>
-          </div>
+          </Link>
         </div>
         <Link to='./serve' className="col-sm-4 ">
           <div class="card">
-            <div class="card-header">Header</div>
-            <div class="card-body">Content</div>
-            <div class="card-footer">Footer</div>
+            <div class="card-header">
+              <img src={luanguage} style={{ width: "100%" }}></img>
+            </div>
+            <div class="card-body">
+              文字翻譯
+              <br></br>
+              $500/件
+              <hr></hr>
+              接案人名稱:朱*恆
+            </div>
+            <div class="card-footer">2024/03/26</div>
           </div>
         </Link>
         <Link to='./serve' className="col-sm-4 ">
           <div class="card">
-            <div class="card-header">Header</div>
-            <div class="card-body">Content</div>
-            <div class="card-footer">Footer</div>
+            <div class="card-header">
+              <img src={softdesign} style={{ width: "100%" }}></img>
+            </div>
+            <div class="card-body">
+              軟體設計
+              <br></br>
+              $1000/件
+              <hr></hr>
+              接案人名稱:李*林
+            </div>
+            <div class="card-footer">
+              2024/03/26
+            </div>
           </div>
         </Link>
 
@@ -84,33 +108,67 @@ function Homepage() {
         <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
-              <strong class="me-auto">Toast Header</strong>
+              <strong class="me-auto">
+                網站架設人員
+                <br></br>
+                預算:$30000/月
+              </strong>
+              <span style={{ float: 'right' }}>短期</span>
             </div>
             <div class="toast-body">
-              <p>Some text inside the toast body</p>
+              <p>
+                刊登日期:2024/03/26
+                <br></br>
+                地點:高雄
+                <hr></hr>
+                1人報價中
+              </p>
             </div>
           </div>
         </Link>
         <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
-              <strong class="me-auto">Toast Header</strong>
+              <strong class="me-auto">
+                影片字幕聽打
+                <br></br>
+                預算:$1000/件
+              </strong>
+              <span style={{ float: 'right' }}>長期</span>
             </div>
             <div class="toast-body">
-              <p>Some text inside the toast body</p>
+              <p>
+                刊登日期:2024/03/26
+                <br></br>
+                地點:台北
+                <hr></hr>
+                1人報價中
+              </p>
             </div>
           </div>
         </Link>
         <Link to="./casecontext" className='col-sm-4'>
           <div class="toast show ">
             <div class="toast-header">
-              <strong class="me-auto">Toast Header</strong>
+              <strong class="me-auto">
+                英文翻譯人員
+                <br></br>
+                預算:$30000/月
+              </strong>
+              <span style={{ float: 'right' }}>長期</span>
             </div>
             <div class="toast-body">
-              <p>Some text inside the toast body</p>
+              <p>
+                刊登日期:2024/03/26
+                <br></br>
+                地點:
+                <hr></hr>
+                1人報價中
+              </p>
             </div>
           </div>
         </Link>
+
 
 
 
