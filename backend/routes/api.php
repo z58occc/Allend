@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DemmandContentController;
-use App\Http\Controllers\IFindCommitController;
+use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\IWantQuoteController;
@@ -42,29 +42,29 @@ use Illuminate\Database\Query\IndexHint;
 */
 
 // 首頁
-Route::get('/index',IndexController::class);
+Route::get('/index', IndexController::class);
+// 查看我要接案
+Route::get('/findcase/{d_type?}', IFindCaseController::class);
+// 查看我要找人
+Route::get('/findpeople', IFindPeopleController::class);
 // 查看人才頁面
-Route::get('/talent',TalentController::class);
+Route::get('/talent', TalentController::class);
 // 查看案件內容
-Route::get('/demmand_content/{did}',DemmandContentController::class);
+Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
-Route::get('/service_content/{sid}',ServiceContentController::class);
-// 查看發案分類
-Route::get('/findcommmit',IFindCommitController::class);
-// 查看服務分類
-Route::get('/findpeople',IFindPeopleController::class);
+Route::get('/service_content/{sid}', ServiceContentController::class);
 // 送出報價表單
 Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 送出發案表單
 Route::post('/commit_crime', CommitController::class);
 // 查看報價、同意、不同意
-Route::get('/pop_quote',Pop_QuoteContorller::class);
-Route::get('/pop_agree',[Pop_QuoteAgreeController::class,'Agree']);
-Route::get('/pop_disagree',[Pop_QuoteAgreeController::class,'Disagree']);
+Route::get('/pop_quote', Pop_QuoteContorller::class);
+Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);
+Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'Disagree']);
 
 // 接發案內容
-Route::get('/pulish_view',AcceptanceIssueController::class,'getData');
-Route::post('/pulish_save',AcceptanceIssueController::class,'saveData');
+Route::get('/pulish_view', [AcceptanceIssueController::class,'getData']);
+Route::post('/pulish_save', [AcceptanceIssueController::class,'saveData']);
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
@@ -79,7 +79,7 @@ Route::controller(MeMInfoController::class)->group(function(){
     // 獲取發案紀錄
     Route::get('/mempublishcase', 'getPublishCase');
     // 刪除發案紀錄
-    Route::post('delpublishcase', 'delPublishCase');
+    Route::post('/delpublishcase', 'delPublishCase');
 
     // 獲取服務管理頁面
     Route::get('/memservice', 'getService');
