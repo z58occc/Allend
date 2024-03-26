@@ -47,7 +47,7 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
               <strong>報價金額:</strong>
-                {data= [] ? 0 : data[number].q_amount}
+                {data.length ===0  ? 0 : data[number].q_amount}
             </div>
           </div>
           <div>
