@@ -241,10 +241,7 @@ function App() {
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase" element={<Findcase></Findcase>}></Route>
         <Route path="/findman" element={<Findman></Findman>}></Route>
-        <Route
-          path="/ProjectForm"
-          element={<ProjectForm></ProjectForm>}
-        ></Route>
+        <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/talent" element={<Talent></Talent>}></Route>
         <Route path="/email" element={<Email></Email>}></Route>

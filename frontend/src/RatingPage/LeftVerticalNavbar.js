@@ -10,20 +10,20 @@ import member from './member.png';
 const LeftVerticalNavbar = () => {
     const navItems = [
         { link: '/member', text: '會員中心' },
-        { link: '#about', text: '會員維護' },
+        { link: '/email', text: '會員維護' },
         { link: '#services', text: '案件管理' },
         { link: '#contact', text: '服務管理' },
         { link: '#favorite', text: '收藏管理' },
-      ];
-    
-      const userProfile = {
+    ];
+
+    const userProfile = {
         name: '會員',
         // 填入您的大頭貼圖片 URL
-      };
+    };
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '' }}>
             <Navbar.Brand>
-            <Image src={member} roundedCircle className="mr-2" width="100" height="100" />
+                <Image src={member} roundedCircle className="mr-2" width="100" height="100" />
             </Navbar.Brand>
             <Navbar.Text style={{ fontSize: '20px' }}>{userProfile.name}</Navbar.Text>
 

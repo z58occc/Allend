@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 
-// 发案人填写资料
+// 發案人填写资料
 function ClientForm() {
   const [formData, setFormData] = useState({
     companyName: "",
