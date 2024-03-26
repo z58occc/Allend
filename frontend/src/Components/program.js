@@ -7,11 +7,15 @@ import { Link } from 'react-router-dom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import language from './img/language.png'
+import product from '../Components/img/product.jfif'
+import product2 from './img/product2.jfif'
+import product3 from './img/product3.jpg'
+import programdesign from './img/programdesign.jpg'
 
 
 
-function Word() {
+
+function Program() {
     return (
         <div className='container'>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -34,41 +38,42 @@ function Word() {
                     <div style={{ border: 'solid' }}>
                         接案人專長
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
+                        <input type='checkbox'></input>程式設計<br></br>
                         <input type='checkbox'></input>軟體程式<br></br>
                         <input type='checkbox'></input>文字語言<br></br>
                         <input type='checkbox'></input>網站設計<br></br>
                         <input type='checkbox'></input>專業諮詢<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                        接案人身分
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>個人<br></br>
+                        <input type='checkbox'></input>公司<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                    年資
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>5年以下(含5年)<br></br>
+                        <input type='checkbox'></input>6~10 年<br></br>
+                        <input type='checkbox'></input>11~15 年<br></br>
+                        <input type='checkbox'></input>16~20年<br></br>
+                        <input type='checkbox'></input>20年以上(不包含20年)<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                     <div style={{ border: 'solid' }}>
-                        接案人專長
+                        地點
                         <hr></hr>
-                        <input type='checkbox'></input>平面設計<br></br>
-                        <input type='checkbox'></input>軟體程式<br></br>
-                        <input type='checkbox'></input>文字語言<br></br>
-                        <input type='checkbox'></input>網站設計<br></br>
-                        <input type='checkbox'></input>專業諮詢<br></br>
+                        <input type='checkbox'></input>北部<br></br>
+                        <input type='checkbox'></input>中部<br></br>
+                        <input type='checkbox'></input>南部<br></br>
+                        <input type='checkbox'></input>東部<br></br>
+                        <input type='checkbox'></input>離島<br></br>
+                        <br></br>
                     </div>
                     <br></br>
                 </div>
@@ -85,7 +90,7 @@ function Word() {
                         <div className="col-sm-4  ">
                             <div className='card' >
                                 <div className="card-header">
-                                    <img src={language} style={{ width: "100%" }}></img>
+                                    <img src={programdesign} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:beauty
@@ -100,7 +105,7 @@ function Word() {
                                     <br></br>
                                     成交數:XX
                                     <hr></hr>
-                                    專長:文字語言
+                                    專長:程式設計
                                 </Link>
                                 <div className="card-footer">
                                     <FaHeart color='red'></FaHeart>
@@ -124,4 +129,4 @@ function Word() {
     )
 }
 
-export default Word
+export default Program

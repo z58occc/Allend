@@ -1,14 +1,14 @@
 import React from 'react'
 import Footer from '../homepage/Footer';
-import Category from './Category'
+import Category2 from './Category2'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
-import beauty from '../homepage/beauty.jpg'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import MRG from '../homepage/MRG.jpg'
+import softdesign from './img/softdesign.jpg'
+import softdesign2 from './img/softdesign2.jpg'
 
 
 
@@ -26,7 +26,7 @@ function Softdesign() {
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
-            <Category></Category>
+            <Category2></Category2>
             <hr></hr>
             <div className='row'>
 
@@ -86,7 +86,33 @@ function Softdesign() {
                         <div className="col-sm-4  ">
                             <div className='card' >
                                 <div className="card-header">
-                                    <img src={MRG} style={{ width: "100%" }}></img>
+                                    <img src={softdesign} style={{ width: "100%" }}></img>
+                                </div>
+                                <Link to='/talent' className="card-body">
+                                    會員名稱:beauty
+                                    <br></br>
+                                    <CiStar />
+                                    <CiStar />
+                                    <CiStar />
+                                    <CiStar />
+                                    <CiStar />
+                                    <br></br>
+                                    作品數:XX
+                                    <br></br>
+                                    成交數:XX
+                                    <hr></hr>
+                                    專長:軟體程式
+                                </Link>
+                                <div className="card-footer">
+                                    <FaHeart color='red'></FaHeart>
+                                    <Buttom1></Buttom1>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-4  ">
+                            <div className='card' >
+                                <div className="card-header">
+                                    <img src={softdesign2} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:beauty

@@ -22,7 +22,6 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-
         try{
             $request->validate([
             'token' => ['required'],

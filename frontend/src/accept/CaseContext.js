@@ -1,79 +1,111 @@
-import { createContext,useEffect,useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 const CaseContext = createContext();
 
 export const CaseProvider = ({ children }) => {
-//     const response =  axios.get('http://127.0.0.1/Allend/backend/public/api/memberTakeCase', {
-//       params: {
-//         mid: 5 
-//       },
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//     })
-//     // const jsonObj = await response.json()
-//     console.log(response)
 
-const fetchdata = () => {
-  axios.get('http://127.0.0.1/Allend/backend/public/api/memberTakeCase',
-  {
-    params: {
-      mid: 5 
-    },
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-  .then((res)=>{
-    console.log(res)
-    setCase(res.data)
-  }).then((data)=>{
-    console.log(data)
-  })
-}
-useEffect(()=>{
-  fetchdata()
-}, [])
-    const [Case, setCase] = useState
-    (
+  const [Case, setCase] = useState({
+    "Quote": [
+      {
+        "d_name": "",
+        "q_amount": 0
+      },
+    ],
+    "CaseInProgress": [
+      {
+        "c_name": "",
+        "c_amount": 0
+      },
 
-      [
-        { 
-        caseNumber: '1',
-        caseName: '案件1',
-        caseCategory: '建築',
-        location: '台北市',
-        budgetAmount: 100000,
-        startDate: '2024/03/20',
-        endDate: '2024/04/10',
-        contractorName: '王小明',
-        contractorEmail: 'wang@example.com',
-        contractorPhone: '0912345678',
-        amount: 'NTD$ 5000',
-        count: 5,
+    ],
+    "CaseCompleted": [
+      {
+        "c_name": "",
+        "c_amount": 0
+      }
+    ]
+  })
+  // useEffect(() => {
+  //   const fetchData =  async () => {
+  //     try {
+  //         axios.get('http://127.0.0.1/Allend/backend/public/api/memtakecase', {
+  //         params: {
+  //           mid: 3 
+  //         },
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //       }).then((res)=>{
+
+  //         setCase(res.data)
+  //       })
+  //       ;
+
+  //     } catch (error) {
+  //       console.error('Fetch error:', error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []); 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://127.0.0.1:8000/api/memtakecase', {
+        params: {
+          mid: 1
         },
-        { 
-        caseNumber: '2',
-        caseName: '案件2',
-        caseCategory: '建築',
-        location: '台北市',
-        budgetAmount: '$100,000',
-        startDate: '2024/03/20',
-        endDate: '2024/04/10',
-        contractorName: '王',
-        contractorEmail: 'wang@example.com',
-        contractorPhone: '0912345678',
-        amount: 'NTD$ 5000',
-        count: 5,
+        headers: {
+          'Content-Type': 'application/json'
         },
-      ]
-    );
-  
-    return (
-      <CaseContext.Provider value={{ Case, setCase }}>
-        {children}
-      </CaseContext.Provider>
-    );
-  };
-  
-  export default CaseContext;
+      }
+      )
+
+      setCase(result.data)
+    }
+
+    fetchData()
+  }, [])
+
+
+
+
+
+
+  // const [Case, setCase] = useState
+  // (
+  //   {
+  //     "Quote": [
+  //         {
+  //             "d_name": "網站設計",
+  //             "q_amount": "10000"
+  //         },
+  //         {
+  //             "d_name": "設計",
+  //             "q_amount": "20000"
+  //         },
+  //     ],
+  //     "CaseInProgress": [
+  //         {
+  //             "c_name": "流行音樂網站",
+  //             "c_amount": 3000
+  //         }
+  //     ],
+  //     "CaseCompleted": [
+  //         {
+  //             "c_name": "loopcode",
+  //             "c_amount": 20000
+  //         }
+  //     ]
+  //   }
+
+  // );
+
+  return (
+    <CaseContext.Provider value={{ Case, setCase }}>
+      {children}
+    </CaseContext.Provider>
+  );
+};
+
+export default CaseContext;

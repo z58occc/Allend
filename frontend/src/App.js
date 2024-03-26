@@ -18,12 +18,17 @@ import Cookies from "js-cookie";
 import Softdesign from "./Components/softdesign"
 import Word from "./Components/word";
 import Pro from "./Components/pro";
+import program from "./Components/program"
+import Program from "./Components/program";
+import casecontext from "./Components/CaseContext"
+import CaseContext from "./Components/CaseContext";
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [color, setColor] = useState("silver");
   const [color2, setColor2] = useState("silver");
   const [showRegister, setShowRegister] = useState(false);
+  
 
   const [showLogin, setShowLogin] = useState(false);
   const handleClose = () => setShowLogin(false);
@@ -70,7 +75,7 @@ function App() {
   //       password_confirmation: RegisterConfPassword.current.value,
   //     },
   //   })
- 
+
   //   .then((res) => {return res.data;})
   //   .then((data) => {
   //     console.log(data);
@@ -170,6 +175,13 @@ function App() {
     setColor2(color2 === "red" ? "blue" : "red");
   };
 
+
+
+
+
+
+
+
   return (
     <>
       <div
@@ -253,6 +265,9 @@ function App() {
         <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
         <Route path="/word" element={<Word></Word>}></Route>
         <Route path="/pro" element={<Pro></Pro>}></Route>
+        <Route path="/program" element={<Program></Program>}></Route>
+        <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
+
       </Routes>
 
       {/* 登入 */}
@@ -357,8 +372,11 @@ function App() {
               <Form.Control
                 type="email"
                 placeholder="Enter email"
+                required
                 ref={RegisterEmail}
+                
               />
+             
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>密碼</Form.Label>

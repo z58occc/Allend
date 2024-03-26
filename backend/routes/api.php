@@ -28,6 +28,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,13 +78,35 @@ Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation
 //結案畫面
 Route::get('/publishclose_view', [AcceptanceIssueController::class,'publishClose']); //結案畫面
 Route::get('/takeclose_view', [AcceptanceIssueController::class,'takeClose']); //結案畫面
+
+Route::controller(AuthController::class)->group(function(){
+    // 註冊
+    Route::post('/register', 'register');
+    // 登入
+    Route::post('/login', 'login');
+    // 更新資料
+    Route::post('/updateprofiles', 'update');
+    // 登出
+    Route::post('/logout', 'logout');
+});//->middleware('auth:api');
+// 忘記密碼(發信)
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
+// 重設密碼
+Route::post('/reset-password', [NewPasswordController::class, 'store']);
+// 信箱驗證
+Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+                ->middleware(['auth:api', 'throttle:6,1']);
+// 重寄驗證信
+Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
+                ->middleware(['auth', 'throttle:6,1']);
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
     Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
-
+    // 修改密碼
+    Route::post('/fixp', 'updatePassword');
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
     // 刪除接案紀錄

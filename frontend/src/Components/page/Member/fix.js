@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Button, Alert, Container,Col,Row } from "react-bootstrap";
+import { Form, Button, Alert, Container, Col, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
-import './fix.css';
+import "./fix.css";
+import Cookies from "js-cookie";
 
 // 修改密碼
 function PasswordForm() {
@@ -18,13 +19,17 @@ function PasswordForm() {
       setMessage("新密碼與確認新密碼不一致");
       return; // 返回以防止後續的 Axios 請求
     }
+    const cookie = Cookies.get("token");
     axios({
       method: "post",
       url: "http://localhost/PHP/Allend/backend/public/api/resetpwd",
       data: {
-        email: null,
+        oldpassword: oldPassword,
         password: newPassword,
         password_confirmation: confirmNewPassword,
+      },
+      headers: {
+        Authorization: "Bearer " + cookie,
       },
     })
       .then((res) => {
@@ -44,60 +49,59 @@ function PasswordForm() {
 
   return (
     <>
-    <Container>
-      <Row>
-        <Col sm={2}>
-          <LeftVerticalNavbar />
-        </Col>
-
-        <Col sm={6}>
-            
-              
-              <div> 
-                <h2>修改密碼</h2>
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group controlId="formOldPassword">
-                    <Form.Label>舊密碼：</Form.Label>
-                    <Form.Control
-                      type="password"
-                      value={oldPassword}
-                      onChange={(e) => setOldPassword(e.target.value)}
-                      required
-                      style={{ width: "100%" }}
-                    />
+      <Container>
+        <Row>
+          <Col sm={2}>
+            <LeftVerticalNavbar />
+          </Col>
+          <Col sm={10}>
+            <Row className="justify-content-center">
+              <Col sm={6}>
+                <div>
+                  <h2>修改密碼</h2>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formOldPassword">
+                      <Form.Label>舊密碼：</Form.Label>
+                      <Form.Control
+                        type="password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        required
+                        style={{ width: "100%" }}
+                      />
+                      <br />
+                    </Form.Group>
+                    <Form.Group controlId="formNewPassword">
+                      <Form.Label>新密碼：</Form.Label>
+                      <Form.Control
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Group>
                     <br />
-                  </Form.Group>
-                  <Form.Group controlId="formNewPassword">
-                    <Form.Label>新密碼：</Form.Label>
-                    <Form.Control
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      required
-                      style={{ width: "100%" }}
-                    />
-                  </Form.Group>
-                  <br />
-                  <Form.Group controlId="formConfirmNewPassword">
-                    <Form.Label>确認新密碼：</Form.Label>
-                    <Form.Control
-                      type="password"
-                      value={confirmNewPassword}
-                      onChange={(e) => setConfirmNewPassword(e.target.value)}
-                      required
-                      style={{ width: "100%" }}
-                    />
-                  </Form.Group>
-                  <br />
-                  <Button variant="primary" type="submit">
-                    提交
-                  </Button>
-                </Form>
-                {message && <Alert variant="info">{message}</Alert>}
-              </div>
-           
-            
-            </Col>
+                    <Form.Group controlId="formConfirmNewPassword">
+                      <Form.Label>確認新密碼:</Form.Label>
+                      <Form.Control
+                        type="password"
+                        value={confirmNewPassword}
+                        onChange={(e) => setConfirmNewPassword(e.target.value)}
+                        required
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Group>
+                    <br />
+                    <Button variant="primary" type="submit">
+                      提交
+                    </Button>
+                  </Form>
+                  {message && <Alert variant="info">{message}</Alert>}
+                </div>
+              </Col>
+            </Row>
+          </Col>
         </Row>
       </Container>
     </>

@@ -9,6 +9,9 @@ import Nav from 'react-bootstrap/Nav';
 import { GoTriangleDown } from "react-icons/go";
 import violence from './violence.jpg'
 import { Link } from 'react-router-dom';
+import cow from './img/cow.jpg'
+import beauty from './img/beauty.jpg'
+import MRG from './img/MRG.jpg'
 
 
 function Talent() {
@@ -48,7 +51,7 @@ function Talent() {
                         <hr></hr>
                         接案身分:<br></br>
                         上線時間:<br></br>
-                        接案地點:台北 台中 高雄<br></br>
+                        接案地點:台北<br></br>
                         成交件數:
                         <hr></hr>
                         專長:LOGO設計
@@ -80,22 +83,22 @@ function Talent() {
                 <div className='col-sm-9 '>
                     <Nav defaultActiveKey="/home" as="ul">
                         <Nav.Item as="li">
-                            <Nav.Link >關於我</Nav.Link>
+                            <Nav.Link href='#about'>關於我</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link >作品</Nav.Link>
+                            <Nav.Link href='#item'>作品</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link >影音</Nav.Link>
+                            <Nav.Link href='#video'>影音</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link >服務</Nav.Link>
+                            <Nav.Link href='#serve' >服務</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link >評價</Nav.Link>
+                            <Nav.Link href='#price' >評價</Nav.Link>
                         </Nav.Item>
                     </Nav>
-                    <div style={{ width: 500, height: 250, border: 'solid' }}>
+                    <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
                         關於我.........
                         <br></br>
                         擅長技能.........
@@ -104,77 +107,77 @@ function Talent() {
                         <button>最新<GoTriangleDown /></button>
                         <button>瀏覽數<GoTriangleDown /></button>
                     </div>
-                    <div className='mt-5'>作品:</div>
+                    <div id='item' className='mt-5'>作品:</div>
                     <div className="row ">
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">
+                                    <img src={cow} style={{ width: "100%" }}></img>
+                                </div>
+                                <div className="card-body">
+                                    作品品項<br></br>
+                                    發布時間
+                                    <span style={{ float: "right" }}>瀏覽數</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">
+                                    <img src={beauty} style={{ width: "100%" }}></img>
+                                </div>
+                                <div className="card-body">
+                                    作品品項<br></br>
+                                    發布時間
+                                    <span style={{ float: "right" }}>瀏覽數</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">
+                                <img src={MRG} style={{ width: "100%" }}></img>
+                                    </div>
+                                <div className="card-body">
+                                    作品品項<br></br>
+                                    發布時間
+                                    <span style={{ float: "right" }}>瀏覽數</span>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+                    
+
+                    <div id='video' className='mt-5'>影音:</div>
                     <div className="row ">
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">img</div>
+                                <div className="card-body">
+                                    影音名稱
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">img</div>
+                                <div className="card-body">
+                                    影音名稱
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
+                        <div className="col-sm-4  ">
+                            <div className='card'>
+                                <div className="card-header">img</div>
+                                <div className="card-body">
+                                    影音名稱
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="row ">
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                    </div>
-                    <div className='mt-5'>影音:</div>
-                    <div className="row ">
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                        <div className="col-sm-4 card ">
-                            <div className="card-header">Header</div>
-                            <div className="card-body">Content</div>
-                            <div className="card-footer">Footer</div>
-                        </div>
-                    </div>
-                    <p>服務:</p>
+                    <p id='serve' className='mt-5'>服務:</p>
                     <div className='row'>
 
 
@@ -208,7 +211,7 @@ function Talent() {
 
                     </div>
                     <div className='mt-5 row'>
-                        <div>
+                        <div id='price'>
                             評價(100):<br></br>
                             <span style={{ border: 'solid' }}>案件</span>
                             <Link to='/casecontext'>案件名稱</Link>

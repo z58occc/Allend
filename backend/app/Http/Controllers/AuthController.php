@@ -18,10 +18,10 @@ use Throwable;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register',]]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => ['login', 'register',]]);
+    // }
 
     // 註冊api
     public function register(Request $request):JsonResponse
@@ -29,9 +29,7 @@ class AuthController extends Controller
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
-                // 'name' => 'required|string',
                 'email' => 'required|string|email|unique:members',
-                // 'password' => 'required|string|min:6',
                 'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
             ]);
         }
@@ -43,7 +41,6 @@ class AuthController extends Controller
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
             $user = Member::create([
-            // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             ]);
