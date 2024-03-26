@@ -9,6 +9,8 @@ import { FaHtml5 } from "react-icons/fa";
 import violence from '../homepage/violence.jpg';
 import { Route, Routes, Link } from 'react-router-dom';
 import Findcase from '../Components/Findcase';
+import Category from '../Components/Category';
+
 
 
 function Homepage() {
@@ -27,56 +29,13 @@ function Homepage() {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        <style
-          dangerouslySetInnerHTML={{
-            __html:
-              "\n  .fakeimg {\n    height: 100px;\n    background: #aaa;\n  }\n  "
-          }}
-        />
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
       </div>
 
 
-      <div className="container mt-5">
-        <div className="row justify-content-center">
-
-          <div className="col-sm-2 ">
-            <Link to='/findman' >
-              <div className="fakeimg">Fake Image</div>
-            </Link>
-            <hr className="d-sm-none" />
-          </div>
-          <div className="col-sm-2 ">
-            <Link to='/findman' >
-              <div className="fakeimg">Fake Image</div>
-            </Link>
-            <hr className="d-sm-none" />
-          </div>
-          <div className="col-sm-2 ">
-            <Link to='/findman' >
-              <div className="fakeimg">Fake Image</div>
-            </Link>
-            <hr className="d-sm-none" />
-          </div>
-          <div className="col-sm-2 ">
-            <Link to='/findman' >
-              <div className="fakeimg">Fake Image</div>
-            </Link>
-            <hr className="d-sm-none" />
-          </div>
-          <div className="col-sm-2 ">
-            <Link to='/findman' >
-              <div className="fakeimg">Fake Image</div>
-            </Link>
-            <hr className="d-sm-none" />
-          </div>
-
-
-
-
-        </div>
-      </div>
+      <Category></Category>
       <br></br>
 
 

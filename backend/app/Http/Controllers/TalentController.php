@@ -25,14 +25,12 @@ class TalentController extends Controller
             $count = $establised_query->count();
             $avg = $count > 0 ? $total_start / $count : 0;
 
-
-
             //成交件數
             if($request->has('mid_demmand')){
-                $establised_query->select('mid_demmand',DB::raw('COUNT(*)'))
+                $establised_query->select('mid_demmand', DB::raw('COUNT(*)'))
                 ->groupBy('mid_demmand');
             }
-                //上線時間
+            //上線時間
             $Last = $query->get();
             foreach($Last as $Last_member){
                 $lastAt = new \DateTime($Last_member->last_login);
@@ -48,6 +46,7 @@ class TalentController extends Controller
                 }
                 $Last_member->lasted_login = $difference;
             }
+
             $Data_response = [
                 'member' => $Last,
                 'established_case' => $establised_query->get(),
@@ -56,6 +55,7 @@ class TalentController extends Controller
                 'video' => $video_query->get(),
                 'service' => $service_query->get(),
             ];
+
             return response()->json($Data_response);
         }
 

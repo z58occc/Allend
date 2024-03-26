@@ -9,13 +9,13 @@ class Pop_QuoteContorller extends Controller
 {
     public function __invoke(Request $request)
     {
-        $userID = $request->input('mid');
-        if($userID){
+        $demmandID = $request->input('did');
+        if($demmandID){
             $member = DB::table('members')
             ->join('quote','members.mid','=','quote.mid')
             ->join('demmand','quote.did','=','demmand.did')
             ->select('d_name','name','identity','email','q_amount')
-            ->where('quote.mid',$userID);
+            ->where('quote.did',$demmandID);
 
             $quote = $member->get();
             return response()->json($quote);
