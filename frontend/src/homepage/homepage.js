@@ -10,15 +10,14 @@ import violence from '../homepage/violence.jpg';
 import { Route, Routes, Link } from 'react-router-dom';
 import Findcase from '../Components/Findcase';
 import Category from '../Components/Category';
-import webdesign from './webdesign.png'
-import luanguage from './language.png'
-import softdesign from './softdesign.png'
-import writing from './writing.png'
-import product from './product.jpg'
-import cow from './cow.jpg'
-import MRG from './MRG.jpg'
-import beauty from './beauty.jpg'
-
+import luanguage from '../Components/img/language.png'
+import softdesign from '../Components/img/softdesign.png'
+import writing from '../Components/img/writing.png'
+import cow from '../Components/img/cow.jpg'
+import beauty from '../Components/img/beauty.jpg'
+import product from '../Components/img/product.jfif'
+import product2 from '../Components/img/product2.jfif'
+import product3 from '../Components/img/product3.jpg'
 
 
 function Homepage() {
@@ -187,7 +186,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={cow}  text="Second slide" />
+          <img src={product2}  text="Second slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>
@@ -195,7 +194,7 @@ function Homepage() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img src={beauty}  text="Third slide" />
+          <img src={product3}  text="Third slide" />
           <Carousel.Caption>
             <Link to='./talent'>
               <h3>會員名稱</h3>

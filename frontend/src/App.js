@@ -18,6 +18,8 @@ import Cookies from "js-cookie";
 import Softdesign from "./Components/softdesign"
 import Word from "./Components/word";
 import Pro from "./Components/pro";
+import program from "./Components/program"
+import Program from "./Components/program";
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -261,6 +263,7 @@ function App() {
         <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
         <Route path="/word" element={<Word></Word>}></Route>
         <Route path="/pro" element={<Pro></Pro>}></Route>
+        <Route path="/program" element={<Program></Program>}></Route>
       </Routes>
 
       {/* 登入 */}

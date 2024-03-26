@@ -4,12 +4,13 @@ import Category from './Category'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
-import beauty from '../homepage/beauty.jpg'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import cow from '../homepage/cow.jpg'
-import product from '../homepage/product.jpg'
+import product from '../Components/img/product.jfif'
+import product2 from './img/product2.jfif'
+import product3 from './img/product3.jpg'
+
 
 
 
@@ -88,7 +89,7 @@ function Findman() {
                         <div className="col-sm-4  ">
                             <div className='card' >
                                 <div className="card-header">
-                                    <img src={beauty} style={{ width: "100%" }}></img>
+                                    <img src={product} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:beauty
@@ -114,7 +115,7 @@ function Findman() {
                         <div className="col-sm-4  ">
                             <div className='card'>
                                 <div className="card-header">
-                                    <img src={cow} style={{ width: "100%" }}></img>
+                                    <img src={product2} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:cow
@@ -140,7 +141,7 @@ function Findman() {
                         <div className="col-sm-4  ">
                             <div className='card'>
                                 <div className="card-header">
-                                    <img src={product} style={{ width: "100%" }}></img>
+                                    <img src={product3} style={{ width: "100%" }}></img>
                                 </div>
                                 <Link to='/talent' className="card-body">
                                     會員名稱:product

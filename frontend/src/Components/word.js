@@ -4,12 +4,10 @@ import Category from './Category'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
-import beauty from '../homepage/beauty.jpg'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import MRG from '../homepage/MRG.jpg'
-import language from '../homepage/language.png'
+import language from './img/language.png'
 
 
 
