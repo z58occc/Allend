@@ -23,7 +23,7 @@ use App\Http\Controllers\Pop_QuoteAgreeController;
 use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
 use App\Http\Controllers\PublishCaseDeleteController;
-use App\Http\Controllers\ServiceContent;
+use App\Http\Controllers\ServiceContentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
@@ -48,7 +48,7 @@ Route::get('/talent',TalentController::class);
 // 查看案件內容
 Route::get('/demmand_content/{did}',DemmandContentController::class);
 // 查看服務內容
-Route::get('/service_content',ServiceContent::class);
+Route::get('/service_content/{sid}',ServiceContentController::class);
 // 查看發案分類
 Route::get('/findcommmit',IFindCommitController::class);
 // 查看服務分類

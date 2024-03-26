@@ -22,11 +22,11 @@ class DemmandContentController extends Controller
         $avg = $count > 0 ? $total_start / $count : 0;
 
 
-        // 上線時間
-        $member_query = DB::table('members')->select('last_login')->where('mid',$query_mid->mid);
+        // 案主的資料
+        $member_query = DB::table('members')->select('name', 'avatar','last_login')->where('mid',$query_mid->mid);
+
         // 判斷呈現的上線時間
         $lastLoginTime = $member_query->first();
-
         $lastAt = new \DateTime($lastLoginTime->last_login);
         $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
         $interval = $lastAt->diff($now);
