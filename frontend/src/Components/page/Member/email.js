@@ -147,7 +147,7 @@ function FreelancerForm() {
 
         <Col sm={9}>
           {showClientForm ? null : (
-            <h2 className="text-center">接案人填寫資料</h2>
+            <h2 className="text-center">接案人資料維護</h2>
           )}
 
           {isSubmitted ? (
@@ -278,7 +278,6 @@ function FreelancerForm() {
 
                   <br />
                   <hr />
-                  <br />
                   {/* 身分證 */}
                   <Form.Group as={Row}>
                     <Form.Label column sm={6}>
