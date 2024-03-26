@@ -62,27 +62,21 @@ Route::get('/pop_quote', Pop_QuoteContorller::class);
 Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);
 Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'Disagree']);
 
-// 註冊、登入
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/register', 'register');
-    Route::post('/login', 'login')->name('login');
-    Route::post('/logout', 'logout');
-    Route::post('/updateprofiles', 'update')->middleware('verified');
-});
-// 信箱確認信 => 驗證網址連結 => 驗證成功後跳轉首頁
-Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth:api', 'throttle:6,1'])
-    ->name('verifyemail');
-// 等待驗證網址 => 可以重發驗證信 (在前端寫頁面)
-Route::post('/waitverifyemail');
-// 重送驗證信按鈕
-Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-->middleware(['auth:api', 'throttle:6,1']);
+// 接發案內容
+Route::get('/pulish_view', [AcceptanceIssueController::class,'publishgetData']); //發案主的刊登中
+Route::post('/pulish_save', [AcceptanceIssueController::class,'publishsaveData']); //刊登中按鈕
+Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //發案主的進行中
+Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //發案主收到的按鈕
+Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的儲存變更按鈕
+Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的提交按鈕
+Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
+Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
+Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publicEvaluation']); //發案者的評價按鈕
+Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
 
-// 寄忘記密碼信
-Route::post('/forgetpwd', [PasswordResetLinkController::class, 'store']);
-// 完成修改密碼
-Route::post('/resetpwd', [NewPasswordController::class, 'store']);
+//結案畫面
+Route::get('/publishclose_view', [AcceptanceIssueController::class,'publishClose']); //結案畫面
+Route::get('/takeclose_view', [AcceptanceIssueController::class,'takeClose']); //結案畫面
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
