@@ -63,8 +63,16 @@ Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);
 Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'Disagree']);
 
 // 接發案內容
-Route::get('/pulish_view', [AcceptanceIssueController::class,'getData']);
-Route::post('/pulish_save', [AcceptanceIssueController::class,'saveData']);
+Route::get('/pulish_view', [AcceptanceIssueController::class,'publishgetData']); //發案主的刊登中
+Route::post('/pulish_save', [AcceptanceIssueController::class,'publishsaveData']); //刊登中按鈕
+Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //發案主的進行中
+Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //發案主收到的按鈕
+Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的儲存變更按鈕
+Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的提交按鈕
+Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
+Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
+Route::post('/publicClose', [AcceptanceIssueController::class,'publicClose']); //發案者的評價按鈕
+Route::post('/takeClose', [AcceptanceIssueController::class,'takeClose']); //接案者的評價按鈕
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
     // 會員儀表板
