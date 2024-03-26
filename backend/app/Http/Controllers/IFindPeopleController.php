@@ -20,7 +20,7 @@ class IFindPeopleController extends Controller
             $query->where('s_type',$request->s_type);
         }
         // 選擇接案者身分
-        if($$request->has('identity')){
+        if($request->has('identity')){
             $member_query->whereIn('identity',explode(',',$request->identity));
         }
         // 選擇年資
