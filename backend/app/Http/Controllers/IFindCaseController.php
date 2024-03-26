@@ -91,8 +91,8 @@ class IFindCaseController extends Controller
             // }else{
             //     $difference = $updateAt->format('Y-m-d');
             // }
-            if($interval->h < 1 && $interval->d <1){
-                $difference = $interval-> i . '分鐘前更新';
+            if($interval->h < 1 && $interval->d < 1){
+                $difference = $interval->i . '分鐘前更新';
             }elseif($interval->d > 1){
                 $difference = $interval->d . '天前更新';
             }
