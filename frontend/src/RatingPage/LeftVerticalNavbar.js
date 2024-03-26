@@ -32,7 +32,7 @@ const LeftVerticalNavbar = () => {
     };
 
     const handleSaveImage = () => {
-        if (imageUrl.trim() !== '') { // 确保图片 URL 不为空
+        if (imageUrl.trim() !== '') { // 确保圖片 URL 不為空
             setUsermember({ ...usermember, image: imageUrl });
             setShowModal(false);
         } else {
@@ -71,8 +71,6 @@ const LeftVerticalNavbar = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
 
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

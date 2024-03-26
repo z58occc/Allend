@@ -52,7 +52,7 @@ function ProjectForm() {
             onChange={(e) => setCategory(e.target.value)}
             required
           >
-            <option value="">請選擇</option>
+            <option value="">請選擇案件類別</option>
             <option value="option1">網站設計</option>
             <option value="option2">軟體程式</option>
             <option value="option3">文字語言</option>

@@ -205,10 +205,11 @@ function FreelancerForm() {
                                                 onChange={handleChange}
                                             >
                                                 <option value="">請選擇累積年資</option>
-                                                <option value="1">1~5 年</option>
+                                                <option value="1">5年以下(含5年)</option>
                                                 <option value="2">6~10 年</option>
-                                                <option value="3">10~15 年</option>
-                                                <option value="3">15 年以上</option>
+                                                <option value="3">11~15 年</option>
+                                                <option value="3">16~20年</option>
+                                                <option value="3">20年以上(不包含20年)</option>
                                             </Form.Select>
                                         </div>
                                         <div className="col-sm-6">
