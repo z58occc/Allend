@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button } from "react-bootstrap";
-import "react-datepicker/dist/react-datepicker.css";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 
-// 發案人填写资料
+// 發案人維護资料
 function ClientForm() {
   const [formData, setFormData] = useState({
     companyName: "",
@@ -12,6 +12,8 @@ function ClientForm() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isFormComplete, setIsFormComplete] = useState(false);
+  const [mobileError, setMobileError] = useState(false);
+  const [EmailError, setEmailError] = useState(false);
 
   useEffect(() => {
     // 检查表单是否完整
@@ -21,10 +23,41 @@ function ClientForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    
+    if (name === "email") {
+      const isValidEmail = value.includes("@");
+      if (!isValidEmail) {
+        setEmailError(true);
+      } else {
+        setEmailError(false);
+      }
+    }
+  
+
+
+
+
+
+    // 针对手机输入进行限制
+    if (name === "mobile") {
+      // 确保只输入数字
+      const onlyNums = value.replace(/[^0-9]/g, "");
+      // 检查手机号格式是否正确
+      if (onlyNums.length === 10 && onlyNums.startsWith("09")) {
+        setMobileError(false);
+      } else {
+        setMobileError(true);
+      }
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: onlyNums,
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -48,57 +81,73 @@ function ClientForm() {
   return (
     <>
       <Container>
-        <h2 className="text-center">發案人填寫资料</h2>
-        {isSubmitted ? (
-          <div className="text-center mt-3">提交完成</div>
-        ) : (
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formCompanyName">
-              <Form.Label>公司名稱：</Form.Label>
-              <Form.Control
-                type="text"
-                name="companyName"
-                value={formData.companyName}
-                onChange={handleChange}
-                placeholder="請輸入公司名稱"
-              />
-            </Form.Group>
+        <Row>
+          <Col sm={3}>
+            <LeftVerticalNavbar />
+          </Col>
 
-            <Form.Group className="mb-3" controlId="formMobile">
-              <Form.Label>行動電話：</Form.Label>
-              <Form.Control
-                type="tel"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                placeholder="请输入手機號碼"
-              />
-            </Form.Group>
+          <Col sm={9}>
+            <h2 className="text-center">發案人填寫資料</h2>
+            {isSubmitted ? (
+              <div className="text-center mt-3">提交完成</div>
+            ) : (
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formCompanyName">
+                  <Form.Label>真實名字/公司名稱：</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    placeholder="請輸入真實名字/公司名稱"
+                  />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="请输入Email"
-              />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formMobile">
+                  <Form.Label>行動電話：</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    placeholder="請输入手機號碼"
+                    // 根据手机号格式错误状态设置样式
+                    isInvalid={mobileError}
+                  />
+                  {/* 显示手机号格式错误提示 */}
+                  <Form.Control.Feedback type="invalid">
+                    手機格式不正確 ,以09開頭 ,共10位數字。
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-            <Button
-              type="submit"
-              variant="danger"
-              style={{ width: "50%", margin: "0 auto", display: "block" }}
-              disabled={!isFormComplete}
-            >
-              提交
-            </Button>
-            <Button variant="secondary" onClick={handleReset}>
-              重置
-            </Button>
-          </Form>
-        )}
+                <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="請输入Email"
+                    isInvalid={EmailError}
+
+                  />
+                </Form.Group>
+
+                <Button
+                  type="submit"
+                  variant="danger"
+                  style={{ width: "50%", margin: "0 auto", display: "block" }}
+                  disabled={!isFormComplete}
+                >
+                  提交
+                </Button>
+                <Button variant="secondary" onClick={handleReset}>
+                  重置
+                </Button>
+              </Form>
+            )}
+          </Col>
+        </Row>
       </Container>
     </>
   );

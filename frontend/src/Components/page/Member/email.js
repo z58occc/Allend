@@ -5,7 +5,7 @@ import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import axios from "axios";
 
 
-// 接案者基本資料
+// 接案者維護資料
 function FreelancerForm() {
     // const history = useHistory();
 

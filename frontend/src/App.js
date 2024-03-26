@@ -9,7 +9,7 @@ import { Link, Routes, Route } from "react-router-dom";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
-import Email from "./Components/page/Member/email";
+import Switch from "../src/Components/page/Member/Switch";
 import Fix from "./Components/page/Member/fix";
 import { Modal, Button, Form, Nav } from "react-bootstrap";
 import "./App.css";
@@ -244,7 +244,7 @@ function App() {
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/talent" element={<Talent></Talent>}></Route>
-        <Route path="/email" element={<Email></Email>}></Route>
+        <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
       </Routes>

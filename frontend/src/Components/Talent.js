@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from './Footer'
+import Footer from '../homepage/Footer';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { Button } from 'react-bootstrap';

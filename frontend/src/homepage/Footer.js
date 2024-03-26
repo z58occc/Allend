@@ -1,11 +1,11 @@
 import React from 'react'
-import ourLogo from './ourLogo.jpg'
+import ourLogo from '../homepage/ourLogo.jpg';
 
 function Footer() {
     return (
         <div className="mt-5 p-4 bg-dark text-white row" style={{height:75  , fontSize:10}} >
             <span className='col-6' style={{ textAlign: 'left' }}>
-                <img style={{ width: 30 }} src={ourLogo} />
+                <img style={{ width: 30 }} src={ourLogo}  alt=''/>
                 <text >
                      包您滿意
                     <br></br>
