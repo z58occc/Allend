@@ -39,7 +39,7 @@ const LeftVerticalNavbar = () => {
                                         <Accordion.Body>
                                             {index === 1 ? (
                                                 <div>
-                                                    <Nav.Link href="/email" className="nav-link-no-arrow">資料維護</Nav.Link>
+                                                    <Nav.Link href="/switch" className="nav-link-no-arrow">資料維護</Nav.Link>
 
                                                     <Nav.Link href="/fix" className="nav-link-no-arrow">修改密碼</Nav.Link>
                                                 </div>

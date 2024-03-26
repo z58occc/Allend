@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Footer from './Footer';
+import Footer from '../homepage/Footer';
 import twitter from './twitter.png'
 import { CiStar } from "react-icons/ci";
 import facebook from './facebook.png'
