@@ -12,7 +12,7 @@ class IndexController extends Controller
         //最新服務
         $query = DB::table('service')
                 ->join('members','service.mid','=','members.mid')
-                ->select('s_name','s_amount','service.created_at','name');
+                ->select('service.mid','s_name','s_amount','service.created_at','name');
         
 
         //最新刊登
