@@ -122,11 +122,11 @@ function FreelancerForm() {
         <>
             <Container>
                 <Row>
-                    <Col sm={3}>
+                    <Col sm={2}>
                         <LeftVerticalNavbar />
                     </Col>
 
-                    <Col sm={9}>
+                    <Col sm={10}>
 
                         <h2 className="text-center">接案人資料維護</h2>
 
@@ -272,14 +272,17 @@ function FreelancerForm() {
                                         <Form.Control
                                             type="text"
                                             name="idCard"
+                                            placeholder="請輸入身分證"
                                             value={formData.idCard}
                                             onChange={handleChange}
+
                                         />
                                     </Col>
                                     <Col sm={6}>
                                         <Form.Control
                                             type="email"
                                             name="email"
+                                            placeholder="請輸入Email"
                                             value={formData.email}
                                             onChange={handleChange}
                                         />
@@ -289,7 +292,7 @@ function FreelancerForm() {
                                 <br />
 
                                 <Form.Group as={Row}>
-                                <Form.Label column sm={6}>
+                                    <Form.Label column sm={6}>
                                         真實姓名/公司名稱：
                                     </Form.Label>
                                     <Form.Label column sm={6}>
@@ -298,7 +301,7 @@ function FreelancerForm() {
                                 </Form.Group>
 
                                 <Form.Group as={Row}>
-                            
+
                                     <Col sm={6}>
                                         <Form.Control
                                             type="text"
@@ -323,7 +326,7 @@ function FreelancerForm() {
 
                                 {/* 性別 */}
                                 <Form.Group as={Row}>
-                                 
+
 
                                     <Form.Label column sm={2}>
                                         性別：
@@ -405,18 +408,20 @@ function FreelancerForm() {
 
                                 <br />
 
-                                <Button
-                                    type="submit"
-                                    variant="danger"
-                                    style={{ width: "50%", margin: "0 auto", display: "block" }}
-                                    disabled={!isFormComplete}
-                                >
-                                    提交
-                                </Button>
-                                <Button variant="secondary" onClick={handleReset}>
-                                    重置
-                                </Button>
-                
+                                <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                                    <Button
+                                        type="submit"
+                                        variant="danger"
+                                        style={{ width: "50%" }}
+                                        disabled={!isFormComplete}>
+                                        提交
+                                    </Button>
+                                    <Button variant="secondary" onClick={handleReset}>
+                                        重置
+                                    </Button>
+                                </div>
+
+
                             </Form>
                         )}
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navbar, Nav, Image } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Nav, Image, Button, Modal, Form } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
@@ -16,16 +16,64 @@ const LeftVerticalNavbar = () => {
         { link: '#favorite', text: '收藏管理' },
     ];
 
-    const userProfile = {
+    const [usermember, setUsermember] = useState({
         name: '會員',
-        // 填入您的大頭貼圖片 URL
+        image: member // 默认头像
+    });
+    const [showModal, setShowModal] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
+
+    const handleEditmember = () => {
+        setShowModal(true);
     };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleSaveImage = () => {
+        if (imageUrl.trim() !== '') { // 确保图片 URL 不为空
+            setUsermember({ ...usermember, image: imageUrl });
+            setShowModal(false);
+        } else {
+            alert('請輸入有效的圖片 URL');
+        }
+    };
+
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '' }}>
             <Navbar.Brand>
-                <Image src={member} roundedCircle className="mr-2" width="100" height="100" />
+
+                <Button variant="link" onClick={handleEditmember}>
+                    <Image src={usermember.image} roundedCircle className="mr-2" width="100" height="100" />
+                </Button>
             </Navbar.Brand>
-            <Navbar.Text style={{ fontSize: '20px' }}>{userProfile.name}</Navbar.Text>
+            <Navbar.Text style={{ fontSize: '20px' }}>{usermember.name}</Navbar.Text>
+
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>修改頭像</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formImageUrl">
+                            <Form.Label>請輸入圖片 URL</Form.Label>
+                            <Form.Control type="text" placeholder="Enter image URL" onChange={(e) => setImageUrl(e.target.value)} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        取消
+                    </Button>
+                    <Button variant="primary" onClick={handleSaveImage}>
+                        保存
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

@@ -53,11 +53,11 @@ function ProjectForm() {
             required
           >
             <option value="">請選擇</option>
-            <option value="option1">程式設計</option>
-            <option value="option2">軟體設計</option>
-            <option value="option3">室內設計</option>
-            <option value="option4">平面攝影</option>
-            <option value="option5">專業諮詢</option>
+            <option value="option1">網站設計</option>
+            <option value="option2">軟體程式</option>
+            <option value="option3">文字語言</option>
+            <option value="option4">專業諮詢</option>
+            <option value="option5">程式設計</option>
             {/* Add more options here */}
           </Form.Control>
         </Form.Group>

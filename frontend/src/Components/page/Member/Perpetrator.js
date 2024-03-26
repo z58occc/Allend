@@ -23,7 +23,7 @@ function ClientForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name === "email") {
       const isValidEmail = value.includes("@");
       if (!isValidEmail) {
@@ -32,7 +32,7 @@ function ClientForm() {
         setEmailError(false);
       }
     }
-  
+
 
 
 
@@ -82,12 +82,12 @@ function ClientForm() {
     <>
       <Container>
         <Row>
-          <Col sm={3}>
+          <Col sm={2}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={9}>
-            <h2 className="text-center">發案人填寫資料</h2>
+          <Col sm={10}>
+            <h2 className="text-center">發案人資料維護</h2>
             {isSubmitted ? (
               <div className="text-center mt-3">提交完成</div>
             ) : (
@@ -110,7 +110,7 @@ function ClientForm() {
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleChange}
-                    placeholder="請输入手機號碼"
+                    placeholder="請輸入手機號碼"
                     // 根据手机号格式错误状态设置样式
                     isInvalid={mobileError}
                   />
@@ -127,23 +127,24 @@ function ClientForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="請输入Email"
+                    placeholder="請輸入Email"
                     isInvalid={EmailError}
 
                   />
                 </Form.Group>
 
-                <Button
-                  type="submit"
-                  variant="danger"
-                  style={{ width: "50%", margin: "0 auto", display: "block" }}
-                  disabled={!isFormComplete}
-                >
-                  提交
-                </Button>
-                <Button variant="secondary" onClick={handleReset}>
-                  重置
-                </Button>
+                <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                  <Button
+                    type="submit"
+                    variant="danger"
+                    style={{ width: "50%" }}
+                    disabled={!isFormComplete}>
+                    提交
+                  </Button>
+                  <Button variant="secondary" onClick={handleReset}>
+                    重置
+                  </Button>
+                </div>
               </Form>
             )}
           </Col>
