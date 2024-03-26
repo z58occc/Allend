@@ -64,11 +64,11 @@ function CaseContext() {
             </div>
             <div className='mt-5'>提醒:請勿在非公開場所赴約</div>
 
-            
+
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header >
-                    <Modal.Title style={{fontSize:15}} >
+                    <Modal.Title style={{ fontSize: 15 }} >
                         案件名稱:<input></input><hr></hr>
                         案件編號:<input></input><hr></hr>
                         案件類別:<input></input><hr></hr>
@@ -95,7 +95,7 @@ function CaseContext() {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    
+
                     <Button variant="primary" onClick={handleClose} >
                         送出
                     </Button>

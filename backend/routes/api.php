@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
-use App\Http\Controllers\demmandContentController;
+use App\Http\Controllers\DemmandContentController;
 use App\Http\Controllers\IFindCommitController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
@@ -18,10 +18,11 @@ use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\MeMInfoController;
+use App\Http\Controllers\Pop_QuoteAgreeController;
 use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
 use App\Http\Controllers\PublishCaseDeleteController;
-use App\Http\Controllers\ServiceContent;
+use App\Http\Controllers\ServiceContentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
@@ -42,11 +43,11 @@ use Illuminate\Database\Query\IndexHint;
 // 首頁
 Route::get('/index',IndexController::class);
 // 查看人才頁面
-Route::get('/Talent',TalentController::class);
+Route::get('/talent',TalentController::class);
 // 查看案件內容
-Route::get('/demmand_content',demmandContentController::class);
+Route::get('/demmand_content/{did}',DemmandContentController::class);
 // 查看服務內容
-Route::get('/service_content',ServiceContent::class);
+Route::get('/service_content/{sid}',ServiceContentController::class);
 // 查看發案分類
 Route::get('/findcommmit',IFindCommitController::class);
 // 查看服務分類
@@ -55,8 +56,10 @@ Route::get('/findpeople',IFindPeopleController::class);
 Route::post('/quote', IWantQuoteController::class)->middleware('auth:api');
 // 送出發案表單
 Route::post('/commit_crime', CommitController::class);
-// 查看報價
-Route::get('/Pop_quote',Pop_QuoteContorller::class);
+// 查看報價、同意、不同意
+Route::get('/pop_quote',Pop_QuoteContorller::class);
+Route::get('/pop_agree',Pop_QuoteAgreeController::class,'Agree');
+Route::get('/pop_disagree',Pop_QuoteAgreeController::class,'Disagree');
 
 // 會員功能
 Route::controller(MeMInfoController::class)->group(function(){
@@ -87,6 +90,7 @@ Route::controller(MeMInfoController::class)->group(function(){
     // 我的收藏
     Route::post('/collection', 'getCollection');
 });//->middleware(['verified']);
+
 
 //會員服務管理，刪除
 // Route::get('/memservice',MemberServiceController::class);
