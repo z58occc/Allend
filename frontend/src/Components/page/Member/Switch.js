@@ -12,8 +12,8 @@ function FormSwitcher() {
 
   return (
     <div style={{ position: "relative" }}>
-      {isFreelancerForm ? <Email/> : <ClientForm/>}
-      <button 
+      {isFreelancerForm ? <Email /> : <ClientForm />}
+      <button
         onClick={handleSwitchForm}
         style={{
           position: "absolute",

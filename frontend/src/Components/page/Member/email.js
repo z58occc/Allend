@@ -167,13 +167,13 @@ function FreelancerForm() {
 
   return (
     <>
-     <div className="container-fluid">
+      <div className="container-fluid">
         <Row>
-          <Col sm={2} style={{padding:"20px"}}>
+          <Col sm={2} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={10} style={{padding:"20px"}}>
+          <Col sm={10} style={{ padding: "20px" }}>
             <h2 className="text-center">接案人資料維護</h2>
 
             {isSubmitted ? (

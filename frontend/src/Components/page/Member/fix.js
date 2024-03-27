@@ -51,12 +51,12 @@ function PasswordForm() {
     <>
       <div className="container-fluid">
         <Row>
-          <Col sm={2}style={{padding:"20px"}}>
+          <Col sm={2} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
           <Col sm={10}>
             <Row className="justify-content-center">
-              <Col sm={6}style={{padding:"20px"}}> 
+              <Col sm={6} style={{ padding: "20px" }}>
                 <div>
                   <h2>修改密碼</h2>
                   <Form onSubmit={handleSubmit}>
