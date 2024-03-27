@@ -11,35 +11,34 @@ const MainScreen = () => {
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
-  const [Case, setCase] = useState([]);
-  // (
-  //   {
-  //     "demmand": [
-  //       {
-  //         "d_name": "87",
-  //         "d_required": 7,
-  //         "d_amount": 38,
-  //         "d_unit": "次",
-  //         "created_at": "1999-03-19 08:05:59"
-  //       }
-  //     ],
-  //     "demmand_progress": [
-  //       {
-  //         "c_name": "流行網站",
-  //         "c_amount": 87,
-  //         "created_at": "1999-03-22 03:45:45"
-  //       }
-  //     ],
-  //     "demmand_completed": [
-  //       {
-  //         "c_name": "loopcode",
-  //         "c_amount": 77,
-  //         "created_at": "1888-03-22 03:49:00"
-  //       }
-  //     ]
-  //   }
-  // )
-  const url = 'http://127.0.0.1/Allend/backend/public/api/mempublishcase?mid=3'
+  const [Case, setCase] = useState(
+    {
+      "demmand": [
+        {
+          "d_name": "",
+          "d_required": 0,
+          "d_amount": 0,
+          "d_unit": "",
+          "created_at": ""
+        }
+      ],
+      "demmand_progress": [
+        {
+          "c_name": "",
+          "c_amount": 0,
+          "created_at": ""
+        }
+      ],
+      "demmand_completed": [
+        {
+          "c_name": "",
+          "c_amount": 0,
+          "created_at": ""
+        }
+      ]
+    }
+  )
+  // const url = 'http://127.0.0.1/Allend/backend/public/api/mempublishcase?mid=3'
 
   // const fetchData = async () => {
   //    await fetch(url)
@@ -54,24 +53,39 @@ const MainScreen = () => {
   // }
   
   
-  const fetchData = async() => {await axios.get(
-      'http://127.0.0.1/Allend/backend/public/api/mempublishcase', {
-      params: {
-        mid: 5
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }
-  )
-  .then((res)=>{ 
-    setCase(res.data)
-  })}
+  // const fetchData = async() => {await axios.get(
+  //     'http://127.0.0.1:8000/api/mempublishcase', {
+  //     params: {
+  //       mid: 5
+  //     },
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //   }
+  // )
+  // .then((res)=>{ 
+  //   setCase(res.data)
+  // })}
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
+    const fetchData = async () => {
+      const result = await axios.get('http://127.0.0.1:8000/api/mempublishcase', {
+        params: {
+          mid: 5
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setCase(result.data);
+    };
+  
+    fetchData();  // 呼叫 fetchData 函式以觸發資料取得
+  
+  }, []);
+  
+  console.log(Case);
+  
 
 
 

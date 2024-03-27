@@ -1,65 +1,72 @@
-import React from 'react';
+import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const CaseDetailsModal3 = ({ show, onHide, caseData}) => {
+const CaseDetailsModal3 = ({ show, onHide,data}) => {
+  
   return (
-    <Modal show={show} onHide={onHide} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>案件資訊</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="container" style={{ fontSize: '18px' }}>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件編號:</strong> {caseData.caseNumber}
+    <Modal show={show} onHide={onHide}>
+        <Modal.Header closeButton>
+          <Modal.Title>案件資訊</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="container" style={{ fontSize: '18px' }}>
+            <div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>案件編號:</strong> 
+              </div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>案件名稱:</strong>
+                
+
+              </div>
             </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong> <input value={caseData.caseName}></input>
+            <div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>案件類別:</strong> 
+              </div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>預算金額:</strong> 
+              </div>
+            </div>
+            <div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>接案人姓名</strong> 
+              </div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>接案人Email:</strong> 
+              </div> 
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <strong>接案人手機:</strong> 
+              </div>
+              <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+                <label >輸入評價:</label>
+                <div style={{margin:'0 40px 0 40px'}}>
+                  <textarea
+                
+                maxLength={100}
+                rows={5}
+                cols={30}
+                
+              /></div>
+                </div>
+
+
+            </div>
+            <div>
+
+
             </div>
           </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件類別:</strong> {caseData.caseCategory}
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>預算金額:</strong> {caseData.budgetAmount}
-            </div>
+          <div className="mb-2 d-flex justify-content-around">
+            <Button variant="primary" size="lg" >
+              評價提交
+            </Button>
+            <Button variant="secondary" onClick={onHide}>
+              關閉
+            </Button>
           </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>地點:</strong> {caseData.location}
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件期程:</strong> {caseData.schedule}
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人姓名:</strong> {caseData.contractorName}
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人 Email:</strong> {caseData.contractorEmail}
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人手機:</strong> {caseData.contractorPhone}
-            </div>
-          </div>
-        </div>
-        <div className="d-grid gap-2">
-          <Button variant="primary" size="lg">
-            聯絡接案人
-          </Button>
-          <Button variant="secondary" size="lg">
-            已收到案件
-          </Button>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          關閉
-        </Button>
-      </Modal.Footer>
-    </Modal>
+        </Modal.Body>
+      </Modal>
   );
 };
 

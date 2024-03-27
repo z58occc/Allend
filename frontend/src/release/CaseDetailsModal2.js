@@ -1,7 +1,7 @@
 import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const CaseDetailsModal2 = ({ show, onHide}) => {
+const CaseDetailsModal2 = ({ show, onHide,data}) => {
   
   return (
     <Modal show={show} onHide={onHide} size="lg">
