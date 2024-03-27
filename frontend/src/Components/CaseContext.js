@@ -17,6 +17,10 @@ function CaseContext() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const redTextStyle = {
+        color: 'red'
+    };
+
 
     return (
         <div className='container'>
@@ -62,7 +66,9 @@ function CaseContext() {
                     <FaHeart style={{ color: 'red' }} />
                 </div>
             </div>
-            <div className='mt-5 '>提醒:請勿在非公開場所赴約</div>
+            <div className='mt-5'>
+                <span style={redTextStyle}>提醒:請勿在非公開場所赴約</span>
+            </div>
 
 
 
@@ -106,7 +112,7 @@ function CaseContext() {
             <br></br>
             <br></br>
             <br></br>
-            
+
 
             <Footer></Footer>
         </div>
