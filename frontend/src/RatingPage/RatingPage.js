@@ -2,6 +2,8 @@ import React from 'react'
 import GridComponent from './GridComponent';
 import Rating from './Rating';
 import LeftVerticalNavbar from './LeftVerticalNavbar';
+import Footer from '../homepage/Footer';
+
 //會員中心
 function RatingPage() {
   const lines = [
@@ -18,25 +20,27 @@ function RatingPage() {
   return (
     <>
 
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-2">
+          <div className="col-lg-2" style={{padding:"20px"}}>
             <LeftVerticalNavbar />
           </div>
-          <div className="col-10">
+          <div className="col-lg-10">
             <div class="row">
-              <div class="col-12">
-                <GridComponent lines={lines} width="" fontSize="20px" />
+              <div class="col-lg-12">
+                <GridComponent lines={lines} fontSize="20px" />
               </div>
-              <div className="col-12">
-                <Rating lines={line2} width="1060px" fontSize="20px" />
+             
+              <div className="col-lg-12">
+                <div style={{ width: '100%' }}>
+                  <Rating lines={line2} fontSize="20px" />
+                </div>
               </div>
+            
             </div>
-
           </div>
-
-
         </div>
+      <Footer></Footer>
       </div>
     </>
   )

@@ -12,12 +12,12 @@ function FormSwitcher() {
 
   return (
     <div style={{ position: "relative" }}>
-      {isFreelancerForm ? <Email/> : <ClientForm/>}
-      <button 
+      {isFreelancerForm ? <Email /> : <ClientForm />}
+      <button
         onClick={handleSwitchForm}
         style={{
           position: "absolute",
-          bottom: "10px",
+          bottom: "120px",
           right: "10px",
           border: "none", // 移除線框
           backgroundColor: "lightblue", // 设置背景颜色为淺藍色
