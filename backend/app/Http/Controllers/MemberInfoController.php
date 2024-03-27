@@ -246,9 +246,9 @@ class MemberInfoController extends Controller
             }
 
             return response()->json([
-                'demmand' => $demmand_query,
-                'demmand_progress' => $demmand_progress_query,
-                'demmand_completed' => $demmand_completed_query
+                'demmand' => $demmand_query->get(),
+                'demmand_progress' => $demmand_progress_query->get(),
+                'demmand_completed' => $demmand_completed_query->get()
             ]);
 
         }
