@@ -22,6 +22,7 @@ import program from "./Components/program"
 import Program from "./Components/program";
 import casecontext from "./Components/CaseContext"
 import CaseContext from "./Components/CaseContext";
+import MainScreen from "./accept/MainScreen";
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -284,7 +285,7 @@ function App() {
         <Route path="/pro" element={<Pro></Pro>}></Route>
         <Route path="/program" element={<Program></Program>}></Route>
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
-
+        <Route path="/service" element={<MainScreen></MainScreen>}></Route>
       </Routes>
 
       {/* 登入 */}
