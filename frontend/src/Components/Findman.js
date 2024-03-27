@@ -12,6 +12,8 @@ import axios from 'axios';
 const Findman=() => {
 
     const [service, setService] = React.useState([]);
+    const [members,setMembers] = React.useState([]);
+
 
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const Findman=() => {
             const response = await axios.get('http://localhost/Allend/backend/public/api/findpeople');
 
             setService(response.data.service);
-
+            setMembers(response.data.members);
 
             }catch(err){
                 console.error(err);
@@ -28,6 +30,7 @@ const Findman=() => {
         };
         fetchData();
     }, []);
+
 
     return (
         
@@ -111,13 +114,10 @@ const Findman=() => {
                                 <img src={`data:image/jpeg;base64,${service.image}`} alt='service' style={{ width: "100%" }} />
                                 </div>
                                 <Link to='/talent' className="card-body">
-                                    會員名稱:{service.s_name}
+                                    會員名稱:{service.name}
                                     <br></br>
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
-                                    <CiStar />
+                                    會員服務:{service.s_name}
+                                    <br></br>
                                     <br></br>
                                     作品數:XX
                                     <br></br>
