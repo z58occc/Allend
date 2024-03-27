@@ -2,6 +2,8 @@ import React from 'react'
 import GridComponent from './GridComponent';
 import Rating from './Rating';
 import LeftVerticalNavbar from './LeftVerticalNavbar';
+import Footer from '../homepage/Footer';
+
 //會員中心
 function RatingPage() {
   const lines = [
@@ -38,6 +40,7 @@ function RatingPage() {
             </div>
           </div>
         </div>
+      <Footer></Footer>
       </div>
     </>
   )

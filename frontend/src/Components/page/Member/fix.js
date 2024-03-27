@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import "./fix.css";
+import Footer from "../../../homepage/Footer";
 import Cookies from "js-cookie";
 
 // 修改密碼
@@ -103,6 +104,7 @@ function PasswordForm() {
             </Row>
           </Col>
         </Row>
+        <Footer></Footer>
       </div>
     </>
   );

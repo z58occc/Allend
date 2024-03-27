@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Form, Button, Row, Col} from "react-bootstrap";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
+import Footer from "../../../homepage/Footer";
 
 // 發案人維護资料
 function ClientForm() {
@@ -149,6 +150,7 @@ function ClientForm() {
             )}
           </Col>
         </Row>
+        <Footer></Footer>
       </div>
     </>
   );

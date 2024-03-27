@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
+import Footer from "../../../homepage/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -480,6 +481,7 @@ function FreelancerForm() {
             )}
           </Col>
         </Row>
+        <Footer></Footer>
       </div>
     </>
   );
