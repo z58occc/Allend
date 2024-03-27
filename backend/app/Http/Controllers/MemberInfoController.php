@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 use Throwable;
 
 class MemberInfoController extends Controller
@@ -18,16 +19,21 @@ class MemberInfoController extends Controller
     // }
 
     // 獲取儀錶板
-    public function dashboard(Request $request):JsonResponse
+    public function dashboard(Request $request)//:JsonResponse
     {
-        return "OK";
-        try{
-            $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        }catch(Throwable $err){
-            // 要不要加轉址
-            return response('無效的請求');
-        }
+        // return $request->header('Authorization');
+        // try{
+        //     $user = JWTAuth::parseToken()->authenticate();
+        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        //     // return $payload;
+        //     $user = JWTAuth::guard('api')->authenticate($request->header('Authorization')); // 直接抓有沒有Bearer token，只能取得payload
+        //     $user = JWTGuard::user();
+        // }catch(Throwable $err){
+        //     // 要不要加轉址
+        //     return response('無效的請求');
+        // }
         $user = Auth::user();
+
         /* 發案 */
         // 刊登數
         $published = DB::table('demmand')->select(DB::raw('count(mid) as published_total'))
@@ -35,11 +41,11 @@ class MemberInfoController extends Controller
                                             ->first();
         // 進行中
         $ongoing_demmand = DB::table('established_case')->select(DB::raw('count(cid) as demand_total'))
-                                                ->where('mid_demmand', $user->mid)->where('c_status', 0)
+                                                ->where('mid_demmand', $user->mid)->where('c_status', 1)
                                                 ->first();
         // 結案數
         $closed_demmand = DB::table('established_case')->select(DB::raw('count(cid) as closed_demmand_total'))
-                                                ->where('mid_demmand', $user->mid)->where('c_status', 1)
+                                                ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                 ->first();
         /* 接案 */
         // 接案數
@@ -48,31 +54,66 @@ class MemberInfoController extends Controller
                                         ->first();
         // 進行中
         $ongoing_service = DB::table('established_case')->select(DB::raw('count(cid) as service_total'))
-                                                ->where('mid_service', $user->mid)->where('c_status', 0)
+                                                ->where('mid_service', $user->mid)->where('c_status', 1)
                                                 ->first();
         // 結案數
         $closed_service = DB::table('established_case')->select(DB::raw('count(cid) as closed_service_total'))
-                                                        ->where('mid_service', $user->mid)->where('c_status', 1)
+                                                        ->where('mid_service', $user->mid)->where('c_status', 2)
                                                         ->first();
         // 作為接案方的評價
-        $service_rating = DB::table('established_case')->select(DB::raw('avg(demmand_star) as service_rating'))
-                                                        ->where('mid_service', $user->mid)->where('c_status', 1)
+        $service_rating = DB::table('established_case')->select(DB::raw('ifnull(round(avg(demmand_star),2), 0) as service_rating'))
+                                                        ->where('mid_service', $user->mid)->where('c_status', 2)
                                                         ->first();
+        // 作為接案方評價則數
+        $service_comt = DB::table('established_case')->select(DB::raw('count(mid_service) as service_cmt'))
+                                                      ->where('mid_service', $user->mid)
+                                                      ->first();
+
         // 作為發案方的評價
-        $demmand_rating = DB::table('established_case')->select(DB::raw('avg(service_star) as demmand_rating'))
-                                                        ->where('mid_demmand', $user->mid)->where('c_status', 1)
+        $demmand_rating = DB::table('established_case')->select(DB::raw('ifnull(round(avg(service_star),2), 0) as demmand_rating'))
+                                                        ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                         ->first();
-        return response()->json([
-            $published,
-            $ongoing_demmand,
-            $closed_demmand,
-            $taked,
-            $ongoing_service,
-            $closed_service,
-            $service_rating,
-            $demmand_rating
-        ]);
+        // 作為發案方評價則數
+        $demmand_comt = DB::table('established_case')->select(DB::raw('count(mid_demmand) as demmand_cmt'))
+                                                        ->where('mid_demmand', $user->mid)
+                                                        ->first();
+        // $arr = [];
+        // $a = $taked->union($ongoing_service)->union($closed_service)->union($published)->union($ongoing_demmand)->union($closed_demmand)->get();
+        // foreach ($a as $value){
+        //     $arr[] = $value->taked_total;
+        // }
+
+        $data = [
+            $taked->taked_total,
+            $ongoing_service->service_total,
+            $closed_service->closed_service_total,
+            $published->published_total,
+            $ongoing_demmand->demand_total,
+            $closed_demmand->closed_demmand_total,
+            $service_rating->service_rating,
+            $service_comt->service_cmt,
+            $demmand_rating->demmand_rating,
+            $demmand_comt->demmand_cmt
+        ];
+        foreach ($data as $value){
+            if($value === null){
+                $value = 0;
+            }
+        }
+        return response()->json($data);
     }
+    // $data = [
+    //     [
+    //         "demand_total" => 1
+    //     ],
+    //     [
+    //         "demand_total3" => 6
+    //     ]
+    // ];
+
+    // $result = array_reduce($data, function($carry, $item) {
+    //     return array_merge($carry, $item);
+    // }, []);
 
     // 獲取會員資料
     public function getMemInfo(Request $request){

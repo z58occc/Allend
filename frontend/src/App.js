@@ -92,7 +92,8 @@ function App() {
           password_confirmation: confirmPassword,
         }
       );
-      await loginUser(email, password);
+      if(res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!'){
+      await loginUser(email, password);}
       return res.data;
     } catch (err) {
       console.log(err);

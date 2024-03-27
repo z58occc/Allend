@@ -1,6 +1,11 @@
 import React from 'react';
 import StarRating from './StarRating';
 const Rating = ({ lines, width, fontSize }) => {
+  const number = [
+    {title: "接案方評價"}, 
+    {title: "發案方評價"}
+  ]
+
   const cardStyle = {
     borderRadius: '50px',
     border: '1px solid #ccc',
@@ -27,11 +32,11 @@ const Rating = ({ lines, width, fontSize }) => {
               {lines.map((line, index) => (
                 <div key={index}>
                   <div>
-                    <h5 className="card-title">{line.title}</h5>
+                    <h5 className="card-title">{number.title}</h5>
                   </div>
                   <div>
-                    <div className="card-number">({line.rating})</div>
-                    <StarRating rating={line.rating} width="300px" fontSize="24px" />
+                    <div className="card-number">({line[index+1]})</div>
+                    <StarRating rating={line[index]} width="300px" fontSize="24px" />
                     <div>({line.message}則評價)</div>
                   </div>
                 </div>

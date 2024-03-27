@@ -30,7 +30,8 @@ class AuthController extends Controller
         try{
             $request->validate([
                 'email' => 'required|string|email|unique:members',
-                'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
+                // 'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
+                'password' => ['required', 'confirmed', 'min:6'],
             ]);
         }
         catch (ValidationException $exception){

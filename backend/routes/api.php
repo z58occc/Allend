@@ -88,14 +88,14 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/updateprofiles', 'update');
     // 登出
     Route::post('/logout', 'logout');
-});//->middleware('auth:api');
+});
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 // 重設密碼
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 // 信箱驗證
 Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['auth:api', 'throttle:6,1']);
+                ->middleware(['auth:api', 'throttle:6,1'])->name('verifyemail');
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware(['auth', 'throttle:6,1']);
@@ -128,7 +128,9 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/video', 'addVideo');
     // 我的收藏
     Route::post('/collection', 'getCollection');
-});//->middleware(['verified']);
+})
+// ->middleware(['auth:api','verified']);
+->middleware(['auth:api']);
 
 // 接發案內容
 Route::controller(AcceptanceIssueController::class)->group(function (){
