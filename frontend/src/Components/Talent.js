@@ -42,19 +42,17 @@ function Talent() {
                 <div className='col-sm-3 ' style={{ textAlign: 'center' }}>
                     <div style={{ textAlign: 'start', fontSize: 10, border: 'solid', position: '-webkit-sticky', position: 'sticky', top: 0 }}>
                         <img src={twitter} style={{ width: 25 }}></img>
-                        <p>會員名稱</p>
+                        <p>我吃西紅柿</p>
                         <CiStar />
                         <CiStar />
                         <CiStar />
                         <CiStar />
                         <CiStar />
                         <hr></hr>
-                        接案身分:<br></br>
-                        上線時間:<br></br>
+                        接案身分:個人<br></br>
+                        上線時間:2023/10/23<br></br>
                         接案地點:台北<br></br>
-                        成交件數:
-                        <hr></hr>
-                        專長:LOGO設計
+                        成交件數:32件
                         <hr></hr>
                         <button>
                             <img src={facebook} style={{ width: 10 }}></img>
@@ -100,8 +98,6 @@ function Talent() {
                     </Nav>
                     <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
                         關於我.........
-                        <br></br>
-                        擅長技能.........
                     </div>
                     <div style={{ borderBottom: 'solid', textAlign: 'end' }}>
                         <button>最新<GoTriangleDown /></button>
@@ -115,9 +111,11 @@ function Talent() {
                                     <img src={cow} style={{ width: "100%" }}></img>
                                 </div>
                                 <div className="card-body">
-                                    作品品項<br></br>
-                                    發布時間
-                                    <span style={{ float: "right" }}>瀏覽數</span>
+                                    <span>作品名稱</span>
+                                    <div>
+                                    <span style={{ float: 'right' }}>瀏覽數</span><br/>
+                                    <p style={{fontSize: '12px',float:'right'}}>發布時間:2024/01/03</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

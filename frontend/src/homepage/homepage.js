@@ -199,12 +199,12 @@ function Homepage() {
 
       
       <div className="d-flex justify-content-center mt-5">
-      <Carousel >
+      <Carousel>
         <Carousel.Item >
-          <img src={product} text="First slide" />
+          <img src={product} />
           <Carousel.Caption>
             <Link to='./talent'>
-              <h3>會員名稱</h3>
+              <h3>會員名稱1</h3>
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
@@ -212,7 +212,7 @@ function Homepage() {
           <img src={product2} text="Second slide" />
           <Carousel.Caption>
             <Link to='./talent'>
-              <h3>會員名稱</h3>
+              <h3>會員名稱2</h3>
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
@@ -220,7 +220,7 @@ function Homepage() {
           <img src={product3} text="Third slide" />
           <Carousel.Caption>
             <Link to='./talent'>
-              <h3>會員名稱</h3>
+              <h3>會員名稱3</h3>
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
