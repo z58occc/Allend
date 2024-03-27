@@ -1,11 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import { Card, Button, Form, Modal,Table} from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
-import CaseContext from './CaseContext';
-const CardList = ({visibility,selectedComponent,text}) => {
-  const {Case} = useContext(CaseContext)
+// import CaseContext from './CaseContext';
+const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
+  // const {Case} = useContext(CaseContext)
+  console.log(data1)
+  let CaseData;
+  switch (screen) {
+    case 1:
+      CaseData = data1.data;
+      break;
+    case 2:
+      CaseData = data1;
+      break;
+    case 3:
+      
+      break;
+  }
+
   const [checked, setChecked] = useState(false);
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
@@ -25,7 +39,7 @@ const CardList = ({visibility,selectedComponent,text}) => {
   const handleToggleAll = () => {
     const allSelected = !checked;
     setChecked(allSelected);
-    const newSelectedItems = Case.map(() => allSelected);
+    const newSelectedItems = CaseData.map(() => allSelected);
     setSelectedItems(newSelectedItems);
   };
   // 案件詳情Modal
@@ -52,7 +66,7 @@ const CardList = ({visibility,selectedComponent,text}) => {
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
-    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/> ;
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/> ;
   } else if (selectedComponent === 'component2') {
     ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/>;
   }
@@ -70,11 +84,11 @@ const CardList = ({visibility,selectedComponent,text}) => {
         </Button>
         <SearchPage />
       </div>
-      {Case.map((item, index) => (
+      {CaseData.map((item, index) => (
         <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
-              <Card.Text>開始日期: {item.startDate}</Card.Text>
+              <Card.Text>開始日期: {item.created_at}</Card.Text>
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
@@ -82,12 +96,12 @@ const CardList = ({visibility,selectedComponent,text}) => {
                 checked={selectedItems[index] || false} 
                 onChange={() => handleChecked(index)} 
               />
-              <Card.Title>{item.caseName}</Card.Title>
+              <Card.Title>{item.d_name}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
-                <Card.Text>截止日期: {item.endDate}</Card.Text>
-                <Card.Text>金額: {item.amount}</Card.Text>
-                <Card.Text>人數: {item.count}</Card.Text>
+                <Card.Text>截止日期: </Card.Text>
+                <Card.Text>金額: {item.d_amount}</Card.Text>
+                <Card.Text>人數: {item.d_required}</Card.Text>
               </div>
             </Card.Body>
             <div className="d-flex flex-column justify-content-center" >

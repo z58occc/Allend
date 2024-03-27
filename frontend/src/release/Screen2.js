@@ -1,15 +1,16 @@
 import React from 'react';
 import CardList from './CardList';
-import { CaseProvider } from './CaseContext';
+
 // import SearchPage from './SearchPage';
 // import {Button} from 'react-bootstrap';
-const Screen2 = () => {
+const Screen2 = (data) => {
+  console.log(data)
   return (
-    <CaseProvider>
+    
       <div style={{ width: '100%', height: '100vh', background: 'lightgreen' }}>
-        <CardList visibility= 'hidden' selectedComponent={'component2'} text={"案件詳情"}></CardList>    
+        <CardList visibility= 'hidden' selectedComponent={'component2'} text={"案件詳情"} data1={data} screen={2}></CardList>    
       </div>
-    </CaseProvider>
+    
    
   );
 };

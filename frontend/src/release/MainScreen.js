@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Nav} from 'react-bootstrap';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Nav } from 'react-bootstrap';
 // import SearchPage from './SearchPage';
 import Screen3 from './Screen3';
 import Screen1 from './Screen1';
@@ -10,9 +11,94 @@ const MainScreen = () => {
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
+  const [Case, setCase] = useState([]);
+  // (
+  //   {
+  //     "demmand": [
+  //       {
+  //         "d_name": "87",
+  //         "d_required": 7,
+  //         "d_amount": 38,
+  //         "d_unit": "次",
+  //         "created_at": "1999-03-19 08:05:59"
+  //       }
+  //     ],
+  //     "demmand_progress": [
+  //       {
+  //         "c_name": "流行網站",
+  //         "c_amount": 87,
+  //         "created_at": "1999-03-22 03:45:45"
+  //       }
+  //     ],
+  //     "demmand_completed": [
+  //       {
+  //         "c_name": "loopcode",
+  //         "c_amount": 77,
+  //         "created_at": "1888-03-22 03:49:00"
+  //       }
+  //     ]
+  //   }
+  // )
+  const url = 'http://127.0.0.1/Allend/backend/public/api/mempublishcase?mid=3'
+
+  // const fetchData = async () => {
+  //    await fetch(url)
+  //       .then(response => {
+  //       return response.json()
+  //       })
+  //       .then((res)=> {
+  //      console.log(res)
+  //      setCase(res.data) 
+  //       } 
+  //     )
+  // }
+  
+  
+  const fetchData = async() => {await axios.get(
+      'http://127.0.0.1/Allend/backend/public/api/mempublishcase', {
+      params: {
+        mid: 5
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+  )
+  .then((res)=>{ 
+    setCase(res.data)
+  })}
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
+
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       'http://127.0.0.1/Allend/backend/public/api/mempublishcase', {
+  //       params: {
+  //         mid: 5
+  //       },
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //     }
+  //     )
+
+  //     setCase(result.data)
+  //   }
+
+  //   fetchData()
+  // }, [])
+
 
   return (
-    <Container fluid style = {{ width : '800px'}}>
+    <Container fluid style={{ width: '800px' }}>
       {/* 上方按鈕區域 */}
       <Row className="mb-3">
         <Col>
@@ -20,6 +106,7 @@ const MainScreen = () => {
             <Nav.Item>
               <Nav.Link eventKey="screen1" onClick={() => handleScreenChange('screen1')}>
                 未接案數
+
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -35,14 +122,14 @@ const MainScreen = () => {
           </Nav>
         </Col>
       </Row>
-      
+
       {/* 主畫面區域 */}
       <Row>
         <Col md={12}>
           {/* 右側主畫面區域 */}
-          {activeScreen === 'screen1' && <Screen1 />}
-          {activeScreen === 'screen2' && <Screen2 />}
-          {activeScreen === 'screen3' && <Screen3 />}
+          {activeScreen === 'screen1' && <Screen1 data={Case.demmand} />}
+          {activeScreen === 'screen2' && <Screen2 data={Case.demmand_progress} />}
+          {activeScreen === 'screen3' && <Screen3 data={Case.demmand_completed} />}
         </Col>
       </Row>
     </Container>
