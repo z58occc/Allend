@@ -1,6 +1,6 @@
 import logo from '../logo.svg';
 import '../../src/App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
@@ -22,6 +22,23 @@ import product3 from '../Components/img/product3.jpg'
 
 
 function Homepage() {
+  const [posts, setPosts] = useState([]);
+  const [projectData, setProjectData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost/Allend/backend/public/api/index')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.service);
+        console.log(data.project);
+        setPosts(data.service);
+        setProjectData(data.project);
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
 
 
@@ -52,7 +69,43 @@ function Homepage() {
       <br></br>
 
 
-      <div className=' mt-5'>新手教學</div>
+      <div className=' mt-5'>最新服務</div>
+      <div>
+        <div className="posts-container" style={{display:'flex'}}>
+          {posts.slice(0,3).map((post, index) => {
+            return (
+              <div className='row'>
+                {/* <div className="post-card" key={index}>
+                  <h2 className="post-title">
+                    {post.d_name}
+                  </h2>
+                  <p className="post-body">
+                    {post.created_at}
+                  </p>
+                </div> */}
+                <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
+                  <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
+                    <div className="card-header post-title">
+                      <img src={writing} style={{ width: "100%" }}></img>
+                    </div>
+                    <div className="card-body">
+                      {post.s_name}
+                      <br></br>
+                      ${post.s_amount}/件
+                      <hr></hr>
+                      {post.name}
+                    </div>
+                    <div className="card-footer " style={{ justifyContent: 'end' }}>
+                      {post.created_at}
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
+            );
+          })}
+        </div>
+      </div>
       {/* 最新服務 */}
       <div className="container">
         <div className="row mt-5">
@@ -197,36 +250,36 @@ function Homepage() {
       </div>
 
 
-      
+
       <div className="d-flex justify-content-center mt-5">
-      <Carousel >
-        <Carousel.Item >
-          <img src={product} text="First slide" />
-          <Carousel.Caption>
-            <Link to='./talent'>
-              <h3>會員名稱</h3>
-            </Link>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={product2} text="Second slide" />
-          <Carousel.Caption>
-            <Link to='./talent'>
-              <h3>會員名稱</h3>
-            </Link>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={product3} text="Third slide" />
-          <Carousel.Caption>
-            <Link to='./talent'>
-              <h3>會員名稱</h3>
-            </Link>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+        <Carousel>
+          <Carousel.Item >
+            <img src={product} />
+            <Carousel.Caption>
+              <Link to='./talent'>
+                <h3>會員名稱1</h3>
+              </Link>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={product2} text="Second slide" />
+            <Carousel.Caption>
+              <Link to='./talent'>
+                <h3>會員名稱2</h3>
+              </Link>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={product3} text="Third slide" />
+            <Carousel.Caption>
+              <Link to='./talent'>
+                <h3>會員名稱3</h3>
+              </Link>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
       </div>
-      
+
       <Footer></Footer>
 
     </ div>
