@@ -51,7 +51,7 @@ export const CaseProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://127.0.0.1:8000/api/memtakecase', {
+        'http://127.0.0.1/Allend/backend/public/api/memtakecase', {
         params: {
           mid: 1
         },

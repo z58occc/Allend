@@ -7,11 +7,12 @@ import member from './member.png';
 
 
 
+
 const LeftVerticalNavbar = () => {
     const navItems = [
         { link: '/member', text: '會員中心' },
         { link: '/email', text: '會員維護' },
-        { link: '#services', text: '案件管理' },
+        { link: '/services', text: '案件管理' },
         { link: '#contact', text: '服務管理' },
         { link: '#favorite', text: '收藏管理' },
     ];
@@ -91,8 +92,8 @@ const LeftVerticalNavbar = () => {
                                                 </div>
                                             ) : (
                                                 <div>
-                                                    <Nav.Link href="#push" className="nav-link-no-arrow">發案紀錄</Nav.Link>
-                                                    <Nav.Link href="#accept" className="nav-link-no-arrow">接案紀錄</Nav.Link>
+                                                    <Nav.Link href="#pus" className="nav-link-no-arrow">發案紀錄</Nav.Link>
+                                                    <Nav.Link href="/service" className="nav-link-no-arrow">接案紀錄</Nav.Link>
                                                 </div>
                                             )}
                                         </Accordion.Body>
