@@ -4,7 +4,7 @@ import CardList from './CardList';
 
 
 
-const Screen1 = (data) => {
+const Screen1 = ({data}) => {
   
   console.log(data)
   return (

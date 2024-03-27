@@ -1,24 +1,23 @@
 import React, {  useState } from 'react';
 import { Card, Button, Form, Modal,Table} from 'react-bootstrap';
 import SearchPage from './SearchPage';
+import StarRating from './StarRating';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
+import CaseDetailsModal3 from './CaseDetailsModal3';
 // import CaseContext from './CaseContext';
 const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   // const {Case} = useContext(CaseContext)
-  console.log(data1)
-  let CaseData;
-  switch (screen) {
-    case 1:
-      CaseData = data1.data;
-      break;
-    case 2:
-      CaseData = data1;
-      break;
-    case 3:
-      
-      break;
-  }
+  const CaseData = data1
+  // let CaseData = [
+  //   {
+  //     "d_name": "心理諮商師",
+  //     "d_required": 1,
+  //     "d_amount": 3000,
+  //     "d_unit": "次",
+  //     "created_at": "2024-03-19 08:05:59"
+  //   }
+  // ];
 
   const [checked, setChecked] = useState(false);
   // 控制key回傳對應Modal
@@ -68,8 +67,10 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   if (selectedComponent === 'component1') {
     ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/> ;
   } else if (selectedComponent === 'component2') {
-    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/>;
-  }
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+  } else if (selectedComponent === 'component3') {
+    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+  } 
   
 
   return (
@@ -85,7 +86,13 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
         <SearchPage />
       </div>
       {CaseData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
+        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }} 
+          onClick={() => {
+          if (screen === 3) {
+              handleModalShow1();
+              handlesetSelectedDataKey(index);
+          }
+        }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
               <Card.Text>開始日期: {item.created_at}</Card.Text>
@@ -96,14 +103,19 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
                 checked={selectedItems[index] || false} 
                 onChange={() => handleChecked(index)} 
               />
-              <Card.Title>{item.d_name}</Card.Title>
+              <Card.Title>{screen === 1 ? item.d_name: item.c_name}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
                 <Card.Text>截止日期: </Card.Text>
-                <Card.Text>金額: {item.d_amount}</Card.Text>
-                <Card.Text>人數: {item.d_required}</Card.Text>
+                <Card.Text>金額: {screen ===1 ? item.d_amount : item.c_amount}</Card.Text>
+                <Card.Text>{screen === 1 ? '人數: ' + item.d_required : null}</Card.Text>
               </div>
             </Card.Body>
+            {screen === 3 ? 
+            <div className="d-flex flex-column justify-content-center">
+              <StarRating rating={1} ></StarRating>
+            </div>
+            :
             <div className="d-flex flex-column justify-content-center" >
               <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
                 {text}
@@ -116,7 +128,8 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
               >
                 查看報價
               </Button>
-            </div>
+            </div>}
+            
           </div>
         </Card>
       ))}
