@@ -26,7 +26,8 @@ const FinishedCase = ({ data }) => {
             <div class="d-flex justify-content-between">
               <Card.Text>結案日期: {caseData.endDate}</Card.Text>
               <Card.Text>金額: {caseData.amount}</Card.Text>
-              <Card.Text>人數: {caseData.count}</Card.Text></div>
+              <Card.Text>人數: {caseData.count}</Card.Text>
+            </div>
 
           </Card.Body>
             <div className="d-flex flex-column justify-content-center">
