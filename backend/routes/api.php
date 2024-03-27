@@ -95,10 +95,10 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 // 信箱驗證
 Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['auth:api', 'throttle:6,1'])->name('verifyemail');
+->middleware(['auth:api', 'throttle:6,1'])->name('verifyemail');
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware(['auth', 'throttle:6,1']);
+->middleware(['auth', 'throttle:6,1']);
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板

@@ -5,19 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\select;
+
 class IFindPeopleController extends Controller
 {
     public function __invoke(Request $request)
     {
+        // 撈服務的image跟他的會員資訊、作品總數、服務成交數
+        $member_total = DB::table('service as s')
+        ->join('members as m', 's.mid', '=', 'm.mid')
+        ->Join('project as p', 'p.mid', '=', 'm.mid')
+        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid)'))
+        ->groupBy('m.mid','s.sid','s.image',)
+        ->get();
+        return $member_total;
+        // $members_service = DB::table('members')
+        // ->join('service','members.mid','=','service.mid')
+        // ->select('members.mid as mid','name');
 
-        $members_service = DB::table('members')
-        ->join('service','members.mid','=','service.mid')
-        ->select('members.mid as mid','name');
-
-        $members_project = DB::table('members')
-        ->join('project', 'members.mid', '=', 'project.mid')
-        ->select('members.mid as mid', DB::raw('COUNT(project.mid) as project_count'))
-        ->groupBy('members.mid');
+        // $members_project = DB::table('members')
+        // ->join('project', 'members.mid', '=', 'project.mid')
+        // ->select('members.mid as mid', DB::raw('COUNT(project.mid) as project_count'))
+        // ->groupBy('members.mid');
         // $member_query = DB::table('members')->select('name');
         // $establised_query = DB::table('established_case');
         // $project_query = DB::table('project')->select('mid')->groupBy('mid');
@@ -25,7 +34,7 @@ class IFindPeopleController extends Controller
         // $avg = $establised_query
         // ->join('service','established_case.c_name','=','service.s_name')
         // ->select('sid',DB::raw('ROUND(AVG(demmand_star)) as avg_star'))->groupBy('sid');
-        
+
 
         // // 選擇類別
         // if($request->has('s_type')){
@@ -79,12 +88,12 @@ class IFindPeopleController extends Controller
 
 
         $Data_response=[
-            'service'=>$members_service->get(),
-            'members'=>$members_project->get(),
+            // 'service'=>$members_service->get(),
+            // 'members'=>$members_project->get(),
             // 'established_case'=>$establised_query->get(),
             // 'project'=>$project_query->get(),
         ];
-    
+
         return response()->json($Data_response);
     }
 }

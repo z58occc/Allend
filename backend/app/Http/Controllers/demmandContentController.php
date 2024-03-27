@@ -40,10 +40,10 @@ class DemmandContentController extends Controller
         }
         $lastLoginTime->last_login = $difference;
 
-        $data_response=[
-            'dammand'=>$query->first(),
-            'service_star_avg'=>$avg,
-            'members'=>$lastLoginTime,
+        $data_response = [
+            'dammand' => $query->first(),
+            'service_star_avg' => $avg,
+            'members' => $lastLoginTime,
         ];
         return response()->json($data_response);
 

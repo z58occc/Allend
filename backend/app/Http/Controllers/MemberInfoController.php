@@ -160,7 +160,7 @@ class MemberInfoController extends Controller
             ]);
         }catch (Throwable $err){
             return response()->json([
-                'message' => '資料有誤，重新輸入'
+                'message' => '資料不正確，重新輸入'
             ]);
         }
         if (Hash::make($request->oldpassword) === DB::table('members')->select('password')->where('mid', $user->mid)->first()){
