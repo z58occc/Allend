@@ -41,6 +41,8 @@ const LeftVerticalNavbar = () => {
     };
 
     return (
+  
+         
         <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '' }}>
             <Navbar.Brand>
 

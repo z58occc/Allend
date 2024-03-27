@@ -17,6 +17,7 @@ const GridComponent = ({ lines, width, fontSize }) => {
     <div className="container mt-4">
       <div className="row justify-content-between">
         <div className="col-5">
+          <h2>接案總覽</h2>
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
               {lines.map((line, index) => (
@@ -27,7 +28,9 @@ const GridComponent = ({ lines, width, fontSize }) => {
             </div>
           </div>
         </div>
+        
         <div className="col-5">
+        <h2>發案總覽</h2>
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
               {lines.map((line, index) => (

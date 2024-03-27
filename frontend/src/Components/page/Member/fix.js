@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Alert, Container, Col, Row } from "react-bootstrap";
+import { Form, Button, Alert, Col, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
@@ -49,14 +49,14 @@ function PasswordForm() {
 
   return (
     <>
-      <Container>
+      <div className="container-fluid">
         <Row>
-          <Col sm={2}>
+          <Col sm={2}style={{padding:"20px"}}>
             <LeftVerticalNavbar />
           </Col>
           <Col sm={10}>
             <Row className="justify-content-center">
-              <Col sm={6}>
+              <Col sm={6}style={{padding:"20px"}}> 
                 <div>
                   <h2>修改密碼</h2>
                   <Form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ function PasswordForm() {
             </Row>
           </Col>
         </Row>
-      </Container>
+      </div>
     </>
   );
 }

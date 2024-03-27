@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import axios from "axios";
@@ -167,13 +167,13 @@ function FreelancerForm() {
 
   return (
     <>
-      <Container>
+     <div className="container-fluid">
         <Row>
-          <Col sm={2}>
+          <Col sm={2} style={{padding:"20px"}}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={10}>
+          <Col sm={10} style={{padding:"20px"}}>
             <h2 className="text-center">接案人資料維護</h2>
 
             {isSubmitted ? (
@@ -480,7 +480,7 @@ function FreelancerForm() {
             )}
           </Col>
         </Row>
-      </Container>
+      </div>
     </>
   );
 }
