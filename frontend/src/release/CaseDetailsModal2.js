@@ -1,8 +1,8 @@
-import {React, useContext }from 'react';
+import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import CaseContext from './CaseContext.js';
-const CaseDetailsModal2 = ({ show, onHide ,number}) => {
-  const {Case} = useContext(CaseContext);
+
+const CaseDetailsModal2 = ({ show, onHide}) => {
+  
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
@@ -12,37 +12,37 @@ const CaseDetailsModal2 = ({ show, onHide ,number}) => {
         <div className="container" style={{ fontSize: '18px' }}>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件編號:</strong> {Case[number].caseNumber}
+              <strong>案件編號:</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong> {Case[number].caseName}
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件類別:</strong> {Case[number].caseCategory}
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>預算金額:</strong> {Case[number].budgetAmount}
+              <strong>案件名稱:</strong> 
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>地點:</strong> {Case[number].location}
+              <strong>案件類別:</strong>
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件期程:</strong> {Case[number].startDate+"~"+Case[number].endDate}
+              <strong>預算金額:</strong> 
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人姓名:</strong> {Case[number].contractorName}
+              <strong>地點:</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人 Email:</strong> {Case[number].contractorEmail}
+              <strong>案件期程:</strong> 
+            </div>
+          </div>
+          <div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>接案人姓名:</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人手機:</strong> {Case[number].contractorPhone}
+              <strong>接案人 Email:</strong> 
+            </div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>接案人手機:</strong> 
             </div>
           </div>
         </div>

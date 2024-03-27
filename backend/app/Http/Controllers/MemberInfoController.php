@@ -286,29 +286,10 @@ class MemberInfoController extends Controller
                 $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
             }
 
-            $demmand_results = $demmand_query->get();
-            $demmand_progress_results = $demmand_progress_query->get();
-            $demmand_completed_results = $demmand_completed_query->get();
-
-            if($demmand_results->count()<6){
-                $demmand_paginated_results = $demmand_results;
-            }else{
-                $demmand_paginated_results = $demmand_query->paginate(6);
-            }
-            if($demmand_progress_results->count()<6){
-                $demmand_progress_paginated_results = $demmand_progress_results;
-            }else{
-                $demmand_progress_paginated_results = $demmand_progress_query->paginate(6);
-            }
-            if($demmand_completed_results->count()<6){
-                $demmand_completed_paginated_results = $demmand_completed_results;
-            }else{
-                $demmand_completed_paginated_results = $demmand_completed_query->paginate(6);
-            }
             return response()->json([
-                'demmand' => $demmand_paginated_results,
-                'demmand_progress' => $demmand_progress_paginated_results,
-                'demmand_completed' => $demmand_completed_paginated_results
+                'demmand' => $demmand_query->get(),
+                'demmand_progress' => $demmand_progress_query->get(),
+                'demmand_completed' => $demmand_completed_query->get()
             ]);
 
         }

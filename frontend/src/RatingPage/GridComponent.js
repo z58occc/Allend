@@ -26,6 +26,7 @@ let data2 = data.slice(3,6)
     <div className="container mt-4">
       <div className="row justify-content-between">
         <div className="col-5">
+          <h2>接案總覽</h2>
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
               <h3>接案</h3>
@@ -38,7 +39,9 @@ let data2 = data.slice(3,6)
             </div>
           </div>
         </div>
+        
         <div className="col-5">
+        <h2>發案總覽</h2>
           <div className="card" style={cardStyle}>
             <div className="card-body" style={textStyle}>
             <h3>發案</h3>

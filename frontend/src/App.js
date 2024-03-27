@@ -22,15 +22,16 @@ import program from "./Components/program"
 import Program from "./Components/program";
 import casecontext from "./Components/CaseContext"
 import CaseContext from "./Components/CaseContext";
+import MainScreen from "./accept/MainScreen";
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [color, setColor] = useState("silver");
   const [color2, setColor2] = useState("silver");
   const [showRegister, setShowRegister] = useState(false);
-  
-
   const [showLogin, setShowLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
 
@@ -99,6 +100,9 @@ function App() {
       console.log(err);
     }
   };
+
+
+
   const loginUser = async (email, password) => {
     try {
       const res = await axios.post(
@@ -109,10 +113,20 @@ function App() {
         }
       );
       Cookies.set("token", res.data.token);
+      setIsLoggedIn(true);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    setIsLoggedIn(false); // Update login status
+  };
+
+
+
+
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
     const password = RegisterPassword.current.value;
@@ -201,7 +215,11 @@ function App() {
           <Button type="submit">
             <i className="fa fa-search"></i>
           </Button>
-          <Button onClick={handleShow}>登入/註冊</Button>
+          {isLoggedIn ? ( // Check if user is logged in
+            <Button onClick={handleLogout}>登出</Button>
+          ) : (
+            <Button onClick={handleShow}>登入/註冊</Button>
+          )}
         </div>
       </div>
       <nav className="navbar navbar-expand-sm">
@@ -268,7 +286,7 @@ function App() {
         <Route path="/pro" element={<Pro></Pro>}></Route>
         <Route path="/program" element={<Program></Program>}></Route>
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
-
+        <Route path="/service" element={<MainScreen></MainScreen>}></Route>
       </Routes>
 
       {/* 登入 */}
@@ -375,15 +393,19 @@ function App() {
                 placeholder="Enter email"
                 required
                 ref={RegisterEmail}
-                
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" // Regular expression for email format
               />
-             
+              <Form.Control.Feedback type="invalid">
+                請輸入有效的電子郵件
+              </Form.Control.Feedback>
+
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>密碼</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
+                required
                 ref={RegisterPassword}
               />
             </Form.Group>

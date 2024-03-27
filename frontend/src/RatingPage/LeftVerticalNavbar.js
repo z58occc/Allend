@@ -7,11 +7,12 @@ import member from './member.png';
 
 
 
+
 const LeftVerticalNavbar = () => {
     const navItems = [
         { link: '/member', text: '會員中心' },
         { link: '/email', text: '會員維護' },
-        { link: '#services', text: '案件管理' },
+        { link: '/services', text: '案件管理' },
         { link: '#contact', text: '服務管理' },
         { link: '#favorite', text: '收藏管理' },
     ];
@@ -21,7 +22,7 @@ const LeftVerticalNavbar = () => {
         image: member // 默认头像
     });
     const [showModal, setShowModal] = useState(false);
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageFile, setImageFile] = useState(null);
 
     const handleEditmember = () => {
         setShowModal(true);
@@ -32,15 +33,28 @@ const LeftVerticalNavbar = () => {
     };
 
     const handleSaveImage = () => {
-        if (imageUrl.trim() !== '') { // 确保圖片 URL 不為空
-            setUsermember({ ...usermember, image: imageUrl });
+        if (imageFile) {
+            setUsermember({ ...usermember, image: URL.createObjectURL(imageFile) });
             setShowModal(false);
         } else {
-            alert('請輸入有效的圖片 URL');
+            alert('請選擇有效的圖片');
         }
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+        }
+    };
+
+
+
+
+
     return (
+
+
         <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '' }}>
             <Navbar.Brand>
 
@@ -56,9 +70,9 @@ const LeftVerticalNavbar = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formImageUrl">
-                            <Form.Label>請輸入圖片 URL</Form.Label>
-                            <Form.Control type="text" placeholder="Enter image URL" onChange={(e) => setImageUrl(e.target.value)} />
+                        <Form.Group controlId="formImageFile">
+                            <Form.Label>選擇圖片檔案</Form.Label>
+                            <Form.Control type="file" accept="image/*" onChange={handleFileChange} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -91,8 +105,8 @@ const LeftVerticalNavbar = () => {
                                                 </div>
                                             ) : (
                                                 <div>
-                                                    <Nav.Link href="#push" className="nav-link-no-arrow">發案紀錄</Nav.Link>
-                                                    <Nav.Link href="#accept" className="nav-link-no-arrow">接案紀錄</Nav.Link>
+                                                    <Nav.Link href="#pus" className="nav-link-no-arrow">發案紀錄</Nav.Link>
+                                                    <Nav.Link href="/service" className="nav-link-no-arrow">接案紀錄</Nav.Link>
                                                 </div>
                                             )}
                                         </Accordion.Body>

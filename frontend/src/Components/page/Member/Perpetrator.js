@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import {Form, Button, Row, Col} from "react-bootstrap";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
+import Footer from "../../../homepage/Footer";
 
 // 發案人維護资料
 function ClientForm() {
@@ -80,13 +81,13 @@ function ClientForm() {
 
   return (
     <>
-      <Container>
+      <div className="container-fluid">
         <Row>
-          <Col sm={2}>
+          <Col sm={2} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={10}>
+          <Col sm={10} style={{ padding: "20px" }}>
             <h2 className="text-center">發案人資料維護</h2>
             {isSubmitted ? (
               <div className="text-center mt-3">提交完成</div>
@@ -149,7 +150,8 @@ function ClientForm() {
             )}
           </Col>
         </Row>
-      </Container>
+        <Footer></Footer>
+      </div>
     </>
   );
 }

@@ -1,19 +1,33 @@
-import { createContext,useState } from "react";
-const CaseContext = createContext();
 // import axios from "axios";
+import { createContext,useState} from "react";
+const CaseContext = createContext();
 
 export const CaseProvider = ({ children }) => {
-    // axios('http://127.0.0.1/Allend/backend/public/api/demmand_content', {
-    //   method: 'GET',
-    //   // params: {
-    //   //   mid: 
-    //   // },
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
-    // .then(response => console.log(response.json()))
-    // .then(data => console.log(data))
+  // const [Case2 ,setCase2] = useState([])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       'http://127.0.0.1/Allend/backend/public/api/mempublishcase', {
+  //       params: {
+  //         mid: 3
+  //       },
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //     }
+  //     )
+
+  //     setCase2(result.data)
+  //   }
+
+  //   fetchData()
+  // }, [])
+  // console.log(Case2)
+
+
+
+
+
 
 
     const [Case, setCase] = useState
