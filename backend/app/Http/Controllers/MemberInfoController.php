@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,10 @@ use Throwable;
 
 class MemberInfoController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     // 獲取儀錶板
     public function dashboard(Request $request)//:JsonResponse
@@ -149,6 +150,65 @@ class MemberInfoController extends Controller
         return response()->json($user_info);
     }
 
+    // 修改資料
+    public function updateMemInfo(Request $request){
+        // try{
+        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        //     Auth::user();
+        // }catch(Throwable $err){
+        //     return response('無效的請求');
+        // }
+        $user = Auth::user();
+        $request->validate([
+            'idCard' => 'max:10',
+        ]);
+
+        $user_id = Auth::user()->mid;
+        try{
+            Member::where('id', $user_id)->update([
+                'identity' => $request->identity,
+                'nickname' => $request->nickname,
+                'seniority' => $request->exprience,
+                'active_location' => $request->location,
+                'mobile_phone' => $request->phone,
+                'name' => $request->name,
+                'id_card' => $request->idCard,
+                'gender' => $request->gender,
+                'location' => $request->area,
+                'updated_at' => now(),
+            ]);
+        }catch(Throwable $err){
+            return response()->json([
+                'message' => '修改失敗'
+            ]);
+        }
+        return response()->json([
+            'message' => '修改成功'
+        ]);
+    }
+
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     // 會跑去檢查rules，回傳json字串，fill()參考User內的$fillable對應值傳入資料庫
+    //     $validated = $request->validated();
+    //     if (isset($request->image)){
+    //         $data = $request->image->get();
+    //         $mime_type = $request->image->getMimeType(); // 回傳格式字串
+    //         $imageData = base64_encode($data);
+    //         $src = "data: $mime_type;base64, $imageData";// img tag 所需的標籤格式
+    //         $validated['image'] = $src; // 補上image資料，跳過驗證
+    //     }
+    //     $request->user()->fill($validated);
+
+        // if ($request->user()->isDirty('email')) {
+        //     $request->user()->email_verified_at = null;
+        // }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    // }
+
     // 修改密碼
     public function updatePassword(Request $request)
     {
@@ -163,8 +223,9 @@ class MemberInfoController extends Controller
                 'message' => '資料不正確，重新輸入'
             ]);
         }
-        if (Hash::make($request->oldpassword) === DB::table('members')->select('password')->where('mid', $user->mid)->first()){
-            DB::create([
+
+        if(Hash::check($request->oldpassword, $user->password)){
+            DB::update([
                 'password' => Hash::make($request->password)
             ]);
         }else{
@@ -177,8 +238,7 @@ class MemberInfoController extends Controller
     // 獲取接案紀錄
     public function getTakeCase(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');
+        $mid = Auth::guard('api')->id();
         if($mid){
             $Quote_query = DB::table('quote')
             ->join('demmand','quote.did','=','demmand.did')
@@ -233,29 +293,25 @@ class MemberInfoController extends Controller
                 'CaseInProgress' => $Case_in_progress_paginated_results,
                 'CaseCompleted' => $Case_completed_paginated_results,
             ]);
-
         }
-
     }
 
     //  刪除接案紀錄
     public function delTakeCase(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');
+        $mid = Auth::guard('api')->id();
         if($mid){
             $selectQuote = $request->input('qid');
             DB::table('quote')
             ->where('mid',$mid)
             ->whereIn('qid',$selectQuote)->delete();
         }
-
     }
 
     // 獲取發案紀錄
     public function getPublishCase(Request $request)
     {
-        $mid = $request->input('mid');
+        $mid = Auth::guard('api')->id();
         if($mid){
             //發案
             $demmand_query = DB::table('demmand')
@@ -291,9 +347,7 @@ class MemberInfoController extends Controller
                 'demmand_progress' => $demmand_progress_query->get(),
                 'demmand_completed' => $demmand_completed_query->get()
             ]);
-
         }
-
     }
 
     // 刪除發案紀錄
@@ -309,14 +363,12 @@ class MemberInfoController extends Controller
 
             return response()->json(['message'=>'刪除成功']);
         }
-
     }
 
     // 獲取服務管理頁面
     public function getService(Request $request)
     {
-        // $mid = Auth::user()->mid;
-        $mid = $request->input('mid');
+        $mid = Auth::user()->mid;
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
 
@@ -422,10 +474,10 @@ class MemberInfoController extends Controller
     // 新增作品
     public function addWork(Request $request)
     {
+        $mid = Auth::id();
         $this->validate($request,[
             'p_name'=>['required'],
             'p_description'=>['required'],
-            'mid'=>['required'],
         ]);
 
         if(isset($request->image)){
@@ -437,21 +489,39 @@ class MemberInfoController extends Controller
         $work = DB::table('project')->insert([
             'p_name'=>$request['p_name'],
             'p_description'=>$request['p_description'],
-            'mid'=>$request['mid'],
+            'mid'=>$mid,
             'image'=>$imageData,
             'created_at'=>now(),
             'updated_at'=>now()
         ]);
         return response($work);
+    }
 
+    // 編輯作品
+    public function updateWork(Request $request){
+        $mid = Auth::id();
+        $request->validate([
+            'p_name'=>['required'],
+            'p_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $result = DB::table('project')->where('mid', $mid)
+        ->update([
+            'p_name' => $request->p_name,
+            'p_description' => $request->p_description,
+            'src' => $request->src,
+            'updated_at' => now()
+        ]);
+        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
     }
 
     // 新增影音
     public function addVideo(Request $request)
     {
+        $mid = Auth::id();
         $this->validate($request,[
             'v_name'=>['required'],
-            'mid'=>['required'],
             'v_description'=>['required'],
             'src'=>['required']
         ]);
@@ -460,27 +530,37 @@ class MemberInfoController extends Controller
             'v_name'=> $request['v_name'],
             'v_description' =>$request['v_description'],
             'src'=>$request['src'],
-            'mid'=>$request['mid'],
+            'mid'=>$mid,
             'created_at'=>now(),
             'updated_at'=>now(),
         ]);
         return response($video);
-
     }
+
+    // 編輯影音
+    public function updateVideo(Request $request){
+        $mid = Auth::id();
+
+        $request->validate([
+            'v_name'=>['required'],
+            'v_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $result = DB::table('video')->where('mid', $mid)
+        ->update([
+            'v_name' => $request->v_name,
+            'v_description' => $request->v_description,
+            'src' => $request->src,
+            'updated_at' => now()
+        ]);
+        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
+    }
+
     // 獲取我的收藏
     public function getCollection(){
 
     }
 }
-        // identity: "",
-        // experience: "",
-        // location: "",
-        // idCard: "",
-        // email: "",
-        // name: "",
-        // phone: "",
-        // gender: "",
-        // area: "",
-        // selectedDate: new Date(),
 
 
