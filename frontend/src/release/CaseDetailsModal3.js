@@ -1,7 +1,7 @@
 import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const CaseDetailsModal3 = ({ show, onHide,data}) => {
+const CaseDetailsModal3 = ({ show, onHide,number,data}) => {
   
   return (
     <Modal show={show} onHide={onHide}>
@@ -25,7 +25,7 @@ const CaseDetailsModal3 = ({ show, onHide,data}) => {
                 <strong>案件類別:</strong> 
               </div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>預算金額:</strong> 
+                <strong>預算金額:{data[number].c_amount}</strong> 
               </div>
             </div>
             <div>

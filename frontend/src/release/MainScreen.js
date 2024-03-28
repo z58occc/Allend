@@ -115,8 +115,9 @@ const MainScreen2 = () => {
 
   return (
     <>
+      <Container xxl={12}>
       <Row>
-        <Col sm={2}>
+        <Col sm={3} style={{ padding: "20px" }}>
         <LeftVerticalNavbar />
       </Col>
 
@@ -158,6 +159,7 @@ const MainScreen2 = () => {
         </Container>
         </Col>
     </Row>
+    </Container>
       </>
       );
 };
