@@ -33,9 +33,8 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isFindcase, setIsFindcase] = useState(false);
 
-  
+
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -189,12 +188,22 @@ function App() {
         console.log($err);
       });
   };
+
+
   const handleClick = () => {
-    setColor(color === "red" ? "blue" : "red");
+    setColor("darkgray");
+    setColor2("silver");
+
   };
   const handleClick2 = () => {
-    setColor2(color2 === "red" ? "blue" : "red");
+    setColor("silver");
+    setColor2("darkgray");
   };
+  const handleClick3 = () => {
+    setColor("silver");
+    setColor2("silver");
+  };
+
 
 
 
@@ -209,7 +218,7 @@ function App() {
         className="p-1 bg-info"
         style={{ display: "flex", alignItems: "center", height: 50 }}
       >
-        <Link to="/">
+        <Link onClick={handleClick3} to="/">
           <img style={{ width: 50 }} src={ourLogo} alt="" />
         </Link>
         <span style={{ marginLeft: 10 }}>包您滿意</span>
@@ -232,43 +241,31 @@ function App() {
         <div className="container-fluid">
           <ul className="navbar-nav">
             <li className="nav-item">
-              {isFindcase ? (
-                <Nav.Link
-                  href="/findcase"
-                  style={{ backgroundColor: "white" }}
-                  onClick={handleClick}
-                  className="nav-link active"
-                >
-                  我要接案
-                </Nav.Link>
-              ) : (
-                <Nav.Link
-                  href="/findcase"
-                  style={{ backgroundColor:   color }}
-                  onClick={handleClick}
-                  className="nav-link active"
-                >
-                  我要接案
-                </Nav.Link>
-              )}
-
+              <Link
+                to="/findcase"
+                style={{ backgroundColor: color }}
+                onClick={handleClick}
+                className="nav-link active"
+              >
+                我要接案
+              </Link>
             </li>
             <li className="nav-item">
-              <Nav.Link
-                href="/findman"
+              <Link
+                to="/findman"
                 style={{ backgroundColor: color2 }}
                 onClick={handleClick2}
                 className="nav-link"
               >
                 我要找人
-              </Nav.Link>
+              </Link>
             </li>
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
               <Nav.Link
                 href="/ProjectForm"
-                style={{ backgroundColor: color2 }}
+                style={{ backgroundColor: "silver" }}
                 onClick={handleClick2}
                 className="nav-link"
               >
@@ -278,7 +275,7 @@ function App() {
             <li className="nav-item">
               <Nav.Link
                 href="/member"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: "silver" }}
                 onClick={handleClick}
                 className="nav-link active"
               >
@@ -447,5 +444,7 @@ function App() {
     </>
   );
 }
+
+
 
 export default App;
