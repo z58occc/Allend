@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import Footer from "../../../homepage/Footer";
@@ -49,13 +49,15 @@ function FreelancerForm() {
   //     setIsFormComplete(isComplete);
   //   }, [formData]);
   const isNotFirst = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // console.log(2);
     // if (isNotFirst.current == false) {
     //   isNotFirst.current = true;
     //   return;
     // }
-    const fetchData = async () => {
+    const fetchData = async (complete) => {
       try {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
@@ -65,44 +67,27 @@ function FreelancerForm() {
           { headers: headers }
         );
         const result = await res.data;
+        // setIsLoading(true);
+        // setTimeout(() => {
+        //   complete(result);
+        //   setIsLoading(false);
+        // }, 3000);
         setFormData(result);
       } catch (err) {
         console.log(err);
       }
+      // setIsLoading(false);
     };
     fetchData();
+    // fetchData((result) => {
+    //   setFormData(result);
+    // });
   }, []);
-
-  //   useEffect(() => {
-  //     if (isNotFirst.current == false) {
-  //       isNotFirst.current = true;
-  //       return;
-  //     }
-  //     const fetchData = async () => {
-  //       try {
-  //         // 發送 GET 請求到後端 API 取得資料
-  //         const response = await axios.get(
-  //           "http://localhost/PHP/Allend/backend/public/api/memtakecase",
-  //           {
-  //             params: {
-  //               mid: 5,
-  //             },
-  //           }
-  //         );
-  //         const result = await response.data;
-  //         setCase(result);
-  //         setLoading(false);
-  //       } catch (error) {
-  //         console.error("Error fetching data:", error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "identity") {
-      // 根据用户选择的身份类型来更新isFreelancer状态
+      // 根據用戶選擇的身份類型来更新isFreelancer狀態
       setIsFreelancer(value === "freelancer");
     }
 
@@ -168,13 +153,13 @@ function FreelancerForm() {
 
   return (
     <>
-      <div className="container-fluid">
+      <Container xxl={12}>
         <Row>
-          <Col sm={2} style={{ padding: "20px" }}>
+          <Col sm={3} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={10} style={{ padding: "20px" }}>
+          <Col sm={9} style={{ padding: "20px" }}>
             <h2 className="text-center">接案人資料維護</h2>
 
             {isSubmitted ? (
@@ -183,39 +168,45 @@ function FreelancerForm() {
               <Form onSubmit={handleSubmit}>
                 {/* 身分 */}
                 <Form.Group as={Row}>
-                  <Form.Label column sm={6}>
+                  <Form.Label column sm={5}>
                     接案人身分：
                   </Form.Label>
-                  <Col sm={6} className="d-flex">
-                    <Form.Check
-                      type="radio"
-                      name="identity"
-                      id="freelancer"
-                      label="個人"
-                      value="freelancer"
-                      checked={formData.identity === "freelancer"}
-                      onChange={handleChange}
-                    />
-
-                    <Form.Check
-                      type="radio"
-                      name="identity"
-                      id="company"
-                      label="公司"
-                      value="company"
-                      checked={formData.identity === "company"}
-                      onChange={handleChange}
-                    />
-
-                    <Form.Check
-                      type="radio"
-                      name="identity"
-                      id="studio"
-                      label="工作室"
-                      value="studio"
-                      checked={formData.identity === "studio"}
-                      onChange={handleChange}
-                    />
+                  <Col sm={7}>
+                    <Row>
+                      <Col sm={4}>
+                        <Form.Check
+                          type="radio"
+                          name="identity"
+                          id="freelancer"
+                          label="個人"
+                          value="freelancer"
+                          checked={formData.identity === "freelancer"}
+                          onChange={handleChange}
+                        />
+                      </Col>
+                      <Col sm={4}>
+                        <Form.Check
+                          type="radio"
+                          name="identity"
+                          id="company"
+                          label="公司"
+                          value="company"
+                          checked={formData.identity === "company"}
+                          onChange={handleChange}
+                        />
+                      </Col>
+                      <Col sm={4}>
+                        <Form.Check
+                          type="radio"
+                          name="identity"
+                          id="studio"
+                          label="工作室"
+                          value="studio"
+                          checked={formData.identity === "studio"}
+                          onChange={handleChange}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
                 </Form.Group>
                 {/* 身分 */}
@@ -481,8 +472,8 @@ function FreelancerForm() {
             )}
           </Col>
         </Row>
-        <Footer></Footer>
-      </div>
+      </Container>
+      <Footer></Footer>
     </>
   );
 }

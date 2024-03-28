@@ -353,7 +353,7 @@ function App() {
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button onClick={handleLogin} id="login" style={{}}>
+                <Button onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
                   <img style={{ width: 130 }} src={ourLogo} alt="" />
                 </Button>
               </div>

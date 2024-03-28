@@ -5,6 +5,7 @@ import Footer from '../homepage/Footer';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Container } from 'react-bootstrap';
 
 //會員中心
 function RatingPage() {
@@ -43,13 +44,13 @@ function RatingPage() {
 
   return (
     <>
-
-      <div className="container-fluid">
+       <Container xxl={12}>
+        
         <div className="row">
-          <div className="col-lg-2" style={{padding:"20px"}}>
+          <div className="col-lg-3" style={{padding:"20px"}}>
             <LeftVerticalNavbar />
           </div>
-          <div className="col-lg-10">
+          <div className="col-lg-9">
             <div class="row">
               <div class="col-lg-12">
                 <GridComponent data={caseNum} width="" fontSize="20px" />
@@ -64,8 +65,9 @@ function RatingPage() {
             </div>
           </div>
         </div>
+        </Container>
       <Footer></Footer>
-      </div>
+      
     </>
   );
 }

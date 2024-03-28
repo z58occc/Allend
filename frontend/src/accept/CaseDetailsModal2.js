@@ -1,9 +1,13 @@
 import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const CaseDetailsModal2 = ({ show, onHide ,number,Case}) => {
+const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
   
   return (
+    <>
+    {data.length === 0 
+    ? " "
+    :
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>
@@ -28,7 +32,7 @@ const CaseDetailsModal2 = ({ show, onHide ,number,Case}) => {
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件金額:</strong>
+              <strong>案件金額:</strong>{data[number].c_amount}
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
               <strong>發案人姓名:</strong> 
@@ -57,7 +61,8 @@ const CaseDetailsModal2 = ({ show, onHide ,number,Case}) => {
           關閉
         </Button>
       </Modal.Footer>
-    </Modal>
+    </Modal>}
+    </>
   );
 };
 
