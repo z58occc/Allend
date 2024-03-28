@@ -28,17 +28,22 @@ import { FaHandshake } from "react-icons/fa";
 
 function Homepage() {
   const [posts, setPosts] = useState([]);
-  const [projectData, setProjectData] = useState([]);
+
 
   useEffect(() => {
-    fetch('http://localhost/Allend/backend/public/api/index')
+    fetch('http://127.0.0.1/Allend/backend/public/api/index')
       .then((response) => response.json())
       .then((data) => {
         console.log(data.service);
+        console.log(data.demmand);
         console.log(data.project);
-        setPosts(data.service);
-        setProjectData(data.project);
+        // const result;
+        for(let i = 0 ; i < 9 ; i++){
+          data.service[i].image = data.project[i]["image"]
 
+        }
+        console.log(data.service)
+        setPosts(data.service)
       })
       .catch((err) => {
         console.log(err.message);
@@ -119,7 +124,7 @@ function Homepage() {
       <div className=' mt-5'>最新服務</div>
       <div>
         <div className="posts-container" style={{ display: 'flex' }}>
-          {posts.slice(0, 3).map((post, index) => {
+          {posts.map((post, index) => {
             return (
               <div className='row'>
                 {/* <div className="post-card" key={index}>
@@ -133,7 +138,7 @@ function Homepage() {
                 <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
                   <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
                     <div className="card-header post-title">
-                      <img src={writing} style={{ width: "100%" }}></img>
+                      <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ width: "100%" }}></img>
                     </div>
                     <div className="card-body">
                       {post.s_name}

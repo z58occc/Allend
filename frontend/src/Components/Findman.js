@@ -4,7 +4,6 @@ import Category from './Category'
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
-import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
 import axios from 'axios';
@@ -12,6 +11,7 @@ import axios from 'axios';
 const Findman=() => {
 
     const [service, setService] = React.useState([]);
+
     const [identity, setIdentity] = React.useState({
         personal:false,
         company:false,
@@ -26,6 +26,54 @@ const Findman=() => {
         year5:false
     });
 
+
+    useEffect(() => {
+        const fetchService = async () => {
+            try{
+            const identityQuery = Object.keys(identity)
+            .filter((key) => identity[key])
+            .map(key => {
+                switch(key){
+                    case 'personal':
+                        return '1';
+                    case 'company':
+                        return '2';
+                    case 'studio':
+                        return '3';
+                    default:
+                        return '';
+                }})
+            .join(',');
+
+            const seniorityQuery = Object.keys(seniority)
+            .filter((key) => seniority[key])
+            .map(key => {
+                switch(key){
+                    case 'year1':
+                        return '1';
+                    case 'year2':
+                        return '2';
+                    case 'year3':
+                        return '3';
+                    case 'year4':
+                        return '4';
+                    case 'year5':
+                        return '5';
+                    default:
+                        return '';
+                }})
+            .join(',');
+            const response = await axios.get(`http://localhost/Allend/backend/public/api/printservicecardcontent?identity=${identityQuery}&seniority=${seniorityQuery}`);
+
+            setService(response.data);
+
+            }catch(err){
+                console.error(err);
+            }
+        };
+        fetchService();
+    }, [identity, seniority]);
+
     const handleidentityChange = (event) => {
         const {name, checked} = event.target;
         setIdentity(prevState => ({
@@ -38,31 +86,6 @@ const Findman=() => {
             ...prevState,
             [name]:checked}));
     };
-
-    useEffect(() => {
-        const fetchService = async () => {
-            try{
-            const identityQuery = Object.keys(identity)
-            .filter((key) => identity[key])
-            .map(key => encodeURIComponent(key))
-            .join('&');
-
-            const seniorityQuery = Object.keys(seniority)
-            .filter((key) => seniority[key])
-            .map(key => encodeURIComponent(key))
-            .join('&');
-            const response = await axios.get(`http://localhost/Allend/backend/public/api/printservicecardcontent?identity=${identityQuery}&seniority=${seniorityQuery}`);
-
-            setService(response.data);
-
-            }catch(err){
-                console.error(err);
-            }
-        };
-        fetchService();
-    }, []);
-
-
 
 
     return (
@@ -89,19 +112,19 @@ const Findman=() => {
                     <div style={{  height: '250px', overflowY: 'scroll', border: 'solid' }}>
                         接案人身分
                         <hr></hr>
-                        <input type='checkbox' name=''></input>個人<br></br>
-                        <input type='checkbox'></input>公司<br></br>
-                        <input type='checkbox'></input>工作室<br></br>
+                        <input type='checkbox' name='personal' value='1'  onChange={handleidentityChange}></input>個人<br></br>
+                        <input type='checkbox' name='company' value='2'  onChange={handleidentityChange}></input>公司<br></br>
+                        <input type='checkbox' name='studio' value='3'  onChange={handleidentityChange}></input>工作室<br></br>
                     </div>
                     <br></br>
                     <div style={{  height: '250px', overflowY: 'scroll', border: 'solid' }}>
                         年資
                         <hr></hr>
-                        <input type='checkbox'></input>1年<br></br>
-                        <input type='checkbox'></input>2年<br></br>
-                        <input type='checkbox'></input>3年<br></br>
-                        <input type='checkbox'></input>4年<br></br>
-                        <input type='checkbox'></input>5年以上<br></br>
+                        <input type='checkbox' name='year1' value='1'  onChange={handleseniorityChange}></input>1年<br></br>
+                        <input type='checkbox' name='year2' value='2'  onChange={handleseniorityChange}></input>2年<br></br>
+                        <input type='checkbox' name='year3' value='3'  onChange={handleseniorityChange}></input>3年<br></br>
+                        <input type='checkbox' name='year4' value='4'  onChange={handleseniorityChange}></input>4年<br></br>
+                        <input type='checkbox' name='year5' value='5'  onChange={handleseniorityChange}></input>5年以上<br></br>
                     </div>
                     <br></br>
                     <div style={{ height: '250px', overflowY: 'scroll', border: 'solid' }}>
