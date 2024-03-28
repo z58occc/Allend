@@ -3,11 +3,13 @@ import { Card, Button} from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
+import CaseDetailsModal3 from './CaseDetailsModal3';
 import StarRating from './StarRating';
 // import CaseContext from './CaseContext';
-const CardList = ({visibility,selectedComponent,data,screen}) => {
-  
+const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
+  const CaseData = data1
   // 控制key回傳對應Modal
+  
   const [selectedDataKey, setSelectedDataKey] = useState(0);
   const handlesetSelectedDataKey = (index)=>{
     setSelectedDataKey(index);
@@ -24,15 +26,18 @@ const CardList = ({visibility,selectedComponent,data,screen}) => {
   }
   const handleModalClose1 = () => {
     setShowModal1(false);
+    setSelectedDataKey(0);
   }
   
   
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
-    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={data}/> ;
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/> ;
   } else if (selectedComponent === 'component2') {
-    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey}/>;
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+  } else if (selectedComponent === 'component3') {
+    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
   }
   
 
@@ -41,8 +46,14 @@ const CardList = ({visibility,selectedComponent,data,screen}) => {
       <div className="d-flex justify-content-around" style={{ width: '800px', visibility }} >
         <SearchPage/>
       </div>
-      {data.length === 0 ? <h2>未有紀錄</h2>   : data.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
+      {CaseData.length === 0 ? <h2>未有紀錄</h2>   : CaseData.map((item, index) => (
+        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }} onClick = {
+          () => {
+          if (screen === 3) {
+              handleModalShow1();
+              handlesetSelectedDataKey(index);
+          }
+        }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
               <Card.Text>開始日期: </Card.Text>
@@ -54,20 +65,20 @@ const CardList = ({visibility,selectedComponent,data,screen}) => {
                 <Card.Text>人數: </Card.Text>
               </div>
             </Card.Body>
-            {screen ===3  ? 
+            {screen === 3  ? 
             <div className="d-flex flex-column justify-content-center">
-              <StarRating rating={item.demmand_star} ></StarRating>
+              <StarRating rating={1} ></StarRating>
             </div>:
 
             <div className="d-flex flex-column justify-content-center" >
-              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap',visibility}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
-                編輯
+              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
+                {text}
               </Button>
               <Button
                 variant="secondary" 
                 className="my-2 d-inline-block"
                 style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center',visibility }}
-                onClick={()=>{}}
+                
               >
                 棄件
               </Button>

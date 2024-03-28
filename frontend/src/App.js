@@ -33,6 +33,9 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFindcase, setIsFindcase] = useState(false);
+
+  
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -229,14 +232,26 @@ function App() {
         <div className="container-fluid">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Nav.Link
-                href="/findcase"
-                style={{ backgroundColor: color }}
-                onClick={handleClick}
-                className="nav-link active"
-              >
-                我要接案
-              </Nav.Link>
+              {isFindcase ? (
+                <Nav.Link
+                  href="/findcase"
+                  style={{ backgroundColor: "white" }}
+                  onClick={handleClick}
+                  className="nav-link active"
+                >
+                  我要接案
+                </Nav.Link>
+              ) : (
+                <Nav.Link
+                  href="/findcase"
+                  style={{ backgroundColor:   color }}
+                  onClick={handleClick}
+                  className="nav-link active"
+                >
+                  我要接案
+                </Nav.Link>
+              )}
+
             </li>
             <li className="nav-item">
               <Nav.Link
@@ -272,7 +287,7 @@ function App() {
             </li>
           </ul>
         </div>
-      </nav>
+      </nav >
 
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>

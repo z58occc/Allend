@@ -19,6 +19,10 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
   //   onHide(); // 關閉 Modal
   // }
   return (
+    <>
+    {data.length === 0 
+    ? " "
+    :
     <Modal show={show} onHide={onHide} style={{ width: '450px', marginInline: '550px' }}>
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>
@@ -47,7 +51,7 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
               <strong>報價金額:</strong>
-                {data.length ===0  ? 0 : data[number].q_amount}
+                {data[number].q_amount}
             </div>
           </div>
           <div>
@@ -62,7 +66,7 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
           </div>
         </div>
         <div className="mb-2 d-flex justify-content-around">
-          <Button variant="primary" size="lg" onClick={()=>{}}>
+          <Button variant="primary" size="lg" >
             儲存變更
           </Button>
           <Button variant="secondary" size="lg" onClick={onHide}>
@@ -70,7 +74,8 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
           </Button>
         </div>
       </Modal.Body>
-    </Modal>
+    </Modal>}
+    </>
   );
 };
 
