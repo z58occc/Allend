@@ -13,10 +13,12 @@ function ProjectForm() {
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [numberOfPeople, setNumberOfPeople] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
+    if (!emailError) {
     console.log({
       category,
       budget,
@@ -38,6 +40,19 @@ function ProjectForm() {
     setEmail('');
     setContact('');
     setNumberOfPeople('');
+  } else {
+    console.error("Form submission error: Email format is incorrect.");
+  }
+  };
+
+  const validateEmail = (value) => {
+    // Regular expression for email validation
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (regex.test(value)) {
+      setEmailError('');
+    } else {
+      setEmailError('Invalid email format');
+    }
   };
 
   return (
@@ -92,7 +107,6 @@ function ProjectForm() {
               >
                 <option value="">請選擇</option>
                 <option value="short">短期</option>
-                <option value="medium">中期</option>
                 <option value="long">長期</option>
                 {/* Add more options here */}
               </Form.Control>
@@ -192,7 +206,11 @@ function ProjectForm() {
             type="email"
             placeholder="請輸入email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>{
+              setEmail(e.target.value);
+              validateEmail(e.target.value);
+            }}
+            isInvalid={!!emailError}
             required
           />
         </Form.Group>

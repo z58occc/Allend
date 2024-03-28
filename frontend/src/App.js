@@ -23,6 +23,8 @@ import Program from "./Components/program";
 import casecontext from "./Components/CaseContext"
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
+import MainScreen2 from "./release/MainScreen";
+
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -93,8 +95,9 @@ function App() {
           password_confirmation: confirmPassword,
         }
       );
-      if(res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!'){
-      await loginUser(email, password);}
+      if (res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!') {
+        await loginUser(email, password);
+      }
       return res.data;
     } catch (err) {
       console.log(err);
@@ -287,6 +290,7 @@ function App() {
         <Route path="/program" element={<Program></Program>}></Route>
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
+        <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
       </Routes>
 
       {/* 登入 */}
@@ -334,7 +338,7 @@ function App() {
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button onClick={handleLogin} id="login" style={{}}>
+                <Button onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
                   <img style={{ width: 130 }} src={ourLogo} alt="" />
                 </Button>
               </div>
