@@ -50,6 +50,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   }
   const handleModalClose1 = () => {
     setShowModal1(false);
+    setSelectedDataKey(0);
   }
   // 查看報價按鈕控制
   const [showModal, setShowModal] = useState(false);
