@@ -94,8 +94,7 @@ const Findman=() => {
           "http://localhost/Allend/backend/public/api/findpeople"
         );
 
-        setService(response.data.service);
-        setMembers(response.data.members);
+        setService(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -194,7 +193,7 @@ const Findman=() => {
             </button>
           </div>
           <div className="row ">
-            {services.map((service, index) => (
+            {service.map((service, index) => (
               <div className="col-sm-4 " key={index}>
                 <div className="card">
                   <div className="card-header">
@@ -233,4 +232,3 @@ const Findman=() => {
 
 export default Findman;
 
-export default Findman
