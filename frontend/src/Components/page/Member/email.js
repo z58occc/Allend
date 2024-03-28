@@ -49,13 +49,15 @@ function FreelancerForm() {
   //     setIsFormComplete(isComplete);
   //   }, [formData]);
   const isNotFirst = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // console.log(2);
     // if (isNotFirst.current == false) {
     //   isNotFirst.current = true;
     //   return;
     // }
-    const fetchData = async () => {
+    const fetchData = async (complete) => {
       try {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
@@ -65,39 +67,22 @@ function FreelancerForm() {
           { headers: headers }
         );
         const result = await res.data;
+        // setIsLoading(true);
+        // setTimeout(() => {
+        //   complete(result);
+        //   setIsLoading(false);
+        // }, 3000);
         setFormData(result);
       } catch (err) {
         console.log(err);
       }
+      // setIsLoading(false);
     };
     fetchData();
+    // fetchData((result) => {
+    //   setFormData(result);
+    // });
   }, []);
-
-  //   useEffect(() => {
-  //     if (isNotFirst.current == false) {
-  //       isNotFirst.current = true;
-  //       return;
-  //     }
-  //     const fetchData = async () => {
-  //       try {
-  //         // 發送 GET 請求到後端 API 取得資料
-  //         const response = await axios.get(
-  //           "http://localhost/PHP/Allend/backend/public/api/memtakecase",
-  //           {
-  //             params: {
-  //               mid: 5,
-  //             },
-  //           }
-  //         );
-  //         const result = await response.data;
-  //         setCase(result);
-  //         setLoading(false);
-  //       } catch (error) {
-  //         console.error("Error fetching data:", error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -187,7 +172,7 @@ function FreelancerForm() {
                     接案人身分：
                   </Form.Label>
                   <Col sm={7}>
-                    <Row >
+                    <Row>
                       <Col sm={4}>
                         <Form.Check
                           type="radio"
@@ -489,7 +474,6 @@ function FreelancerForm() {
         </Row>
       </Container>
       <Footer></Footer>
-
     </>
   );
 }

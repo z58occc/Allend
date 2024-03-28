@@ -1,23 +1,18 @@
-import React, { useContext } from 'react';
-import { CaseProvider } from './CaseContext';
+import React from 'react';
+
 import CardList from './CardList';
-import CaseContext from './CaseContext';
 
-const Screen1 = () => {
+
+const Screen1 = ({ data }) => {
   return (
-    <CaseProvider>
-      <Screen1Content />
-    </CaseProvider>
+    <>
+      <div style={{ width: '100%', height: '100vh', background: 'lightcoral' }}>
+        <CardList selectedComponent={'component1'}  text={'編輯'}  data1={data} screen={1}></CardList>
+      </div>
+    </>
   );
 };
 
-const Screen1Content = () => {
-  const { Case } = useContext(CaseContext);
-  return (
-    <div style={{ width: '100%', height: '100vh', background: 'lightcoral' }}>
-      <CardList selectedComponent={'component1'} data={Case['Quote']} screen={1}></CardList>
-    </div>
-  );
-};
+
 
 export default Screen1;

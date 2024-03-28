@@ -46,7 +46,7 @@ Route::get('/index', IndexController::class);
 // 查看我要接案
 Route::get('/findcase/{d_type?}', IFindCaseController::class);
 // 查看我要找人.
-Route::get('/findpeople', IFindPeopleController::class);
+Route::get('/printservicecardcontent', [IFindPeopleController::class, 'PrintServiceCardContent']);
 // 查看人才頁面
 Route::get('/talent/{mid}', TalentController::class);
 // 查看案件內容

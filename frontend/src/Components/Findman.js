@@ -2,16 +2,42 @@ import React, { useEffect, useState } from "react";
 import Footer from "../homepage/Footer";
 import Category from "./Category2";
 import { GoTriangleDown } from "react-icons/go";
-import NextPage from "../homepage/NextPage";
-import { Link } from "react-router-dom";
+import NextPage from '../homepage/NextPage';
+import { Link } from 'react-router-dom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
-import Buttom1 from "./Buttom1";
-import axios from "axios";
+import Buttom1 from './Buttom1';
+import axios from 'axios';
 
-const Findman = () => {
-  const [services, setService] = React.useState([]);
-  const [members, setMembers] = React.useState([]);
+const Findman=() => {
+
+    const [service, setService] = React.useState([]);
+    const [identity, setIdentity] = React.useState({
+        personal:false,
+        company:false,
+        studio:false
+    });
+
+    const [seniority, setSeniority] = React.useState({
+        year1:false,
+        year2:false,
+        year3:false,
+        year4:false,
+        year5:false
+    });
+
+    const handleidentityChange = (event) => {
+        const {name, checked} = event.target;
+        setIdentity(prevState => ({
+            ...prevState,
+            [name]:checked}));
+    };
+    const handleseniorityChange = (event) => {
+        const {name, checked} = event.target;
+        setSeniority(prevState => ({
+            ...prevState,
+            [name]:checked}));
+    };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,71 +63,67 @@ const Findman = () => {
         rel="stylesheet"
       />
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      />
-      <Category></Category>
-      <hr></hr>
-      <div className="row">
-        {/* 左邊 */}
-        <div className="col-sm-2">
-          <br></br>
-          <div
-            style={{ height: "250px", overflowY: "scroll", border: "solid" }}
-          >
-            接案人身分
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&display=swap"
+                rel="stylesheet"
+            />
+            <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
+            <Category></Category>
             <hr></hr>
-            <input type="checkbox"></input>個人<br></br>
-            <input type="checkbox"></input>公司<br></br>
-            <input type="checkbox"></input>工作室<br></br>
-          </div>
-          <br></br>
-          <div
-            style={{ height: "250px", overflowY: "scroll", border: "solid" }}
-          >
-            年資
-            <hr></hr>
-            <input type="checkbox"></input>0~1年<br></br>
-            <input type="checkbox"></input>1~3年<br></br>
-            <input type="checkbox"></input>3~5年<br></br>
-            <input type="checkbox"></input>5年以上<br></br>
-          </div>
-          <br></br>
-          <div
-            style={{ height: "250px", overflowY: "scroll", border: "solid" }}
-          >
-            地點
-            <hr></hr>
-            <input type="checkbox"></input>臺北市<br></br>
-            <input type="checkbox"></input>新北市<br></br>
-            <input type="checkbox"></input>基隆市<br></br>
-            <input type="checkbox"></input>新竹市<br></br>
-            <input type="checkbox"></input>新竹縣<br></br>
-            <input type="checkbox"></input>宜蘭縣<br></br>
-            <input type="checkbox"></input>臺中市<br></br>
-            <input type="checkbox"></input>苗栗縣<br></br>
-            <input type="checkbox"></input>彰化縣<br></br>
-            <input type="checkbox"></input>南投縣<br></br>
-            <input type="checkbox"></input>雲林縣<br></br>
-            <input type="checkbox"></input>高雄市<br></br>
-            <input type="checkbox"></input>臺南市<br></br>
-            <input type="checkbox"></input>嘉義市<br></br>
-            <input type="checkbox"></input>嘉義縣<br></br>
-            <input type="checkbox"></input>屏東縣<br></br>
-            <input type="checkbox"></input>澎湖縣<br></br>
-            <input type="checkbox"></input>花蓮縣<br></br>
-            <input type="checkbox"></input>臺東縣<br></br>
-            <input type="checkbox"></input>金門縣<br></br>
-            <input type="checkbox"></input>連江縣<br></br>
-          </div>
-          <br></br>
-        </div>
+            <div className='row'>
+
+                {/* 左邊 */}
+                <div className='col-sm-2'>
+                    <br></br>
+                    <div style={{  height: '250px', overflowY: 'scroll', border: 'solid' }}>
+                        接案人身分
+                        <hr></hr>
+                        <input type='checkbox' name=''></input>個人<br></br>
+                        <input type='checkbox'></input>公司<br></br>
+                        <input type='checkbox'></input>工作室<br></br>
+                    </div>
+                    <br></br>
+                    <div style={{  height: '250px', overflowY: 'scroll', border: 'solid' }}>
+                        年資
+                        <hr></hr>
+                        <input type='checkbox'></input>1年<br></br>
+                        <input type='checkbox'></input>2年<br></br>
+                        <input type='checkbox'></input>3年<br></br>
+                        <input type='checkbox'></input>4年<br></br>
+                        <input type='checkbox'></input>5年以上<br></br>
+                    </div>
+                    <br></br>
+                    <div style={{ height: '250px', overflowY: 'scroll', border: 'solid' }}>
+                        地點
+                        <hr></hr>
+                        <input type='checkbox'></input>臺北市<br></br>
+                        <input type='checkbox'></input>新北市<br></br>
+                        <input type='checkbox'></input>基隆市<br></br>
+                        <input type='checkbox'></input>新竹市<br></br>
+                        <input type='checkbox'></input>新竹縣<br></br>
+                        <input type='checkbox'></input>宜蘭縣<br></br>
+                        <input type='checkbox'></input>臺中市<br></br>
+                        <input type='checkbox'></input>苗栗縣<br></br>
+                        <input type='checkbox'></input>彰化縣<br></br>
+                        <input type='checkbox'></input>南投縣<br></br>
+                        <input type='checkbox'></input>雲林縣<br></br>
+                        <input type='checkbox'></input>高雄市<br></br>
+                        <input type='checkbox'></input>臺南市<br></br>
+                        <input type='checkbox'></input>嘉義市<br></br>
+                        <input type='checkbox'></input>嘉義縣<br></br>
+                        <input type='checkbox'></input>屏東縣<br></br>
+                        <input type='checkbox'></input>澎湖縣<br></br>
+                        <input type='checkbox'></input>花蓮縣<br></br>
+                        <input type='checkbox'></input>臺東縣<br></br>
+                        <input type='checkbox'></input>金門縣<br></br>
+                        <input type='checkbox'></input>連江縣<br></br>
+                    </div>
+                    <br></br>
+                </div>
 
         {/* 右邊 */}
         <div className="col-sm-10">
@@ -162,3 +184,5 @@ const Findman = () => {
 };
 
 export default Findman;
+
+export default Findman
