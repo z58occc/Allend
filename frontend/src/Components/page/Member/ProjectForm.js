@@ -1,78 +1,71 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import './ProjectForm.css';
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import "./ProjectForm.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-//發案表單
+// 發案表單
 function ProjectForm() {
-  const [category, setCategory] = useState('');
-  const [budget, setBudget] = useState('');
-  const [cooperationTime, setCooperationTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [details, setDetails] = useState('');
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [contact, setContact] = useState('');
-  const [nameOfCase, setNameOfCase] = useState('');
-  const [unit, setUnit] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [nameOfCase, setNameOfCase] = useState("");
+  const [category, setCategory] = useState("");
+  const [cooperationTime, setCooperationTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [details, setDetails] = useState("");
+  const [budget, setBudget] = useState("");
+  const [unit, setUnit] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios({
-      method: 'post',
-      url: 'http://localhost/PHP/Allend/backend/public/api/commitcase',
+      method: "post",
+      url: "http://localhost/PHP/Allend/backend/public/api/commitcase",
       data: {
         d_name: nameOfCase,
         d_type: category,
         d_duration: cooperationTime,
+        d_active_location: location,
         d_description: details,
         d_amount: budget,
-        d_unit:unit,
-        d_active_location: location
+        d_unit: unit,
+        d_contact_name: userName,
+        d_email: email,
+        d_mobile_phone: contact,
       },
-      headers: {Authorization: Cookies.get('token')}
+      headers: { Authorization: Cookies.get("token") },
     })
-    .then((res) => {console.log(res)})
-    .catch((err) => {console.log(err)})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     if (!emailError) {
-    console.log({
-      category,
-      budget,
-      cooperationTime,
-      location,
-      details,
-      userName,
-      unit,
-      email,
-      contact,
-      nameOfCase
-    });
-    // Clear the form
-    setCategory('');
-    setBudget('');
-    setCooperationTime('');
-    setLocation('');
-    setDetails('');
-    setUserName('');
-    setUnit('');
-    setEmail('');
-    setContact('');
-    setNameOfCase('');
-  } else {
-    console.error("Form submission error: Email format is incorrect.");
-  }
+      setNameOfCase("");
+      setCategory("");
+      setCooperationTime("");
+      setLocation("");
+      setDetails("");
+      setBudget("");
+      setUnit("");
+      setUserName("");
+      setEmail("");
+      setContact("");
+    } else {
+      console.error("Form submission error: Email format is incorrect.");
+    }
   };
 
   const validateEmail = (value) => {
-    // Regular expression for email validation
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (regex.test(value)) {
-      setEmailError('');
+      setEmailError("");
     } else {
-      setEmailError('Invalid email format');
+      setEmailError("Invalid email format");
     }
   };
 
@@ -80,8 +73,7 @@ function ProjectForm() {
     <div className="project-form">
       <h2>發案表單</h2>
       <Form onSubmit={handleSubmit}>
-
-      <Form.Group controlId="numberOfPeople">
+        <Form.Group controlId="numberOfPeople">
           <Form.Label>案件名稱：</Form.Label>
           <Form.Control
             type="text"
@@ -140,28 +132,25 @@ function ProjectForm() {
                 type="text"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
-                placeholder='例如: 次、件、小時'
+                placeholder="例如: 次、件、小時"
                 required
-              >
-
-              </Form.Control>
+              ></Form.Control>
             </Form.Group>
-            
           </Col>
         </Row>
         <Form.Group controlId="cooperationTime">
-              <Form.Label>合作期程：</Form.Label>
-              <Form.Control
-                as="select"
-                value={cooperationTime}
-                onChange={(e) => setCooperationTime(e.target.value)}
-                required
-              >
-                <option value="">請選擇</option>
-                <option value="short">短期</option>
-                <option value="long">長期</option>
-              </Form.Control>
-            </Form.Group>
+          <Form.Label>合作期程：</Form.Label>
+          <Form.Control
+            as="select"
+            value={cooperationTime}
+            onChange={(e) => setCooperationTime(e.target.value)}
+            required
+          >
+            <option value="">請選擇</option>
+            <option value="short">短期</option>
+            <option value="long">長期</option>
+          </Form.Control>
+        </Form.Group>
         <Row>
           <Col>
             <Form.Group controlId="location">
@@ -258,7 +247,9 @@ function ProjectForm() {
           />
         </Form.Group>
 
-        <div className="text-center"> {/* Center align the submit button */}
+        <div className="text-center">
+          {" "}
+          {/* Center align the submit button */}
           <Button variant="primary" type="submit">
             提交
           </Button>

@@ -127,17 +127,14 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 新增作品
     Route::post('/work', 'addWork');
     // 編輯作品
-    Route::post('upwork', 'updateWork');
+    Route::post('/upwork', 'updateWork');
     // 新增影音
     Route::post('/video', 'addVideo');
     // 編輯影音
     Route::post('/upvideo', 'updateVideo');
     // 我的收藏
     Route::post('/collection', 'getCollection');
-})
-// ->middleware(['auth:api','verified']);
-->middleware(['auth:api']);
-
+});
 
 
 //會員服務管理，刪除

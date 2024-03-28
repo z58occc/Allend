@@ -12,9 +12,9 @@ class IFindCaseController extends Controller
         $query = DB::table('demmand')
         ->leftJoin('country','demmand.d_active_location','=','country.country_id')
         ->leftJoin('category','category.catid','=','demmand.d_type')
-        ->select('d_name','d_required', 'type', 'd_duration','d_description','d_amount','d_unit','country_city','updated_at');
+        ->select('d_name', 'type', 'd_duration','d_description','d_amount','d_unit','country_city','updated_at');
 
-        // 期程 (短、中、長)
+        // 期程 (短、長)
         if($request->has('d_duration')){
             $query->where('d_duration',$request->d_duration);
         }
@@ -24,7 +24,7 @@ class IFindCaseController extends Controller
             $query->whereIn('d_active_location',explode(',',$request->d_active_location));
         }
 
-        // 預算
+        // 案件金額
         if($request->has('d_amount')){
             $query->whereIn('d_amount',$request->d_amount);
         }
@@ -97,7 +97,7 @@ class IFindCaseController extends Controller
                 $difference = $interval->d . '天前更新';
             }
 
-            $demand->time_difference = $difference;
+            $demand->updated_at = $difference;
         }
         return response()->json($demands);
 
