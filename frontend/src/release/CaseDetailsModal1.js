@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 // import CaseContext from './CaseContext.js'
-const CaseDetailsModal = ({ show, onHide, number ,data}) => {
+const CaseDetailsModal1 = ({ show, onHide, number ,data}) => {
   // const {Case,setCase} = useContext(CaseContext);
   // const [inputValue, setInputValue] = useState(data[number].d_name);
   // console.log(data[number].d_name)
@@ -19,6 +19,7 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
   //   console.log(updatedCase[number].d_name)
   //   onHide(); // 關閉 Modal
   // }
+  console.log(number)
   return (
     <Modal show={show} onHide={onHide} style={{ width: '450px', marginInline: '550px' }}>
       <Modal.Header closeButton>
@@ -77,4 +78,4 @@ const CaseDetailsModal = ({ show, onHide, number ,data}) => {
   );
 };
 
-export default CaseDetailsModal;
+export default CaseDetailsModal1;

@@ -1,59 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CardList from './CardList';
-// import SearchPage from './SearchPage';
-// import {Button} from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+
 const Screen3 = ({data}) => {
-  // const data2 = [
-  //   { 
-  //     caseNumber: '12345',
-  //     caseName: '案件1',
-  //     caseCategory: '建築',
-  //     location: '台北市',
-  //     budgetAmount: '$100,000',
-  //     startDate: '2024/03/20',
-  //     endDate: '2024/04/10',
-  //     contractorName: '王小明',
-  //     contractorEmail: 'wang@example.com',
-  //     contractorPhone: '0912345678',
-  //     amount: 'NTD$ 5000',
-  //     count: 5,
-  //     rating: 4,
-  //   },
-  //   { 
-  //     caseNumber: '12345',
-  //     caseName: '案件2',
-  //     caseCategory: '建築',
-  //     location: '台北市',
-  //     budgetAmount: '$100,000',
-  //     startDate: '2024/03/20',
-  //     endDate: '2024/04/10',
-  //     contractorName: '王小明',
-  //     contractorEmail: 'wang@example.com',
-  //     contractorPhone: '0912345678',
-  //     amount: 'NTD$ 5000',
-  //     count: 5,
-  //     rating: 4,
-  //   },
-  //   { 
-  //     caseNumber: '7777',
-  //     caseName: '案件3',
-  //     caseCategory: '建築',
-  //     location: '台北市',
-  //     budgetAmount: '$100,000',
-  //     startDate: '2024/03/20',
-  //     endDate: '2024/04/10',
-  //     contractorName: '王',
-  //     contractorEmail: 'wang@example.com',
-  //     contractorPhone: '0912345678',
-  //     amount: 'NTD$ 5000',
-  //     count: 5,
-  //     rating: 4,
-  //   }
-  // ];
+  //頁數控制
+  const [active,setActive] = useState(1);
+  let items = [];
+  const handleSetActive = (number)=>{
+    setActive(number)
+  }
+  //
+  const CasePerPage = 5;
+  console.log(data.length);
+  const page = (data.length / CasePerPage) + 1;
+  console.log(page);
+  data = data.slice(  CasePerPage * (active-1) , CasePerPage * active)  
+  console.log(data);
+
+  for (let number = 1; number <= page; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active} onClick={()=>handleSetActive(number)}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <div style={{ width: '100%', height: '100vh', background: 'lightblue' }}>
         
         <CardList visibility= 'hidden' selectedComponent={'component3'} text={"案件詳情"} data1={data} screen={3}></CardList>   
+        <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
     </div>
     
   );
