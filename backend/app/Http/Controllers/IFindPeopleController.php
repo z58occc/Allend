@@ -9,40 +9,65 @@ use function Laravel\Prompts\select;
 
 class IFindPeopleController extends Controller
 {
-    public function PrintServiceCardContent(Request $filter)
+    public function PrintServiceCardContent(Request $request)
     {
+        $identity_query = $request->input('identity');
+        $seniority_query = $request->input('seniority');
+
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
         ->join('project as p', 'p.mid', '=', 'm.mid')
         ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority')
         ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority');
+
         
-        if(isset($filter['identity']) && is_array($filter['identity']) && isset($filter['seniority']) && is_array($filter['seniority'])
-             ){
-            $member->whereIn('identity',$filter['identity']);
-            
-            foreach($filter['seniority'] as $seniority){
-                switch($seniority){
-                    case '1':
-                        $member->where('seniority','<=',1);
-                        break;
-                    case '2':
-                        $member->where('seniority','=',2);
-                        break;
-                    case '3':
-                        $member->where('seniority','=',3);
-                        break;
-                    case '4':
-                        $member->where('seniority','=',4);
-                        break;
-                    case '5':
-                        $member->where('seniority','>=',5);
-                        break;
-                    default:
-                        break;
+        if (!empty($seniority_query || !empty($identity_query))) {
+
+            if (!empty($seniority_query && !empty($identity_query))){
+                $member->whereIn('identity', explode(',', $identity_query))
+                ->where('seniority',explode(',', $seniority_query));
+            }
+
+            if(!empty($identity_query)){
+                $member->whereIn('identity',explode(',',$identity_query));
+            }
+
+            if(!empty($seniority_query)){
+                if (is_string($seniority_query)) {
+                    $seniority_query = explode(',', $seniority_query);
+                }
+                foreach ($seniority_query as $seniority) {
+                    switch ($seniority) {
+                        case '1':
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 1);
+                            });
+                            break;
+                        case '2':
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 2);
+                            });
+                            break;
+                        case '3':
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 3);
+                            });
+                            break;
+                        case '4':
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 4);
+                            });
+                            break;
+                        case '5':
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '>=', 5);
+                            });
+                            break;
+                    }
                 }
             }
+
         }
         $member_total = $member->get();
 
