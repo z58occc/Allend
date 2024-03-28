@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../homepage/Footer";
-import Category from "./Category";
+import Category from "./Category2";
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from "../homepage/NextPage";
 import { Link } from "react-router-dom";
@@ -30,6 +30,7 @@ const Findman = () => {
   }, []);
 
   return (
+  <>
     <div className="container">
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -154,8 +155,9 @@ const Findman = () => {
         </div>
       </div>
       <NextPage></NextPage>
-      <Footer></Footer>
-    </div>
+     </div>
+   <Footer></Footer>
+   </>
   );
 };
 

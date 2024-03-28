@@ -55,11 +55,11 @@ const LeftVerticalNavbar = () => {
     return (
 
 
-        <Navbar bg="light" variant="light" expand="lg" className="flex-column" style={{ width: '' }}>
-            <Navbar.Brand>
+        <Navbar bg="light" variant="light" expand="lg" className="flex-column">
+            <Navbar.Brand >
 
-                <Button variant="link" onClick={handleEditmember}>
-                    <Image src={usermember.image} roundedCircle className="mr-2" width="100" height="100" />
+                <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>
+                    <Image src={usermember.image} roundedCircle  width="100" height="100" />
                 </Button>
             </Navbar.Brand>
             <Navbar.Text style={{ fontSize: '20px' }}>{usermember.name}</Navbar.Text>
