@@ -177,61 +177,61 @@ const Findman = () => {
             <br></br>
           </div>
 
-          {/* 右邊 */}
-          <div className="col-sm-10">
-            <div style={{ textAlign: "end" }}>
-              <button>
-                最近更新
-                <GoTriangleDown />
-              </button>
-              <button>
-                最新刊登
-                <GoTriangleDown />
-              </button>
-              <button>
-                預算金額
-                <GoTriangleDown />
-              </button>
-              <button>
-                提案人數
-                <GoTriangleDown />
-              </button>
-            </div>
-            <div className="row ">
-              {service.map((service, index) => (
-                <div className="col-sm-4 " key={index}>
-                  <div className="card">
-                    <div className="card-header">
-                      <img
-                        src={`data:image/jpeg;base64,${service.image}`}
-                        alt="service"
-                        style={{ width: "100%" }}
-                      />
-                    </div>
-                    <Link to="/talent" className="card-body">
-                      會員名稱:{service.name}
-                      <br></br>
-                      會員服務:{service.s_name}
-                      <br></br>
-                      <br></br>
-                      作品數:XX
-                      <br></br>
-                      成交數:XX
-                    </Link>
-                    <div className="card-footer">
-                      <FaHeart color="red"></FaHeart>
-                      <Buttom1></Buttom1>
-                    </div>
+        {/* 右邊 */}
+        <div className="col-sm-10">
+          <div style={{ textAlign: "end" }}>
+            <button>
+              最近更新
+              <GoTriangleDown />
+            </button>
+            <button>
+              最新刊登
+              <GoTriangleDown />
+            </button>
+            <button>
+              預算金額
+              <GoTriangleDown />
+            </button>
+            <button>
+              提案人數
+              <GoTriangleDown />
+            </button>
+          </div>
+          <div className="row ">
+            {service.map((service, index) => (
+              <div className="col-sm-4 " key={index}>
+                <div className="card">
+                  <div className="card-header">
+                    <img
+                      src={`data:image/jpeg;base64,${service.image}`}
+                      alt="service"
+                      style={{ width: "100%" }}
+                    />
+                  </div>
+                  <Link to="/talent" className="card-body">
+                    會員名稱:{service.name}
+                    <br></br>
+                    會員服務:{service.s_name}
+                    <br></br>
+                    <br></br>
+                    作品數:XX
+                    <br></br>
+                    成交數:XX
+                  </Link>
+                  <div className="card-footer">
+                    <FaHeart color="red"></FaHeart>
+                    <Buttom1></Buttom1>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-        <NextPage></NextPage>
       </div>
-      <Footer></Footer>
-    </>
+      <NextPage></NextPage>
+     </div>
+   <Footer></Footer>
+   </>
   );
 };
 

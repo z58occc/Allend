@@ -18,15 +18,16 @@ class IFindPeopleController extends Controller
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
         ->join('project as p', 'p.mid', '=', 'm.mid')
-        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority')
-        ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority');
+        ->join('country as c','c.country_id','=','m.active_location')
+        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority','c.country_city')
+        ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city');
 
         
         if (!empty($seniority_query || !empty($identity_query))) {
 
             if (!empty($seniority_query && !empty($identity_query))){
                 $member->whereIn('identity', explode(',', $identity_query))
-                ->where('seniority',explode(',', $seniority_query));
+                ->whereIn('seniority',explode(',', $seniority_query));
             }
 
             if(!empty($identity_query)){
