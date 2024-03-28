@@ -23,14 +23,10 @@ class IFindPeopleController extends Controller
 
         
         if (!empty($seniority_query || !empty($identity_query))) {
+
             if (!empty($seniority_query && !empty($identity_query))){
-                $member->where(function ($query) use ($seniority_query, $identity_query) {
-                    // 添加对seniority和identity的同时限制条件
-                    if (!empty($seniority_query) && !empty($identity_query)) {
-                        $query->whereIn('seniority', $seniority_query)
-                              ->whereIn('identity', explode(',', $identity_query));
-                    }
-                });
+                $member->whereIn('identity', explode(',', $identity_query))
+                ->where('seniority',explode(',', $seniority_query));
             }
 
             if(!empty($identity_query)){
@@ -44,28 +40,28 @@ class IFindPeopleController extends Controller
                 foreach ($seniority_query as $seniority) {
                     switch ($seniority) {
                         case '1':
-                            $member->orWhere(function ($query) {
-                                $query->where('seniority', '=', 1);
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 1);
                             });
                             break;
                         case '2':
-                            $member->orWhere(function ($query) {
-                                $query->where('seniority', '=', 2);
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 2);
                             });
                             break;
                         case '3':
-                            $member->orWhere(function ($query) {
-                                $query->where('seniority', '=', 3);
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 3);
                             });
                             break;
                         case '4':
-                            $member->orWhere(function ($query) {
-                                $query->where('seniority', '=', 4);
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '=', 4);
                             });
                             break;
                         case '5':
-                            $member->orWhere(function ($query) {
-                                $query->where('seniority', '>=', 5);
+                            $member->Where(function ($query) {
+                                $query->orwhere('seniority', '>=', 5);
                             });
                             break;
                     }
