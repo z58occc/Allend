@@ -18,7 +18,7 @@ function Category() {
     return (
 
 
-        <div>
+        <div style={{ marginLeft: '60px', marginRight: '0' }}>
 
             <div className="container mt-5">
                 <div className="row justify-content-center">
@@ -51,7 +51,7 @@ function Category() {
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-                    <div className="col-sm-2 ">
+                    <div className="col-sm-2">
                         <Link to='/findcase' >
                             <div >程式設計</div>
                             <img src={a6} style={{width:50}}></img>
