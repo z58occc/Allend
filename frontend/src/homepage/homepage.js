@@ -18,6 +18,11 @@ import beauty from '../Components/img/beauty.jpg'
 import product from '../Components/img/product.jfif'
 import product2 from '../Components/img/product2.jfif'
 import product3 from '../Components/img/product3.jpg'
+import { FaWpforms } from "react-icons/fa";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { FaHandshake } from "react-icons/fa";
+
+
 
 
 
@@ -69,10 +74,52 @@ function Homepage() {
       <br></br>
 
 
+      <div className=' mt-5 '>
+        <span style={{ fontSize: "30px" }}>
+          新手教學:
+        </span>
+        <br></br>
+        <br></br>
+        <div style={{ display: "flex" }}>
+          <div style={{ flexGrow: 1 }} >
+            <FaWpforms size={75} color='peachpuff'></FaWpforms>
+            <br></br>
+            <span>
+              步驟1:
+              迅速發案
+              <br></br>
+              填寫表單，讓我們迅速了解你的需求。
+            </span>
+          </div>
+          <div style={{ flexGrow: 1 }}>
+            <GiTakeMyMoney size={75} color='peachpuff'></GiTakeMyMoney>
+            <br></br>
+            <span>
+              步驟2:
+              人才報價
+              <br></br>
+              讓人才主動為您的案件報價，
+              <br></br>
+              依照您的需求提供預算與工時。
+            </span>
+          </div>
+          <div style={{ flexGrow: 1 }} >
+            <FaHandshake size={75} color='peachpuff'></FaHandshake>
+            <br></br>
+            <span>
+              步驟3:
+              達成共識
+              <br></br>
+              選定人才，雙方簽訂合約並履行。
+            </span>
+          </div>
+
+        </div>
+      </div>
       <div className=' mt-5'>最新服務</div>
       <div>
-        <div className="posts-container" style={{display:'flex'}}>
-          {posts.slice(0,3).map((post, index) => {
+        <div className="posts-container" style={{ display: 'flex' }}>
+          {posts.slice(0, 3).map((post, index) => {
             return (
               <div className='row'>
                 {/* <div className="post-card" key={index}>

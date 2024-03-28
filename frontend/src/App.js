@@ -33,6 +33,9 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFindcase, setIsFindcase] = useState(false);
+
+  
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -95,8 +98,9 @@ function App() {
           password_confirmation: confirmPassword,
         }
       );
-      if(res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!'){
-      await loginUser(email, password);}
+      if (res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!') {
+        await loginUser(email, password);
+      }
       return res.data;
     } catch (err) {
       console.log(err);
@@ -228,14 +232,26 @@ function App() {
         <div className="container-fluid">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Nav.Link
-                href="/findcase"
-                style={{ backgroundColor: color }}
-                onClick={handleClick}
-                className="nav-link active"
-              >
-                我要接案
-              </Nav.Link>
+              {isFindcase ? (
+                <Nav.Link
+                  href="/findcase"
+                  style={{ backgroundColor: "white" }}
+                  onClick={handleClick}
+                  className="nav-link active"
+                >
+                  我要接案
+                </Nav.Link>
+              ) : (
+                <Nav.Link
+                  href="/findcase"
+                  style={{ backgroundColor:   color }}
+                  onClick={handleClick}
+                  className="nav-link active"
+                >
+                  我要接案
+                </Nav.Link>
+              )}
+
             </li>
             <li className="nav-item">
               <Nav.Link
@@ -271,7 +287,7 @@ function App() {
             </li>
           </ul>
         </div>
-      </nav>
+      </nav >
 
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
