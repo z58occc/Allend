@@ -9,31 +9,48 @@ use function Laravel\Prompts\select;
 
 class IFindPeopleController extends Controller
 {
-    public function __invoke(Request $request)
+    public function PrintServiceCardContent(Request $filter)
     {
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
-        $member_total = DB::table('service as s')
+        $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
-        ->Join('project as p', 'p.mid', '=', 'm.mid')
-        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid)'))
-        ->groupBy('m.mid','s.sid','s.image',)
-        ->get();
+        ->join('project as p', 'p.mid', '=', 'm.mid')
+        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority')
+        ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority');
+        
+        if(isset($filter['identity']) && is_array($filter['identity']) && isset($filter['seniority']) && is_array($filter['seniority'])
+             ){
+            $member->whereIn('identity',$filter['identity']);
+            
+            foreach($filter['seniority'] as $seniority){
+                switch($seniority){
+                    case '1':
+                        $member->where('seniority','<=',1);
+                        break;
+                    case '2':
+                        $member->where('seniority','=',2);
+                        break;
+                    case '3':
+                        $member->where('seniority','=',3);
+                        break;
+                    case '4':
+                        $member->where('seniority','=',4);
+                        break;
+                    case '5':
+                        $member->where('seniority','>=',5);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        $member_total = $member->get();
+
         return $member_total;
-        // $members_service = DB::table('members')
-        // ->join('service','members.mid','=','service.mid')
-        // ->select('members.mid as mid','name');
+    }
+    
 
-        // $members_project = DB::table('members')
-        // ->join('project', 'members.mid', '=', 'project.mid')
-        // ->select('members.mid as mid', DB::raw('COUNT(project.mid) as project_count'))
-        // ->groupBy('members.mid');
-        // $member_query = DB::table('members')->select('name');
-        // $establised_query = DB::table('established_case');
-        // $project_query = DB::table('project')->select('mid')->groupBy('mid');
-
-        // $avg = $establised_query
-        // ->join('service','established_case.c_name','=','service.s_name')
-        // ->select('sid',DB::raw('ROUND(AVG(demmand_star)) as avg_star'))->groupBy('sid');
+        
 
 
         // // 選擇類別
@@ -87,13 +104,13 @@ class IFindPeopleController extends Controller
 
 
 
-        $Data_response=[
+        // $Data_response=[
             // 'service'=>$members_service->get(),
             // 'members'=>$members_project->get(),
             // 'established_case'=>$establised_query->get(),
             // 'project'=>$project_query->get(),
-        ];
+        // ];
 
-        return response()->json($Data_response);
-    }
+        // return response()->json($Data_response);
+    
 }
