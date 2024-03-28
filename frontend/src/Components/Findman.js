@@ -200,18 +200,14 @@ const Findman=() => {
                     <img
                       src={`data:image/jpeg;base64,${service.image}`}
                       alt="service"
-                      style={{ width: "100%" }}
+                      style={{ width:300, height: 200, display: "block", }}
                     />
                   </div>
                   <Link to="/talent" className="card-body">
                     會員名稱:{service.name}
                     <br></br>
-                    會員服務:{service.s_name}
+                    作品數:{service.ptotal}
                     <br></br>
-                    <br></br>
-                    作品數:XX
-                    <br></br>
-                    成交數:XX
                   </Link>
                   <div className="card-footer">
                     <FaHeart color="red"></FaHeart>
