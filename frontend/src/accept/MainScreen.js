@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState , useEffect} from 'react';
 import { Container, Row, Col, Nav} from 'react-bootstrap';
 // import SearchPage from './SearchPage';
 import Screen3 from './Screen3';
@@ -14,6 +15,46 @@ const MainScreen = () => {
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
+
+  const [Case, setCase] = useState({
+    "Quote": [
+      {
+        "d_name": "",
+        "q_amount": 0
+      },
+    ],
+    "CaseInProgress": [
+      {
+        "c_name": "",
+        "c_amount": 0
+      },
+
+    ],
+    "CaseCompleted": [
+      {
+        "c_name": "",
+        "c_amount": 0
+      }
+    ]
+  })
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('http://127.0.0.1/Allend/backend/public/api/memtakecase', {
+        params: {
+          mid: 5
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setCase(result.data);
+    };
+
+    fetchData();
+
+  }, []);
+
+  console.log(Case);
 
   return (
     <>
@@ -51,9 +92,9 @@ const MainScreen = () => {
       <Row>
         <Col md={12}>
           {/* 右側主畫面區域 */}
-          {activeScreen === 'screen1' && <Screen1 />}
-          {activeScreen === 'screen2' && <Screen2 />}
-          {activeScreen === 'screen3' && <Screen3 />}
+          {activeScreen === 'screen1' && <Screen1 data={Case.Quote}/>}
+          {activeScreen === 'screen2' && <Screen2 data={Case.CaseInProgress}/>}
+          {activeScreen === 'screen3' && <Screen3 data={Case.CaseCompleted}/>}
         </Col>
       </Row>
     </Container>

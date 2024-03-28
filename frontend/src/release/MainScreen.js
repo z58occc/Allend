@@ -40,34 +40,6 @@ const MainScreen2 = () => {
       ]
     }
   )
-  // const url = 'http://127.0.0.1/Allend/backend/public/api/mempublishcase?mid=3'
-
-  // const fetchData = async () => {
-  //    await fetch(url)
-  //       .then(response => {
-  //       return response.json()
-  //       })
-  //       .then((res)=> {
-  //      console.log(res)
-  //      setCase(res.data) 
-  //       } 
-  //     )
-  // }
-
-
-  // const fetchData = async() => {await axios.get(
-  //     'http://127.0.0.1:8000/api/mempublishcase', {
-  //     params: {
-  //       mid: 5
-  //     },
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //   }
-  // )
-  // .then((res)=>{ 
-  //   setCase(res.data)
-  // })}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,28 +61,6 @@ const MainScreen2 = () => {
   console.log(Case);
 
 
-
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       'http://127.0.0.1/Allend/backend/public/api/mempublishcase', {
-  //       params: {
-  //         mid: 5
-  //       },
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //     }
-  //     )
-
-  //     setCase(result.data)
-  //   }
-
-  //   fetchData()
-  // }, [])
 
 
   return (
