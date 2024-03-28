@@ -105,7 +105,7 @@ const LeftVerticalNavbar = () => {
                                                 </div>
                                             ) : (
                                                 <div>
-                                                    <Nav.Link href="#pus" className="nav-link-no-arrow">發案紀錄</Nav.Link>
+                                                    <Nav.Link href="/commit" className="nav-link-no-arrow">發案紀錄</Nav.Link>
                                                     <Nav.Link href="/service" className="nav-link-no-arrow">接案紀錄</Nav.Link>
                                                 </div>
                                             )}
