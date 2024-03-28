@@ -6,6 +6,7 @@ import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import "./fix.css";
 import Footer from "../../../homepage/Footer";
 import Cookies from "js-cookie";
+import { FaLock } from "react-icons/fa";
 
 // 修改密碼
 function PasswordForm() {
@@ -62,7 +63,9 @@ function PasswordForm() {
                   <h2>修改密碼</h2>
                   <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formOldPassword">
+                    < FaLock/>
                       <Form.Label>舊密碼：</Form.Label>
+                      
                       <Form.Control
                         type="password"
                         value={oldPassword}
@@ -73,6 +76,7 @@ function PasswordForm() {
                       <br />
                     </Form.Group>
                     <Form.Group controlId="formNewPassword">
+                    < FaLock/>
                       <Form.Label>新密碼：</Form.Label>
                       <Form.Control
                         type="password"
@@ -84,6 +88,7 @@ function PasswordForm() {
                     </Form.Group>
                     <br />
                     <Form.Group controlId="formConfirmNewPassword">
+                    < FaLock/>
                       <Form.Label>確認新密碼:</Form.Label>
                       <Form.Control
                         type="password"

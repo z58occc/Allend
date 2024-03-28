@@ -82,7 +82,7 @@ function ProjectForm() {
       <Form onSubmit={handleSubmit}>
 
       <Form.Group controlId="numberOfPeople">
-          <Form.Label>案件名稱：</Form.Label>
+          <Form.Label>案件名稱 :</Form.Label>
           <Form.Control
             type="text"
             placeholder="填寫案件名稱"
@@ -98,7 +98,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="category">
-          <Form.Label>需求類別：</Form.Label>
+          <Form.Label>需求類別 :</Form.Label>
           <Form.Control
             as="select"
             value={category}
@@ -117,7 +117,7 @@ function ProjectForm() {
         <Row>
           <Col>
             <Form.Group controlId="budget">
-              <Form.Label>預算金額：</Form.Label>
+              <Form.Label>預算金額 :</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="填寫金額"
@@ -135,7 +135,7 @@ function ProjectForm() {
 
           <Col>
             <Form.Group controlId="unit">
-              <Form.Label>單位：</Form.Label>
+              <Form.Label>單位 :</Form.Label>
               <Form.Control
                 type="text"
                 value={unit}
@@ -150,7 +150,7 @@ function ProjectForm() {
           </Col>
         </Row>
         <Form.Group controlId="cooperationTime">
-              <Form.Label>合作期程：</Form.Label>
+              <Form.Label>合作期程 :</Form.Label>
               <Form.Control
                 as="select"
                 value={cooperationTime}
@@ -165,7 +165,7 @@ function ProjectForm() {
         <Row>
           <Col>
             <Form.Group controlId="location">
-              <Form.Label>地點選擇：</Form.Label>
+              <Form.Label>地點選擇 :</Form.Label>
               <Form.Control
                 as="select"
                 value={location}
@@ -211,7 +211,7 @@ function ProjectForm() {
         </Row>
 
         <Form.Group controlId="details">
-          <Form.Label>需求詳情：</Form.Label>
+          <Form.Label>需求詳情 :</Form.Label>
           <Form.Control
             as="textarea"
             placeholder="請輸入最少十個字"
@@ -222,7 +222,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="userName">
-          <Form.Label>聯絡人名稱：</Form.Label>
+          <Form.Label>聯絡人名稱 :</Form.Label>
           <Form.Control
             type="text"
             placeholder="請輸入聯絡人名稱"
@@ -233,7 +233,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>聯絡人Email:</Form.Label>
+          <Form.Label>聯絡人Email :</Form.Label>
           <Form.Control
             type="email"
             placeholder="請輸入email"
