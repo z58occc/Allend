@@ -13,6 +13,8 @@ class IFindPeopleController extends Controller
     {
         $identity_query = $request->input('identity');
         $seniority_query = $request->input('seniority');
+        $country_query = $request->input('country');
+        $sort_query = $request->input('sort');
 
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
@@ -23,102 +25,41 @@ class IFindPeopleController extends Controller
         ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city');
 
         
-        if (!empty($seniority_query || !empty($identity_query))) {
+        if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
 
-            if (!empty($seniority_query && !empty($identity_query))){
-                $member->whereIn('identity', explode(',', $identity_query))
-                ->whereIn('seniority',explode(',', $seniority_query));
-            }
 
             if(!empty($identity_query)){
                 $member->whereIn('identity',explode(',',$identity_query));
             }
 
+            if(!empty($country_query)){
+                $member->whereIn('active_location',explode(',',$country_query));
+            }
+
             if(!empty($seniority_query)){
-                if (is_string($seniority_query)) {
-                    $seniority_query = explode(',', $seniority_query);
-                }
-                foreach ($seniority_query as $seniority) {
-                    switch ($seniority) {
-                        case '1':
-                            $member->Where(function ($query) {
-                                $query->orwhere('seniority', '=', 1);
-                            });
-                            break;
-                        case '2':
-                            $member->Where(function ($query) {
-                                $query->orwhere('seniority', '=', 2);
-                            });
-                            break;
-                        case '3':
-                            $member->Where(function ($query) {
-                                $query->orwhere('seniority', '=', 3);
-                            });
-                            break;
-                        case '4':
-                            $member->Where(function ($query) {
-                                $query->orwhere('seniority', '=', 4);
-                            });
-                            break;
-                        case '5':
-                            $member->Where(function ($query) {
-                                $query->orwhere('seniority', '>=', 5);
-                            });
-                            break;
-                    }
-                }
+                $member->whereIn('seniority',explode(',',$seniority_query));
             }
 
         }
-        $member_total = $member->get();
 
-        return $member_total;
-    }
-    
-
-        
-
-
-        // // 選擇類別
-        // if($request->has('s_type')){
-        //     $query->where('s_type',$request->s_type);
-        // }
-        // // 選擇接案者身分
-        // if($request->has('identity')){
-        //     $member_query->whereIn('identity',explode(',',$request->identity));
-        // }
-        // // 選擇年資
-        // if($request->has('seniority')){
-        //     $member_query->whereIn('seniority',explode(',',$request->seniority));
-        // }
-        // // 選擇地點
-        // if($request->has('s_acitve_location')){
-        //     $query->whereIn('s_acitve_location',explode(',',$request->s_acitve_location));
-        // }
         // //排序
-        // if($request->has('order')){
+        // if($request->has('sort')){
         //     $order = $request->order;
         //     switch($order){
-        //         //評價
-        //         case '1':
-        //             $establised_query->select(DB::raw('ROUND(AVG(demmand_star)) as avg_star'))
-        //             // ->orderBy('avg_star');
-        //             ->get();
-        //             break;
         //         //成交數量
-        //         case'2':
-        //             $establised_query->select('mid_demmand',DB::raw('COUNT(*)'))
+        //         case'1':
+        //             $member->select('mid_demmand',DB::raw('COUNT(*)'))
         //             ->groupBy('mid_demmand')
         //             ->get();
         //             break;
         //         //計算作品數量
-        //         case '3':
+        //         case '2':
         //             $project_query->select('mid',DB::raw('COUNT(*)'))
         //             ->groupBy('mid')
         //             ->get();
         //             break;
         //         //上線時間
-        //         case'4':
+        //         case'3':
         //             $member_query->orderBy('last_login','desc');
         //             break;
         //         default:
@@ -127,6 +68,21 @@ class IFindPeopleController extends Controller
         // }else{
         //         $member_query->orderBy('last_login','desc');
         //     }
+
+
+
+
+
+
+        $member_total = $member->get();
+
+
+
+
+
+        return $member_total;
+    }
+    
 
 
 
