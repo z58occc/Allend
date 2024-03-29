@@ -303,7 +303,7 @@ class MemberInfoController extends Controller
     public function getPublishCase(Request $request)
     {
         // $mid = Auth::guard('api')->id();
-        $mid = 5;
+        $mid = 1;
         if($mid){
             // 刊登紀錄
             $demmand_query = DB::table('demmand')

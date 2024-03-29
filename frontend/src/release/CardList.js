@@ -8,7 +8,7 @@ import CaseDetailsModal3 from './CaseDetailsModal3';
 // import CaseContext from './CaseContext';
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
-  const CaseData = data1
+  const CaseData = data1;
   // let CaseData = [
   //   {
   //     "d_name": "心理諮商師",
@@ -18,8 +18,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   //     "created_at": "2024-03-19 08:05:59"
   //   }
   // ];
-
-  const [checked, setChecked] = useState(false);
+  
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
   const handlesetSelectedDataKey = (index) => {
@@ -27,18 +26,19 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     console.log(index);
   }
   // 全選功能
-  const [selectedItems, setSelectedItems] = useState([false, false, false]); //設置selectedItems為空陣列，裡面為被選到的index值
+  const [checked, setChecked] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([false, false, false, false, false]); //設置selectedItems為空陣列，裡面為被選到的index值
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
     newSelectedItems[index] = !newSelectedItems[index];
     setSelectedItems(newSelectedItems);
-    const allSelected = newSelectedItems.every((item) => item);
-    setChecked(allSelected);
+    const isAllSelected = newSelectedItems.every((item) => item); //查看newSelectedItems每個是否為true，return 1 or 0
+    setChecked(isAllSelected); 
   };
   const handleToggleAll = () => {
-    const allSelected = !checked;
-    setChecked(allSelected);
-    const newSelectedItems = CaseData.map(() => allSelected);
+    const isAllSelected = !checked;
+    setChecked(isAllSelected);
+    const newSelectedItems = CaseData.map(() => isAllSelected);
     setSelectedItems(newSelectedItems);
   };
   // 案件詳情Modal
@@ -81,7 +81,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         <Button variant="primary" style={{ fontSize: '12px', width: '110px', whiteSpace: 'nowrap' }} onClick={handleToggleAll}>
           {checked ? '取消全選' : '全選'}
         </Button>
-        <Button variant="danger" style={{ fontSize: '12px', width: '100px' }}>
+        <Button variant="danger" style={{ fontSize: '12px', width: '100px' }} onClick={()=>{console.log(1)}}>
           刪除
         </Button>
         <SearchPage />
@@ -100,25 +100,17 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
-                style={{ marginRight: '50px', visibility }}
+                style={{ marginLeft: '20px', visibility }}
                 checked={selectedItems[index] || false}
                 onChange={() => handleChecked(index)}
               />
-              <Card.Title>{screen === 1 ? item.d_name : item.c_name}</Card.Title>
+              <Card.Title style={screen ===1 ? {marginLeft:"25px"} : {marginLeft:"0px"}}>{screen === 1 ? item.d_name : item.c_name}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
                 <Card.Text>{screen === 3 ? <>完成日期： {item.completed_time}</> : screen === 1 ? <> 合作期程：{item.d_duration}</> : <> 合作期程：{item.c_duration}</>}</Card.Text>
                 <Card.Text>
-                  金額： {screen === 1
-                    ? item.d_unit === "次"
-                      ? `${item.d_amount}/${item.d_unit}`
-                      : `${item.d_amount}${item.d_unit}`
-                    : item.c_unit === "次"
-                      ? `${item.c_amount}/${item.c_unit}`
-                      : `${item.c_amount}${item.c_unit}`}
+                  金額： {screen === 1? <>{item.d_amount} / {item.d_unit}</>: <>{item.c_amount} / {item.c_unit}</>  }
                 </Card.Text>
-
-                <Card.Text>{screen === 1 ? '人數： ' + item.d_required : null}</Card.Text>
               </div>
             </Card.Body>
             {screen === 3 ?

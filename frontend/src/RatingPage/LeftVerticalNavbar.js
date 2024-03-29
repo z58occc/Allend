@@ -92,11 +92,13 @@ const LeftVerticalNavbar = () => {
                     {navItems.map((item, index) => {
                         if (index === 1 || index === 2) {
                             return (
-                                <Accordion key={index} defaultActiveKey={`${index}-1`} className="no-arrow-accordion">
+                                <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion">
                                     <Accordion.Item eventKey={`${index}-1`}>
                                         <Accordion.Header>{item.text}</Accordion.Header>
                                         <Accordion.Body>
                                             {index === 1 ? (
+
+                                                
                                                 <div>
                                                     <Nav.Link href="/switch" className="nav-link-no-arrow">資料維護</Nav.Link>
 

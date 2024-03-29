@@ -65,7 +65,7 @@ const MainScreen2 = () => {
         "http://127.0.0.1/Allend/backend/public/api/mempublishcase",
         {
           params: {
-            mid: 5,
+            mid: 1,
           },
           headers: {
             "Content-Type": "application/json",
