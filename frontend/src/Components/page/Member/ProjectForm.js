@@ -19,30 +19,30 @@ function ProjectForm() {
     e.preventDefault();
     // Handle form submission here
     if (!emailError) {
-    console.log({
-      category,
-      budget,
-      cooperationTime,
-      location,
-      details,
-      userName,
-      email,
-      contact,
-      numberOfPeople
-    });
-    // Clear the form
-    setCategory('');
-    setBudget('');
-    setCooperationTime('');
-    setLocation('');
-    setDetails('');
-    setUserName('');
-    setEmail('');
-    setContact('');
-    setNumberOfPeople('');
-  } else {
-    console.error("Form submission error: Email format is incorrect.");
-  }
+      console.log({
+        category,
+        budget,
+        cooperationTime,
+        location,
+        details,
+        userName,
+        email,
+        contact,
+        numberOfPeople
+      });
+      // Clear the form
+      setCategory('');
+      setBudget('');
+      setCooperationTime('');
+      setLocation('');
+      setDetails('');
+      setUserName('');
+      setEmail('');
+      setContact('');
+      setNumberOfPeople('');
+    } else {
+      console.error("Form submission error: Email format is incorrect.");
+    }
   };
 
   const validateEmail = (value) => {
@@ -126,36 +126,36 @@ function ProjectForm() {
               >
                 <option value="">請選擇</option>
                 <optgroup label="北部">
-                                    <option value="台北市">台北市</option>
-                                    <option value="新北市">新北市</option>
-                                    <option value="桃園市">桃園市</option>
-                                    <option value="基隆市">基隆市</option>
-                                    <option value="新竹市">新竹市</option>
-                                    <option value="新竹縣">新竹縣</option>
-                                </optgroup>
-                                <optgroup label="中部">
-                                    <option value="台中市">台中市</option>
-                                    <option value="彰化縣">彰化縣</option>
-                                    <option value="南投縣">南投縣</option>
-                                    <option value="苗栗縣">苗栗縣</option>
-                                </optgroup>
-                                <optgroup label="南部">
-                                    <option value="台南市">台南市</option>
-                                    <option value="高雄市">高雄市</option>
-                                    <option value="屏東縣">屏東縣</option>
-                                    <option value="嘉義市">嘉義市</option>
-                                    <option value="嘉義縣">嘉義縣</option>
-                                </optgroup>
-                                <optgroup label="東部">
-                                    <option value="宜蘭縣">宜蘭縣</option>
-                                    <option value="花蓮縣">花蓮縣</option>
-                                    <option value="台東縣">台東縣</option>
-                                </optgroup>
-                                <optgroup label="離島">
-                                    <option value="澎湖縣">澎湖縣</option>
-                                    <option value="金門縣">金門縣</option>
-                                    <option value="連江縣">連江縣</option>
-                                </optgroup>
+                  <option value="台北市">台北市</option>
+                  <option value="新北市">新北市</option>
+                  <option value="桃園市">桃園市</option>
+                  <option value="基隆市">基隆市</option>
+                  <option value="新竹市">新竹市</option>
+                  <option value="新竹縣">新竹縣</option>
+                </optgroup>
+                <optgroup label="中部">
+                  <option value="台中市">台中市</option>
+                  <option value="彰化縣">彰化縣</option>
+                  <option value="南投縣">南投縣</option>
+                  <option value="苗栗縣">苗栗縣</option>
+                </optgroup>
+                <optgroup label="南部">
+                  <option value="台南市">台南市</option>
+                  <option value="高雄市">高雄市</option>
+                  <option value="屏東縣">屏東縣</option>
+                  <option value="嘉義市">嘉義市</option>
+                  <option value="嘉義縣">嘉義縣</option>
+                </optgroup>
+                <optgroup label="東部">
+                  <option value="宜蘭縣">宜蘭縣</option>
+                  <option value="花蓮縣">花蓮縣</option>
+                  <option value="台東縣">台東縣</option>
+                </optgroup>
+                <optgroup label="離島">
+                  <option value="澎湖縣">澎湖縣</option>
+                  <option value="金門縣">金門縣</option>
+                  <option value="連江縣">連江縣</option>
+                </optgroup>
                 {/* Add more options here */}
               </Form.Control>
             </Form.Group>
@@ -206,7 +206,7 @@ function ProjectForm() {
             type="email"
             placeholder="請輸入email"
             value={email}
-            onChange={(e) =>{
+            onChange={(e) => {
               setEmail(e.target.value);
               validateEmail(e.target.value);
             }}
@@ -226,11 +226,11 @@ function ProjectForm() {
           />
         </Form.Group>
 
-          <div className="text-center"> {/* Center align the submit button */}
-        <Button variant="primary" type="submit">
-          提交
-        </Button>
-      </div>
+        <div className="text-center"> {/* Center align the submit button */}
+          <Button variant="primary" type="submit">
+            提交
+          </Button>
+        </div>
       </Form>
     </div>
   );
