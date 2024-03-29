@@ -230,61 +230,73 @@ class MemberInfoController extends Controller
     public function getTakeCase(Request $request)
     {
         $mid = Auth::guard('api')->id();
-        if($mid){
-            $Quote_query = DB::table('quote')
-            ->join('demmand','quote.did','=','demmand.did')
-            ->select('d_name','q_amount')->where('quote.mid',$mid);
 
-            $Case_in_progress_query = DB::table('established_case')
-            ->select('c_name','c_amount')
-            ->where('mid_service',$mid)
-            ->where('c_status',1);
+        // 報價但尚未被接受的紀錄
+        $Quote_query = DB::table('quote')
+        ->join('demmand','quote.did','=','demmand.did')
+        ->join('category', 'catid', '=', 'demmand.d_type')
+        ->join('country', 'country_id', '=', 'd_active_location')
+        ->select('qid', 'd_name','type','q_amount','d_unit', 'd_duration', 'country_city as active_location', 'd_description',
+        'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
+        ->where('quote.mid',$mid);
 
-            $Case_completed_query = DB::table('established_case')
-            ->select('c_name','c_amount')
-            ->where('mid_service',$mid)
-            ->where('c_status',2);
+        // 接案進行中
+        $Case_in_progress_query = DB::table('established_case')
+        ->join('category', 'catid', '=', 'c_type')
+        ->join('country', 'country_id', '=', 'c_active_location')
+        ->select('cid', 'c_name','type', 'c_amount','c_unit','c_duration','country_city as active_location','c_description',
+        'c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
+        ->where('mid_service',$mid)
+        ->where('c_status',1);
 
-            //接案搜尋
-            if($request->has('QuoteSearch')){
-                $Quote_query->where('d_name','like','%'.$request->input('QuoteSearch').'%');
-            }
-            //接案進行中搜尋
-            if($request->has('CaseInProgressSearch')){
-                $Case_in_progress_query->where('c_name','like','%'.$request->input('CaseInProgressSearch').'%');
-            }
+        // 接案已結案
+        $Case_completed_query = DB::table('established_case')
+        ->join('category', 'catid', '=', 'c_type')
+        ->join('country', 'country_id', '=', 'c_active_location')
+        ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone',
+        DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
+        ->where('mid_service',$mid)
+        ->where('c_status',2);
 
-            if($request->has('CaseCompletedSearch')){
-                $Case_completed_query->where('c_name','like','%'.$request->input('CaseCompletedSearch').'%');
-            }
+        // //接案搜尋
+        // if($request->has('QuoteSearch')){
+        //     $Quote_query->where('d_name','like','%'.$request->input('QuoteSearch').'%');
+        // }
+        // //接案進行中搜尋
+        // if($request->has('CaseInProgressSearch')){
+        //     $Case_in_progress_query->where('c_name','like','%'.$request->input('CaseInProgressSearch').'%');
+        // }
 
-            //分頁顯示
-            $Quote_results = $Quote_query->get();
-            $Case_in_progress_results = $Case_in_progress_query->get();
-            $Case_completed_results = $Case_completed_query->get();
+        // if($request->has('CaseCompletedSearch')){
+        //     $Case_completed_query->where('c_name','like','%'.$request->input('CaseCompletedSearch').'%');
+        // }
 
-            if($Quote_results->count()<6){
-                $Quote_paginated_results = $Quote_results;
-            }else{
-                $Quote_paginated_results = $Quote_query->paginate(6);
-            }
+        //分頁顯示
+        $Quote_results = $Quote_query->get();
+        $Case_in_progress_results = $Case_in_progress_query->get();
+        $Case_completed_results = $Case_completed_query->get();
 
-            if($Case_in_progress_results->count()<6){
-                $Case_in_progress_paginated_results = $Case_in_progress_results;
-            }else{
-                $Case_in_progress_paginated_results = $Case_in_progress_query->paginate(6);
-            }
-            if($Case_completed_results->count()<6){
-                $Case_completed_paginated_results = $Case_completed_results;
-            }else{
-                $Case_completed_paginated_results = $Case_completed_query->paginate(6);
-            }
-            return response()->json([
-                'Quote' => $Quote_paginated_results,
-                'CaseInProgress' => $Case_in_progress_paginated_results,
-                'CaseCompleted' => $Case_completed_paginated_results,
-            ]);
+        if($Quote_results->count()<6){
+            $Quote_paginated_results = $Quote_results;
+        }else{
+            $Quote_paginated_results = $Quote_query->paginate(6);
         }
+
+        if($Case_in_progress_results->count()<6){
+            $Case_in_progress_paginated_results = $Case_in_progress_results;
+        }else{
+            $Case_in_progress_paginated_results = $Case_in_progress_query->paginate(6);
+        }
+        if($Case_completed_results->count()<6){
+            $Case_completed_paginated_results = $Case_completed_results;
+        }else{
+            $Case_completed_paginated_results = $Case_completed_query->paginate(6);
+        }
+        return response()->json([
+            'Quote' => $Quote_paginated_results,
+            'CaseInProgress' => $Case_in_progress_paginated_results,
+            'CaseCompleted' => $Case_completed_paginated_results,
+        ]);
     }
 
     //  刪除接案紀錄
@@ -295,7 +307,7 @@ class MemberInfoController extends Controller
             $selectQuote = $request->input('qid');
             DB::table('quote')
             ->where('mid',$mid)
-            ->whereIn('qid',$selectQuote)->delete();
+            ->where('qid',$selectQuote)->delete();
         }
     }
 
@@ -332,17 +344,17 @@ class MemberInfoController extends Controller
             ->where('mid_demmand',$mid)
             ->where('c_status',2);
 
-            if($request->has('demmandSearch')){
-                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
-            }
+            // if($request->has('demmandSearch')){
+            //     $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+            // }
 
-            if($request->has('demmandProgressSearch')){
-                $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
-            }
+            // if($request->has('demmandProgressSearch')){
+            //     $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
+            // }
 
-            if($request->has('demmandCompletedSearch')){
-                $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
-            }
+            // if($request->has('demmandCompletedSearch')){
+            //     $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
+            // }
 
             return response()->json([
                 'demmand_published' => $demmand_query->get(),
@@ -352,14 +364,14 @@ class MemberInfoController extends Controller
         }
     }
 
-    // 刪除發案紀錄
+    // 刪除發案刊登紀錄
     public function delPublishCase(Request $request)
     {
         if(Auth::guard('api')){
             $userId = Auth::guard('api')->id();
 
             $selectdemmand = $request->input('did');
-            DB::table('demmand')->whereIn('did',$selectdemmand)
+            DB::table('demmand')->where('did',$selectdemmand)
                                 ->where('mid',$userId)
                                 ->delete();
 
