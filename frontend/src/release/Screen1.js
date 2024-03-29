@@ -8,6 +8,7 @@ import Pagination from 'react-bootstrap/Pagination';
 
 const Screen1 = ({data}) => {
   //頁數控制
+  console.log(data)
   const [active,setActive] = useState(1);
   let items = [];
   const handleSetActive = (number)=>{

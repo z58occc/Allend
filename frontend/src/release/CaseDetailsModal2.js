@@ -12,37 +12,37 @@ const CaseDetailsModal2 = ({ show, onHide,number,data}) => {
         <div className="container" style={{ fontSize: '18px' }}>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件編號:</strong> 
+              <strong>案件編號：{data[number].cid}</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong> 
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件類別:</strong>
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>預算金額: {data[number].c_amount}</strong> 
+              <strong>案件名稱：{data[number].c_name}</strong> 
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>地點:</strong> 
+              <strong>案件類別：{data[number].type}</strong>
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件期程:</strong> 
+              <strong>預算金額：{data[number].c_amount}</strong> 
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人姓名:</strong> 
+              <strong>地點：{data[number].active_location}</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人 Email:</strong> 
+              <strong>案件期程：{data[number].c_duration}</strong> 
+            </div>
+          </div>
+          <div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>接案人姓名：{data[number].c_contact_name}</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>接案人手機:</strong> 
+              <strong>接案人 Email：{data[number].c_email}</strong> 
+            </div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>接案人手機：{data[number].c_mobile_phone}</strong> 
             </div>
           </div>
         </div>

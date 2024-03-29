@@ -46,7 +46,9 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
       <div className="d-flex justify-content-around" style={{ width: '800px', visibility }} >
         <SearchPage/>
       </div>
-      {CaseData.length === 0 ? <h2>未有紀錄</h2>   : CaseData.map((item, index) => (
+      {
+      // CaseData.length === 0 ? <h2>未有紀錄</h2>   
+       CaseData.map((item, index) => (
         <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }} onClick = {
           () => {
           if (screen === 3) {

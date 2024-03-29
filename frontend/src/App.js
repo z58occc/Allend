@@ -196,16 +196,24 @@ function App() {
   const handleClick2 = () => {
     setColor("silver");
     setColor2("darkgray");
+    
   };
   const handleClick3 = () => {
     setColor("silver");
     setColor2("silver");
   };
+  
+  const handleClick4 = () => {
+    setColor("darkgray");
+    setColor2("silver");
 
+  };
 
+  const handleClick5 = () => {
+    setColor("darkgray");
+    setColor2("silver");
 
-
-
+  };
 
 
 
@@ -241,9 +249,9 @@ function App() {
             <li className="nav-item">
               <Link
                 to="/findcase"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: color2 }}
                 onClick={handleClick}
-                className="nav-link active"
+                className="nav-link "
               >
                 我要接案
               </Link>
@@ -263,8 +271,8 @@ function App() {
             <li className="nav-item">
               <Nav.Link
                 href="/ProjectForm"
-                style={{ backgroundColor: "silver" }}
-                onClick={handleClick2}
+                style={{ backgroundColor: color2 }}
+                onClick={handleClick4}
                 className="nav-link"
               >
                 發案
@@ -273,9 +281,9 @@ function App() {
             <li className="nav-item">
               <Nav.Link
                 href="/member"
-                style={{ backgroundColor: "silver" }}
-                onClick={handleClick}
-                className="nav-link active"
+                style={{ backgroundColor: color2}}
+                onClick={handleClick5}
+                className="nav-link "
               >
                 Email
               </Nav.Link>

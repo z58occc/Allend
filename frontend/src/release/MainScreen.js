@@ -14,27 +14,47 @@ const MainScreen2 = () => {
     setActiveScreen(screenName);
   };
   const [Case, setCase] = useState({
-    demmand: [
+    "demmand_published": [
       {
-        d_name: "",
-        d_required: 0,
-        d_amount: 0,
-        d_unit: "",
-        created_at: "",
+        "did": 0,
+        "d_name": "",
+        "type": "",
+        "d_amount": 0,
+        "d_unit": "",
+        "d_duration": "",
+        "active_location": "",
+        "d_description": "",
+        "d_contact_name": "",
+        "d_email": "",
+        "d_mobile_phone": "",
+        "updated_at": ""
       },
     ],
-    demmand_progress: [
+    "demmand_progress": [
       {
-        c_name: "",
-        c_amount: 0,
-        created_at: "",
+        "cid": 0,
+        "c_name": "",
+        "type": "",
+        "c_amount": 0,
+        "c_unit": "",
+        "c_duration": "",
+        "active_location": "",
+        "c_description": "",
+        "c_contact_name": "",
+        "c_email": "",
+        "c_mobile_phone": "",
+        "created_at": ""
       },
     ],
-    demmand_completed: [
+    "demmand_completed": [
       {
-        c_name: "",
-        c_amount: 0,
-        created_at: "",
+        "cid": 0,
+        "c_name": "",
+        "type": "",
+        "c_amount": 0,
+        "c_unit": "",
+        "created_at": "",
+        "completed_time": ""
       },
     ],
   });
@@ -107,7 +127,7 @@ const MainScreen2 = () => {
                 <Col md={12}>
                   {/* 右側主畫面區域 */}
                   {activeScreen === "screen1" && (
-                    <Screen1 data={Case.demmand} />
+                    <Screen1 data={Case.demmand_published} />
                   )}
                   {activeScreen === "screen2" && (
                     <Screen2 data={Case.demmand_progress} />
