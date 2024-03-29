@@ -299,7 +299,15 @@ class MemberInfoController extends Controller
         ]);
     }
 
-    //  刪除接案紀錄
+    // 修改接案紀錄
+    public function updateTakeCase(Request $request)
+    {
+        $mid = Auth::guard('api')->id();
+        $qid = $request->qid;
+
+    }
+
+    // 刪除接案紀錄
     public function delTakeCase(Request $request)
     {
         $mid = Auth::guard('api')->id();
@@ -362,6 +370,14 @@ class MemberInfoController extends Controller
                 'demmand_completed' => $demmand_completed_query->get()
             ]);
         }
+    }
+
+    // 修改發案刊登
+    public function updatePublishCase(Request $request)
+    {
+        $mid = Auth::guard('api')->id();
+        $did = $request->did;
+
     }
 
     // 刪除發案刊登紀錄

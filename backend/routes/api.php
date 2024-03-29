@@ -111,10 +111,15 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
+    // 修改接案紀錄
+    Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
+
     // 獲取發案紀錄
     Route::get('/mempublishcase', 'getPublishCase');
+    // 修改發案刊登
+    Route::post('/updatepublishcase', 'updatePublishCase');
     // 刪除發案紀錄
     Route::post('/delpublishcase', 'delPublishCase');
 
