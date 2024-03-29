@@ -33,13 +33,18 @@ nav button {
 }
 
 
+.nav-link:hover {
+  /* Change this to the desired hover color */
+  color: white; /* Change this to the desired text color on hover */
+}
+
+
+
 .modal-content {
   background-color:peachpuff !important; /* 更改為您想要的背景顏色 */
 }
 
-#login, #login:hover, #login:active {
-  background-color: white;
-}
+
 
 
 
