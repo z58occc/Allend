@@ -18,9 +18,7 @@ import Cookies from "js-cookie";
 import Softdesign from "./Components/softdesign"
 import Word from "./Components/word";
 import Pro from "./Components/pro";
-import program from "./Components/program"
 import Program from "./Components/program";
-import casecontext from "./Components/CaseContext"
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen";
@@ -198,16 +196,24 @@ function App() {
   const handleClick2 = () => {
     setColor("silver");
     setColor2("darkgray");
+    
   };
   const handleClick3 = () => {
     setColor("silver");
     setColor2("silver");
   };
+  
+  const handleClick4 = () => {
+    setColor("darkgray");
+    setColor2("silver");
 
+  };
 
+  const handleClick5 = () => {
+    setColor("darkgray");
+    setColor2("silver");
 
-
-
+  };
 
 
 
@@ -226,7 +232,7 @@ function App() {
           className="search-container"
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
-          <input type="text" placeholder="Search.." />
+          <input type="text" placeholder="Search.." style={{  width: '300px' ,borderRadius: '10px' }} />
           <Button type="submit">
             <i className="fa fa-search"></i>
           </Button>
@@ -238,14 +244,14 @@ function App() {
         </div>
       </div>
       <nav className="navbar navbar-expand-sm">
-        <div className="container-fluid">
+        <div className="container-fluid" >
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
                 to="/findcase"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: color2 }}
                 onClick={handleClick}
-                className="nav-link active"
+                className="nav-link "
               >
                 我要接案
               </Link>
@@ -265,8 +271,8 @@ function App() {
             <li className="nav-item">
               <Nav.Link
                 href="/ProjectForm"
-                style={{ backgroundColor: "silver" }}
-                onClick={handleClick2}
+                style={{ backgroundColor: color2 }}
+                onClick={handleClick4}
                 className="nav-link"
               >
                 發案
@@ -275,9 +281,9 @@ function App() {
             <li className="nav-item">
               <Nav.Link
                 href="/member"
-                style={{ backgroundColor: "silver" }}
-                onClick={handleClick}
-                className="nav-link active"
+                style={{ backgroundColor: color2}}
+                onClick={handleClick5}
+                className="nav-link "
               >
                 Email
               </Nav.Link>
@@ -306,7 +312,7 @@ function App() {
       </Routes>
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered>
+      <Modal show={showLogin} onHide={handleClose} centered style={{borderRadius: '10px'}}>
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
             <div className="col text-center">

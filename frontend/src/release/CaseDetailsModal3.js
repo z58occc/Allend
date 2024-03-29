@@ -12,34 +12,34 @@ const CaseDetailsModal3 = ({ show, onHide,number,data}) => {
           <div className="container" style={{ fontSize: '18px' }}>
             <div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>案件編號:</strong> 
+                <strong>案件編號：{data[number].cid}</strong> 
               </div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>案件名稱:</strong>
+                <strong>案件名稱：{data[number].c_name}</strong>
                 
 
               </div>
             </div>
             <div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>案件類別:</strong> 
+                <strong>案件類別：{data[number].type}</strong> 
               </div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>預算金額:{data[number].c_amount}</strong> 
+                <strong>預算金額：{data[number].c_amount}</strong> 
               </div>
             </div>
             <div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>接案人姓名</strong> 
+                <strong>接案人姓名：{data[number].c_contact_name}</strong> 
               </div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>接案人Email:</strong> 
+                <strong>接案人Email：{data[number].c_email}</strong> 
               </div> 
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <strong>接案人手機:</strong> 
+                <strong>接案人手機：{data[number].c_mobile_phone}</strong> 
               </div>
               <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <label >輸入評價:</label>
+                <label >輸入評價：</label>
                 <div style={{margin:'0 40px 0 40px'}}>
                   <textarea
                 

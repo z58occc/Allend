@@ -55,11 +55,11 @@ Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
 Route::get('/service_content/{sid}', ServiceContentController::class);
 
-// 送出報價表單
-Route::post('/quote', IWantQuoteController::class);//->middleware('auth:api');
 // 送出發案表單
 Route::post('/commitcase', CommitController::class);//->middleware('auth:api');
-// 查看報價、同意、不同意
+// 送出報價表單
+Route::post('/quote', IWantQuoteController::class);//->middleware('auth:api');
+// 查看、接受、拒絕報價
 Route::get('/pop_quote', Pop_QuoteContorller::class);//->middleware('auth:api');
 Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);//->middleware('auth:api');
 Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'Disagree']);//->middleware('auth:api');
@@ -111,10 +111,15 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
+    // 修改接案紀錄
+    Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
+
     // 獲取發案紀錄
     Route::get('/mempublishcase', 'getPublishCase');
+    // 修改發案刊登
+    Route::post('/updatepublishcase', 'updatePublishCase');
     // 刪除發案紀錄
     Route::post('/delpublishcase', 'delPublishCase');
 

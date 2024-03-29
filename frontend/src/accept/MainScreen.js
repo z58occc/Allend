@@ -46,7 +46,7 @@ const MainScreen = () => {
           },
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
+            // Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );
