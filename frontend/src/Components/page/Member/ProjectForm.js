@@ -1,57 +1,71 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import './ProjectForm.css';
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import "./ProjectForm.css";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-//發按表單
+// 發案表單
 function ProjectForm() {
-  const [category, setCategory] = useState('');
-  const [budget, setBudget] = useState('');
-  const [cooperationTime, setCooperationTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [details, setDetails] = useState('');
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [contact, setContact] = useState('');
-  const [numberOfPeople, setNumberOfPeople] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [nameOfCase, setNameOfCase] = useState("");
+  const [category, setCategory] = useState("");
+  const [cooperationTime, setCooperationTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [details, setDetails] = useState("");
+  const [budget, setBudget] = useState("");
+  const [unit, setUnit] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    if (!emailError) {
-      console.log({
-        category,
-        budget,
-        cooperationTime,
-        location,
-        details,
-        userName,
-        email,
-        contact,
-        numberOfPeople
+    axios({
+      method: "post",
+      url: "http://localhost/PHP/Allend/backend/public/api/commitcase",
+      data: {
+        d_name: nameOfCase,
+        d_type: category,
+        d_duration: cooperationTime,
+        d_active_location: location,
+        d_description: details,
+        d_amount: budget,
+        d_unit: unit,
+        d_contact_name: userName,
+        d_email: email,
+        d_mobile_phone: contact,
+      },
+      headers: { Authorization: Cookies.get("token") },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      // Clear the form
-      setCategory('');
-      setBudget('');
-      setCooperationTime('');
-      setLocation('');
-      setDetails('');
-      setUserName('');
-      setEmail('');
-      setContact('');
-      setNumberOfPeople('');
+
+    if (!emailError) {
+      setNameOfCase("");
+      setCategory("");
+      setCooperationTime("");
+      setLocation("");
+      setDetails("");
+      setBudget("");
+      setUnit("");
+      setUserName("");
+      setEmail("");
+      setContact("");
     } else {
       console.error("Form submission error: Email format is incorrect.");
     }
   };
 
   const validateEmail = (value) => {
-    // Regular expression for email validation
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (regex.test(value)) {
-      setEmailError('');
+      setEmailError("");
     } else {
-      setEmailError('Invalid email format');
+      setEmailError("Invalid email format");
     }
   };
 
@@ -59,8 +73,24 @@ function ProjectForm() {
     <div className="project-form">
       <h2>發案表單</h2>
       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="numberOfPeople">
+          <Form.Label>案件名稱：</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="填寫案件名稱"
+            value={nameOfCase}
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (!isNaN(value) && value > 0) {
+                setNameOfCase(value);
+              }
+            }}
+            required
+          />
+        </Form.Group>
+
         <Form.Group controlId="category">
-          <Form.Label>需求類別:</Form.Label>
+          <Form.Label>需求類別 :</Form.Label>
           <Form.Control
             as="select"
             value={category}
@@ -68,19 +98,18 @@ function ProjectForm() {
             required
           >
             <option value="">請選擇案件類別</option>
-            <option value="option1">網站設計</option>
-            <option value="option2">軟體程式</option>
-            <option value="option3">文字語言</option>
-            <option value="option4">專業諮詢</option>
-            <option value="option5">程式設計</option>
-            {/* Add more options here */}
+            <option value="網站設計">網站設計</option>
+            <option value="軟體程式">軟體程式</option>
+            <option value="文字語言">文字語言</option>
+            <option value="平面設計">平面設計</option>
+            <option value="專業諮詢">專業諮詢</option>
           </Form.Control>
         </Form.Group>
 
         <Row>
           <Col>
             <Form.Group controlId="budget">
-              <Form.Label>預算金額：</Form.Label>
+              <Form.Label>預算金額 :</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="填寫金額"
@@ -97,27 +126,35 @@ function ProjectForm() {
           </Col>
 
           <Col>
-            <Form.Group controlId="cooperationTime">
-              <Form.Label>合作時間：</Form.Label>
+            <Form.Group controlId="unit">
+              <Form.Label>單位 :</Form.Label>
               <Form.Control
-                as="select"
-                value={cooperationTime}
-                onChange={(e) => setCooperationTime(e.target.value)}
+                type="text"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                placeholder="例如: 次、件、小時"
                 required
-              >
-                <option value="">請選擇</option>
-                <option value="short">短期</option>
-                <option value="long">長期</option>
-                {/* Add more options here */}
-              </Form.Control>
+              ></Form.Control>
             </Form.Group>
           </Col>
         </Row>
-
+        <Form.Group controlId="cooperationTime">
+          <Form.Label>合作期程：</Form.Label>
+          <Form.Control
+            as="select"
+            value={cooperationTime}
+            onChange={(e) => setCooperationTime(e.target.value)}
+            required
+          >
+            <option value="">請選擇</option>
+            <option value="short">短期</option>
+            <option value="long">長期</option>
+          </Form.Control>
+        </Form.Group>
         <Row>
           <Col>
             <Form.Group controlId="location">
-              <Form.Label>地點選擇：</Form.Label>
+              <Form.Label>地點選擇 :</Form.Label>
               <Form.Control
                 as="select"
                 value={location}
@@ -162,24 +199,8 @@ function ProjectForm() {
           </Col>
         </Row>
 
-        <Form.Group controlId="numberOfPeople">
-          <Form.Label>需求人數：</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="填寫人數"
-            value={numberOfPeople}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (!isNaN(value) && value > 0) {
-                setNumberOfPeople(value);
-              }
-            }}
-            required
-          />
-        </Form.Group>
-
         <Form.Group controlId="details">
-          <Form.Label>需求詳情：</Form.Label>
+          <Form.Label>需求詳情 :</Form.Label>
           <Form.Control
             as="textarea"
             placeholder="請輸入最少十個字"
@@ -190,7 +211,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="userName">
-          <Form.Label>名稱：</Form.Label>
+          <Form.Label>聯絡人名稱 :</Form.Label>
           <Form.Control
             type="text"
             placeholder="請輸入聯絡人名稱"
@@ -201,7 +222,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>Email:</Form.Label>
+          <Form.Label>聯絡人Email :</Form.Label>
           <Form.Control
             type="email"
             placeholder="請輸入email"
@@ -226,7 +247,9 @@ function ProjectForm() {
           />
         </Form.Group>
 
-        <div className="text-center"> {/* Center align the submit button */}
+        <div className="text-center">
+          {" "}
+          {/* Center align the submit button */}
           <Button variant="primary" type="submit">
             提交
           </Button>

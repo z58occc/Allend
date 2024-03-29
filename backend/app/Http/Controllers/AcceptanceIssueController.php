@@ -9,8 +9,13 @@ use Illuminate\Support\Facades\Redis;
 
 class AcceptanceIssueController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:api', 'verified']);
+    }
+
     //刊登中
-    public function publishgetData(Request $request)
+    public function getPublishedData(Request $request)
     {
         if(Auth::check()){
         $mid = Auth::id();
@@ -23,8 +28,8 @@ class AcceptanceIssueController extends Controller
         }
     }
 
-    //刊登的儲存變更
-    public function publishsaveData(Request $request){
+    // 刊登的儲存變更
+    public function savePublishedData(Request $request){
         $did = $request->input('did');
         DB::table('demmand')->where('did',$did)->update([
             'd_name' => $request->input('d_name'),
@@ -34,7 +39,7 @@ class AcceptanceIssueController extends Controller
             'd_duration' => $request->input('d_duration'),
             'd_description' => $request->input('d_description')
         ]);
-        
+
         return response()->json(['message'=>'Update Success']);
     }
 
@@ -51,8 +56,8 @@ class AcceptanceIssueController extends Controller
 
     //收到的按鈕
     public function receviceData(Request $request){
-        $did = $request->input('did');
-        DB::table('established_case')
+        $cid = $request->input('cid');
+        DB::table('established_case')->where('cid', $cid)
         ->update(['c_status' => 2]);
     }
 
@@ -66,7 +71,7 @@ class AcceptanceIssueController extends Controller
         ->where('did',$did);
         return response()->json($data->get());
     }
-    
+
     //接案的儲存變更
     public function takesaveData(Request $request){
         $did = $request->input('did');
@@ -98,7 +103,7 @@ class AcceptanceIssueController extends Controller
         return response()->json(['message'=>'Submit Success']);
     }
 
-    //案主給予評價
+    // 案主給予接案者評價
     public function publishEvaluation(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')
@@ -108,7 +113,7 @@ class AcceptanceIssueController extends Controller
                 ['demmand_time'=>now()]);
         return response()->json(['message'=>'Evaluate Success']);
     }
-
+    // 接案者給予案主評價
     public function takeEvaluation(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')

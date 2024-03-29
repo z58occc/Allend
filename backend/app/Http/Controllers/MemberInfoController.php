@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,11 @@ use Throwable;
 
 class MemberInfoController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        // $this->middleware(['auth:api','verified']);
+        // $this->middleware(['auth:api']);
+    }
 
     // 獲取儀錶板
     public function dashboard(Request $request)//:JsonResponse
@@ -34,6 +36,20 @@ class MemberInfoController extends Controller
         // }
         $user = Auth::user();
 
+        /* 接案 */
+        // 接案數
+        $taked = DB::table('service')->select(DB::raw('count(mid) as taked_total'))
+                                    ->where('mid', $user->mid)
+                                    ->first();
+        // 進行中
+        $ongoing_service = DB::table('established_case')->select(DB::raw('count(cid) as service_total'))
+                                                ->where('mid_service', $user->mid)->where('c_status', 1)
+                                                ->first();
+        // 結案數
+        $closed_service = DB::table('established_case')->select(DB::raw('count(cid) as closed_service_total'))
+                                                        ->where('mid_service', $user->mid)->where('c_status', 2)
+                                                        ->first();
+
         /* 發案 */
         // 刊登數
         $published = DB::table('demmand')->select(DB::raw('count(mid) as published_total'))
@@ -47,53 +63,41 @@ class MemberInfoController extends Controller
         $closed_demmand = DB::table('established_case')->select(DB::raw('count(cid) as closed_demmand_total'))
                                                 ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                 ->first();
-        /* 接案 */
-        // 接案數
-        $taked = DB::table('service')->select(DB::raw('count(mid) as taked_total'))
-                                        ->where('mid', $user->mid)
-                                        ->first();
-        // 進行中
-        $ongoing_service = DB::table('established_case')->select(DB::raw('count(cid) as service_total'))
-                                                ->where('mid_service', $user->mid)->where('c_status', 1)
-                                                ->first();
-        // 結案數
-        $closed_service = DB::table('established_case')->select(DB::raw('count(cid) as closed_service_total'))
-                                                        ->where('mid_service', $user->mid)->where('c_status', 2)
-                                                        ->first();
+
         // 作為接案方的評價
-        $service_rating = DB::table('established_case')->select(DB::raw('ifnull(round(avg(demmand_star),2), 0) as service_rating'))
+        if (DB::table('established_case')->where('mid_service', $user->mid)->exists()){
+        $service_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(demmand_star, 0)), 2) as service_rating'))
                                                         ->where('mid_service', $user->mid)->where('c_status', 2)
-                                                        ->first();
+                                                        ->first();}
+        else {$service_rating = ['service_rating' => 0];}
         // 作為接案方評價則數
         $service_comt = DB::table('established_case')->select(DB::raw('count(mid_service) as service_cmt'))
                                                       ->where('mid_service', $user->mid)
                                                       ->first();
 
         // 作為發案方的評價
-        $demmand_rating = DB::table('established_case')->select(DB::raw('ifnull(round(avg(service_star),2), 0) as demmand_rating'))
+        if (DB::table('established_case')->where('mid_demmand', $user->mid)->exists()){
+        $demmand_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(service_star, 0)), 2) as demmand_rating'))
                                                         ->where('mid_demmand', $user->mid)->where('c_status', 2)
-                                                        ->first();
+                                                        ->first();}
+        else {$demmand_rating = ['demmand_rating' => 0];}
+
         // 作為發案方評價則數
         $demmand_comt = DB::table('established_case')->select(DB::raw('count(mid_demmand) as demmand_cmt'))
                                                         ->where('mid_demmand', $user->mid)
                                                         ->first();
-        // $arr = [];
-        // $a = $taked->union($ongoing_service)->union($closed_service)->union($published)->union($ongoing_demmand)->union($closed_demmand)->get();
-        // foreach ($a as $value){
-        //     $arr[] = $value->taked_total;
-        // }
 
         $data = [
-            $taked->taked_total,
-            $ongoing_service->service_total,
-            $closed_service->closed_service_total,
-            $published->published_total,
-            $ongoing_demmand->demand_total,
-            $closed_demmand->closed_demmand_total,
-            $service_rating->service_rating,
-            $service_comt->service_cmt,
-            $demmand_rating->demmand_rating,
-            $demmand_comt->demmand_cmt
+            $taked,
+            $ongoing_service,
+            $closed_service,
+            $published,
+            $ongoing_demmand,
+            $closed_demmand,
+            $service_rating,
+            $service_comt,
+            $demmand_rating,
+            $demmand_comt
         ];
         foreach ($data as $value){
             if($value === null){
@@ -102,27 +106,15 @@ class MemberInfoController extends Controller
         }
         return response()->json($data);
     }
-    // $data = [
-    //     [
-    //         "demand_total" => 1
-    //     ],
-    //     [
-    //         "demand_total3" => 6
-    //     ]
-    // ];
-
-    // $result = array_reduce($data, function($carry, $item) {
-    //     return array_merge($carry, $item);
-    // }, []);
 
     // 獲取會員資料
     public function getMemInfo(Request $request){
-        try{
-            $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        }catch(Throwable $err){
-            // 要不要轉址到登入
-            return response('無效的請求');
-        }
+        // try{
+        //     $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        // }catch(Throwable $err){
+        //     // 要不要轉址到登入
+        //     return response('無效的請求');
+        // }
         $user = Auth::user();
         $user_info = DB::table('members')
         ->join('identity', 'members.identity', '=', 'identity.iid')
@@ -149,6 +141,65 @@ class MemberInfoController extends Controller
         return response()->json($user_info);
     }
 
+    // 修改資料
+    public function updateMemInfo(Request $request){
+        // try{
+        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
+        //     Auth::user();
+        // }catch(Throwable $err){
+        //     return response('無效的請求');
+        // }
+        $user = Auth::user();
+        $request->validate([
+            'idCard' => 'max:10',
+        ]);
+
+        $user_id = Auth::user()->mid;
+        try{
+            Member::where('id', $user_id)->update([
+                'identity' => $request->identity,
+                'nickname' => $request->nickname,
+                'seniority' => $request->exprience,
+                'active_location' => $request->location,
+                'mobile_phone' => $request->phone,
+                'name' => $request->name,
+                'id_card' => $request->idCard,
+                'gender' => $request->gender,
+                'location' => $request->area,
+                'updated_at' => now(),
+            ]);
+        }catch(Throwable $err){
+            return response()->json([
+                'message' => '修改失敗'
+            ]);
+        }
+        return response()->json([
+            'message' => '修改成功'
+        ]);
+    }
+
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     // 會跑去檢查rules，回傳json字串，fill()參考User內的$fillable對應值傳入資料庫
+    //     $validated = $request->validated();
+    //     if (isset($request->image)){
+    //         $data = $request->image->get();
+    //         $mime_type = $request->image->getMimeType(); // 回傳格式字串
+    //         $imageData = base64_encode($data);
+    //         $src = "data: $mime_type;base64, $imageData";// img tag 所需的標籤格式
+    //         $validated['image'] = $src; // 補上image資料，跳過驗證
+    //     }
+    //     $request->user()->fill($validated);
+
+        // if ($request->user()->isDirty('email')) {
+        //     $request->user()->email_verified_at = null;
+        // }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    // }
+
     // 修改密碼
     public function updatePassword(Request $request)
     {
@@ -163,8 +214,9 @@ class MemberInfoController extends Controller
                 'message' => '資料不正確，重新輸入'
             ]);
         }
-        if (Hash::make($request->oldpassword) === DB::table('members')->select('password')->where('mid', $user->mid)->first()){
-            DB::create([
+
+        if(Hash::check($request->oldpassword, $user->password)){
+            DB::update([
                 'password' => Hash::make($request->password)
             ]);
         }else{
@@ -177,8 +229,7 @@ class MemberInfoController extends Controller
     // 獲取接案紀錄
     public function getTakeCase(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');
+        $mid = Auth::guard('api')->id();
         if($mid){
             $Quote_query = DB::table('quote')
             ->join('demmand','quote.did','=','demmand.did')
@@ -233,33 +284,30 @@ class MemberInfoController extends Controller
                 'CaseInProgress' => $Case_in_progress_paginated_results,
                 'CaseCompleted' => $Case_completed_paginated_results,
             ]);
-
         }
-
     }
 
     //  刪除接案紀錄
     public function delTakeCase(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
-        $mid = $request->input('mid');
+        $mid = Auth::guard('api')->id();
         if($mid){
             $selectQuote = $request->input('qid');
             DB::table('quote')
             ->where('mid',$mid)
             ->whereIn('qid',$selectQuote)->delete();
         }
-
     }
 
     // 獲取發案紀錄
     public function getPublishCase(Request $request)
     {
-        $mid = $request->input('mid');
+        // $mid = Auth::guard('api')->id();
+        $mid = 5;
         if($mid){
             //發案
             $demmand_query = DB::table('demmand')
-            ->select('d_name','d_required','d_amount','d_unit','created_at')
+            ->select(DB::raw('AES_ENCRYPT(did, "addsalt") as aa'),'d_name','d_amount','d_unit',DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
             ->where('mid',$mid);
 
             //發案進行中
@@ -270,7 +318,7 @@ class MemberInfoController extends Controller
 
             //案件完成
             $demmand_completed_query = DB::table('established_case')
-            ->select('c_name','c_amount','created_at')
+            ->select('c_name','c_amount',DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
             ->where('mid_service',$mid)
             ->where('c_status',2);
 
@@ -287,13 +335,12 @@ class MemberInfoController extends Controller
             }
 
             return response()->json([
+
                 'demmand' => $demmand_query->get(),
                 'demmand_progress' => $demmand_progress_query->get(),
                 'demmand_completed' => $demmand_completed_query->get()
             ]);
-
         }
-
     }
 
     // 刪除發案紀錄
@@ -309,14 +356,12 @@ class MemberInfoController extends Controller
 
             return response()->json(['message'=>'刪除成功']);
         }
-
     }
 
     // 獲取服務管理頁面
     public function getService(Request $request)
     {
-        // $mid = Auth::user()->mid;
-        $mid = $request->input('mid');
+        $mid = Auth::user()->mid;
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
 
@@ -422,10 +467,10 @@ class MemberInfoController extends Controller
     // 新增作品
     public function addWork(Request $request)
     {
+        $mid = Auth::id();
         $this->validate($request,[
             'p_name'=>['required'],
             'p_description'=>['required'],
-            'mid'=>['required'],
         ]);
 
         if(isset($request->image)){
@@ -437,21 +482,39 @@ class MemberInfoController extends Controller
         $work = DB::table('project')->insert([
             'p_name'=>$request['p_name'],
             'p_description'=>$request['p_description'],
-            'mid'=>$request['mid'],
+            'mid'=>$mid,
             'image'=>$imageData,
             'created_at'=>now(),
             'updated_at'=>now()
         ]);
         return response($work);
+    }
 
+    // 編輯作品
+    public function updateWork(Request $request){
+        $mid = Auth::id();
+        $request->validate([
+            'p_name'=>['required'],
+            'p_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $result = DB::table('project')->where('mid', $mid)
+        ->update([
+            'p_name' => $request->p_name,
+            'p_description' => $request->p_description,
+            'src' => $request->src,
+            'updated_at' => now()
+        ]);
+        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
     }
 
     // 新增影音
     public function addVideo(Request $request)
     {
+        $mid = Auth::id();
         $this->validate($request,[
             'v_name'=>['required'],
-            'mid'=>['required'],
             'v_description'=>['required'],
             'src'=>['required']
         ]);
@@ -460,27 +523,37 @@ class MemberInfoController extends Controller
             'v_name'=> $request['v_name'],
             'v_description' =>$request['v_description'],
             'src'=>$request['src'],
-            'mid'=>$request['mid'],
+            'mid'=>$mid,
             'created_at'=>now(),
             'updated_at'=>now(),
         ]);
         return response($video);
-
     }
+
+    // 編輯影音
+    public function updateVideo(Request $request){
+        $mid = Auth::id();
+
+        $request->validate([
+            'v_name'=>['required'],
+            'v_description'=>['required'],
+            'src'=>['required']
+        ]);
+
+        $result = DB::table('video')->where('mid', $mid)
+        ->update([
+            'v_name' => $request->v_name,
+            'v_description' => $request->v_description,
+            'src' => $request->src,
+            'updated_at' => now()
+        ]);
+        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
+    }
+
     // 獲取我的收藏
     public function getCollection(){
 
     }
 }
-        // identity: "",
-        // experience: "",
-        // location: "",
-        // idCard: "",
-        // email: "",
-        // name: "",
-        // phone: "",
-        // gender: "",
-        // area: "",
-        // selectedDate: new Date(),
 
 

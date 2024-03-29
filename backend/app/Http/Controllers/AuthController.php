@@ -20,10 +20,10 @@ class AuthController extends Controller
 {
     // public function __construct()
     // {
-    //     $this->middleware('auth:api', ['except' => ['login', 'register',]]);
+    //     $this->middleware(['auth:api', 'verified'], ['except' => ['login', 'register',]]);
     // }
 
-    // 註冊api
+    // 註冊
     public function register(Request $request):JsonResponse
     {
         // 先進行驗證跟錯誤處理
@@ -60,7 +60,7 @@ class AuthController extends Controller
         }
     }
 
-    // 登入api
+    // 登入
     public function login(Request $request){
         try{
             $request->validate([
@@ -92,60 +92,6 @@ class AuthController extends Controller
             'token' => $token,
         ]);
     }
-
-    // 修改資料
-    public function update(Request $request){
-        // try{
-        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        //     Auth::user();
-        // }catch(Throwable $err){
-        //     return response('無效的請求');
-        // }
-        $request->validate([
-            'idCard' => 'max:10',
-        ]);
-
-        $user_id = Auth::user()->mid;
-        try{
-            Member::where('id', $user_id)->update([
-                'identity' => $request->identity,
-                'nickname' => $request->nickname,
-                'seniority' => $request->exprience,
-                'active_location' => $request->location,
-                'mobile_phone' => $request->phone,
-                'name' => $request->name,
-                'id_card' => $request->idCard,
-                'gender' => $request->gender,
-                'location' => $request->area,
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
-        }catch(Throwable $err){
-            return response('修改失敗');
-        }
-        return response()->json($request);
-    }
-
-    // public function update(ProfileUpdateRequest $request): RedirectResponse
-    // {
-    //     // 會跑去檢查rules，回傳json字串，fill()參考User內的$fillable對應值傳入資料庫
-    //     $validated = $request->validated();
-    //     if (isset($request->image)){
-    //         $data = $request->image->get();
-    //         $mime_type = $request->image->getMimeType(); // 回傳格式字串
-    //         $imageData = base64_encode($data);
-    //         $src = "data: $mime_type;base64, $imageData";// img tag 所需的標籤格式
-    //         $validated['image'] = $src; // 補上image資料，跳過驗證
-    //     }
-    //     $request->user()->fill($validated);
-
-    //     if ($request->user()->isDirty('email')) {
-    //         $request->user()->email_verified_at = null;
-    //     }
-
-    //     $request->user()->save();
-
-    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    // }
 
     // 登出
     public function logout(Request $request){
