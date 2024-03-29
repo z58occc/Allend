@@ -19,9 +19,9 @@ class CommitController extends Controller
             'd_amount' => 'required',//金額
             'd_unit' => 'required',//單位
             'd_active_location' => 'required',//地點
-            'd_contact_name' => 'required',
-            'd_email' => ['required', 'email'],
-            'd_mobile_phone' => ['required', 'max:10']
+            'd_contact_name' => 'required', // 聯絡人姓名
+            'd_email' => ['required', 'email'], // 聯絡人email
+            'd_mobile_phone' => ['required', 'max:10'] // 聯絡人phone
         ]);
 
         $type = $request->d_type;
