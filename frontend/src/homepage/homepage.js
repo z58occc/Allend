@@ -37,7 +37,7 @@ function Homepage() {
         console.log(data.demmand);
         console.log(data.project);
         // const result;
-        for(let i = 0 ; i < 9 ; i++){
+        for (let i = 0; i < 9; i++) {
           data.service[i].image = data.project[i]["image"]
 
         }
@@ -82,7 +82,7 @@ function Homepage() {
       <div className=' mt-5'>最新服務</div>
       <div>
         <div className="posts-container" style={{display:'flex'}}>
-          {posts.slice(0,3).map((post, index) => {
+          {posts.slice(0, 3).slice(0,3).map((post, index) => {
             return (
               <div className='row'>
                 {/* <div className="post-card" key={index}>
@@ -96,7 +96,7 @@ function Homepage() {
                 <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
                   <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
                     <div className="card-header post-title">
-                      <img src={writing} style={{ width: "100%" }}></img>
+                      <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ height: 200, width: 300, display: 'block' }}></img>
                     </div>
                     <div className="card-body">
                       {post.s_name}
