@@ -53,7 +53,7 @@ function Category2() {
                     </div>
                     <div className="col-sm-2 ">
                         <Link to='/program' >
-                            <div >程式設計</div>
+                            <div >平面設計</div>
                             <img src={a6} style={{ width: 50 }}></img>
                         </Link>
                         <hr className="d-sm-none" />
