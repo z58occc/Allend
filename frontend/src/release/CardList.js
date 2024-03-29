@@ -1,12 +1,12 @@
-import React, {  useState } from 'react';
-import { Card, Button, Form, Modal,Table} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card, Button, Form, Modal, Table } from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import StarRating from './StarRating';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 // import CaseContext from './CaseContext';
-const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
+const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
   const CaseData = data1
   // let CaseData = [
@@ -22,16 +22,16 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   const [checked, setChecked] = useState(false);
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
-  const handlesetSelectedDataKey = (index)=>{
+  const handlesetSelectedDataKey = (index) => {
     setSelectedDataKey(index);
     console.log(index);
   }
   // 全選功能
-  const [selectedItems, setSelectedItems] = useState([false,false,false]); //設置selectedItems為空陣列，裡面為被選到的index值
+  const [selectedItems, setSelectedItems] = useState([false, false, false]); //設置selectedItems為空陣列，裡面為被選到的index值
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
     newSelectedItems[index] = !newSelectedItems[index];
-    setSelectedItems(newSelectedItems);   
+    setSelectedItems(newSelectedItems);
     const allSelected = newSelectedItems.every((item) => item);
     setChecked(allSelected);
   };
@@ -43,7 +43,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   };
   // 案件詳情Modal
   const [showModal1, setShowModal1] = useState(false)
-  
+
   // 子元件編輯查看
   const handleModalShow1 = () => {
     setShowModal1(true);
@@ -62,23 +62,23 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  
+
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
-    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/> ;
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} />;
   } else if (selectedComponent === 'component2') {
-    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} />;
   } else if (selectedComponent === 'component3') {
-    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
-  } 
-  
+    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} />;
+  }
+
 
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div className="d-flex justify-content-around" style={{ width: '800px', visibility }} >
-        
-        <Button variant="primary" style={{ fontSize: '12px', width: '110px', whiteSpace: 'nowrap'}} onClick={handleToggleAll}>
+
+        <Button variant="primary" style={{ fontSize: '12px', width: '110px', whiteSpace: 'nowrap' }} onClick={handleToggleAll}>
           {checked ? '取消全選' : '全選'}
         </Button>
         <Button variant="danger" style={{ fontSize: '12px', width: '100px' }}>
@@ -87,50 +87,59 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
         <SearchPage />
       </div>
       {CaseData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }} 
+        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}
           onClick={() => {
-          if (screen === 3) {
+            if (screen === 3) {
               handleModalShow1();
               handlesetSelectedDataKey(index);
-          }
-        }}>
+            }
+          }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
-              <Card.Text>開始日期: {item.created_at}</Card.Text>
+              <Card.Text>{screen === 1 ? <>更新日期：{item.updated_at}</> : <>建立日期： {item.created_at}</>}</Card.Text>
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
-                style={{ marginRight: '50px' ,visibility}}
-                checked={selectedItems[index] || false} 
-                onChange={() => handleChecked(index)} 
+                style={{ marginRight: '50px', visibility }}
+                checked={selectedItems[index] || false}
+                onChange={() => handleChecked(index)}
               />
-              <Card.Title>{screen === 1 ? item.d_name: item.c_name}</Card.Title>
+              <Card.Title>{screen === 1 ? item.d_name : item.c_name}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
-                <Card.Text>截止日期: </Card.Text>
-                <Card.Text>金額: {screen ===1 ? item.d_amount : item.c_amount}</Card.Text>
-                <Card.Text>{screen === 1 ? '人數: ' + item.d_required : null}</Card.Text>
+                <Card.Text>{screen === 3 ? <>完成日期： {item.completed_time}</> : screen === 1 ? <> 合作期程：{item.d_duration}</> : <> 合作期程：{item.c_duration}</>}</Card.Text>
+                <Card.Text>
+                  金額： {screen === 1
+                    ? item.d_unit === "次"
+                      ? `${item.d_amount}/${item.d_unit}`
+                      : `${item.d_amount}${item.d_unit}`
+                    : item.c_unit === "次"
+                      ? `${item.c_amount}/${item.c_unit}`
+                      : `${item.c_amount}${item.c_unit}`}
+                </Card.Text>
+
+                <Card.Text>{screen === 1 ? '人數： ' + item.d_required : null}</Card.Text>
               </div>
             </Card.Body>
-            {screen === 3 ? 
-            <div className="d-flex flex-column justify-content-center">
-              <StarRating rating={1} ></StarRating>
-            </div>
-            :
-            <div className="d-flex flex-column justify-content-center" >
-              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
-                {text}
-              </Button>
-              <Button
-                variant="secondary" 
-                className="my-2 d-inline-block"
-                style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center',visibility }}
-                onClick={() => handleShowQuoteModal(item)}
-              >
-                查看報價
-              </Button>
-            </div>}
-            
+            {screen === 3 ?
+              <div className="d-flex flex-column justify-content-center">
+                <StarRating rating={item.demmand_star} ></StarRating>
+              </div>
+              :
+              <div className="d-flex flex-column justify-content-center" >
+                <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap' }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
+                  {text}
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="my-2 d-inline-block"
+                  style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center', visibility }}
+                  onClick={() => handleShowQuoteModal(item)}
+                >
+                  查看報價
+                </Button>
+              </div>}
+
           </div>
         </Card>
       ))}
@@ -139,7 +148,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
 
       {/* 查看報價Modal */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
-      <Modal.Header closeButton>
+        <Modal.Header closeButton>
           <Modal.Title>查看報價 - {selectedItem && selectedItem.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -164,11 +173,11 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
                 <td>NTD$ 1000</td>
                 <td>
                   <div class="d-flex justify-content-start">
-                    <Button variant="secondary" style={{ fontSize: '12px', whiteSpace: 'nowrap'}}>接受</Button>
-                    <Button variant="danger" style={{ fontSize: '12px', whiteSpace: 'nowrap'}}>拒絕</Button>
-                    <Button variant="secondary" style={{ fontSize: '12px', whiteSpace: 'nowrap'}}>聊聊</Button>
+                    <Button variant="secondary" style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>接受</Button>
+                    <Button variant="danger" style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>拒絕</Button>
+                    <Button variant="secondary" style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>聊聊</Button>
                   </div>
-                  
+
                 </td>
               </tr>
             </tbody>
@@ -181,7 +190,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
         </Modal.Footer>
       </Modal>
       {/*  */}
-      
+
       {ComponentToRender}
     </div>
   );

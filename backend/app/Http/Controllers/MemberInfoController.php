@@ -310,7 +310,8 @@ class MemberInfoController extends Controller
             ->join('category', 'catid', '=', 'd_type')
             ->join('country', 'country_id', '=', 'd_active_location')
             ->select('did','d_name','type','d_amount','d_unit','d_duration', 'country_city as active_location','d_description',
-            'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
+            'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),
+            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
             ->where('mid',$mid);
 
             // 發案進行中
@@ -326,8 +327,8 @@ class MemberInfoController extends Controller
             $demmand_completed_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
-            ->select('cid', 'c_name','type','c_amount','c_unit',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),
-            DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
+            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','demmand_star',
+            DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
             ->where('mid_demmand',$mid)
             ->where('c_status',2);
 
