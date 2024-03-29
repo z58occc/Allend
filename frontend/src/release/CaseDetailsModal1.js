@@ -1,72 +1,273 @@
-import React from 'react';
+import React ,{useState} from 'react';
+// import axios from 'axios';
+// import Cookies from 'js-cookie';
 import { Modal, Button } from 'react-bootstrap';
-// import CaseContext from './CaseContext.js'
+import { Form,Row,Col } from 'react-bootstrap';
+
 const CaseDetailsModal1 = ({ show, onHide, number ,data}) => {
-  // const {Case,setCase} = useContext(CaseContext);
-  // const [inputValue, setInputValue] = useState(data[number].d_name);
-  // console.log(data[number].d_name)
-  // console.log(inputValue);
+  // const [Case,setCase] = useState(0)
+  // const [Budget, setBudget] = useState(data[number].d_amount)
+  // const [inputValue, setInputValue] = useState(1);
   // const handleInputChange = (event) => {
   //   setInputValue(event.target.value);
   // };
-
+  
   // const handleSetCase = ()=>{
   //   const updatedCase = [...data]; // 複製一份 data 狀態陣列
   //   updatedCase[number].d_name = inputValue; // 更新案件名稱
   //   setCase(updatedCase); // 使用 setCase 更新整個 data 狀態
-  //   console.log(inputValue)
-  //   console.log(data[number].d_name)
-  //   console.log(updatedCase[number].d_name)
   //   onHide(); // 關閉 Modal
   // }
-  console.log(number)
+  const [nameOfCase, setNameOfCase] = useState("");
+  const [category, setCategory] = useState("");
+  const [cooperationTime, setCooperationTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [details, setDetails] = useState("");
+  const [budget, setBudget] = useState("");
+  const [unit, setUnit] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // axios({
+    //   method: "post",
+    //   url: "http://localhost/PHP/Allend/backend/public/api/commitcase",
+    //   data: {
+    //     d_name: nameOfCase,
+    //     d_type: category,
+    //     d_duration: cooperationTime,
+    //     d_active_location: location,
+    //     d_description: details,
+    //     d_amount: budget,
+    //     d_unit: unit,
+    //     d_contact_name: userName,
+    //     d_email: email,
+    //     d_mobile_phone: contact,
+    //   },
+    //   headers: { Authorization: Cookies.get("token") },
+    // })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    if (!emailError) {
+      setNameOfCase("");
+      setCategory("");
+      setCooperationTime("");
+      setLocation("");
+      setDetails("");
+      setBudget("");
+      setUnit("");
+      setUserName("");
+      setEmail("");
+      setContact("");
+    } else {
+      console.error("Form submission error: Email format is incorrect.");
+    }
+  };
+
+  const validateEmail = (value) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (regex.test(value)) {
+      setEmailError("");
+    } else {
+      setEmailError("Invalid email format");
+    }
+  };
+  console.log(data[number].d_duration)
   return (
     <Modal show={show} onHide={onHide} style={{ width: '450px', marginInline: '550px' }}>
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="container" style={{ fontSize: '18px' }}>
-          <div>
+
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
               <strong>案件編號:</strong> 
-              
             </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong>
-              {/* <input id='input' value={inputValue} type='text' onChange={handleInputChange}></input> */}
+       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="numberOfPeople">
+          <Form.Label>案件名稱：</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="填寫案件名稱"
+            value={data[number].d_name}
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (!isNaN(value) && value > 0) {
+                setNameOfCase(value);
+              }
+            }}
+            required
+          />
+        </Form.Group>
 
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件類別:</strong> 
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>預算金額:</strong> {data[number].d_amount}
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>地點:</strong> 
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件期程:</strong> 
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件說明:</strong>
-              <div className="col">
-                <textarea cols="30" rows="5" name="message" placeholder="" maxLength="150" wrap="soft" >
-                  
-                </textarea>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Form.Group controlId="category">
+          <Form.Label>需求類別 :</Form.Label>
+          <Form.Control
+            as="select"
+            value={data[number].type}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">請選擇案件類別</option>
+            <option value="網站設計">網站設計</option>
+            <option value="軟體程式">軟體程式</option>
+            <option value="文字語言">文字語言</option>
+            <option value="平面設計">平面設計</option>
+            <option value="專業諮詢">專業諮詢</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Row>
+          <Col>
+            <Form.Group controlId="budget">
+              <Form.Label>預算金額 :</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="填寫金額"
+                value={data[number].d_amount}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (!isNaN(value) && value > 0) {
+                    setBudget(value);
+                  }
+                }}
+                required
+              />
+            </Form.Group>
+          </Col>
+
+          <Col>
+            <Form.Group controlId="unit">
+              <Form.Label>單位 :</Form.Label>
+              <Form.Control
+                type="text"
+                value={data[number].d_unit}
+                onChange={(e) => setUnit(e.target.value)}
+                placeholder="例如: 次、件、小時"
+                required
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Form.Group controlId="cooperationTime">
+          <Form.Label>合作期程：</Form.Label>
+
+          <Form.Control
+            as="select"
+            value={data[number].d_duration}
+            onChange={(e) => setCooperationTime(e.target.value)}
+            required
+          >
+            <option value="">請選擇</option>
+            <option value="短">短期</option>
+            <option value="長">長期</option>
+          </Form.Control>
+        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group controlId="location">
+              <Form.Label>地點選擇 :</Form.Label>
+              <Form.Control
+                as="select"
+                value={data[number].active_location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              >
+                <option value="">請選擇</option>
+                <optgroup label="北部">
+                  <option value="台北市">台北市</option>
+                  <option value="新北市">新北市</option>
+                  <option value="桃園市">桃園市</option>
+                  <option value="基隆市">基隆市</option>
+                  <option value="新竹市">新竹市</option>
+                  <option value="新竹縣">新竹縣</option>
+                </optgroup>
+                <optgroup label="中部">
+                  <option value="台中市">台中市</option>
+                  <option value="彰化縣">彰化縣</option>
+                  <option value="南投縣">南投縣</option>
+                  <option value="苗栗縣">苗栗縣</option>
+                </optgroup>
+                <optgroup label="南部">
+                  <option value="台南市">台南市</option>
+                  <option value="高雄市">高雄市</option>
+                  <option value="屏東縣">屏東縣</option>
+                  <option value="嘉義市">嘉義市</option>
+                  <option value="嘉義縣">嘉義縣</option>
+                </optgroup>
+                <optgroup label="東部">
+                  <option value="宜蘭縣">宜蘭縣</option>
+                  <option value="花蓮縣">花蓮縣</option>
+                  <option value="台東縣">台東縣</option>
+                </optgroup>
+                <optgroup label="離島">
+                  <option value="澎湖縣">澎湖縣</option>
+                  <option value="金門縣">金門縣</option>
+                  <option value="連江縣">連江縣</option>
+                </optgroup>
+                {/* Add more options here */}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Form.Group controlId="details">
+          <Form.Label>需求詳情 :</Form.Label>
+          <Form.Control
+            as="textarea"
+            placeholder="請輸入最少十個字"
+            value={data[number].d_description}
+            onChange={(e) => setDetails(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="userName">
+          <Form.Label>聯絡人名稱 :</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="請輸入聯絡人名稱"
+            value={data[number].d_contact_name}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="email">
+          <Form.Label>聯絡人Email :</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="請輸入email"
+            value={data[number].d_email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              validateEmail(e.target.value);
+            }}
+            isInvalid={!!emailError}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="contact">
+          <Form.Label>聯絡方式：</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="請輸入電話號碼"
+            value={data[number].d_mobile_phone}
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
+        </Form.Group>
+        </Form>
         <div className="mb-2 d-flex justify-content-around">
-          <Button variant="primary" size="lg" onClick={()=>{}}>
+          <Button variant="primary" size="lg" onClick={()=>{handleSubmit()}}>
             儲存變更
           </Button>
           <Button variant="secondary" size="lg" onClick={onHide}>

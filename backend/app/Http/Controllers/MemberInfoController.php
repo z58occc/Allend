@@ -327,7 +327,7 @@ class MemberInfoController extends Controller
             $demmand_completed_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
-            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone',
+            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','demmand_star',
             DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
             ->where('mid_demmand',$mid)
             ->where('c_status',2);
