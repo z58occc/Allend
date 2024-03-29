@@ -56,12 +56,11 @@ const LeftVerticalNavbar = () => {
 
 
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
-            <Navbar.Brand >
 
-                <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>
-                    <Image src={usermember.image} roundedCircle  width="100" height="100" />
-                </Button>
-            </Navbar.Brand>
+            <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>
+                <Image src={usermember.image} roundedCircle width="100" height="100" />
+            </Button>
+
             <Navbar.Text style={{ fontSize: '20px' }}>{usermember.name}</Navbar.Text>
 
             <Modal show={showModal} onHide={handleCloseModal}>

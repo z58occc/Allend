@@ -18,9 +18,7 @@ import Cookies from "js-cookie";
 import Softdesign from "./Components/softdesign"
 import Word from "./Components/word";
 import Pro from "./Components/pro";
-import program from "./Components/program"
 import Program from "./Components/program";
-import casecontext from "./Components/CaseContext"
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen";
@@ -226,7 +224,7 @@ function App() {
           className="search-container"
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
-          <input type="text" placeholder="Search.." />
+          <input type="text" placeholder="Search.." style={{  width: '300px' ,borderRadius: '10px' }} />
           <Button type="submit">
             <i className="fa fa-search"></i>
           </Button>
@@ -238,7 +236,7 @@ function App() {
         </div>
       </div>
       <nav className="navbar navbar-expand-sm">
-        <div className="container-fluid">
+        <div className="container-fluid" >
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
@@ -306,7 +304,7 @@ function App() {
       </Routes>
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered>
+      <Modal show={showLogin} onHide={handleClose} centered style={{borderRadius: '10px'}}>
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
             <div className="col text-center">

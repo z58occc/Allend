@@ -61,18 +61,21 @@ function PasswordForm() {
               <Col sm={6} style={{ padding: "20px" }}>
                 <div>
                   <h2>修改密碼</h2>
+                  
                   <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formOldPassword">
                     < FaLock/>
                       <Form.Label>舊密碼：</Form.Label>
-                      
+                    
                       <Form.Control
+                      
                         type="password"
                         value={oldPassword}
                         onChange={(e) => setOldPassword(e.target.value)}
                         required
                         style={{ width: "100%" }}
                       />
+                     
                       <br />
                     </Form.Group>
                     <Form.Group controlId="formNewPassword">
