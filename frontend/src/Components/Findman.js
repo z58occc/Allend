@@ -186,7 +186,7 @@ const Findman = () => {
           {/* 左邊 */}
           <div className='col-sm-2' style={{marginTop:"10px"}}>
             <br></br>
-            <div style={{ height: '250px', overflowY: 'scroll', border: 'solid' }}>
+            <div style={{ height: '200px', border: 'solid' }}>
               接案人身分
               <hr></hr>
               <input type='checkbox' name='personal' value='1' onChange={handleidentityChange}></input>個人<br></br>
@@ -207,25 +207,30 @@ const Findman = () => {
             <div style={{ height: '250px', overflowY: 'scroll', border: 'solid' }}>
               地點
               <hr></hr>
+              <optgroup label="北部"></optgroup>
               <input type='checkbox' name="taipei" value='1' onChange={handlecountryChange}></input>臺北市<br></br>
               <input type='checkbox' name="newtaipei" value='2' onChange={handlecountryChange}></input>新北市<br></br>
               <input type='checkbox' name="taoyuan" value='3' onChange={handlecountryChange}></input>桃園市<br></br>
               <input type='checkbox' name="keelung" value='4' onChange={handlecountryChange}></input>基隆市<br></br>
               <input type='checkbox' name="hsinchu" value='5' onChange={handlecountryChange}></input>新竹市<br></br>
               <input type='checkbox' name="hsinchucounty" value='6' onChange={handlecountryChange}></input>新竹縣<br></br>
-              <input type='checkbox' name="yilan" value='7' onChange={handlecountryChange}></input>宜蘭縣<br></br>
+              <optgroup label="中部"></optgroup>
               <input type='checkbox' name="taichung" value='8' onChange={handlecountryChange}></input>臺中市<br></br>
               <input type='checkbox' name="miaoli" value='9' onChange={handlecountryChange}></input>苗栗縣<br></br>
               <input type='checkbox' name="changhua" value='10' onChange={handlecountryChange}></input>彰化縣<br></br>
               <input type='checkbox' name="nantou" value='11' onChange={handlecountryChange}></input>南投縣<br></br>
+              <optgroup label="南部"></optgroup>
               <input type='checkbox' name="yunlin" value='12' onChange={handlecountryChange}></input>雲林縣<br></br>
               <input type='checkbox' name="kaohsiung" value='13' onChange={handlecountryChange}></input>高雄市<br></br>
               <input type='checkbox' name="tainan" value='14' onChange={handlecountryChange}></input>臺南市<br></br>
               <input type='checkbox' name="chiayi" value='15' onChange={handlecountryChange}></input>嘉義市<br></br>
               <input type='checkbox' name="chiayicounty" value='16' onChange={handlecountryChange}></input>嘉義縣<br></br>
               <input type='checkbox' name="pingtung" value='17' onChange={handlecountryChange}></input>屏東縣<br></br>
+              <optgroup label="東部"></optgroup>
+              <input type='checkbox' name="yilan" value='7' onChange={handlecountryChange}></input>宜蘭縣<br></br>
               <input type='checkbox' name="hualien" value='18' onChange={handlecountryChange}></input>花蓮縣<br></br>
               <input type='checkbox' name="taitung" value='19' onChange={handlecountryChange}></input>臺東縣<br></br>
+              <optgroup label="離島"></optgroup>
               <input type='checkbox' name="penghu" value='20' onChange={handlecountryChange}></input>澎湖縣<br></br>
               <input type='checkbox' name="kinmen" value='21' onChange={handlecountryChange}></input>金門縣<br></br>
               <input type='checkbox' name="lienchang" value='22' onChange={handlecountryChange}></input>連江縣<br></br>

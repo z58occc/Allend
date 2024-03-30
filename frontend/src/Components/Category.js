@@ -53,7 +53,7 @@ function Category() {
                     </div>
                     <div className="col-sm-2">
                         <Link to='/findcase' >
-                            <div >程式設計</div>
+                            <div >平面設計</div>
                             <img src={a6} style={{width:50}}></img>
                         </Link>
                         <hr className="d-sm-none" />
