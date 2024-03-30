@@ -9,13 +9,12 @@ use function Laravel\Prompts\select;
 
 class IFindPeopleController extends Controller
 {
-    public function PrintServiceCardContent(Request $request)
+    public function __invoke(Request $request)
     {
         $identity_query = $request->input('identity');
         $seniority_query = $request->input('seniority');
         $country_query = $request->input('country');
         $sort_query = $request->input('sort');
-
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
@@ -24,23 +23,23 @@ class IFindPeopleController extends Controller
         ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority','c.country_city')
         ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city');
 
-        
-        if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
+
+        // if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
 
 
-            if(!empty($identity_query)){
-                $member->whereIn('identity',explode(',',$identity_query));
-            }
+        //     if(!empty($identity_query)){
+        //         $member->whereIn('identity',explode(',',$identity_query));
+        //     }
 
-            if(!empty($country_query)){
-                $member->whereIn('active_location',explode(',',$country_query));
-            }
+        //     if(!empty($country_query)){
+        //         $member->whereIn('active_location',explode(',',$country_query));
+        //     }
 
-            if(!empty($seniority_query)){
-                $member->whereIn('seniority',explode(',',$seniority_query));
-            }
+        //     if(!empty($seniority_query)){
+        //         $member->whereIn('seniority',explode(',',$seniority_query));
+        //     }
 
-        }
+        // }
 
         // //排序
         // if($request->has('sort')){
@@ -76,13 +75,16 @@ class IFindPeopleController extends Controller
 
         $member_total = $member->get();
 
+            foreach($member_total as $k => $v){
+                echo $k;
+            }
 
 
 
 
         return $member_total;
     }
-    
+
 
 
 
@@ -94,5 +96,5 @@ class IFindPeopleController extends Controller
         // ];
 
         // return response()->json($Data_response);
-    
+
 }

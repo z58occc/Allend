@@ -41,11 +41,11 @@ use GuzzleHttp\Middleware;
 */
 
 // 首頁
-Route::get('/index', IndexController::class);
+Route::get('/index', IndexController::class);//->name('index');
 // 查看我要接案
 Route::get('/findcase/{d_type?}', IFindCaseController::class);
 // 查看我要找人.
-Route::get('/printservicecardcontent', [IFindPeopleController::class, 'PrintServiceCardContent']);
+Route::get('/printservicecardcontent', IFindPeopleController::class);
 // 查看人才頁面
 Route::get('/talent/{mid}', TalentController::class);
 // 查看案件內容
@@ -54,7 +54,7 @@ Route::get('/demmand_content/{did}', DemmandContentController::class);
 Route::get('/service_content/{sid}', ServiceContentController::class);
 
 // 送出發案表單
-Route::post('/commitcase', CommitController::class);//->middleware('auth:api');
+Route::post('/commitcase', CommitController::class);//->middleware('auth');
 
 // 送出、查看、接受、拒絕報價
 Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
@@ -92,10 +92,10 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 // 信箱驗證
 Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-->middleware(['auth:api', 'throttle:6,1'])->name('verifyemail');
+->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-->middleware(['auth:api', 'throttle:6,1']);
+->middleware(['auth', 'throttle:6,1']);
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板
@@ -103,7 +103,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
     // 修改會員資料
-    Route::post('updateprofiles', 'updateMemInfo');
+    Route::post('/updateprofiles', 'updateMemInfo');
     // 修改密碼
     Route::post('/fixp', 'updatePassword');
 

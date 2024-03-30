@@ -51,20 +51,21 @@ class MemberInfoController extends Controller
                                                 ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                 ->first();
 
-        // 作為接案方的評價
+        // 作為接案方的評價星數
         if (DB::table('established_case')->where('mid_service', $user->mid)->exists()){
-        $service_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(demmand_star, 0)), 2) as service_rating'))
+        $service_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(demmand_star, 0))) as service_rating'))
                                                         ->where('mid_service', $user->mid)->where('c_status', 2)
-                                                        ->first();}
+                                                        ->first();
+                                                    }
         else {$service_rating = ['service_rating' => 0];}
         // 作為接案方評價則數
         $service_comt = DB::table('established_case')->select(DB::raw('count(mid_service) as service_cmt'))
                                                       ->where('mid_service', $user->mid)
                                                       ->first();
 
-        // 作為發案方的評價
+        // 作為發案方的評價星數
         if (DB::table('established_case')->where('mid_demmand', $user->mid)->exists()){
-        $demmand_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(service_star, 0)), 2) as demmand_rating'))
+        $demmand_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(service_star, 0))) as demmand_rating'))
                                                         ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                         ->first();}
         else {$demmand_rating = ['demmand_rating' => 0];}
@@ -289,15 +290,16 @@ class MemberInfoController extends Controller
     // 編輯接案紀錄
     public function updateTakeCase(Request $request)
     {
-        $mid = Auth::guard('api')->id();
-        $qid = $request->qid;
+        $type = DB::table('category')->where('type', $request->type)->value('catid');
+        $location = DB::table('country')->where('country_city', $request->location)->value('country_id');
+
 
     }
 
     // 刪除接案紀錄
     public function delTakeCase(Request $request)
     {
-        $mid = Auth::guard('api')->id();
+        $mid = Auth::id();
         if($mid){
             $selectQuote = $request->input('qid');
             DB::table('quote')
@@ -371,13 +373,13 @@ class MemberInfoController extends Controller
             'unit' => 'required',
             'duration' => 'required',
             'location' => 'required',
-            'details' => 'required',
+            'details' => 'required | min:10',
             'contact_name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
+            'phone' => 'required | max:10',
         ]);
         $type = DB::table('category')->where('type', $request->type)->value('catid');
-        $location = DB::table('country')->where('country_city')->value('country_id');
+        $location = DB::table('country')->where('country_city', $request->location)->value('country_id');
 
         $new = DB::table('demmand')->where('did', $request->index)
         ->update([
@@ -453,12 +455,6 @@ class MemberInfoController extends Controller
     // 新增服務
     public function addService(Request $request)
     {
-        // $Service_name = $request->Case_name;
-        // $Service_type = $request->Case_type;
-        // $LenghDate =$request->LenghDate;
-        // $Money = $request->Money;
-        // $Place = $request ->Place;
-
         $this->validate($request,[
             's_name'=>['required'], //服務名稱
             's_type'=>['required'], //類別
@@ -467,7 +463,7 @@ class MemberInfoController extends Controller
             's_unit'=>['required'],//單位
             's_active_location'=>['required'],//地點
         ]);
-
+        $imageData = "";
         if(isset($request->image)){
             $data = $request->image ->get();
             $mime_type = $request->image->getMimeType();
@@ -476,7 +472,7 @@ class MemberInfoController extends Controller
         }
 
         $type = $request['s_type'];
-        $catid = DB::table('category')->where('type',$type)->Value('catid');
+        $catid = DB::table('category')->where('type',$type)->value('catid');
 
         $active_location = $request['s_active_location'];
         $country = DB::table('country')->where('country_city',$active_location)->value('country_id');
