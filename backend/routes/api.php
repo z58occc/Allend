@@ -59,8 +59,8 @@ Route::post('/commitcase', CommitController::class);//->middleware('auth:api');
 // 送出、查看、接受、拒絕報價
 Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
 Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
-Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
-Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
+Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
+Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
 // 接發案內容
 Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
@@ -109,14 +109,14 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
-    // 修改接案紀錄
+    // 編輯接案紀錄
     Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
 
     // 獲取發案紀錄
     Route::get('/mempublishcase', 'getPublishCase');
-    // 修改發案刊登
+    // 編輯發案刊登
     Route::post('/updatepublishcase', 'updatePublishCase');
     // 刪除發案紀錄
     Route::post('/delpublishcase', 'delPublishCase');

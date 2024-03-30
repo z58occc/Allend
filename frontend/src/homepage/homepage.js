@@ -3,24 +3,15 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
-
-import { FaHtml5 } from "react-icons/fa";
-import violence from '../homepage/violence.jpg';
-import { Route, Routes, Link } from 'react-router-dom';
-import Findcase from '../Components/Findcase';
+import { Link } from 'react-router-dom';
 import Category from '../Components/Category';
 import luanguage from '../Components/img/language.png'
 import softdesign from '../Components/img/softdesign.png'
 import writing from '../Components/img/writing.png'
-import cow from '../Components/img/cow.jpg'
-import beauty from '../Components/img/beauty.jpg'
 import product from '../Components/img/product.jfif'
 import product2 from '../Components/img/product2.jfif'
 import product3 from '../Components/img/product3.jpg'
-import { FaWpforms } from "react-icons/fa";
-import { GiTakeMyMoney } from "react-icons/gi";
-import { FaHandshake } from "react-icons/fa";
-
+import { Row, Col } from 'react-bootstrap';
 
 
 
@@ -79,13 +70,13 @@ function Homepage() {
         <br></br>
 
 
-      <div className=' mt-5'>最新服務</div>
-      <div>
-        <div className="posts-container" style={{display:'flex'}}>
-          {posts.slice(0, 3).slice(0,3).map((post, index) => {
-            return (
-              <div className='row'>
-                {/* <div className="post-card" key={index}>
+        <div className=' mt-5'>最新服務</div>
+        <div>
+          <div className="posts-container" style={{ display: 'flex' }}>
+            {posts.slice(0, 3).slice(0, 3).map((post, index) => {
+              return (
+                <div className='row'>
+                  {/* <div className="post-card" key={index}>
                   <h2 className="post-title">
                     {post.d_name}
                   </h2>
@@ -93,24 +84,24 @@ function Homepage() {
                     {post.created_at}
                   </p>
                 </div> */}
-                <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
-                  <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
-                    <div className="card-header post-title">
-                      <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ height: 200, width: 300, display: 'block' }}></img>
-                    </div>
-                    <div className="card-body">
-                      {post.s_name}
-                      <br></br>
-                      ${post.s_amount}/件
-                      <hr></hr>
-                      {post.name}
-                    </div>
-                    <div className="card-footer " style={{ justifyContent: 'end' }}>
-                      {post.created_at}
-                    </div>
-                  </Link>
+                  <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
+                    <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
+                      <div className="card-header post-title">
+                        <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ height: 200, width: 300, display: 'block' }}></img>
+                      </div>
+                      <div className="card-body">
+                        {post.s_name}
+                        <br></br>
+                        ${post.s_amount}/件
+                        <hr></hr>
+                        {post.name}
+                      </div>
+                      <div className="card-footer " style={{ justifyContent: 'end' }}>
+                        {post.created_at}
+                      </div>
+                    </Link>
+                  </div>
                 </div>
-              </div>
 
               );
             })}
@@ -260,37 +251,56 @@ function Homepage() {
         </div>
 
 
+        {/* 輪播圖 */}
+        <div className="d-flex  justify-content-center mt-5">
+          <Row className="justify-content-md-center">
+            <Col xs lg="6">
+              <Carousel id='carousel' interval={null} indicators={false} >
+                <Carousel.Item >
+                  <Row className=" justify-content-md-center">
+                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                  </Row>
+                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                  </Row>
+                </Carousel.Item>
+                <Carousel.Item >
+                  <Row className=" justify-content-md-center">
+                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                  </Row>
+                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                  </Row>
+                </Carousel.Item>
+                <Carousel.Item >
+                  <Row className=" justify-content-md-center">
+                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                  </Row>
+                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                    <Col xs lg="2"><img src={product2} /></Col>
+                  </Row>
+                </Carousel.Item>
+                
+              </Carousel>
+            </Col>
 
-        <div className="d-flex justify-content-center mt-5">
-          <Carousel>
-            <Carousel.Item >
-              <img src={product} />
-              <Carousel.Caption>
-                <Link to='./talent'>
-                  <h3>會員名稱1</h3>
-                </Link>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={product2} text="Second slide" />
-              <Carousel.Caption>
-                <Link to='./talent'>
-                  <h3>會員名稱2</h3>
-                </Link>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={product3} text="Third slide" />
-              <Carousel.Caption>
-                <Link to='./talent'>
-                  <h3>會員名稱3</h3>
-                </Link>
-              </Carousel.Caption>
-            </Carousel.Item>
-          </Carousel>
+          </Row>
         </div>
+        {/* 輪播圖 */}
+
+
       </ div>
       <Footer></Footer>
+
     </>
 
   )

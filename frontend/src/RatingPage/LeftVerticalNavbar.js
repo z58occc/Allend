@@ -7,7 +7,6 @@ import member from './member.png';
 
 
 
-
 const LeftVerticalNavbar = () => {
     const navItems = [
         { link: '/member', text: '會員中心' },
@@ -54,7 +53,6 @@ const LeftVerticalNavbar = () => {
 
     return (
 
-
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
 
             <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>
@@ -85,7 +83,6 @@ const LeftVerticalNavbar = () => {
                 </Modal.Footer>
             </Modal>
 
-
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto flex-column">
@@ -98,7 +95,7 @@ const LeftVerticalNavbar = () => {
                                         <Accordion.Body>
                                             {index === 1 ? (
 
-                                                
+
                                                 <div>
                                                     <Nav.Link href="/switch" className="nav-link-no-arrow">資料維護</Nav.Link>
 
