@@ -5,13 +5,13 @@ import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
 import ProjectForm from "./Components/page/Member/ProjectForm";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useLocation } from "react-router-dom";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
 import Switch from "../src/Components/page/Member/Switch";
 import Fix from "./Components/page/Member/fix";
-import { Modal, Button, Form, Nav } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import "./App.css";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -24,15 +24,12 @@ import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen";
 
 
+
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [color, setColor] = useState("silver");
-  const [color2, setColor2] = useState("silver");
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -129,7 +126,6 @@ function App() {
 
 
 
-
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
     const password = RegisterPassword.current.value;
@@ -187,59 +183,46 @@ function App() {
       });
   };
 
+  //控制連結顏色切換
+  const [selectedLink, setSelectedLink] = useState(null);
+  const location = useLocation();
 
-  const handleClick = () => {
-    setColor("darkgray");
-    setColor2("silver");
+  // 根据当前路径更新选中链接状态
+  React.useEffect(() => {
+    setSelectedLink(location.pathname);
+  }, [location]);
 
+  // 处理链接点击事件
+  const handleLinkClick = (path) => {
+    setSelectedLink(path);
   };
-  const handleClick2 = () => {
-    setColor("silver");
-    setColor2("darkgray");
-    
-  };
-  const handleClick3 = () => {
-    setColor("silver");
-    setColor2("silver");
-  };
-  
-  const handleClick4 = () => {
-    setColor("darkgray");
-    setColor2("silver");
-
-  };
-
-  const handleClick5 = () => {
-    setColor("darkgray");
-    setColor2("silver");
-
-  };
-
 
 
 
   return (
     <>
       <div
-        className="p-1 bg-info"
-        style={{ display: "flex", alignItems: "center", height: 50 }}
+        className="p-1"
+        style={{
+          display: "flex", alignItems: "center", height: 80, backgroundColor: "#d3f5d3",
+        }}
       >
-        <Link onClick={handleClick3} to="/">
-          <img style={{ width: 50 }} src={ourLogo} alt="" />
+        <Link to="/">
+          <img style={{ width: 80, height: 80 }} src={ourLogo} alt="" />
         </Link>
-        <span style={{ marginLeft: 10 }}>包您滿意</span>
+        <span className="slogan-text" style={{ marginLeft: 5 }}>包您滿意</span>
         <div
           className="search-container"
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
-          <input type="text" placeholder="Search.." style={{  width: '300px' ,borderRadius: '10px' }} />
-          <Button type="submit">
+          <input type="text" placeholder="Search.." style={{ width: '500px', height: '55px', borderRadius: '10px' }} />
+          <Button type="submit" style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
             <i className="fa fa-search"></i>
           </Button>
           {isLoggedIn ? ( // Check if user is logged in
-            <Button onClick={handleLogout}>登出</Button>
+            <Button style={{ height: '55px', width: '55px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
           ) : (
-            <Button onClick={handleShow}>登入/註冊</Button>
+            <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleShow}>登入/註冊</Button>
           )}
         </div>
       </div>
@@ -249,19 +232,20 @@ function App() {
             <li className="nav-item">
               <Link
                 to="/findcase"
-                style={{ backgroundColor: color2 }}
-                onClick={handleClick}
-                className="nav-link "
+                className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                onClick={() => handleLinkClick("/findcase")}
               >
                 我要接案
               </Link>
             </li>
+
             <li className="nav-item">
               <Link
                 to="/findman"
-                style={{ backgroundColor: color2 }}
-                onClick={handleClick2}
-                className="nav-link"
+                className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
+                style={{ backgroundColor: selectedLink === "/findman" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                onClick={() => handleLinkClick("/findman")}
               >
                 我要找人
               </Link>
@@ -269,24 +253,24 @@ function App() {
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Nav.Link
-                href="/ProjectForm"
-                style={{ backgroundColor: color2 }}
-                onClick={handleClick4}
-                className="nav-link"
+              <Link
+                to="/ProjectForm"
+                className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                onClick={() => handleLinkClick("/ProjectForm")}
               >
                 發案
-              </Nav.Link>
+              </Link>
             </li>
             <li className="nav-item">
-              <Nav.Link
-                href="/member"
-                style={{ backgroundColor: color2}}
-                onClick={handleClick5}
-                className="nav-link "
+              <Link
+                to="/member"
+                className={`nav-link ${selectedLink === "/member" ? "active" : ""}`}
+                style={{ backgroundColor: selectedLink === "/member" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                onClick={() => handleLinkClick("/member")}
               >
                 Email
-              </Nav.Link>
+              </Link>
             </li>
           </ul>
         </div>
@@ -312,7 +296,7 @@ function App() {
       </Routes>
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered style={{borderRadius: '10px'}}>
+      <Modal show={showLogin} onHide={handleClose} centered style={{ borderRadius: '10px' }}>
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
             <div className="col text-center">

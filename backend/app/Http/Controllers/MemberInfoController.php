@@ -14,28 +14,15 @@ use Throwable;
 
 class MemberInfoController extends Controller
 {
-    public function __construct()
+    public function __construct(Request $request)
     {
-        // $this->middleware(['auth:api','verified']);
-        // $this->middleware(['auth:api']);
+        $this->middleware(['auth','verified']);
     }
 
     // 獲取儀錶板
     public function dashboard(Request $request)//:JsonResponse
     {
-        // return $request->header('Authorization');
-        // try{
-        //     $user = JWTAuth::parseToken()->authenticate();
-        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        //     // return $payload;
-        //     $user = JWTAuth::guard('api')->authenticate($request->header('Authorization')); // 直接抓有沒有Bearer token，只能取得payload
-        //     $user = JWTGuard::user();
-        // }catch(Throwable $err){
-        //     // 要不要加轉址
-        //     return response('無效的請求');
-        // }
         $user = Auth::user();
-
         /* 接案 */
         // 接案數
         $taked = DB::table('service')->select(DB::raw('count(mid) as taked_total'))
@@ -229,7 +216,7 @@ class MemberInfoController extends Controller
     // 獲取接案紀錄
     public function getTakeCase(Request $request)
     {
-        $mid = Auth::guard('api')->id();
+        $mid = Auth::id();
 
         // 報價但尚未被接受的紀錄
         $Quote_query = DB::table('quote')
@@ -299,7 +286,7 @@ class MemberInfoController extends Controller
         ]);
     }
 
-    // 修改接案紀錄
+    // 編輯接案紀錄
     public function updateTakeCase(Request $request)
     {
         $mid = Auth::guard('api')->id();
@@ -322,7 +309,7 @@ class MemberInfoController extends Controller
     // 獲取發案紀錄
     public function getPublishCase(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
+        // $mid = Auth::id();
         $mid = 1;
         if($mid){
             // 刊登紀錄
@@ -332,7 +319,7 @@ class MemberInfoController extends Controller
             ->select('did','d_name','type','d_amount','d_unit','d_duration', 'country_city as active_location','d_description',
             'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),
             DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
-            ->where('mid',$mid);
+            ->where('mid',$mid)->orderBy('updated_at', 'desc')->orderBy('did', 'desc');
 
             // 發案進行中
             $demmand_progress_query = DB::table('established_case')
@@ -340,17 +327,17 @@ class MemberInfoController extends Controller
             ->join('country', 'country_id', '=', 'c_active_location')
             ->select('cid', 'c_name','type', 'c_amount','c_unit','c_duration','country_city as active_location','c_description',
             'c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
-            ->where('mid_demmand',$mid)
-            ->where('c_status',1);
+            ->where('mid_demmand',$mid)->where('c_status',1)
+            ->orderBy('created_at', 'desc')->orderBy('cid', 'desc');
 
             // 發案已結案
             $demmand_completed_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
-            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','demmand_star',
+            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','service_star',
             DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
-            ->where('mid_demmand',$mid)
-            ->where('c_status',2);
+            ->where('mid_demmand',$mid)->where('c_status',2)
+            ->orderBy('completed_time', 'desc')->orderBy('cid', 'desc');
 
             // if($request->has('demmandSearch')){
             //     $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
@@ -375,9 +362,41 @@ class MemberInfoController extends Controller
     // 修改發案刊登
     public function updatePublishCase(Request $request)
     {
-        $mid = Auth::guard('api')->id();
-        $did = $request->did;
+        $mid = Auth::id();
+        $request->validate([
+            'index' => 'required',
+            'case_name' => 'required',
+            'type' => 'required',
+            'amount' => 'required',
+            'unit' => 'required',
+            'duration' => 'required',
+            'location' => 'required',
+            'details' => 'required',
+            'contact_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+        $type = DB::table('category')->where('type', $request->type)->value('catid');
+        $location = DB::table('country')->where('country_city')->value('country_id');
 
+        $new = DB::table('demmand')->where('did', $request->index)
+        ->update([
+            'd_name' => $request->case_name,
+            'd_type' => $type,
+            'd_duration' => $request->duration,
+            'd_description' => $request->details,
+            'd_amount' => $request->amount,
+            'd_unit' => $request->unit,
+            'd_active_location' => $location,
+            'd_contact_name' => $request->contact_name,
+            'd_email' => $request->email,
+            'd_mobile_phone' => $request->phone,
+            'updated_at' => now(),
+        ]);
+
+        return response()->json([
+            'mnessage' => '更新成功'
+        ]);
     }
 
     // 刪除發案刊登紀錄

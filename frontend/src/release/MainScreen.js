@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 // import SearchPage from './SearchPage';
@@ -14,47 +15,47 @@ const MainScreen2 = () => {
     setActiveScreen(screenName);
   };
   const [Case, setCase] = useState({
-    "demmand_published": [
+    demmand_published: [
       {
-        "did": 0,
-        "d_name": "",
-        "type": "",
-        "d_amount": 0,
-        "d_unit": "",
-        "d_duration": "",
-        "active_location": "",
-        "d_description": "",
-        "d_contact_name": "",
-        "d_email": "",
-        "d_mobile_phone": "",
-        "updated_at": ""
+        did: 0,
+        d_name: "",
+        type: "",
+        d_amount: 0,
+        d_unit: "",
+        d_duration: "",
+        active_location: "",
+        d_description: "",
+        d_contact_name: "",
+        d_email: "",
+        d_mobile_phone: "",
+        updated_at: "",
       },
     ],
-    "demmand_progress": [
+    demmand_progress: [
       {
-        "cid": 0,
-        "c_name": "",
-        "type": "",
-        "c_amount": 0,
-        "c_unit": "",
-        "c_duration": "",
-        "active_location": "",
-        "c_description": "",
-        "c_contact_name": "",
-        "c_email": "",
-        "c_mobile_phone": "",
-        "created_at": ""
+        cid: 0,
+        c_name: "",
+        type: "",
+        c_amount: 0,
+        c_unit: "",
+        c_duration: "",
+        active_location: "",
+        c_description: "",
+        c_contact_name: "",
+        c_email: "",
+        c_mobile_phone: "",
+        created_at: "",
       },
     ],
-    "demmand_completed": [
+    demmand_completed: [
       {
-        "cid": 0,
-        "c_name": "",
-        "type": "",
-        "c_amount": 0,
-        "c_unit": "",
-        "created_at": "",
-        "completed_time": ""
+        cid: 0,
+        c_name: "",
+        type: "",
+        c_amount: 0,
+        c_unit: "",
+        created_at: "",
+        completed_time: "",
       },
     ],
   });
@@ -64,11 +65,9 @@ const MainScreen2 = () => {
       const result = await axios.get(
         "http://127.0.0.1/Allend/backend/public/api/mempublishcase",
         {
-          params: {
-            mid: 1,
-          },
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );

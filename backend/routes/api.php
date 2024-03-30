@@ -14,14 +14,12 @@ use App\Http\Controllers\DemmandContentController;
 use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\IWantQuoteController;
 use App\Http\Controllers\MemberInfoController;
 use App\Http\Controllers\MemberServiceController;
 use App\Http\Controllers\MemberserviceDeleteController;
 use App\Http\Controllers\MemberTakeCaseController;
 use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\Pop_QuoteAgreeController;
-use App\Http\Controllers\Pop_QuoteContorller;
 use App\Http\Controllers\PublishCaseController;
 use App\Http\Controllers\PublishCaseDeleteController;
 use App\Http\Controllers\ServiceContentController;
@@ -57,12 +55,12 @@ Route::get('/service_content/{sid}', ServiceContentController::class);
 
 // 送出發案表單
 Route::post('/commitcase', CommitController::class);//->middleware('auth:api');
-// 送出報價表單
-Route::post('/quote', IWantQuoteController::class);//->middleware('auth:api');
-// 查看、接受、拒絕報價
-Route::get('/pop_quote', Pop_QuoteContorller::class);//->middleware('auth:api');
-Route::get('/pop_agree', [Pop_QuoteAgreeController::class, 'Agree']);//->middleware('auth:api');
-Route::get('/pop_disagree', [Pop_QuoteAgreeController::class, 'Disagree']);//->middleware('auth:api');
+
+// 送出、查看、接受、拒絕報價
+Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
+Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
+Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
+Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
 // 接發案內容
 Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
@@ -111,14 +109,14 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
-    // 修改接案紀錄
+    // 編輯接案紀錄
     Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
 
     // 獲取發案紀錄
     Route::get('/mempublishcase', 'getPublishCase');
-    // 修改發案刊登
+    // 編輯發案刊登
     Route::post('/updatepublishcase', 'updatePublishCase');
     // 刪除發案紀錄
     Route::post('/delpublishcase', 'delPublishCase');

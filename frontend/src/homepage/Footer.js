@@ -3,18 +3,18 @@ import ourLogo from '../homepage/ourLogo.jpg';
 
 function Footer() {
     return (
-        <div className="mt-5 p-4 bg-dark text-white row" style={{ fontSize: 14 }} >
+        <div className="mt-5 p-4 row" style={{ fontSize: 14, backgroundColor:"#d3f5d3" }} >
             <span className='col-6' style={{ textAlign: 'left' }}>
-                <img style={{ width: 30 }} src={ourLogo} alt='' />
-                <span>
+                <img style={{ width: 50 }} src={ourLogo} alt='' />
+                <span style={{color: "black"}}>
                     包您滿意
                 </span>
                 <br></br> <br></br>
-                <span style={{letterSpacing: '3px'}}>客服時間  |  9:00~18:00(例假日除外)</span>
+                <span style={{letterSpacing: '3px',color: "black" }}>客服時間  |  9:00~18:00(例假日除外)</span>
                 <br></br><br></br>
-                <span style={{letterSpacing: '3px'}}>傳真號碼   | 02-1234-5678</span>
+                <span style={{letterSpacing: '3px',color: "black"}}>傳真號碼   | 02-1234-5678</span>
             </span>
-            <span className='col-6' style={{ lineHeight: '1.5', letterSpacing: '3px' }}>
+            <span className='col-6' style={{ lineHeight: '1.5', letterSpacing: '3px',color: "black" }}>
                 關於我們
                 <br></br>
                 <br></br>
