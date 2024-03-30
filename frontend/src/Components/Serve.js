@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import Footer from '../homepage/Footer';
-import twitter from './twitter.png'
 import { CiStar } from "react-icons/ci";
-import facebook from './facebook.png'
-import { FaHeart } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
-import logo from './logo.svg'
-import ServeContent from './ServeContent';
-import ServeRating from './ServeRating';
-import { Nav, NavItem, NavLink, TabContent, TabPane } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import violence from './violence.jpg';
-import Stick from './Stick';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
+import product from '../Components/img/product.jfif'
+import product2 from '../Components/img/product2.jfif'
+import Stick from './Stick';
+
+
+
+
 const Lightbox = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
@@ -49,80 +49,105 @@ function Serve() {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       />
       <div className='row mt-5 p-5'>
-        <div className='col-sm-3 ' style={{ textAlign: 'center' }}>
-          <div style={{ textAlign: 'start', fontSize: 10, border: 'solid', position: '-webkit-sticky', position: 'sticky', top: 0 }}>
-            <img src={twitter} style={{ width: 25 }}></img>
-            <p>會員名稱</p>
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <hr></hr>
-            接案身分:<br></br>
-            上線時間:<br></br>
-            接案地點:台北 台中 高雄<br></br>
-            成交件數:
-            <hr></hr>
-            專長:LOGO設計
-            <hr></hr>
-            <button>
-              <img src={facebook} style={{ width: 10 }}></img>
-            </button>
-            <button>
-              <img src={facebook} style={{ width: 10 }}></img>
-            </button>
-            <hr></hr>
-            <div className='row'>
-              <div style={{ borderRight: 'solid' }} className='col-sm-6'>
-                <FaHeart ></FaHeart>
-                收藏
-              </div>
-              <div className='col-sm-6' >
-                <button>直接連絡</button>
-              </div>
-            </div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <Button>邀請報價</Button>
+        <div className='col-sm-2 ' >
+          <div style={{position: '-webkit-sticky', position: 'sticky', top: 0}}>
+          <Stick ></Stick>
           </div>
         </div>
 
-
         <div className='col-sm-9 ' style={{ float: 'right' }}>
           <div className='row'>
-            <div className='col-sm-6 bg-primary' style={{ border: 'solid' }}>
-              <Carousel>
-                <Carousel.Item>
-                  <img src={logo} text="First slide" />
-                  <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img src={logo} text="Second slide" />
-                  <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img src={logo} text="Third slide" />
-                  <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              </Carousel>
+
+            {/* 輪播圖 */}
+            <div className="d-flex  justify-content-center">
+              <Row >
+                <Col >
+                  <Carousel id='carousel' interval={null} indicators={false} >
+                    <Carousel.Item >
+                      <Row className=" justify-content-md-center">
+                        <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                        <Col xs lg="6" >
+                          <div style={{ marginTop: 50, marginLeft: 50 }}>
+                            服務名稱:LOGO設計<br></br>
+                            服務報價:$1000/件<br></br>
+                            評分:
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <br></br>
+                            服務地點:<br></br>
+                            <Button>及時詢問</Button>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                      </Row>
+                    </Carousel.Item>
+                    <Carousel.Item >
+                      <Row className=" justify-content-md-center">
+                        <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                        <Col xs lg="6" >
+                          <div style={{ marginTop: 50, marginLeft: 50 }}>
+                            服務名稱:LOGO設計<br></br>
+                            服務報價:$1000/件<br></br>
+                            評分:
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <br></br>
+                            服務地點:<br></br>
+                            <Button>及時詢問</Button>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                      </Row>
+                    </Carousel.Item>
+                    <Carousel.Item >
+                      <Row className=" justify-content-md-center">
+                        <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
+                        <Col xs lg="6" >
+                          <div style={{ marginTop: 50, marginLeft: 50 }}>
+                            服務名稱:LOGO設計<br></br>
+                            服務報價:$1000/件<br></br>
+                            評分:
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <CiStar />
+                            <br></br>
+                            服務地點:<br></br>
+                            <Button>及時詢問</Button>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                        <Col xs lg="2"><img src={product2} /></Col>
+                      </Row>
+                    </Carousel.Item>
+
+                  </Carousel>
+                </Col>
+              </Row>
+              {/* 輪播圖 */}
 
             </div>
-            <div className='col-sm-6'>
+
+
+            {/* <div className='col-sm-6'>
               服務名稱:LOGO設計<br></br>
               服務報價:$1000/件<br></br>
               評分:
@@ -134,8 +159,11 @@ function Serve() {
               <br></br>
               服務地點:<br></br>
               <Button>及時詢問</Button>
-            </div>
+            </div> */}
           </div>
+
+
+
           <Tabs
             defaultActiveKey="profile"
             id="uncontrolled-tab-example"
@@ -184,7 +212,7 @@ function Serve() {
             </Tab>
           </Tabs>
           <div className="row mt-5">
-            <p>最新服務:</p>
+            <p>其他服務:</p>
             <div className="col-sm-4 ">
               <div className="card" >
                 <div className="card-header"><img src={violence} style={{ width: 100 }}></img></div>
@@ -210,7 +238,7 @@ function Serve() {
                 <div class="card-footer">Footer</div>
               </div>
             </Link>
-            
+
 
 
 

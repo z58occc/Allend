@@ -3,14 +3,17 @@ import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
 import twitter from './twitter.png'
-import facebook from './facebook.png'
+import { FaFacebook } from "react-icons/fa";
+import { FaLine } from "react-icons/fa";
+import { CiShare2 } from "react-icons/ci";
+import { CiChat1 } from "react-icons/ci";
 
 
 function Stick() {
     return (
         <div>
-            <div className='col-sm-3 ' style={{ textAlign: 'center' }}>
-                <div >
+            <div style={{ textAlign: 'start', fontSize: 10, border: 'solid',  }}>
+                <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
                     <img src={twitter} style={{ width: 25 }}></img>
                     <p>會員名稱</p>
                     <CiStar />
@@ -18,37 +21,37 @@ function Stick() {
                     <CiStar />
                     <CiStar />
                     <CiStar />
-                    <hr></hr>
-                    接案身分:<br></br>
-                    上線時間:<br></br>
-                    接案地點:台北 台中 高雄<br></br>
-                    成交件數:
-                    <hr></hr>
-                    專長:LOGO設計
-                    <hr></hr>
-                    <button>
-                        <img src={facebook} style={{ width: 10 }}></img>
-                    </button>
-                    <button>
-                        <img src={facebook} style={{ width: 10 }}></img>
-                    </button>
-                    <hr></hr>
-                    <div className='row'>
-                        <div style={{ borderRight: 'solid' }} className='col-sm-6'>
-                            <FaHeart ></FaHeart>
-                            收藏
-                        </div>
-                        <div className='col-sm-6' >
-                            <button>直接連絡</button>
-                        </div>
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <Button>邀請報價</Button>
                 </div>
+                接案身分:<br></br>
+                上線時間:<br></br>
+                接案地點:台北 台中 高雄<br></br>
+                成交件數:
+                <hr></hr>
+                專長:LOGO設計
+                <hr></hr>
+
+
+                <FaFacebook size={30} />
+                <FaLine size={30} />
+                <CiShare2 size={30} />
+
+
+
+                <hr></hr>
+                <div className='row'>
+                    <div style={{ borderRight: 'solid' }} className='col-sm-6'>
+                        <FaHeart size={20}></FaHeart>
+                        收藏
+                    </div>
+                    <div className='col-sm-6' >
+                        <CiChat1 size={20} />
+                        <span>直接連絡</span>
+                    </div>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <Button >邀請報價</Button>
             </div>
         </div>
     )
