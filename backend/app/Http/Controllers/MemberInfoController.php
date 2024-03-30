@@ -362,9 +362,41 @@ class MemberInfoController extends Controller
     // 修改發案刊登
     public function updatePublishCase(Request $request)
     {
-        $mid = Auth::guard('api')->id();
-        $did = $request->did;
+        $mid = Auth::id();
+        $request->validate([
+            'index' => 'required',
+            'case_name' => 'required',
+            'type' => 'required',
+            'amount' => 'required',
+            'unit' => 'required',
+            'duration' => 'required',
+            'location' => 'required',
+            'details' => 'required',
+            'contact_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+        $type = DB::table('category')->where('type', $request->type)->value('catid');
+        $location = DB::table('country')->where('country_city')->value('country_id');
 
+        $new = DB::table('demmand')->where('did', $request->index)
+        ->update([
+            'd_name' => $request->case_name,
+            'd_type' => $type,
+            'd_duration' => $request->duration,
+            'd_description' => $request->details,
+            'd_amount' => $request->amount,
+            'd_unit' => $request->unit,
+            'd_active_location' => $location,
+            'd_contact_name' => $request->contact_name,
+            'd_email' => $request->email,
+            'd_mobile_phone' => $request->phone,
+            'updated_at' => now(),
+        ]);
+
+        return response()->json([
+            'mnessage' => '更新成功'
+        ]);
     }
 
     // 刪除發案刊登紀錄
