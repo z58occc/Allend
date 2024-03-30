@@ -6,6 +6,7 @@ import CaseDetailsModal1 from "./CaseDetailsModal1";
 import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
 // import CaseContext from './CaseContext';
+
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
   const CaseData = data1;
@@ -47,6 +48,36 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     const newSelectedItems = CaseData.map(() => isAllSelected);
     setSelectedItems(newSelectedItems);
   };
+  //刪除
+  // const [deletedIndex, setdeletedIndex] = useState([]);
+  
+  // let deletedData = [];
+  // let didOFdeletedData = [];
+  // const handleDeleted =  async () =>{
+  //   selectedItems.forEach((item,index)=>{
+  //   if(item === true){
+  //     deletedIndex.push(index);
+  //   }
+  //   CaseData.forEach((items,index)=>{
+  //     if(deletedIndex.includes(index)){
+  //       deletedData = CaseData.filter((item, index) => deletedIndex.includes(index));
+
+  //     }
+  //   })
+  //   didOFdeletedData = deletedData.map(item => item.did);
+  //   const response =  fetch ("http://127.0.0.1:8000/api/delpublishcase", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ did: didOFdeletedData }),
+  //   });
+
+
+  // })
+  // }
+  
+  
   // 案件詳情Modal
   const [showModal1, setShowModal1] = useState(false);
 
@@ -116,9 +147,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         <Button
           variant="danger"
           style={{ fontSize: "12px", width: "100px" }}
-          onClick={() => {
-            console.log(1);
-          }}
+          onClick={()=>handleDeleted()}
         >
           刪除
         </Button>
