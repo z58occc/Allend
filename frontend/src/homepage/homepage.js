@@ -87,7 +87,7 @@ function Homepage() {
                   <div className="col-sm-4 mb-4 post-card" key={index} style={{ flexGrow: 1 }}>
                     <Link to='./serve' className="card" style={{ width: "75%", fontSize: "10px" }} >
                       <div className="card-header post-title">
-                        <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ height: 200, width: 300, display: 'block' }}></img>
+                        <img src={`data:image/jpeg;base64,${post.image}`} alt={`${index + 1}`} style={{ height: 200, width: "100%", display: 'block' }}></img>
                       </div>
                       <div className="card-body">
                         {post.s_name}
