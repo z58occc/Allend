@@ -3,11 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Pop_QuoteAgreeController extends Controller
 {
-    public function Agree(Request $request)
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+    // 查看報價
+    public function getQuote(Request $request)
+    {
+        $demmandID = $request->input('did');
+        if($demmandID){
+            $quote = DB::table('demmand')
+            ->leftjoin('quote', 'quote.did', '=', 'demmand.did')
+            ->join('members', 'quote.mid', '=', 'members.mid')
+            ->join('identity', 'members.identity', '=', 'iid')
+            ->select('d_name','members.mid', 'name', 'email', 'i_identity as identity', 'q_amount',
+            'q_message')
+            ->where('quote.did', $demmandID)->get();
+
+            return response()->json($quote);
+        }
+    }
+
+    // 送出報價表單
+    public function sendQuote(Request $request)
+    {
+        $mid = Auth::guard('api')->id();
+
+        $this->validate($request,[
+            'did'=>['required'],
+            'q_amount'=>['required'],
+            'q_message'=>['required'],
+        ]);
+
+        $qoute = DB::table('quote')->insert([
+            'mid'=> $mid,
+            'did'=> $request->input('did'),
+            'q_amount'=> $request->input('q_amount'),
+            'q_message' =>$request->input('q_message'),
+        ]);
+        return response($qoute);
+
+    }
+    // 同意報價
+    public function agreeQuote(Request $request)
     {
         if($request->has('agree')){
             $agree = DB::table('demmand')
@@ -34,7 +78,9 @@ class Pop_QuoteAgreeController extends Controller
             return response()->json(['message'=>'Agree Success']);
         }
     }
-    public function Disagree(Request $request)
+
+    // 拒絕報價
+    public function disagreeQuote(Request $request)
     {
         if($request->has('disagree')){
             DB::table('quote')->where('mid',$request->input('mid'))->delete();

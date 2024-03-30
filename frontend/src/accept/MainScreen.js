@@ -41,12 +41,9 @@ const MainScreen = () => {
       const result = await axios.get(
         "http://127.0.0.1/Allend/backend/public/api/memtakecase",
         {
-          params: {
-            mid: 5,
-          },
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );
