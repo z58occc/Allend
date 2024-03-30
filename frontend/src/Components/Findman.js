@@ -279,7 +279,7 @@ const prevPage = () => {
                       style={{ width: 300, height: 200, position:"block"}}
                     />
                   </div>
-                  <Link to={`/talent/${item.sid}`} className="card-body">
+                  <Link to={`/talent/${item.mid}`} className="card-body">
                     服務名稱:{item.name}
                     <br></br>
                     人才名稱:{item.s_name}
