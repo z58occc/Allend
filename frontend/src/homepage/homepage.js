@@ -259,7 +259,7 @@ function Homepage() {
                 <Carousel.Item >
                   <Row className=" justify-content-md-center">
                     <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{ marginTop: 100 }}>會員名稱1</h3></Link></Col>
                   </Row>
                   <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
                     <Col xs lg="2"><img src={product2} /></Col>
@@ -270,7 +270,7 @@ function Homepage() {
                 <Carousel.Item >
                   <Row className=" justify-content-md-center">
                     <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{ marginTop: 100 }}>會員名稱1</h3></Link></Col>
                   </Row>
                   <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
                     <Col xs lg="2"><img src={product2} /></Col>
@@ -281,7 +281,7 @@ function Homepage() {
                 <Carousel.Item >
                   <Row className=" justify-content-md-center">
                     <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
+                    <Col xs lg="6" ><Link to='./talent'><h3 style={{ marginTop: 100 }}>會員名稱1</h3></Link></Col>
                   </Row>
                   <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
                     <Col xs lg="2"><img src={product2} /></Col>
@@ -289,10 +289,8 @@ function Homepage() {
                     <Col xs lg="2"><img src={product2} /></Col>
                   </Row>
                 </Carousel.Item>
-                
               </Carousel>
             </Col>
-
           </Row>
         </div>
         {/* 輪播圖 */}
