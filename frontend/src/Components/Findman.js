@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Footer from "../homepage/Footer";
 import Category from "./Category2";
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from "../homepage/NextPage";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import Buttom1 from "./Buttom1";
+import Chatbutton from "./ChatButtom";
 import axios from "axios";
 
 const Findman = () => {
@@ -51,6 +51,8 @@ const Findman = () => {
   });
 
   const [sort, setSort] = React.useState({});
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -148,16 +150,19 @@ const Findman = () => {
         const sortQuery = Object.keys(sort);
 
         const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery} `
+          `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage} `
         );
 
-        setService(response.data);
+        setService(response.data.data);
+        console.log(response.data);
+
+        setTotalPages(response.data.last_page);
       } catch (err) {
         console.error(err);
       }
     };
     fetchService();
-  }, [identity, seniority, country, sort]);
+  }, [identity, seniority, country, sort, currentPage]);
 
   const handleidentityChange = (event) => {
     const { name, checked } = event.target;
@@ -184,6 +189,14 @@ const Findman = () => {
 
   const clicksort = (sorttype) => {
     setSort({ [sorttype]: true });
+  };
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
   };
 
   return (
@@ -453,16 +466,16 @@ const Findman = () => {
                 <GoTriangleDown />
               </button>
               <button onClick={() => clicksort(2)}>
-                最新刊登
+                新服務
                 <GoTriangleDown />
               </button>
               <button onClick={() => clicksort(3)}>
-                預算金額
+                上線時間
                 <GoTriangleDown />
               </button>
             </div>
             <div className="row ">
-              {service.map((service, index) => (
+              {service.map((item, index) => (
                 <div
                   className="col-sm-4 "
                   key={index}
@@ -471,22 +484,22 @@ const Findman = () => {
                   <div className="card">
                     <div className="card-header">
                       <img
-                        src={`data:image/jpeg;base64,${service.image}`}
+                        src={`data:image/jpeg;base64,${item.image}`}
                         alt="service"
                         style={{ width: 300, height: 200, position: "block" }}
                       />
                     </div>
-                    <Link to="/talent" className="card-body">
-                      服務名稱:{service.name}
+                    <Link to={`/talent/${item.mid}`} className="card-body">
+                      服務名稱:{item.name}
                       <br></br>
-                      人才名稱:{service.s_name}
+                      人才名稱:{item.s_name}
                       <br></br>
-                      作品數:{service.ptotal}
+                      作品數:{item.ptotal}
                       <br></br>
                     </Link>
                     <div className="card-footer">
                       <FaHeart color="red"></FaHeart>
-                      <Buttom1></Buttom1>
+                      <Chatbutton></Chatbutton>
                     </div>
                   </div>
                 </div>
@@ -494,7 +507,12 @@ const Findman = () => {
             </div>
           </div>
         </div>
-        <NextPage></NextPage>
+        <NextPage
+          currentPage={currentPage}
+          totalPages={totalPages}
+          prevPage={prevPage}
+          nextPage={nextPage}
+        />
       </div>
       <Footer></Footer>
     </>
