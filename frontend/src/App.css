@@ -43,6 +43,13 @@ nav button {
   background-color:peachpuff !important; /* 更改為您想要的背景顏色 */
 }
 
+#carouselimg img {
+  width: 100%;
+}
+
+#carousel {
+  background-color:peachpuff ;
+}
 
 
 
