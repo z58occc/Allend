@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Button, Form, Modal, Table } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
 import CaseDetailsModal1 from "./CaseDetailsModal1";
 import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
+import { CaseContext } from "./MainScreen2"; 
 // import CaseContext from './CaseContext';
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
+  const {Case,setCase,fetchData} = useContext(CaseContext);
   const CaseData = data1;
   // let CaseData = [
   //   {
@@ -65,7 +67,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   //     }
   //   })
   //   didOFdeletedData = deletedData.map(item => item.did);
-  //   const response =  fetch ("http://127.0.0.1:8000/api/delpublishcase", {
+  //   const response =  
+  //   fetch ("http://127.0.0.1:8000/api/delpublishcase", {
   //     method: "POST",
   //     headers: {
   //       "Content-Type": "application/json",
@@ -76,6 +79,54 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
 
   // })
   // }
+
+
+const [deletedIndex, setDeletedIndex] = useState([]);
+let updatedData = [];
+let deletedData = [];
+let didOfDeletedData = [];
+
+const handleDeleted = async () => {
+  const deletedIndices = [];
+  selectedItems.forEach((item, index) => {
+    if (item === true) {
+      deletedIndices.push(index);
+    }
+  });
+  setDeletedIndex(deletedIndices);
+
+  deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+  updatedData = CaseData.filter((item, index) => !deletedIndices.includes(index));
+  console.log(updatedData);
+  didOfDeletedData = deletedData.map(item => item.did);
+  Case.demmand_published = Case.demmand_published.filter(( item ,index)=> ! didOfDeletedData.includes(item.did))
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/delPublishCase", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ did: didOfDeletedData }),
+    });
+    console.log(didOfDeletedData)
+    
+    fetchData();
+    console.log(Case);
+    if (!response.ok) {
+      throw new Error('Failed to delete data');
+    }
+
+    const responseData = await response.json();
+    console.log('Response data:', responseData);
+
+    // Handle successful response, such as updating the page or other operations
+
+  } catch (error) {
+    console.error('Error deleting data:', error);
+    // Handle error cases, such as displaying error messages or other handling
+  }
+};
+
   
   
   // 案件詳情Modal
