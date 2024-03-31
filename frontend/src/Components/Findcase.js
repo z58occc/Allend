@@ -9,6 +9,12 @@ import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import a1 from "../Components/img/a1.png"
+import a2 from "../Components/img/a2.png"
+import a3 from "../Components/img/a3.png"
+import a4 from "../Components/img/a4.png"
+import a5 from "../Components/img/a5.png"
+import a6 from "../Components/img/a6.png"
 
 
 
@@ -38,6 +44,10 @@ function Findcase() {
             });
     }, []);
 
+    const handleCategoryClick =()=>{
+
+    }
+
     return (
         <>
             <div className='container'>
@@ -52,8 +62,57 @@ function Findcase() {
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
-                {/* 案件類別 */}
-                <Category></Category>
+
+
+                {/* 分類按鈕 */}
+                <div style={{ marginLeft: '60px', marginRight: '0' }}>
+
+                    <div className="container mt-5">
+                        <div className="row justify-content-center">
+
+                            <div className="col-sm-2 ">
+                                <Link to='/findcase' onClick={handleCategoryClick}>
+                                    <div >網站設計</div>
+                                    <img src={a1} style={{ width: 50 }}></img>
+                                </Link>
+                                <hr className="d-sm-none" />
+                            </div>
+                            <div className="col-sm-2 ">
+                                <Link to='/findcase' >
+                                    <div >軟體程式</div>
+                                    <img src={a2} style={{ width: 50 }}></img>
+                                </Link>
+                                <hr className="d-sm-none" />
+                            </div>
+                            <div className="col-sm-2 ">
+                                <Link to='/findcase' >
+                                    <div >文字語言</div>
+                                    <img src={a5} style={{ width: 50 }}></img>
+                                </Link>
+                                <hr className="d-sm-none" />
+                            </div>
+                            <div className="col-sm-2 ">
+                                <Link to='/findcase' >
+                                    <div >專業諮詢</div>
+                                    <img src={a4} style={{ width: 50 }}></img>
+                                </Link>
+                                <hr className="d-sm-none" />
+                            </div>
+                            <div className="col-sm-2">
+                                <Link to='/findcase' >
+                                    <div >平面設計</div>
+                                    <img src={a6} style={{ width: 50 }}></img>
+                                </Link>
+                                <hr className="d-sm-none" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                {/* 分類按鈕 */}
+
+
                 <br></br>
 
                 {/* 下拉選單 */}
@@ -106,21 +165,25 @@ function Findcase() {
                 <div >
                     {posts.map((post, index) => {
                         return (
-                            <div className='row' key={index}>
-                                <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
-                                    {post.d_name}<br></br>
-                                    案件類別:{post.type}<br></br>
-                                    預算:${post.d_amount}/{post.d_unit}<br></br>
-                                    地點:{post.country_city}<br></br>
-                                    {post.d_duration}期<br></br>
-                                    {post.updated_at}<br></br>
-                                </Link>
-                                <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
-                                    {post.d_description}
-                                    <div className='position-absolute bottom-0 end-0'>
-                                        <Orderbuttom ></Orderbuttom>
+                            <div key={index}>
+                                {post.type == "網站設計" ?
+                                    <div className='row' key={index}>
+                                        <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
+                                            {post.d_name}<br></br>
+                                            案件類別:{post.type}<br></br>
+                                            預算:${post.d_amount}/{post.d_unit}<br></br>
+                                            地點:{post.country_city}<br></br>
+                                            {post.d_duration}期<br></br>
+                                            {post.updated_at}<br></br>
+                                        </Link>
+                                        <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
+                                            {post.d_description}
+                                            <div className='position-absolute bottom-0 end-0'>
+                                                <Orderbuttom ></Orderbuttom>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    : ""}
                             </div>
 
                         )
@@ -130,6 +193,7 @@ function Findcase() {
                 </div>
 
                 {/* 案件欄位 */}
+
 
 
 
