@@ -1,16 +1,16 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 // import SearchPage from './SearchPage';
 import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
-
+export const CaseContext = createContext();
 const MainScreen2 = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
-
+  
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
@@ -59,20 +59,20 @@ const MainScreen2 = () => {
       },
     ],
   });
-
+  
+  const fetchData = async () => {
+    const result = await axios.get(
+      "http://127.0.0.1:8000/api/mempublishcase",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      }
+    );
+    setCase(result.data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(
-        "http://127.0.0.1/Allend/backend/public/api/mempublishcase",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
-          },
-        }
-      );
-      setCase(result.data);
-    };
 
     fetchData();
   }, []);
@@ -80,7 +80,7 @@ const MainScreen2 = () => {
   console.log(Case);
 
   return (
-    <>
+    <CaseContext.Provider value={{Case,setCase,fetchData}}>
       <Container xxl={12}>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
@@ -140,7 +140,7 @@ const MainScreen2 = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </CaseContext.Provider>
   );
 };
 

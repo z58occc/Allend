@@ -21,7 +21,7 @@ import Pro from "./Components/pro";
 import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
-import MainScreen2 from "./release/MainScreen";
+import MainScreen2 from "./release/MainScreen2";
 
 
 
@@ -204,7 +204,7 @@ function App() {
       <div
         className="p-1"
         style={{
-          display: "flex", alignItems: "center", height: 80, backgroundColor: "#d3f5d3",
+          display: "flex", alignItems: "center", height: 80, backgroundColor: "#EFBC9B",
         }}
       >
         <Link to="/">
@@ -233,7 +233,7 @@ function App() {
               <Link
                 to="/findcase"
                 className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findcase" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
                 我要接案
@@ -244,7 +244,7 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/findman")}
               >
                 我要找人
@@ -256,7 +256,7 @@ function App() {
               <Link
                 to="/ProjectForm"
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/ProjectForm")}
               >
                 發案
@@ -266,7 +266,7 @@ function App() {
               <Link
                 to="/member"
                 className={`nav-link ${selectedLink === "/member" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/member" ? "darkgreen" : "#d3f5d3", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
                 Email

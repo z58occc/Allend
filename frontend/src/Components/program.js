@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Buttom1 from './Buttom1';
-import product from '../Components/img/product.jfif'
-import product2 from './img/product2.jfif'
+import Product from '../Components/img/Product.jpg';
+import product2 from './img/product2.jpg';
 import product3 from './img/product3.jpg'
 import programdesign from './img/programdesign.jpg'
 
