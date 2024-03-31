@@ -9,6 +9,7 @@ import Chatbutton from "./ChatButtom";
 import axios from "axios";
 
 const Findman = () => {
+
   const [service, setService] = React.useState([]);
 
   const [identity, setIdentity] = React.useState({
@@ -50,7 +51,8 @@ const Findman = () => {
     lienchang: false,
   });
 
-  // let {s_type} = useParams();
+  const { s_type } = useParams();
+  
 
   const [sort, setSort] = React.useState({});
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -152,11 +154,10 @@ const Findman = () => {
         const sortQuery = Object.keys(sort);
 
         const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage} `
+          `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+          ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type} `
         );
-
         setService(response.data.data);
-        console.log(response.data);
 
         setTotalPages(response.data.last_page);
       } catch (err) {
@@ -164,7 +165,7 @@ const Findman = () => {
       }
     };
     fetchService();
-  }, [identity, seniority, country, sort, currentPage]);
+  }, [identity, seniority, country, sort, currentPage,s_type]);
 
   const handleidentityChange = (event) => {
     const { name, checked } = event.target;
@@ -200,7 +201,6 @@ const Findman = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
-
   return (
     <>
       <div className="container">

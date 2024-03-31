@@ -9,20 +9,21 @@ use function Laravel\Prompts\select;
 
 class IFindPeopleController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request )
     {
         $identity_query = $request->input('identity');
         $seniority_query = $request->input('seniority');
         $country_query = $request->input('country');
         $sort_query = $request->input('sort');
+        $type_query = $request->input('s_type');
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
         ->join('project as p', 'p.mid', '=', 'm.mid')
         ->join('country as c','c.country_id','=','m.active_location')
-        ->select('s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login',
-            DB::raw('(SELECT COUNT(*) FROM service) as atotal'))
-        ->groupBy('m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login');
+        ->select('s.s_type','s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login')
+        // DB::raw('(SELECT COUNT(*) FROM service) as atotal')
+        ->groupBy('s.s_type','m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login');
 
 
         if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
@@ -65,6 +66,32 @@ class IFindPeopleController extends Controller
                 $member->orderBy('last_login','desc');
             }
 
+        //分類
+        if($type_query){
+            switch($type_query){
+                //網站設計
+                case'1':
+                    $member->where('s.s_type','1');
+                    break;
+                //軟體程式
+                case'2':
+                    $member->where('s.s_type','2');
+                    break;
+                //文字語言
+                case'3':
+                    $member->where('s.s_type','3');
+                    break;
+                //專業諮詢
+                case'4':
+                    $member->where('s.s_type','4');
+                    break;
+                //平面設計
+                case'5':
+                    $member->where('s.s_type','5');
+                    break;
+            }
+        }
+
 
 
 
@@ -78,15 +105,4 @@ class IFindPeopleController extends Controller
         return $member_total;
     }
 
-
-
-
-        // $Data_response=[
-            // 'service'=>$members_service->get(),
-            // 'members'=>$members_project->get(),
-            // 'established_case'=>$establised_query->get(),
-            // 'project'=>$project_query->get(),
-        // ];
-
-        // return response()->json($Data_response);
 }

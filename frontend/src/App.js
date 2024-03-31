@@ -279,7 +279,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase" element={<Findcase></Findcase>}></Route>
-        <Route path="/findman" element={<Findman></Findman>}></Route>
+        <Route path="/findman/:s_type" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/talent" element={<Talent></Talent>}></Route>
