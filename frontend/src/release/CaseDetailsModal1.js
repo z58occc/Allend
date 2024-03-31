@@ -56,7 +56,11 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       setEmailError("Invalid email format");
     }
   };
-  console.log(data[number].d_duration);
+
+  if (!data || data.length === 0) {
+    return null; // Render nothing if data is empty or undefined
+  }
+
   return (
     <Modal
       show={show}
