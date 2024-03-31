@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class IFindCaseController extends Controller
 {
-    public function __invoke(Request $request, $d_type = null)
+    public function __invoke(Request $request)
     {
         $query = DB::table('demmand')
         ->leftJoin('country','demmand.d_active_location','=','country.country_id')
@@ -54,26 +54,28 @@ class IFindCaseController extends Controller
 
         //         }
         // }else{ $query->orderBy('created_at', 'desc');}
-        switch($d_type){
+        // 指定類別
+        switch($request->type){
             case '1':
-                $query->where('d_type', $d_type);
+                $query->where('d_type', $request->type);
                 break;
             case '2':
-                $query->where('d_type', $d_type);
+                $query->where('d_type', $request->type);
                 break;
             case '3':
-                $query->where('d_type', $d_type);
+                $query->where('d_type', $request->type);
                 break;
             case '4':
-                $query->where('d_type', $d_type);
+                $query->where('d_type', $request->type);
                 break;
             case '5':
-                $query->where('d_type', $d_type);
+                $query->where('d_type', $request->type);
                 break;
             default:
                 break;
         }
 
+        // 指定排序方式
         $order = $request->order;
         switch($order){
             // 最新刊登
@@ -103,13 +105,7 @@ class IFindCaseController extends Controller
             $updateAt = new \DateTime($demand->updated_at);
             $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
             $interval = $updateAt->diff($now);
-            // if($interval->h < 1 && $interval->d <1){
-            //     $difference = $interval -> i . '分鐘前';
-            // }elseif($interval->d < 1 && $interval-> h > 1){
-            //     $difference = '今天更新';
-            // }else{
-            //     $difference = $updateAt->format('Y-m-d');
-            // }
+
             if($interval->h < 1 && $interval->d < 1){
                 $difference = $interval->i . '分鐘前更新';
             }elseif($interval->d > 1){

@@ -96,7 +96,8 @@ class MemberInfoController extends Controller
     }
 
     // 獲取會員資料
-    public function getMemInfo(Request $request){
+    public function getMemInfo(Request $request)
+    {
         // try{
         //     $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
         // }catch(Throwable $err){
@@ -108,17 +109,9 @@ class MemberInfoController extends Controller
         ->join('identity', 'members.identity', '=', 'identity.iid')
         ->join('country as c1', 'c1.country_id', '=', 'active_location')
         ->join('country as c2', 'c2.country_id', '=', 'location')
-        ->select(['email',
-                'i_identity as identity',
-                'nickname',
-                'seniority as experience',
-                'c1.country_city as locations',
-                'mobile_phone as phone',
-                'name',
-                'id_card as idCard',
-                'gender',
-                'c2.country_city as area',
-                ])
+        ->select(['email', 'i_identity as identity', 'nickname', 'seniority as experience',
+                'c1.country_city as locations', 'mobile_phone as phone', 'name', 'id_card as idCard',
+                'gender','c2.country_city as area',])
         ->where('mid', $user->mid)->first();
         // 確保沒有null值出去
         foreach($user_info as $key => &$value){
@@ -130,19 +123,13 @@ class MemberInfoController extends Controller
     }
 
     // 修改資料
-    public function updateMemInfo(Request $request){
-        // try{
-        //     // $payload = JWTAuth::parseToken()->getPayload(); // 直接抓有沒有Bearer token，只能取得payload
-        //     Auth::user();
-        // }catch(Throwable $err){
-        //     return response('無效的請求');
-        // }
-        $user = Auth::user();
+    public function updateMemInfo(Request $request)
+    {
+        $user_id = Auth::id();
         $request->validate([
             'idCard' => 'max:10',
         ]);
 
-        $user_id = Auth::user()->mid;
         try{
             Member::where('id', $user_id)->update([
                 'identity' => $request->identity,
@@ -246,18 +233,18 @@ class MemberInfoController extends Controller
         ->where('mid_service',$mid)
         ->where('c_status',2);
 
-        // //接案搜尋
-        // if($request->has('QuoteSearch')){
-        //     $Quote_query->where('d_name','like','%'.$request->input('QuoteSearch').'%');
-        // }
-        // //接案進行中搜尋
-        // if($request->has('CaseInProgressSearch')){
-        //     $Case_in_progress_query->where('c_name','like','%'.$request->input('CaseInProgressSearch').'%');
-        // }
-
-        // if($request->has('CaseCompletedSearch')){
-        //     $Case_completed_query->where('c_name','like','%'.$request->input('CaseCompletedSearch').'%');
-        // }
+        // 接案搜尋
+        if($request->has('QuoteSearch')){
+            $Quote_query->where('d_name','like','%'.$request->input('QuoteSearch').'%');
+        }
+        // 接案進行中搜尋
+        if($request->has('CaseInProgressSearch')){
+            $Case_in_progress_query->where('c_name','like','%'.$request->input('CaseInProgressSearch').'%');
+        }
+        // 接案結案搜尋
+        if($request->has('CaseCompletedSearch')){
+            $Case_completed_query->where('c_name','like','%'.$request->input('CaseCompletedSearch').'%');
+        }
 
         //分頁顯示
         $Quote_results = $Quote_query->get();
@@ -311,9 +298,8 @@ class MemberInfoController extends Controller
     // 獲取發案紀錄
     public function getPublishCase(Request $request)
     {
-        // $mid = Auth::id();
-        $mid = 1;
-        if($mid){
+        $mid = Auth::id();
+        if(Auth::id()){
             // 刊登紀錄
             $demmand_query = DB::table('demmand')
             ->join('category', 'catid', '=', 'd_type')
@@ -341,17 +327,18 @@ class MemberInfoController extends Controller
             ->where('mid_demmand',$mid)->where('c_status',2)
             ->orderBy('completed_time', 'desc')->orderBy('cid', 'desc');
 
-            // if($request->has('demmandSearch')){
-            //     $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
-            // }
-
-            // if($request->has('demmandProgressSearch')){
-            //     $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
-            // }
-
-            // if($request->has('demmandCompletedSearch')){
-            //     $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
-            // }
+            // 發案刊登搜尋
+            if($request->has('demmandSearch')){
+                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+            }
+            // 發案進行中搜尋
+            if($request->has('demmandProgressSearch')){
+                $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
+            }
+            // 發案結案搜尋
+            if($request->has('demmandCompletedSearch')){
+                $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
+            }
 
             return response()->json([
                 'demmand_published' => $demmand_query->get(),
@@ -361,10 +348,10 @@ class MemberInfoController extends Controller
         }
     }
 
-    // 修改發案刊登
+    // 編輯發案刊登
     public function updatePublishCase(Request $request)
     {
-        $mid = Auth::id();
+        if(Auth::id()){
         $request->validate([
             'index' => 'required',
             'case_name' => 'required',
@@ -400,11 +387,12 @@ class MemberInfoController extends Controller
             'mnessage' => '更新成功'
         ]);
     }
+    }
 
     // 刪除發案刊登紀錄
     public function delPublishCase(Request $request)
     {
-        if(Auth::guard('api')){
+        if(Auth::id()){
             $userId = Auth::guard('api')->id();
 
             $selectdemmand = $request->input('did');
@@ -419,7 +407,7 @@ class MemberInfoController extends Controller
     // 獲取服務管理頁面
     public function getService(Request $request)
     {
-        $mid = Auth::user()->mid;
+        $mid = Auth::id();
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
 
@@ -489,14 +477,13 @@ class MemberInfoController extends Controller
             'updated_at'=>now(),
         ]);
         return response($service);
-
     }
 
     // 刪除服務
     public function delService(Request $request)
     {
-        if(Auth::guard('api')->id()){
-            $userId = Auth::guard('api')->id();
+        if(Auth::id()){
+            $userId = Auth::id();
 
             $selectservice = $request->input('sid');
             DB::table('service')->whereIn('sid',$selectservice)

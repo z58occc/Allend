@@ -10,7 +10,7 @@ import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 export const CaseContext = createContext();
 const MainScreen2 = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
-  
+
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
@@ -59,28 +59,27 @@ const MainScreen2 = () => {
       },
     ],
   });
-  
+
   const fetchData = async () => {
     const result = await axios.get(
-      "http://127.0.0.1:8000/api/mempublishcase",
+      "http://127.0.0.1/Allend/public/api/mempublishcase",
       {
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       }
     );
     setCase(result.data);
   };
   useEffect(() => {
-
     fetchData();
   }, []);
 
   console.log(Case);
 
   return (
-    <CaseContext.Provider value={{Case,setCase,fetchData}}>
+    <CaseContext.Provider value={{ Case, setCase, fetchData }}>
       <Container xxl={12}>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
