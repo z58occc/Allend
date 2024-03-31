@@ -18,10 +18,10 @@ use Throwable;
 
 class AuthController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth:api', 'verified'], ['except' => ['login', 'register',]]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['login', 'register']]);
+    }
 
     // 註冊
     public function register(Request $request):JsonResponse
@@ -31,7 +31,7 @@ class AuthController extends Controller
             $request->validate([
                 'email' => 'required|string|email|unique:members',
                 // 'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
-                'password' => ['required', 'confirmed', 'min:6'],
+                'password' => ['required', 'confirmed', 'min:6',],
             ]);
         }
         catch (ValidationException $exception){
@@ -75,9 +75,7 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
-        $token = auth()
-            ->setTTL(120)
-            ->attempt($credentials);
+        $token = auth()->setTTL(120)->attempt($credentials);
 
         if(!$token){
             return response()->json([
@@ -88,7 +86,7 @@ class AuthController extends Controller
         $user = Auth::user();
         return response()->json([
             'user_tag' => $user->mid,
-            'user_logintime' => date('Y-m-d H:i:s'),
+            'user_logintime' => now(),
             'token' => $token,
         ]);
     }

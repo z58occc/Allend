@@ -43,7 +43,7 @@ use GuzzleHttp\Middleware;
 // 首頁
 Route::get('/index', IndexController::class);//->name('index');
 // 查看我要接案
-Route::get('/findcase/{d_type?}', IFindCaseController::class);
+Route::get('/findcase', IFindCaseController::class);
 // 查看我要找人.
 Route::get('/printservicecardcontent', IFindPeopleController::class);
 // 查看人才頁面
@@ -62,7 +62,7 @@ Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
-// 接發案內容
+// 接發案內容 (尚未處理)
 Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
 Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
 Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
@@ -75,8 +75,8 @@ Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publishEvalu
 Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
 
 // 結案畫面
-Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); //結案畫面
-Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); //結案畫面
+Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
+Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面
 
 Route::controller(AuthController::class)->group(function(){
     // 註冊
@@ -100,7 +100,7 @@ Route::post('/emailverification-notification', [EmailVerificationNotificationCon
 
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
-    // 會員儀表板
+    // 會員儀表板 (評價還沒排好)
     Route::get('/dashboard', 'dashboard');
     // 獲取會員資料
     Route::post('/mem', 'getMemInfo');
@@ -111,7 +111,7 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
-    // 編輯接案紀錄
+    // 編輯接案紀錄 (未完成)
     Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
@@ -137,8 +137,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/video', 'addVideo');
     // 編輯影音
     Route::post('/upvideo', 'updateVideo');
-    // 我的收藏
-    Route::post('/collection', 'getCollection');
+    // 獲取我的收藏頁面
+    Route::get('/collection', 'getCollection');
 });
 
 
