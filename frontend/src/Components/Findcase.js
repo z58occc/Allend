@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
-import a3 from "../Components/img/a3.png"
 import a4 from "../Components/img/a4.png"
 import a5 from "../Components/img/a5.png"
 import a6 from "../Components/img/a6.png"
@@ -21,30 +20,41 @@ import a6 from "../Components/img/a6.png"
 function Findcase() {
 
     const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                // console.log(data.service);
+    const fetchData = async (t) => {
+        let url = 'http://localhost/Allend/backend/public/api/findcase?type=';
+        if (t === "網站設計") {
+            url += "網站設計"
+        } else if (t === "軟體程式") {
+            url += "軟體程式"
+        }
+        const response = (await fetch(url)).json();
+        setPosts(response);
+        console.log(fetchData);
+    }
+    // useEffect(() => {
+    //     fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log(data);
+    //             // console.log(data.service);
 
-                // const result;
-                // for (let i = 0; i < 9; i++) {
-                //   data.service[i].image = data.project[i]["image"]
+    //             // const result;
+    //             // for (let i = 0; i < 9; i++) {
+    //             //   data.service[i].image = data.project[i]["image"]
 
-                // }
+    //             // }
 
 
 
-                // console.log(data.service)
-                setPosts(data)
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }, []);
+    //             // console.log(data.service)
+    //             setPosts(data)
+    //         })
+    //         .catch((err) => {
+    //             console.log(err.message);
+    //         });
+    // }, []);
 
-    const handleCategoryClick =()=>{
+    const handleCategoryClick = () => {
 
     }
 
