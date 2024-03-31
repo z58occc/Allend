@@ -5,9 +5,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import Category from '../Components/Category';
-import luanguage from '../Components/img/language.png'
-import softdesign from '../Components/img/softdesign.png'
-import writing from '../Components/img/writing.png'
 import product from '../Components/img/product.jfif'
 import product2 from '../Components/img/product2.jfif'
 import { Row, Col } from 'react-bootstrap';
@@ -18,7 +15,7 @@ import { Row, Col } from 'react-bootstrap';
 function Homepage() {
 
 
-  // 最新服務接API
+  // 最新服務 刊登 接API
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetch('http://127.0.0.1/Allend/backend/public/api/index')
@@ -45,7 +42,7 @@ function Homepage() {
         console.log(err.message);
       });
   }, []);
-  // 最新服務接API
+  // 最新服務 刊登 接API
 
 
 

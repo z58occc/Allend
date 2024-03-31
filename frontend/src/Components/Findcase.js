@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
 import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -13,6 +13,31 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 
 
 function Findcase() {
+
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                // console.log(data.service);
+
+                // const result;
+                // for (let i = 0; i < 9; i++) {
+                //   data.service[i].image = data.project[i]["image"]
+
+                // }
+
+
+
+                // console.log(data.service)
+                setPosts(data)
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
+
     return (
         <>
             <div className='container'>
@@ -75,63 +100,49 @@ function Findcase() {
                     <button>提案人數<GoTriangleDown /></button>
                 </div>
 
-                {/* 案件 */}
-                <div className='row'>
-                    <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
-                        案件名稱<br></br>
-                        案件類別<br></br>
-                        預算<br></br>
-                        地點:<br></br>
-                        案件期程:<br></br>
-                        5分鐘前更新<br></br>
-                    </Link>
-                    <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
-                        案件說明
-                        <div className='position-absolute bottom-0 end-0'>
-                            <Orderbuttom ></Orderbuttom>
-                        </div>
-                    </div>
+
+
+                {/* 案件欄位 */}
+                <div >
+                    {posts.map((post, index) => {
+                        return (
+                            <div className='row' key={index}>
+                                <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
+                                    {post.d_name}<br></br>
+                                    案件類別:{post.type}<br></br>
+                                    預算:${post.d_amount}/{post.d_unit}<br></br>
+                                    地點:{post.country_city}<br></br>
+                                    {post.d_duration}期<br></br>
+                                    {post.updated_at}<br></br>
+                                </Link>
+                                <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
+                                    {post.d_description}
+                                    <div className='position-absolute bottom-0 end-0'>
+                                        <Orderbuttom ></Orderbuttom>
+                                    </div>
+                                </div>
+                            </div>
+
+                        )
+                    })}
+
 
                 </div>
-                <div className='row'>
-                    <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
-                        案件名稱<br></br>
-                        案件類別<br></br>
-                        預算<br></br>
-                        地點:<br></br>
-                        案件期程:<br></br>
-                        5分鐘前更新<br></br>
-                    </Link>
-                    <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
-                        案件說明
-                        <div className='position-absolute bottom-0 end-0'>
-                            <Orderbuttom ></Orderbuttom>
-                        </div>
-                    </div>
 
-                </div>
-                <div className='row'>
-                    <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid' }}>
-                        案件名稱<br></br>
-                        案件類別<br></br>
-                        預算<br></br>
-                        地點:<br></br>
-                        案件期程:<br></br>
-                        5分鐘前更新<br></br>
-                    </Link>
-                    <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
-                        案件說明
-                        <div className='position-absolute bottom-0 end-0'>
-                            <Orderbuttom ></Orderbuttom>
-                        </div>
-                    </div>
-                </div>
+                {/* 案件欄位 */}
+
+
+
+
+
+
+
 
                 <br></br>
 
                 {/* 頁碼 */}
                 <NextPage></NextPage>
-            </div>
+            </div >
             <Footer></Footer>
         </>
     )
