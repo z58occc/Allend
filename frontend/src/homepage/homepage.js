@@ -5,13 +5,14 @@ import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import Category from '../Components/Category';
-import luanguage from '../Components/img/language.png'
-import softdesign from '../Components/img/softdesign.png'
-import writing from '../Components/img/writing.png'
-import product from '../Components/img/product.jfif'
-import product2 from '../Components/img/product2.jfif'
-import product3 from '../Components/img/product3.jpg'
+import luanguage from '../Components/img/language.png';
+import softdesign from '../Components/img/softdesign.png';
+import writing from '../Components/img/writing.png';
+import Product from '../Components/img/Product.jpg';
+import product2 from '../Components/img/product2.jpg';
+import product3 from '../Components/img/product3.jpg';
 import { Row, Col } from 'react-bootstrap';
+
 
 
 
@@ -39,6 +40,21 @@ function Homepage() {
         console.log(err.message);
       });
   }, []);
+
+
+  const [isHovered, setIsHovered] = useState(false); // State to track hover status
+  const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
+
+  const handleMouseEnter = (image) => {
+    setIsHovered(true);
+    setActiveProduct(image);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setActiveProduct(Product);
+  };
+
 
 
 
@@ -254,45 +270,64 @@ function Homepage() {
         {/* 輪播圖 */}
         <div className="d-flex  justify-content-center mt-5">
           <Row className="justify-content-md-center">
-            <Col xs lg="6">
-              <Carousel id='carousel' interval={null} indicators={false} >
-                <Carousel.Item >
-                  <Row className=" justify-content-md-center">
-                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
-                  </Row>
-                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item >
-                  <Row className=" justify-content-md-center">
-                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
-                  </Row>
-                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
+            <Col xs lg="7">
+              <Carousel id='carousel'
+                interval={null} indicators={false} controls={true} prevIcon={<span style={{ color: 'black', fontSize: '4rem' }}>‹</span>}
+                nextIcon={<span style={{ color: 'black', fontSize: '4rem' }}>›</span>}>
+
+                <Carousel.Item>
+                  <Row className=" justify-content-md-center align-items-end">
+                    <Col xs lg="7">
+                      <img src={activeProduct} style={{ width: "100%" }} />
+                    </Col>
+                    <Col xs lg="5">
+                      <Link to='./talent'>
+                        <h3 style={{ marginTop: 100 }}>會員名稱1</h3>
+                      </Link>
+                      <Row id='carouselimg' className=" justify-content-md-center">
+                        <Col xs lg="4"> <img src={product3} onMouseEnter={() => handleMouseEnter(product3)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={product2} onMouseEnter={() => handleMouseEnter(product2)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={Product} onMouseEnter={() => handleMouseEnter(Product)} onMouseLeave={handleMouseLeave} /></Col>
+                      </Row>
+                    </Col>
                   </Row>
                 </Carousel.Item>
                 <Carousel.Item >
-                  <Row className=" justify-content-md-center">
-                    <Col xs lg="6"><img src={product} style={{ width: "100%" }} /></Col>
-                    <Col xs lg="6" ><Link to='./talent'><h3 style={{marginTop:100}}>會員名稱1</h3></Link></Col>
-                  </Row>
-                  <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
-                    <Col xs lg="2"><img src={product2} /></Col>
+                  <Row className=" justify-content-md-center align-items-end">
+                    <Col xs lg="7">
+                      <img src={activeProduct} style={{ width: "100%" }} />
+                    </Col>
+                    <Col xs lg="5">
+                      <Link to='./talent'>
+                        <h3 style={{ marginTop: 100 }}>會員名稱1</h3>
+                      </Link>
+                      <Row id='carouselimg' className=" justify-content-md-center">
+                        <Col xs lg="4"> <img src={product3} onMouseEnter={() => handleMouseEnter(product3)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={product2} onMouseEnter={() => handleMouseEnter(product2)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={Product} onMouseEnter={() => handleMouseEnter(Product)} onMouseLeave={handleMouseLeave} /></Col>
+                      </Row>
+                    </Col>
                   </Row>
                 </Carousel.Item>
-                
+                <Carousel.Item >
+                  <Row className=" justify-content-md-center align-items-end">
+                    <Col xs lg="7">
+                      <img src={activeProduct} style={{ width: "100%" }} />
+                    </Col>
+                    <Col xs lg="5">
+                      <Link to='./talent'>
+                        <h3 style={{ marginTop: 100 }}>會員名稱1</h3>
+                      </Link>
+                      <Row id='carouselimg' className=" justify-content-md-center">
+                        <Col xs lg="4"> <img src={product3} onMouseEnter={() => handleMouseEnter(product3)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={product2} onMouseEnter={() => handleMouseEnter(product2)} onMouseLeave={handleMouseLeave} /></Col>
+                        <Col xs lg="4"> <img src={Product} onMouseEnter={() => handleMouseEnter(Product)} onMouseLeave={handleMouseLeave} /></Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Carousel.Item>
               </Carousel>
             </Col>
-
           </Row>
         </div>
         {/* 輪播圖 */}

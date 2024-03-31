@@ -3,7 +3,7 @@ import ourLogo from '../homepage/ourLogo.jpg';
 
 function Footer() {
     return (
-        <div className="mt-5 p-4 row" style={{ fontSize: 14, backgroundColor:"#d3f5d3" }} >
+        <div className="mt-5 p-4 row" style={{ fontSize: 14, backgroundColor:"#EFBC9B" }} >
             <span className='col-6' style={{ textAlign: 'left' }}>
                 <img style={{ width: 50 }} src={ourLogo} alt='' />
                 <span style={{color: "black"}}>

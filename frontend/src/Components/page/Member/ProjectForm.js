@@ -101,7 +101,7 @@ function ProjectForm() {
             <option value="網站設計">網站設計</option>
             <option value="軟體程式">軟體程式</option>
             <option value="文字語言">文字語言</option>
-            <option value="平面設計">程式設計</option>
+            <option value="平面設計">平面設計</option>
             <option value="專業諮詢">專業諮詢</option>
           </Form.Control>
         </Form.Group>
