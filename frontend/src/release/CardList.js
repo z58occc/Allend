@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Button, Form, Modal, Table } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
 import CaseDetailsModal1 from "./CaseDetailsModal1";
 import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
+import { CaseContext } from "./MainScreen2"; 
 // import CaseContext from './CaseContext';
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
+  
+
+  const { fetchData } = useContext(CaseContext);
   const CaseData = data1;
-  // let CaseData = [
-  //   {
-  //     "d_name": "心理諮商師",
-  //     "d_required": 1,
-  //     "d_amount": 3000,
-  //     "d_unit": "次",
-  //     "created_at": "2024-03-19 08:05:59"
-  //   }
-  // ];
+
+
 
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
@@ -49,33 +46,54 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     setSelectedItems(newSelectedItems);
   };
   //刪除
-  // const [deletedIndex, setdeletedIndex] = useState([]);
-  
-  // let deletedData = [];
-  // let didOFdeletedData = [];
-  // const handleDeleted =  async () =>{
-  //   selectedItems.forEach((item,index)=>{
-  //   if(item === true){
-  //     deletedIndex.push(index);
-  //   }
-  //   CaseData.forEach((items,index)=>{
-  //     if(deletedIndex.includes(index)){
-  //       deletedData = CaseData.filter((item, index) => deletedIndex.includes(index));
-
-  //     }
-  //   })
-  //   didOFdeletedData = deletedData.map(item => item.did);
-  //   const response =  fetch ("http://127.0.0.1:8000/api/delpublishcase", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ did: didOFdeletedData }),
-  //   });
 
 
-  // })
-  // }
+  const [deletedIndex, setDeletedIndex] = useState([]);
+
+  let deletedData = [];
+  let didOfDeletedData = [];
+
+  const handleDeleted = async () => {
+    const deletedIndices = [];
+    selectedItems.forEach((item, index) => {
+      if (item === true) {
+        deletedIndices.push(index);
+      }
+    });
+  setDeletedIndex(deletedIndices);
+
+  deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+
+
+  didOfDeletedData = deletedData.map(item => item.did);
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/delPublishCase", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ did: didOfDeletedData }),
+    });
+    console.log(didOfDeletedData)
+    
+    fetchData();
+    setSelectedItems([false])
+    if (!response.ok) {
+      throw new Error('Failed to delete data');
+    }
+
+    const responseData = await response.json();
+    console.log('Response data:', responseData);
+
+    // Handle successful response, such as updating the page or other operations
+
+  } catch (error) {
+    console.error('Error deleting data:', error);
+    // Handle error cases, such as displaying error messages or other handling
+  }
+};
+
   
   
   // 案件詳情Modal
@@ -130,7 +148,12 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       />
     );
   }
-
+  if (!CaseData || CaseData.length === 0) {
+    return (<h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      未有紀錄
+    </h1>)
+    
+  }
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div

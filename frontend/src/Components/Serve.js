@@ -8,8 +8,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import violence from './violence.jpg';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-import product from '../Components/img/product.jfif'
-import product2 from '../Components/img/product2.jfif'
+import product from '../Components/img/Product.jpg'
+import product2 from '../Components/img/product2.jpg'
 import Stick from './Stick';
 
 

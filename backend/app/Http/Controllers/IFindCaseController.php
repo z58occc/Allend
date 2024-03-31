@@ -54,6 +54,25 @@ class IFindCaseController extends Controller
 
         //         }
         // }else{ $query->orderBy('created_at', 'desc');}
+        switch($d_type){
+            case '1':
+                $query->where('d_type', $d_type);
+                break;
+            case '2':
+                $query->where('d_type', $d_type);
+                break;
+            case '3':
+                $query->where('d_type', $d_type);
+                break;
+            case '4':
+                $query->where('d_type', $d_type);
+                break;
+            case '5':
+                $query->where('d_type', $d_type);
+                break;
+            default:
+                break;
+        }
 
         $order = $request->order;
         switch($order){

@@ -86,6 +86,7 @@ Route::controller(AuthController::class)->group(function(){
     // 登出
     Route::post('/logout', 'logout');
 });
+
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 // 重設密碼
@@ -96,6 +97,7 @@ Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
 ->middleware(['auth', 'throttle:6,1']);
+
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板

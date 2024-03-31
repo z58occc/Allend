@@ -18,8 +18,8 @@ function Category() {
 
                 // const result;
                 // for (let i = 0; i < 9; i++) {
-                //   data.service[i].image = data.project[i]["image"]
-
+                // //   data.service[i].image = data.project[i]["image"]
+                
                 // }
 
 

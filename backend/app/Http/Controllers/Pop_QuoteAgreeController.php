@@ -55,14 +55,19 @@ class Pop_QuoteAgreeController extends Controller
     // 同意報價
     public function agreeQuote(Request $request)
     {
-        // if($request->has('agree')){
+        $demmand_id = Auth::id();
+        // 先預設一次處理一筆，從前端傳來報價者id、案件id
+        $quote_mid = $request->mid;
+        $did = $request->did;
+        // 單筆同意
         $agree = DB::table('demmand')
                 ->join('quote','demmand.did','=','quote.did')
                 ->select('demmand.mid as demmand_mid','quote.mid as quote_mid','d_name','d_type',
-                'd_duration','d_description','d_active_location','q_amount')
-                ->where('quote.mid',$request->input('mid'))
+                'd_duration','d_description','d_active_location','q_amount','d_unit','d_contact_name',
+                'd_email', 'd_mobile_phone')
+                ->where('quote.did', $did)->where('quote.mid',$quote_mid)
                 ->get();
-            dd($agree);
+            // dd($agree);
         foreach($agree as $row){
             DB::table('established_case')->insert([
                 'mid_demmand' => $row->demmand_mid,
@@ -81,17 +86,17 @@ class Pop_QuoteAgreeController extends Controller
                 'created_at'=>now(),
                 'updated_at'=>now()
             ]);
+            DB::table('quote')->where('mid',$quote_mid)->where('did', $did)->delete();
         }
-        DB::table('quote')->where('mid',$request->input('mid'))->delete();
 
-        return response()->json(['message'=>'Agree Success']);
-        // }
+        return response()->json(['message'=>'已同意報價']);
     }
 
     // 拒絕報價
     public function disagreeQuote(Request $request)
     {
-        DB::table('quote')->where('mid',$request->input('mid'))->delete();
-        return response()->json(['message'=>'Disagree Success']);
+        DB::table('quote')->where('did', $request->did)->where('mid',$request->mid)->delete();
+
+        return response()->json(['message'=>'已拒絕報價']);
     }
 }
