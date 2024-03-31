@@ -29,7 +29,8 @@ function Findcase() {
         }
         const response = (await fetch(url)).json();
         setPosts(response);
-        console.log(fetchData);
+        console.log(posts);
+        
     }
     // useEffect(() => {
     //     fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
@@ -81,7 +82,7 @@ function Findcase() {
                         <div className="row justify-content-center">
 
                             <div className="col-sm-2 ">
-                                <Link to='/findcase' onClick={handleCategoryClick}>
+                                <Link to='/findcase' onClick={()=> fetchData("網站設計")}>
                                     <div >網站設計</div>
                                     <img src={a1} style={{ width: 50 }}></img>
                                 </Link>
