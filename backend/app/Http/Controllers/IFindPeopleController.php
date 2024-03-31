@@ -28,19 +28,19 @@ class IFindPeopleController extends Controller
         if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
 
 
-        //     if(!empty($identity_query)){
-        //         $member->whereIn('identity',explode(',',$identity_query));
-        //     }
+            if(!empty($identity_query)){
+                $member->whereIn('identity',explode(',',$identity_query));
+            }
 
-        //     if(!empty($country_query)){
-        //         $member->whereIn('active_location',explode(',',$country_query));
-        //     }
+            if(!empty($country_query)){
+                $member->whereIn('active_location',explode(',',$country_query));
+            }
 
-        //     if(!empty($seniority_query)){
-        //         $member->whereIn('seniority',explode(',',$seniority_query));
-        //     }
+            if(!empty($seniority_query)){
+                $member->whereIn('seniority',explode(',',$seniority_query));
+            }
 
-        // }
+        }
 
         //排序
         if($sort_query){
@@ -72,10 +72,6 @@ class IFindPeopleController extends Controller
 
             $member_total = $member->paginate(9);
 
-            foreach($member_total as $k => $v){
-                echo $k;
-            }
-
 
 
 
@@ -94,5 +90,4 @@ class IFindPeopleController extends Controller
 
         // return response()->json($Data_response);
 
-}
 }
