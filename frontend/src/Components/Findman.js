@@ -3,7 +3,7 @@ import Footer from "../homepage/Footer";
 import Category from "./Category2";
 import { GoTriangleDown } from "react-icons/go";
 import NextPage from "../homepage/NextPage";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import Chatbutton from "./ChatButtom";
 import axios from "axios";
@@ -49,6 +49,8 @@ const Findman = () => {
     kinmen: false,
     lienchang: false,
   });
+
+  // let {s_type} = useParams();
 
   const [sort, setSort] = React.useState({});
   const [currentPage, setCurrentPage] = React.useState(1);
