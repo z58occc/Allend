@@ -10,35 +10,28 @@ import a6 from "../Components/img/a6.png"
 function Category() {
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        const url = window.location.href;
-        console.log(url);
-        
-        const type =new URL(url).searchParams.type;
-        console.log(type);
+    // const url = window.location.href;
+    // console.log(url);
+    // const type = new URL(url);
+    // console.log(type);
+    // console.log(type.pathname);
+    const url = "http://localhost/Allend/backend/public/api/findcase?type="
+    const href = window.location.href
+    const type = new URL(href);
+    console.log(type.pathname);
+    if (type.pathname == "/findcase") {
+        fetchData();
+        console.log("1")
+    }
 
-        switch (type) {
-            case "網站設計":
-                url += "1";
-                break;
-            case "軟體程式":
-                url += "2";
-                break;
-            case "平面設計":
-                url += "3";
-                break;
-            case "文字語言":
-                url += "4";
-                break;
-            case "專業諮詢":
-                url += "5";
-                break;
-            default:
-                break;
-                
+    // switch (type.pathname) {
+    //     case "/":
+    //         break;
+    //     case "/findcase":
+    //         fetchData();
+    //         break;
 
-        }
-    }, []);
+    // }
     const fetchData = async (type) => {
         let url = "http://localhost/Allend/backend/public/api/findcase?type=";
         switch (type) {

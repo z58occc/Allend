@@ -12,6 +12,10 @@ import Product from "../Components/img/Product.jpg";
 import product2 from "../Components/img/product2.jpg";
 import product3 from "../Components/img/product3.jpg";
 import { Row, Col } from "react-bootstrap";
+import { MdOutlineMoneyOff } from "react-icons/md";
+import { FaWpforms } from "react-icons/fa";
+import { FaHandshake } from "react-icons/fa";
+import "./homepage.css";
 
 function Homepage() {
   // 最新服務 刊登 接API
@@ -79,10 +83,31 @@ function Homepage() {
         <Category></Category>
         <br></br>
 
+        <h4>新手教學</h4>
+        <div className="container mt-5">
+                <div className="row justify-content-center">
+                    <div className="col-3 custom-col" style={{ textAlign: 'center' }}>
+                        <h4 style={{ color: "blue" }}>提出需求 <FaHandshake /></h4>
+                        <p>為你篩選適合人才</p>
+                    </div>
+                    <div className="col-3 custom-col" style={{ textAlign: 'center' }}>
+                        <h4 style={{ color: "blue" }}>刊登服務<FaWpforms /></h4>
+                        <p>上架您的專長</p>
+                    </div>
+                    <div className="col-3 custom-col" style={{ textAlign: 'center' }}>
+                        <h4 style={{ color: "blue" }}>完全免費 <MdOutlineMoneyOff /></h4>
+                        <p>找人才輕鬆無壓力</p>
+                    </div>
+                
+            </div>
+        </div>
+    
+
+
         {/* 最新服務 */}
         <div className=" mt-5">最新服務</div>
-        <div>
-          <div className="posts-container" style={{ display: "flex" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="posts-container" style={{ display: "flex"  }}>
             {posts.slice(0, 3).map((post, index) => {
               return (
                 <Row style={{ margin: "48px" }}>
