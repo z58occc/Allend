@@ -6,8 +6,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ClosethecaseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DemmandContentController;
@@ -27,7 +27,6 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WorkController;
-use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,13 +62,13 @@ Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
 // 接發案內容 (尚未處理)
-Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
-Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
-Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
+// Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
+// Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
+// Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
 Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //提交成果給發案主的按鈕
-Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的儲存變更按鈕
-Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的提交按鈕
-Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
+// Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的接案紀錄
+Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的儲存變更按鈕
+// Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
 Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
 Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publishEvaluation']); //發案者的評價按鈕
 Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
@@ -97,6 +96,9 @@ Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
 ->middleware(['auth', 'throttle:6,1']);
+// 生成、驗證驗證碼
+Route::get('/capgeneration', [CaptchaController::class, 'reloadCaptcha']);
+Route::post('/capvalidation', [CaptchaController::class, 'validateCaptcha']);
 
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
