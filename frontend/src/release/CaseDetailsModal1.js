@@ -31,6 +31,47 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
   const [emailError, setEmailError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(1);
+    fetch('http://127.0.0.1:8000/api/updatePublishCase', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nameOfCase,
+        category,
+        cooperationTime,
+        location,
+        details,
+        budget,
+        unit,
+        userName,
+        email,
+        contact,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return res;
+        } else {
+          throw new Error('Response is not in JSON format');
+        }
+      })
+      .then((data) => {
+        console.log('Case details updated successfully:', data);
+        setNameOfCase('');
+        setCategory('');
+        // Other state updates...
+      })
+      .catch((error) => {
+        console.error('There was a problem updating the case:', error);
+      });
+
+
 
     if (!emailError) {
       setNameOfCase("");
@@ -71,9 +112,8 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="col" style={{ marginBottom: "10px", fontSize: "20px" }}>
-          <strong>案件編號：{data[number].did}</strong>
-        </div>
+
+        <Form.Label>案件編號：{data[number].did}</Form.Label>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="numberOfPeople">
             <Form.Label>案件名稱：</Form.Label>
@@ -253,8 +293,9 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => {
-              handleSubmit();
+            onClick={(e) => {
+              e.preventDefault(); // Prevent default form submission
+              handleSubmit(e); // Pass the event object to handleSubmit
             }}
           >
             儲存變更

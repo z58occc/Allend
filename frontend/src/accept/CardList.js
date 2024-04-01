@@ -62,7 +62,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
               <Card.Title>{(screen === 1 && item.d_name) || (screen === 2 && item.c_name) || (screen === 3 && item.c_name)}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
-                <Card.Text>{screen === 3 ? <>完成日期：{item.completed_time}</> : <>合作期程: {item.c_duration || item.d_duration}</>}</Card.Text>
+                <Card.Text>{screen === 3 ? <>完成日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</Card.Text>
                 <Card.Text> {(screen === 1 &&<>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</Card.Text>
               </div>
             </Card.Body>
