@@ -97,23 +97,27 @@ Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
 ->middleware(['auth', 'throttle:6,1']);
 // 生成、驗證驗證碼
-Route::get('/capgeneration', [CaptchaController::class, 'reloadCaptcha']);
-Route::post('/capvalidation', [CaptchaController::class, 'validateCaptcha']);
+// Route::get('/capgeneration', [CaptchaController::class, 'reloadCaptcha']);
+// Route::post('/capvalidation', [CaptchaController::class, 'validateCaptcha']);
 
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
     // 會員儀表板 (評價還沒排好)
     Route::get('/dashboard', 'dashboard');
-    // 獲取會員資料
-    Route::post('/mem', 'getMemInfo');
-    // 修改會員資料
+    // 獲取接案方資料
+    Route::get('/mem', 'getMemInfo');
+    // 修改接案方資料
     Route::post('/updateprofiles', 'updateMemInfo');
+    // 獲取發案方資料
+    Route::get('/demmandmem', 'getDemmandInfo');
+    // 修改發案方資料
+    Route::post('/updatedemmand', 'updateDemmandInfo');
     // 修改密碼
     Route::post('/fixp', 'updatePassword');
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
-    // 編輯接案紀錄 (未完成)
+    // 編輯接案紀錄
     Route::get('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
