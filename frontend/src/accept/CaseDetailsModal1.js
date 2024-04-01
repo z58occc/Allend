@@ -23,6 +23,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
   const [messages, setMessages] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+
   };
   return (
     <>
@@ -86,7 +87,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
                     <Form.Control
                       as="textarea"
                       placeholder="請輸入最少十個字"
-                      value= {data[number].q_amount}
+                      // value= {data[number].q_amount}
                       onChange={(e) => setMessages(e.target.value)}
                       required
                     />
@@ -109,7 +110,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
               </div> */}
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" size="lg" >
+              <Button variant="primary" size="lg" onClick={()=>{}}>
                 儲存變更
               </Button>
               <Button variant="secondary" size="lg" onClick={onHide}>

@@ -43,8 +43,8 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
 
   return (
     <div className="d-flex flex-wrap justify-content-around">
-      <div className="d-flex justify-content-around" style={{ width: '800px', visibility }} >
-        <SearchPage/>
+      <div className="d-flex justify-content-end" style={{ width: '800px', visibility }} >
+        <SearchPage></SearchPage>
       </div>
       {
       // CaseData.length === 0 ? <h2>未有紀錄</h2>   
@@ -58,13 +58,12 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
         }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
-              <Card.Text>開始日期: </Card.Text>
+              <Card.Text> {(screen === 1 && <>建立日期：{item.created_at}</>) || (screen === 2 && <>建立日期：{item.created_at}</>) || (screen === 3 && <>建立日期：{item.created_at}</>)}</Card.Text>
               <Card.Title>{(screen === 1 && item.d_name) || (screen === 2 && item.c_name) || (screen === 3 && item.c_name)}</Card.Title>
               <hr style={{ background: 'black' }} />
               <div className="d-flex justify-content-between">
-                <Card.Text>截止日期: </Card.Text>
-                <Card.Text>金額: {(screen === 1 && item.q_amount) || (screen === 2 && item.c_amount) || (screen === 3 && item.c_amount)}</Card.Text>
-                <Card.Text>人數: </Card.Text>
+                <Card.Text>{screen === 3 ? <>完成日期：{item.completed_time}</> : <>合作期程: {item.c_duration || item.d_duration}</>}</Card.Text>
+                <Card.Text> {(screen === 1 &&<>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</Card.Text>
               </div>
             </Card.Body>
             {screen === 3  ? 

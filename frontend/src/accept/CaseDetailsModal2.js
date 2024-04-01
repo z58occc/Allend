@@ -16,34 +16,34 @@ const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
         <div className="container" style={{ fontSize: '18px' }}>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件編號:</strong> 
+              <strong>案件編號：{data[number].cid}</strong> 
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件名稱:</strong>
-            </div>
-          </div>
-          <div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件類別:</strong>
-            </div>
-            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件地點:</strong> 
+              <strong>案件名稱：{data[number].c_name}</strong>
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>案件金額:</strong>{data[number].c_amount}
+              <strong>案件類別：{data[number].type}</strong>
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>發案人姓名:</strong> 
+              <strong>案件地點：{data[number].active_location}</strong> 
             </div>
           </div>
           <div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>發案人Email:</strong> 
+              <strong>案件金額：</strong>{data[number].c_amount}/{data[number].c_unit}
             </div>
             <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-              <strong>發案人手機:</strong> 
+              <strong>發案人姓名：{data[number].c_contact_name}</strong> 
+            </div>
+          </div>
+          <div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>發案人Email：{data[number].c_email}</strong> 
+            </div>
+            <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
+              <strong>發案人手機：{data[number].c_mobile_phone}</strong> 
             </div>
           </div>
         </div>
