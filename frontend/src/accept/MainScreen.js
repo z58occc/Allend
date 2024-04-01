@@ -35,15 +35,15 @@ const MainScreen = () => {
       },
     ],
   });
-
+  // http://127.0.0.1/Allend/backend/public/api/memtakecase
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        "http://127.0.0.1/Allend/backend/public/api/memtakecase",
+        "http://127.0.0.1:8000/api/memtakecase?mid=3",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
+            // Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );
