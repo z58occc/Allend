@@ -22,7 +22,6 @@ import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
-import Test from "./homepage/test"
 
 
 
