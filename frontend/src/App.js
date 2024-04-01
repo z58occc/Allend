@@ -242,7 +242,7 @@ function App() {
 
             <li className="nav-item">
               <Link
-                to="/findman"
+                to="/findman/"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
                 style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/findman")}
@@ -280,6 +280,7 @@ function App() {
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type" element={<Findman></Findman>}></Route>
+        <Route path="/findman" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/talent" element={<Talent></Talent>}></Route>
