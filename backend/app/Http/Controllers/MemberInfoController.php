@@ -455,7 +455,7 @@ class MemberInfoController extends Controller
             $userId = Auth::guard('api')->id();
 
             $selectdemmand = $request->input('did');
-            DB::table('demmand')->where('did',$selectdemmand)
+            DB::table('demmand')->whereIn('did',$selectdemmand)
                                 ->where('mid',$userId)
                                 ->delete();
 

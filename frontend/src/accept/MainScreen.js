@@ -39,7 +39,7 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        "http://127.0.0.1:8000/api/memtakecase?mid=3",
+        "http://127.0.0.1:8000/api/memtakecase?mid=5",
         {
           headers: {
             "Content-Type": "application/json",
