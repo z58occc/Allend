@@ -28,6 +28,9 @@ function Findcase() {
     //         setPosts(data);
     //     })
 
+    useEffect(() => {
+        fetchData()
+    }, []);
     const fetchData = async (type) => {
         let url = "http://localhost/Allend/backend/public/api/findcase?type=";
         switch (type) {
@@ -46,6 +49,9 @@ function Findcase() {
             case "專業諮詢":
                 url += "5";
                 break;
+            default:
+                break;
+
 
         }
 
@@ -56,7 +62,6 @@ function Findcase() {
                 setPosts(data);
             })
     }
-
 
 
     return (
