@@ -65,23 +65,27 @@ Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote'])
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
 // Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
 // Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
-Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //提交成果給發案主的按鈕
+// Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //提交成果給發案主的按鈕
 // Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的接案紀錄
-Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的儲存變更按鈕
+// Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的儲存變更按鈕
 // Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
-Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
-Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publishEvaluation']); //發案者的評價按鈕
-Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
+// Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
+// Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publishEvaluation']); //發案者的評價按鈕
+// Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
 
-// 結案畫面
+// 從移交到結案、評價畫面
+Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接案者的提交按鈕
+Route::get('/publish_recevice', [ClosethecaseController::class,'receviceData']); // 案主接收結果的按鈕
+Route::get('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕
 Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
+Route::get('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
 Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面
 
 Route::controller(AuthController::class)->group(function(){
     // 註冊
     Route::post('/register', 'register');
     // 登入
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');
     // 登出
     Route::post('/logout', 'logout');
 });

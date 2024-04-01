@@ -73,14 +73,14 @@ class AcceptanceIssueController extends Controller
     // }
 
     //接案的儲存變更
-    public function takesaveData(Request $request){
-        $did = $request->input('did');
-        DB::table('quote')->where('did',$did)->update([
-            'q_amount' => $request->input('q_amount'),
-            'q_message' => $request->input('q_message')
-        ]);
-        return response()->json(['message'=>'Update Success']);
-    }
+    // public function takesaveData(Request $request){
+    //     $did = $request->input('did');
+    //     DB::table('quote')->where('did',$did)->update([
+    //         'q_amount' => $request->input('q_amount'),
+    //         'q_message' => $request->input('q_message')
+    //     ]);
+    //     return response()->json(['message'=>'Update Success']);
+    // }
 
     //接案中
     // public function takeprogressData(Request $request){

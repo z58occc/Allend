@@ -327,13 +327,14 @@ class MemberInfoController extends Controller
     {
         if(Auth::id()){
             $request->validate([
-                'd_amount' => 'required'
+                'amount' => 'required'
             ]);
 
             $new = DB::table('quote')->where('did', $request->did)
             ->where('mid', $request->mid)
             ->update([
-                'd_amount' => $request->d_amount,
+                'q_amount' => $request->amount,
+                'q_message' => $request->message !== null ? $request->message : "",
                 'updated_at' => now(),
             ]);
         }
