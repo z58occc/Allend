@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
@@ -7,10 +7,28 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLine } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
 import { CiChat1 } from "react-icons/ci";
+import { useParams } from 'react-router-dom';
 
 
 function Stick() {
+
+    const {mid} = useParams();
+
+    const [talent, setTalent] = useState([]);
+    useEffect(()=>{
+        const fetchtalent = async()=>{
+            try{
+                const response = await fetch(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
+                setTalent(response.data);
+            }catch(error){
+                console.error(error);
+            }
+        }
+        fetchtalent();
+    },[mid])
+    
     return (
+
         <div>
             <div style={{ textAlign: 'start', fontSize: 10, border: 'solid',  }}>
                 <div style={{ textAlign: 'center', borderBottom: 'solid' }} >

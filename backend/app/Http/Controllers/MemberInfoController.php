@@ -122,7 +122,7 @@ class MemberInfoController extends Controller
         return response()->json($user_info);
     }
 
-    // 修改資料
+    // 修改會員資料
     public function updateMemInfo(Request $request)
     {
         $user_id = Auth::id();

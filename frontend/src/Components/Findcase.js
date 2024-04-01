@@ -90,14 +90,14 @@ function Findcase() {
                             <div className="col-sm-2 ">
                                 <Link to='/findcase' onClick={() => fetchData("網站設計")}>
                                     <div >網站設計</div>
-                                    <img src={a1} style={{ width: 50 }}></img>
+                                    <img src={a1} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
                                 <Link to='/findcase' onClick={() => fetchData("軟體程式")} >
                                     <div >軟體程式</div>
-                                    <img src={a2} style={{ width: 50 }}></img>
+                                    <img src={a2} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
