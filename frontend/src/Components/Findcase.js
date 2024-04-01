@@ -19,59 +19,45 @@ import a6 from "../Components/img/a6.png"
 
 function Findcase() {
 
-    const [data, setData] = useState([]);
     const [posts, setPosts] = useState([]);
 
-    // const fetchData = async (t) => {
-    //     let url = 'http://localhost/Allend/backend/public/api/findcase?type=';
-    //     if (t === "網站設計") {
-    //         url += "網站設計"
-    //     } else if (t === "軟體程式") {
-    //         url += "軟體程式"
-    //     }
-    //     const response = (await fetch(url)).json();
-    //     setPosts(response);
-    //     console.log(posts);
+    // fetch("http://localhost/Allend/backend/public/api/findcase?type=")
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         console.log(data);
+    //         setPosts(data);
+    //     })
 
-    // }
-    // useEffect(() => {
-    //     fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //             // console.log(data.service);
+    const fetchData = async (type) => {
+        let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+        switch (type) {
+            case "網站設計":
+                url += "1";
+                break;
+            case "軟體程式":
+                url += "2";
+                break;
+            case "平面設計":
+                url += "3";
+                break;
+            case "文字語言":
+                url += "4";
+                break;
+            case "專業諮詢":
+                url += "5";
+                break;
 
-    //             // const result;
-    //             // for (let i = 0; i < 9; i++) {
-    //             //   data.service[i].image = data.project[i]["image"]
+        }
 
-    //             // }
-
-
-
-    //             // console.log(data.service)
-    //             setPosts(data)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.message);
-    //         });
-    // }, []);
-
-    function useFetch1() {
-        const [posts, setPosts] = useState([]);
-
-        useEffect(() => {
-            fetch('http://localhost/Allend/backend/public/api/findcase/1')
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    setPosts(data)
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }, [])
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setPosts(data);
+            })
     }
+
+
 
     return (
         <>
@@ -96,79 +82,35 @@ function Findcase() {
                         <div className="row justify-content-center">
 
                             <div className="col-sm-2 ">
-                                <Link to='/findcase' onClick={useFetch1}>
+                                <Link to='/findcase' onClick={() => fetchData("網站設計")}>
                                     <div >網站設計</div>
                                     <img src={a1} style={{ width: 50 }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
-                                <Link to='/findcase' onClick={
-                                    useEffect(() => {
-                                        fetch('http://localhost/Allend/backend/public/api/findcase/2')
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                console.log(data);
-                                                setPosts(data)
-                                            })
-                                            .catch((err) => {
-                                                console.log(err.message);
-                                            });
-                                    }, [])} >
+                                <Link to='/findcase' onClick={() => fetchData("軟體程式")} >
                                     <div >軟體程式</div>
                                     <img src={a2} style={{ width: 50 }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
-                                <Link to='/findcase' onClick={
-                                    useEffect(() => {
-                                        fetch('http://localhost/Allend/backend/public/api/findcase/3')
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                console.log(data);
-                                                setPosts(data)
-                                            })
-                                            .catch((err) => {
-                                                console.log(err.message);
-                                            });
-                                    }, [])} >
+                                <Link to='/findcase' onClick={() => fetchData("平面設計")} >
                                     <div >文字語言</div>
                                     <img src={a5} style={{ width: 50 }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
-                                <Link to='/findcase' onClick={
-                                    useEffect(() => {
-                                        fetch('http://localhost/Allend/backend/public/api/findcase/4')
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                console.log(data);
-                                                setPosts(data)
-                                            })
-                                            .catch((err) => {
-                                                console.log(err.message);
-                                            });
-                                    }, [])} >
+                                <Link to='/findcase' onClick={() => fetchData("文字語言")} >
                                     <div >專業諮詢</div>
                                     <img src={a4} style={{ width: 50 }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2" >
-                                <Link to='/findcase' onClick={
-                                    useEffect(() => {
-                                        fetch('http://localhost/Allend/backend/public/api/findcase/5')
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                console.log(data);
-                                                setPosts(data)
-                                            })
-                                            .catch((err) => {
-                                                console.log(err.message);
-                                            });
-                                    }, [])} >
+                                <Link to='/findcase' onClick={() => fetchData("專業諮詢")} >
                                     <div >平面設計</div>
                                     <img src={a6} style={{ width: 50 }}></img>
                                 </Link>
@@ -232,31 +174,30 @@ function Findcase() {
 
                 {/* 案件欄位 */}
                 <div >
-                    {/* {posts.map((post, index) => {
+                    {posts.map((post, index) => {
                         return (
-                            // <div key={index}>
-                            //     {post.type == "網站設計" ?
-                            //         <div className='row' key={index}>
-                            //             <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
-                            //                 {post.d_name}<br></br>
-                            //                 案件類別:{post.type}<br></br>
-                            //                 預算:${post.d_amount}/{post.d_unit}<br></br>
-                            //                 地點:{post.country_city}<br></br>
-                            //                 {post.d_duration}期<br></br>
-                            //                 {post.updated_at}<br></br>
-                            //             </Link>
-                            //             <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
-                            //                 {post.d_description}
-                            //                 <div className='position-absolute bottom-0 end-0'>
-                            //                     <Orderbuttom ></Orderbuttom>
-                            //                 </div>
-                            //             </div>
-                            //         </div>
-                            //         : ""}
-                            // </div>
+                            <div key={index}>
+                                <div className='row' key={index}>
+                                    <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
+                                        {post.d_name}<br></br>
+                                        案件類別:{post.type}<br></br>
+                                        預算:${post.d_amount}/{post.d_unit}<br></br>
+                                        地點:{post.country_city}<br></br>
+                                        {post.d_duration}期<br></br>
+                                        {post.updated_at}<br></br>
+                                    </Link>
+                                    <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
+                                        {post.d_description}
+                                        <div className='position-absolute bottom-0 end-0'>
+                                            <Orderbuttom ></Orderbuttom>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
 
                         )
-                    })} */}
+                    })}
 
 
                 </div>
