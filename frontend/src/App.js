@@ -242,7 +242,7 @@ function App() {
 
             <li className="nav-item">
               <Link
-                to="/findman/"
+                to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
                 style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
                 onClick={() => handleLinkClick("/findman")}

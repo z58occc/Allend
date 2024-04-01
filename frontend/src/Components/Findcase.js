@@ -95,14 +95,14 @@ function Findcase() {
                     <div className="container mt-5">
                         <div className="row justify-content-center">
 
-                            <div className="col-sm-2 ">
-                                <Link to='/findcase' onClick={useFetch1}>
+                            <div className="col-2">
+                                <Link to='/findcase' onClick={useFetch1} >
                                     <div >網站設計</div>
-                                    <img src={a1} style={{ width: 50 }}></img>
+                                    <img src={a1} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
-                            <div className="col-sm-2 " >
+                            <div className="col-2">
                                 <Link to='/findcase' onClick={
                                     useEffect(() => {
                                         fetch('http://localhost/Allend/backend/public/api/findcase/2')
@@ -116,11 +116,11 @@ function Findcase() {
                                             });
                                     }, [])} >
                                     <div >軟體程式</div>
-                                    <img src={a2} style={{ width: 50 }}></img>
+                                    <img src={a2} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
-                            <div className="col-sm-2 " >
+                            <div className="col-2">
                                 <Link to='/findcase' onClick={
                                     useEffect(() => {
                                         fetch('http://localhost/Allend/backend/public/api/findcase/3')
@@ -133,12 +133,12 @@ function Findcase() {
                                                 console.log(err.message);
                                             });
                                     }, [])} >
-                                    <div >文字語言</div>
-                                    <img src={a5} style={{ width: 50 }}></img>
+                                    <div >平面設計</div>
+                                    <img src={a5} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
-                            <div className="col-sm-2 " >
+                            <div className="col-2">
                                 <Link to='/findcase' onClick={
                                     useEffect(() => {
                                         fetch('http://localhost/Allend/backend/public/api/findcase/4')
@@ -151,12 +151,12 @@ function Findcase() {
                                                 console.log(err.message);
                                             });
                                     }, [])} >
-                                    <div >專業諮詢</div>
-                                    <img src={a4} style={{ width: 50 }}></img>
+                                    <div >文字語言</div>
+                                    <img src={a4} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
-                            <div className="col-sm-2" >
+                            <div className="col-2">
                                 <Link to='/findcase' onClick={
                                     useEffect(() => {
                                         fetch('http://localhost/Allend/backend/public/api/findcase/5')
@@ -169,8 +169,8 @@ function Findcase() {
                                                 console.log(err.message);
                                             });
                                     }, [])} >
-                                    <div >平面設計</div>
-                                    <img src={a6} style={{ width: 50 }}></img>
+                                    <div >專業諮詢</div>
+                                    <img src={a6} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
