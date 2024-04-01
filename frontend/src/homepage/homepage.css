@@ -1,0 +1,11 @@
+.custom-col {
+    background-color: lightblue; /* 設定背景顏色為淺藍色 */
+    border-radius: 50%; /* 將邊框設置為圓形 */
+    padding: 20px; 
+    margin: 10px;/* 添加一些間距 */
+    width: 50px; /* 調整寬度，這裡可以根據您的需求調整 */
+    height: 100px;
+    background-size: cover;
+    
+  }
+

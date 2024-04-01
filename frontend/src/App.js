@@ -205,7 +205,7 @@ function App() {
       <div
         className="p-1"
         style={{
-          display: "flex", alignItems: "center", height: 80, backgroundColor: "#EFBC9B",
+          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg, #EFBC9B, #ffdab9,#ffcab9)",
         }}
       >
         <Link to="/">
@@ -234,7 +234,7 @@ function App() {
               <Link
                 to="/findcase"
                 className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
                 我要接案
@@ -245,7 +245,7 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/findman")}
               >
                 我要找人
@@ -257,7 +257,7 @@ function App() {
               <Link
                 to="/ProjectForm"
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/ProjectForm")}
               >
                 發案
@@ -267,7 +267,7 @@ function App() {
               <Link
                 to="/member"
                 className={`nav-link ${selectedLink === "/member" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#EFBC9B", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
                 Email
