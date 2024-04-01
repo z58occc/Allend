@@ -9,6 +9,7 @@ import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import queryString from "query-string";
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"
@@ -40,6 +41,9 @@ function Findcase() {
     // console.log(type.pathname);
 
     const [posts, setPosts] = useState([]);
+    const parsed = queryString.parse(window.location.search);
+    console.log(parsed);
+    // { userId: "66"};
 
     useEffect(() => {
         fetchData()
