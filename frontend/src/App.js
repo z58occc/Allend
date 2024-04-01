@@ -284,6 +284,7 @@ function App() {
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/talent" element={<Talent></Talent>}></Route>
+        <Route path="/talent/:mid" element={<Talent></Talent>}></Route>
         <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
