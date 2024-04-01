@@ -279,6 +279,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase" element={<Findcase></Findcase>}></Route>
+        <Route path="/findcase/:s_type" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type" element={<Findman></Findman>}></Route>
         <Route path="/findman" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
