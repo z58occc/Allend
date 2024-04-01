@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class TalentController extends Controller
 {
-    public function __invoke(Request $request, $mid)
+    public function __invoke(Request $request)
     {
         // 人才頁面
+        $mid = $request->input('mid');
         $query = DB::table('members')->select('name','identity','avatar','about','fb','line','last_login')->where('mid',$mid);
         $establised_query = DB::table('established_case')->select('demmand_star','demmand_time','demmand_comment','c_name','compelete_time','mid_demmand')->where('mid_service',$mid);
-        $project_query = DB::table('project')->select('pid', 'image', 'p_name', 'p_description', 'updated_at')->where('mid',$mid);
+        $project_query = DB::table('project')->select('pid', 'image', 'p_name', 'p_description', 'created_at')->where('mid',$mid);
         $video_query = DB::table('video')->select('vid', 'v_name', 'v_description', 'src', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
         $service_query = DB::table('service')->select('sid', 's_name', 's_amount', 's_unit', 'image', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
 

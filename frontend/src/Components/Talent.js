@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../homepage/Footer';
 import { CiStar } from "react-icons/ci";
 import facebook from './facebook.png'
 import Nav from 'react-bootstrap/Nav';
 import { GoTriangleDown } from "react-icons/go";
 import violence from './violence.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import cow from './img/cow.jpg'
 import beauty from './img/beauty.jpg'
 import MRG from './img/MRG.jpg'
@@ -13,11 +13,31 @@ import Stick from './Stick';
 import { FaFacebook } from "react-icons/fa";
 import { Col, Row } from 'react-bootstrap';
 import { FaLine } from "react-icons/fa";
+import axios from 'axios';
 
 
 
 
 function Talent() {
+
+    const {mid} = useParams();
+    const [talent, setTalent] = useState([]);
+    // const [project,setproject] = useState([]);
+    useEffect(()=>{
+        const fetchtalent = async()=>{
+            try{
+                const respone = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${1}`);
+                setTalent(respone.data);
+                // setproject(respone.data.project);
+                // console.log(respone.data.member[0].about);
+            }catch(err){
+                console.error(err);
+            }
+        };
+        fetchtalent();
+    },[mid])
+
+    
     return (
         <>
             <div className='container'>
@@ -67,7 +87,7 @@ function Talent() {
                             </Nav.Item>
                         </Nav>
                         <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
-                            關於我.........
+                            {talent.member && talent.member[0].about}
                         </div>
                         <div style={{ borderBottom: 'solid', textAlign: 'end' }}>
                             <button>最新<GoTriangleDown /></button>
@@ -75,76 +95,43 @@ function Talent() {
                         </div>
                         <div id='item' className='mt-5'>作品:</div>
                         <div className="row ">
+                        {talent.project && talent.project.map((item,index) => (
                             <div className="col-sm-4  ">
                                 <div className='card'>
                                     <div className="card-header">
-                                        <img src={cow} style={{ width: "100%" }}></img>
+                                        <img src={`data:image/jpeg;base64,${item.image}`} style={{ width: "100%", height: 200 }}></img>
                                     </div>
                                     <div className="card-body">
-                                        <span>作品名稱</span>
+                                        <span>{item.p_name}</span>
                                         <div>
-                                            <span style={{ float: 'right' }}>瀏覽數</span><br />
-                                            <p style={{ fontSize: '12px', float: 'right' }}>發布時間:2024/01/03</p>
+
+                                            <p style={{ fontSize: '12px', float: 'right' }}>發布時間:{item.created_at}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4  ">
-                                <div className='card'>
-                                    <div className="card-header">
-                                        <img src={beauty} style={{ width: "100%" }}></img>
-                                    </div>
-                                    <div className="card-body">
-                                        作品品項<br></br>
-                                        發布時間
-                                        <span style={{ float: "right" }}>瀏覽數</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4  ">
-                                <div className='card'>
-                                    <div className="card-header">
-                                        <img src={MRG} style={{ width: "100%" }}></img>
-                                    </div>
-                                    <div className="card-body">
-                                        作品品項<br></br>
-                                        發布時間
-                                        <span style={{ float: "right" }}>瀏覽數</span>
-                                    </div>
-                                </div>
-                            </div>
+                                                        ))}
+
 
                         </div>
 
 
                         <div id='video' className='mt-5'>影音:</div>
+                        {talent.video && talent.video.map((item,index) => (
                         <div className="row ">
                             <div className="col-sm-4  ">
                                 <div className='card'>
-                                    <div className="card-header">img</div>
-                                    <div className="card-body">
-                                        影音名稱
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4  ">
-                                <div className='card'>
-                                    <div className="card-header">img</div>
-                                    <div className="card-body">
-                                        影音名稱
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4  ">
-                                <div className='card'>
-                                    <div className="card-header">img</div>
-                                    <div className="card-body">
-                                        影音名稱
-                                    </div>
-                                </div>
-                            </div>
+                                    <div className="card-header">
+                                    <iframe width="560" height="315" src={item.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+                                    </div>
+                                    <div className="card-body">
+                                        {item.v_name}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        ))}
                         <p id='serve' className='mt-5'>服務:</p>
                         <div className='row'>
 

@@ -46,7 +46,7 @@ Route::get('/findcase', IFindCaseController::class);
 // 查看我要找人.
 Route::get('/printservicecardcontent', IFindPeopleController::class);
 // 查看人才頁面
-Route::get('/talent/{mid}', TalentController::class);
+Route::get('/talent', TalentController::class);
 // 查看案件內容
 Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
