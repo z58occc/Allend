@@ -7,7 +7,7 @@ import Category from './Category';
 import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
@@ -18,6 +18,13 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
+    // const { s_type } = useParams();
+    // console.log({ s_type });
+
+    // const url = `window.location.href /${ s_type }`
+    // console.log(url);
+
+
 
 
     // fetch("http://localhost/Allend/backend/public/api/findcase?type=")
@@ -26,6 +33,11 @@ function Findcase() {
     //         console.log(data);
     //         setPosts(data);
     //     })
+    // const url = window.location.href;
+    // console.log(url);
+    // const type = new URL(url);
+    // console.log(type);
+    // console.log(type.pathname);
 
     const [posts, setPosts] = useState([]);
 
@@ -88,7 +100,11 @@ function Findcase() {
                         <div className="row justify-content-center">
 
                             <div className="col-sm-2 ">
-                                <Link to='/findcase' onClick={() => fetchData("網站設計")}>
+                                <Link to='/findcase' onClick={() => {
+                                    const { s_type } = "1";
+                                    fetchData("網站設計")
+                                }
+                                }>
                                     <div >網站設計</div>
                                     <img src={a1} style={{ width: '60px' }}></img>
                                 </Link>

@@ -52,7 +52,7 @@ class MemberInfoController extends Controller
                                                 ->first();
 
         // 作為接案方的評價星數
-        if (DB::table('established_case')->where('mid_service', $user->mid)->exists()){
+        if (DB::table('established_case')->where('mid_service', $user->mid)->where('c_status', 2)->exists()){
         $service_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(demmand_star, 0))) as service_rating'))
                                                         ->where('mid_service', $user->mid)->where('c_status', 2)
                                                         ->first();
@@ -64,7 +64,7 @@ class MemberInfoController extends Controller
                                                       ->first();
 
         // 作為發案方的評價星數
-        if (DB::table('established_case')->where('mid_demmand', $user->mid)->exists()){
+        if (DB::table('established_case')->where('mid_demmand', $user->mid)->where('c_status', 2)->exists()){
         $demmand_rating = DB::table('established_case')->select(DB::raw('round(avg(ifnull(service_star, 0))) as demmand_rating'))
                                                         ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                         ->first();}
@@ -95,7 +95,7 @@ class MemberInfoController extends Controller
         return response()->json($data);
     }
 
-    // 獲取會員資料
+    // 獲取接案方資料
     public function getMemInfo(Request $request)
     {
         // try{
@@ -122,16 +122,24 @@ class MemberInfoController extends Controller
         return response()->json($user_info);
     }
 
-    // 修改會員資料
+    // 修改接案方資料
     public function updateMemInfo(Request $request)
     {
         $user_id = Auth::id();
         $request->validate([
-            'idCard' => 'max:10',
+            'identity' => "required",
+            'experience' => "required",
+            'locations' =>"required",
+            'idCard' => "required|max:10",
+            'name' => "required",
+            'phone' =>"required|max:10",
+            'gender' => "required",
+            'area' => "required",
+            'nickname' => "required",
         ]);
 
         try{
-            Member::where('id', $user_id)->update([
+            Member::where('mid', $user_id)->update([
                 'identity' => $request->identity,
                 'nickname' => $request->nickname,
                 'seniority' => $request->exprience,
@@ -153,6 +161,46 @@ class MemberInfoController extends Controller
         ]);
     }
 
+    // 獲取發案方資料
+    public function getDemmandInfo()
+    {
+        $user = Auth::user();
+        $user_info = DB::table('members')
+        ->select(['email', 'mobile_phone as phone', 'name',])
+        ->where('mid', $user->mid)->first();
+        // 確保沒有null值出去
+        foreach($user_info as $key => &$value){
+            if ($value === null){
+                $user_info->$key = "";
+            }
+        }
+        return response()->json($user_info);
+    }
+
+    // 修改發案方資料
+    public function updateDemmandInfo(Request $request)
+    {
+        $user_id = Auth::id();
+        $request->validate([
+            'phone' => 'required',
+            'name' => 'required',
+        ]);
+
+        try{
+            Member::where('mid', $user_id)->update([
+                'mobile_phone' => $request->phone,
+                'name' => $request->name,
+                'updated_at' => now(),
+            ]);
+        }catch(Throwable $err){
+            return response()->json([
+                'message' => '修改失敗'
+            ]);
+        }
+        return response()->json([
+            'message' => '修改成功'
+        ]);
+    }
     // public function update(ProfileUpdateRequest $request): RedirectResponse
     // {
     //     // 會跑去檢查rules，回傳json字串，fill()參考User內的$fillable對應值傳入資料庫
@@ -277,10 +325,21 @@ class MemberInfoController extends Controller
     // 編輯接案紀錄
     public function updateTakeCase(Request $request)
     {
-        $type = DB::table('category')->where('type', $request->type)->value('catid');
-        $location = DB::table('country')->where('country_city', $request->location)->value('country_id');
+        if(Auth::id()){
+            $request->validate([
+                'd_amount' => 'required'
+            ]);
 
-
+            $new = DB::table('quote')->where('did', $request->did)
+            ->where('mid', $request->mid)
+            ->update([
+                'd_amount' => $request->d_amount,
+                'updated_at' => now(),
+            ]);
+        }
+        return response()->json([
+            'message' => '更新成功'
+        ]);
     }
 
     // 刪除接案紀錄
@@ -396,7 +455,7 @@ class MemberInfoController extends Controller
             $userId = Auth::guard('api')->id();
 
             $selectdemmand = $request->input('did');
-            DB::table('demmand')->where('did',$selectdemmand)
+            DB::table('demmand')->whereIn('did',$selectdemmand)
                                 ->where('mid',$userId)
                                 ->delete();
 

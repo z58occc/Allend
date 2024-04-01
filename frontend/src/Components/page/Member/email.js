@@ -61,9 +61,8 @@ function FreelancerForm() {
       try {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
-        const res = await axios.post(
+        const res = await axios.get(
           "http://localhost/PHP/Allend/backend/public/api/mem",
-          {},
           { headers: headers }
         );
         const result = await res.data;
@@ -140,9 +139,9 @@ function FreelancerForm() {
         phone: formData.phone,
         gender: formData.gender,
         area: formData.area,
-        // email: formData.email,
         name: formData.name,
       },
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     });
     // 在這裡處理表單提交
     console.log(formData);

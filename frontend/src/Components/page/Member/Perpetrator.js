@@ -1,26 +1,46 @@
 import React, { useState, useEffect } from "react";
-import {Form, Button, Row, Col,Container} from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import Footer from "../../../homepage/Footer";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // 發案人維護资料
 function ClientForm() {
   const [formData, setFormData] = useState({
-    companyName: "",
-    mobile: "",
+    name: "",
+    phone: "",
     email: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isFormComplete, setIsFormComplete] = useState(false);
+  const [isFormComplete, setIsFormComplete] = useState(true);
   const [mobileError, setMobileError] = useState(false);
   const [EmailError, setEmailError] = useState(false);
 
+  // useEffect(() => {
+  //   // 检查表单是否完整
+  //   const isComplete = Object.values(formData).every((value) => value !== "");
+  //   setIsFormComplete(isComplete);
+  // }, [formData]);
+
   useEffect(() => {
-    // 检查表单是否完整
-    const isComplete = Object.values(formData).every((value) => value !== "");
-    setIsFormComplete(isComplete);
-  }, [formData]);
+    const fetchData = async (complete) => {
+      try {
+        const token = Cookies.get("token");
+        const headers = { Authorization: `Bearer ${token}` };
+        const res = await axios.get(
+          "http://localhost/PHP/Allend/backend/public/api/demmandmem",
+          { headers: headers }
+        );
+        const result = await res.data;
+        setFormData(result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,17 +53,9 @@ function ClientForm() {
         setEmailError(false);
       }
     }
-
-
-
-
-
-
-    // 针对手机输入进行限制
-    if (name === "mobile") {
-      // 确保只输入数字
+    if (name === "phone") {
       const onlyNums = value.replace(/[^0-9]/g, "");
-      // 检查手机号格式是否正确
+
       if (onlyNums.length === 10 && onlyNums.startsWith("09")) {
         setMobileError(false);
       } else {
@@ -53,18 +65,33 @@ function ClientForm() {
         ...prevState,
         [name]: onlyNums,
       }));
+      console.log(formData);
     } else {
       setFormData((prevState) => ({
         ...prevState,
         [name]: value,
       }));
+      console.log(formData);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 在这里处理表单提交
-    console.log(formData);
+    axios({
+      method: "post",
+      url: "http://localhost/PHP/Allend/backend/public/api/updatedemmand",
+      data: {
+        phone: formData.phone,
+        name: formData.name,
+      },
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 设置表单提交完成的状态为true
     setIsSubmitted(true);
@@ -72,8 +99,8 @@ function ClientForm() {
 
   const handleReset = () => {
     setFormData({
-      companyName: "",
-      mobile: "",
+      name: "",
+      phone: "",
       email: "",
     });
     setIsSubmitted(false);
@@ -93,12 +120,12 @@ function ClientForm() {
               <div className="text-center mt-3">提交完成</div>
             ) : (
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formCompanyName">
+                <Form.Group className="mb-3" controlId="formname">
                   <Form.Label>真實名字/公司名稱：</Form.Label>
                   <Form.Control
                     type="text"
-                    name="companyName"
-                    value={formData.companyName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     placeholder="請輸入真實名字/公司名稱"
                   />
@@ -108,8 +135,8 @@ function ClientForm() {
                   <Form.Label>行動電話：</Form.Label>
                   <Form.Control
                     type="text"
-                    name="mobile"
-                    value={formData.mobile}
+                    name="phone"
+                    value={formData.phone}
                     onChange={handleChange}
                     placeholder="請輸入手機號碼"
                     // 根据手机号格式错误状态设置样式
@@ -123,23 +150,30 @@ function ClientForm() {
 
                 <Form.Group className="mb-3" controlId="formEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control
+                  {/* <Form.Control
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="請輸入Email"
                     isInvalid={EmailError}
-
-                  />
+                  /> */}
+                  <p>{formData.email}</p>
                 </Form.Group>
 
-                <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                >
                   <Button
                     type="submit"
                     variant="danger"
                     style={{ width: "50%" }}
-                    disabled={!isFormComplete}>
+                    disabled={!isFormComplete}
+                  >
                     提交
                   </Button>
                   <Button variant="secondary" onClick={handleReset}>
@@ -150,9 +184,8 @@ function ClientForm() {
             )}
           </Col>
         </Row>
-        </Container>
-        <Footer></Footer>
-      
+      </Container>
+      <Footer></Footer>
     </>
   );
 }
