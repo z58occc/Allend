@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../homepage/Footer';
 import { CiStar } from "react-icons/ci";
-import facebook from './facebook.png'
 import Nav from 'react-bootstrap/Nav';
 import { GoTriangleDown } from "react-icons/go";
 import violence from './violence.jpg'
 import { Link, useParams } from 'react-router-dom';
-import cow from './img/cow.jpg'
-import beauty from './img/beauty.jpg'
-import MRG from './img/MRG.jpg'
 import Stick from './Stick';
 import { FaFacebook } from "react-icons/fa";
 import { Col, Row } from 'react-bootstrap';
 import { FaLine } from "react-icons/fa";
 import axios from 'axios';
+import YouTubeEmbed from './youtube';
 
 
 
@@ -118,12 +115,12 @@ function Talent() {
 
                         <div id='video' className='mt-5'>影音:</div>
                         {talent.video && talent.video.map((item,index) => (
+                            
                         <div className="row ">
                             <div className="col-sm-4  ">
                                 <div className='card'>
                                     <div className="card-header">
-                                    <iframe width="560" height="315" src={item.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+                                        <YouTubeEmbed url={item.src} />
                                     </div>
                                     <div className="card-body">
                                         {item.v_name}
@@ -134,8 +131,7 @@ function Talent() {
                         ))}
                         <p id='serve' className='mt-5'>服務:</p>
                         <div className='row'>
-
-
+                            
                             <div className="col-sm-4 ">
                                 <div className="card" >
                                     <div className="card-header"><img src={violence} style={{ width: 100 }}></img></div>
@@ -149,21 +145,33 @@ function Talent() {
                                     <div className="card-footer " style={{ justifyContent: 'end' }}>2024/03/18</div>
                                 </div>
                             </div>
-                            <Link to='/serve' className="col-sm-4 ">
-                                <div class="card">
-                                    <div class="card-header">Header</div>
-                                    <div class="card-body">Content</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </Link>
-                            <Link to='/serve' className="col-sm-4 ">
-                                <div class="card">
-                                    <div class="card-header">Header</div>
-                                    <div class="card-body">Content</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </Link>
+                            
+                            {talent.service && talent.service.map((item,index)=>(
 
+                            <Link to='/serve' className="col-sm-4 ">
+                                <div class="card">
+                                    <div class="card-header">
+                                    <img src={`data:image/jpeg;base64,${item.image}`} style={{ width: "100%", height: 200 }}></img>
+                                        </div>
+                                    <div class="card-body">
+                                        {item.s_name}
+                                        <br></br>
+                                        {item.s_amount}/{item.s_unit}
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                </div>
+                            </Link>
+                            ))}
+
+                            <Link to='/serve' className="col-sm-4 ">
+                                <div class="card">
+                                    <div class="card-header">Header</div>
+                                    <div class="card-body">Content</div>
+                                    <div class="card-footer">Footer</div>
+                                </div>
+                            </Link>
+                            
                         </div>
                         <div className='mt-5 row'>
                             {/* 評價 */}
