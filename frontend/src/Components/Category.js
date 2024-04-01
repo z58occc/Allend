@@ -9,29 +9,67 @@ import a6 from "../Components/img/a6.png"
 
 function Category() {
     const [posts, setPosts] = useState([]);
+
     useEffect(() => {
-        fetch('http://localhost/Allend/backend/public/api/findcase/{d_type}')
+        const url = window.location.href;
+        console.log(url);
+        
+        const type =new URL(url).searchParams.type;
+        console.log(type);
+
+        switch (type) {
+            case "網站設計":
+                url += "1";
+                break;
+            case "軟體程式":
+                url += "2";
+                break;
+            case "平面設計":
+                url += "3";
+                break;
+            case "文字語言":
+                url += "4";
+                break;
+            case "專業諮詢":
+                url += "5";
+                break;
+            default:
+                break;
+                
+
+        }
+    }, []);
+    const fetchData = async (type) => {
+        let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+        switch (type) {
+            case "網站設計":
+                url += "1";
+                break;
+            case "軟體程式":
+                url += "2";
+                break;
+            case "平面設計":
+                url += "3";
+                break;
+            case "文字語言":
+                url += "4";
+                break;
+            case "專業諮詢":
+                url += "5";
+                break;
+            default:
+                break;
+
+
+        }
+
+        fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                // console.log(data.service);
-
-                // const result;
-                // for (let i = 0; i < 9; i++) {
-                // //   data.service[i].image = data.project[i]["image"]
-                
-                // }
-
-
-
-                // console.log(data.service)
-                // setPosts(data.service)
+                setPosts(data);
             })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }, []);
-
+    }
     return (
 
 
@@ -41,35 +79,35 @@ function Category() {
                 <div className="row justify-content-center">
 
                     <div className="col-sm-2 ">
-                        <Link to='/findcase' >
+                        <Link to='/findcase' onClick={() => fetchData("網站設計")}>
                             <div >網站設計</div>
                             <img src={a1} style={{ width: 50 }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-                    <div className="col-sm-2 ">
-                        <Link to='/findcase' >
+                    <div className="col-sm-2 " >
+                        <Link to='/findcase' onClick={() => fetchData("軟體程式")} >
                             <div >軟體程式</div>
                             <img src={a2} style={{ width: 50 }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-                    <div className="col-sm-2 ">
-                        <Link to='/findcase' >
+                    <div className="col-sm-2 " >
+                        <Link to='/findcase' onClick={() => fetchData("平面設計")} >
                             <div >文字語言</div>
                             <img src={a5} style={{ width: 50 }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-                    <div className="col-sm-2 ">
-                        <Link to='/findcase' >
+                    <div className="col-sm-2 " >
+                        <Link to='/findcase' onClick={() => fetchData("文字語言")} >
                             <div >專業諮詢</div>
                             <img src={a4} style={{ width: 50 }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-                    <div className="col-sm-2">
-                        <Link to='/findcase' >
+                    <div className="col-sm-2" >
+                        <Link to='/findcase' onClick={() => fetchData("專業諮詢")} >
                             <div >平面設計</div>
                             <img src={a6} style={{ width: 50 }}></img>
                         </Link>

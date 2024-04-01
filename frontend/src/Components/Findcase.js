@@ -19,7 +19,6 @@ import a6 from "../Components/img/a6.png"
 
 function Findcase() {
 
-    const [posts, setPosts] = useState([]);
 
     // fetch("http://localhost/Allend/backend/public/api/findcase?type=")
     //     .then((response) => response.json())
@@ -27,6 +26,8 @@ function Findcase() {
     //         console.log(data);
     //         setPosts(data);
     //     })
+
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         fetchData()
