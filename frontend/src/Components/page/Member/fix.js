@@ -24,7 +24,7 @@ function PasswordForm() {
     const cookie = Cookies.get("token");
     axios({
       method: "post",
-      url: "http://localhost/PHP/Allend/backend/public/api/resetpwd",
+      url: "http://localhost/Allend/backend/public/api/resetpwd",
       data: {
         oldpassword: oldPassword,
         password: newPassword,
