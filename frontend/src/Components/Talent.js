@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../homepage/Footer';
 import { CiStar } from "react-icons/ci";
 import Nav from 'react-bootstrap/Nav';
-import { GoTriangleDown } from "react-icons/go";
-import violence from './violence.jpg'
 import { Link, useParams } from 'react-router-dom';
 import Stick from './Stick';
 import { FaFacebook } from "react-icons/fa";
@@ -19,14 +17,11 @@ function Talent() {
 
     const {mid} = useParams();
     const [talent, setTalent] = useState([]);
-    // const [project,setproject] = useState([]);
     useEffect(()=>{
         const fetchtalent = async()=>{
             try{
-                const respone = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${1}`);
+                const respone = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
                 setTalent(respone.data);
-                // setproject(respone.data.project);
-                // console.log(respone.data.member[0].about);
             }catch(err){
                 console.error(err);
             }
@@ -61,7 +56,7 @@ function Talent() {
                 </div>
                 <div className='row mt-5 p-5'>
                     <div className='col-sm-2 ' >
-                        <div style={{ position: '-webkit-sticky', position: 'sticky', top: 0 }}>
+                        <div style={{ position: '-webkit-sticky', top: 0 }}>
                             <Stick ></Stick>
                         </div>
                     </div>
@@ -86,17 +81,14 @@ function Talent() {
                         <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
                             {talent.member && talent.member[0].about}
                         </div>
-                        <div style={{ borderBottom: 'solid', textAlign: 'end' }}>
-                            <button>最新<GoTriangleDown /></button>
-                            <button>瀏覽數<GoTriangleDown /></button>
-                        </div>
+
                         <div id='item' className='mt-5'>作品:</div>
                         <div className="row ">
                         {talent.project && talent.project.map((item,index) => (
                             <div className="col-sm-4  ">
                                 <div className='card'>
                                     <div className="card-header">
-                                        <img src={`data:image/jpeg;base64,${item.image}`} style={{ width: "100%", height: 200 }}></img>
+                                        <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
                                     </div>
                                     <div className="card-body">
                                         <span>{item.p_name}</span>
@@ -132,26 +124,12 @@ function Talent() {
                         <p id='serve' className='mt-5'>服務:</p>
                         <div className='row'>
                             
-                            <div className="col-sm-4 ">
-                                <div className="card" >
-                                    <div className="card-header"><img src={violence} style={{ width: 100 }}></img></div>
-                                    <div className="card-body">
-                                        揍你一拳
-                                        <br></br>
-                                        $1000/拳
-                                        <hr></hr>
-                                        接案人名稱:林一拳
-                                    </div>
-                                    <div className="card-footer " style={{ justifyContent: 'end' }}>2024/03/18</div>
-                                </div>
-                            </div>
-                            
                             {talent.service && talent.service.map((item,index)=>(
 
-                            <Link to='/serve' className="col-sm-4 ">
+                            <Link to={`/serve/${mid}/${item.sid}`} className="col-sm-4 ">
                                 <div class="card">
                                     <div class="card-header">
-                                    <img src={`data:image/jpeg;base64,${item.image}`} style={{ width: "100%", height: 200 }}></img>
+                                    <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
                                         </div>
                                     <div class="card-body">
                                         {item.s_name}
@@ -162,41 +140,30 @@ function Talent() {
                                     </div>
                                 </div>
                             </Link>
-                            ))}
-
-                            <Link to='/serve' className="col-sm-4 ">
-                                <div class="card">
-                                    <div class="card-header">Header</div>
-                                    <div class="card-body">Content</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </Link>
-                            
+                            ))}    
                         </div>
                         <div className='mt-5 row'>
-                            {/* 評價 */}
+                            評價({talent.case_complete && talent.case_complete}):<br></br>
+                            {talent.established_case && talent.established_case.map((item,index)=>(
                             <div style={{ border: "solid" }}>
                                 <div id='price'>
-                                    評價(100):<br></br>
-                                    <span style={{ border: 'solid' }}>案件</span>
-                                    <Link to='/casecontext' style={{ marginLeft: 30 }}>案件名稱</Link>
-                                    價錢
+                                    <span style={{ borderRadius:'10px', backgroundColor: 'skyblue',padding: '2px' }}>
+                                        案件</span>
+                                    <Link to='/casecontext' style={{ marginLeft: 30 }}>
+                                        {item.c_name}</Link>
                                 </div>
                                 <div>
                                     <Row>
                                         <Col xs lg="1"><FaFacebook size={30}></FaFacebook></Col>
                                         <Col xs lg="10">
                                             <div style={{ border: 'solid' }} >
-                                                案主評價:
-                                                <CiStar />
-                                                <CiStar />
-                                                <CiStar />
-                                                <CiStar />
-                                                <CiStar />
+                                                案主評價:{Array.from({length:item.demmand_star},(_,i)=>(
+                                                    <CiStar key={i}/>
+                                                ))}
                                                 <br></br>
-                                                案主留言:服務很好很棒
+                                                案主留言:{item.demmand_comment}
                                                 <br></br>
-                                                <div style={{ textAlign: 'right' }}>2024/XX/XX </div>
+                                                <div style={{ textAlign: 'right' }}>{item.demmand_time} </div>
                                             </div>
                                         </Col>
                                     </Row>
@@ -204,46 +171,30 @@ function Talent() {
                                         <Col xs lg="1"><FaLine size={30}></FaLine></Col>
                                         <Col xs lg="10">
                                             <div style={{ border: 'solid' }} >
-                                                接案人留言:服務很好很棒
+                                                接案人留言:{item.service_comment}
                                                 <br></br>
-                                                <div style={{ textAlign: 'right' }}>2024/XX/XX </div>
+                                                <div style={{ textAlign: 'right' }}>{item.service_time}</div>
                                             </div>
                                         </Col>
-                                    </Row>
+                                    </Row> 
                                 </div>
                             </div>
-
-                            {/* 評價 */}
-
-
+                            ))}
                             <br></br>
 
                             {/* 成交件數 */}
-                            <div className='mt-5' style={{ border: "solid" }}>
-                                <div>
-                                    成交件數(100):<br></br>
-
-
-                                </div>
-
+                            <div className='mt-5 row'>
+                            成交件數:({talent.case_member_count})
+                            <div style={{ border: "solid" }}>
+                            {talent.case_member && talent.case_member.map((item,index)=>(
                                 <div className='mt-4 '>
-                                    <span style={{ border: 'solid' }}>案件</span>
-                                    <Link style={{ margin: "30px" }} to='/casecontext'>案件名稱</Link>
-                                    2024/XX/XX 案主:李XX
+                                    <span style={{ border: 'solid' }}>{item.c_name}</span>
+                                    <Link style={{ margin: "30px" }} to='/casecontext'></Link>
+                                    {item.completed_time} 案主:{item.name}
                                 </div>
-                                <div className='mt-4 '>
-                                    <span style={{ border: 'solid' }}>案件</span>
-                                    <Link style={{ margin: "30px" }} to='/casecontext'>案件名稱</Link>
-                                    2024/XX/XX 案主:李XX
-                                </div>
-                                <div className='mt-4 '>
-                                    <span style={{ border: 'solid' }}>案件</span>
-                                    <Link style={{ margin: "30px" }} to='/casecontext'>案件名稱</Link>
-                                    2024/XX/XX 案主:李XX
-                                </div>
-
+                                ))}
                             </div>
-
+                            </div>
                             {/* 成交件數 */}
 
                             <br></br>
