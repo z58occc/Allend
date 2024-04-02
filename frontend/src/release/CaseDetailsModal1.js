@@ -116,7 +116,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               placeholder="填寫案件名稱"
               value={nameOfCase}
               onChange={(e) => setNameOfCase(e.target.value)}
-              onChange={(e) => setNameOfCase(e.target.value)}
+
               required
             />
           </Form.Group>
