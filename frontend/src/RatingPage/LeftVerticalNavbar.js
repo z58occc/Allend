@@ -4,6 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
 import member from './member.png';
+import { Link } from "react-router-dom";
 
 
 
@@ -94,17 +95,17 @@ const LeftVerticalNavbar = () => {
                                         <Accordion.Header>{item.text}</Accordion.Header>
                                         <Accordion.Body>
                                             {index === 1 ? (
-
-
-                                                <div>
-                                                    <Nav.Link href="/switch" className="nav-link-no-arrow">資料維護</Nav.Link>
-
-                                                    <Nav.Link href="/fix" className="nav-link-no-arrow">修改密碼</Nav.Link>
+                                                <div className="links-container">
+                                                    <Link to="/switch" className="nav-link-no-arrow">資料維護</Link>
+                                                    <br></br>
+                                                    <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
                                                 </div>
+
                                             ) : (
-                                                <div>
-                                                    <Nav.Link href="/commit" className="nav-link-no-arrow">發案紀錄</Nav.Link>
-                                                    <Nav.Link href="/service" className="nav-link-no-arrow">接案紀錄</Nav.Link>
+                                                <div className="links-container">
+                                                    <Link to="/commit" className="nav-link-no-arrow">發案紀錄</Link>
+                                                    <br></br>
+                                                    <Link to="/service" className="nav-link-no-arrow">接案紀錄</Link>
                                                 </div>
                                             )}
                                         </Accordion.Body>

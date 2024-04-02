@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from "axios";
 
 import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { GoTriangleDown } from "react-icons/go";
-import Category from './Category';
+
 import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
@@ -19,6 +20,83 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
+
+    // Modal下面
+    // const QuoteNumber = useRef();
+    // const QuoteMessage = useRef();
+
+    // const SendQuote = async (number, message) => {
+    //     try {
+    //         const res = await axios.post(
+    //             "http://localhost/Allend/backend/public/api/quote",
+    //             {
+    //                 q_amount: number,
+    //                 q_message: message
+    //             }
+
+    //         );
+    //         return res.data;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
+
+    // const handleQuote = async () => {
+    //     const number = QuoteNumber.current.value;
+    //     const message = QuoteMessage.current.value;
+    //     try {
+    //         const data = await SendQuote(number, message);
+    //         console.log(data);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    //     setShow(false);
+
+    // }
+    async function postJSON(data) {
+        fetch("http://localhost/Allend/backend/public/api/quote", {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log("Success:", result);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+    }
+
+
+
+    const data = { username: "example" };
+    console.log(data);
+
+    postJSON(data);
+
+    const A = postJSON(data);
+    console.log(A);
+
+
+
+    // Modal下面
+
+
+
+
+
+
+    // Modal上面
     const [key, setkey] = useState(0);
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -30,13 +108,12 @@ function Findcase() {
         setkey(index)
         console.log(index)
     };
+    // Modal上面
 
-
-    const [currentData, setcurrentData] = useState();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetchData()
+        postJSON()
     }, []);
     const fetchData = async (type) => {
         if (window.location.href == "http://localhost:3000/findcase") {
@@ -297,20 +374,29 @@ function Findcase() {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>報價金額</Form.Label>
+                            <Form.Label>報價金額</Form.Label>
+                            <Form.Group className="mb-3 d-flex" controlId="exampleForm.ControlInput1" >
                                 <Form.Control
+                                    style={{ width: "100px" }}
                                     type=''
                                     autoFocus
-                                    value={posts[key]?.d_amount+"/"+posts[key]?.d_unit}
-                                />
+                                    value={posts[key]?.d_amount}
+                                // ref={QuoteNumber}
+                                >
+                                </Form.Control>
+                                <span className='mt-2'>{"/" + posts[key]?.d_unit}</span>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
                                 <Form.Label>接案人留言</Form.Label>
-                                <Form.Control as="textarea" rows={3} placeholder='請輸入訊息' />
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder='請輸入訊息'
+                                // ref={QuoteMessage} 
+                                />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
