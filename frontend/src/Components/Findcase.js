@@ -22,38 +22,63 @@ import a6 from "../Components/img/a6.png"
 function Findcase() {
 
     // Modal下面
-    const QuoteNumber = useRef();
-    const QuoteMessage = useRef();
+    // const QuoteNumber = useRef();
+    // const QuoteMessage = useRef();
 
-    const SendQuote = async (number, message) => {
+    // const SendQuote = async (number, message) => {
+    //     try {
+    //         const res = await axios.post(
+    //             "http://localhost/Allend/backend/public/api/quote",
+    //             {
+    //                 q_amount: number,
+    //                 q_message: message
+    //             }
+
+    //         );
+    //         return res.data;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
+
+    // const handleQuote = async () => {
+    //     const number = QuoteNumber.current.value;
+    //     const message = QuoteMessage.current.value;
+    //     try {
+    //         const data = await SendQuote(number, message);
+    //         console.log(data);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    //     setShow(false);
+
+    // }
+    const postJSON = async (data) => {
         try {
-            const res = await axios.post(
-                "http://localhost/Allend/backend/public/api/quote",
-                {
-                    q_amount: number,
-                    q_message: message
-                }
+            const response = await fetch("http://localhost/Allend/backend/public/api/quote", {
+                method: "POST", // or 'PUT'
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
-            );
-            return res.data;
-        } catch (err) {
-            console.log(err);
+            const result = await response.json();
+            console.log("Success:", result);
+        } catch (error) {
+            console.error("Error:", error);
         }
-    };
-
-
-    const handleQuote = async () => {
-        const number = QuoteNumber.current.value;
-        const message = QuoteMessage.current.value;
-        try {
-            const data = await SendQuote(number, message);
-            console.log(data);
-        } catch (err) {
-            console.log(err);
-        }
-        setShow(false);
-
     }
+
+    const data = { username: "example" };
+    console.log(data);
+
+    postJSON(data);
+
+    const A = postJSON(data);
+    console.log(A);
+
 
 
     // Modal下面
@@ -80,7 +105,7 @@ function Findcase() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetchData()
+        postJSON()
     }, []);
     const fetchData = async (type) => {
         if (window.location.href == "http://localhost:3000/findcase") {
@@ -347,7 +372,7 @@ function Findcase() {
                                     type=''
                                     autoFocus
                                     value={posts[key]?.d_amount + "/" + posts[key]?.d_unit}
-                                    ref={QuoteNumber}
+                                // ref={QuoteNumber}
                                 />
                             </Form.Group>
                             <Form.Group
@@ -359,13 +384,14 @@ function Findcase() {
                                     as="textarea"
                                     rows={3}
                                     placeholder='請輸入訊息'
-                                    ref={QuoteMessage} />
+                                // ref={QuoteMessage} 
+                                />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
 
-                        <Button variant="primary" onClick={handleQuote} >
+                        <Button variant="primary" onClick={handleClose} >
                             送出
                         </Button>
                     </Modal.Footer>
