@@ -61,7 +61,7 @@ Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
-// 接發案內容 (尚未處理)
+// 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
 // Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
 // Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
@@ -106,7 +106,7 @@ Route::post('/emailverification-notification', [EmailVerificationNotificationCon
 
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function(){
-    // 會員儀表板 (評價還沒排好)
+    // 會員儀表板
     Route::get('/dashboard', 'dashboard');
     // 獲取接案方資料
     Route::get('/mem', 'getMemInfo');
@@ -118,7 +118,10 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/updatedemmand', 'updateDemmandInfo');
     // 修改密碼
     Route::post('/fixp', 'updatePassword');
-
+    // 獲取頭像
+    Route::get('/avaimg', 'getAvatar');
+    // 修改頭像
+    Route::post('/avatar', 'updateAvatar');
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
     // 編輯接案紀錄

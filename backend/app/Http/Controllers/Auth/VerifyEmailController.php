@@ -32,7 +32,8 @@ class VerifyEmailController extends Controller
             // dd($request->user('api'));
         if ($request->user('api')->hasVerifiedEmail()) {
             return redirect()->intended(
-                config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
+                // config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
+                config('app.frontend_url').'/switch'
             );
         }
 
@@ -41,7 +42,8 @@ class VerifyEmailController extends Controller
         }
 
         return redirect()->intended(
-            config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
+            // config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
+            config('app.frontend_url').'/switch'
         );
     }
 }
