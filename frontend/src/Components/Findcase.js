@@ -19,16 +19,20 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
+    const [key, setkey] = useState(0);
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false);
     }
-    const handleShow = () => {
+
+    const handleShow = (index) => {
         setShow(true)
+        setkey(index)
+        console.log(index)
     };
 
 
-
+    const [currentData, setcurrentData] = useState();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -37,6 +41,7 @@ function Findcase() {
     const fetchData = async (type) => {
         if (window.location.href == "http://localhost:3000/findcase") {
             let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+
 
 
 
@@ -67,6 +72,7 @@ function Findcase() {
                     console.log(data[0].type);
                     console.log(data);
                     setPosts(data);
+
                 })
 
 
@@ -257,7 +263,10 @@ function Findcase() {
                                     <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                                         {post.d_description}
                                         <div className='position-absolute bottom-0 end-0'>
-                                            <Button onClick={handleShow} >我要報價</Button>
+                                            <Button onClick={() => {
+                                                // setcurrentData(post[index]);
+                                                handleShow(index);
+                                            }}>我要報價</Button>
                                         </div>
                                     </div>
 
@@ -275,15 +284,15 @@ function Findcase() {
 
 
 
-                {/* 我要報價頁面 */}
 
+                {/* 我要報價頁面 */}
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header >
                         <Modal.Title style={{ fontSize: 15 }} >
-                            案件名稱:<span></span><hr></hr>
-                            案件編號:<input></input><hr></hr>
-                            案件類別:<input></input><hr></hr>
-                            案件地點:<input></input><hr></hr>
+                            案件名稱:<span>{posts[key]?.d_name}</span><hr></hr>
+                            案件編號:<span>{posts[key]?.did}</span><hr></hr>
+                            案件類別:<span>{posts[key]?.type}</span><hr></hr>
+                            案件地點:<span>{posts[key]?.country_city}</span><hr></hr>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -292,8 +301,8 @@ function Findcase() {
                                 <Form.Label>報價金額</Form.Label>
                                 <Form.Control
                                     type=''
-                                    placeholder="請輸入金額"
                                     autoFocus
+                                    value={posts[key]?.d_amount+"/"+posts[key]?.d_unit}
                                 />
                             </Form.Group>
                             <Form.Group
