@@ -6,6 +6,7 @@ import CaseDetailsModal1 from "./CaseDetailsModal1";
 import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
 import { CaseContext } from "./MainScreen2"; 
+import GetQuoteModal from "./GetQuoteModal";
 // import CaseContext from './CaseContext';
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
@@ -21,7 +22,6 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   const [selectedDataKey, setSelectedDataKey] = useState(0);
   const handlesetSelectedDataKey = (index) => {
     setSelectedDataKey(index);
-    console.log(index);
   };
   // 全選功能
   const [checked, setChecked] = useState(false);
@@ -94,28 +94,30 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   }
 };
 
-  
-  
-  // 案件詳情Modal
-  const [showModal1, setShowModal1] = useState(false);
+// 案件詳情Modal
+const [showModal1, setShowModal1] = useState(false);
 
-  // 子元件編輯查看
-  const handleModalShow1 = () => {
-    setShowModal1(true);
-  };
-  const handleModalClose1 = () => {
-    setShowModal1(false);
-    setSelectedDataKey(0);
-  };
-  // 查看報價按鈕控制
+// 子元件編輯查看
+const handleModalShow1 = () => {
+  setShowModal1(true);
+};
+const handleModalClose1 = () => {
+  setShowModal1(false);
+  setSelectedDataKey(0);
+};
+// 查看報價按鈕控制
+
+  const handleIndex = (index) => {
+    setSelectedIndex(index)
+  }
   const [showModal, setShowModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const handleShowQuoteModal = (item) => {
-    setSelectedItem(item);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const handleShowQuoteModal = () => {
     setShowModal(true);
   };
   const handleCloseModal = () => {
     setShowModal(false);
+    setSelectedIndex(0)
   };
 
   // CardList選擇子元件
@@ -259,6 +261,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                   {text}
                 </Button>
                 <Button
+                  key={index}
                   variant="secondary"
                   className="my-2 d-inline-block"
                   style={{
@@ -268,7 +271,10 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                     textAlign: "center",
                     visibility,
                   }}
-                  onClick={() => handleShowQuoteModal(item)}
+                  onClick={() => {
+                    handleShowQuoteModal();
+                    handleIndex(index);
+                  }}
                 >
                   查看報價
                 </Button>
@@ -279,63 +285,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       ))}
 
       {/* 查看報價Modal */}
-      <Modal show={showModal} onHide={handleCloseModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>
-            查看報價 - {selectedItem && selectedItem.title}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>案件名稱</th>
-                <th>接案人姓名</th>
-                <th>Email</th>
-                <th>族群</th>
-                <th>報價金額</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>項目名稱</td>
-                <td>NTD$ 1000</td>
-                <td>NTD$ 1000</td>
-                <td>NTD$ 1000</td>
-                <td>
-                  <div class="d-flex justify-content-start">
-                    <Button
-                      variant="secondary"
-                      style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                    >
-                      接受
-                    </Button>
-                    <Button
-                      variant="danger"
-                      style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                    >
-                      拒絕
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                    >
-                      聊聊
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            關閉
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <GetQuoteModal show={showModal} onHide={handleCloseModal} index={selectedIndex}></GetQuoteModal>
+      
 
       {ComponentToRender}
     </div>

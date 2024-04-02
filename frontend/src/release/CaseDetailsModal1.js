@@ -1,24 +1,14 @@
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import axios from 'axios';
 // import Cookies from 'js-cookie';
 import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
-
+import { CaseContext } from "./MainScreen2";
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
-  // const [Case,setCase] = useState(0)
-  // const [Budget, setBudget] = useState(data[number].d_amount)
-  // const [inputValue, setInputValue] = useState(1);
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  // };
+  //useContext from Mainscreen
+  const { fetchData } = useContext(CaseContext);
 
-  // const handleSetCase = ()=>{
-  //   const updatedCase = [...data]; // 複製一份 data 狀態陣列
-  //   updatedCase[number].d_name = inputValue; // 更新案件名稱
-  //   setCase(updatedCase); // 使用 setCase 更新整個 data 狀態
-  //   onHide(); // 關閉 Modal
-  // }
   const [nameOfCase, setNameOfCase] = useState("");
   const [category, setCategory] = useState("");
   const [cooperationTime, setCooperationTime] = useState("");
@@ -52,29 +42,15 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
         phone: contact,
       }),
     })
-      .then((res) => {
-        // if (!res.ok) {
-        //   throw new Error('Network response was not ok');
-        // }
-        // const contentType = res.headers.get('content-type');
-        // if (contentType && contentType.includes('application/json')) {
-          console.log(res)
-        // return res.json();
-        // } else {
-        //   throw new Error('Response is not in JSON format');
-        // }
-      })
-      .then((data) => {
-        // console.log(data)
-        // console.log('Case details updated successfully:', data);
-        // setNameOfCase('');
-        // setCategory('');
-        // Other state updates...
-      })
-      .catch((error) => {
+    .then((res) => {
+        console.log(res);
+        onHide();
+        fetchData();
+    })
+    .catch((error) => {
         console.error('There was a problem updating the case:', error);
-      });
-      // console.log(nameOfCase)
+    });  
+
 
 
     if (!emailError) {
@@ -294,7 +270,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           <Form.Group controlId="contact">
             <Form.Label>聯絡方式：</Form.Label>
             <Form.Control
-              type="text"
+              type="phone"
               placeholder="請輸入電話號碼"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
