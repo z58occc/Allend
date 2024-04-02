@@ -17,7 +17,6 @@ import { Link, useParams } from "react-router-dom";
 >>>>>>> 183078b (Revert "修正衝突")
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
->>>>>>> 9b40f34865cbbf1321a593d879e9fc657967131c
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"
@@ -61,22 +60,30 @@ function Findcase() {
     //     setShow(false);
 
     // }
-    const postJSON = async (data) => {
-        try {
-            const response = await fetch("http://localhost/Allend/backend/public/api/quote", {
-                method: "POST", // or 'PUT'
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
+    async function postJSON(data) {
+        fetch("http://localhost/Allend/backend/public/api/quote", {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log("Success:", result);
+            })
+            .catch(error => {
+                console.error("Error:", error);
             });
 
-            const result = await response.json();
-            console.log("Success:", result);
-        } catch (error) {
-            console.error("Error:", error);
-        }
     }
+
+
 
     const data = { username: "example" };
     console.log(data);
@@ -373,14 +380,17 @@ function Findcase() {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>報價金額</Form.Label>
+                            <Form.Label>報價金額</Form.Label>
+                            <Form.Group className="mb-3 d-flex" controlId="exampleForm.ControlInput1" >
                                 <Form.Control
+                                    style={{ width: "100px" }}
                                     type=''
                                     autoFocus
-                                    value={posts[key]?.d_amount + "/" + posts[key]?.d_unit}
+                                    value={posts[key]?.d_amount}
                                 // ref={QuoteNumber}
-                                />
+                                >
+                                </Form.Control>
+                                <span className='mt-2'>{"/" + posts[key]?.d_unit}</span>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
