@@ -19,6 +19,7 @@ class TalentController extends Controller
                     ->join('country','country_id','=','active_location')
                     ->select('name','i_identity','about','fb','line','last_login','country_city')
                     ->where('mid',$mid);
+
         $case_complete = DB::table('established_case')
                     ->select('demmand_star', DB::raw('COUNT(*) AS total_completed'))
                     ->where('c_status', 2)
@@ -34,12 +35,12 @@ class TalentController extends Controller
                     ->where('established_case.mid_service', $mid)
                     ->whereNotNull('demmand_star') // 如果 demmand_star 是 NULL，將其排除
                     ->whereNotNull('demmand_time')
-                    ->whereNotNull('demmand_comment') 
-                    ->whereNotNull('c_name') 
-                    ->whereNotNull('completed_time') 
+                    ->whereNotNull('demmand_comment')
+                    ->whereNotNull('c_name')
+                    ->whereNotNull('completed_time')
                     ->whereNotNull('mid_demmand')
                     ->whereNotNull('service_comment')
-                    ->whereNotNull('service_time'); 
+                    ->whereNotNull('service_time');
         $project_query = DB::table('project')->select('pid', 'image', 'p_name', 'p_description', 'created_at')->where('mid',$mid);
         $video_query = DB::table('video')->select('vid', 'v_name', 'v_description', 'src', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
         $service_query = DB::table('service')->select('sid', 's_name', 's_amount', 's_unit', 'image', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
@@ -52,13 +53,12 @@ class TalentController extends Controller
                             ->select('e.c_name','completed_time','m.name')
                             ->where('mid_service', $mid)
                             ->where('c_status',2);
-        
 
         // 平均星星
         $total_start = $establised_query->sum('demmand_star');
         $count = $establised_query->count();
         $avg = $count > 0 ? $total_start / $count : 0;
-        
+
         //單服務平均星星
         if(!empty($sid)){
             $avgserve_start = $establised_query
@@ -69,7 +69,7 @@ class TalentController extends Controller
         }else{
             $avgserve = 0;
         }
-    
+
         // 上線時間
         $Last = $query->get();
         foreach($Last as $value){
@@ -85,6 +85,19 @@ class TalentController extends Controller
                 $difference = $interval->d . '天前上線';
             }
             $value->last_login = $difference;
+            // 身分轉中文
+            switch($value->i_identity)
+            {
+                case "freelancer":
+                    $value->i_identity = "個人";
+                    break;
+                case "company":
+                    $value->i_identity = "公司";
+                    break;
+                case "studio":
+                    $value->i_identity = "工作室";
+                    break;
+            }
         }
 
         $Data_response = [

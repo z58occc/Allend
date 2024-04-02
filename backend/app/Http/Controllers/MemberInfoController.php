@@ -249,6 +249,21 @@ class MemberInfoController extends Controller
         }
     }
 
+    // 修改頭像
+    public function updateAvatar(Request $request)
+    {
+        if ($request->image !== null && $mid = Auth::id())
+        {
+            DB::table('members')->where('mid', $mid)->update(['avatar' => $request->image]);
+            return response()->json([
+                'message' => '更新成功'
+            ]);
+        }
+        return response()->json([
+            'message' => '更新失敗'
+        ]);
+    }
+
     // 獲取接案紀錄
     public function getTakeCase(Request $request)
     {
