@@ -14,11 +14,12 @@ import product6 from "../Components/img/product6.jpg";
 import product7 from "../Components/img/product7.jpg";
 import product8 from "../Components/img/product8.jpg";
 import product9 from "../Components/img/product9.jpg";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { FaHandshake } from "react-icons/fa";
-import "./homepage.css";
+import { AiOutlineArrowUp } from "react-icons/ai";
+
 
 function Homepage() {
   // 最新服務 刊登 接API
@@ -67,8 +68,76 @@ function Homepage() {
     setActiveproduct9(product9);
   };
 
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if user has scrolled down beyond a certain point
+      if (window.scrollY > 200) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up by removing the scroll event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  const handleShow = () => setShowNewbie(true);
+  const [showNewbie, setShowNewbie] = useState(false);
+  const handleClose = () => setShowNewbie(false);
+
+
+
+
+  const handleTalentClick = () => {
+    setShowTalentContent(true);
+    setShowOrganContent(false); // Make sure to reset the other content
+  };
+
+  const handleOrganClick = () => {
+    setShowTalentContent(false); // Make sure to reset the other content
+    setShowOrganContent(true);
+  };
+
+  const [showTalentContent, setShowTalentContent] = useState(false);
+  const [showOrganContent, setShowOrganContent] = useState(false);
+
+
+
+
   return (
     <>
+      {/* 置頂按鈕 */}
+      {showScrollButton && (
+        <button
+          className="btn btn-primary rounded-circle shadow"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: "1000" // Set a high z-index to make sure it appears on top
+          }}
+          onClick={scrollToTop}
+        >
+          <AiOutlineArrowUp style={{ fontSize: "24px" }} />
+        </button>
+      )}
+
       <div className=" noto-serif container  ">
         <div>
           <link
@@ -110,6 +179,8 @@ function Homepage() {
               </div>
               <div class="col-12 text-center">
                 <span style={{ color: "#FFB5B5" }}>找案件，找人才 ，由我們搞定！ </span>
+                <button style={{ border: "none", backgroundColor: "#FFB5B5", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
+
               </div>
             </div>
           </div>
@@ -348,7 +419,116 @@ function Homepage() {
         </div>
         {/* 輪播圖 */}
       </div>
+
       <Footer></Footer>
+      <Modal show={showNewbie} onHide={handleClose} centered style={{ borderRadius: '20px' }}>
+        <Modal.Header closeButton>
+          <div className="row justify-content-center w-100">
+            <div className="col text-center">
+              <Modal.Title>平台如何運作</Modal.Title>
+              <div className="d-flex">
+                <div className="border rounded-pill mx-auto p-2" style={{ borderColor: "black" }}>
+                  <Button type="button" className="rounded-pill btn type-modal-btn btn-medium " data-target="organ-modal-div" onClick={handleOrganClick}>發案者</Button>
+                  <Button type="button" className="rounded-pill btn type-modal-btn btn-medium" data-target="talent-modal-div" onClick={handleTalentClick}>接案者</Button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+
+
+          {showOrganContent && (
+            <div className="organ-modal-div type-modal-div">
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2 pe-2">
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">發布工作 獲取報價</h5>
+                    <p className="fs-6">
+                      依指示填寫需求表單，能免費發布工作， 讓專業人才向你提供報價!!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2">
+
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">收到通知 主動報價</h5>
+                    <p className="fs-6">
+                      工作經審核通過後，會發布於案件工作版， 平台內相關專業人才收到信件通知， 並根據你的工作描述提出相應報價。
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2">
+
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">挑選人才 輕鬆完成工作!</h5>
+                    <p className="fs-6">
+                      會持續以信件通知最新工作進度， 也能直接連絡提供報價的專業人才。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+
+          {showTalentContent && (
+            <div className="talent-modal-div type-modal-div" style={{ display: 'none' }}>
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2">
+                    <img src="/img/index/talent1.png" alt="talent1" />
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">建立個人專頁</h5>
+                    <p className="fs-6">
+                      提供建立個人專業服務與工作背景，詳細完整的個人專頁。能夠大大提升接案的成功率!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2">
+                    <img src="/img/index/talent2.png" alt="talent2" />
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">快速送出你的提案</h5>
+                    <p className="fs-6">
+                      每日更新工作案件提供最新接案機會! 案主會根據你的提案報價與個人專頁決定是否採用。 所有關於工作進度都會通過信件通知!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="my-4 container-fluid container-xl">
+                <div className="row">
+                  <div className="col-2">
+                    <img src="/img/index/talent3.png" alt="talent3" />
+                  </div>
+                  <div className="col-10">
+                    <h5 className="fs-4 text-primary">無上限申請提案</h5>
+                    <p className="fs-6">
+                      免費提案報價，輕鬆接案無負擔。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
+
     </>
   );
 }

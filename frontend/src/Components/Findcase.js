@@ -4,13 +4,17 @@ import axios from "axios";
 import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { GoTriangleDown } from "react-icons/go";
-import Category from './Category';
+
 import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link, useParams } from "react-router-dom";
+<<<<<<< HEAD
+
+=======
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+>>>>>>> 9b40f34865cbbf1321a593d879e9fc657967131c
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"

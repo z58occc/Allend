@@ -139,7 +139,16 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               type="text"
               placeholder="填寫案件名稱"
               value={nameOfCase}
+<<<<<<< HEAD
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value > 0) {
+                  setNameOfCase(value);
+                }
+              }}
+=======
               onChange={(e) => setNameOfCase(e.target.value)}
+>>>>>>> 9b40f34865cbbf1321a593d879e9fc657967131c
               required
             />
           </Form.Group>
