@@ -39,11 +39,11 @@ const MainScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        "http://127.0.0.1/Allend/backend/public/api/memtakecase?mid=5",
+        "http://127.0.0.1/Allend/backend/public/api/memtakecase",
         {
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${Cookies.get("token")}`,
           },
         }
       );
