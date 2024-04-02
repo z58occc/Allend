@@ -54,39 +54,45 @@ function Findcase() {
     //     setShow(false);
 
     // }
-    async function postJSON(data) {
-        fetch("http://localhost/Allend/backend/public/api/quote", {
-            method: "POST", // or 'PUT'
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(result => {
-                console.log("Success:", result);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+    // async function postJSON(data) {
+    //     try {
+    //         const response = await fetch("http://localhost/Allend/backend/public/api//quote", {
+    //             method: "POST", // or 'PUT'
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(data),
+    //         });
 
-    }
+    //         const result = await response.json();
+    //         console.log("Success:", result);
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //     }
+    // }
 
 
+    // const data = { username: "example" };
+    // console.log(data);
 
-    const data = { username: "example" };
-    console.log(data);
+    // postJSON(data);
 
-    postJSON(data);
+    // const A = postJSON(data);
+    // console.log(A);
+    const registerUser = async () => {
+        try {
+            const res = await axios.post(
+                // "http://localhost/Allend/backend/public/api/register",
+                "http://localhost/Allend/backend/public/api/quote",
+                
+            );
 
-    const A = postJSON(data);
-    console.log(A);
-
+            console.log(res)
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
 
     // Modal下面
@@ -113,7 +119,7 @@ function Findcase() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        postJSON()
+        registerUser()
     }, []);
     const fetchData = async (type) => {
         if (window.location.href == "http://localhost:3000/findcase") {
