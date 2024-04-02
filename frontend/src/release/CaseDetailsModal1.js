@@ -120,7 +120,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             <Form.Control
               type="text"
               placeholder="填寫案件名稱"
-              value={data[number].d_name}
+              value={nameOfCase}
               onChange={(e) => {
                 const value = parseInt(e.target.value);
                 if (!isNaN(value) && value > 0) {

@@ -50,7 +50,7 @@ Route::get('/talent', TalentController::class);
 // 查看案件內容
 Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
-Route::get('/service_content/{sid}', ServiceContentController::class);
+Route::get('/service_content', ServiceContentController::class);
 
 // 送出發案表單
 Route::post('/commitcase', CommitController::class);//->middleware('auth');
