@@ -67,13 +67,13 @@ function Homepage() {
     setActiveproduct4(product4);
     setActiveproduct9(product9);
   };
-
+  {/* 置頂按鈕 */}
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       // Check if user has scrolled down beyond a certain point
-      if (window.scrollY > 200) {
+      if (window.scrollY > 400) {
         setShowScrollButton(true);
       } else {
         setShowScrollButton(false);
@@ -96,8 +96,12 @@ function Homepage() {
       behavior: "smooth"
     });
   };
+ {/* 置頂按鈕 */}
 
+ {/* 控制新手教學彈跳視窗 */}
   const handleShow = () => setShowNewbie(true);
+  
+
   const [showNewbie, setShowNewbie] = useState(false);
   const handleClose = () => setShowNewbie(false);
 
@@ -115,7 +119,7 @@ function Homepage() {
   };
 
   const [showTalentContent, setShowTalentContent] = useState(false);
-  const [showOrganContent, setShowOrganContent] = useState(false);
+  const [showOrganContent, setShowOrganContent] = useState(true);
 
 
 
@@ -157,7 +161,7 @@ function Homepage() {
 
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         </div>
-
+       
         <Category></Category>
         <br></br>
         {/* 新手教學 */}
@@ -274,6 +278,7 @@ function Homepage() {
         {/* 最新刊登 */}
 
         {/* 輪播圖 */}
+        <h4>會員作品</h4>
         <div className="d-flex  justify-content-center mt-5">
           <Row className="justify-content-md-center">
             <Col xs lg="7">
@@ -421,6 +426,7 @@ function Homepage() {
       </div>
 
       <Footer></Footer>
+      {/* 新手教學視窗 */}
       <Modal show={showNewbie} onHide={handleClose} centered style={{ borderRadius: '20px' }}>
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
@@ -428,9 +434,8 @@ function Homepage() {
               <Modal.Title>平台如何運作</Modal.Title>
               <div className="d-flex">
                 <div className="border rounded-pill mx-auto p-2" style={{ borderColor: "black" }}>
-                  <Button type="button" className="rounded-pill btn type-modal-btn btn-medium " data-target="organ-modal-div" onClick={handleOrganClick}>發案者</Button>
-                  <Button type="button" className="rounded-pill btn type-modal-btn btn-medium" data-target="talent-modal-div" onClick={handleTalentClick}>接案者</Button>
-
+                  <Button className="rounded-pill btn type-modal-btn btn-medium " data-target="organ-modal-div" onClick={handleOrganClick}>發案者</Button>
+                  <Button className="rounded-pill btn type-modal-btn btn-medium" data-target="talent-modal-div" onClick={handleTalentClick}>接案者</Button>
                 </div>
               </div>
             </div>
@@ -440,7 +445,7 @@ function Homepage() {
 
 
           {showOrganContent && (
-            <div className="organ-modal-div type-modal-div">
+            <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
                   <div className="col-2 pe-2">
@@ -448,7 +453,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">發布工作 獲取報價</h5>
                     <p className="fs-6">
-                      依指示填寫需求表單，能免費發布工作， 讓專業人才向你提供報價!!
+                      依指示填寫需求表單，能免費發布工作， 讓專業人才向你提供報價!
                     </p>
                   </div>
                 </div>
@@ -484,14 +489,13 @@ function Homepage() {
 
 
           {showTalentContent && (
-            <div className="talent-modal-div type-modal-div" style={{ display: 'none' }}>
+            <div className="talent-modal-div" >
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2">
-                    <img src="/img/index/talent1.png" alt="talent1" />
+                  <div className="col-2 pe-2">
                   </div>
                   <div className="col-10">
-                    <h5 className="fs-4 text-primary">建立個人專頁</h5>
+                    <h5 className="fs-4 text-primary">建立個人案件</h5>
                     <p className="fs-6">
                       提供建立個人專業服務與工作背景，詳細完整的個人專頁。能夠大大提升接案的成功率!
                     </p>
@@ -501,7 +505,6 @@ function Homepage() {
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
                   <div className="col-2">
-                    <img src="/img/index/talent2.png" alt="talent2" />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
@@ -514,7 +517,6 @@ function Homepage() {
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
                   <div className="col-2">
-                    <img src="/img/index/talent3.png" alt="talent3" />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">無上限申請提案</h5>
