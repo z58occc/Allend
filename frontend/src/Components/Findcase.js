@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from "axios";
 
 import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -19,6 +20,50 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
+
+    // Modal下面
+    const QuoteNumber = useRef();
+    const QuoteMessage = useRef();
+
+    const SendQuote = async (number, message) => {
+        try {
+            const res = await axios.post(
+                "http://localhost/Allend/backend/public/api/quote",
+                {
+                    q_amount: number,
+                    q_message: message
+                }
+
+            );
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+
+    const handleQuote = async () => {
+        const number = QuoteNumber.current.value;
+        const message = QuoteMessage.current.value;
+        try {
+            const data = await SendQuote(number, message);
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
+        setShow(false);
+
+    }
+
+
+    // Modal下面
+
+
+
+
+
+
+    // Modal上面
     const [key, setkey] = useState(0);
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -30,9 +75,8 @@ function Findcase() {
         setkey(index)
         console.log(index)
     };
+    // Modal上面
 
-
-    const [currentData, setcurrentData] = useState();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -302,7 +346,8 @@ function Findcase() {
                                 <Form.Control
                                     type=''
                                     autoFocus
-                                    value={posts[key]?.d_amount+"/"+posts[key]?.d_unit}
+                                    value={posts[key]?.d_amount + "/" + posts[key]?.d_unit}
+                                    ref={QuoteNumber}
                                 />
                             </Form.Group>
                             <Form.Group
@@ -310,13 +355,17 @@ function Findcase() {
                                 controlId="exampleForm.ControlTextarea1"
                             >
                                 <Form.Label>接案人留言</Form.Label>
-                                <Form.Control as="textarea" rows={3} placeholder='請輸入訊息' />
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder='請輸入訊息'
+                                    ref={QuoteMessage} />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
 
-                        <Button variant="primary" onClick={handleClose} >
+                        <Button variant="primary" onClick={handleQuote} >
                             送出
                         </Button>
                     </Modal.Footer>
