@@ -2,12 +2,12 @@ import React from "react";
 
 const GridComponent = ({ data, width, fontSize }) => {
   const goto = [
-    { titles: "接案數", path: "/" },
-    { titles: "進行中", path: "/" },
-    { titles: "結案數", path: "/" },
-    { titles: "刊登數", path: "/" },
-    { titles: "進行中", path: "/" },
-    { titles: "結案數", path: "/" },
+    { titles: "接案數", path: "/service" },
+    { titles: "進行中", path: "/service" },
+    { titles: "結案數", path: "/service" },
+    { titles: "刊登數", path: "/commit" },
+    { titles: "進行中", path: "/commit" },
+    { titles: "結案數", path: "/commit" },
   ];
   let takeData = data.slice(0, 3);
   let publishData = data.slice(3, 6);

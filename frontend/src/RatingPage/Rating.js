@@ -2,9 +2,7 @@ import React from "react";
 import StarRating from "./StarRating";
 const Rating = ({ ratingData, width, fontSize }) => {
   const number = [{ title: "接案方評價" }, { title: "發案方評價" }];
-  // const serviceComment = ratingData.slice(6, 8);
-  // const demmandComment = ratingData.slice(8);
-  // console.log(ratingData[8]);
+
   const cardStyle = {
     borderRadius: "50px",
     border: "1px solid #ccc",
@@ -27,70 +25,39 @@ const Rating = ({ ratingData, width, fontSize }) => {
             <div className="card" style={cardStyle}>
               <h2 style={{ textAlign: "center" }}>評價等級</h2>
               <div className="card-body" style={textStyle}>
-                {/* <div>
+                <div>
                   <div>
                     <h5 className="card-title">{number[0].title}</h5>
                   </div>
                   <div>
                     <div className="card-number">
-                      (
-                      {Object.values(ratingData[6]) !== null
-                        ? Object.values(ratingData[6])
-                        : ""}
-                      )
+                      {ratingData[6]?.service_rating}
                     </div>
                     <StarRating
-                      rating={
-                        Object.values(ratingData[6]) !== null
-                          ? Object.values(ratingData[6])
-                          : ""
-                      }
+                      rating={ratingData[6]?.service_rating}
                       width="300px"
                       fontSize="24px"
                     />
-                    <div>
-                      (
-                      {Object.values(ratingData[7]) !== null
-                        ? Object.values(ratingData[7])
-                        : ""}
-                      則評價)
-                    </div>
+                    <div>({ratingData[7]?.service_cmt}則評價)</div>
                   </div>
-                </div> */}
+                </div>
 
-                {/* <div>
+                <div>
                   <div>
                     <h5 className="card-title">{number[1].title}</h5>
                   </div>
                   <div>
                     <div className="card-number">
-                      ({String(Object.values(ratingData[8]))})
+                      {ratingData[8]?.demmand_rating}
                     </div>
                     <StarRating
-                      rating={Object.values(ratingData[8])}
+                      rating={ratingData[8]?.demmand_rating}
                       width="300px"
                       fontSize="24px"
                     />
-                    <div>({Object.values(ratingData[9])}則評價)</div>
+                    <div>({ratingData[9]?.demmand_cmt}則評價)</div>
                   </div>
-                </div> */}
-
-                {/* {demmandComment.map((item, index) => (
-                  <div key={index}>
-                    <div>
-                      <h5 className="card-title">{number[1].title}</h5>
-                    </div>
-                    <div>
-                      <div className="card-number">({Object.values(item)})</div>
-                      <StarRating
-                        rating={Object.values(item)}
-                        width="300px"
-                        fontSize="24px"
-                      />
-                      <div>({Object.values(item)}則評價)</div>
-                    </div>
-                  </div>
-                ))} */}
+                </div>
               </div>
             </div>
           </div>

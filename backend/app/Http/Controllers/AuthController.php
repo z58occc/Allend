@@ -93,7 +93,7 @@ class AuthController extends Controller
 
     // 登出
     public function logout(Request $request){
-        JWTAuth::invalidate($request->bearerToken());
+        Auth::invalidate($request->bearerToken());
 
         // return redirect(route('login'));
     }

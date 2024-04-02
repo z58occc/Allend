@@ -40,7 +40,7 @@ use App\Http\Controllers\TalentController;
 */
 
 // 首頁
-Route::get('/index', IndexController::class);//->name('index');
+Route::get('/index', IndexController::class);
 // 查看我要接案
 Route::get('/findcase', IFindCaseController::class);
 // 查看我要找人.
@@ -85,7 +85,7 @@ Route::controller(AuthController::class)->group(function(){
     // 註冊
     Route::post('/register', 'register');
     // 登入
-    Route::post('/login', 'login');//->name('login');
+    Route::post('/login', 'login');
     // 登出
     Route::post('/logout', 'logout');
 });
