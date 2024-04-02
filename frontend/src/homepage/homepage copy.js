@@ -91,7 +91,7 @@ function Homepage() {
 
         <Category></Category>
         <br></br>
-        {/* 新手教學 */}
+         {/* 新手教學 */}
         <section class="adbar-section">
           <div class="container-lg container-pad">
             <h4>新手教學</h4>
@@ -207,7 +207,6 @@ function Homepage() {
           <Row className="justify-content-md-center">
             <Col xs lg="7">
               <Carousel
-                style={{ overflow: " hidden" }}
                 id="carousel"
                 interval={null}
                 indicators={false}
@@ -221,8 +220,8 @@ function Homepage() {
               >
                 <Carousel.Item >
                   <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeProduct} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                    <Col xs lg="7">
+                      <img src={activeProduct} style={{ width: "100%" }} />
                     </Col>
                     <Col xs lg="5">
                       <Link to="./talent">
@@ -262,8 +261,8 @@ function Homepage() {
                 </Carousel.Item>
                 <Carousel.Item>
                   <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeproduct4} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                    <Col xs lg="7">
+                      <img src={activeproduct4} style={{ width: "100%" }} />
                     </Col>
                     <Col xs lg="5">
                       <Link to="./talent">
@@ -303,8 +302,8 @@ function Homepage() {
                 </Carousel.Item>
                 <Carousel.Item>
                   <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeproduct9} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                    <Col xs lg="7">
+                      <img src={activeproduct9} style={{ width: "100%" }} />
                     </Col>
                     <Col xs lg="5">
                       <Link to="./talent">
