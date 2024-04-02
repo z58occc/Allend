@@ -48,36 +48,69 @@ function Findcase() {
         fetchData()
     }, []);
     const fetchData = async (type) => {
-        let url = "http://localhost/Allend/backend/public/api/findcase?type=";
-        switch (type) {
-            case "網站設計":
-                url += "1";
-                break;
-            case "軟體程式":
-                url += "2";
-                break;
-            case "平面設計":
-                url += "3";
-                break;
-            case "文字語言":
-                url += "4";
-                break;
-            case "專業諮詢":
-                url += "5";
-                break;
-            default:
-                break;
+        if (window.location.href == "http://localhost:3000/findcase") {
+            let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+            switch (type) {
+                case "網站設計":
+                    url += "1";
+                    break;
+                case "軟體程式":
+                    url += "2";
+                    break;
+                case "平面設計":
+                    url += "3";
+                    break;
+                case "文字語言":
+                    url += "4";
+                    break;
+                case "專業諮詢":
+                    url += "5";
+                    break;
+                default:
+                    break;
+            }
 
+
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setPosts(data);
+                })
+        } else {
+            const f_url = window.location.href;
+            let b_url = "http://localhost/Allend/backend/public/api/findcase?type=";
+
+            console.log(f_url);
+            switch (f_url) {
+                case "http://localhost:3000/findcase/?type=1":
+                    b_url += "1";
+                    break;
+                case "http://localhost:3000/findcase/?type=2":
+                    b_url += "2";
+                    break;
+                case "http://localhost:3000/findcase/?type=3":
+                    b_url += "3";
+                    break;
+                case "http://localhost:3000/findcase/?type=4":
+                    b_url += "4";
+                    break;
+                case "http://localhost:3000/findcase/?type=5":
+                    b_url += "5";
+                    break;
+            }
+            fetch(b_url)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setPosts(data);
+                })
 
         }
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setPosts(data);
-            })
     }
+
+
+
 
 
     return (
@@ -123,21 +156,21 @@ function Findcase() {
                             <div className="col-sm-2 " >
                                 <Link to='/findcase' onClick={() => fetchData("平面設計")} >
                                     <div >平面設計</div>
-                                    <img src={a5} style={{ width:'60px' }}></img>
+                                    <img src={a5} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
                                 <Link to='/findcase' onClick={() => fetchData("文字語言")} >
                                     <div >文字語言</div>
-                                    <img src={a4} style={{ width:'60px' }}></img>
+                                    <img src={a4} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2" >
                                 <Link to='/findcase' onClick={() => fetchData("專業諮詢")} >
                                     <div >專業諮詢</div>
-                                    <img src={a6} style={{ width:'60px' }}></img>
+                                    <img src={a6} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>

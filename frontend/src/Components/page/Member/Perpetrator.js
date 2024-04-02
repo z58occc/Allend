@@ -30,7 +30,7 @@ function ClientForm() {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
         const res = await axios.get(
-          "http://localhost/PHP/Allend/backend/public/api/demmandmem",
+          "http://localhost/Allend/backend/public/api/demmandmem",
           { headers: headers }
         );
         const result = await res.data;
@@ -79,7 +79,7 @@ function ClientForm() {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost/PHP/Allend/backend/public/api/updatedemmand",
+      url: "http://localhost/Allend/backend/public/api/updatedemmand",
       data: {
         phone: formData.phone,
         name: formData.name,

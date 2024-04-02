@@ -68,7 +68,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   didOfDeletedData = deletedData.map(item => item.did);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/delPublishCase", {
+    const response = await fetch("http://localhost/api/delPublishCase", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

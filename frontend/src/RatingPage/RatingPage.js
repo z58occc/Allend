@@ -16,7 +16,7 @@ function RatingPage() {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
         const res = await axios.get(
-          "http://localhost/PHP/Allend/backend/public/api/dashboard",
+          "http://localhost/Allend/backend/public/api/dashboard",
           { headers: headers }
         );
         const result = await res.data;
