@@ -9,6 +9,7 @@ import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"
@@ -18,29 +19,17 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
-    // const { s_type } = useParams();
-    // console.log({ s_type });
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        setShow(false);
+    }
+    const handleShow = () => {
+        setShow(true)
+    };
 
-    // const url = `window.location.href /${ s_type }`
-    // console.log(url);
 
-
-
-
-    // fetch("http://localhost/Allend/backend/public/api/findcase?type=")
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log(data);
-    //         setPosts(data);
-    //     })
-    // const url = window.location.href;
-    // console.log(url);
-    // const type = new URL(url);
-    // console.log(type);
-    // console.log(type.pathname);
 
     const [posts, setPosts] = useState([]);
-    // { userId: "66"};
 
     useEffect(() => {
         fetchData()
@@ -48,6 +37,9 @@ function Findcase() {
     const fetchData = async (type) => {
         if (window.location.href == "http://localhost:3000/findcase") {
             let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+
+
+
             switch (type) {
                 case "網站設計":
                     url += "1";
@@ -72,9 +64,12 @@ function Findcase() {
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log(data[0].type);
                     console.log(data);
                     setPosts(data);
                 })
+
+
         } else {
             const f_url = window.location.href;
             let b_url = "http://localhost/Allend/backend/public/api/findcase?type=";
@@ -190,9 +185,26 @@ function Findcase() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item onClick={() => fetchData("軟體程式")}>臺北市</Dropdown.Item>
+                            <Dropdown.Item >新北市</Dropdown.Item>
+                            <Dropdown.Item >桃園市</Dropdown.Item>
+                            <Dropdown.Item >基隆市</Dropdown.Item>
+                            <Dropdown.Item >新竹市</Dropdown.Item>
+                            <Dropdown.Item >新竹縣</Dropdown.Item>
+                            <Dropdown.Item >彰化縣</Dropdown.Item>
+                            <Dropdown.Item >南投縣</Dropdown.Item>
+                            <Dropdown.Item >雲林縣</Dropdown.Item>
+                            <Dropdown.Item >高雄市</Dropdown.Item>
+                            <Dropdown.Item >臺南市</Dropdown.Item>
+                            <Dropdown.Item >嘉義市</Dropdown.Item>
+                            <Dropdown.Item >嘉義縣</Dropdown.Item>
+                            <Dropdown.Item >屏東縣</Dropdown.Item>
+                            <Dropdown.Item >宜蘭縣</Dropdown.Item>
+                            <Dropdown.Item >花蓮縣</Dropdown.Item>
+                            <Dropdown.Item >臺東縣</Dropdown.Item>
+                            <Dropdown.Item >澎湖縣</Dropdown.Item>
+                            <Dropdown.Item >金門縣</Dropdown.Item>
+                            <Dropdown.Item >連江縣</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 
@@ -232,7 +244,7 @@ function Findcase() {
                 <div >
                     {posts.map((post, index) => {
                         return (
-                            <div key={index}>
+                            <div >
                                 <div className='row' key={index}>
                                     <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
                                         {post.d_name}<br></br>
@@ -245,20 +257,62 @@ function Findcase() {
                                     <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                                         {post.d_description}
                                         <div className='position-absolute bottom-0 end-0'>
-                                            <Orderbuttom ></Orderbuttom>
+                                            <Button onClick={handleShow} >我要報價</Button>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
 
                         )
+
                     })}
-
-
                 </div>
 
                 {/* 案件欄位 */}
+
+
+
+
+
+                {/* 我要報價頁面 */}
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header >
+                        <Modal.Title style={{ fontSize: 15 }} >
+                            案件名稱:<span></span><hr></hr>
+                            案件編號:<input></input><hr></hr>
+                            案件類別:<input></input><hr></hr>
+                            案件地點:<input></input><hr></hr>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>報價金額</Form.Label>
+                                <Form.Control
+                                    type=''
+                                    placeholder="請輸入金額"
+                                    autoFocus
+                                />
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3"
+                                controlId="exampleForm.ControlTextarea1"
+                            >
+                                <Form.Label>接案人留言</Form.Label>
+                                <Form.Control as="textarea" rows={3} placeholder='請輸入訊息' />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+
+                        <Button variant="primary" onClick={handleClose} >
+                            送出
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* 我要報價頁面 */}
 
 
 
