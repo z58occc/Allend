@@ -107,11 +107,12 @@ const handleModalClose1 = () => {
 };
 // 查看報價按鈕控制
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   const handleIndex = (index) => {
     setSelectedIndex(index)
   }
   const [showModal, setShowModal] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const handleShowQuoteModal = () => {
     setShowModal(true);
   };
@@ -261,7 +262,6 @@ const handleModalClose1 = () => {
                   {text}
                 </Button>
                 <Button
-                  key={index}
                   variant="secondary"
                   className="my-2 d-inline-block"
                   style={{
@@ -273,7 +273,7 @@ const handleModalClose1 = () => {
                   }}
                   onClick={() => {
                     handleShowQuoteModal();
-                    handleIndex(index);
+                    handleIndex(item.did);
                   }}
                 >
                   查看報價
