@@ -21,14 +21,14 @@ class IFindPeopleController extends Controller
         ->join('members as m', 's.mid', '=', 'm.mid')
         ->join('project as p', 'p.mid', '=', 'm.mid')
         ->join('country as c','c.country_id','=','m.active_location')
-        ->select('s.s_type','s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login')
+        ->select('s.s_type','s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name',
+        'identity','seniority','c.country_city','s.created_at','m.last_login')
         // DB::raw('(SELECT COUNT(*) FROM service) as atotal')
-        ->groupBy('s.s_type','m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city','s.created_at','m.last_login');
+        ->groupBy('s.s_type','m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city',
+        's.created_at','m.last_login');
 
 
         if (!empty($seniority_query || !empty($identity_query || !empty($country_query)))) {
-
-
             if(!empty($identity_query)){
                 $member->whereIn('identity',explode(',',$identity_query));
             }
@@ -40,7 +40,6 @@ class IFindPeopleController extends Controller
             if(!empty($seniority_query)){
                 $member->whereIn('seniority',explode(',',$seniority_query));
             }
-
         }
 
         //排序
@@ -48,7 +47,7 @@ class IFindPeopleController extends Controller
             switch($sort_query){
                 //作品數
                 case'1':
-                    $member->orderBy( 'ptotal','desc');
+                    $member->orderBy('ptotal','desc');
                     break;
                 //新服務
                 case '2':

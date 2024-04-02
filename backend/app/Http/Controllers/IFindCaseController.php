@@ -12,7 +12,24 @@ class IFindCaseController extends Controller
         $query = DB::table('demmand')
         ->leftJoin('country','demmand.d_active_location','=','country.country_id')
         ->leftJoin('category','category.catid','=','demmand.d_type')
-        ->select('d_name', 'type', 'd_duration','d_description','d_amount','d_unit','country_city','updated_at');
+        ->leftJoin('quote', 'quote.did', '=', 'demmand.did')
+        ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit',
+        DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
+        ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at');
+
+        // 選擇地區、案件金額
+        $location = $request->location;
+        $amount = $request->amount;
+        if (!(empty($location) && empty($amount))) {
+
+            if(!empty($location)){
+                $query->whereIn('country_city',explode(',',$location));
+            }
+
+            if(!empty($amount)){
+                $query->whereIn('d_amount',explode(',',$amount));
+            }
+        }
 
         // 期程 (短、長)
         if($request->has('d_duration')){
@@ -29,31 +46,6 @@ class IFindCaseController extends Controller
             $query->whereIn('d_amount',$request->d_amount);
         }
 
-        // 排序
-        // if($request->has('order')){
-        //     $order = $request->order;
-        //     switch($order){
-        //             // 最新刊登
-        //             case '1':
-        //                 $query->orderBy('created_at','desc');
-        //                 break;
-
-        //             // 最近更新
-        //             case '2':
-        //                 $query->orderBy('updated_at','desc');
-        //                 break;
-
-        //             // 預算由低到高
-        //             case '3':
-        //                 $query->orderBy('d_amount','desc');
-        //                 break;
-        //             // case '4':
-        //                 //接案人數
-        //             default:
-        //                 $query->orderBy('created_at', 'desc');
-
-        //         }
-        // }else{ $query->orderBy('created_at', 'desc');}
         // 指定類別
         switch($request->type){
             case '1':
@@ -82,18 +74,19 @@ class IFindCaseController extends Controller
             case '1':
                 $query->orderBy('created_at','desc');
                 break;
-
             // 最近更新
             case '2':
                 $query->orderBy('updated_at','desc');
                 break;
-
             // 預算由高到低
             case '3':
                 $query->orderBy('d_amount','desc');
                 break;
-            // case '4':
-                //接案人數
+            // 報價人數
+            case '4':
+                $query->orderBy('quote_total', 'desc');
+                break;
+            // 預設最新刊登
             default:
                 $query->orderBy('created_at', 'desc');
             }
