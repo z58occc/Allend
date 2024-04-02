@@ -22,7 +22,7 @@ function ProjectForm() {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost/PHP/Allend/backend/public/api/commitcase",
+      url: "http://localhost/Allend/backend/public/api/commitcase",
       data: {
         d_name: nameOfCase,
         d_type: category,

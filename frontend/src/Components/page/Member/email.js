@@ -62,7 +62,7 @@ function FreelancerForm() {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
         const res = await axios.get(
-          "http://localhost/PHP/Allend/backend/public/api/mem",
+          "http://localhost/Allend/backend/public/api/mem",
           { headers: headers }
         );
         const result = await res.data;
@@ -129,7 +129,7 @@ function FreelancerForm() {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost/PHP/Allend/backend/public/api/updateprofiles",
+      url: "http://localhost/Allend/backend/public/api/updateprofiles",
       data: {
         identity: formData.identity,
         nickname: formData.nickname,

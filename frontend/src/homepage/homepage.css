@@ -1,11 +1,14 @@
-.custom-col {
-    background-color: lightblue; /* 設定背景顏色為淺藍色 */
-    border-radius: 50%; /* 將邊框設置為圓形 */
-    padding: 20px; 
-    margin: 10px;/* 添加一些間距 */
-    width: 50px; /* 調整寬度，這裡可以根據您的需求調整 */
-    height: 100px;
-    background-size: cover;
-    
-  }
+#carousel {
+  overflow: hidden; /* 隐藏溢出内容 */
+}
 
+.carousel-item img {
+  max-width: 100%; /* 图片最大宽度为父容器宽度 */
+  height: auto; /* 自适应高度 */
+  margin: auto; /* 居中显示 */
+}
+
+.carousel-item {
+  display: flex; /* 使用弹性盒子模型 */
+  align-items: center; /* 垂直居中 */
+}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from "axios";
 
 import Footer from '../homepage/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -8,7 +9,12 @@ import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link, useParams } from "react-router-dom";
+<<<<<<< HEAD
 
+=======
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+>>>>>>> 9b40f34865cbbf1321a593d879e9fc657967131c
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"
@@ -18,63 +24,165 @@ import a6 from "../Components/img/a6.png"
 
 
 function Findcase() {
-    // const { s_type } = useParams();
-    // console.log({ s_type });
 
-    // const url = `window.location.href /${ s_type }`
-    // console.log(url);
+    // Modal下面
+    // const QuoteNumber = useRef();
+    // const QuoteMessage = useRef();
+
+    // const SendQuote = async (number, message) => {
+    //     try {
+    //         const res = await axios.post(
+    //             "http://localhost/Allend/backend/public/api/quote",
+    //             {
+    //                 q_amount: number,
+    //                 q_message: message
+    //             }
+
+    //         );
+    //         return res.data;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
 
 
-
-
-    // fetch("http://localhost/Allend/backend/public/api/findcase?type=")
-    //     .then((response) => response.json())
-    //     .then((data) => {
+    // const handleQuote = async () => {
+    //     const number = QuoteNumber.current.value;
+    //     const message = QuoteMessage.current.value;
+    //     try {
+    //         const data = await SendQuote(number, message);
     //         console.log(data);
-    //         setPosts(data);
-    //     })
-    // const url = window.location.href;
-    // console.log(url);
-    // const type = new URL(url);
-    // console.log(type);
-    // console.log(type.pathname);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    //     setShow(false);
+
+    // }
+    const postJSON = async (data) => {
+        try {
+            const response = await fetch("http://localhost/Allend/backend/public/api/quote", {
+                method: "POST", // or 'PUT'
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            console.log("Success:", result);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    const data = { username: "example" };
+    console.log(data);
+
+    postJSON(data);
+
+    const A = postJSON(data);
+    console.log(A);
+
+
+
+    // Modal下面
+
+
+
+
+
+
+    // Modal上面
+    const [key, setkey] = useState(0);
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        setShow(false);
+    }
+
+    const handleShow = (index) => {
+        setShow(true)
+        setkey(index)
+        console.log(index)
+    };
+    // Modal上面
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetchData()
+        postJSON()
     }, []);
     const fetchData = async (type) => {
-        let url = "http://localhost/Allend/backend/public/api/findcase?type=";
-        switch (type) {
-            case "網站設計":
-                url += "1";
-                break;
-            case "軟體程式":
-                url += "2";
-                break;
-            case "平面設計":
-                url += "3";
-                break;
-            case "文字語言":
-                url += "4";
-                break;
-            case "專業諮詢":
-                url += "5";
-                break;
-            default:
-                break;
+        if (window.location.href == "http://localhost:3000/findcase") {
+            let url = "http://localhost/Allend/backend/public/api/findcase?type=";
 
+
+
+
+            switch (type) {
+                case "網站設計":
+                    url += "1";
+                    break;
+                case "軟體程式":
+                    url += "2";
+                    break;
+                case "平面設計":
+                    url += "3";
+                    break;
+                case "文字語言":
+                    url += "4";
+                    break;
+                case "專業諮詢":
+                    url += "5";
+                    break;
+                default:
+                    break;
+            }
+
+
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data[0].type);
+                    console.log(data);
+                    setPosts(data);
+
+                })
+
+
+        } else {
+            const f_url = window.location.href;
+            let b_url = "http://localhost/Allend/backend/public/api/findcase?type=";
+
+            console.log(f_url);
+            switch (f_url) {
+                case "http://localhost:3000/findcase/?type=1":
+                    b_url += "1";
+                    break;
+                case "http://localhost:3000/findcase/?type=2":
+                    b_url += "2";
+                    break;
+                case "http://localhost:3000/findcase/?type=3":
+                    b_url += "3";
+                    break;
+                case "http://localhost:3000/findcase/?type=4":
+                    b_url += "4";
+                    break;
+                case "http://localhost:3000/findcase/?type=5":
+                    b_url += "5";
+                    break;
+            }
+            fetch(b_url)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setPosts(data);
+                })
 
         }
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setPosts(data);
-            })
     }
+
+
+
 
 
     return (
@@ -120,21 +228,21 @@ function Findcase() {
                             <div className="col-sm-2 " >
                                 <Link to='/findcase' onClick={() => fetchData("平面設計")} >
                                     <div >平面設計</div>
-                                    <img src={a5} style={{ width:'60px' }}></img>
+                                    <img src={a5} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2 " >
                                 <Link to='/findcase' onClick={() => fetchData("文字語言")} >
                                     <div >文字語言</div>
-                                    <img src={a4} style={{ width:'60px' }}></img>
+                                    <img src={a4} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
                             <div className="col-sm-2" >
                                 <Link to='/findcase' onClick={() => fetchData("專業諮詢")} >
                                     <div >專業諮詢</div>
-                                    <img src={a6} style={{ width:'60px' }}></img>
+                                    <img src={a6} style={{ width: '60px' }}></img>
                                 </Link>
                                 <hr className="d-sm-none" />
                             </div>
@@ -156,9 +264,26 @@ function Findcase() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item onClick={() => fetchData("軟體程式")}>臺北市</Dropdown.Item>
+                            <Dropdown.Item >新北市</Dropdown.Item>
+                            <Dropdown.Item >桃園市</Dropdown.Item>
+                            <Dropdown.Item >基隆市</Dropdown.Item>
+                            <Dropdown.Item >新竹市</Dropdown.Item>
+                            <Dropdown.Item >新竹縣</Dropdown.Item>
+                            <Dropdown.Item >彰化縣</Dropdown.Item>
+                            <Dropdown.Item >南投縣</Dropdown.Item>
+                            <Dropdown.Item >雲林縣</Dropdown.Item>
+                            <Dropdown.Item >高雄市</Dropdown.Item>
+                            <Dropdown.Item >臺南市</Dropdown.Item>
+                            <Dropdown.Item >嘉義市</Dropdown.Item>
+                            <Dropdown.Item >嘉義縣</Dropdown.Item>
+                            <Dropdown.Item >屏東縣</Dropdown.Item>
+                            <Dropdown.Item >宜蘭縣</Dropdown.Item>
+                            <Dropdown.Item >花蓮縣</Dropdown.Item>
+                            <Dropdown.Item >臺東縣</Dropdown.Item>
+                            <Dropdown.Item >澎湖縣</Dropdown.Item>
+                            <Dropdown.Item >金門縣</Dropdown.Item>
+                            <Dropdown.Item >連江縣</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 
@@ -198,7 +323,7 @@ function Findcase() {
                 <div >
                     {posts.map((post, index) => {
                         return (
-                            <div key={index}>
+                            <div >
                                 <div className='row' key={index}>
                                     <Link to='/casecontext' className='col-sm-2' style={{ border: 'solid black', textDecoration: "none", color: "black" }}>
                                         {post.d_name}<br></br>
@@ -211,20 +336,71 @@ function Findcase() {
                                     <div className='position-relative col-sm-10' style={{ border: 'solid' }}>
                                         {post.d_description}
                                         <div className='position-absolute bottom-0 end-0'>
-                                            <Orderbuttom ></Orderbuttom>
+                                            <Button onClick={() => {
+                                                // setcurrentData(post[index]);
+                                                handleShow(index);
+                                            }}>我要報價</Button>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
 
                         )
+
                     })}
-
-
                 </div>
 
                 {/* 案件欄位 */}
+
+
+
+
+
+
+                {/* 我要報價頁面 */}
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header >
+                        <Modal.Title style={{ fontSize: 15 }} >
+                            案件名稱:<span>{posts[key]?.d_name}</span><hr></hr>
+                            案件編號:<span>{posts[key]?.did}</span><hr></hr>
+                            案件類別:<span>{posts[key]?.type}</span><hr></hr>
+                            案件地點:<span>{posts[key]?.country_city}</span><hr></hr>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>報價金額</Form.Label>
+                                <Form.Control
+                                    type=''
+                                    autoFocus
+                                    value={posts[key]?.d_amount + "/" + posts[key]?.d_unit}
+                                // ref={QuoteNumber}
+                                />
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3"
+                                controlId="exampleForm.ControlTextarea1"
+                            >
+                                <Form.Label>接案人留言</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder='請輸入訊息'
+                                // ref={QuoteMessage} 
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+
+                        <Button variant="primary" onClick={handleClose} >
+                            送出
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* 我要報價頁面 */}
 
 
 
