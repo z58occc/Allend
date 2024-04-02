@@ -72,46 +72,22 @@ function Serve() {
           </div>
         </div>
 
-        <div className='col-sm-9 ' style={{ float: 'right' }}>
-          <div className='row'>
-
-            {/* 輪播圖 */}
+        <div className='col-sm-9'>
             {serve.service && serve.service.length > 0 &&
-            <div className="d-flex  justify-content-center">
-              <Row >
-                <Col >
-                  <Carousel id='carousel' interval={null} indicators={false} >
-                    <Carousel.Item >
-                      <Row className=" justify-content-md-center">
-                        <Col xs lg="6"><img src={`data:image/jpeg;base64,${serve.service[0].image}`} alt="" style={{ width: "100%", height: 200 }}></img></Col>
-                        <Col xs lg="6" >
-                          <div style={{ marginTop: 50, marginLeft: 50 }}>
-                            服務名稱:{serve.service && serve.service[0].s_name}<br></br>
-                            服務報價:{serve.service && serve.service[0].s_amount}/{serve.serve && serve.service[0].s_unit}<br></br>
-                            評分:{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}<br></br>
-
-                            <br></br>
-                            服務地點:{serve.service && serve.service[0].country_city}<br></br>
-                            <Button>及時詢問</Button>
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row id='carouselimg' className=" justify-content-md-center" xs={2} lg={6}>
-                        <Col xs lg="2"></Col>
-                        <Col xs lg="2"></Col>
-                        <Col xs lg="2"></Col>
-                      </Row>
-                    </Carousel.Item>
-
-                  </Carousel>
-                </Col>
-              </Row>
-           
-              {/* 輪播圖 */}
-
+            <div >
+                  <div>
+                    <img src={`data:image/jpeg;base64,${serve.service[0].image}`} alt="" style={{ width: 400, height: 200 }}></img>
+                    </div>
+                  <div >
+                      服務名稱:{serve.service && serve.service[0].s_name}<br></br>
+                      服務報價:{serve.service && serve.service[0].s_amount}/{serve.serve && serve.service[0].s_unit}<br></br>
+                      評分:{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}<br></br>
+                      <br></br>
+                      服務地點:{serve.service && serve.service[0].country_city}<br></br>
+                      <Button>及時詢問</Button>
+                  </div>
             </div> 
             }
-          </div>
 
 
 
