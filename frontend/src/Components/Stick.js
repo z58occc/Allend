@@ -5,9 +5,10 @@ import { Button } from 'react-bootstrap';
 import twitter from './twitter.png'
 import { FaFacebook } from "react-icons/fa";
 import { FaLine } from "react-icons/fa";
-import { CiShare2 } from "react-icons/ci";
 import { CiChat1 } from "react-icons/ci";
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import CopyButton from './CopyButton';
 
 
 function Stick() {
@@ -18,7 +19,7 @@ function Stick() {
     useEffect(()=>{
         const fetchtalent = async()=>{
             try{
-                const response = await fetch(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
+                const response = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${1}`);
                 setTalent(response.data);
             }catch(error){
                 console.error(error);
@@ -30,28 +31,28 @@ function Stick() {
     return (
 
         <div>
-            <div style={{ textAlign: 'start', fontSize: 10, border: 'solid',  }}>
+            <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',  }}>
                 <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
-                    <img src={twitter} style={{ width: 25 }}></img>
-                    <p>會員名稱</p>
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
-                    <CiStar />
+                    <img src={twitter} style={{ width: 25 }} alt=""></img>
+                    <p>{talent.member && talent.member[0].name}</p>
+                    {Array.from({length:talent.avg_star},(_,i)=>(<CiStar key={i}/>))}
                 </div>
-                接案身分:<br></br>
-                上線時間:<br></br>
-                接案地點:台北 台中 高雄<br></br>
-                成交件數:
-                <hr></hr>
-                專長:LOGO設計
+                接案身分:{talent.member && talent.member[0].i_identity}
+                <br></br>
+                上線時間:{talent.member &&  talent.member[0].last_login}
+                <br></br>
+                接案地點:{talent.member && talent.member[0].country_city}
+                <br></br>
+                成交件數:{talent.case_member_count}
                 <hr></hr>
 
-
-                <FaFacebook size={30} />
-                <FaLine size={30} />
-                <CiShare2 size={30} />
+                <a href={talent.member && talent.member[0].fb}>
+                <FaFacebook size={30}  />
+                </a>
+                <a href={talent.member && talent.member[0].line}>
+                <FaLine size={30} color='green' />
+                </a>
+                <CopyButton  />
 
 
 
@@ -63,13 +64,10 @@ function Stick() {
                     </div>
                     <div className='col-sm-6' >
                         <CiChat1 size={20} />
-                        <span>直接連絡</span>
+                        <span>聊聊</span>
                     </div>
                 </div>
-                <br></br>
-                <br></br>
-                <br></br>
-                <Button >邀請報價</Button>
+                <Button style={{marginTop:'20px'}} >邀請報價</Button>
             </div>
         </div>
     )

@@ -62,11 +62,11 @@ const MainScreen2 = () => {
   // http://127.0.0.1/Allend/public/api/mempublishcase
   const fetchData = async () => {
     const result = await axios.get(
-      "http://localhost/Allend/public/api/mempublishcase",
+      "http://127.0.0.1/Allend/backend/public/api/mempublishcase?mid=5",
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token")}`,
+           Authorization: `Bearer ${Cookies.get("token")}`,
         },
       }
     );

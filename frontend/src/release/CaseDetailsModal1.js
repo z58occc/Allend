@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 // import axios from 'axios';
 // import Cookies from 'js-cookie';
 import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
-
+import { CaseContext } from "./MainScreen2";
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
-  // const [Case,setCase] = useState(0)
-  // const [Budget, setBudget] = useState(data[number].d_amount)
-  // const [inputValue, setInputValue] = useState(1);
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  // };
+  //useContext from Mainscreen
+  const { fetchData } = useContext(CaseContext);
 
-  // const handleSetCase = ()=>{
-  //   const updatedCase = [...data]; // 複製一份 data 狀態陣列
-  //   updatedCase[number].d_name = inputValue; // 更新案件名稱
-  //   setCase(updatedCase); // 使用 setCase 更新整個 data 狀態
-  //   onHide(); // 關閉 Modal
-  // }
   const [nameOfCase, setNameOfCase] = useState("");
   const [category, setCategory] = useState("");
   const [cooperationTime, setCooperationTime] = useState("");
@@ -31,63 +22,66 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
   const [emailError, setEmailError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(1);
-    fetch('http://127.0.0.1:8000/api/updatePublishCase', {
+
+    fetch('http://127.0.0.1/Allend/backend/public/api/updatepublishcase', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        nameOfCase,
-        category,
-        cooperationTime,
-        location,
-        details,
-        budget,
-        unit,
-        userName,
-        email,
-        contact,
+        index: data[number].did,
+        case_name: nameOfCase,
+        type: category,
+        amount: budget,
+        unit: unit,
+        duration: cooperationTime,
+        location: location,
+        details: details,
+        contact_name: userName,
+        email: email,
+        phone: contact,
       }),
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const contentType = res.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return res;
-        } else {
-          throw new Error('Response is not in JSON format');
-        }
-      })
-      .then((data) => {
-        console.log('Case details updated successfully:', data);
-        setNameOfCase('');
-        setCategory('');
-        // Other state updates...
-      })
-      .catch((error) => {
+    .then((res) => {
+        console.log(res);
+        onHide();
+        fetchData();
+    })
+    .catch((error) => {
         console.error('There was a problem updating the case:', error);
-      });
+    });  
 
 
 
     if (!emailError) {
-      setNameOfCase("");
-      setCategory("");
-      setCooperationTime("");
-      setLocation("");
-      setDetails("");
-      setBudget("");
-      setUnit("");
-      setUserName("");
-      setEmail("");
-      setContact("");
+      // setNameOfCase("");
+      // setCategory("");
+      // setCooperationTime("");
+      // setLocation("");
+      // setDetails("");
+      // setBudget("");
+      // setUnit("");
+      // setUserName("");
+      // setEmail("");
+      // setContact("");
     } else {
       console.error("Form submission error: Email format is incorrect.");
     }
   };
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setNameOfCase(data[number].d_name);
+      setCategory(data[number].type);
+      setCooperationTime(data[number].d_duration);
+      setLocation(data[number].active_location);
+      setDetails(data[number].d_description);
+      setBudget(data[number].d_amount);
+      setUnit(data[number].d_unit);
+      setUserName(data[number].d_contact_name);
+      setEmail(data[number].d_email);
+      setContact(data[number].d_mobile_phone);
+    }
+  }, [data, number]);
 
   const validateEmail = (value) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,19 +108,15 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       <Modal.Body>
 
         <Form.Label>案件編號：{data[number].did}</Form.Label>
-        <Form onSubmit={handleSubmit}>
+        <Form >
           <Form.Group controlId="numberOfPeople">
             <Form.Label>案件名稱：</Form.Label>
             <Form.Control
               type="text"
               placeholder="填寫案件名稱"
-              value={data[number].d_name}
-              onChange={(e) => {
-                const value = parseInt(e.target.value);
-                if (!isNaN(value) && value > 0) {
-                  setNameOfCase(value);
-                }
-              }}
+              value={nameOfCase}
+              onChange={(e) => setNameOfCase(e.target.value)}
+              onChange={(e) => setNameOfCase(e.target.value)}
               required
             />
           </Form.Group>
@@ -135,7 +125,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             <Form.Label>需求類別：</Form.Label>
             <Form.Control
               as="select"
-              value={data[number].type}
+              value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
             >
@@ -155,7 +145,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
                 <Form.Control
                   type="number"
                   placeholder="填寫金額"
-                  value={data[number].d_amount}
+                  value={budget}
                   onChange={(e) => {
                     const value = parseInt(e.target.value);
                     if (!isNaN(value) && value > 0) {
@@ -172,7 +162,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
                 <Form.Label>單位：</Form.Label>
                 <Form.Control
                   type="text"
-                  value={data[number].d_unit}
+                  value={unit}
                   onChange={(e) => setUnit(e.target.value)}
                   placeholder="例如: 次、件、小時"
                   required
@@ -185,7 +175,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
 
             <Form.Control
               as="select"
-              value={data[number].d_duration}
+              value={cooperationTime}
               onChange={(e) => setCooperationTime(e.target.value)}
               required
             >
@@ -246,7 +236,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             <Form.Control
               as="textarea"
               placeholder="請輸入最少十個字"
-              value={data[number].d_description}
+              value={details}
               onChange={(e) => setDetails(e.target.value)}
               required
             />
@@ -257,7 +247,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             <Form.Control
               type="text"
               placeholder="請輸入聯絡人名稱"
-              value={data[number].d_contact_name}
+              value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -268,7 +258,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             <Form.Control
               type="email"
               placeholder="請輸入email"
-              value={data[number].d_email}
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
@@ -281,9 +271,9 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           <Form.Group controlId="contact">
             <Form.Label>聯絡方式：</Form.Label>
             <Form.Control
-              type="text"
+              type="phone"
               placeholder="請輸入電話號碼"
-              value={data[number].d_mobile_phone}
+              value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
             />
