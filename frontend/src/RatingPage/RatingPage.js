@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Container } from "react-bootstrap";
+import { Link, Navigate } from "react-router-dom";
 
 //會員中心
 function RatingPage() {
@@ -23,7 +24,11 @@ function RatingPage() {
         setCaseNum(result);
         console.log(result);
       } catch (err) {
-        console.log(err);
+        console.log(err)
+        if(err.response.status === 401){
+          // return <Navigate to='/switch'></Navigate>
+
+        }
       }
     };
     fetchData();

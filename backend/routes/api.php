@@ -85,7 +85,7 @@ Route::controller(AuthController::class)->group(function(){
     // 註冊
     Route::post('/register', 'register');
     // 登入
-    Route::post('/login', 'login')->name('login');
+    Route::post('/login', 'login');//->name('login');
     // 登出
     Route::post('/logout', 'logout');
 });
