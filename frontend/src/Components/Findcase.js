@@ -9,8 +9,15 @@ import NextPage from '../homepage/NextPage';
 import Orderbuttom from '../homepage/Orderbuttom';
 import '../../src/App.css';
 import { Link, useParams } from "react-router-dom";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 183078b (Revert "修正衝突")
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+>>>>>>> 9b40f34865cbbf1321a593d879e9fc657967131c
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
 import a4 from "../Components/img/a4.png"
