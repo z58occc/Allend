@@ -215,10 +215,19 @@ function App() {
           className="search-container"
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
+
+
+
+          {/* 搜索框 */}
           <input type="text" placeholder="Search.." style={{ width: '500px', height: '55px', borderRadius: '10px' }} />
           <Button type="submit" style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
             <i className="fa fa-search"></i>
           </Button>
+          {/* 搜索框 */}
+
+
+
+
           {isLoggedIn ? ( // Check if user is logged in
             <Button style={{ height: '55px', width: '55px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
           ) : (
