@@ -100,7 +100,7 @@ function Word() {
                                         <img src={language} style={{ width: "100%" }}></img>
                                     </div>
                                     <Link to='/talent' className="card-body">
-                                        會員名稱:beauty
+                                        會員名稱：beauty
                                         <br></br>
                                         <CiStar />
                                         <CiStar />
@@ -108,9 +108,9 @@ function Word() {
                                         <CiStar />
                                         <CiStar />
                                         <br></br>
-                                        作品數:XX
+                                        作品數：XX
                                         <br></br>
-                                        成交數:XX
+                                        成交數：XX
                                         <hr></hr>
                                         專長:文字語言
                                     </Link>

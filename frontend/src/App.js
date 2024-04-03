@@ -1,20 +1,18 @@
 import React, { useRef, useState } from "react";
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link, Routes, Route, useLocation } from "react-router-dom";
+import { Modal, Button, Form } from "react-bootstrap";
+import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
 import ProjectForm from "./Components/page/Member/ProjectForm";
-import { Link, Routes, Route, useLocation } from "react-router-dom";
-import ourLogo from "./homepage/ourLogo.jpg";
 import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
 import Switch from "../src/Components/page/Member/Switch";
 import Fix from "./Components/page/Member/fix";
-import { Modal, Button, Form } from "react-bootstrap";
-import "./App.css";
-import axios from "axios";
-import Cookies from "js-cookie";
 import Softdesign from "./Components/softdesign"
 import Word from "./Components/word";
 import Pro from "./Components/pro";
@@ -22,6 +20,8 @@ import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
 

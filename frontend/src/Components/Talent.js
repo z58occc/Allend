@@ -72,17 +72,17 @@ function Talent() {
                                 <Nav.Link href='#video'>影音</Nav.Link>
                             </Nav.Item>
                             <Nav.Item as="li">
-                                <Nav.Link href='#serve' >服務</Nav.Link>
+                                <Nav.Link href='#serve'>服務</Nav.Link>
                             </Nav.Item>
                             <Nav.Item as="li">
-                                <Nav.Link href='#price' >評價</Nav.Link>
+                                <Nav.Link href='#price'>評價</Nav.Link>
                             </Nav.Item>
                         </Nav>
                         <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
                             {talent.member && talent.member[0].about}
                         </div>
 
-                        <div id='item' className='mt-5'>作品:</div>
+                        <div id='item' className='mt-5'>作品：</div>
                         <div className="row ">
                         {talent.project && talent.project.map((item,index) => (
                             <div className="col-sm-4  ">
@@ -94,18 +94,16 @@ function Talent() {
                                         <span>{item.p_name}</span>
                                         <div>
 
-                                            <p style={{ fontSize: '12px', float: 'right' }}>發布時間:{item.created_at}</p>
+                                            <p style={{ fontSize: '12px', float: 'right' }}>發布時間：{item.created_at}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                                         ))}
 
-
                         </div>
 
-
-                        <div id='video' className='mt-5'>影音:</div>
+                        <div id='video' className='mt-5'>影音：</div>
                         {talent.video && talent.video.map((item,index) => (
                             
                         <div className="row ">
@@ -121,7 +119,7 @@ function Talent() {
                             </div>
                         </div>
                         ))}
-                        <p id='serve' className='mt-5'>服務:</p>
+                        <p id='serve' className='mt-5'>服務：</p>
                         <div className='row'>
                             
                             {talent.service && talent.service.map((item,index)=>(
@@ -157,11 +155,11 @@ function Talent() {
                                         <Col xs lg="1"><FaFacebook size={30}></FaFacebook></Col>
                                         <Col xs lg="10">
                                             <div style={{ border: 'solid' }} >
-                                                案主評價:{Array.from({length:item.demmand_star},(_,i)=>(
+                                                案主評價：{Array.from({length:item.demmand_star},(_,i)=>(
                                                     <CiStar key={i}/>
                                                 ))}
                                                 <br></br>
-                                                案主留言:{item.demmand_comment}
+                                                案主留言：{item.demmand_comment}
                                                 <br></br>
                                                 <div style={{ textAlign: 'right' }}>{item.demmand_time} </div>
                                             </div>
@@ -171,7 +169,7 @@ function Talent() {
                                         <Col xs lg="1"><FaLine size={30}></FaLine></Col>
                                         <Col xs lg="10">
                                             <div style={{ border: 'solid' }} >
-                                                接案人留言:{item.service_comment}
+                                                接案人留言：{item.service_comment}
                                                 <br></br>
                                                 <div style={{ textAlign: 'right' }}>{item.service_time}</div>
                                             </div>
@@ -184,13 +182,13 @@ function Talent() {
 
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
-                            成交件數:({talent.case_member_count})
+                            成交件數：({talent.case_member_count})
                             <div style={{ border: "solid" }}>
                             {talent.case_member && talent.case_member.map((item,index)=>(
                                 <div className='mt-4 '>
                                     <span style={{ border: 'solid' }}>{item.c_name}</span>
                                     <Link style={{ margin: "30px" }} to='/casecontext'></Link>
-                                    {item.completed_time} 案主:{item.name}
+                                    {item.completed_time}案主：{item.name}
                                 </div>
                                 ))}
                             </div>

@@ -121,14 +121,7 @@ function Pro() {
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
-
-
-
                     </div>
                 </div>
                 <NextPage></NextPage>
@@ -136,7 +129,6 @@ function Pro() {
             <Footer></Footer>
         </>
     )
-
 }
 
 export default Pro

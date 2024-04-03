@@ -492,11 +492,11 @@ const Findman = () => {
                       />
                     </div>
                     <Link to={`/talent/${item.mid}`} className="card-body">
-                      服務名稱:{item.s_name}
+                      服務名稱：{item.s_name}
                       <br></br>
-                      人才名稱:{item.name}
+                      人才名稱：{item.name}
                       <br></br>
-                      作品數:{item.ptotal}
+                      作品數：{item.ptotal}
                       <br></br>
                     </Link>
                     <div className="card-footer">

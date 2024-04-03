@@ -88,15 +88,15 @@ function CaseContext() {
 
                 <div className='row mt-5'>
                     <div className='col-sm-9' style={{ border: 'solid' }}>
-                        案件編號:{posts.did}<br></br>
-                        案件名稱:{posts.d_name}<br></br>
-                        案件類別:{posts.d_type}<br></br>
-                        {posts.updated_at}更新:<br></br>
+                        案件編號：{posts.did}<br></br>
+                        案件名稱：{posts.d_name}<br></br>
+                        案件類別：{posts.d_type}<br></br>
+                        {posts.updated_at}更新：<br></br>
                         <ul>
-                            <li>預算金額:{posts.d_amount}/{posts.d_unit}</li>
-                            <li>地點:{posts.d_active_location}</li>
-                            <li>案件期程:{posts.d_duration}</li>
-                            <li>案件說明:{posts.d_description}</li>
+                            <li>預算金額：{posts.d_amount}/{posts.d_unit}</li>
+                            <li>地點：{posts.d_active_location}</li>
+                            <li>案件期程：{posts.d_duration}</li>
+                            <li>案件說明：{posts.d_description}</li>
                         </ul>
                     </div>
                     <div className='col-sm-3' >
@@ -116,29 +116,28 @@ function CaseContext() {
                         <CiStar />
                         <CiStar />
                         <br></br>
-                        最後上線時間:{members.last_login}
+                        最後上線時間：{members.last_login}
                         <br></br>
                         <FaHeart style={{ color: 'red' }} />
                     </div>
                 </div>
 
                 <div className='mt-5'>
-                    <span style={redTextStyle}>提醒:請勿在非公開場所赴約</span>
+                    <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
                 </div>
-
 
 
                 {/* 我要報價頁面 */}
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
                         <Modal.Title style={{ fontSize: 15 }}>
-                            案件名稱:<span>{posts.d_name}</span>
+                            案件名稱：<span>{posts.d_name}</span>
                             <hr></hr>
-                            案件編號:<span>{posts.did}</span>
+                            案件編號：<span>{posts.did}</span>
                             <hr></hr>
-                            案件類別:<span>{posts.d_type}</span>
+                            案件類別：<span>{posts.d_type}</span>
                             <hr></hr>
-                            案件地點:<span>{posts.d_active_location}</span>
+                            案件地點：<span>{posts.d_active_location}</span>
                             <hr></hr>
                         </Modal.Title>
                     </Modal.Header>

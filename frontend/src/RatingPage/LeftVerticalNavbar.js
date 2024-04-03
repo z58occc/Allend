@@ -53,7 +53,6 @@ const LeftVerticalNavbar = () => {
 
 
     return (
-
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
 
             <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>

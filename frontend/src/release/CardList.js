@@ -286,7 +286,6 @@ const handleModalClose1 = () => {
 
       {/* 查看報價Modal */}
       <GetQuoteModal show={showModal} onHide={handleCloseModal} index={selectedIndex}></GetQuoteModal>
-      
 
       {ComponentToRender}
     </div>

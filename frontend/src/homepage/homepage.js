@@ -170,7 +170,7 @@ function Homepage() {
             <h4>新手教學</h4>
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
               <div className="col-3 l" style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>提出需求 <FaHandshake style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FFB5B5" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
                 <p>為你篩選適合人才</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
@@ -178,11 +178,11 @@ function Homepage() {
                 <p>上架您的案件</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>完全免費 <MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FFB5B5" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
                 <p>找人才輕鬆無壓力</p>
               </div>
               <div class="col-12 text-center">
-                <span style={{ color: "#FFB5B5" }}>找案件，找人才 ，由我們搞定！ </span>
+                <span style={{ color: "#FFB5B5" }}>找案件，找人才，由我們搞定！</span>
                 <button style={{ border: "none", backgroundColor: "#FFB5B5", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
 
               </div>
@@ -255,15 +255,15 @@ function Homepage() {
                           <strong class="me-auto">
                             {post.d_name}
                             <br></br>
-                            預算:{post.d_amount}
+                            預算：{post.d_amount}
                           </strong>
                           {/* <span style={{ float: 'right' }}>短期</span> */}
                         </div>
                         <div class="toast-body">
                           <p>
-                            刊登日期:{post.created_at}
+                            刊登日期：{post.created_at}
                             <br></br>
-                            地點:{post.d_active_location}
+                            地點：{post.d_active_location}
                             {/* 1人報價中 */}
                           </p>
                         </div>
@@ -453,7 +453,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">發布工作 獲取報價</h5>
                     <p className="fs-6">
-                      依指示填寫需求表單，能免費發布工作， 讓專業人才向你提供報價!
+                      依指示填寫需求表單，能免費發布工作，讓專業人才向你提供報價!
                     </p>
                   </div>
                 </div>
@@ -466,7 +466,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">收到通知 主動報價</h5>
                     <p className="fs-6">
-                      工作經審核通過後，會發布於案件工作版， 平台內相關專業人才收到信件通知， 並根據你的工作描述提出相應報價。
+                      工作經審核通過後，會發布於案件工作版，平台內相關專業人才收到信件通知，並根據你的工作描述提出相應報價。
                     </p>
                   </div>
                 </div>
@@ -477,16 +477,15 @@ function Homepage() {
 
                   </div>
                   <div className="col-10">
-                    <h5 className="fs-4 text-primary">挑選人才 輕鬆完成工作!</h5>
+                    <h5 className="fs-4 text-primary">挑選人才，輕鬆完成工作!</h5>
                     <p className="fs-6">
-                      會持續以信件通知最新工作進度， 也能直接連絡提供報價的專業人才。
+                      會持續以信件通知最新工作進度，也能直接連絡提供報價的專業人才。
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           )}
-
 
           {showTalentContent && (
             <div className="talent-modal-div" >
@@ -509,7 +508,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
                     <p className="fs-6">
-                      每日更新工作案件提供最新接案機會! 案主會根據你的提案報價與個人專頁決定是否採用。 所有關於工作進度都會通過信件通知!
+                      每日更新工作案件提供最新接案機會!案主會根據你的提案報價與個人專頁決定是否採用。所有關於工作進度都會通過信件通知!
                     </p>
                   </div>
                 </div>
@@ -530,7 +529,6 @@ function Homepage() {
           )}
         </Modal.Body>
       </Modal>
-
     </>
   );
 }

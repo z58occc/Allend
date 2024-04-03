@@ -21,6 +21,7 @@ function GetQuoteModal({ show, onHide, index }) {
       });
   }, [index]);
   console.log(Quote);
+
   // 同意報價按鈕
   const handleAgree = (mid) =>{
     fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree",{
@@ -44,8 +45,8 @@ function GetQuoteModal({ show, onHide, index }) {
       console.error(error);
     })
   }
-  //拒絕報價
 
+  //拒絕報價按鈕
   const handleDisagree = (mid) =>{
     fetch('http://127.0.0.1/Allend/backend/public/api/pop_disagree',{
       method: 'POST',

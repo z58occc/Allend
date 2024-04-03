@@ -37,13 +37,13 @@ function Stick() {
                     <p>{talent.member && talent.member[0].name}</p>
                     {Array.from({length:talent.avg_star},(_,i)=>(<CiStar key={i}/>))}
                 </div>
-                接案身分:{talent.member && talent.member[0].i_identity}
+                接案身分：{talent.member && talent.member[0].i_identity}
                 <br></br>
-                上線時間:{talent.member &&  talent.member[0].last_login}
+                上線時間：{talent.member &&  talent.member[0].last_login}
                 <br></br>
-                接案地點:{talent.member && talent.member[0].country_city}
+                接案地點：{talent.member && talent.member[0].country_city}
                 <br></br>
-                成交件數:{talent.case_member_count}
+                成交件數：{talent.case_member_count}
                 <hr></hr>
 
                 <a href={talent.member && talent.member[0].fb}>
@@ -54,9 +54,8 @@ function Stick() {
                 </a>
                 <CopyButton  />
 
-
-
                 <hr></hr>
+                
                 <div className='row'>
                     <div style={{ borderRight: 'solid' }} className='col-sm-6'>
                         <FaHeart size={20}></FaHeart>
