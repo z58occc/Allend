@@ -18,6 +18,18 @@ import a5 from "../Components/img/a5.png";
 import a6 from "../Components/img/a6.png";
 
 function Findcase() {
+
+
+
+  // 上/下一頁
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(3);
+
+
+  // 上/下一頁
+
+
+
   // Modal下面
   // const QuoteNumber = useRef();
   // const QuoteMessage = useRef();
@@ -83,8 +95,8 @@ function Findcase() {
         // "http://localhost/Allend/backend/public/api/register",
         "http://localhost/Allend/backend/public/api/quote",
         {
-          did:100,
-          q_amount:1000
+          did: 100,
+          q_amount: 1000
         }
 
       );
@@ -187,6 +199,21 @@ function Findcase() {
         });
     }
   };
+  const lastPostIndex = currentPage * postsPerPage;
+
+
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+
+  // const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+
+
+  
+
+
+
+
+
 
   return (
     <>
@@ -329,11 +356,17 @@ function Findcase() {
           </button>
         </div>
 
+
+                  
+   
+
+
+
         {/* 案件欄位 */}
-        <div>
-          {posts.map((post, index) => {
+        <div >
+          {posts.slice(firstPostIndex, lastPostIndex).map((post, index) => {
             return (
-              <div>
+              <div >
                 <div className="row" key={index}>
                   <Link
                     to={`/casecontext/?${post.did}`}
@@ -377,7 +410,6 @@ function Findcase() {
             );
           })}
         </div>
-
         {/* 案件欄位 */}
 
         {/* 我要報價頁面 */}
@@ -434,8 +466,18 @@ function Findcase() {
 
         <br></br>
 
-        {/* 頁碼 */}
-        <NextPage></NextPage>
+
+
+
+        {/* 上/下一頁 */}
+        <NextPage
+        >
+
+        </NextPage>
+        {/* 上/下一頁 */}
+
+
+
       </div>
       <Footer></Footer>
     </>
