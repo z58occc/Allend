@@ -8,7 +8,7 @@ function GetQuoteModal({ show, onHide, index }) {
   useEffect(() => {
     fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${index}`, {
       method: "GET",
-      headers:{Authorization: `Bearer ${Cookies.get("token")}`},
+      // headers:{Authorization: `Bearer ${Cookies.get("token")}`},
     })
       .then((res) => 
         res.json())
@@ -25,9 +25,33 @@ function GetQuoteModal({ show, onHide, index }) {
   const handleAgree = (mid) =>{
     fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree",{
       method: 'POST',
-      
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+      body: JSON.stringify({
+        mid: mid,
+        did: index,
+      })
+    })
+    .then((res)=>{
+      return res.json();
+    })
+    .then((data)=>{
+      console.log(data);
+    })
+    .catch((error)=>{
+      console.error(error);
+    })
+  }
+  //拒絕報價
+
+  const handleDisagree = (mid) =>{
+    fetch('http://127.0.0.1/Allend/backend/public/api/pop_disagree',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get("token")}`,
       },
       body: JSON.stringify({
         mid: mid,
@@ -81,6 +105,7 @@ function GetQuoteModal({ show, onHide, index }) {
                     <Button
                       variant="danger"
                       style={{ fontSize: "12px", whiteSpace: "nowrap" }}
+                      onClick={()=>{handleDisagree(item.mid)}}
                     >
                       拒絕
                     </Button>
