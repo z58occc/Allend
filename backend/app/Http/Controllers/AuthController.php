@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Exceptions\ValidationExceptionAPI;
 use App\Models\Member;
 use DateTime;
 use Illuminate\Auth\Events\Registered;
@@ -24,8 +24,10 @@ class AuthController extends Controller
     }
 
     // 註冊
-    public function register(Request $request):JsonResponse
+    public function register(Request $request)//:JsonResponse
     {
+//         $email = 'john@example.com';
+// return $maskedEmail = $email[0] . str_repeat('*', strlen(explode('@', $email)[0]) - 1) . '@' . explode('@', $email)[1];
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
@@ -45,17 +47,20 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             ]);
-            event(new Registered($user));
             Auth::guard('api')->login($user);
+            DB::table('members')->where('mid', $user->mid)->update(['last_login', now()]);
+
+            // 發送信箱驗證信
+            event(new Registered($user));
+
             return response()->json([
                 'email' => $request->email,
                 'password' => $request->password,
             ]);
         }
         catch(Throwable $err){
-            // return response('email已被註冊過!');
             return response()->json([
-                'message2' => $err
+                'message' => '該信箱已被註冊過'
             ]);
         }
     }
@@ -84,9 +89,10 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        DB::table('members')->where('mid', $user->mid)->update(['last_login' => now()]);
+
         return response()->json([
-            'user_tag' => $user->mid,
-            'user_logintime' => now(),
+            'user_login_time' => now(),
             'token' => $token,
         ]);
     }
@@ -94,8 +100,6 @@ class AuthController extends Controller
     // 登出
     public function logout(Request $request){
         Auth::invalidate($request->bearerToken());
-
-        // return redirect(route('login'));
     }
 
     //  // 從請求頭獲取 JWT

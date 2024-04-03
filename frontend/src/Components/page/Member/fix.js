@@ -92,7 +92,7 @@ function PasswordForm() {
                     <br />
                     <Form.Group controlId="formConfirmNewPassword">
                       < FaLock />
-                      <Form.Label>確認新密碼:</Form.Label>
+                      <Form.Label>確認新密碼：</Form.Label>
                       <Form.Control
                         type="password"
                         value={confirmNewPassword}

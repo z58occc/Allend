@@ -55,7 +55,7 @@ class AuthenticateAPI extends Middleware
      */
     protected function unauthenticated($request, array $guards)
     {
-        return response()->json(['error' => 'Unauthenticated'], 401);
+        return response()->json(['message' => 'Unauthenticated'], 401);
     }
 }
 
