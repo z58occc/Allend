@@ -28,20 +28,17 @@ function Homepage() {
     fetch("http://127.0.0.1/Allend/backend/public/api/index")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.service);
-        console.log(data.demmand);
-        console.log(data.project);
-        // const result;
+        console.log(data);
+        // console.log(data.service);
+        // console.log(data.demmand);
+        // console.log(data.project);
         for (let i = 0; i < 9; i++) {
-          data.service[i].image = data.project[i]["image"];
           data.service[i].d_name = data.demmand[i]["d_name"];
           data.service[i].d_amount = data.demmand[i]["d_amount"];
-          data.service[i].d_active_location =
-            data.demmand[i]["d_active_location"];
-          data.service[i].d_created_at = data.demmand[i]["d_created_at"];
+          data.service[i].d_active_location = data.demmand[i]["d_active_location"];
+          data.service[i].d_created_at = data.demmand[i]["created_at"];
+          data.service[i].project_image = data.project[i]["image"];
         }
-
-        console.log(data.service);
         setPosts(data.service);
       })
       .catch((err) => {
@@ -225,7 +222,7 @@ function Homepage() {
                       </div>
                       <div className="card-body">
                         {post.s_name}
-                        <br></br>${post.s_amount}/件
+                        <br></br>${post.s_amount} / 件
                         <hr></hr>
                         {post.name}
                       </div>
@@ -261,7 +258,7 @@ function Homepage() {
                         </div>
                         <div class="toast-body">
                           <p>
-                            刊登日期：{post.created_at}
+                            刊登日期：{post.d_created_at}
                             <br></br>
                             地點：{post.d_active_location}
                             {/* 1人報價中 */}
