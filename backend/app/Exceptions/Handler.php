@@ -26,7 +26,16 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         // $this->renderable(function (ValidationException $e, Request $request) {
-        //     return app(ValidationExceptionAPI::class)->render($request, $e);
+        //     $data = $request->all();
+        //     return app(ValidationExceptionAPI::class)->render($request, $e, $data);
         // });
+
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($e instanceof ValidationExceptionAPI) {
+                return $e->render($request);
+            }
+
+            return parent::render($request, $e);
+        });
     }
 }

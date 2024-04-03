@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ValidationExceptionAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Throwable;
+
+use function Laravel\Prompts\error;
 
 class Pop_QuoteAgreeController extends Controller
 {
@@ -39,11 +43,21 @@ class Pop_QuoteAgreeController extends Controller
     {
         $mid = Auth::id();
 
-        $this->validate($request,[
-            'did'=>['required'],
-            'q_amount'=>['required'],
-            'q_message'=>['required'],
-        ]);
+        try{
+            $this->validate($request,[
+                'did'=>['required'],
+                'q_amount'=>['required'],
+                'q_message'=>['max:10'],
+            ]);
+        }
+        catch(ValidationException $err){
+            // return response()->json([
+            //     'error' => 'validation failed'
+            // ]);
+            // dd(1);
+            // return $err->render($request);
+            return $err->errors();
+        }
 
         try{
             DB::table('quote')->insert([
