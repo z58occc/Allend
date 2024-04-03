@@ -5,6 +5,7 @@ import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import StarRating from './StarRating';
+import Cookies from 'js-cookie';
 // import CaseContext from './CaseContext';
 const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   const CaseData = data1
@@ -28,8 +29,22 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
     setShowModal1(false);
     setSelectedDataKey(0);
   }
-  
-  
+  const handleDeleted = (qid) => {
+    fetch('http://127.0.0.1/Allend/backend/public/api/delmembertakecase',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+      body: JSON.stringify({
+        qid : qid,
+      })
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
+  }
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
@@ -79,7 +94,7 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
                 variant="secondary" 
                 className="my-2 d-inline-block"
                 style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center',visibility }}
-                
+                onClick={()=>{handleDeleted(item.qid)}}
               >
                 棄件
               </Button>

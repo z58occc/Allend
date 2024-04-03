@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 // import SearchPage from './SearchPage';
 import Screen3 from "./Screen3";
@@ -10,7 +10,6 @@ import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 
 const MainScreen = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
-
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
