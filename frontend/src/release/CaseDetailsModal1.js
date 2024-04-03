@@ -5,6 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen2";
+import Cookies from "js-cookie";
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
   //useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);
@@ -27,6 +28,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get('token')}`,
       },
       body: JSON.stringify({
         index: data[number].did,

@@ -436,7 +436,7 @@ class MemberInfoController extends Controller
             'location' => 'required',
             'details' => 'required | min:10',
             'contact_name' => 'required',
-            'email' => 'required',
+            'email' => 'required', 
             'phone' => 'required | max:10',
         ]);
         $type = DB::table('category')->where('type', $request->type)->value('catid');
