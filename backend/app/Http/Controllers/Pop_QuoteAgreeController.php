@@ -16,6 +16,7 @@ class Pop_QuoteAgreeController extends Controller
     // 查看報價
     public function getQuote(Request $request)
     {
+        $mid = Auth::id();
         $demmandID = $request->input('did');
         if($demmandID){
             $quote = DB::table('demmand')
@@ -24,7 +25,9 @@ class Pop_QuoteAgreeController extends Controller
             ->join('identity', 'members.identity', '=', 'iid')
             ->select('qid','d_name','members.mid', 'name', 'email',
             'i_identity as identity', 'q_amount','q_message')
-            ->where('quote.did', $demmandID)->get();
+            ->where('quote.did', $demmandID)
+            ->where('quote.mid', $mid)
+            ->get();
 
             return response()->json($quote);
         }
@@ -38,7 +41,7 @@ class Pop_QuoteAgreeController extends Controller
         $this->validate($request,[
             'did'=>['required'],
             'q_amount'=>['required'],
-            // 'q_message'=>['required'],
+            'q_message'=>['required'],
         ]);
 
         $qoute = DB::table('quote')->insert([
