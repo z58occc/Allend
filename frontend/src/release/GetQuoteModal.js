@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 function GetQuoteModal({ show, onHide, index }) {
@@ -7,6 +8,7 @@ function GetQuoteModal({ show, onHide, index }) {
   useEffect(() => {
     fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${index}`, {
       method: "GET",
+      headers:{Authorization: `Bearer ${Cookies.get("token")}`},
     })
       .then((res) => res.json())
       .then((data) => {

@@ -49,46 +49,55 @@ function Findcase() {
   //     }
   //     setShow(false);
 
-    // }
-    // async function postJSON(data) {
-    //     try {
-    //         const response = await fetch("http://localhost/Allend/backend/public/api//quote", {
-    //             method: "POST", // or 'PUT'
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify(data),
-    //         });
+  // }
+  // async function postJSON(data) {
+  //   try {
+  //     const response = await fetch("http://localhost/Allend/backend/public/api/quote", {
+  //       method: "POST", // or 'PUT'
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
 
-    //         const result = await response.json();
-    //         console.log("Success:", result);
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //     }
-    // }
+  //     const result = await response.json();
+  //     console.log("Success:", result);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // }
+  // const data = { did: 10, q_amount: 1 };
+  // postJSON(data);
 
 
-    // const data = { username: "example" };
-    // console.log(data);
+  // const data = { username: "example" };
+  // console.log(data);
 
-    // postJSON(data);
+  // postJSON(data);
 
-    // const A = postJSON(data);
-    // console.log(A);
-    const registerUser = async () => {
-        try {
-            const res = await axios.post(
-                // "http://localhost/Allend/backend/public/api/register",
-                "http://localhost/Allend/backend/public/api/quote",
-                
-            );
-
-            console.log(res)
-            return res.data;
-        } catch (err) {
-            console.log(err);
+  // const A = postJSON(data);
+  // console.log(A);
+  const registerUser = async () => {
+    try {
+      const res = await axios.post(
+        // "http://localhost/Allend/backend/public/api/register",
+        "http://localhost/Allend/backend/public/api/quote",
+        {
+          did:100,
+          q_amount:1000
         }
-    };
+
+      );
+
+      console.log(res)
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // const data = { did: 10, q_amount: 1 };
+  // registerUser(data);
+
 
 
   // Modal下面
@@ -109,12 +118,14 @@ function Findcase() {
 
   const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        registerUser()
-    }, []);
-    const fetchData = async (type) => {
-        if (window.location.href == "http://localhost:3000/findcase") {
-            let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+  useEffect(() => {
+    // registerUser()
+    // postJSON()
+    fetchData()
+  }, []);
+  const fetchData = async (type) => {
+    if (window.location.href == "http://localhost:3000/findcase") {
+      let url = "http://localhost/Allend/backend/public/api/findcase?type=";
 
 
 
@@ -325,7 +336,7 @@ function Findcase() {
               <div>
                 <div className="row" key={index}>
                   <Link
-                    to="/casecontext"
+                    to={`/casecontext/?${post.did}`}
                     className="col-sm-2"
                     style={{
                       border: "solid black",
@@ -395,7 +406,7 @@ function Findcase() {
                   type=""
                   autoFocus
                   value={posts[key]?.d_amount}
-                  // ref={QuoteNumber}
+                // ref={QuoteNumber}
                 ></Form.Control>
                 <span className="mt-2">{"/" + posts[key]?.d_unit}</span>
               </Form.Group>
@@ -408,7 +419,7 @@ function Findcase() {
                   as="textarea"
                   rows={3}
                   placeholder="請輸入訊息"
-                  // ref={QuoteMessage}
+                // ref={QuoteMessage}
                 />
               </Form.Group>
             </Form>
