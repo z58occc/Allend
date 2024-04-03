@@ -96,7 +96,8 @@ function Findcase() {
         "http://localhost/Allend/backend/public/api/quote",
         {
           did: 100,
-          q_amount: 1000
+          q_amount: 1000,
+          q_message: 1000
         }
 
       );
