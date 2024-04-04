@@ -25,6 +25,9 @@ use App\Http\Controllers\Pop_QuoteAgreeController;
 use App\Http\Controllers\ServiceContentController;
 // use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
+use App\Http\Controllers\UpdateProjectController;
+use App\Http\Controllers\UpdateServiceController;
+
 // use App\Http\Controllers\VideoController;
 // use App\Http\Controllers\WorkController;
 
@@ -55,6 +58,8 @@ Route::get('/service_content', ServiceContentController::class);
 // 送出發案表單
 Route::post('/commitcase', CommitController::class);//->middleware('auth');
 
+Route::post('/updateservice', UpdateServiceController::class);
+Route::post('/updateproject', UpdateProjectController::class);
 // 送出、查看、接受、拒絕報價
 Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
 Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
@@ -125,7 +130,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
     // 編輯接案紀錄
-    Route::get('/updatetakecase', 'updateTakeCase');
+    Route::post('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
 

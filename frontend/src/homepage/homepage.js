@@ -22,9 +22,17 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 
 
 function Homepage() {
+
+  const [carouselpage, setCarouselpage] = useState(0);
+  const handleSelect = (selectedIndex) => {
+    setCarouselpage(selectedIndex);
+  };
   // 最新服務 刊登 接API
+  const [key, setkey] = useState(0);
   const [posts, setPosts] = useState([]);
-  useEffect(() => {
+  const [activeProduct, setActiveProduct] = useState(Product);
+
+  const fetchData = (index) => {
     fetch("http://127.0.0.1/Allend/backend/public/api/index")
       .then((response) => response.json())
       .then((data) => {
@@ -38,16 +46,23 @@ function Homepage() {
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
+            setActiveProduct(`data:image/jpeg;base64,${data.service[i].project_image}`)
+          
         }
+        setkey(index);
         setPosts(data.service);
+        
       })
       .catch((err) => {
         console.log(err.message);
       });
+  }
+  useEffect(() => {
+    fetchData()
   }, []);
 
   const [isHovered, setIsHovered] = useState(false); // State to track hover status
-  const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
+  // const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
   const [activeproduct4, setActiveproduct4] = useState(product4);
   const [activeproduct9, setActiveproduct9] = useState(product9);
 
@@ -64,7 +79,7 @@ function Homepage() {
     setActiveproduct4(product4);
     setActiveproduct9(product9);
   };
-  {/* 置頂按鈕 */}
+  {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
@@ -93,11 +108,11 @@ function Homepage() {
       behavior: "smooth"
     });
   };
- {/* 置頂按鈕 */}
+  {/* 置頂按鈕 */ }
 
- {/* 控制新手教學彈跳視窗 */}
+  {/* 控制新手教學彈跳視窗 */ }
   const handleShow = () => setShowNewbie(true);
-  
+
 
   const [showNewbie, setShowNewbie] = useState(false);
   const handleClose = () => setShowNewbie(false);
@@ -158,7 +173,7 @@ function Homepage() {
 
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         </div>
-       
+
         <Category></Category>
         <br></br>
         {/* 新手教學 */}
@@ -226,7 +241,10 @@ function Homepage() {
                         <hr></hr>
                         {post.name}
                       </div>
-                      <div className="card-footer ">{post.created_at}</div>
+                      <div className="card-footer ">
+                        {post.created_at}
+
+                      </div>
                     </Link>
                   </Col>
                 </Row>
@@ -235,6 +253,9 @@ function Homepage() {
           </div>
         </div>
         {/* 最新服務 */}
+
+
+
 
         <br></br>
 
@@ -274,12 +295,18 @@ function Homepage() {
         </div>
         {/* 最新刊登 */}
 
+
+
+
+
         {/* 輪播圖 */}
         <h4>會員作品</h4>
         <div className="d-flex  justify-content-center mt-5">
+
+
           <Row className="justify-content-md-center">
             <Col xs lg="7">
-              <Carousel
+              <Carousel activeIndex={carouselpage} onSelect={handleSelect}
                 style={{ overflow: " hidden" }}
                 id="carousel"
                 interval={null}
@@ -292,47 +319,51 @@ function Homepage() {
                   <span style={{ color: "black", fontSize: "4rem" }}>›</span>
                 }
               >
-                <Carousel.Item >
-                  <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeProduct} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
-                    </Col>
-                    <Col xs lg="5">
-                      <Link to="./talent">
-                        <h3 style={{ marginTop: 100 }}>會員名稱1</h3>
-                      </Link>
-                      <Row
-                        id="carouselimg"
-                        className=" justify-content-md-center"
-                      >
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product3}
-                            onMouseEnter={() => handleMouseEnter(product3)}
-                            onMouseLeave={handleMouseLeave}
-                          />
+
+
+
+                {/* 接api輪播圖 */}
+                {posts.slice(0, 3).map((post, index) => {
+                  return (
+                    <Carousel.Item >
+                      <Row className=" justify-content-md-center align-items-end">
+                        <Col xs lg="6">
+                          <img src={activeProduct} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
                         </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product2}
-                            onMouseEnter={() => handleMouseEnter(product2)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={Product}
-                            onMouseEnter={() => handleMouseEnter(Product)}
-                            onMouseLeave={handleMouseLeave}
-                          />
+                        <Col xs lg="5">
+                          <Link to="./talent">
+                            <h3 style={{ marginTop: 100 }}>{post.name}</h3>
+                          </Link>
+                          <Row
+                            id="carouselimg"
+                            className=" justify-content-md-center"
+                          >
+                            {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
+                              return (
+                                <Col xs lg="4">
+                                  {" "}
+                                  <img
+                                    src={`data:image/jpeg;base64,${post.project_image}`}
+                                    onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
+                                    onMouseLeave={handleMouseLeave}
+                                  />
+                                </Col>
+                              )
+                            })}
+                          </Row>
                         </Col>
                       </Row>
-                    </Col>
-                  </Row>
-                </Carousel.Item>
+                    </Carousel.Item>
+
+                  )
+
+                })}
+                {/* 接api輪播圖 */}
+
+
+
+
+
                 <Carousel.Item>
                   <Row className=" justify-content-md-center align-items-end">
                     <Col xs lg="6">
@@ -421,6 +452,9 @@ function Homepage() {
         </div>
         {/* 輪播圖 */}
       </div>
+
+
+
 
       <Footer></Footer>
       {/* 新手教學視窗 */}

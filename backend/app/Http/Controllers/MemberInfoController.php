@@ -274,7 +274,7 @@ class MemberInfoController extends Controller
         ->join('demmand','quote.did','=','demmand.did')
         ->join('category', 'catid', '=', 'demmand.d_type')
         ->join('country', 'country_id', '=', 'd_active_location')
-        ->select('qid', 'd_name','type','q_amount','d_unit', 'd_duration', 'country_city as active_location', 'd_description',
+        ->select('qid', 'd_name','type','q_amount','d_unit', 'q_message','demmand.did' ,'d_duration', 'country_city as active_location', 'd_description',
         'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
         ->where('quote.mid',$mid);
 
@@ -346,7 +346,7 @@ class MemberInfoController extends Controller
             ]);
 
             $new = DB::table('quote')->where('did', $request->did)
-            ->where('mid', $request->mid)
+            ->where('qid', $request->qid)
             ->update([
                 'q_amount' => $request->amount,
                 'q_message' => $request->message !== null ? $request->message : "",
