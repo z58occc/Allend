@@ -30,12 +30,12 @@ class Handler extends ExceptionHandler
         //     return app(ValidationExceptionAPI::class)->render($request, $e, $data);
         // });
 
-        $this->renderable(function (ValidationException $e, $request) {
-            if ($e instanceof ValidationExceptionAPI) {
-                return $e->render($request);
-            }
+        // $this->renderable(function (ValidationException $e, $request) {
+        //     if ($e instanceof ValidationExceptionAPI) {
+        //         return $e->render($request);
+        //     }
 
-            return parent::render($request, $e);
-        });
+        //     return parent::render($request, $e);
+        // });
     }
 }

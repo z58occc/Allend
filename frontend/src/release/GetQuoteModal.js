@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
@@ -5,13 +6,13 @@ function GetQuoteModal({ show, onHide, index }) {
   console.log(index);
   const [Quote, setQuote] = useState([]);
 
+  // 查看報價
   useEffect(() => {
-    fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${index}`, {
+    axios(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${index}`, {
       method: "GET",
-      // headers:{Authorization: `Bearer ${Cookies.get("token")}`},
+      headers:{Authorization: `Bearer ${Cookies.get("token")}`},
     })
-      .then((res) => 
-        res.json())
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setQuote(data);
@@ -46,7 +47,7 @@ function GetQuoteModal({ show, onHide, index }) {
     })
   }
 
-  //拒絕報價按鈕
+  // 拒絕報價按鈕
   const handleDisagree = (mid) =>{
     fetch('http://127.0.0.1/Allend/backend/public/api/pop_disagree',{
       method: 'POST',

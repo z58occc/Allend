@@ -18,26 +18,6 @@ class Pop_QuoteAgreeController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-    // 查看報價
-    public function getQuote(Request $request)
-    {
-        $mid = Auth::id();
-        $demmandID = $request->input('did');
-        if($demmandID){
-            $quote = DB::table('demmand')
-            ->leftjoin('quote', 'quote.did', '=', 'demmand.did')
-            ->join('members', 'quote.mid', '=', 'members.mid')
-            ->join('identity', 'members.identity', '=', 'iid')
-            ->select('qid','d_name','members.mid', 'name', 'email',
-            'i_identity as identity', 'q_amount','q_message')
-            ->where('quote.did', $demmandID)
-            ->where('quote.mid', $mid)
-            ->get();
-
-            return response()->json($quote);
-        }
-    }
-
     // 送出報價表單
     public function sendQuote(Request $request)
     {
@@ -51,12 +31,9 @@ class Pop_QuoteAgreeController extends Controller
             ]);
         }
         catch(ValidationException $err){
-            // return response()->json([
-            //     'error' => 'validation failed'
-            // ]);
-            // dd(1);
-            // return $err->render($request);
-            return $err->errors();
+            return response()->json([
+                'error' => $err->errors()
+            ]);
         }
 
         try{
@@ -75,6 +52,26 @@ class Pop_QuoteAgreeController extends Controller
         return response()->json([
             'message' => '報價成功'
         ]);
+    }
+
+    // 查看報價
+    public function getQuote(Request $request)
+    {
+        $mid = Auth::id();
+        $demmandID = $request->input('did');
+        if($demmandID){
+            $quote = DB::table('demmand')
+            ->leftjoin('quote', 'quote.did', '=', 'demmand.did')
+            ->join('members', 'quote.mid', '=', 'members.mid')
+            ->join('identity', 'members.identity', '=', 'iid')
+            ->select('qid','d_name','members.mid', 'name', 'email',
+            'i_identity as identity', 'q_amount','q_message')
+            ->where('quote.did', $demmandID)
+            ->where('quote.mid', $mid)
+            ->get();
+
+            return response()->json($quote);
+        }
     }
 
     // 同意報價

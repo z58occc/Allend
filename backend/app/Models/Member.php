@@ -36,6 +36,7 @@ class Member extends Authenticatable implements JWTSubject, MustVerifyEmail
         // 'mobile_phone',
         // 'gender',
         // 'location',
+        'last_login',
     ];
 
     /**
