@@ -22,7 +22,7 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 
 
 function Homepage() {
-
+  const [change,setChange] = useState(false);
   const [carouselpage, setCarouselpage] = useState(0);
   const handleSelect = (selectedIndex) => {
     setCarouselpage(selectedIndex);
@@ -30,7 +30,7 @@ function Homepage() {
   // 最新服務 刊登 接API
   const [key, setkey] = useState(0);
   const [posts, setPosts] = useState([]);
-  const [activeProduct, setActiveProduct] = useState(Product);
+  const [activeProduct, setActiveProduct] = useState();
 
   const fetchData = (index) => {
     fetch("http://127.0.0.1/Allend/backend/public/api/index")
@@ -46,7 +46,6 @@ function Homepage() {
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
-            setActiveProduct(`data:image/jpeg;base64,${data.service[i].project_image}`)
           
         }
         setkey(index);
@@ -71,13 +70,16 @@ function Homepage() {
     setActiveProduct(image);
     setActiveproduct4(image);
     setActiveproduct9(image);
+    setChange(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (image) => {
     setIsHovered(false);
-    setActiveProduct(Product);
+    setActiveProduct(image);
     setActiveproduct4(product4);
     setActiveproduct9(product9);
+    setChange(false);
+
   };
   {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -328,7 +330,7 @@ function Homepage() {
                     <Carousel.Item >
                       <Row className=" justify-content-md-center align-items-end">
                         <Col xs lg="6">
-                          <img src={activeProduct} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                          <img src={change == true ?`${activeProduct}`:`data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
                         </Col>
                         <Col xs lg="5">
                           <Link to="./talent">
@@ -345,7 +347,7 @@ function Homepage() {
                                   <img
                                     src={`data:image/jpeg;base64,${post.project_image}`}
                                     onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
-                                    onMouseLeave={handleMouseLeave}
+                                    onMouseLeave={() => handleMouseLeave(`data:image/jpeg;base64,${post.project_image}`)}
                                   />
                                 </Col>
                               )
