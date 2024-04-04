@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Button} from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import CaseDetailsModal1 from './CaseDetailsModal1'
@@ -6,6 +6,7 @@ import CaseDetailsModal2 from './CaseDetailsModal2';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import StarRating from './StarRating';
 import Cookies from 'js-cookie';
+import { CaseContext } from './MainScreen';
 // import CaseContext from './CaseContext';
 const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   const CaseData = data1
@@ -16,6 +17,8 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
     setSelectedDataKey(index);
     console.log(index);
   }
+  //
+  const {fetchData} = useContext(CaseContext);
  
   
   // 案件詳情Modal
@@ -29,16 +32,20 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
     setShowModal1(false);
     setSelectedDataKey(0);
   }
+  //棄件
   const handleDeleted = (qid) => {
     fetch('http://127.0.0.1/Allend/backend/public/api/delmembertakecase',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${Cookies.get("token")}`,
+         Authorization: `Bearer ${Cookies.get("token")}`,
       },
       body: JSON.stringify({
         qid : qid,
       })
+    })
+    .then(() => {
+       fetchData();
     })
     .catch((error)=>{
       console.log(error)
