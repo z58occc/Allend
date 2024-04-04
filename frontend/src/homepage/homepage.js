@@ -30,6 +30,7 @@ function Homepage() {
   // 最新服務 刊登 接API
   const [key, setkey] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [activeProduct, setActiveProduct] = useState(Product);
 
   const fetchData = (index) => {
     fetch("http://127.0.0.1/Allend/backend/public/api/index")
@@ -45,9 +46,12 @@ function Homepage() {
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
+            setActiveProduct(`data:image/jpeg;base64,${data.service[i].project_image}`)
+          
         }
         setkey(index);
         setPosts(data.service);
+        
       })
       .catch((err) => {
         console.log(err.message);
@@ -58,7 +62,7 @@ function Homepage() {
   }, []);
 
   const [isHovered, setIsHovered] = useState(false); // State to track hover status
-  const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
+  // const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
   const [activeproduct4, setActiveproduct4] = useState(product4);
   const [activeproduct9, setActiveproduct9] = useState(product9);
 
@@ -324,7 +328,7 @@ function Homepage() {
                     <Carousel.Item >
                       <Row className=" justify-content-md-center align-items-end">
                         <Col xs lg="6">
-                          <img src={`data:image/jpeg;base64,${post.image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                          <img src={activeProduct} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
                         </Col>
                         <Col xs lg="5">
                           <Link to="./talent">
@@ -340,7 +344,7 @@ function Homepage() {
                                   {" "}
                                   <img
                                     src={`data:image/jpeg;base64,${post.project_image}`}
-                                    onMouseEnter={() => handleMouseEnter(activeProduct)}
+                                    onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
                                     onMouseLeave={handleMouseLeave}
                                   />
                                 </Col>
