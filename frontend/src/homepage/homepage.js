@@ -22,6 +22,11 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 
 
 function Homepage() {
+
+  const [carouselpage, setCarouselpage] = useState(0);
+  const handleSelect = (selectedIndex) => {
+    setCarouselpage(selectedIndex);
+  };
   // 最新服務 刊登 接API
   const [key, setkey] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -297,7 +302,7 @@ function Homepage() {
 
           <Row className="justify-content-md-center">
             <Col xs lg="7">
-              <Carousel
+              <Carousel activeIndex={carouselpage} onSelect={handleSelect}
                 style={{ overflow: " hidden" }}
                 id="carousel"
                 interval={null}
@@ -314,7 +319,7 @@ function Homepage() {
 
 
                 {/* 接api輪播圖 */}
-                {posts.slice(0,3).map((post, index) => {
+                {posts.slice(0, 3).map((post, index) => {
                   return (
                     <Carousel.Item >
                       <Row className=" justify-content-md-center align-items-end">
@@ -329,36 +334,18 @@ function Homepage() {
                             id="carouselimg"
                             className=" justify-content-md-center"
                           >
-                            {posts.slice(0,3).map((post, index) => {
+                            {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
                               return (
                                 <Col xs lg="4">
                                   {" "}
                                   <img
                                     src={`data:image/jpeg;base64,${post.project_image}`}
-                                    onMouseEnter={() => handleMouseEnter(product3)}
+                                    onMouseEnter={() => handleMouseEnter(activeProduct)}
                                     onMouseLeave={handleMouseLeave}
                                   />
                                 </Col>
                               )
                             })}
-
-
-                            {/* <Col xs lg="4">
-                              {" "}
-                              <img
-                                src={`data:image/jpeg;base64,${post.project_image}`}
-                                onMouseEnter={() => handleMouseEnter(product2)}
-                                onMouseLeave={handleMouseLeave}
-                              />
-                            </Col>
-                            <Col xs lg="4">
-                              {" "}
-                              <img
-                                src={Product}
-                                onMouseEnter={() => handleMouseEnter(Product)}
-                                onMouseLeave={handleMouseLeave}
-                              />
-                            </Col> */}
                           </Row>
                         </Col>
                       </Row>
