@@ -46,9 +46,8 @@ class AuthController extends Controller
             $user = Member::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'last_login' => now()
             ]);
-            Auth::guard('api')->login($user);
-            DB::table('members')->where('mid', $user->mid)->update(['last_login', now()]);
 
             // 發送信箱驗證信
             event(new Registered($user));
@@ -75,7 +74,7 @@ class AuthController extends Controller
         }
         catch (ValidationException $exception){
             return response()->json([
-                'message' => '輸入資料格式錯誤'
+                'message' => $exception->errors()
             ]);
         }
 
@@ -89,7 +88,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        DB::table('members')->where('mid', $user->mid)->update(['last_login' => now()]);
+        Member::where('mid', $user->mid)->update(['last_login' => now()]);
 
         return response()->json([
             'user_login_time' => now(),

@@ -79,18 +79,13 @@ function ProjectForm() {
             type="text"
             placeholder="填寫案件名稱"
             value={nameOfCase}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (!isNaN(value) && value > 0) {
-                setNameOfCase(value);
-              }
-            }}
+            onChange={(e) => {setNameOfCase(e.target.value);}}
             required
           />
         </Form.Group>
 
         <Form.Group controlId="category">
-          <Form.Label>需求類別 :</Form.Label>
+          <Form.Label>需求類別：</Form.Label>
           <Form.Control
             as="select"
             value={category}
@@ -109,16 +104,18 @@ function ProjectForm() {
         <Row>
           <Col>
             <Form.Group controlId="budget">
-              <Form.Label>預算金額 :</Form.Label>
+              <Form.Label>預算金額：</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="填寫金額"
                 value={budget}
                 onChange={(e) => {
-                  const value = parseInt(e.target.value);
-                  if (!isNaN(value) && value > 0) {
-                    setBudget(value);
-                  }
+                  // const value = parseInt(e.target.value);
+                  // if (!isNaN(value) && value > 0) {
+                  //   setBudget(value);
+                  // }
+                  const newValue = e.target.value.replace(/\D/g, '');
+                  setBudget(newValue ? parseInt(newValue) : '');
                 }}
                 required
               />
@@ -127,11 +124,15 @@ function ProjectForm() {
 
           <Col>
             <Form.Group controlId="unit">
-              <Form.Label>單位 :</Form.Label>
+              <Form.Label>單位：</Form.Label>
               <Form.Control
                 type="text"
                 value={unit}
-                onChange={(e) => setUnit(e.target.value)}
+                pattern="[\u4e00-\u9fa5]+"
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^\u4e00-\u9fa5]/g, '');
+                  setUnit(val)
+                }}
                 placeholder="例如: 次、件、小時"
                 required
               ></Form.Control>
@@ -154,7 +155,7 @@ function ProjectForm() {
         <Row>
           <Col>
             <Form.Group controlId="location">
-              <Form.Label>地點選擇 :</Form.Label>
+              <Form.Label>地點選擇：</Form.Label>
               <Form.Control
                 as="select"
                 value={location}
@@ -193,14 +194,13 @@ function ProjectForm() {
                   <option value="金門縣">金門縣</option>
                   <option value="連江縣">連江縣</option>
                 </optgroup>
-                {/* Add more options here */}
               </Form.Control>
             </Form.Group>
           </Col>
         </Row>
 
         <Form.Group controlId="details">
-          <Form.Label>需求詳情 :</Form.Label>
+          <Form.Label>需求詳情：</Form.Label>
           <Form.Control
             as="textarea"
             placeholder="請輸入最少十個字"
@@ -211,7 +211,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="userName">
-          <Form.Label>聯絡人名稱 :</Form.Label>
+          <Form.Label>聯絡人名稱：</Form.Label>
           <Form.Control
             type="text"
             placeholder="請輸入聯絡人名稱"
@@ -222,7 +222,7 @@ function ProjectForm() {
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>聯絡人Email :</Form.Label>
+          <Form.Label>聯絡人Email：</Form.Label>
           <Form.Control
             type="email"
             placeholder="請輸入email"
@@ -242,7 +242,11 @@ function ProjectForm() {
             type="text"
             placeholder="請輸入電話號碼"
             value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            onChange={(e) => {
+              const newValue = e.target.value.replace(/\D/g, '');
+              setContact(newValue)
+            }}
+            isInvalid={contact.length !== 10 && contact.length !== 0}
             required
           />
         </Form.Group>

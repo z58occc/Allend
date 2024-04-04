@@ -60,7 +60,7 @@ class MemberInfoController extends Controller
         else {$service_rating = ['service_rating' => 0];}
         // 作為接案方評價則數
         $service_comt = DB::table('established_case')->select(DB::raw('count(mid_service) as service_cmt'))
-                                                      ->where('mid_service', $user->mid)
+                                                      ->where('mid_service', $user->mid)->where('c_status', 2)
                                                       ->first();
 
         // 作為發案方的評價星數
@@ -72,7 +72,7 @@ class MemberInfoController extends Controller
 
         // 作為發案方評價則數
         $demmand_comt = DB::table('established_case')->select(DB::raw('count(mid_demmand) as demmand_cmt'))
-                                                        ->where('mid_demmand', $user->mid)
+                                                        ->where('mid_demmand', $user->mid)->where('c_status', 2)
                                                         ->first();
 
         $data = [
@@ -436,7 +436,7 @@ class MemberInfoController extends Controller
             'location' => 'required',
             'details' => 'required | min:10',
             'contact_name' => 'required',
-            'email' => 'required', 
+            'email' => 'required',
             'phone' => 'required | max:10',
         ]);
         $type = DB::table('category')->where('type', $request->type)->value('catid');
@@ -583,6 +583,7 @@ class MemberInfoController extends Controller
         $mid = Auth::id();
         $this->validate($request,[
             'p_name'=>['required'],
+            'image'=>['required', 'mimes:jpg,png,svg', 'size:4096', 'file'],
             'p_description'=>['required'],
         ]);
 
