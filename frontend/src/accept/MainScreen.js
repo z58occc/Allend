@@ -7,7 +7,7 @@ import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
-
+export const CaseContext = createContext();
 const MainScreen = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
   const handleScreenChange = (screenName) => {
@@ -34,20 +34,22 @@ const MainScreen = () => {
       },
     ],
   });
-  // http://127.0.0.1/Allend/backend/public/api/memtakecase
+
+  const fetchData = async () => {
+    const result = await axios.get(
+      "http://127.0.0.1/Allend/backend/public/api/memtakecase",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      }
+    );
+    setCase(result.data);
+  };
+
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(
-        "http://127.0.0.1/Allend/backend/public/api/memtakecase",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
-          },
-        }
-      );
-      setCase(result.data);
-    };
 
     fetchData();
   }, []);
@@ -55,7 +57,7 @@ const MainScreen = () => {
   console.log(Case);
 
   return (
-    <>
+    <CaseContext.Provider value={ {Case, setCase, fetchData} }>
       <Container xxl={12}>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
@@ -113,7 +115,7 @@ const MainScreen = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </CaseContext.Provider>
   );
 };
 
