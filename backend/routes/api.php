@@ -130,7 +130,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');
     // 編輯接案紀錄
-    Route::get('/updatetakecase', 'updateTakeCase');
+    Route::post('/updatetakecase', 'updateTakeCase');
     // 刪除接案紀錄
     Route::post('/delmembertakecase', 'delTakeCase');
 
