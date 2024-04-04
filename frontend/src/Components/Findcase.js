@@ -16,8 +16,13 @@ import a2 from "../Components/img/a2.png";
 import a4 from "../Components/img/a4.png";
 import a5 from "../Components/img/a5.png";
 import a6 from "../Components/img/a6.png";
+import Cookies from "js-cookie";
+
 
 function Findcase() {
+
+
+
 
 
 
@@ -30,97 +35,53 @@ function Findcase() {
 
 
 
-  // Modal下面
-  // const QuoteNumber = useRef();
-  // const QuoteMessage = useRef();
-
-  // const SendQuote = async (number, message) => {
-  //     try {
-  //         const res = await axios.post(
-  //             "http://localhost/Allend/backend/public/api/quote",
-  //             {
-  //                 q_amount: number,
-  //                 q_message: message
-  //             }
-
-  //         );
-  //         return res.data;
-  //     } catch (err) {
-  //         console.log(err);
-  //     }
-  // };
-
-  // const handleQuote = async () => {
-  //     const number = QuoteNumber.current.value;
-  //     const message = QuoteMessage.current.value;
-  //     try {
-  //         const data = await SendQuote(number, message);
-  //         console.log(data);
-  //     } catch (err) {
-  //         console.log(err);
-  //     }
-  //     setShow(false);
-
-  // }
-  // async function postJSON(data) {
-  //   try {
-  //     const response = await fetch("http://localhost/Allend/backend/public/api/quote", {
-  //       method: "POST", // or 'PUT'
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     const result = await response.json();
-  //     console.log("Success:", result);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // }
-  // const data = { did: 10, q_amount: 1 };
-  // postJSON(data);
+  // Modal下面 送資料回去
+  const QuoteAmount = useRef();
+  const QuoteMessage = useRef();
 
 
-  // const data = { username: "example" };
-  // console.log(data);
-
-  // postJSON(data);
-
-  // const A = postJSON(data);
-  // console.log(A);
-  const registerUser = async () => {
+  const sendQuote = async (did, q_amount, q_message) => {
     try {
-      const res = await axios.post(
-        // "http://localhost/Allend/backend/public/api/register",
-        "http://localhost/Allend/backend/public/api/quote",
-        {
-          did: 100,
-          q_amount: 1000,
-          q_message: 1000
-        }
+      fetch("http://localhost/Allend/backend/public/api/quote", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({
+          did: did,
+          q_amount: q_amount,
+          q_message: q_message
+        })
+      })
 
-      );
-
-      console.log(res)
-      return res.data;
     } catch (err) {
       console.log(err);
     }
   };
-  // const data = { did: 10, q_amount: 1 };
-  // registerUser(data);
 
 
+  const handleClose = async (d) => {
+    setShow(false);
+    const q_amount = QuoteAmount.current.value;
+    const q_message = QuoteMessage.current.value;
+    const did = d;
+    try {
+      const data = await sendQuote(did, q_amount, q_message);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
 
-  // Modal下面
+  };
+  // Modal下面 送資料回去
+
 
   // Modal上面
   const [key, setkey] = useState(0);
   const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-  };
+
+
 
   const handleShow = (index) => {
     setShow(true);
@@ -132,8 +93,6 @@ function Findcase() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // registerUser()
-    // postJSON()
     fetchData()
   }, []);
   const fetchData = async (type) => {
@@ -209,7 +168,7 @@ function Findcase() {
   // const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
 
-  
+
 
 
 
@@ -358,14 +317,14 @@ function Findcase() {
         </div>
 
 
-                  
-   
 
+
+        {/* .slice(firstPostIndex, lastPostIndex) */}
 
 
         {/* 案件欄位 */}
         <div >
-          {posts.slice(firstPostIndex, lastPostIndex).map((post, index) => {
+          {posts.map((post, index) => {
             return (
               <div >
                 <div className="row" key={index}>
@@ -416,10 +375,12 @@ function Findcase() {
         {/* 我要報價頁面 */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title style={{ fontSize: 15 }}>
+            <Modal.Title
+              style={{ fontSize: 15 }}
+            >
               案件名稱:<span>{posts[key]?.d_name}</span>
               <hr></hr>
-              案件編號:<span>{posts[key]?.did}</span>
+              案件編號:<span >{posts[key]?.did}</span>
               <hr></hr>
               案件類別:<span>{posts[key]?.type}</span>
               <hr></hr>
@@ -439,7 +400,7 @@ function Findcase() {
                   type=""
                   autoFocus
                   value={posts[key]?.d_amount}
-                // ref={QuoteNumber}
+                  ref={QuoteAmount}
                 ></Form.Control>
                 <span className="mt-2">{"/" + posts[key]?.d_unit}</span>
               </Form.Group>
@@ -452,13 +413,13 @@ function Findcase() {
                   as="textarea"
                   rows={3}
                   placeholder="請輸入訊息"
-                // ref={QuoteMessage}
+                  ref={QuoteMessage}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={() => { handleClose(posts[key]?.did) }}>
               送出
             </Button>
           </Modal.Footer>
