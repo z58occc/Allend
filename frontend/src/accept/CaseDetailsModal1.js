@@ -1,30 +1,49 @@
-import React,{ useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import { CaseContext } from './MainScreen';
 // import CaseContext from './CaseContext.js'
 const CaseDetailsModal = ({ show, onHide, number, data }) => {
-  // const {Case} = useContext(CaseContext);
+  const {fetchData} = useContext(CaseContext); 
 
-  // const [inputValue, setInputValue] = useState(Case['Quote'][number].q_amount);
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  // };
-
-  // const handleSetCase = ()=>{
-  //   const updatedCase = [...Case]; // 複製一份 Case 狀態陣列
-  //   updatedCase[number].q_amount = inputValue; // 更新案件名稱
-  //   setCase(updatedCase); // 使用 setCase 更新整個 Case 狀態
-  //   console.log(inputValue)
-  //   console.log(Case[number].q_amount)
-  //   console.log(updatedCase[number].q_amount)
-  //   onHide(); // 關閉 Modal
-  // }
   const [Quote, setQuote] = useState("");
   const [messages, setMessages] = useState("");
   const handleSubmit = (e) => {
+    console.log(data[number]);
     e.preventDefault();
+    fetch('http://127.0.0.1/Allend/backend/public/api/updatetakecase',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+      body: JSON.stringify({
+          "did": data[number].did,
+          "qid": data[number].qid,
+          "message": messages,
+          "amount": Quote
+      }),
+    })
+    .then((res)=>{
+      console.log(res)
+      fetchData();  
+      onHide();
+      return res.json();
+    })
+    .then((mes)=>(
+      console.log(mes)
+    ))
 
   };
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setQuote(data[number].q_amount);
+      setMessages(data[number].q_message);
+    }
+  }, [data, number]);
+
+
   return (
     <>
       {data.length === 0
@@ -38,38 +57,26 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
             <div className="container" style={{ fontSize: '18px' }}>
               <div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件編號：</strong> {data[number].qid}
-
-                </div>
-                <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件名稱：</strong>{data[number].d_name}
-
-
+                  <Form.Label>案件名稱： {data[number].d_name}</Form.Label>
                 </div>
               </div>
               <div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件類別：</strong> {data[number].q_amount}
+                  <Form.Label>案件類別： {data[number].type}</Form.Label>
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件地點：</strong> {data[number].active_location}
+                  <Form.Label>案件地點： {data[number].active_location}</Form.Label>
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件描述：</strong> {data[number].d_description}
+                  <Form.Label>案件描述： {data[number].d_description}</Form.Label>
                 </div>
               </div>
               <div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>發案人姓名：</strong>
-                  {data[number].d_contact_name}
+                  <Form.Label>發案人姓名： {data[number].d_contact_name}</Form.Label>
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>發案人Email：</strong>
-                  {data[number].d_email}
-                </div>
-                <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>發案人電話：</strong>
-                  {data[number].d_mobile_phone}
+                  <Form.Label>發案人Email： {data[number].d_email}</Form.Label>
                 </div>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="Quote">
@@ -77,7 +84,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
                     <Form.Control
                       type="text"
                       placeholder="請輸入報價金額"
-                      value={data[number].q_amount}
+                      value={Quote}
                       onChange={(e) => setQuote(e.target.value)}
                       required
                     />
@@ -87,30 +94,23 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
                     <Form.Control
                       as="textarea"
                       placeholder="請輸入最少十個字"
-                      // value= {data[number].q_amount}
+                      value={messages}
                       onChange={(e) => setMessages(e.target.value)}
                       required
                     />
                   </Form.Group>
                 </Form>
-                {/* <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>報價金額：</strong>
-                  {data[number].q_amount}
-                </div> */}
-              </div>
-              {/* <div>
-                <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>接案人留言：</strong>
-                  <div className="col">
-                    <input cols="30" rows="5" name="message" placeholder="" maxLength="150" wrap="soft" >
 
-                    </input>
-                  </div>
-                </div>
-              </div> */}
+              </div>
+
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" size="lg" onClick={()=>{}}>
+              <Button variant="primary" size="lg" 
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent default form submission
+                  handleSubmit(e); // Pass the event object to handleSubmit
+                }}
+              >
                 儲存變更
               </Button>
               <Button variant="secondary" size="lg" onClick={onHide}>
