@@ -22,7 +22,7 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 
 
 function Homepage() {
-  const [change,setChange] = useState(false);
+  const [change, setChange] = useState(false);
   const [carouselpage, setCarouselpage] = useState(0);
   const handleSelect = (selectedIndex) => {
     setCarouselpage(selectedIndex);
@@ -46,11 +46,11 @@ function Homepage() {
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
-          
+
         }
         setkey(index);
         setPosts(data.service);
-        
+
       })
       .catch((err) => {
         console.log(err.message);
@@ -308,8 +308,10 @@ function Homepage() {
 
           <Row className="justify-content-md-center">
             <Col xs lg="7">
-              <Carousel activeIndex={carouselpage} onSelect={handleSelect}
-                style={{ overflow: " hidden" }}
+              <Carousel
+                activeIndex={carouselpage}
+                onSelect={handleSelect}
+                style={{ overflow: " hidden", backgroundColor:"#9CAFAA" }}
                 id="carousel"
                 interval={null}
                 indicators={false}
@@ -330,7 +332,7 @@ function Homepage() {
                     <Carousel.Item >
                       <Row className=" justify-content-md-center align-items-end">
                         <Col xs lg="6">
-                          <img src={change == true ?`${activeProduct}`:`data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                          <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
                         </Col>
                         <Col xs lg="5">
                           <Link to="./talent">
@@ -366,88 +368,7 @@ function Homepage() {
 
 
 
-                <Carousel.Item>
-                  <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeproduct4} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
-                    </Col>
-                    <Col xs lg="5">
-                      <Link to="./talent">
-                        <h3 style={{ marginTop: 100 }}>會員名稱2</h3>
-                      </Link>
-                      <Row
-                        id="carouselimg"
-                        className=" justify-content-md-center"
-                      >
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product6}
-                            onMouseEnter={() => handleMouseEnter(product6)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product5}
-                            onMouseEnter={() => handleMouseEnter(product5)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product4}
-                            onMouseEnter={() => handleMouseEnter(product4)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Row className=" justify-content-md-center align-items-end">
-                    <Col xs lg="6">
-                      <img src={activeproduct9} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
-                    </Col>
-                    <Col xs lg="5">
-                      <Link to="./talent">
-                        <h3 style={{ marginTop: 100 }}>會員名稱3</h3>
-                      </Link>
-                      <Row
-                        id="carouselimg"
-                        className=" justify-content-md-center"
-                      >
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product7}
-                            onMouseEnter={() => handleMouseEnter(product7)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product8}
-                            onMouseEnter={() => handleMouseEnter(product8)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                        <Col xs lg="4">
-                          {" "}
-                          <img
-                            src={product9}
-                            onMouseEnter={() => handleMouseEnter(product9)}
-                            onMouseLeave={handleMouseLeave}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Carousel.Item>
+
               </Carousel>
             </Col>
           </Row>
