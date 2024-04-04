@@ -344,7 +344,7 @@ function Homepage() {
                           >
                             {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
                               return (
-                                <Col xs lg="4">
+                                <Col xs lg="4" style={{zIndex:100}}>
                                   {" "}
                                   <img
                                     src={`data:image/jpeg;base64,${post.project_image}`}
