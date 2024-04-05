@@ -97,7 +97,7 @@ function Findcase() {
 
   const [posts, setPosts] = useState([]);
 
-  const [order, setOrder] = useState([]);
+  const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
 
   useEffect(() => {
@@ -410,18 +410,39 @@ function Findcase() {
               }
               break;
             case "d_amount":
-              for (let i = 0; i < data.length; i++) {
-                mycitys.push(data[i]);
-                const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
-                setPosts(x);
+              if (changeorder == false) {
+                for (let i = 0; i < data.length; i++) {
+                  mycitys.push(data[i]);
+                  const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
+                  setPosts(x);
+                  console.log(1);
+                }
+                setChangeorder(true);
+              } else {
+                for (let i = 0; i < data.length; i++) {
+                  mycitys.push(data[i]);
+                  const x = mycitys.sort(function (a, b) { return b.d_amount - a.d_amount });
+                  setPosts(x);
+                }
+                setChangeorder(false);
               }
               break;
             case "quote_total":
-              for (let i = 0; i < data.length; i++) {
-                mycitys.push(data[i]);
-                const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
-                console.log(x);
-                setPosts(x);
+              if (changeorder == false) {
+                for (let i = 0; i < data.length; i++) {
+                  mycitys.push(data[i]);
+                  const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
+                  setPosts(x);
+                  console.log(1);
+                }
+                setChangeorder(true);
+              } else {
+                for (let i = 0; i < data.length; i++) {
+                  mycitys.push(data[i]);
+                  const x = mycitys.sort(function (a, b) { return b.quote_total - a.quote_total });
+                  setPosts(x);
+                }
+                setChangeorder(false);
               }
               break;
 
