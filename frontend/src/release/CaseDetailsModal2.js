@@ -1,7 +1,18 @@
 import { React } from "react";
 import { Modal, Button } from "react-bootstrap";
-
+import Cookies from "js-cookie";
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
+  const received = (cid) =>{
+    fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+    })
+    .catch((error)=>{
+      console.error(error);
+    })
+  }
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
@@ -76,7 +87,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           <Button variant="primary" size="lg">
             聯絡接案人
           </Button>
-          <Button variant="secondary" size="lg">
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}}>
             已收到案件
           </Button>
         </div>

@@ -1,8 +1,22 @@
 import {React}from 'react';
 import { Modal, Button } from 'react-bootstrap';
-
+import Cookies from 'js-cookie';
 const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
-  
+  const submit = (cid) =>{
+    fetch(`http://127.0.0.1/Allend/backend/public/api/take_submit?cid=${cid}`,{
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+    })
+    .then((res)=>{
+      return res.json();
+    })
+    .then((data)=>{
+      
+      console.log(data)
+    })
+  }
   return (
     <>
     {data.length === 0 
@@ -51,7 +65,7 @@ const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
           <Button variant="primary" size="lg">
             聯絡案主
           </Button>
-          <Button variant="secondary" size="lg">
+          <Button variant="secondary" size="lg" onClick={()=>{submit(data[number].cid)}}>
             提交案件
           </Button>
         </div>
