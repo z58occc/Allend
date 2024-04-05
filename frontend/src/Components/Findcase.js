@@ -17,6 +17,7 @@ import a4 from "../Components/img/a4.png";
 import a5 from "../Components/img/a5.png";
 import a6 from "../Components/img/a6.png";
 import Cookies from "js-cookie";
+import Pagination from "./Pagination";
 
 
 function Findcase() {
@@ -25,10 +26,13 @@ function Findcase() {
 
 
 
-
   // 上/下一頁
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(3);
+
+
 
 
   // 上/下一頁
@@ -165,7 +169,7 @@ function Findcase() {
   const firstPostIndex = lastPostIndex - postsPerPage;
 
 
-  // const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
 
 
@@ -324,7 +328,7 @@ function Findcase() {
 
         {/* 案件欄位 */}
         <div >
-          {posts.map((post, index) => {
+          {currentPosts.map((post, index) => {
             return (
               <div >
                 <div className="row" key={index}>
@@ -432,15 +436,17 @@ function Findcase() {
 
 
         {/* 上/下一頁 */}
-        <NextPage
-        >
-
-        </NextPage>
+        <Pagination
+          totalPosts={posts.length}
+          postsPerPage={postsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        ></Pagination>
         {/* 上/下一頁 */}
 
 
 
-      </div>
+      </div >
       <Footer></Footer>
     </>
   );
