@@ -11,6 +11,7 @@ use App\Http\Controllers\ClosethecaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DemmandContentController;
+use App\Http\Controllers\ECPaymentController;
 use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
@@ -66,6 +67,10 @@ Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
 Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
+
+//綠界
+Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
+Route::post('/callback', [ECPaymentController::class, 'Callback']);
 
 // 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
