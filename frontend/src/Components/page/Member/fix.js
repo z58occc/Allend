@@ -7,6 +7,8 @@ import "./fix.css";
 import Footer from "../../../homepage/Footer";
 import Cookies from "js-cookie";
 import { FaLock } from "react-icons/fa";
+import InputGroup from 'react-bootstrap/InputGroup';
+import { BsWrenchAdjustable } from "react-icons/bs";
 
 // 修改密碼
 function PasswordForm() {
@@ -60,47 +62,46 @@ function PasswordForm() {
             <Row className="justify-content-center">
               <Col sm={6} style={{ padding: "20px" }}>
                 <div>
-                  <h2>修改密碼</h2>
+                  <h2><BsWrenchAdjustable /> 修改密碼</h2>
 
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formOldPassword">
-                      < FaLock />
-                      <Form.Label>舊密碼：</Form.Label>
-
+                    <Form.Label>舊密碼：</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text controlId="formOldPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
-
                         type="password"
                         value={oldPassword}
                         onChange={(e) => setOldPassword(e.target.value)}
                         required
                         style={{ width: "100%" }}
                       />
-
-                      <br />
-                    </Form.Group>
-                    <Form.Group controlId="formNewPassword">
-                      < FaLock />
-                      <Form.Label>新密碼：</Form.Label>
+                    </InputGroup>
+                    <br />
+                    <Form.Label>新密碼：</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text controlId="formNewPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         required
                         style={{ width: "100%" }}
+                        aria-describedby="formNewPassword"
                       />
-                    </Form.Group>
+                    </InputGroup>
                     <br />
-                    <Form.Group controlId="formConfirmNewPassword">
-                      < FaLock />
-                      <Form.Label>確認新密碼：</Form.Label>
+                    <Form.Label>確認新密碼：</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text controlId="formConfirmNewPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
                         type="password"
                         value={confirmNewPassword}
                         onChange={(e) => setConfirmNewPassword(e.target.value)}
                         required
                         style={{ width: "100%" }}
+                        aria-describedby="formConfirmNewPassword"
                       />
-                    </Form.Group>
+                    </InputGroup>
                     <br />
                     <Button variant="primary" type="submit">
                       提交

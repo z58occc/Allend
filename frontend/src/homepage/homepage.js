@@ -19,6 +19,12 @@ import { MdOutlineMoneyOff } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { FaHandshake } from "react-icons/fa";
 import { AiOutlineArrowUp } from "react-icons/ai";
+import { TfiAnnouncement } from "react-icons/tfi";
+import { TbBellRinging } from "react-icons/tb";
+import { IoIosPeople } from "react-icons/io";
+import { BsPersonVcard } from "react-icons/bs";
+import { RiDraftLine } from "react-icons/ri";
+import { FaBriefcase } from "react-icons/fa";
 
 
 function Homepage() {
@@ -394,10 +400,11 @@ function Homepage() {
             <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2">
+                  <div className="col-2 pe-2"><TfiAnnouncement  style={{fontSize: "35px" , color: "3964C3"}}/>
                   </div>
                   <div className="col-10">
-                    <h5 className="fs-4 text-primary">發布工作 獲取報價</h5>
+                  
+                    <h5 className="fs-4 text-primary"> 發布工作 獲取報價</h5>
                     <p className="fs-6">
                       依指示填寫需求表單，能免費發布工作，讓專業人才向你提供報價!
                     </p>
@@ -406,7 +413,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2">
+                  <div className="col-2 "><TbBellRinging  style={{fontSize: "35px", color: "3964C3"}}/>
 
                   </div>
                   <div className="col-10">
@@ -419,7 +426,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2">
+                  <div className="col-2"><IoIosPeople  style={{fontSize: "35px" , color: "3964C3"}}/>
 
                   </div>
                   <div className="col-10">
@@ -437,7 +444,7 @@ function Homepage() {
             <div className="talent-modal-div" >
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2">
+                  <div className="col-2 pe-2"><BsPersonVcard style={{fontSize: "35px" , color: "3964C3"}}/>
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">建立個人案件</h5>
@@ -449,7 +456,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2">
+                  <div className="col-2"><FaBriefcase style={{fontSize: "35px" , color: "3964C3"}}/>
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
@@ -461,7 +468,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2">
+                  <div className="col-2"><RiDraftLine style={{fontSize: "35px" , color: "3964C3"}}/>
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">無上限申請提案</h5>

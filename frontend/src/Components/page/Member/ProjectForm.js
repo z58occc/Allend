@@ -3,6 +3,16 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import "./ProjectForm.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { FaBriefcase } from "react-icons/fa";
+import InputGroup from 'react-bootstrap/InputGroup';
+import { IoBriefcaseSharp } from "react-icons/io5";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { SiUnity } from "react-icons/si";
+import { IoIosTime } from "react-icons/io";
+import { MdPlace } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+import { FaPhoneAlt } from "react-icons/fa";
 
 // 發案表單
 function ProjectForm() {
@@ -73,19 +83,22 @@ function ProjectForm() {
     <div className="project-form">
       <h2>發案表單</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="numberOfPeople">
-          <Form.Label>案件名稱：</Form.Label>
+
+        <Form.Label>案件名稱：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="numberOfPeople"> <FaBriefcase /> </InputGroup.Text>
           <Form.Control
             type="text"
             placeholder="填寫案件名稱"
             value={nameOfCase}
-            onChange={(e) => {setNameOfCase(e.target.value);}}
+            onChange={(e) => { setNameOfCase(e.target.value); }}
             required
           />
-        </Form.Group>
+        </InputGroup>
 
-        <Form.Group controlId="category">
-          <Form.Label>需求類別：</Form.Label>
+        <Form.Label>需求類別：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="category"> <IoBriefcaseSharp /> </InputGroup.Text>
           <Form.Control
             as="select"
             value={category}
@@ -99,12 +112,15 @@ function ProjectForm() {
             <option value="平面設計">平面設計</option>
             <option value="專業諮詢">專業諮詢</option>
           </Form.Control>
-        </Form.Group>
+        </InputGroup>
 
         <Row>
           <Col>
-            <Form.Group controlId="budget">
-              <Form.Label>預算金額：</Form.Label>
+
+            <Form.Label>預算金額：</Form.Label>
+
+            <InputGroup>
+              <InputGroup.Text controlId="budget"> <RiMoneyDollarCircleFill /> </InputGroup.Text>
               <Form.Control
                 type="number"
                 placeholder="填寫金額"
@@ -119,12 +135,13 @@ function ProjectForm() {
                 }}
                 required
               />
-            </Form.Group>
+            </InputGroup>
           </Col>
 
           <Col>
-            <Form.Group controlId="unit">
-              <Form.Label>單位：</Form.Label>
+            <Form.Label>單位：</Form.Label>
+            <InputGroup>
+              <InputGroup.Text controlId="unit"> <SiUnity /> </InputGroup.Text>
               <Form.Control
                 type="text"
                 value={unit}
@@ -136,11 +153,14 @@ function ProjectForm() {
                 placeholder="例如: 次、件、小時"
                 required
               ></Form.Control>
-            </Form.Group>
+            </InputGroup>
           </Col>
         </Row>
-        <Form.Group controlId="cooperationTime">
-          <Form.Label>合作期程：</Form.Label>
+
+
+        <Form.Label>合作期程：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="cooperationTime"> <IoIosTime /> </InputGroup.Text>
           <Form.Control
             as="select"
             value={cooperationTime}
@@ -151,16 +171,20 @@ function ProjectForm() {
             <option value="short">短期</option>
             <option value="long">長期</option>
           </Form.Control>
-        </Form.Group>
+        </InputGroup>
+
         <Row>
           <Col>
-            <Form.Group controlId="location">
-              <Form.Label>地點選擇：</Form.Label>
+
+            <Form.Label>地點選擇：</Form.Label>
+            <InputGroup>
+              <InputGroup.Text controlId="location"> <MdPlace /> </InputGroup.Text>
               <Form.Control
                 as="select"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
+
               >
                 <option value="">請選擇</option>
                 <optgroup label="北部">
@@ -195,7 +219,7 @@ function ProjectForm() {
                   <option value="連江縣">連江縣</option>
                 </optgroup>
               </Form.Control>
-            </Form.Group>
+            </InputGroup>
           </Col>
         </Row>
 
@@ -210,8 +234,9 @@ function ProjectForm() {
           />
         </Form.Group>
 
-        <Form.Group controlId="userName">
-          <Form.Label>聯絡人名稱：</Form.Label>
+        <Form.Label>聯絡人名稱：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="userName"> <FaUserAlt /> </InputGroup.Text>
           <Form.Control
             type="text"
             placeholder="請輸入聯絡人名稱"
@@ -219,10 +244,12 @@ function ProjectForm() {
             onChange={(e) => setUserName(e.target.value)}
             required
           />
-        </Form.Group>
+        </InputGroup>
 
-        <Form.Group controlId="email">
-          <Form.Label>聯絡人Email：</Form.Label>
+
+        <Form.Label>聯絡人Email：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="email"> < HiOutlineMail /> </InputGroup.Text>
           <Form.Control
             type="email"
             placeholder="請輸入email"
@@ -234,10 +261,11 @@ function ProjectForm() {
             isInvalid={!!emailError}
             required
           />
-        </Form.Group>
+        </InputGroup>
 
-        <Form.Group controlId="contact">
-          <Form.Label>聯絡方式：</Form.Label>
+        <Form.Label>聯絡方式：</Form.Label>
+        <InputGroup>
+          <InputGroup.Text controlId="contact"> <FaPhoneAlt /> </InputGroup.Text>
           <Form.Control
             type="text"
             placeholder="請輸入電話號碼"
@@ -249,7 +277,7 @@ function ProjectForm() {
             isInvalid={contact.length !== 10 && contact.length !== 0}
             required
           />
-        </Form.Group>
+        </InputGroup>
 
         <div className="text-center">
           {" "}

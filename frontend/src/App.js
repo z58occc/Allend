@@ -3,6 +3,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { FaUserPlus } from "react-icons/fa6";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { FaUserLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
@@ -22,6 +28,7 @@ import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
@@ -314,7 +321,7 @@ function App() {
         <Modal.Header closeButton>
           <div className="row justify-content-center w-100">
             <div className="col text-center">
-              <Modal.Title>會員中心</Modal.Title>
+              <Modal.Title>會員登入</Modal.Title>
             </div>
           </div>
         </Modal.Header>
@@ -325,30 +332,35 @@ function App() {
               <div className="col-6">
                 <div className="row ">
                   <div className="col-sm-12 ">
-                    <Form.Group controlId="formBasicEmail">
-                      <Form.Label>帳號</Form.Label>
+                    <Form.Label>帳號</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text controlId="formBasicEmail">< FaUser /></InputGroup.Text>
                       <Form.Control
                         type="email"
                         placeholder="Enter email"
                         ref={LoginName}
                       />
-                    </Form.Group>
+                    </InputGroup>
                   </div>
 
                   <div className="col-sm-12">
-                    <Form.Group controlId="formBasicPassword">
-                      <Form.Label>密碼</Form.Label>
+
+                    <Form.Label>密碼</Form.Label>
+
+                    <InputGroup>
+                      <InputGroup.Text controlId="formBasicPassword"><RiLockPasswordFill /></InputGroup.Text>
                       <Form.Control
                         type="password"
                         placeholder="Password"
                         ref={LoginPassword}
                       />
-                      <Form.Text>
-                        <a href="/forgot-password" onClick={toForgotPassword}>
-                          忘記密碼?
-                        </a>
-                      </Form.Text>
-                    </Form.Group>
+                    </InputGroup>
+                    <Form.Text>
+                      <a href="/forgot-password" onClick={toForgotPassword}>
+                        忘記密碼?
+                      </a>
+                    </Form.Text>
+
                   </div>
                 </div>
               </div>
@@ -378,18 +390,19 @@ function App() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>忘記密碼</Modal.Title>
+          <Modal.Title className="col text-center">忘記密碼</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formForgotPasswordEmail">
-              <Form.Label>Email</Form.Label>
+            <Form.Label>Email</Form.Label>
+            <InputGroup>
+              <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
                 ref={ForgetName}
               />
-            </Form.Group>
+            </InputGroup>
             <br />
             <Button variant="primary" onClick={sendForgetPWD}>
               送出
@@ -402,12 +415,13 @@ function App() {
       {/* 註冊 */}
       <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>註冊</Modal.Title>
+          <Modal.Title className="col text-center"><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>帳號</Form.Label>
+            <Form.Label>帳號</Form.Label>
+            <InputGroup>
+              <InputGroup.Text controlId="formBasicEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
@@ -418,25 +432,28 @@ function App() {
               <Form.Control.Feedback type="invalid">
                 請輸入有效的電子郵件
               </Form.Control.Feedback>
+            </InputGroup>
 
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>密碼</Form.Label>
+            <Form.Label>密碼</Form.Label>
+            <InputGroup>
+              <InputGroup.Text controlId="formBasicPassword"><FaUserLock /></InputGroup.Text>
               <Form.Control
                 type="password"
                 placeholder="Password"
                 required
                 ref={RegisterPassword}
               />
-            </Form.Group>
-            <Form.Group controlId="formBasicConfirmedPassword">
+            </InputGroup>
+        
               <Form.Label>確認密碼</Form.Label>
+              <InputGroup>
+              <InputGroup.Text  controlId="formBasicConfirmedPassword"><FaLock /></InputGroup.Text>
               <Form.Control
                 type="password"
                 placeholder="Confirmed Password"
                 ref={RegisterConfPassword}
               />
-            </Form.Group>
+            </InputGroup>
             <br />
             <Button variant="info" onClick={handleRegister}>
               提交

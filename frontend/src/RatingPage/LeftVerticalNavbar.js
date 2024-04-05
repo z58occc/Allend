@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 
 
+
 const LeftVerticalNavbar = () => {
     const navItems = [
         { link: '/member', text: '會員中心' },
