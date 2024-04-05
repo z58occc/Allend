@@ -1,0 +1,4 @@
+.pagination button.active,
+.pagination button:hover {
+  background-color: peachpuff;
+}

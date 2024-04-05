@@ -18,6 +18,8 @@ import a5 from "../Components/img/a5.png";
 import a6 from "../Components/img/a6.png";
 import Cookies from "js-cookie";
 import Pagination from "./Pagination";
+import "./Pagination.css"
+
 
 
 function Findcase() {
@@ -39,11 +41,11 @@ function Findcase() {
 
 
 
+
+
   // Modal下面 送資料回去
   const QuoteAmount = useRef();
   const QuoteMessage = useRef();
-
-
   const sendQuote = async (did, q_amount, q_message) => {
     try {
       fetch("http://localhost/Allend/backend/public/api/quote", {
@@ -63,8 +65,6 @@ function Findcase() {
       console.log(err);
     }
   };
-
-
   const handleClose = async (d) => {
     setShow(false);
     const q_amount = QuoteAmount.current.value;
@@ -76,9 +76,10 @@ function Findcase() {
     } catch (err) {
       console.log(err);
     }
-
   };
   // Modal下面 送資料回去
+
+
 
 
   // Modal上面
@@ -102,30 +103,30 @@ function Findcase() {
   const fetchData = async (type) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
-
-
-
-
       switch (type) {
         case "網站設計":
+          setCurrentPage(1);
           url += "1";
           break;
         case "軟體程式":
+          setCurrentPage(1);
           url += "2";
           break;
         case "平面設計":
+          setCurrentPage(1);
           url += "3";
           break;
         case "文字語言":
+          setCurrentPage(1);
           url += "4";
           break;
         case "專業諮詢":
+          setCurrentPage(1);
           url += "5";
           break;
         default:
           break;
       }
-
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -436,12 +437,14 @@ function Findcase() {
 
 
         {/* 上/下一頁 */}
-        <Pagination
-          totalPosts={posts.length}
-          postsPerPage={postsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        ></Pagination>
+        <div className="d-flex  justify-content-center">
+          <Pagination
+            totalPosts={posts.length}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          ></Pagination>
+        </div>
         {/* 上/下一頁 */}
 
 
