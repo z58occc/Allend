@@ -29,6 +29,7 @@ import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
+import PayButton from "./Components/paybutton";
 
 
 
