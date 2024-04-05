@@ -60,6 +60,7 @@ Route::post('/commitcase', CommitController::class);//->middleware('auth');
 
 Route::post('/updateservice', UpdateServiceController::class);
 Route::post('/updateproject', UpdateProjectController::class);
+
 // 送出、查看、接受、拒絕報價
 Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
 Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
@@ -145,6 +146,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::get('/memservice', 'getService');
     // 新增服務
     Route::post('/addservice', 'addService');
+    // 編輯服務
+    Route::post('/updateservice', 'updateService');
     // 刪除服務
     Route::get('/delmemser', 'delService');
     // 新增作品

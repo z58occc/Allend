@@ -27,7 +27,7 @@ class Pop_QuoteAgreeController extends Controller
             $this->validate($request,[
                 'did'=>['required'],
                 'q_amount'=>['required'],
-                'q_message'=>['max:10'],
+                'q_message'=>['min:10'],
             ]);
         }
         catch(ValidationException $err){
@@ -67,7 +67,7 @@ class Pop_QuoteAgreeController extends Controller
             ->select('qid','d_name','members.mid', 'name', 'email',
             'i_identity as identity', 'q_amount','q_message')
             ->where('quote.did', $demmandID)
-            // ->where('quote.mid', $mid)
+            ->where('demmand.mid', $mid)
             ->get();
 
             return response()->json($quote);

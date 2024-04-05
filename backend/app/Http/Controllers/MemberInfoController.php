@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 use Throwable;
@@ -553,6 +554,32 @@ class MemberInfoController extends Controller
         return response($service);
     }
 
+    // 編輯服務
+    public function updateService(Request $request){
+        try{
+            $request->validate([
+                'image' => ['required', 'mimes:jpg,png,svg', 'file']
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json([
+                'error' => $exception->errors()
+            ]);
+        }
+
+        if(isset($request->image)){
+            $data = $request->image ->get();
+            $mime_type = $request->image->getMimeType();
+            $imageData = base64_encode($data);
+            // $src = "data: $mime_type;base64,$imageData";
+        }
+        $update = DB::table('service')->where('sid', $request->sid)
+        ->update([
+            'image' => $imageData,
+        ]);
+
+        return response($update);
+    }
+
     // 刪除服務
     public function delService(Request $request)
     {
@@ -583,7 +610,7 @@ class MemberInfoController extends Controller
         $mid = Auth::id();
         $this->validate($request,[
             'p_name'=>['required'],
-            'image'=>['required', 'mimes:jpg,png,svg', 'size:4096', 'file'],
+            'image'=>['required', 'mimes:jpg,png,svg,webp,bmp', 'file'],
             'p_description'=>['required'],
         ]);
 
@@ -608,16 +635,23 @@ class MemberInfoController extends Controller
     public function updateWork(Request $request){
         $mid = Auth::id();
         $request->validate([
+            'pid' => ['required'],
             'p_name'=>['required'],
             'p_description'=>['required'],
-            'src'=>['required']
         ]);
 
-        $result = DB::table('project')->where('mid', $mid)
+        if (isset($request->image)) {
+            $data = $request->image->get();
+            $mime_type = $request->image->getMimeType();
+            $imageData = base64_encode($data);
+            // $src = "data: $mime_type;base64,$imageData";
+        }
+
+        $result = DB::table('project')->where('mid', $mid)->where('pid', $request->pid)
         ->update([
             'p_name' => $request->p_name,
             'p_description' => $request->p_description,
-            'src' => $request->src,
+            'image' => $imageData,
             'updated_at' => now()
         ]);
         return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
