@@ -409,6 +409,21 @@ function Findcase() {
                 setPosts(x);
               }
               break;
+            case "d_amount":
+              for (let i = 0; i < data.length; i++) {
+                mycitys.push(data[i]);
+                const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
+                setPosts(x);
+              }
+              break;
+            case "quote_total":
+              for (let i = 0; i < data.length; i++) {
+                mycitys.push(data[i]);
+                const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
+                console.log(x);
+                setPosts(x);
+              }
+              break;
 
 
             default:
@@ -595,8 +610,8 @@ function Findcase() {
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
           <button onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
           <button onClick={() => fetchData()}>最新刊登<GoTriangleDown /></button>
-          <button onClick={() => fetchData()}>預算金額<GoTriangleDown /></button>
-          <button onClick={() => fetchData()}>提案人數<GoTriangleDown /></button>
+          <button onClick={() => fetchData("d_amount")}>預算金額<GoTriangleDown /></button>
+          <button onClick={() => fetchData("quote_total")}>提案人數<GoTriangleDown /></button>
         </div>
 
 
@@ -629,7 +644,8 @@ function Findcase() {
                     地點:{post.country_city}
                     <br></br>
                     {post.d_duration}期<br></br>
-                    {post.updated_at}
+                    {post.updated_at}<br></br>
+                    {post.quote_total}人報價中
                     <br></br>
                   </Link>
                   <div
