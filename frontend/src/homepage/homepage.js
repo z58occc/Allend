@@ -319,7 +319,7 @@ function Homepage() {
 
 
                 {/* 接api輪播圖 */}
-                {posts.slice(0, 3).map((post, index) => {
+                {posts.slice(2, 5).map((post, index) => {
                   return (
                     <Carousel.Item >
                       <Row className=" justify-content-md-center align-items-end">
@@ -327,7 +327,7 @@ function Homepage() {
                           <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
                         </Col>
                         <Col xs lg="5">
-                          <Link to="./talent">
+                          <Link to={`./talent/${post.mid}`}>
                             <h3 style={{ marginTop: 100 }}>{post.name}</h3>
                           </Link>
                           <Row
