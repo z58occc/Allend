@@ -212,17 +212,9 @@ function Homepage() {
             {posts.slice(0, 3).map((post, index) => {
               return (
                 <Row style={{ margin: "48px" }}>
-                  {/* <div className="post-card" key={index}>
-                  <h2 className="post-title">
-                    {post.d_name}
-                  </h2>
-                  <p className="post-body">
-                    {post.created_at}
-                  </p>
-                </div> */}
                   <Col key={index} style={{ flexGrow: 1 }}>
                     <Link
-                      to="./serve"
+                      to={`./serve/${post.mid}/${15-index}`}
                       className="card"
                       style={{ width: "100%", fontSize: "10px" }}
                     >
