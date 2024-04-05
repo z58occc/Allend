@@ -314,6 +314,7 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
+        <Route path="/pay" element={<PayButton></PayButton>}></Route>
       </Routes>
 
       {/* 登入 */}

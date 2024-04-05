@@ -11,6 +11,7 @@ use App\Http\Controllers\ClosethecaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DemmandContentController;
+use App\Http\Controllers\ECPaymentController;
 use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
@@ -60,11 +61,16 @@ Route::post('/commitcase', CommitController::class);//->middleware('auth');
 
 Route::post('/updateservice', UpdateServiceController::class);
 Route::post('/updateproject', UpdateProjectController::class);
+
 // 送出、查看、接受、拒絕報價
 Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
 Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
+
+//綠界
+Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
+Route::post('/callback', [ECPaymentController::class, 'Callback']);
 
 // 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
@@ -81,7 +87,7 @@ Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote'])
 // 從移交到結案、評價畫面
 Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接案者的提交按鈕
 Route::get('/publish_recevice', [ClosethecaseController::class,'receviceData']); // 案主接收結果的按鈕
-Route::get('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕
+Route::post('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕
 Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
 Route::get('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
 Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面
@@ -145,6 +151,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::get('/memservice', 'getService');
     // 新增服務
     Route::post('/addservice', 'addService');
+    // 編輯服務
+    Route::post('/updateservice', 'updateService');
     // 刪除服務
     Route::get('/delmemser', 'delService');
     // 新增作品

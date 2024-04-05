@@ -6,35 +6,79 @@ import { FaHeart } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Cookies from "js-cookie";
 
 
 
 
 
 function CaseContext() {
+
+
+
+    // Modal下面 送資料回去
+  const QuoteAmount = useRef();
+  const QuoteMessage = useRef();
+
+
+  const sendQuote = async (did, q_amount, q_message) => {
+    try {
+      fetch("http://localhost/Allend/backend/public/api/quote", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({
+          did: did,
+          q_amount: q_amount,
+          q_message: q_message
+        })
+      })
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  const handleClose = async (d) => {
+    setShow(false);
+    const q_amount = QuoteAmount.current.value;
+    const q_message = QuoteMessage.current.value;
+    const did = d;
+    try {
+      const data = await sendQuote(did, q_amount, q_message);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
+  // Modal下面 送資料回去
     const [key, setkey] = useState(0);
     const [posts, setPosts] = useState([]);
     const [members, setMembers] = useState([]);
     const [service_star_avg, setServiceStarAvg] = useState([]);
     const url = window.location.href;
-    const [endnumber,setEndnumber] = useState(0);
-    
+    const [endnumber, setEndnumber] = useState(0);
+
 
     // console.log(url);
     // debugger;
     // console.log(urlParameter, );
     async function fetchData(id) {
         console.log(id);
-            fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    console.log(data.dammand);
-                    setPosts(data.dammand);
-                    setMembers(data.members);
-                    setServiceStarAvg(data.service_star_avg);
-                })
-        
+        fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                console.log(data.dammand);
+                setPosts(data.dammand);
+                setMembers(data.members);
+                setServiceStarAvg(data.service_star_avg);
+            })
+
     }
     const urlParameter = window.location.search;
     useEffect(() => {
@@ -62,7 +106,6 @@ function CaseContext() {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const redTextStyle = {
         color: 'red'
@@ -128,16 +171,19 @@ function CaseContext() {
 
 
                 {/* 我要報價頁面 */}
+                {/* 我要報價頁面 */}
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
-                        <Modal.Title style={{ fontSize: 15 }}>
-                            案件名稱：<span>{posts.d_name}</span>
+                        <Modal.Title
+                            style={{ fontSize: 15 }}
+                        >
+                            案件名稱:<span>{posts.d_name}</span>
                             <hr></hr>
-                            案件編號：<span>{posts.did}</span>
+                            案件編號:<span >{posts.did}</span>
                             <hr></hr>
-                            案件類別：<span>{posts.d_type}</span>
+                            案件類別:<span>{posts.d_type}</span>
                             <hr></hr>
-                            案件地點：<span>{posts.d_active_location}</span>
+                            案件地點:<span>{posts.d_active_location}</span>
                             <hr></hr>
                         </Modal.Title>
                     </Modal.Header>
@@ -153,7 +199,7 @@ function CaseContext() {
                                     type=""
                                     autoFocus
                                     value={posts.d_amount}
-                                // ref={QuoteNumber}
+                                    ref={QuoteAmount}
                                 ></Form.Control>
                                 <span className="mt-2">{"/" + posts.d_unit}</span>
                             </Form.Group>
@@ -166,17 +212,18 @@ function CaseContext() {
                                     as="textarea"
                                     rows={3}
                                     placeholder="請輸入訊息"
-                                // ref={QuoteMessage}
+                                    ref={QuoteMessage}
                                 />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={() => { handleClose(posts.did) }}>
                             送出
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                {/* 我要報價頁面 */}
                 {/* 我要報價頁面 */}
                 <br></br>
                 <br></br>
