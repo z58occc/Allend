@@ -22,6 +22,7 @@ import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
+import PayButton from "./Components/paybutton";
 
 
 
@@ -307,6 +308,7 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
+        <Route path="/pay" element={<PayButton></PayButton>}></Route>
       </Routes>
 
       {/* 登入 */}
