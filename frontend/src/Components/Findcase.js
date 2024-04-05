@@ -133,8 +133,7 @@ function Findcase() {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data[0].d_amount);
-          console.log(typeof (data[0].d_amount));
+
           console.log(data);
           setPosts(data);
           setMycitys([]);
@@ -405,28 +404,9 @@ function Findcase() {
               break;
             case "updated_at":
               for (let i = 0; i < data.length; i++) {
-
-                const index = parseInt(data[i].updated_at);
-                console.log(index);
-                order.push(index);
-                console.log(order);
-
-                const x = order.sort(function (a, b) { return a - b });
-
-                setPosts(mycitys);
-                console.log(x);
-                const y = x[i];
-                console.log(y);
-                
-                
-
                 mycitys.push(data[i]);
-                setPosts(mycitys);
-                console.log(mycitys)
-
-
-
-                setPosts(mycitys);
+                const x = mycitys.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
+                setPosts(x);
               }
               break;
 
