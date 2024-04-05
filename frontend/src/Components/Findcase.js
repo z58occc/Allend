@@ -97,7 +97,7 @@ function Findcase() {
 
   const [posts, setPosts] = useState([]);
 
-  const [citys, setCitys] = useState([]);
+  const [order, setOrder] = useState([]);
   const [mycitys, setMycitys] = useState([]);
 
   useEffect(() => {
@@ -383,6 +383,53 @@ function Findcase() {
                 }
               }
               break;
+            case "短":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_duration == "短") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "長":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_duration == "長") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "updated_at":
+              for (let i = 0; i < data.length; i++) {
+
+                const index = parseInt(data[i].updated_at);
+                console.log(index);
+                order.push(index);
+                console.log(order);
+
+                const x = order.sort(function (a, b) { return a - b });
+
+                setPosts(mycitys);
+                console.log(x);
+                const y = x[i];
+                console.log(y);
+                
+                
+
+                mycitys.push(data[i]);
+                setPosts(mycitys);
+                console.log(mycitys)
+
+
+
+                setPosts(mycitys);
+              }
+              break;
+
 
             default:
               break;
@@ -559,29 +606,17 @@ function Findcase() {
         <hr></hr>
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button>全部案件</button>
-          <button>短期案件</button>
-          <button>長期案件</button>
-          <button>已結案</button>
+          <button onClick={() => fetchData()}>全部案件</button>
+          <button onClick={() => fetchData("短")}>短期案件</button>
+          <button onClick={() => fetchData("長")}>長期案件</button>
+          <button >已結案</button>
         </div>
         {/* 右下4顆按鈕 */}
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
-          <button>
-            最近更新
-            <GoTriangleDown />
-          </button>
-          <button>
-            最新刊登
-            <GoTriangleDown />
-          </button>
-          <button>
-            預算金額
-            <GoTriangleDown />
-          </button>
-          <button>
-            提案人數
-            <GoTriangleDown />
-          </button>
+          <button onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
+          <button onClick={() => fetchData()}>最新刊登<GoTriangleDown /></button>
+          <button onClick={() => fetchData()}>預算金額<GoTriangleDown /></button>
+          <button onClick={() => fetchData()}>提案人數<GoTriangleDown /></button>
         </div>
 
 
