@@ -67,7 +67,7 @@ class Pop_QuoteAgreeController extends Controller
             ->select('qid','d_name','members.mid', 'name', 'email',
             'i_identity as identity', 'q_amount','q_message')
             ->where('quote.did', $demmandID)
-            ->where('quote.mid', $mid)
+            // ->where('quote.mid', $mid)
             ->get();
 
             return response()->json($quote);
@@ -80,14 +80,14 @@ class Pop_QuoteAgreeController extends Controller
         $demmand_id = Auth::id();
         $request->validate([
             'mid' => 'required',
-            'did' => 'required',
+            'qid' => 'required',
         ]);
         // 預設一次處理一筆，從前端傳來報價者id、案件id
         $quote_mid = $request->input('mid');
-        $did = $request->input('did');
+        $qid = $request->input('qid');
 
         // 查詢是否存在資料庫
-        $existing = Db::table('quote')->where('mid', $quote_mid)->where('did', $did)->exists();
+        $existing = Db::table('quote')->where('mid', $quote_mid)->where('qid', $qid)->exists();
 
         // 單筆同意
         if ($existing){
@@ -97,7 +97,7 @@ class Pop_QuoteAgreeController extends Controller
                         ->select('demmand.mid as demmand_mid','quote.mid as quote_mid','d_name','d_type',
                         'd_duration','d_description','d_active_location','q_amount','d_unit','d_contact_name',
                         'd_email', 'd_mobile_phone')
-                        ->where('quote.did', $did)->where('quote.mid',$quote_mid)
+                        ->where('quote.qid', $qid)->where('quote.mid',$quote_mid)
                         ->get();
 
                 foreach($agree as $row){
@@ -120,7 +120,7 @@ class Pop_QuoteAgreeController extends Controller
                     ]);
                 }
                 // 刪除報價紀錄
-                DB::table('quote')->where('mid',$quote_mid)->where('did', $did)->delete();
+                DB::table('quote')->where('mid',$quote_mid)->where('qid', $qid)->delete();
             }catch (Throwable $err){
                 return response()->json([
                     'error' => '操作失敗'
@@ -133,7 +133,7 @@ class Pop_QuoteAgreeController extends Controller
     // 拒絕報價
     public function disagreeQuote(Request $request)
     {
-        DB::table('quote')->where('did', $request->did)->where('mid',$request->mid)->delete();
+        DB::table('quote')->where('qid', $request->qid)->where('mid',$request->mid)->delete();
 
         return response()->json(['message'=>'已拒絕報價']);
     }

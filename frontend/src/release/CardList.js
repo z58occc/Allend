@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Card, Button, Form, Modal, Table } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
@@ -7,6 +7,7 @@ import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
 import { CaseContext } from "./MainScreen2"; 
 import GetQuoteModal from "./GetQuoteModal";
+import Cookies from "js-cookie";
 // import CaseContext from './CaseContext';
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
@@ -106,20 +107,31 @@ const handleModalClose1 = () => {
   setSelectedDataKey(0);
 };
 // 查看報價按鈕控制
+  const [Quote, setQuote] = useState([]); //報價資料
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const handleIndex = (index) => {
-    setSelectedIndex(index)
-  }
   const [showModal, setShowModal] = useState(false);
-  const handleShowQuoteModal = () => {
+
+  const handleShowQuoteModal = (did) => {
     setShowModal(true);
+    
+      fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${did}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setQuote(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    
   };
   const handleCloseModal = () => {
     setShowModal(false);
-    setSelectedIndex(0)
   };
+
 
   // CardList選擇子元件
   let ComponentToRender;
@@ -272,8 +284,8 @@ const handleModalClose1 = () => {
                     visibility,
                   }}
                   onClick={() => {
-                    handleShowQuoteModal();
-                    handleIndex(item.did);
+                    handleShowQuoteModal(item.did);
+                    
                   }}
                 >
                   查看報價
@@ -285,7 +297,7 @@ const handleModalClose1 = () => {
       ))}
 
       {/* 查看報價Modal */}
-      <GetQuoteModal show={showModal} onHide={handleCloseModal} index={selectedIndex}></GetQuoteModal>
+      <GetQuoteModal show={showModal} onHide={handleCloseModal} data = {Quote}></GetQuoteModal>
 
       {ComponentToRender}
     </div>

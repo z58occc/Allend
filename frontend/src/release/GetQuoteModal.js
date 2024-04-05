@@ -1,31 +1,12 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
-function GetQuoteModal({ show, onHide, index }) {
-  console.log(index);
-  const [Quote, setQuote] = useState([]);
-
-  // 查看報價
-  useEffect(() => {
-    axios(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${index}`, {
-      method: "GET",
-      headers:{Authorization: `Bearer ${Cookies.get("token")}`},
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setQuote(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [index]);
-  console.log(Quote);
+function GetQuoteModal({ show, onHide, data }) {
+  console.log(data);
 
   // 同意報價按鈕
-  const handleAgree = (mid) =>{
-    fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree",{
+  const handleAgree = (mid,qid) => {
+    fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,23 +14,23 @@ function GetQuoteModal({ show, onHide, index }) {
       },
       body: JSON.stringify({
         mid: mid,
-        did: index,
+        qid: qid,
       })
     })
-    .then((res)=>{
-      return res.json();
-    })
-    .then((data)=>{
-      console.log(data);
-    })
-    .catch((error)=>{
-      console.error(error);
-    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   }
 
   // 拒絕報價按鈕
-  const handleDisagree = (mid) =>{
-    fetch('http://127.0.0.1/Allend/backend/public/api/pop_disagree',{
+  const handleDisagree = (mid,qid) => {
+    fetch('http://127.0.0.1/Allend/backend/public/api/pop_disagree', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -57,38 +38,39 @@ function GetQuoteModal({ show, onHide, index }) {
       },
       body: JSON.stringify({
         mid: mid,
-        did: index,
+        qid: qid,
       })
     })
-    .then((res)=>{
-      return res.json();
-    })
-    .then((data)=>{
-      console.log(data);
-    })
-    .catch((error)=>{
-      console.error(error);
-    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   }
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>案件名稱</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
         <Table bordered hover>
           <thead>
             <tr>
-              <th>接案人姓名</th>
-              <th>Email</th>
-              <th>族群</th>
-              <th>報價金額</th>
-              <th>訊息</th>
-              <th>操作</th>
+              <th style={{ whiteSpace: 'nowrap' }}>接案人姓名</th>
+              <th style={{ whiteSpace: 'nowrap' }}>Email</th>
+              <th style={{ whiteSpace: 'nowrap' }}>族群</th>
+              <th style={{ whiteSpace: 'nowrap' }}>報價金額</th>
+              <th style={{ whiteSpace: 'nowrap' }}>訊息</th>
+              <th style={{ whiteSpace: 'nowrap' }}>操作</th>
             </tr>
           </thead>
-          {Quote.map((item) => (
-            <tbody>
+
+          {data.map((item,index) => (
+            <tbody key={index}>
               <tr>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
@@ -100,14 +82,14 @@ function GetQuoteModal({ show, onHide, index }) {
                     <Button
                       variant="secondary"
                       style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                      onClick={()=>{handleAgree(item.mid)}}
+                      onClick={() => { handleAgree(item.mid,item.qid) }}
                     >
                       接受
                     </Button>
                     <Button
                       variant="danger"
                       style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                      onClick={()=>{handleDisagree(item.mid)}}
+                      onClick={() => { handleDisagree(item.mid,item.qid) }}
                     >
                       拒絕
                     </Button>
