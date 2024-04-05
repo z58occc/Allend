@@ -97,6 +97,9 @@ function Findcase() {
 
   const [posts, setPosts] = useState([]);
 
+  const [citys, setCitys] = useState([]);
+  const [mycitys, setMycitys] = useState([]);
+
   useEffect(() => {
     fetchData()
   }, []);
@@ -125,14 +128,271 @@ function Findcase() {
           url += "5";
           break;
         default:
-          break;
+
       }
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data[0].type);
+          console.log(data[0].d_amount);
+          console.log(typeof (data[0].d_amount));
           console.log(data);
           setPosts(data);
+          setMycitys([]);
+          switch (type) {
+            case "台北市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "台北市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              console.log(mycitys);
+              break;
+            case "新北市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "新北市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                  console.log(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "桃園市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "桃園市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "基隆市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "基隆市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "新竹市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "新竹市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "新竹縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "新竹縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "彰化縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "彰化縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "南投縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "南投縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "雲林縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "雲林縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "高雄市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "高雄市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "台南市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "台南市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "嘉義市":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "嘉義市") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "嘉義縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "嘉義縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "屏東縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "屏東縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "宜蘭縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "宜蘭縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "花蓮縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "花蓮縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "臺東縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "臺東縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "澎湖縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "澎湖縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "金門縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "金門縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "連江縣":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].country_city == "連江縣") {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "5k":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_amount <= 5000) {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "1w":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_amount >= 5000 && data[i].d_amount <= 10000) {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                }
+              }
+              break;
+
+            case "5w":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_amount >= 10000 && data[i].d_amount <= 50000) {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                }
+              }
+              break;
+
+            case "10w":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_amount >= 50000 && data[i].d_amount <= 100000) {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                }
+              }
+              break;
+            case "30w":
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].d_amount >= 100000 && data[i].d_amount <= 300000) {
+                  mycitys.push(data[i]);
+                  setPosts(mycitys);
+                }
+              }
+              break;
+
+            default:
+              break;
+          }
+
+          console.log(mycitys);
+          console.log(posts);
+          console.log(data);
+
+
         });
     } else {
       const f_url = window.location.href;
@@ -164,6 +424,10 @@ function Findcase() {
         });
     }
   };
+
+
+
+  // 分頁
   const lastPostIndex = currentPage * postsPerPage;
 
 
@@ -171,6 +435,7 @@ function Findcase() {
 
 
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+  // 分頁
 
 
 
@@ -206,7 +471,6 @@ function Findcase() {
                 <Link
                   to="/findcase"
                   onClick={() => {
-                    const { s_type } = "1";
                     fetchData("網站設計");
                   }}
                 >
@@ -256,28 +520,26 @@ function Findcase() {
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => fetchData("軟體程式")}>
-                臺北市
-              </Dropdown.Item>
-              <Dropdown.Item>新北市</Dropdown.Item>
-              <Dropdown.Item>桃園市</Dropdown.Item>
-              <Dropdown.Item>基隆市</Dropdown.Item>
-              <Dropdown.Item>新竹市</Dropdown.Item>
-              <Dropdown.Item>新竹縣</Dropdown.Item>
-              <Dropdown.Item>彰化縣</Dropdown.Item>
-              <Dropdown.Item>南投縣</Dropdown.Item>
-              <Dropdown.Item>雲林縣</Dropdown.Item>
-              <Dropdown.Item>高雄市</Dropdown.Item>
-              <Dropdown.Item>臺南市</Dropdown.Item>
-              <Dropdown.Item>嘉義市</Dropdown.Item>
-              <Dropdown.Item>嘉義縣</Dropdown.Item>
-              <Dropdown.Item>屏東縣</Dropdown.Item>
-              <Dropdown.Item>宜蘭縣</Dropdown.Item>
-              <Dropdown.Item>花蓮縣</Dropdown.Item>
-              <Dropdown.Item>臺東縣</Dropdown.Item>
-              <Dropdown.Item>澎湖縣</Dropdown.Item>
-              <Dropdown.Item>金門縣</Dropdown.Item>
-              <Dropdown.Item>連江縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("台北市")}>台北市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新北市")}>新北市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("桃園市")}>桃園市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("基隆市")}>基隆市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新竹市")}>新竹市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新竹縣")}>新竹縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("彰化縣")}>彰化縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("南投縣")}>南投縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("雲林縣")}>雲林縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("高雄市")}>高雄市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("台南市")}>台南市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("嘉義市")}>嘉義市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("嘉義縣")}>嘉義縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("屏東縣")}>屏東縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("宜蘭縣")}>宜蘭縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("花蓮縣")}>花蓮縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("臺東縣")}>臺東縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("澎湖縣")}>澎湖縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("金門縣")}>金門縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("連江縣")}>連江縣</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -285,10 +547,11 @@ function Findcase() {
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">5000以下</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">5001~1萬</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">1萬~5萬</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">5萬~10萬</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("5k")}>5000以下</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("1w")}>5001~1萬</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("5w")}>1萬~5萬</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("10w")}>5萬~10萬</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("30w")}>10萬~30萬</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -329,7 +592,7 @@ function Findcase() {
 
         {/* 案件欄位 */}
         <div >
-          {currentPosts.map((post, index) => {
+          {posts.map((post, index) => {
             return (
               <div >
                 <div className="row" key={index}>
