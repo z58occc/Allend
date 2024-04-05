@@ -514,7 +514,7 @@ function Findcase() {
         <div style={{ marginLeft: "60px", marginRight: "0" }}>
           <div className="container mt-5">
             <div className="row justify-content-center">
-              <div className="col-sm-2 ">
+              <div className="col-sm-2 text-center">
                 <Link
                   to="/findcase"
                   onClick={() => {
@@ -526,28 +526,28 @@ function Findcase() {
                 </Link>
                 <hr className="d-sm-none" />
               </div>
-              <div className="col-sm-2 ">
+              <div className="col-sm-2 text-center">
                 <Link to="/findcase" onClick={() => fetchData("軟體程式")}>
                   <div>軟體程式</div>
                   <img src={a2} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
-              <div className="col-sm-2 ">
+              <div className="col-sm-2 text-center">
                 <Link to="/findcase" onClick={() => fetchData("平面設計")}>
                   <div>平面設計</div>
                   <img src={a5} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
-              <div className="col-sm-2 ">
+              <div className="col-sm-2 text-center">
                 <Link to="/findcase" onClick={() => fetchData("文字語言")}>
                   <div>文字語言</div>
                   <img src={a4} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
-              <div className="col-sm-2">
+              <div className="col-sm-2 text-center">
                 <Link to="/findcase" onClick={() => fetchData("專業諮詢")}>
                   <div>專業諮詢</div>
                   <img src={a6} style={{ width: "60px" }}></img>
