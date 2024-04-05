@@ -253,7 +253,7 @@ const handleModalClose1 = () => {
             </Card.Body>
             {screen === 3 ? (
               <div className="d-flex flex-column justify-content-center">
-                <StarRating rating={item.demmand_star}></StarRating>
+                <StarRating rating={item.service_star}></StarRating>
               </div>
             ) : (
               <div className="d-flex flex-column justify-content-center">
