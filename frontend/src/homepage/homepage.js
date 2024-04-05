@@ -262,14 +262,14 @@ function Homepage() {
         <br></br>
 
         {/* 最新刊登 */}
-        <div className="row mt-5">
+        <div className="row mt-5" >
           <h4>最新刊登</h4>
           <div className="col-sm-4 mb-4" style={{ display: "flex" }}>
             {posts.slice(0, 3).map((post, index) => {
               return (
                 <Row style={{ margin: "12px" }}>
                   <Col key={index}>
-                    <Link to="./casecontext" style={{ width: "30%" }}>
+                    <Link to={`./casecontext/?${19 - index}`} style={{ width: "30%" }}>
                       <div class="toast show ">
                         <div class="toast-header">
                           <strong class="me-auto">
@@ -311,7 +311,7 @@ function Homepage() {
               <Carousel
                 activeIndex={carouselpage}
                 onSelect={handleSelect}
-                style={{ overflow: " hidden", backgroundColor:"#9CAFAA" }}
+                style={{ overflow: " hidden", backgroundColor: "#9CAFAA" }}
                 id="carousel"
                 interval={null}
                 indicators={false}
@@ -344,7 +344,7 @@ function Homepage() {
                           >
                             {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
                               return (
-                                <Col xs lg="4" style={{zIndex:100}}>
+                                <Col xs lg="4" style={{ zIndex: 100 }}>
                                   {" "}
                                   <img
                                     src={`data:image/jpeg;base64,${post.project_image}`}
