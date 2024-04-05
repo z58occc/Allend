@@ -87,7 +87,7 @@ Route::post('/callback', [ECPaymentController::class, 'Callback']);
 // 從移交到結案、評價畫面
 Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接案者的提交按鈕
 Route::get('/publish_recevice', [ClosethecaseController::class,'receviceData']); // 案主接收結果的按鈕
-Route::get('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕
+Route::post('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕
 Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
 Route::get('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
 Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面

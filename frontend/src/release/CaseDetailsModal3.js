@@ -1,7 +1,42 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-
+import Start from "./Start";
+import Cookies from "js-cookie";
 const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
+  //星星數
+  const [Star , setStar] = useState(0);
+  const handleRatingChange = (rating) =>{
+    setStar(rating);
+  }
+  //評論
+  const [Comment , setComment] = useState("");
+
+  //送出評論
+  const handleRating = () =>{
+    fetch('http://127.0.0.1/Allend/backend/public/api/publicEvaluation',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+      body:   JSON.stringify({
+        "cid": data[number].cid,
+        "demmand_star": Star,
+        "demmand_comment": Comment
+    
+      })
+    })
+    .then((res)=>{
+      onHide();
+      return res.json();
+    })
+    .then((success)=>{
+      console.log(success)
+    })
+  }
+
+
+
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -52,7 +87,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
             </div>
             <div
               className="col"
-              style={{ marginBottom: "10px", fontSize: "20px" }}
+              style={{ marginBottom: "0px", fontSize: "20px" }}
             >
               <strong>接案人手機：{data[number].c_mobile_phone}</strong>
             </div>
@@ -60,15 +95,15 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <label>輸入評價：</label>
-              <div style={{ margin: "0 40px 0 40px" }}>
-                <textarea maxLength={100} rows={5} cols={30} />
+              <Start style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Start>
+              <div style={{ margin: "10px auto" }}>
+                <textarea maxLength={100} rows={5} cols={40} value={Comment} onChange={(e)=>{setComment(e.target.value)}}/>
               </div>
             </div>
           </div>
         </div>
         <div className="mb-2 d-flex justify-content-around">
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" onClick={()=>{handleRating()}}>
             評價提交
           </Button>
           <Button variant="secondary" onClick={onHide}>

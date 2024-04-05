@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 function GetQuoteModal({ show, onHide, data }) {
-  console.log(data);
+
 
   // 同意報價按鈕
   const handleAgree = (mid,qid) => {
@@ -22,6 +22,7 @@ function GetQuoteModal({ show, onHide, data }) {
       })
       .then((data) => {
         console.log(data);
+        onHide();
       })
       .catch((error) => {
         console.error(error);
@@ -46,6 +47,7 @@ function GetQuoteModal({ show, onHide, data }) {
       })
       .then((data) => {
         console.log(data);
+        onHide();
       })
       .catch((error) => {
         console.error(error);
@@ -68,8 +70,10 @@ function GetQuoteModal({ show, onHide, data }) {
               <th style={{ whiteSpace: 'nowrap' }}>操作</th>
             </tr>
           </thead>
-
-          {data.map((item,index) => (
+        
+          {data 
+          ?
+          (data.map((item,index) => (
             <tbody key={index}>
               <tr>
                 <td>{item.name}</td>
@@ -103,7 +107,10 @@ function GetQuoteModal({ show, onHide, data }) {
                 </td>
               </tr>
             </tbody>
-          ))}
+          )))
+          :
+          (<></>)
+        }
         </Table>
       </Modal.Body>
       <Modal.Footer>
