@@ -13,9 +13,9 @@ class IFindCaseController extends Controller
         ->leftJoin('country','demmand.d_active_location','=','country.country_id')
         ->leftJoin('category','category.catid','=','demmand.d_type')
         ->leftJoin('quote', 'quote.did', '=', 'demmand.did')
-        ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit',
+        ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit','created_at',
         DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
-        ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at');
+        ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at','created_at');
 
         // 選擇地區、案件金額
         $location = $request->location;

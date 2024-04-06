@@ -625,7 +625,6 @@ function Findcase() {
           <button onClick={() => fetchData()}>全部案件</button>
           <button onClick={() => fetchData("短")}>短期案件</button>
           <button onClick={() => fetchData("長")}>長期案件</button>
-          <button >已結案</button>
         </div>
         {/* 右下4顆按鈕 */}
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
