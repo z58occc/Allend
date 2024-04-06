@@ -49,6 +49,7 @@ function Homepage() {
         for (let i = 0; i < 9; i++) {
           data.service[i].d_name = data.demmand[i]["d_name"];
           data.service[i].d_amount = data.demmand[i]["d_amount"];
+          data.service[i].did = data.demmand[i]["did"];
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
@@ -220,7 +221,7 @@ function Homepage() {
                 <Row style={{ margin: "48px" }}>
                   <Col key={index} style={{ flexGrow: 1 }}>
                     <Link
-                      to={`./serve/${post.mid}/${15-index}`}
+                      to={`./serve/${post.mid}/${post.sid}`}
                       className="card"
                       style={{ width: "100%", fontSize: "10px" }}
                     >
@@ -267,7 +268,7 @@ function Homepage() {
               return (
                 <Row style={{ margin: "12px" }}>
                   <Col key={index}>
-                    <Link to={`./casecontext/?${19 - index}`} style={{ width: "30%" }}>
+                    <Link to={`./casecontext/?${post.did}`} style={{ width: "30%" }}>
                       <div class="toast show ">
                         <div class="toast-header">
                           <strong class="me-auto">

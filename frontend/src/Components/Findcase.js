@@ -409,6 +409,13 @@ function Findcase() {
                 setPosts(x);
               }
               break;
+            case "created_at":
+              for (let i = 0; i < data.length; i++) {
+                mycitys.push(data[i]);
+                const x = mycitys.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
+                setPosts(x);
+              }
+              break;
             case "d_amount":
               if (changeorder == false) {
                 for (let i = 0; i < data.length; i++) {
@@ -629,7 +636,7 @@ function Findcase() {
         {/* 右下4顆按鈕 */}
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
           <button onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
-          <button onClick={() => fetchData()}>最新刊登<GoTriangleDown /></button>
+          <button onClick={() => fetchData("created_at")}>最新刊登<GoTriangleDown /></button>
           <button onClick={() => fetchData("d_amount")}>預算金額<GoTriangleDown /></button>
           <button onClick={() => fetchData("quote_total")}>提案人數<GoTriangleDown /></button>
         </div>
@@ -666,6 +673,9 @@ function Findcase() {
                     {post.d_duration}期<br></br>
                     {post.updated_at}<br></br>
                     {post.quote_total}人報價中
+                    <br></br>
+                    刊登時間:<br></br>
+                    {post.created_at}
                     <br></br>
                   </Link>
                   <div

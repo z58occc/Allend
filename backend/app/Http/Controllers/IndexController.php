@@ -12,13 +12,13 @@ class IndexController extends Controller
         //最新服務
         $query = DB::table('service')
                 ->join('members','service.mid','=','members.mid')
-                ->select('service.mid','s_name','s_amount','name','image',
+                ->select('service.mid','s_name','s_amount','name','image','sid',
                 DB::raw('date_format(service.created_at, "%Y/%m/%d") as created_at'));
 
         //最新刊登
         $dammand_query = DB::table('demmand')
                         ->join('country', 'country_id', '=', 'd_active_location')
-                        ->select('d_name','d_amount','country_city as d_active_location',
+                        ->select('d_name','d_amount','country_city as d_active_location','did',
                         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'));
 
         // //發案名稱
