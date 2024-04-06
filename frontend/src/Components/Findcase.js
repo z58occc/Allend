@@ -32,7 +32,7 @@ function Findcase() {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3);
+  const [postsPerPage, setPostsPerPage] = useState(5);
 
 
 
@@ -137,6 +137,7 @@ function Findcase() {
   const sortData = async (s) => {
     setCurrentPage(1);
     switch (s) {
+
       case "updated_at":
         changeBottomcolorOff();
 
@@ -146,15 +147,20 @@ function Findcase() {
           setPosts(x);
         }
         break;
-      case "created_at":
-        changeBottomcolorOff();
 
+      case "created_at":
+        console.log(1);
+        changeBottomcolorOff();
         setChangecolor5(true);
         for (let i = 0; i < posts.length; i++) {
-          const x = posts.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
+
+          const x = posts.sort(function (a, b) { return a.created_at < b.created_at ? 1 : -1 });
+          console.log(x);
           setPosts(x);
         }
+        console.log(1);
         break;
+
       case "d_amount":
         changeBottomcolorOff();
 
@@ -173,6 +179,7 @@ function Findcase() {
           setChangeorder(false);
         }
         break;
+
       case "quote_total":
         changeBottomcolorOff();
 
@@ -595,6 +602,7 @@ function Findcase() {
                 }
               }
               changeBottomcolorOff();
+              changebudgecolor();
 
               break;
             case "all":
@@ -908,17 +916,15 @@ function Findcase() {
                       color: "black",
                     }}
                   >
-                    {post.d_name}
+                    <div>{post.d_name}</div>
                     <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
                     <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                     <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
-                    {post.d_duration}期<br></br>
-                    {post.updated_at}<br></br>
-                    {post.quote_total}人報價中
-                    <br></br>
-                    刊登時間:<br></br>
-                    {post.created_at}
-                    <br></br>
+                    <div>{post.d_duration}期</div>
+                    <div>{post.updated_at}</div>
+                    <div>{post.quote_total}人報價中</div>
+                    <div>刊登時間:</div>
+                    <div>{post.created_at}</div>
                   </Link>
                   <div
                     className="position-relative col-sm-10"
@@ -946,17 +952,14 @@ function Findcase() {
         {/* 我要報價頁面 */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header>
-            <Modal.Title
-              style={{ fontSize: 15 }}
-            >
-              案件名稱:<span>{posts[key]?.d_name}</span>
+            <Modal.Title style={{ fontSize: 15 }}>
+              <div>案件名稱:{posts[key]?.d_name}</div>
               <hr></hr>
-              案件編號:<span >{posts[key]?.did}</span>
+              <div>案件編號:{posts[key]?.did}</div>
               <hr></hr>
-              案件類別:<span>{posts[key]?.type}</span>
+              <div>案件類別:{posts[key]?.type}</div>
               <hr></hr>
-              案件地點:<span>{posts[key]?.country_city}</span>
-              <hr></hr>
+              <div>案件地點:{posts[key]?.country_city}</div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -973,7 +976,7 @@ function Findcase() {
                   value={posts[key]?.d_amount}
                   ref={QuoteAmount}
                 ></Form.Control>
-                <span className="mt-2">{"/" + posts[key]?.d_unit}</span>
+                <div className="mt-2"> {"/" + posts[key]?.d_unit}</div>
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -997,13 +1000,12 @@ function Findcase() {
         </Modal>
         {/* 我要報價頁面 */}
 
-        <br></br>
 
 
 
 
         {/* 上/下一頁 */}
-        <div className="d-flex  justify-content-center">
+        <div className="d-flex  justify-content-center mt-3">
           <Pagination
             totalPosts={posts.length}
             postsPerPage={postsPerPage}
