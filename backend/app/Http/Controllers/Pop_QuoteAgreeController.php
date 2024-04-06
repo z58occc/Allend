@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\ValidationExceptionAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
-
-use function Laravel\Prompts\error;
 
 class Pop_QuoteAgreeController extends Controller
 {

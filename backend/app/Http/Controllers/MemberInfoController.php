@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 use Throwable;
 
 class MemberInfoController extends Controller
@@ -292,7 +290,9 @@ class MemberInfoController extends Controller
         $Case_completed_query = DB::table('established_case')
         ->join('category', 'catid', '=', 'c_type')
         ->join('country', 'country_id', '=', 'c_active_location')
-        ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone',
+        ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('ifnull(demmand_star, "") asdemmand_star'),
+        DB::raw('ifnull(demmand_comment, "") as demmand_comment'),DB::raw('ifnull(date_format(demmand_time, "%Y/%m/%d"), "") as demmand_time'),
+        DB::raw('ifnull(service_star, "") as service_star'),DB::raw('ifnull(service_comment, "") as service_comment'),DB::raw('ifnull(date_format(service_time, "%Y/%m/%d"), "") as service_time'),
         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
         ->where('mid_service',$mid)
         ->where('c_status',2);
@@ -397,7 +397,9 @@ class MemberInfoController extends Controller
             $demmand_completed_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
-            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','service_star',
+            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','service_star',DB::raw('ifnull(demmand_star, "") asdemmand_star'),
+            DB::raw('ifnull(demmand_comment, "") as demmand_comment'),DB::raw('ifnull(date_format(demmand_time, "%Y/%m/%d"), "") as demmand_time'),
+            DB::raw('ifnull(service_star, "") as service_star'),DB::raw('ifnull(service_comment, "") as service_comment'),DB::raw('ifnull(date_format(service_time, "%Y/%m/%d"), "") as service_time'),
             DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
             ->where('mid_demmand',$mid)->where('c_status',2)
             ->orderBy('completed_time', 'desc')->orderBy('cid', 'desc');
@@ -616,7 +618,7 @@ class MemberInfoController extends Controller
 
         if(isset($request->image)){
             $data = $request->image->get();
-            $mime_type = $request->image->getMimeType();
+            // $mime_type = $request->image->getMimeType();
             $imageData = base64_encode($data);
             // $src = "data: $mime_type;base64,$imageData";
         }
@@ -636,13 +638,14 @@ class MemberInfoController extends Controller
         $mid = Auth::id();
         $request->validate([
             'pid' => ['required'],
+            'image'=>['required', 'mimes:jpg,png,svg,webp,bmp', 'file'],
             'p_name'=>['required'],
             'p_description'=>['required'],
         ]);
 
         if (isset($request->image)) {
             $data = $request->image->get();
-            $mime_type = $request->image->getMimeType();
+            // $mime_type = $request->image->getMimeType();
             $imageData = base64_encode($data);
             // $src = "data: $mime_type;base64,$imageData";
         }
