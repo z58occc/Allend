@@ -844,7 +844,7 @@ function Findcase() {
               <div >
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black" }}>
-                    <Col style={{ borderRight: "solid black" }}>
+                    <Col xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
                       <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", }}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
@@ -857,18 +857,20 @@ function Findcase() {
                     <div>{post.created_at}</div> */}
                       </Link>
                     </Col>
-                    <Col xs={8} >
+                    <Col xs={6} >
                       <div>{post.d_description}</div>
                     </Col>
+                    <Col >
+
+                      {/* className="position-absolute bottom-0 end-0" */}
+                    </Col>
                     <Col>
-                      <div style={{ textAlign: "end" }}>
+                      <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
                         <div>{post.updated_at}</div>
                         <div>{post.quote_total}人報價中</div>
-                        <div>刊登時間:</div>
-                        <div>{post.created_at}</div>
+                        <div>刊登時間:{post.created_at}</div>
                       </div>
-                      {/* className="position-absolute bottom-0 end-0" */}
-                      <div style={{textAlign:"end"}}>
+                      <div style={{ textAlign: "start" }}>
                         <Button onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
