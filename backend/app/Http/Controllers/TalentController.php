@@ -78,11 +78,11 @@ class TalentController extends Controller
             $interval = $lastAt->diff($now);
 
             if($interval->h < 24 && $interval->d < 1){
-                $difference = '今天上線';
+                $difference = '今天';
             }elseif($interval->d == 1){
-                $difference = '昨天上線';
+                $difference = '昨天';
             }else{
-                $difference = $interval->d . '天前上線';
+                $difference = $interval->d . '天前';
             }
             $value->last_login = $difference;
             // 身分轉中文

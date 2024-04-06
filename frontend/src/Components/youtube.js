@@ -17,8 +17,8 @@ function YouTubeEmbed({ url }) {
     return (
         <div className="video-responsive">
             <iframe 
-                width="560" 
-                height="315" 
+                width="240" 
+                height="200" 
                 src={embedUrl} 
                 title="YouTube video player" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
