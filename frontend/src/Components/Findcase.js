@@ -643,72 +643,8 @@ function Findcase() {
                 }
               }
               break;
-            // case "updated_at":
-            //   changeBottomcolorOff();
-
-            //   setChangecolor4(true);
-            //   for (let i = 0; i < data.length; i++) {
-            //     mycitys.push(data[i]);
-            //     const x = mycitys.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
-            //     setPosts(x);
-            //   }
-            //   break;
-            // case "created_at":
-            //   changeBottomcolorOff();
-
-            //   setChangecolor5(true);
-            //   for (let i = 0; i < data.length; i++) {
-            //     mycitys.push(data[i]);
-            //     const x = mycitys.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
-            //     setPosts(x);
-            //   }
-            //   break;
-            // case "d_amount":
-            //   changeBottomcolorOff();
-
-            //   setChangecolor6(true);
-            //   if (changeorder == false) {
-            //     for (let i = 0; i < data.length; i++) {
-            //       mycitys.push(data[i]);
-            //       const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
-            //       setPosts(x);
-            //       console.log(1);
-            //     }
-            //     setChangeorder(true);
-            //   } else {
-            //     for (let i = 0; i < data.length; i++) {
-            //       mycitys.push(data[i]);
-            //       const x = mycitys.sort(function (a, b) { return b.d_amount - a.d_amount });
-            //       setPosts(x);
-            //     }
-            //     setChangeorder(false);
-            //   }
-            //   break;
-            // case "quote_total":
-            //   changeBottomcolorOff();
-
-            //   setChangecolor7(true);
-            //   if (changeorder == false) {
-            //     for (let i = 0; i < data.length; i++) {
-            //       mycitys.push(data[i]);
-            //       const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
-            //       setPosts(x);
-            //       console.log(1);
-            //     }
-            //     setChangeorder(true);
-            //   } else {
-            //     for (let i = 0; i < data.length; i++) {
-            //       mycitys.push(data[i]);
-            //       const x = mycitys.sort(function (a, b) { return b.quote_total - a.quote_total });
-            //       setPosts(x);
-            //     }
-            //     setChangeorder(false);
-            //   }
-            //   break;
-
 
             default:
-
               break;
           }
           console.log(mycitys);
@@ -907,6 +843,13 @@ function Findcase() {
             return (
               <div >
                 <div className="row" key={index}>
+                  <Row>
+                    <Col>
+                    
+                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                  </Row>
                   <Link
                     to={`/casecontext/?${post.did}`}
                     className="col-sm-2"
@@ -921,25 +864,21 @@ function Findcase() {
                     <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                     <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
                     <div>{post.d_duration}期</div>
-                    <div>{post.updated_at}</div>
+                    {/* <div>{post.updated_at}</div>
                     <div>{post.quote_total}人報價中</div>
                     <div>刊登時間:</div>
-                    <div>{post.created_at}</div>
+                    <div>{post.created_at}</div> */}
                   </Link>
-                  <div
-                    className="position-relative col-sm-10"
-                    style={{ border: "solid" }}
-                  >
-                    {post.d_description}
+                  <div className="position-relative col-sm-10" style={{ border: "solid" }}>
+                    <div>{post.d_description}</div>
+                    <div  className="mb-5" style={{textAlign:"end"}}>
+                      <div>{post.updated_at}</div>
+                      <div>{post.quote_total}人報價中</div>
+                      <div>刊登時間:</div>
+                      <div>{post.created_at}</div>
+                    </div>
                     <div className="position-absolute bottom-0 end-0">
-                      <Button
-                        onClick={() => {
-                          // setcurrentData(post[index]);
-                          handleShow(index);
-                        }}
-                      >
-                        我要報價
-                      </Button>
+                      <Button onClick={() => { handleShow(index); }}>我要報價</Button>
                     </div>
                   </div>
                 </div>

@@ -183,10 +183,10 @@ function Homepage() {
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         </div>
 
-        <Category></Category>
-        <br></br>
+        <div><Category></Category></div>
+
         {/* 新手教學 */}
-        <section class="adbar-section">
+        <section class="adbar-section mt-5">
           <div class="container-lg container-pad">
             <h4>新手教學</h4>
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
@@ -237,15 +237,12 @@ function Homepage() {
                         ></img>
                       </div>
                       <div className="card-body">
-                        {post.s_name}
-                        <br></br>${post.s_amount} / 件
+                        <div>{post.s_name}</div>
+                        <div>${post.s_amount} / 件</div>
                         <hr></hr>
-                        {post.name}
+                        <div>{post.name}</div>
                       </div>
-                      <div className="card-footer ">
-                        {post.created_at}
-
-                      </div>
+                      <div className="card-footer ">{post.created_at}</div>
                     </Link>
                   </Col>
                 </Row>
@@ -258,40 +255,35 @@ function Homepage() {
 
 
 
-        <br></br>
 
         {/* 最新刊登 */}
-        <div className="row mt-5" >
+        <div className="row mt-3" >
           <h4>最新刊登</h4>
-          <div className="col-sm-4 mb-4" style={{ display: "flex" }}>
-            {posts.slice(0, 3).map((post, index) => {
-              return (
-                <Row style={{ margin: "12px" }}>
-                  <Col key={index}>
-                    <Link to={`./casecontext/?${post.did}`} style={{ width: "30%" }}>
-                      <div class="toast show ">
-                        <div class="toast-header">
-                          <strong class="me-auto">
-                            {post.d_name}
-                            <br></br>
-                            預算：{post.d_amount}
-                          </strong>
-                          {/* <span style={{ float: 'right' }}>短期</span> */}
+          <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex" }}>
+              {posts.slice(0, 3).map((post, index) => {
+                return (
+                  <Row style={{ margin: "12px" }}>
+                    <Col key={index}>
+                      <Link to={`./casecontext/?${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
+                        <div className="toast show ">
+                          <div className="toast-header">
+                            <strong className="me-auto">
+                              <div>{post.d_name}</div>
+                              <div>預算：{post.d_amount}</div>
+                            </strong>
+                          </div>
+                          <div className="toast-body">
+                            <div>刊登日期：{post.d_created_at}</div>
+                            <div>地點：{post.d_active_location}</div>
+                          </div>
                         </div>
-                        <div class="toast-body">
-                          <p>
-                            刊登日期：{post.d_created_at}
-                            <br></br>
-                            地點：{post.d_active_location}
-                            {/* 1人報價中 */}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </Col>
-                </Row>
-              );
-            })}
+                      </Link>
+                    </Col>
+                  </Row>
+                );
+              })}
+            </div>
           </div>
         </div>
         {/* 最新刊登 */}
@@ -401,10 +393,10 @@ function Homepage() {
             <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><TfiAnnouncement  style={{fontSize: "35px" , color: "3964C3"}}/>
+                  <div className="col-2 pe-2"><TfiAnnouncement style={{ fontSize: "35px", color: "3964C3" }} />
                   </div>
                   <div className="col-10">
-                  
+
                     <h5 className="fs-4 text-primary"> 發布工作 獲取報價</h5>
                     <p className="fs-6">
                       依指示填寫需求表單，能免費發布工作，讓專業人才向你提供報價!
@@ -414,7 +406,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 "><TbBellRinging  style={{fontSize: "35px", color: "3964C3"}}/>
+                  <div className="col-2 "><TbBellRinging style={{ fontSize: "35px", color: "3964C3" }} />
 
                   </div>
                   <div className="col-10">
@@ -427,7 +419,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><IoIosPeople  style={{fontSize: "35px" , color: "3964C3"}}/>
+                  <div className="col-2"><IoIosPeople style={{ fontSize: "35px", color: "3964C3" }} />
 
                   </div>
                   <div className="col-10">
@@ -445,7 +437,7 @@ function Homepage() {
             <div className="talent-modal-div" >
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><BsPersonVcard style={{fontSize: "35px" , color: "3964C3"}}/>
+                  <div className="col-2 pe-2"><BsPersonVcard style={{ fontSize: "35px", color: "3964C3" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">建立個人案件</h5>
@@ -457,7 +449,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><FaBriefcase style={{fontSize: "35px" , color: "3964C3"}}/>
+                  <div className="col-2"><FaBriefcase style={{ fontSize: "35px", color: "3964C3" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
@@ -469,7 +461,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><RiDraftLine style={{fontSize: "35px" , color: "3964C3"}}/>
+                  <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "3964C3" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">無上限申請提案</h5>
