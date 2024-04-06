@@ -2,3 +2,6 @@
 .pagination button:hover {
   background-color: peachpuff;
 }
+div button.active {
+  background-color: peachpuff;
+}

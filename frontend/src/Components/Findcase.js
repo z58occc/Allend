@@ -96,9 +96,26 @@ function Findcase() {
   // Modal上面
 
   const [posts, setPosts] = useState([]);
-
   const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
+  const [changecolor1, setChangecolor1] = useState(false);
+  const [changecolor2, setChangecolor2] = useState(false);
+  const [changecolor3, setChangecolor3] = useState(false);
+  const [changecolor4, setChangecolor4] = useState(false);
+  const [changecolor5, setChangecolor5] = useState(false);
+  const [changecolor6, setChangecolor6] = useState(false);
+  const [changecolor7, setChangecolor7] = useState(false);
+
+
+  const changeBottomcolor = async () => {
+    setChangecolor1(false);
+    setChangecolor2(false);
+    setChangecolor3(false);
+    setChangecolor4(false);
+    setChangecolor5(false);
+    setChangecolor6(false);
+    setChangecolor7(false);
+  }
 
   useEffect(() => {
     fetchData()
@@ -382,7 +399,17 @@ function Findcase() {
                 }
               }
               break;
+            case "all":
+              changeBottomcolor();
+              setChangecolor1(true);
+              for (let i = 0; i < data.length; i++) {
+                mycitys.push(data[i]);
+                setPosts(mycitys);
+              }
+              break;
             case "短":
+              changeBottomcolor();
+              setChangecolor2(true);
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "短") {
                   mycitys.push(data[i]);
@@ -390,19 +417,26 @@ function Findcase() {
                 } else {
                   setPosts(mycitys);
                 }
+
               }
               break;
             case "長":
+              changeBottomcolor();
+              setChangecolor3(true);
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "長") {
                   mycitys.push(data[i]);
                   setPosts(mycitys);
+
                 } else {
                   setPosts(mycitys);
+
                 }
               }
               break;
             case "updated_at":
+              changeBottomcolor();
+              setChangecolor4(true);
               for (let i = 0; i < data.length; i++) {
                 mycitys.push(data[i]);
                 const x = mycitys.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
@@ -410,6 +444,8 @@ function Findcase() {
               }
               break;
             case "created_at":
+              changeBottomcolor();
+              setChangecolor5(true);
               for (let i = 0; i < data.length; i++) {
                 mycitys.push(data[i]);
                 const x = mycitys.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
@@ -417,6 +453,8 @@ function Findcase() {
               }
               break;
             case "d_amount":
+              changeBottomcolor();
+              setChangecolor6(true);
               if (changeorder == false) {
                 for (let i = 0; i < data.length; i++) {
                   mycitys.push(data[i]);
@@ -435,6 +473,8 @@ function Findcase() {
               }
               break;
             case "quote_total":
+              changeBottomcolor();
+              setChangecolor7(true);
               if (changeorder == false) {
                 for (let i = 0; i < data.length; i++) {
                   mycitys.push(data[i]);
@@ -455,6 +495,7 @@ function Findcase() {
 
 
             default:
+
               break;
           }
 
@@ -517,7 +558,7 @@ function Findcase() {
 
   return (
     <>
-      <div className="container">
+      <div className="container ">
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -585,7 +626,7 @@ function Findcase() {
         <br></br>
 
         {/* 下拉選單 */}
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }} >
           <Dropdown>
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
 
@@ -627,19 +668,23 @@ function Findcase() {
         </div>
 
         <hr></hr>
+
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button onClick={() => fetchData()}>全部案件</button>
-          <button onClick={() => fetchData("短")}>短期案件</button>
-          <button onClick={() => fetchData("長")}>長期案件</button>
+          <button className={changecolor1 == true ? "active" : ""} onClick={() => fetchData("all")}>全部案件</button>
+          <button className={changecolor2 == true ? "active" : ""} onClick={() => fetchData("短")}>短期案件</button>
+          <button className={changecolor3 == true ? "active" : ""} onClick={() => fetchData("長")}>長期案件</button>
         </div>
+
+
         {/* 右下4顆按鈕 */}
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
-          <button onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
-          <button onClick={() => fetchData("created_at")}>最新刊登<GoTriangleDown /></button>
-          <button onClick={() => fetchData("d_amount")}>預算金額<GoTriangleDown /></button>
-          <button onClick={() => fetchData("quote_total")}>提案人數<GoTriangleDown /></button>
+          <button className={changecolor4 == true ? "active" : ""} onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
+          <button className={changecolor5 == true ? "active" : ""} onClick={() => fetchData("created_at")}>最新刊登<GoTriangleDown /></button>
+          <button className={changecolor6 == true ? "active" : ""} onClick={() => fetchData("d_amount")}>預算金額<GoTriangleDown /></button>
+          <button className={changecolor7 == true ? "active" : ""} onClick={() => fetchData("quote_total")}>提案人數<GoTriangleDown /></button>
         </div>
+
 
 
 
