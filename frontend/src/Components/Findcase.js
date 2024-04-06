@@ -823,7 +823,7 @@ function Findcase() {
 
 
         {/* 右下4顆按鈕 */}
-        <div style={{ borderBottom: "solid", textAlign: "end" }}>
+        <div style={{ textAlign: "end" }}>
           <button className={changecolor4 == true ? "active" : ""} onClick={() => sortData("updated_at")}>最近更新<GoTriangleDown /></button>
           <button className={changecolor5 == true ? "active" : ""} onClick={() => sortData("created_at")}>最新刊登<GoTriangleDown /></button>
           <button className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額<GoTriangleDown /></button>
@@ -843,44 +843,36 @@ function Findcase() {
             return (
               <div >
                 <div className="row" key={index}>
-                  <Row>
-                    <Col>
-                    
-                    </Col>
-                    <Col></Col>
-                    <Col></Col>
-                  </Row>
-                  <Link
-                    to={`/casecontext/?${post.did}`}
-                    className="col-sm-2"
-                    style={{
-                      border: "solid black",
-                      textDecoration: "none",
-                      color: "black",
-                    }}
-                  >
-                    <div>{post.d_name}</div>
-                    <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
-                    <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
-                    <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
-                    <div>{post.d_duration}期</div>
-                    {/* <div>{post.updated_at}</div>
+                  <Row style={{ border: "solid black" }}>
+                    <Col style={{ borderRight: "solid black" }}>
+                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", }}>
+                        <div>{post.d_name}</div>
+                        <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
+                        <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
+                        <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
+                        <div>{post.d_duration}期</div>
+                        {/* <div>{post.updated_at}</div>
                     <div>{post.quote_total}人報價中</div>
                     <div>刊登時間:</div>
                     <div>{post.created_at}</div> */}
-                  </Link>
-                  <div className="position-relative col-sm-10" style={{ border: "solid" }}>
-                    <div>{post.d_description}</div>
-                    <div  className="mb-5" style={{textAlign:"end"}}>
-                      <div>{post.updated_at}</div>
-                      <div>{post.quote_total}人報價中</div>
-                      <div>刊登時間:</div>
-                      <div>{post.created_at}</div>
-                    </div>
-                    <div className="position-absolute bottom-0 end-0">
-                      <Button onClick={() => { handleShow(index); }}>我要報價</Button>
-                    </div>
-                  </div>
+                      </Link>
+                    </Col>
+                    <Col xs={8} >
+                      <div>{post.d_description}</div>
+                    </Col>
+                    <Col>
+                      <div style={{ textAlign: "end" }}>
+                        <div>{post.updated_at}</div>
+                        <div>{post.quote_total}人報價中</div>
+                        <div>刊登時間:</div>
+                        <div>{post.created_at}</div>
+                      </div>
+                      {/* className="position-absolute bottom-0 end-0" */}
+                      <div style={{textAlign:"end"}}>
+                        <Button onClick={() => { handleShow(index); }}>我要報價</Button>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
               </div>
             );
