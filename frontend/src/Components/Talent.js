@@ -60,7 +60,7 @@ function Talent() {
                             <Stick ></Stick>
                         </div>
                     </div>
-                    <div className='col-sm-9 '>
+                    <div className='col-sm-9' style={{paddingLeft:'40px'}}>
                         <Nav defaultActiveKey="/home" as="ul">
                             <Nav.Item as="li">
                                 <Nav.Link href='#about'>關於我</Nav.Link>
@@ -104,12 +104,12 @@ function Talent() {
                         </div>
 
                         <div id='video' className='mt-5'>影音：</div>
+                        
+                        <div className="row">
                         {talent.video && talent.video.map((item,index) => (
-                            
-                        <div className="row ">
-                            <div className="col-sm-4  ">
+                            <div className="col-sm-4">
                                 <div className='card'>
-                                    <div className="card-header">
+                                    <div className="card-header" >
                                         <YouTubeEmbed url={item.src} />
                                     </div>
                                     <div className="card-body">
@@ -117,8 +117,8 @@ function Talent() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         ))}
+                        </div>
                         <p id='serve' className='mt-5'>服務：</p>
                         <div className='row'>
                             

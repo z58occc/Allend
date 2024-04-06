@@ -31,42 +31,48 @@ function Stick() {
     return (
 
         <div>
-            <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',  }}>
-                <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
-                    <img src={twitter} style={{ width: 25 }} alt=""></img>
-                    <p>{talent.member && talent.member[0].name}</p>
-                    {Array.from({length:talent.avg_star},(_,i)=>(<CiStar key={i}/>))}
-                </div>
-                接案身分：{talent.member && talent.member[0].i_identity}
-                <br></br>
-                上線時間：{talent.member &&  talent.member[0].last_login}
-                <br></br>
-                接案地點：{talent.member && talent.member[0].country_city}
-                <br></br>
-                成交件數：{talent.case_member_count}
-                <hr></hr>
-
-                <a href={talent.member && talent.member[0].fb}>
-                <FaFacebook size={30}  />
-                </a>
-                <a href={talent.member && talent.member[0].line}>
-                <FaLine size={30} color='green' />
-                </a>
-                <CopyButton  />
-
-                <hr></hr>
-                
-                <div className='row'>
-                    <div style={{ borderRight: 'solid' }} className='col-sm-6'>
-                        <FaHeart size={20}></FaHeart>
-                        收藏
+            <div style={{paddingTop:'40px',paddingBottom:'40px'}}>
+                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',  }}>
+                    <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
+                        <img src={twitter} style={{ width: 25 }} alt=""></img>
+                        <p>{talent.member && talent.member[0].name}</p>
+                        {Array.from({length:talent.avg_star},(_,i)=>(<CiStar key={i}/>))}
                     </div>
-                    <div className='col-sm-6' >
-                        <CiChat1 size={20} />
-                        <span>聊聊</span>
+                    <div>
+                        <div>
+                            接案身分：{talent.member && talent.member[0].i_identity}
+                        </div>
+                        <div>
+                            上線時間：{talent.member &&  talent.member[0].last_login}
+                        </div>
+                        <div>
+                            接案地點：{talent.member && talent.member[0].country_city}
+                        </div>
+                        <div>
+                            成交件數：{talent.case_member_count}
+                        </div>
+                    </div>
+                    <div style={{borderTop:'solid', paddingTop:'20px',paddingBottom:'20px'}}>
+                    <a href={talent.member && talent.member[0].fb}>
+                    <FaFacebook size={30}  />
+                    </a>
+                    <a href={talent.member && talent.member[0].line}>
+                    <FaLine size={30} color='green' />
+                    </a>
+                    <CopyButton  />
+                    </div>
+
+                    <div style={{padding:'12px', borderTop:'solid'}}>
+                    <div className='row'>
+                        <div  className='col-sm-6'>
+                            <div><FaHeart size={20}></FaHeart>收藏</div>
+                        </div>
+                        <div className='col-sm-6' >
+                            <div><CiChat1 size={20} />聊聊</div>
+                        </div>
+                    </div>
                     </div>
                 </div>
-                <Button style={{marginTop:'20px'}} >邀請報價</Button>
             </div>
         </div>
     )
