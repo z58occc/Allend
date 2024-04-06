@@ -13,8 +13,8 @@ class IFindCaseController extends Controller
         ->leftJoin('country','demmand.d_active_location','=','country.country_id')
         ->leftJoin('category','category.catid','=','demmand.d_type')
         ->leftJoin('quote', 'quote.did', '=', 'demmand.did')
-        ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit','created_at',
-        DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
+        ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit',
+        DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
         ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at','created_at');
 
         // 選擇地區、案件金額
@@ -22,7 +22,7 @@ class IFindCaseController extends Controller
         $amount = $request->amount;
         if (!(empty($location) && empty($amount))) {
 
-            if(!empty($location)){
+            if(!empty($location) && DB::table('contry')->where('country_city', $location)->exists()){
                 $query->whereIn('country_city',explode(',',$location));
             }
 
@@ -32,12 +32,12 @@ class IFindCaseController extends Controller
         }
 
         // 期程 (短、長)
-        if($request->has('d_duration')){
+        if($request->has('d_duration') && ($request->input('d_duration') === "短" || $request->input('d_duration') === "長")){
             $query->where('d_duration',$request->d_duration);
         }
 
         // 發案地點
-        if($request->has('d_active_location')){
+        if($request->has('d_active_location') && DB::table('contry')->where('country_city', $request->input('d_active_location'))->exists()){
             $query->whereIn('d_active_location',explode(',',$request->d_active_location));
         }
 
@@ -72,7 +72,7 @@ class IFindCaseController extends Controller
         switch($order){
             // 最新刊登
             case '1':
-                $query->orderBy('created_at','desc');
+                $query->orderBy('created_at','desc')->orderBy('did', 'desc');
                 break;
             // 最近更新
             case '2':
@@ -88,7 +88,7 @@ class IFindCaseController extends Controller
                 break;
             // 預設最新刊登
             default:
-                $query->orderBy('created_at', 'desc');
+                $query->orderBy('created_at', 'desc')->orderBy('did', 'desc');
             }
 
         $demands = $query->get();
@@ -101,6 +101,8 @@ class IFindCaseController extends Controller
 
             if($interval->h < 1 && $interval->d < 1){
                 $difference = $interval->i . '分鐘前更新';
+            }elseif($interval->d < 1 && $interval->h > 1){
+                $difference = $interval->h . '小時前更新';
             }elseif($interval->d > 1){
                 $difference = $interval->d . '天前更新';
             }
@@ -108,7 +110,5 @@ class IFindCaseController extends Controller
             $demand->updated_at = $difference;
         }
         return response()->json($demands);
-
     }
-
 }
