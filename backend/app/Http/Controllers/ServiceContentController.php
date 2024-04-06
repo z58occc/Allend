@@ -20,7 +20,7 @@ class ServiceContentController extends Controller
 
         // 平均評價
         $avg_star = DB::table('established_case')
-        ->join('service','established_case.mid_service','=','service.mid')
+        ->join('service','established_case.c_name','=','service.s_name')
         ->where('service.sid',$sid)
         ->avg('demmand_star');
         $rounded_avg_star = round($avg_star);
@@ -28,7 +28,7 @@ class ServiceContentController extends Controller
         // 案件評價
         $established_query = DB::table('established_case')
         ->join('members','established_case.mid_demmand','=','members.mid')
-        ->join('service','established_case.mid_service','=','service.mid')
+        ->join('service','established_case.c_name','=','service.s_name')
         ->select('demmand_star','demmand_comment','completed_time','members.name')
         ->where('c_status',2)
         ->where('service.sid',$sid)->get();

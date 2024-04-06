@@ -57,7 +57,7 @@ function Serve() {
                     </div>
                     <div style={{width: "500px", height: "300px", alignContent:'start', textAlign:'left',paddingLeft:'50px'}}>
                       <div style={{  height: "35px" }}>服務名稱:{serve.service && serve.service[0].s_name}</div>
-                      <div style={{  height: "35px" }}>服務報價:{serve.service && serve.service[0].s_amount}/{serve.serve && serve.service[0].s_unit}</div>
+                      <div style={{  height: "35px" }}>服務報價:{serve.service && serve.service[0].s_amount}/{serve.service && serve.service[0].s_unit}</div>
                       <div style={{  height: "35px" }}>評分:{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}</div>
                       <div style={{  height: "35px" }}>服務地點:{serve.service && serve.service[0].country_city}<br></br></div>
                       <div style={{  height: "35px" }}><Button>及時詢問</Button></div>
@@ -79,7 +79,7 @@ function Serve() {
             <Tab eventKey="profile" title="服務評價" style={{ width: 500, height: 500 }}>
               {serve.service_comments && serve.service_comments.map((item,index) => (
               <div style={{ border: 'solid' }} className='mt-5'>
-                案主評價:{Array.from({length:item.dammand_star},(_,i)=>(<CiStar key={i}/>))}
+                案主評價:{Array.from({length:item.demmand_star},(_,i)=>(<CiStar key={i}/>))}
                 <br></br>
                 案主留言:{item.demmand_comment}
                 <br></br>
