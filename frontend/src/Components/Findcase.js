@@ -134,6 +134,71 @@ function Findcase() {
   useEffect(() => {
     fetchData()
   }, []);
+  const sortData = async (s) => {
+    setCurrentPage(1);
+    switch (s) {
+      case "updated_at":
+        changeBottomcolorOff();
+
+        setChangecolor4(true);
+        for (let i = 0; i < posts.length; i++) {
+          const x = posts.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
+          setPosts(x);
+        }
+        break;
+      case "created_at":
+        changeBottomcolorOff();
+
+        setChangecolor5(true);
+        for (let i = 0; i < posts.length; i++) {
+          const x = posts.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
+          setPosts(x);
+        }
+        break;
+      case "d_amount":
+        changeBottomcolorOff();
+
+        setChangecolor6(true);
+        if (changeorder == false) {
+          for (let i = 0; i < posts.length; i++) {
+            const x = posts.sort(function (a, b) { return a.d_amount - b.d_amount });
+            setPosts(x);
+          }
+          setChangeorder(true);
+        } else {
+          for (let i = 0; i < posts.length; i++) {
+            const x = posts.sort(function (a, b) { return b.d_amount - a.d_amount });
+            setPosts(x);
+          }
+          setChangeorder(false);
+        }
+        break;
+      case "quote_total":
+        changeBottomcolorOff();
+
+        setChangecolor7(true);
+        if (changeorder == false) {
+          for (let i = 0; i < posts.length; i++) {
+            const x = posts.sort(function (a, b) { return a.quote_total - b.quote_total });
+            setPosts(x);
+          }
+          setChangeorder(true);
+        } else {
+          for (let i = 0; i < posts.length; i++) {
+            const x = posts.sort(function (a, b) { return b.quote_total - a.quote_total });
+            setPosts(x);
+          }
+          setChangeorder(false);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
+  }
+
   const fetchData = async (type) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
@@ -200,7 +265,7 @@ function Findcase() {
               }
 
               changeBottomcolorOff();
-              changebudgecolor();
+              changecitycolor();
 
 
               console.log(mycitys);
@@ -570,78 +635,78 @@ function Findcase() {
                 }
               }
               break;
-            case "updated_at":
-              changeBottomcolorOff();
+            // case "updated_at":
+            //   changeBottomcolorOff();
 
-              setChangecolor4(true);
-              for (let i = 0; i < data.length; i++) {
-                mycitys.push(data[i]);
-                const x = mycitys.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
-                setPosts(x);
-              }
-              break;
-            case "created_at":
-              changeBottomcolorOff();
+            //   setChangecolor4(true);
+            //   for (let i = 0; i < data.length; i++) {
+            //     mycitys.push(data[i]);
+            //     const x = mycitys.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
+            //     setPosts(x);
+            //   }
+            //   break;
+            // case "created_at":
+            //   changeBottomcolorOff();
 
-              setChangecolor5(true);
-              for (let i = 0; i < data.length; i++) {
-                mycitys.push(data[i]);
-                const x = mycitys.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
-                setPosts(x);
-              }
-              break;
-            case "d_amount":
-              changeBottomcolorOff();
+            //   setChangecolor5(true);
+            //   for (let i = 0; i < data.length; i++) {
+            //     mycitys.push(data[i]);
+            //     const x = mycitys.sort(function (a, b) { return parseInt(a.created_at) - parseInt(b.created_at) });
+            //     setPosts(x);
+            //   }
+            //   break;
+            // case "d_amount":
+            //   changeBottomcolorOff();
 
-              setChangecolor6(true);
-              if (changeorder == false) {
-                for (let i = 0; i < data.length; i++) {
-                  mycitys.push(data[i]);
-                  const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
-                  setPosts(x);
-                  console.log(1);
-                }
-                setChangeorder(true);
-              } else {
-                for (let i = 0; i < data.length; i++) {
-                  mycitys.push(data[i]);
-                  const x = mycitys.sort(function (a, b) { return b.d_amount - a.d_amount });
-                  setPosts(x);
-                }
-                setChangeorder(false);
-              }
-              break;
-            case "quote_total":
-              changeBottomcolorOff();
+            //   setChangecolor6(true);
+            //   if (changeorder == false) {
+            //     for (let i = 0; i < data.length; i++) {
+            //       mycitys.push(data[i]);
+            //       const x = mycitys.sort(function (a, b) { return a.d_amount - b.d_amount });
+            //       setPosts(x);
+            //       console.log(1);
+            //     }
+            //     setChangeorder(true);
+            //   } else {
+            //     for (let i = 0; i < data.length; i++) {
+            //       mycitys.push(data[i]);
+            //       const x = mycitys.sort(function (a, b) { return b.d_amount - a.d_amount });
+            //       setPosts(x);
+            //     }
+            //     setChangeorder(false);
+            //   }
+            //   break;
+            // case "quote_total":
+            //   changeBottomcolorOff();
 
-              setChangecolor7(true);
-              if (changeorder == false) {
-                for (let i = 0; i < data.length; i++) {
-                  mycitys.push(data[i]);
-                  const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
-                  setPosts(x);
-                  console.log(1);
-                }
-                setChangeorder(true);
-              } else {
-                for (let i = 0; i < data.length; i++) {
-                  mycitys.push(data[i]);
-                  const x = mycitys.sort(function (a, b) { return b.quote_total - a.quote_total });
-                  setPosts(x);
-                }
-                setChangeorder(false);
-              }
-              break;
+            //   setChangecolor7(true);
+            //   if (changeorder == false) {
+            //     for (let i = 0; i < data.length; i++) {
+            //       mycitys.push(data[i]);
+            //       const x = mycitys.sort(function (a, b) { return a.quote_total - b.quote_total });
+            //       setPosts(x);
+            //       console.log(1);
+            //     }
+            //     setChangeorder(true);
+            //   } else {
+            //     for (let i = 0; i < data.length; i++) {
+            //       mycitys.push(data[i]);
+            //       const x = mycitys.sort(function (a, b) { return b.quote_total - a.quote_total });
+            //       setPosts(x);
+            //     }
+            //     setChangeorder(false);
+            //   }
+            //   break;
 
 
             default:
 
               break;
           }
-
           console.log(mycitys);
           console.log(posts);
           console.log(data);
+          console.log(posts);
 
 
         });
@@ -675,6 +740,7 @@ function Findcase() {
         });
     }
   };
+  console.log(posts);
 
 
 
@@ -814,10 +880,10 @@ function Findcase() {
 
         {/* 右下4顆按鈕 */}
         <div style={{ borderBottom: "solid", textAlign: "end" }}>
-          <button className={changecolor4 == true ? "active" : ""} onClick={() => fetchData("updated_at")}>最近更新<GoTriangleDown /></button>
-          <button className={changecolor5 == true ? "active" : ""} onClick={() => fetchData("created_at")}>最新刊登<GoTriangleDown /></button>
-          <button className={changecolor6 == true ? "active" : ""} onClick={() => fetchData("d_amount")}>預算金額<GoTriangleDown /></button>
-          <button className={changecolor7 == true ? "active" : ""} onClick={() => fetchData("quote_total")}>提案人數<GoTriangleDown /></button>
+          <button className={changecolor4 == true ? "active" : ""} onClick={() => sortData("updated_at")}>最近更新<GoTriangleDown /></button>
+          <button className={changecolor5 == true ? "active" : ""} onClick={() => sortData("created_at")}>最新刊登<GoTriangleDown /></button>
+          <button className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額<GoTriangleDown /></button>
+          <button className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數<GoTriangleDown /></button>
         </div>
 
 
