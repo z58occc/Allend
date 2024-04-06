@@ -98,6 +98,7 @@ function Findcase() {
   const [posts, setPosts] = useState([]);
   const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
+
   const [changecolor1, setChangecolor1] = useState(false);
   const [changecolor2, setChangecolor2] = useState(false);
   const [changecolor3, setChangecolor3] = useState(false);
@@ -105,9 +106,12 @@ function Findcase() {
   const [changecolor5, setChangecolor5] = useState(false);
   const [changecolor6, setChangecolor6] = useState(false);
   const [changecolor7, setChangecolor7] = useState(false);
+  const [changecolortype, setChangecolortype] = useState(false);
+  const [changecolorcity, setChangecolorcity] = useState(false);
+  const [changecolorbudge, setChangecolorbudge] = useState(false);
 
 
-  const changeBottomcolor = async () => {
+  const changeBottomcolorOff = async () => {
     setChangecolor1(false);
     setChangecolor2(false);
     setChangecolor3(false);
@@ -115,6 +119,16 @@ function Findcase() {
     setChangecolor5(false);
     setChangecolor6(false);
     setChangecolor7(false);
+    setChangecolortype(false);
+    setChangecolorcity(false);
+    setChangecolorbudge(false);
+
+  }
+  const changecitycolor = async () => {
+    setChangecolorcity(true);
+  }
+  const changebudgecolor = async () => {
+    setChangecolorbudge(true);
   }
 
   useEffect(() => {
@@ -123,24 +137,40 @@ function Findcase() {
   const fetchData = async (type) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+      setCurrentPage(1);
       switch (type) {
         case "網站設計":
+          changeBottomcolorOff();
+
+          setChangecolortype(true);
           setCurrentPage(1);
           url += "1";
           break;
         case "軟體程式":
+          changeBottomcolorOff();
+
+          setChangecolortype(true);
           setCurrentPage(1);
           url += "2";
           break;
         case "平面設計":
+          changeBottomcolorOff();
+
+          setChangecolortype(true);
           setCurrentPage(1);
           url += "3";
           break;
         case "文字語言":
+          changeBottomcolorOff();
+
+          setChangecolortype(true);
           setCurrentPage(1);
           url += "4";
           break;
         case "專業諮詢":
+          changeBottomcolorOff();
+
+          setChangecolortype(true);
           setCurrentPage(1);
           url += "5";
           break;
@@ -154,6 +184,10 @@ function Findcase() {
           console.log(data);
           setPosts(data);
           setMycitys([]);
+          // if (changecolortype == true) {
+          //   changeBottomcolorOff();
+
+          // }
           switch (type) {
             case "台北市":
               for (let i = 0; i < data.length; i++) {
@@ -164,6 +198,11 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+
+              changeBottomcolorOff();
+              changebudgecolor();
+
+
               console.log(mycitys);
               break;
             case "新北市":
@@ -176,6 +215,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "桃園市":
               for (let i = 0; i < data.length; i++) {
@@ -186,6 +229,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "基隆市":
               for (let i = 0; i < data.length; i++) {
@@ -196,6 +243,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "新竹市":
               for (let i = 0; i < data.length; i++) {
@@ -206,6 +257,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "新竹縣":
               for (let i = 0; i < data.length; i++) {
@@ -216,6 +271,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "彰化縣":
               for (let i = 0; i < data.length; i++) {
@@ -226,6 +285,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "南投縣":
               for (let i = 0; i < data.length; i++) {
@@ -236,6 +299,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "雲林縣":
               for (let i = 0; i < data.length; i++) {
@@ -246,6 +313,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "高雄市":
               for (let i = 0; i < data.length; i++) {
@@ -256,6 +327,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "台南市":
               for (let i = 0; i < data.length; i++) {
@@ -266,6 +341,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "嘉義市":
               for (let i = 0; i < data.length; i++) {
@@ -276,6 +355,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "嘉義縣":
               for (let i = 0; i < data.length; i++) {
@@ -286,6 +369,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "屏東縣":
               for (let i = 0; i < data.length; i++) {
@@ -296,6 +383,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "宜蘭縣":
               for (let i = 0; i < data.length; i++) {
@@ -306,6 +397,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "花蓮縣":
               for (let i = 0; i < data.length; i++) {
@@ -316,6 +411,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "臺東縣":
               for (let i = 0; i < data.length; i++) {
@@ -326,6 +425,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "澎湖縣":
               for (let i = 0; i < data.length; i++) {
@@ -336,6 +439,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "金門縣":
               for (let i = 0; i < data.length; i++) {
@@ -346,6 +453,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "連江縣":
               for (let i = 0; i < data.length; i++) {
@@ -356,6 +467,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changecitycolor();
+
+
               break;
             case "5k":
               for (let i = 0; i < data.length; i++) {
@@ -364,6 +479,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changebudgecolor();
+
+
               break;
             case "1w":
               for (let i = 0; i < data.length; i++) {
@@ -372,6 +491,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changebudgecolor();
+
+
               break;
 
             case "5w":
@@ -381,6 +504,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changebudgecolor();
+
+
               break;
 
             case "10w":
@@ -390,6 +517,10 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+              changebudgecolor();
+
+
               break;
             case "30w":
               for (let i = 0; i < data.length; i++) {
@@ -398,9 +529,12 @@ function Findcase() {
                   setPosts(mycitys);
                 }
               }
+              changeBottomcolorOff();
+
               break;
             case "all":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor1(true);
               for (let i = 0; i < data.length; i++) {
                 mycitys.push(data[i]);
@@ -408,7 +542,8 @@ function Findcase() {
               }
               break;
             case "短":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor2(true);
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "短") {
@@ -421,7 +556,8 @@ function Findcase() {
               }
               break;
             case "長":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor3(true);
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "長") {
@@ -435,7 +571,8 @@ function Findcase() {
               }
               break;
             case "updated_at":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor4(true);
               for (let i = 0; i < data.length; i++) {
                 mycitys.push(data[i]);
@@ -444,7 +581,8 @@ function Findcase() {
               }
               break;
             case "created_at":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor5(true);
               for (let i = 0; i < data.length; i++) {
                 mycitys.push(data[i]);
@@ -453,7 +591,8 @@ function Findcase() {
               }
               break;
             case "d_amount":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor6(true);
               if (changeorder == false) {
                 for (let i = 0; i < data.length; i++) {
@@ -473,7 +612,8 @@ function Findcase() {
               }
               break;
             case "quote_total":
-              changeBottomcolor();
+              changeBottomcolorOff();
+
               setChangecolor7(true);
               if (changeorder == false) {
                 for (let i = 0; i < data.length; i++) {
@@ -579,12 +719,7 @@ function Findcase() {
           <div className="container mt-5">
             <div className="row justify-content-center">
               <div className="col-sm-2 text-center">
-                <Link
-                  to="/findcase"
-                  onClick={() => {
-                    fetchData("網站設計");
-                  }}
-                >
+                <Link to="/findcase" onClick={() => fetchData("網站設計")}>
                   <div>網站設計</div>
                   <img src={a1} style={{ width: "60px" }}></img>
                 </Link>
@@ -694,7 +829,7 @@ function Findcase() {
 
         {/* 案件欄位 */}
         <div >
-          {posts.map((post, index) => {
+          {currentPosts.map((post, index) => {
             return (
               <div >
                 <div className="row" key={index}>
@@ -708,13 +843,9 @@ function Findcase() {
                     }}
                   >
                     {post.d_name}
-                    <br></br>
-                    案件類別:{post.type}
-                    <br></br>
-                    預算:${post.d_amount}/{post.d_unit}
-                    <br></br>
-                    地點:{post.country_city}
-                    <br></br>
+                    <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
+                    <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
+                    <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
                     {post.d_duration}期<br></br>
                     {post.updated_at}<br></br>
                     {post.quote_total}人報價中
