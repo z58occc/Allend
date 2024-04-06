@@ -67,7 +67,7 @@ class Pop_QuoteAgreeController extends Controller
             ->where('demmand.mid', $mid)
             ->get();
 
-            return response()->json($quote);
+            return response()->json($quote, 200);
         }
     }
 
@@ -130,6 +130,16 @@ class Pop_QuoteAgreeController extends Controller
     // 拒絕報價
     public function disagreeQuote(Request $request)
     {
+        try{
+            $request->validate([
+                'qid' => $request->qid
+            ]);
+        }catch(ValidationException $exception){
+            return response()->json([
+                'error' => $exception->errors(),
+            ]);
+        }
+
         DB::table('quote')->where('qid', $request->qid)->where('mid',$request->mid)->delete();
 
         return response()->json(['message'=>'已拒絕報價']);
