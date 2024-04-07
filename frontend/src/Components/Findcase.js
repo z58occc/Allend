@@ -852,7 +852,7 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
-        <div style={{ display: (posts.length == 16 ? "none" : "") }}>Oops 看來目前沒有符合篩選條件的資料喔!</div>
+        <div style={{ display: (posts.length != 0 ? "none" : "") }}>Oops 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
 
