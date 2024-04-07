@@ -280,7 +280,7 @@ function App() {
 
 
           {isLoggedIn ? ( // Check if user is logged in
-            <Button style={{ height: '55px', width: '55px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
+            <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
           ) : (
             <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleShow}>登入/註冊</Button>
           )}

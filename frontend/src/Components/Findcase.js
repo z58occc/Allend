@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import Pagination from "./Pagination";
 import "./Pagination.css"
 import { AiOutlineArrowUp } from "react-icons/ai";
+import { IoIosSad } from "react-icons/io";
 
 
 
@@ -884,6 +885,7 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
+        
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
