@@ -24,18 +24,11 @@ class Member extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     protected $fillable = [
         'name',
-        // 'avatar',
+        'avatar',
         'email',
         'password',
         'remember_token',
-        // 'identity',
-        // 'senority',
-        // 'active_location',
-        // 'id_card',
-        // 'birthday',
-        // 'mobile_phone',
-        // 'gender',
-        // 'location',
+        'email_verified_at',
         'last_login',
     ];
 

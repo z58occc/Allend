@@ -74,8 +74,8 @@ class AuthController extends Controller
         }
         catch (ValidationException $exception){
             return response()->json([
-                'message' => $exception->errors()
-            ]);
+                'error' => $exception->errors()
+            ],401);
         }
 
         $credentials = $request->only('email', 'password');
@@ -83,8 +83,8 @@ class AuthController extends Controller
 
         if(!$token){
             return response()->json([
-                'message' => '帳號或密碼錯誤'
-            ]);
+                'error' => '帳號或密碼錯誤'
+            ],401);
         }
 
         $user = Auth::user();

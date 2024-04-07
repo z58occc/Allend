@@ -21,6 +21,7 @@ use App\Http\Controllers\MemberInfoController;
 // use App\Http\Controllers\MemberTakeCaseController;
 // use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\Pop_QuoteAgreeController;
+use App\Http\Controllers\ProviderController;
 // use App\Http\Controllers\PublishCaseController;
 // use App\Http\Controllers\PublishCaseDeleteController;
 use App\Http\Controllers\ServiceContentController;
@@ -100,6 +101,11 @@ Route::controller(AuthController::class)->group(function(){
     // 登出
     Route::post('/logout', 'logout');
 });
+
+// 轉址
+Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
+// 回調
+Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
 
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
