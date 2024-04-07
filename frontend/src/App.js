@@ -150,8 +150,14 @@ function App() {
   };
   // 重寄驗證信
   const handleResendVerification = () => {
-    const email = RegisterEmail.current.value;
-    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification")
+    
+    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",null,
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    
+    })
       .then((res) => {
         console.log(res.data);
         setIsVerificationSent(true); // 发送成功后设置状态为已发送验证邮件
