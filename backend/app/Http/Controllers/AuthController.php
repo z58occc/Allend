@@ -99,6 +99,9 @@ class AuthController extends Controller
     // 登出
     public function logout(Request $request){
         Auth::invalidate($request->bearerToken());
+        return response()->json([
+            'message' => '已成功登出'
+        ]);
     }
 
     //  // 從請求頭獲取 JWT
