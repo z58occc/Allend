@@ -864,14 +864,14 @@ function Findcase() {
 
                       {/* className="position-absolute bottom-0 end-0" */}
                     </Col>
-                    <Col>
+                    <Col xs={1}>
                       <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
                         <div>{post.updated_at}</div>
                         <div>{post.quote_total}人報價中</div>
                         <div>刊登時間:{post.created_at}</div>
-                      </div>
+                      </div>  
                       <div style={{ textAlign: "start" }}>
-                        <Button onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{width:"80px",height:"30px ", fontSize:"10px"}} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
