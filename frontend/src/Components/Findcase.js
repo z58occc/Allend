@@ -109,6 +109,10 @@ function Findcase() {
   const [changecolortype, setChangecolortype] = useState(false);
   const [changecolorcity, setChangecolorcity] = useState(false);
   const [changecolorbudge, setChangecolorbudge] = useState(false);
+  const [changecolorduration, setChangecolorduration] = useState(false);
+  const [changecolorupdated_at, setChangecolorupdated_at] = useState(false);
+  const [changecolorquote_total, setChangecolorquote_total] = useState(false);
+  const [changecolorcreated_at, setChangecolorcreated_at] = useState(false);
 
 
   const changeBottomcolorOff = async () => {
@@ -122,7 +126,10 @@ function Findcase() {
     setChangecolortype(false);
     setChangecolorcity(false);
     setChangecolorbudge(false);
-
+    setChangecolorduration(false);
+    setChangecolorupdated_at(false);
+    setChangecolorquote_total(false);
+    setChangecolorcreated_at(false);
   }
   const changecitycolor = async () => {
     setChangecolorcity(true);
@@ -130,6 +137,10 @@ function Findcase() {
   const changebudgecolor = async () => {
     setChangecolorbudge(true);
   }
+  const changedurationcolor = async () => {
+    setChangecolorduration(true);
+  }
+
 
   useEffect(() => {
     fetchData()
@@ -140,7 +151,7 @@ function Findcase() {
 
       case "updated_at":
         changeBottomcolorOff();
-
+        setChangecolorupdated_at(true);
         setChangecolor4(true);
         for (let i = 0; i < posts.length; i++) {
           const x = posts.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
@@ -149,8 +160,8 @@ function Findcase() {
         break;
 
       case "created_at":
-        console.log(1);
         changeBottomcolorOff();
+        setChangecolorcreated_at(true);
         setChangecolor5(true);
         for (let i = 0; i < posts.length; i++) {
 
@@ -163,7 +174,7 @@ function Findcase() {
 
       case "d_amount":
         changeBottomcolorOff();
-
+        setChangecolorbudge(true);
         setChangecolor6(true);
         if (changeorder == false) {
           for (let i = 0; i < posts.length; i++) {
@@ -182,7 +193,7 @@ function Findcase() {
 
       case "quote_total":
         changeBottomcolorOff();
-
+        setChangecolorquote_total(true);
         setChangecolor7(true);
         if (changeorder == false) {
           for (let i = 0; i < posts.length; i++) {
@@ -618,6 +629,7 @@ function Findcase() {
               changeBottomcolorOff();
 
               setChangecolor2(true);
+              changedurationcolor();
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "短") {
                   mycitys.push(data[i]);
@@ -630,7 +642,7 @@ function Findcase() {
               break;
             case "長":
               changeBottomcolorOff();
-
+              changedurationcolor();
               setChangecolor3(true);
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_duration == "長") {
@@ -850,7 +862,7 @@ function Findcase() {
                         <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
-                        <div>{post.d_duration}期</div>
+                        <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
                         {/* <div>{post.updated_at}</div>
                     <div>{post.quote_total}人報價中</div>
                     <div>刊登時間:</div>
@@ -858,7 +870,7 @@ function Findcase() {
                       </Link>
                     </Col>
                     <Col xs={6} >
-                      <div>{post.d_description}</div>
+                      <div >{post.d_description}</div>
                     </Col>
                     <Col >
 
@@ -866,12 +878,13 @@ function Findcase() {
                     </Col>
                     <Col xs={1}>
                       <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
-                        <div>{post.updated_at}</div>
-                        <div>{post.quote_total}人報價中</div>
-                        <div>刊登時間:{post.created_at}</div>
-                      </div>  
+                        <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
+                        <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
+                        <div >刊登時間:</div>
+                        <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
+                      </div>
                       <div style={{ textAlign: "start" }}>
-                        <Button style={{width:"80px",height:"30px ", fontSize:"10px"}} onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{ width: "80px", height: "30px ", fontSize: "10px" }} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
