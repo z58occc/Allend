@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-
 import Footer from "../homepage/Footer";
 import Dropdown from "react-bootstrap/Dropdown";
 import { GoTriangleDown } from "react-icons/go";
-
-import NextPage from "../homepage/NextPage";
-import Orderbuttom from "../homepage/Orderbuttom";
 import "../../src/App.css";
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
@@ -19,13 +15,12 @@ import a6 from "../Components/img/a6.png";
 import Cookies from "js-cookie";
 import Pagination from "./Pagination";
 import "./Pagination.css"
+import { AiOutlineArrowUp } from "react-icons/ai";
+import { IoIosSad } from "react-icons/io";
 
 
 
 function Findcase() {
-
-
-
 
 
   // 上/下一頁
@@ -35,11 +30,7 @@ function Findcase() {
   const [postsPerPage, setPostsPerPage] = useState(5);
 
 
-
-
   // 上/下一頁
-
-
 
 
 
@@ -96,8 +87,8 @@ function Findcase() {
   // Modal上面
 
   const [posts, setPosts] = useState([]);
-  const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
+  const [changeorder, setChangeorder] = useState(false);
 
   const [changecolor1, setChangecolor1] = useState(false);
   const [changecolor2, setChangecolor2] = useState(false);
@@ -295,6 +286,7 @@ function Findcase() {
                   setPosts(mycitys);
                   console.log(mycitys);
                 } else {
+                  console.log(mycitys);
                   setPosts(mycitys);
                 }
               }
@@ -700,6 +692,7 @@ function Findcase() {
 
 
 
+
   // 分頁
   const lastPostIndex = currentPage * postsPerPage;
 
@@ -710,16 +703,58 @@ function Findcase() {
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
   // 分頁
 
+  {/* 置頂按鈕 */ }
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if user has scrolled down beyond a certain point
+      if (window.scrollY > 400) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up by removing the scroll event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
-
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+  {/* 置頂按鈕 */ }
 
 
 
 
   return (
     <>
+      {/* 置頂按鈕 */}
+      {showScrollButton && (
+        <button
+          className="btn btn-primary rounded-circle shadow"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: "1000" // Set a high z-index to make sure it appears on top
+          }}
+          onClick={scrollToTop}
+        >
+          <AiOutlineArrowUp style={{ fontSize: "24px" }} />
+        </button>
+      )}
+
       <div className="container ">
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -850,23 +885,22 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
+        
+        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
+
             return (
-              <div >
+              <div>
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black" }}>
-                    <Col xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", }}>
+                  <Row style={{ border: "solid black", padding:0}}>
+                    <Col  id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                      <Link  to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign:"start"}}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
-                        {/* <div>{post.updated_at}</div>
-                    <div>{post.quote_total}人報價中</div>
-                    <div>刊登時間:</div>
-                    <div>{post.created_at}</div> */}
                       </Link>
                     </Col>
                     <Col xs={6} >
@@ -883,14 +917,17 @@ function Findcase() {
                         <div >刊登時間:</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
-                      <div style={{ textAlign: "start" }}>
-                        <Button style={{ width: "80px", height: "30px ", fontSize: "10px" }} onClick={() => { handleShow(index); }}>我要報價</Button>
+                      <div >
+                        <Button  style={{width:"70px",height: "30px ", fontSize: "10px",}} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
                 </div>
-              </div>
-            );
+              </div>)
+              // className="d-flex" style={{ justifyContent:"center  " }}
+
+
+
           })}
         </div>
         {/* 案件欄位 */}
@@ -945,9 +982,6 @@ function Findcase() {
           </Modal.Footer>
         </Modal>
         {/* 我要報價頁面 */}
-
-
-
 
 
         {/* 上/下一頁 */}

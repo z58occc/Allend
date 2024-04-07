@@ -31,8 +31,8 @@ function Word() {
                 <div className='row'>
 
                     {/* 左邊 */}
-                    <div className='col-sm-2' style={{marginTop:"10px"}}>
-                    <br></br>
+                    <div className='col-sm-2' style={{ marginTop: "10px" }}>
+                        <br></br>
                         <div style={{ height: '200px', border: 'solid' }}>
                             接案人身分
                             <hr></hr>

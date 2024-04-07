@@ -241,6 +241,7 @@ function FreelancerForm() {
                   </Form.Label>
                 </Form.Group>
                 <Form.Group>
+                  
                   <div className="row">
                     <div className="col-sm-6">
                       <Form.Select
@@ -457,9 +458,10 @@ function FreelancerForm() {
                   }}
                 >
                   <Button
+                    
                     type="submit"
                     variant="danger"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%", fontSize: "15px" }}
                     disabled={!isFormComplete}
                   >
                     提交

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation ,useNavigate } from "react-router-dom";
@@ -143,6 +143,7 @@ function App() {
   const handleLogout = () => {
     Cookies.remove("token");
     setIsLoggedIn(false); // Update login status
+    setMemberEmail('');
   };
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
@@ -179,6 +180,7 @@ function App() {
       });
   };
 
+  const [memberEmail, setMemberEmail] = useState('');
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
@@ -203,6 +205,22 @@ function App() {
       console.log(err.response.data.error);
     }
   };
+
+  //取得會員email
+  const fetchMemberEmail = async () => {
+    try{
+      const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      setMemberEmail(response.data.email);
+    }catch(error){
+      console.error('Failed to fetch member email:', error);
+    }
+  };
+
+
 
   const toForgotPassword = (event) => {
     event.preventDefault();
@@ -231,15 +249,21 @@ function App() {
   const location = useLocation();
 
   // 根据当前路径更新选中链接状态
-  React.useEffect(() => {
+  useEffect(() => {
     setSelectedLink(location.pathname);
-  }, [location]);
+    const token = Cookies.get("token");
+    if(token){
+      setIsLoggedIn(true);
+      fetchMemberEmail();
+    }
+  }, [location,isLoggedIn]);
 
   // 处理链接点击事件
   const handleLinkClick = (path) => {
     setSelectedLink(path);
   };
 
+  
 
 
   return (
@@ -263,7 +287,7 @@ function App() {
 
           {/* 搜索框 */}
           <input type="text" placeholder="Search.." style={{ width: '500px', height: '55px', borderRadius: '10px' }} />
-          <Button type="submit" style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
+          <Button type="submit"  style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
             <i className="fa fa-search"></i>
           </Button>
           {/* 搜索框 */}
@@ -272,9 +296,21 @@ function App() {
 
 
           {isLoggedIn ? ( // Check if user is logged in
-            <Button style={{ height: '55px', width: '55px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
+            <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
           ) : (
             <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleShow}>登入/註冊</Button>
+          )}
+          {isLoggedIn &&(
+            <div className="nav-item">
+              <Link
+                to="/member"
+                className={`nav-link ${selectedLink === "/member" ? "active" : ""}`}
+                style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                onClick={() => handleLinkClick("/member")}
+              >
+                <span>您好，{memberEmail}</span>
+              </Link>
+            </div>
           )}
         </div>
       </div>
@@ -312,16 +348,6 @@ function App() {
                 onClick={() => handleLinkClick("/ProjectForm")}
               >
                 發案
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/member"
-                className={`nav-link ${selectedLink === "/member" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
-                onClick={() => handleLinkClick("/member")}
-              >
-                Email
               </Link>
             </li>
           </ul>
@@ -403,7 +429,7 @@ function App() {
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
+                <Button  onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
                   <img style={{ width: 130 }} src={ourLogo} alt="" />
                 </Button>
                 <Button onClick={handleGoogleLogin}>

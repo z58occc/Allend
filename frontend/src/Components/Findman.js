@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Footer from "../homepage/Footer";
 import Category from "./Category2";
 import { GoTriangleDown } from "react-icons/go";
@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import Chatbutton from "./ChatButtom";
 import axios from "axios";
+import { AiOutlineArrowUp } from "react-icons/ai";
 
 const Findman = () => {
 
@@ -52,7 +53,7 @@ const Findman = () => {
   });
 
   const { s_type } = useParams();
-  
+
 
   const [sort, setSort] = React.useState({});
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -165,7 +166,7 @@ const Findman = () => {
       }
     };
     fetchService();
-  }, [identity, seniority, country, sort, currentPage,s_type]);
+  }, [identity, seniority, country, sort, currentPage, s_type]);
 
   const handleidentityChange = (event) => {
     const { name, checked } = event.target;
@@ -201,8 +202,55 @@ const Findman = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
+
+  {/* 置頂按鈕 */ }
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if user has scrolled down beyond a certain point
+      if (window.scrollY > 400) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up by removing the scroll event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+  {/* 置頂按鈕 */ }
+
   return (
     <>
+      {/* 置頂按鈕 */}
+      {showScrollButton && (
+        <button
+          className="btn btn-primary rounded-circle shadow"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: "1000" // Set a high z-index to make sure it appears on top
+          }}
+          onClick={scrollToTop}
+        >
+          <AiOutlineArrowUp style={{ fontSize: "24px" }} />
+        </button>
+      )}
+
       <div className="container">
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"

@@ -28,7 +28,7 @@ const Screen3 = ({data}) => {
   return (
     <div style={{ width: '100%', height: '100vh', background: 'lightblue' }}>
         
-        <CardList visibility= 'hidden' selectedComponent={'component3'} text={"案件詳情"} data1={data} screen={3}></CardList>   
+        <CardList visibility= 'hidden' selectedComponent={'component3'} text={"提出評論"} data1={data} screen={3}></CardList>   
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
     </div>
     

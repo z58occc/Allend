@@ -1,5 +1,3 @@
-
-
 .search-container {
   scale: 0.5;
   float: right;
@@ -44,10 +42,12 @@ nav button {
 }
 
 
-
-
 .slogan-text {
   font-family: "Noto Sans TC", sans-serif;
   font-size: large;
+}
+
+.nav-link:hover {
+  color: 	#FFFFFF!important;
 }
 
