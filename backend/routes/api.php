@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DemmandContentController;
 use App\Http\Controllers\ECPaymentController;
+use App\Http\Controllers\GetmemberemailController;
 use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
@@ -72,6 +73,8 @@ Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote'])
 Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
 Route::post('/callback', [ECPaymentController::class, 'Callback']);
 
+//取得email
+Route::middleware(['auth', 'verified'])->get('/user/email', GetmemberemailController::class);
 // 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
 // Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
