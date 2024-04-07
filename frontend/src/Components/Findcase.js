@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-
 import Footer from "../homepage/Footer";
 import Dropdown from "react-bootstrap/Dropdown";
 import { GoTriangleDown } from "react-icons/go";
-
-import NextPage from "../homepage/NextPage";
-import Orderbuttom from "../homepage/Orderbuttom";
 import "../../src/App.css";
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
@@ -19,13 +15,11 @@ import a6 from "../Components/img/a6.png";
 import Cookies from "js-cookie";
 import Pagination from "./Pagination";
 import "./Pagination.css"
+import { AiOutlineArrowUp } from "react-icons/ai";
 
 
 
 function Findcase() {
-
-
-
 
 
   // 上/下一頁
@@ -35,11 +29,7 @@ function Findcase() {
   const [postsPerPage, setPostsPerPage] = useState(5);
 
 
-
-
   // 上/下一頁
-
-
 
 
 
@@ -710,16 +700,58 @@ function Findcase() {
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
   // 分頁
 
+  {/* 置頂按鈕 */ }
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if user has scrolled down beyond a certain point
+      if (window.scrollY > 400) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up by removing the scroll event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
-
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+  {/* 置頂按鈕 */ }
 
 
 
 
   return (
     <>
+      {/* 置頂按鈕 */}
+      {showScrollButton && (
+        <button
+          className="btn btn-primary rounded-circle shadow"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: "1000" // Set a high z-index to make sure it appears on top
+          }}
+          onClick={scrollToTop}
+        >
+          <AiOutlineArrowUp style={{ fontSize: "24px" }} />
+        </button>
+      )}
+
       <div className="container ">
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -853,7 +885,7 @@ function Findcase() {
         <div >
           {currentPosts.map((post, index) => {
             return (
-              <div >
+              <div>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black" }}>
                     <Col xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
@@ -945,9 +977,6 @@ function Findcase() {
           </Modal.Footer>
         </Modal>
         {/* 我要報價頁面 */}
-
-
-
 
 
         {/* 上/下一頁 */}

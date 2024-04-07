@@ -15,21 +15,21 @@ import YouTubeEmbed from './youtube';
 
 function Talent() {
 
-    const {mid} = useParams();
+    const { mid } = useParams();
     const [talent, setTalent] = useState([]);
-    useEffect(()=>{
-        const fetchtalent = async()=>{
-            try{
+    useEffect(() => {
+        const fetchtalent = async () => {
+            try {
                 const respone = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
                 setTalent(respone.data);
-            }catch(err){
+            } catch (err) {
                 console.error(err);
             }
         };
         fetchtalent();
-    },[mid])
+    }, [mid])
 
-    
+
     return (
         <>
             <div className='container'>
@@ -60,7 +60,7 @@ function Talent() {
                             <Stick ></Stick>
                         </div>
                     </div>
-                    <div className='col-sm-9' style={{paddingLeft:'40px'}}>
+                    <div className='col-sm-9' style={{ paddingLeft: '40px' }}>
                         <Nav defaultActiveKey="/home" as="ul">
                             <Nav.Item as="li">
                                 <Nav.Link href='#about'>關於我</Nav.Link>
@@ -84,114 +84,114 @@ function Talent() {
 
                         <div id='item' className='mt-5'>作品：</div>
                         <div className="row ">
-                        {talent.project && talent.project.map((item,index) => (
-                            <div className="col-sm-4  ">
-                                <div className='card'>
-                                    <div className="card-header">
-                                        <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
-                                    </div>
-                                    <div className="card-body">
-                                        <span>{item.p_name}</span>
-                                        <div>
+                            {talent.project && talent.project.map((item, index) => (
+                                <div className="col-sm-4  ">
+                                    <div className='card'>
+                                        <div className="card-header">
+                                            <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
+                                        </div>
+                                        <div className="card-body">
+                                            <span>{item.p_name}</span>
+                                            <div>
 
-                                            <p style={{ fontSize: '12px', float: 'right' }}>發布時間：{item.created_at}</p>
+                                                <p style={{ fontSize: '12px', float: 'right' }}>發布時間：{item.created_at}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                                        ))}
+                            ))}
 
                         </div>
 
                         <div id='video' className='mt-5'>影音：</div>
-                        
+
                         <div className="row">
-                        {talent.video && talent.video.map((item,index) => (
-                            <div className="col-sm-4">
-                                <div className='card'>
-                                    <div className="card-header" >
-                                        <YouTubeEmbed url={item.src} />
-                                    </div>
-                                    <div className="card-body">
-                                        {item.v_name}
+                            {talent.video && talent.video.map((item, index) => (
+                                <div className="col-sm-4">
+                                    <div className='card'>
+                                        <div className="card-header" >
+                                            <YouTubeEmbed url={item.src} />
+                                        </div>
+                                        <div className="card-body">
+                                            {item.v_name}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                         </div>
                         <p id='serve' className='mt-5'>服務：</p>
                         <div className='row'>
-                            
-                            {talent.service && talent.service.map((item,index)=>(
 
-                            <Link to={`/serve/${mid}/${item.sid}`} className="col-sm-4 ">
-                                <div class="card">
-                                    <div class="card-header">
-                                    <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
+                            {talent.service && talent.service.map((item, index) => (
+
+                                <Link to={`/serve/${mid}/${item.sid}`} className="col-sm-4 ">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
                                         </div>
-                                    <div class="card-body">
-                                        {item.s_name}
-                                        <br></br>
-                                        {item.s_amount}/{item.s_unit}
+                                        <div class="card-body">
+                                            {item.s_name}
+                                            <br></br>
+                                            {item.s_amount}/{item.s_unit}
+                                        </div>
+                                        <div class="card-footer">
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                    </div>
-                                </div>
-                            </Link>
-                            ))}    
+                                </Link>
+                            ))}
                         </div>
                         <div className='mt-5 row'>
                             評價({talent.case_complete && talent.case_complete}):<br></br>
-                            {talent.established_case && talent.established_case.map((item,index)=>(
-                            <div style={{ border: "solid" }}>
-                                <div id='price'>
-                                    <span style={{ borderRadius:'10px', backgroundColor: 'skyblue',padding: '2px' }}>
-                                        案件</span>
-                                    <Link to='/casecontext' style={{ marginLeft: 30 }}>
-                                        {item.c_name}</Link>
+                            {talent.established_case && talent.established_case.map((item, index) => (
+                                <div style={{ border: "solid" }}>
+                                    <div id='price'>
+                                        <span style={{ borderRadius: '10px', backgroundColor: 'skyblue', padding: '2px' }}>
+                                            案件</span>
+                                        <Link to='/casecontext' style={{ marginLeft: 30 }}>
+                                            {item.c_name}</Link>
+                                    </div>
+                                    <div>
+                                        <Row>
+                                            <Col xs lg="1"><FaFacebook size={30}></FaFacebook></Col>
+                                            <Col xs lg="10">
+                                                <div style={{ border: 'solid' }} >
+                                                    案主評價：{Array.from({ length: item.demmand_star }, (_, i) => (
+                                                        <CiStar key={i} />
+                                                    ))}
+                                                    <br></br>
+                                                    案主留言：{item.demmand_comment}
+                                                    <br></br>
+                                                    <div style={{ textAlign: 'right' }}>{item.demmand_time} </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                        <Row className='mt-1' style={{ marginLeft: "50px" }}>
+                                            <Col xs lg="1"><FaLine size={30}></FaLine></Col>
+                                            <Col xs lg="10">
+                                                <div style={{ border: 'solid' }} >
+                                                    接案人留言：{item.service_comment}
+                                                    <br></br>
+                                                    <div style={{ textAlign: 'right' }}>{item.service_time}</div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </div>
                                 </div>
-                                <div>
-                                    <Row>
-                                        <Col xs lg="1"><FaFacebook size={30}></FaFacebook></Col>
-                                        <Col xs lg="10">
-                                            <div style={{ border: 'solid' }} >
-                                                案主評價：{Array.from({length:item.demmand_star},(_,i)=>(
-                                                    <CiStar key={i}/>
-                                                ))}
-                                                <br></br>
-                                                案主留言：{item.demmand_comment}
-                                                <br></br>
-                                                <div style={{ textAlign: 'right' }}>{item.demmand_time} </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row className='mt-1' style={{ marginLeft: "50px" }}>
-                                        <Col xs lg="1"><FaLine size={30}></FaLine></Col>
-                                        <Col xs lg="10">
-                                            <div style={{ border: 'solid' }} >
-                                                接案人留言：{item.service_comment}
-                                                <br></br>
-                                                <div style={{ textAlign: 'right' }}>{item.service_time}</div>
-                                            </div>
-                                        </Col>
-                                    </Row> 
-                                </div>
-                            </div>
                             ))}
                             <br></br>
 
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
-                            成交件數：({talent.case_member_count})
-                            <div style={{ border: "solid" }}>
-                            {talent.case_member && talent.case_member.map((item,index)=>(
-                                <div className='mt-4 '>
-                                    <span style={{ border: 'solid' }}>{item.c_name}</span>
-                                    <Link style={{ margin: "30px" }} to='/casecontext'></Link>
-                                    {item.completed_time}案主：{item.name}
+                                成交件數：({talent.case_member_count})
+                                <div style={{ border: "solid" }}>
+                                    {talent.case_member && talent.case_member.map((item, index) => (
+                                        <div className='mt-4 '>
+                                            <span style={{ border: 'solid' }}>{item.c_name}</span>
+                                            <Link style={{ margin: "30px" }} to='/casecontext'></Link>
+                                            {item.completed_time}案主：{item.name}
+                                        </div>
+                                    ))}
                                 </div>
-                                ))}
-                            </div>
                             </div>
                             {/* 成交件數 */}
 

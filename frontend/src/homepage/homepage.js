@@ -5,14 +5,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import Category from "../Components/Category";
-import Product from "../Components/img/Product.jpg";
-import product2 from "../Components/img/product2.jpg";
-import product3 from "../Components/img/product3.jpg";
 import product4 from "../Components/img/product4.jpg";
-import product5 from "../Components/img/product5.jpg";
-import product6 from "../Components/img/product6.jpg";
-import product7 from "../Components/img/product7.jpg";
-import product8 from "../Components/img/product8.jpg";
 import product9 from "../Components/img/product9.jpg";
 import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
@@ -25,6 +18,7 @@ import { IoIosPeople } from "react-icons/io";
 import { BsPersonVcard } from "react-icons/bs";
 import { RiDraftLine } from "react-icons/ri";
 import { FaBriefcase } from "react-icons/fa";
+import "./homepage.css";
 
 
 function Homepage() {
@@ -141,6 +135,7 @@ function Homepage() {
 
   const [showTalentContent, setShowTalentContent] = useState(false);
   const [showOrganContent, setShowOrganContent] = useState(true);
+
 
 
 
@@ -314,8 +309,6 @@ function Homepage() {
                   <span style={{ color: "black", fontSize: "4rem" }}>›</span>
                 }
               >
-
-
 
                 {/* 接api輪播圖 */}
                 {posts.slice(2, 5).map((post, index) => {

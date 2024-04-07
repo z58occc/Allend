@@ -228,7 +228,7 @@ function App() {
 
           {/* 搜索框 */}
           <input type="text" placeholder="Search.." style={{ width: '500px', height: '55px', borderRadius: '10px' }} />
-          <Button type="submit" style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
+          <Button type="submit"  style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
             <i className="fa fa-search"></i>
           </Button>
           {/* 搜索框 */}
@@ -368,7 +368,7 @@ function App() {
               </div>
 
               <div className="col-sm-6 d-flex justify-content-center">
-                <Button onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
+                <Button  onClick={handleLogin} id="login" style={{ borderRadius: '10px' }}>
                   <img style={{ width: 130 }} src={ourLogo} alt="" />
                 </Button>
               </div>
