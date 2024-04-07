@@ -19,6 +19,7 @@ import a6 from "../Components/img/a6.png";
 import Cookies from "js-cookie";
 import Pagination from "./Pagination";
 import "./Pagination.css"
+import { IoIosSad } from "react-icons/io";
 
 
 
@@ -852,16 +853,16 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
-        <div style={{ display: (posts.length != 0 ? "none" : "") }}>Oops 看來目前沒有符合篩選條件的資料喔!</div>
+        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
 
             return (
               <div >
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black" }}>
-                    <Col xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", }}>
+                  <Row style={{ border: "solid black", padding:0}}>
+                    <Col  id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                      <Link  to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign:"start"}}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
@@ -883,13 +884,14 @@ function Findcase() {
                         <div >刊登時間:</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
-                      <div style={{ textAlign: "start" }}>
-                        <Button style={{ width: "80px", height: "30px ", fontSize: "10px" }} onClick={() => { handleShow(index); }}>我要報價</Button>
+                      <div >
+                        <Button  style={{width:"70px",height: "30px ", fontSize: "10px",}} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
                 </div>
               </div>)
+              // className="d-flex" style={{ justifyContent:"center  " }}
 
 
 
