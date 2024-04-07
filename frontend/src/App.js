@@ -141,9 +141,21 @@ function App() {
   };
 
   const handleLogout = () => {
-    Cookies.remove("token");
-    setIsLoggedIn(false); // Update login status
-    setMemberEmail('');
+    const cookie = 
+    axios({
+      method: 'post',
+      url: "http://localhost/Allend/backend/public/api/logout",
+      headers:{Authorization: `Bearer ${Cookies.get('token')}`}
+    })
+    .then(()=>{
+      Cookies.remove("token");
+      setIsLoggedIn(false); // Update login status
+      setMemberEmail('');
+      navigate('/')
+    })
+    .catch((err) => {
+      console.log(err.response)
+    })
   };
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
