@@ -19,7 +19,7 @@ function Stick() {
     useEffect(()=>{
         const fetchtalent = async()=>{
             try{
-                const response = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${1}`);
+                const response = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
                 setTalent(response.data);
             }catch(error){
                 console.error(error);

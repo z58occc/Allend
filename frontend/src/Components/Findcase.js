@@ -86,8 +86,8 @@ function Findcase() {
   // Modal上面
 
   const [posts, setPosts] = useState([]);
-  const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
+  const [changeorder, setChangeorder] = useState(false);
 
   const [changecolor1, setChangecolor1] = useState(false);
   const [changecolor2, setChangecolor2] = useState(false);
@@ -285,6 +285,7 @@ function Findcase() {
                   setPosts(mycitys);
                   console.log(mycitys);
                 } else {
+                  console.log(mycitys);
                   setPosts(mycitys);
                 }
               }
@@ -690,6 +691,7 @@ function Findcase() {
 
 
 
+
   // 分頁
   const lastPostIndex = currentPage * postsPerPage;
 
@@ -882,23 +884,21 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
+        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
+
             return (
               <div>
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black" }}>
-                    <Col xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", }}>
+                  <Row style={{ border: "solid black", padding:0}}>
+                    <Col  id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                      <Link  to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign:"start"}}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
-                        {/* <div>{post.updated_at}</div>
-                    <div>{post.quote_total}人報價中</div>
-                    <div>刊登時間:</div>
-                    <div>{post.created_at}</div> */}
                       </Link>
                     </Col>
                     <Col xs={6} >
@@ -915,14 +915,17 @@ function Findcase() {
                         <div >刊登時間:</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
-                      <div style={{ textAlign: "start" }}>
-                        <Button style={{ width: "80px", height: "30px ", fontSize: "10px" }} onClick={() => { handleShow(index); }}>我要報價</Button>
+                      <div >
+                        <Button  style={{width:"70px",height: "30px ", fontSize: "10px",}} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
                 </div>
-              </div>
-            );
+              </div>)
+              // className="d-flex" style={{ justifyContent:"center  " }}
+
+
+
           })}
         </div>
         {/* 案件欄位 */}
