@@ -74,19 +74,19 @@ class AuthController extends Controller
         }
         catch (ValidationException $exception){
             return response()->json([
-                'error' => $exception->errors()
-            ],401);
+                'error' =>'查無此帳號'
+            ],422);
         }
 
         $credentials = $request->only('email', 'password');
-        $token = auth()->setTTL(120)->attempt($credentials);
+        
 
-        if(!$token){
+        if(!Auth::attempt($credentials)){
             return response()->json([
                 'error' => '帳號或密碼錯誤'
             ],401);
         }
-
+        $token = auth()->setTTL(120)->attempt($credentials);
         $user = Auth::user();
         Member::where('mid', $user->mid)->update(['last_login' => now()]);
 

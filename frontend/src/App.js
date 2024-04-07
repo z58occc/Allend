@@ -147,6 +147,8 @@ function App() {
   };
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
@@ -173,17 +175,32 @@ function App() {
     })
       .then((res) => {
         console.log(res.data);
-        setIsVerificationSent(true); // 发送成功后设置状态为已发送验证邮件
+        setIsVerificationSent(true); 
+        setCountdown(60);
+        setIsButtonDisabled(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  useEffect(() => {
+    let timer = null;
+    if (countdown > 0) {
+      timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+        if (countdown === 1) {
+        }
+      }, 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
+  const [errorMessage, setErrorMessage] = useState('');
   const [memberEmail, setMemberEmail] = useState('');
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
+
   const handleLogin = async() => {
     try {
       const res = await axios.post(
@@ -191,20 +208,23 @@ function App() {
         {
           email: LoginName.current.value,
           password: LoginPassword.current.value,
-        }
-      );
-      // const obj = await res.json();
-      console.log(res)
-      if (!res.data.error){
-        Cookies.set("token", res.data.token);
+        });
+      const token = res.data.token;
+      Cookies.set('token', token);
         setIsLoggedIn(true); 
         setShowLogin(false); 
         navigate("/switch"); 
+    } catch (error) {
+      if (error.response) {
+        setErrorMessage(error.response.data.error);
+        
+      } else {
+        console.error('An error occurred while logging in:', error.message);
+        setErrorMessage('登入失敗');
       }
-    } catch (err) {
-      console.log(err.response.data.error);
     }
   };
+
 
   //取得會員email
   const fetchMemberEmail = async () => {
@@ -395,7 +415,7 @@ function App() {
               <div className="col-6">
                 <div className="row ">
                   <div className="col-sm-12 ">
-                    <Form.Label>帳號</Form.Label>
+                    <Form.Label>帳號{errorMessage && <span style={{ color: 'red',paddingLeft:'20px' }}>{errorMessage}</span>}</Form.Label>
                     <InputGroup>
                       <InputGroup.Text controlId="formBasicEmail">< FaUser /></InputGroup.Text>
                       <Form.Control
@@ -542,7 +562,11 @@ function App() {
           <div>
             <h2>郵件已發送</h2>
             <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p>
-            <button onClick={handleResendVerification}>重新發送驗證信</button>
+          {countdown > 0 ? (
+            <button disabled>重新發送 ({countdown})</button>
+          ) : (
+            <button onClick={handleResendVerification}>重新發送驗證郵件</button>
+          )}
           </div>
         </Modal.Body>
     </Modal>
