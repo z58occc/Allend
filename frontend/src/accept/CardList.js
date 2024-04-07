@@ -83,16 +83,16 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
                 <Card.Text> {(screen === 1 &&<>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</Card.Text>
               </div>
             </Card.Body>
-            {screen === 3  ? 
-            <div className="d-flex flex-column justify-content-center">
+            {screen !== 1  ? 
+            <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
               <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
-                提交評論
+              {text}
               </Button>
             </div>:
 
             <div className="d-flex flex-column justify-content-center" >
-              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
-                {text}
+              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap' ,marginTop: "auto" ,marginBottom: "40px"}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
+                編輯
               </Button>
               <Button
                 variant="secondary" 

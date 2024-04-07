@@ -5,14 +5,14 @@ import StarRating from "./StarRating";
 import CaseDetailsModal1 from "./CaseDetailsModal1";
 import CaseDetailsModal2 from "./CaseDetailsModal2";
 import CaseDetailsModal3 from "./CaseDetailsModal3";
-import { CaseContext } from "./MainScreen2"; 
+import { CaseContext } from "./MainScreen2";
 import GetQuoteModal from "./GetQuoteModal";
 import Cookies from "js-cookie";
 // import CaseContext from './CaseContext';
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
-  
+
 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data1;
@@ -61,72 +61,72 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         deletedIndices.push(index);
       }
     });
-  setDeletedIndex(deletedIndices);
+    setDeletedIndex(deletedIndices);
 
-  deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+    deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
 
 
-  didOfDeletedData = deletedData.map(item => item.did);
+    didOfDeletedData = deletedData.map(item => item.did);
 
-  try {
-    const response = await fetch("http://localhost/api/delPublishCase", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ did: didOfDeletedData }),
-    });
-    console.log(didOfDeletedData)
-    
-    fetchData();
-    setSelectedItems([false])
-    if (!response.ok) {
-      throw new Error('Failed to delete data');
+    try {
+      const response = await fetch("http://localhost/api/delPublishCase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ did: didOfDeletedData }),
+      });
+      console.log(didOfDeletedData)
+
+      fetchData();
+      setSelectedItems([false])
+      if (!response.ok) {
+        throw new Error('Failed to delete data');
+      }
+
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      // Handle successful response, such as updating the page or other operations
+
+    } catch (error) {
+      console.error('Error deleting data:', error);
+      // Handle error cases, such as displaying error messages or other handling
     }
+  };
 
-    const responseData = await response.json();
-    console.log('Response data:', responseData);
+  // 案件詳情Modal
+  const [showModal1, setShowModal1] = useState(false);
 
-    // Handle successful response, such as updating the page or other operations
-
-  } catch (error) {
-    console.error('Error deleting data:', error);
-    // Handle error cases, such as displaying error messages or other handling
-  }
-};
-
-// 案件詳情Modal
-const [showModal1, setShowModal1] = useState(false);
-
-// 子元件編輯查看
-const handleModalShow1 = () => {
-  setShowModal1(true);
-};
-const handleModalClose1 = () => {
-  setShowModal1(false);
-  setSelectedDataKey(0);
-};
-// 查看報價按鈕控制
+  // 子元件編輯查看
+  const handleModalShow1 = () => {
+    setShowModal1(true);
+  };
+  const handleModalClose1 = () => {
+    setShowModal1(false);
+    setSelectedDataKey(0);
+  };
+  // 查看報價按鈕控制
   const [Quote, setQuote] = useState([]); //報價資料
 
   const [showModal, setShowModal] = useState(false);
 
   const handleShowQuoteModal = (did) => {
     setShowModal(true);
-    
-      fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${did}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+
+    fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${did}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setQuote(data);
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setQuote(data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
   };
   const handleCloseModal = () => {
     setShowModal(false);
@@ -167,7 +167,7 @@ const handleModalClose1 = () => {
     return (<h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       未有紀錄
     </h1>)
-    
+
   }
   return (
     <div className="d-flex flex-wrap justify-content-around">
@@ -185,7 +185,7 @@ const handleModalClose1 = () => {
         <Button
           variant="danger"
           style={{ fontSize: "12px", width: "100px" }}
-          onClick={()=>handleDeleted()}
+          onClick={() => handleDeleted()}
         >
           刪除
         </Button>
@@ -196,22 +196,14 @@ const handleModalClose1 = () => {
           key={index}
           className="my-3"
           style={{ width: "720px", height: "150px", display: "flex" }}
-          onClick={() => {
-            if (screen === 3) {
-              handleModalShow1();
-              handlesetSelectedDataKey(index);
-            }
-          }}
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
-              <Card.Text>
-                {screen === 1 ? (
-                  <>更新日期：{item.updated_at}</>
-                ) : (
-                  <>建立日期：{item.created_at}</>
-                )}
-              </Card.Text>
+              {screen === 1 ? (
+                <Card.Text>更新日期：{item.updated_at}</Card.Text>
+              ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : (
+                <Card.Text>建立日期：{item.created_at}</Card.Text>
+              )}
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
@@ -219,18 +211,26 @@ const handleModalClose1 = () => {
                 checked={selectedItems[index] || false}
                 onChange={() => handleChecked(index)}
               />
-              <Card.Title
-                style={
-                  screen === 1 ? { marginLeft: "25px" } : { marginLeft: "0px" }
-                }
-              >
-                {screen === 1 ? item.d_name : item.c_name}
-              </Card.Title>
-              <hr style={{ background: "black" }} />
+              {screen === 3
+                ?
+                <></>
+                :
+                <Card.Title
+                  style={
+                    screen === 1 ? { marginLeft: "25px" } : { marginLeft: "0px" }
+                  }
+                >
+                  {screen === 1 ? item.d_name : item.c_name}
+                </Card.Title>
+
+              }
+
+              {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.asdemmand_star} ></StarRating></Card.Text >)}
+              {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.demmand_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
                 <Card.Text>
                   {screen === 3 ? (
-                    <>完成日期：{item.completed_time}</>
+                    <>評論日期：{item.completed_time}</>
                   ) : screen === 1 ? (
                     <> 合作期程：{item.d_duration}</>
                   ) : (
@@ -251,12 +251,31 @@ const handleModalClose1 = () => {
                 </Card.Text>
               </div>
             </Card.Body>
-            {screen === 3 ? (
-              <div className="d-flex flex-column justify-content-center">
-                <StarRating rating={item.service_star}></StarRating>
+            {screen !== 1 ? (
+              <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
+                <Button
+                  variant="primary"
+                  key={index}
+                  className="my-2"
+                  style={{
+                    width: "110px",
+                    fontSize: "12px",
+                    whiteSpace: "nowrap",
+                    marginTop: "auto", // 將上方的 margin 設為 auto
+                    marginBottom: "40px", // 調整下方的 margin
+                  }}
+                  onClick={() => {
+                    handleModalShow1();
+                    handlesetSelectedDataKey(index);
+                  }}
+                >
+                  {text}
+                </Button>
               </div>
+
+
             ) : (
-              <div className="d-flex flex-column justify-content-center">
+              <div className="d-flex flex-column justify-content-center" >
                 <Button
                   variant="primary"
                   key={index}
@@ -271,7 +290,7 @@ const handleModalClose1 = () => {
                     handlesetSelectedDataKey(index);
                   }}
                 >
-                  {text}
+                  編輯
                 </Button>
                 <Button
                   variant="secondary"
@@ -281,11 +300,10 @@ const handleModalClose1 = () => {
                     fontSize: "12px",
                     whiteSpace: "nowrap",
                     textAlign: "center",
-                    visibility,
                   }}
                   onClick={() => {
                     handleShowQuoteModal(item.did);
-                    
+
                   }}
                 >
                   查看報價
@@ -297,7 +315,7 @@ const handleModalClose1 = () => {
       ))}
 
       {/* 查看報價Modal */}
-      <GetQuoteModal show={showModal} onHide={handleCloseModal} data = {Quote}></GetQuoteModal>
+      <GetQuoteModal show={showModal} onHide={handleCloseModal} data={Quote}></GetQuoteModal>
 
       {ComponentToRender}
     </div>

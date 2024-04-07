@@ -32,7 +32,7 @@ const Screen1 = ({data}) => {
   return (
     <>
       <div style={{ width: '100%', height: '1200px', background: 'lightcoral' }}>
-        <CardList selectedComponent={'component1'} text={"編輯"} screen={1} data1={data}></CardList>
+        <CardList selectedComponent={'component1'} screen={1} data1={data}></CardList>
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>
     </> );
