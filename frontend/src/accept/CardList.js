@@ -71,26 +71,23 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
       {
       // CaseData.length === 0 ? <h2>未有紀錄</h2>   
        CaseData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }} onClick = {
-          () => {
-          if (screen === 3) {
-              handleModalShow1();
-              handlesetSelectedDataKey(index);
-          }
-        }}>
+        <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
-              <Card.Text> {(screen === 1 && <>建立日期：{item.created_at}</>) || (screen === 2 && <>建立日期：{item.created_at}</>) || (screen === 3 && <>建立日期：{item.created_at}</>)}</Card.Text>
-              <Card.Title>{(screen === 1 && item.d_name) || (screen === 2 && item.c_name) || (screen === 3 && item.c_name)}</Card.Title>
-              <hr style={{ background: 'black' }} />
+              {screen === 3? <Card.Title style={{ marginBottom :"0px"}}>{item.c_name}</Card.Title> : <></>}
+              {(screen === 1 && <Card.Text>建立日期：{item.created_at}</Card.Text>) || (screen === 2 && <Card.Text>建立日期：{item.created_at}</Card.Text>) || (screen === 3 && <Card.Text style={{ marginBottom :"0px"}} >案主評分：<StarRating rating={item.asdemmand_star} ></StarRating></Card.Text >)}
+              {(screen === 1 && <Card.Title>{item.d_name}</Card.Title>) || (screen === 2 && <Card.Title>{item.c_name}</Card.Title>) || (screen === 3 && <></>)}
+              {screen ===3 ? <><hr style={{ background: 'black', margin :'3px auto'}} /><Card.Text style={{ fontSize: '18px'}}>{item.demmand_comment}</Card.Text> </> :<hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
-                <Card.Text>{screen === 3 ? <>完成日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</Card.Text>
+                <Card.Text>{screen === 3 ? <>評論日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</Card.Text>
                 <Card.Text> {(screen === 1 &&<>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</Card.Text>
               </div>
             </Card.Body>
             {screen === 3  ? 
             <div className="d-flex flex-column justify-content-center">
-              <StarRating rating={1} ></StarRating>
+              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
+                提交評論
+              </Button>
             </div>:
 
             <div className="d-flex flex-column justify-content-center" >

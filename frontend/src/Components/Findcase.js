@@ -96,8 +96,8 @@ function Findcase() {
   // Modal上面
 
   const [posts, setPosts] = useState([]);
-  const [changeorder, setChangeorder] = useState(false);
   const [mycitys, setMycitys] = useState([]);
+  const [changeorder, setChangeorder] = useState(false);
 
   const [changecolor1, setChangecolor1] = useState(false);
   const [changecolor2, setChangecolor2] = useState(false);
@@ -295,6 +295,7 @@ function Findcase() {
                   setPosts(mycitys);
                   console.log(mycitys);
                 } else {
+                  console.log(mycitys);
                   setPosts(mycitys);
                 }
               }
@@ -700,6 +701,7 @@ function Findcase() {
 
 
 
+
   // 分頁
   const lastPostIndex = currentPage * postsPerPage;
 
@@ -850,8 +852,10 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
+        <div style={{ display: (posts.length != 0 ? "none" : "") }}>Oops 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
+
             return (
               <div >
                 <div className="row" key={index}>
@@ -863,10 +867,6 @@ function Findcase() {
                         <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
-                        {/* <div>{post.updated_at}</div>
-                    <div>{post.quote_total}人報價中</div>
-                    <div>刊登時間:</div>
-                    <div>{post.created_at}</div> */}
                       </Link>
                     </Col>
                     <Col xs={6} >
@@ -889,8 +889,10 @@ function Findcase() {
                     </Col>
                   </Row>
                 </div>
-              </div>
-            );
+              </div>)
+
+
+
           })}
         </div>
         {/* 案件欄位 */}
