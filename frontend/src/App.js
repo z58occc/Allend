@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Routes, Route, useLocation } from "react-router-dom";
+import { Link, Routes, Route, useLocation ,useNavigate } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -122,6 +122,7 @@ function App() {
       );
       Cookies.set("token", res.data.token);
       setIsLoggedIn(true);
+      setShowLogin(false);
     } catch (err) {
       console.log(err);
     }
@@ -132,7 +133,7 @@ function App() {
     setIsLoggedIn(false); // Update login status
   };
 
-
+  const [isVerificationSent, setIsVerificationSent] = useState(false);
 
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
@@ -141,32 +142,44 @@ function App() {
     try {
       const data = await registerUser(email, password, confirmPassword);
       console.log(data);
+      setIsVerificationSent(true);
+      setShowRegister(false);
     } catch (err) {
       console.log(err);
     }
   };
+  // 重寄驗證信
+  const handleResendVerification = () => {
+    const email = RegisterEmail.current.value;
+    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification")
+      .then((res) => {
+        console.log(res.data);
+        setIsVerificationSent(true); // 发送成功后设置状态为已发送验证邮件
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
-  const handleLogin = () => {
-    axios({
-      method: "post",
-      url: "http://localhost/Allend/backend/public/api/login",
-      data: {
-        email: LoginName.current.value,
-        password: LoginPassword.current.value,
-      },
-    })
-      .then((res) => {
-        return res.data;
-      })
-      .then((data) => {
-        console.log(data);
-        Cookies.set("token", data.token);
-      })
-      .catch(($err) => {
-        console.log($err);
-      });
+  const handleLogin = async() => {
+    try {
+      const res = await axios.post(
+        "http://localhost/Allend/backend/public/api/login",
+        {
+          email: LoginName.current.value,
+          password: LoginPassword.current.value,
+        }
+      );
+      Cookies.set("token", res.data.token);
+      setIsLoggedIn(true); 
+      setShowLogin(false); 
+      navigate("/"); 
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const toForgotPassword = (event) => {
@@ -464,6 +477,15 @@ function App() {
         </Modal.Body>
       </Modal>
       {/* 註冊 */}
+      <Modal show={isVerificationSent} onHide={() => setIsVerificationSent(false)} centered>
+        <Modal.Body>
+          <div>
+            <h2>郵件已發送</h2>
+            <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p>
+            <button onClick={handleResendVerification}>重新發送驗證信</button>
+          </div>
+        </Modal.Body>
+    </Modal>
     </>
   );
 }
