@@ -45,7 +45,7 @@ function ProjectForm() {
         d_email: email,
         d_mobile_phone: contact,
       },
-      headers: { Authorization: Cookies.get("token") },
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
       .then((res) => {
         console.log(res);
@@ -168,8 +168,8 @@ function ProjectForm() {
             required
           >
             <option value="">請選擇</option>
-            <option value="short">短期</option>
-            <option value="long">長期</option>
+            <option value="短">短期</option>
+            <option value="長">長期</option>
           </Form.Control>
         </InputGroup>
 
