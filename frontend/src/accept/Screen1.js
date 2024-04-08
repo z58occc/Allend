@@ -13,10 +13,10 @@ const Screen1 = ({ data }) => {
     }
     //
     const CasePerPage = 5;
-    console.log(data.length);
-    const page = ((data.length % CasePerPage) === 0) ? ((data.length / CasePerPage)) : (data.length / CasePerPage) + 1 ;
+    console.log(data?.length);
+    const page = data ? (((data.length % CasePerPage) === 0) ? ((data.length / CasePerPage)) : (data.length / CasePerPage) + 1) : 1 ;
     console.log(page);
-    data = data.slice(  CasePerPage * (active-1) , CasePerPage * active)  
+    data = data?.slice(  CasePerPage * (active-1) , CasePerPage * active)  
     console.log(data);
 
 

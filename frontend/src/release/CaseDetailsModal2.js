@@ -1,7 +1,8 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
+  const [isDisabled,setIsDisabled] = useState(true);
   const received = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
       method: 'GET',
@@ -87,7 +88,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           <Button variant="primary" size="lg">
             聯絡接案人
           </Button>
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}}>
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={isDisabled}>
             已收到案件
           </Button>
         </div>
