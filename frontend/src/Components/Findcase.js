@@ -295,7 +295,7 @@ function Findcase() {
 
 
           // 在點擊下一個按鈕後 清空案件
-          setMycitys([]);
+          // setMycitys([]);
           console.log(posts);
           console.log(mycitys);
           // 在點擊下一個按鈕後 清空案件
@@ -308,15 +308,27 @@ function Findcase() {
           // }
           switch (type) {
             case "台北市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "台北市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              // for (let i = 0; i < data.length; i++) {
+              //   // const x = data.filter((data) => data[i].country_city == "台北市");
+              //   // console.log(x);
+              //   // setPosts(x);
+              //   if (data[i].country_city == "台北市") {
+              //     // console.log(data[i]);
+              //     mycitys.push(data[i]);
+              //     const y = mycitys.filter((x) => x.did < 13);
+              //     // console.log(y);
+              //     // console.log(mycitys);
+              //     // [...mycitys,(data[i])];
+              //     // const x = []
+              //     // console.log(x);
+              //     setPosts(y);
+              //     console.log(mycitys);
 
+              //   }
+              // }
+              let x = data.filter(item => item.country_city == "台北市");
+              let y = [...mycitys,...x];
+              setPosts(y);
               changeBottomcolorOff();
               changecitycolor();
 
@@ -343,8 +355,6 @@ function Findcase() {
               for (let i = 0; i < data.length; i++) {
                 if (data[i].country_city == "桃園市") {
                   mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
                   setPosts(mycitys);
                 }
               }
@@ -708,7 +718,6 @@ function Findcase() {
           console.log(mycitys);
           console.log(posts);
           console.log(data);
-
 
         });
     } else {
