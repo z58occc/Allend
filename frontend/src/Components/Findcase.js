@@ -17,6 +17,7 @@ import Pagination from "./Pagination";
 import "./Pagination.css"
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
+import "./Findcase.css";
 
 
 
@@ -737,6 +738,7 @@ function Findcase() {
 
 
 
+
   return (
     <>
       {/* 置頂按鈕 */}
@@ -821,30 +823,30 @@ function Findcase() {
         <div style={{ display: "flex" }} >
           <Dropdown>
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => fetchData("台北市")}>台北市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新北市")}>新北市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("桃園市")}>桃園市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("基隆市")}>基隆市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新竹市")}>新竹市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新竹縣")}>新竹縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("彰化縣")}>彰化縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("南投縣")}>南投縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("雲林縣")}>雲林縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("高雄市")}>高雄市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("台南市")}>台南市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("嘉義市")}>嘉義市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("嘉義縣")}>嘉義縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("屏東縣")}>屏東縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("宜蘭縣")}>宜蘭縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("花蓮縣")}>花蓮縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("臺東縣")}>臺東縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("澎湖縣")}>澎湖縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("金門縣")}>金門縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("連江縣")}>連江縣</Dropdown.Item>
+            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+              <Dropdown.Item onClick={() => fetchData("台北市")} className="selected-option" >台北市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新北市")} className="selected-option" >新北市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("桃園市")} className="selected-option">桃園市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("基隆市")} className="selected-option">基隆市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新竹市")} className="selected-option">新竹市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("新竹縣")} className="selected-option">新竹縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("彰化縣")} className="selected-option">彰化縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("南投縣")} className="selected-option">南投縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("雲林縣")} className="selected-option">雲林縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("高雄市")} className="selected-option">高雄市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("台南市")} className="selected-option">台南市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("嘉義市")} className="selected-option">嘉義市</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("嘉義縣")} className="selected-option">嘉義縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("屏東縣")} className="selected-option">屏東縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("宜蘭縣")} className="selected-option">宜蘭縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("花蓮縣")} className="selected-option">花蓮縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("臺東縣")} className="selected-option">臺東縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("澎湖縣")} className="selected-option">澎湖縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("金門縣")} className="selected-option">金門縣</Dropdown.Item>
+              <Dropdown.Item onClick={() => fetchData("連江縣")} className="selected-option">連江縣</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
+
 
           <Dropdown className="mx-5">
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
@@ -885,17 +887,17 @@ function Findcase() {
 
 
         {/* 案件欄位 */}
-        
-        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
+
+        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
 
             return (
               <div>
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black", padding:0}}>
-                    <Col  id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link  to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign:"start"}}>
+                  <Row style={{ border: "solid black", padding: 0 }}>
+                    <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
@@ -918,13 +920,13 @@ function Findcase() {
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button  style={{width:"70px",height: "30px ", fontSize: "10px",}} onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
                 </div>
               </div>)
-              // className="d-flex" style={{ justifyContent:"center  " }}
+            // className="d-flex" style={{ justifyContent:"center  " }}
 
 
 

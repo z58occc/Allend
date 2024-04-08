@@ -51,3 +51,9 @@ nav button {
   color: 	#FFFFFF!important;
 }
 
+body {
+  background-image: url('../src/Components/img/background.jpg'); /* 請根據您的圖片路徑設置 */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
