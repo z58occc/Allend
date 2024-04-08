@@ -39,7 +39,7 @@ class AuthController extends Controller
         catch (ValidationException $exception){
             return response()->json([
                 'message' => '輸入資料格式有誤或是電子郵件已被註冊!'
-            ]);
+            ],422);
         }
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
