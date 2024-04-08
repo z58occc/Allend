@@ -79,7 +79,6 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
-        
 
         if(!Auth::attempt($credentials)){
             return response()->json([
@@ -87,11 +86,11 @@ class AuthController extends Controller
             ],401);
         }
         $token = auth()->setTTL(120)->attempt($credentials);
+
         $user = Auth::user();
         Member::where('mid', $user->mid)->update(['last_login' => now()]);
 
         return response()->json([
-            'user_login_time' => now(),
             'token' => $token,
         ]);
     }

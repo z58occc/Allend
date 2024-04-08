@@ -3,12 +3,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation ,useNavigate } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { FaUserLock } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+// import { FaUserLock } from "react-icons/fa";
+// import { FaLock } from "react-icons/fa";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
@@ -102,6 +102,8 @@ function App() {
       console.log(err)
     }
   }
+
+  // 註冊
   const registerUser = async (email, password, confirmPassword) => {
     try {
       const res = await axios.post(
@@ -120,9 +122,7 @@ function App() {
       console.log(err);
     }
   };
-
-
-
+  // 註冊後登入
   const loginUser = async (email, password) => {
     try {
       const res = await axios.post(
@@ -140,6 +140,7 @@ function App() {
     }
   };
 
+  // 登出處理
   const handleLogout = () => {
     const cookie = 
     axios({
@@ -161,7 +162,7 @@ function App() {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
+  // 處理註冊
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
     const password = RegisterPassword.current.value;
@@ -175,26 +176,26 @@ function App() {
       console.log(err);
     }
   };
+
   // 重寄驗證信
   const handleResendVerification = () => {
-    
-    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",null,
+    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",
     {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
-    
     })
-      .then((res) => {
-        console.log(res.data);
-        setIsVerificationSent(true); 
-        setCountdown(60);
-        setIsButtonDisabled(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    .then((res) => {
+      console.log(res.data);
+      setIsVerificationSent(true); 
+      setCountdown(60);
+      setIsButtonDisabled(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
   useEffect(() => {
     let timer = null;
     if (countdown > 0) {
@@ -229,7 +230,6 @@ function App() {
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
-        
       } else {
         console.error('An error occurred while logging in:', error.message);
         setErrorMessage('登入失敗');
@@ -238,7 +238,7 @@ function App() {
   };
 
 
-  //取得會員email
+  // 取得會員email
   const fetchMemberEmail = async () => {
     try{
       const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
@@ -276,7 +276,7 @@ function App() {
       });
   };
 
-  //控制連結顏色切換
+  // 控制連結顏色切換
   const [selectedLink, setSelectedLink] = useState(null);
   const location = useLocation();
 

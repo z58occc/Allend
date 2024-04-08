@@ -105,10 +105,6 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/logout', 'logout');
 });
 
-// 轉址
-Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
-// 回調
-Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
 
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
