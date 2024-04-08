@@ -56,18 +56,49 @@ function Findcase() {
       console.log(err);
     }
   };
-  const handleClose = async (d) => {
+  const close = async () => {
     setShow(false);
+    setMessagewarm(false);
+    setAmountwarm(false);
+  }
+
+
+
+  // 送出報價按鈕
+  const handleClose = async (d) => {
+
     const q_amount = QuoteAmount.current.value;
     const q_message = QuoteMessage.current.value;
-    const did = d;
-    try {
-      const data = await sendQuote(did, q_amount, q_message);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+    setShow(false);
+    if (q_amount.length == 0 && q_message.length < 10) {
+      setShow(true);
+      setAmountwarm(true);
+      setMessagewarm(true);
+    } else if (q_amount.length == 0) {
+      setAmountwarm(true);
+      setShow(true);
+    } else if (q_message.length < 10) {
+      setShow(true);
+      setMessagewarm(true);
+    } else {
+      const did = d;
+      try {
+        const data = await sendQuote(did, q_amount, q_message);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+      setMessagewarm(false);
+      setAmountwarm(false);
     }
+
   };
+  // 送出報價按鈕
+
+
+
+
+
   // Modal下面 送資料回去
 
 
@@ -89,6 +120,9 @@ function Findcase() {
   const [posts, setPosts] = useState([]);
   const [mycitys, setMycitys] = useState([]);
   const [changeorder, setChangeorder] = useState(false);
+  const [messagewarm, setMessagewarm] = useState(false);
+  const [amountwarm, setAmountwarm] = useState(false);
+
 
   const [changecolor1, setChangecolor1] = useState(false);
   const [changecolor2, setChangecolor2] = useState(false);
@@ -552,6 +586,8 @@ function Findcase() {
                 if (data[i].d_amount <= 5000) {
                   mycitys.push(data[i]);
                   setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
                 }
               }
               changeBottomcolorOff();
@@ -563,6 +599,8 @@ function Findcase() {
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_amount >= 5000 && data[i].d_amount <= 10000) {
                   mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
                   setPosts(mycitys);
                 }
               }
@@ -577,6 +615,8 @@ function Findcase() {
                 if (data[i].d_amount >= 10000 && data[i].d_amount <= 50000) {
                   mycitys.push(data[i]);
                   setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
                 }
               }
               changeBottomcolorOff();
@@ -590,6 +630,8 @@ function Findcase() {
                 if (data[i].d_amount >= 50000 && data[i].d_amount <= 100000) {
                   mycitys.push(data[i]);
                   setPosts(mycitys);
+                } else {
+                  setPosts(mycitys);
                 }
               }
               changeBottomcolorOff();
@@ -601,6 +643,8 @@ function Findcase() {
               for (let i = 0; i < data.length; i++) {
                 if (data[i].d_amount >= 100000 && data[i].d_amount <= 300000) {
                   mycitys.push(data[i]);
+                  setPosts(mycitys);
+                } else {
                   setPosts(mycitys);
                 }
               }
@@ -881,21 +925,20 @@ function Findcase() {
 
 
 
-        {/* .slice(firstPostIndex, lastPostIndex) */}
 
 
         {/* 案件欄位 */}
-        
-        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""),fontSize:"40px",textAlign:"center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
+
+        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
           {currentPosts.map((post, index) => {
 
             return (
               <div>
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black", padding:0}}>
-                    <Col  id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link  to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign:"start"}}>
+                  <Row style={{ border: "solid black", padding: 0 }}>
+                    <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
                         <div>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
@@ -918,13 +961,13 @@ function Findcase() {
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button  style={{width:"70px",height: "30px ", fontSize: "10px",}} onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={() => { handleShow(index); }}>我要報價</Button>
                       </div>
                     </Col>
                   </Row>
                 </div>
               </div>)
-              // className="d-flex" style={{ justifyContent:"center  " }}
+            // className="d-flex" style={{ justifyContent:"center  " }}
 
 
 
@@ -933,43 +976,48 @@ function Findcase() {
         {/* 案件欄位 */}
 
         {/* 我要報價頁面 */}
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header>
+        <Modal show={show} onHide={close}>
+          <Modal.Header closeButton >
             <Modal.Title style={{ fontSize: 15 }}>
-              <div>案件名稱：{posts[key]?.d_name}</div>
+              報價表單:
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <Form>
+              <div>案件名稱:{posts[key]?.d_name}</div>
               <hr></hr>
               <div>案件編號：{posts[key]?.did}</div>
               <hr></hr>
               <div>案件類別：{posts[key]?.type}</div>
               <hr></hr>
-              <div>案件地點：{posts[key]?.country_city}</div>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
+              <div>案件地點:{posts[key]?.country_city}</div>
+              <hr></hr>
               <Form.Label>報價金額</Form.Label>
               <Form.Group
                 className="mb-3 d-flex"
                 controlId="exampleForm.ControlInput1"
               >
+                {/* <input style={{ width: "100px" }}  ref={QuoteAmount}></input> */}
                 <Form.Control
                   style={{ width: "100px" }}
                   type=""
                   autoFocus
-                  value={posts[key]?.d_amount}
+                  defaultValue={posts[key]?.d_amount}
                   ref={QuoteAmount}
                 ></Form.Control>
-                <div className="mt-2">&nbsp;/&nbsp;{posts[key]?.d_unit}</div>
+                <div className="mt-2"> &nbsp;&nbsp;{`/${posts[key]?.d_unit}`}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
               </Form.Group>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>接案人留言</Form.Label>
+                <div style={{ display: (messagewarm != true ? "none" : ""), color: "red" }}>請輸入至少10個字以上</div>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="請輸入訊息"
+                  placeholder=" 請輸入至少10個字以上"
                   ref={QuoteMessage}
                 />
               </Form.Group>
@@ -982,7 +1030,6 @@ function Findcase() {
           </Modal.Footer>
         </Modal>
         {/* 我要報價頁面 */}
-
 
         {/* 上/下一頁 */}
         <div className="d-flex  justify-content-center mt-3">
