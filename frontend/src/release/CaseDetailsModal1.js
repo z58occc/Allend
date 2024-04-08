@@ -108,11 +108,10 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
         <Form.Label>案件編號：{data[number].did}</Form.Label>
         <Form >
           <Form.Group controlId="numberOfPeople">
-            <Form.Label>案件名稱：</Form.Label>
+            <Form.Label>案件名稱：{data[number].d_name}</Form.Label>
             <Form.Control
               type="text"
               placeholder="填寫案件名稱"

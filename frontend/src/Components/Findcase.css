@@ -1,0 +1,5 @@
+.selected-option,
+.selected-option:hover {
+    background-color: black;
+    color: white;
+}

@@ -1,7 +1,12 @@
-import {React}from 'react';
+import {React, useContext, useState}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
+import { CaseContext } from './MainScreen';
 const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
+  const {fetchData} = useContext(CaseContext);
+  const [ButtonName,setButtonName] = useState('提交案件');
+  const [isDisabled,setIsDisabled] = useState(false);
+  const [Color,setColor] = useState("info");
   const submit = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/take_submit?cid=${cid}`,{
       method: 'GET',
@@ -10,6 +15,10 @@ const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
       },
     })
     .then((res)=>{
+      setButtonName('等待中');
+      setIsDisabled(true);
+      setColor('warning');
+      fetchData();
       return res.json();
     })
     .then((data)=>{
@@ -65,9 +74,17 @@ const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
           <Button variant="primary" size="lg">
             聯絡案主
           </Button>
-          <Button variant="secondary" size="lg" onClick={()=>{submit(data[number].cid)}}>
-            提交案件
+          {data[number].c_status !== 3 
+          ?  
+          <Button variant={Color} size="lg" onClick={()=>{submit(data[number].cid)}} disabled = {isDisabled}>
+            {ButtonName}
           </Button>
+          :
+          <Button variant = "warning" size="lg" onClick={()=>{submit(data[number].cid)}} disabled = {true}>
+            等待中
+          </Button>
+          }
+         
         </div>
       </Modal.Body>
       <Modal.Footer>

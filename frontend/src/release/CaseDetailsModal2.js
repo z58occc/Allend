@@ -1,13 +1,19 @@
-import { React } from "react";
+import { React, useContext, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
+import { CaseContext } from "./MainScreen2";
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
+  const {fetchData} = useContext(CaseContext);
   const received = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
       method: 'GET',
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
+    })
+    .then(()=>{
+      fetchData();
+      onHide();
     })
     .catch((error)=>{
       console.error(error);
@@ -87,9 +93,17 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           <Button variant="primary" size="lg">
             聯絡接案人
           </Button>
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}}>
+          {data[number].c_status === 3
+          ?
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={false}>
             已收到案件
           </Button>
+          :
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true}>
+            已收到案件
+          </Button>
+          }
+          
         </div>
       </Modal.Body>
       <Modal.Footer>

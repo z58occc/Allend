@@ -9,6 +9,7 @@ import Chatbutton from "./ChatButtom";
 import axios from "axios";
 import { AiOutlineArrowUp } from "react-icons/ai";
 
+
 const Findman = () => {
 
   const [service, setService] = React.useState([]);
@@ -295,11 +296,11 @@ const Findman = () => {
                 value="3"
                 onChange={handleidentityChange}
               ></input>
-              工作室<br></br>
+              工作室
             </div>
             <br></br>
             <div
-              style={{ height: "250px", overflowY: "scroll", border: "solid" }}
+              style={{ height: "200px",  border: "solid" }}
             >
               年資
               <hr></hr>

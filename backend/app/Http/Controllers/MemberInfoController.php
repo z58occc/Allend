@@ -369,7 +369,6 @@ class MemberInfoController extends Controller
             ->update([
                 'q_amount' => $request->amount,
                 'q_message' => $request->message !== null ? $request->message : "",
-                'updated_at' => now(),
             ]);
         }
         return response()->json([
@@ -489,9 +488,8 @@ class MemberInfoController extends Controller
     {
         if(Auth::id()){
             $userId = Auth::guard('api')->id();
-
             $selectdemmand = $request->input('did');
-            DB::table('demmand')->whereIn('did',$selectdemmand)
+            DB::table('demmand')->whereIn('did',[$selectdemmand])
                                 ->where('mid',$userId)
                                 ->delete();
 
