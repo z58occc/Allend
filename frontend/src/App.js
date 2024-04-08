@@ -109,7 +109,7 @@ function App() {
   const registerUser = async (email, password, confirmPassword) => {
     try {
       const res = await axios.post(
-        "http://localhost/Allend/backend/public/api/register",
+        "/Allend/backend/public/api/register",
         {
           email: email,
           password: password,
@@ -127,7 +127,7 @@ function App() {
   const loginUser = async (email, password) => {
     try {
       const res = await axios.post(
-        "http://localhost/Allend/backend/public/api/login",
+        "/Allend/backend/public/api/login",
         {
           email: email,
           password: password,
@@ -146,7 +146,7 @@ function App() {
     const cookie = 
     axios({
       method: 'post',
-      url: "http://localhost/Allend/backend/public/api/logout",
+      url: "/Allend/backend/public/api/logout",
       headers:{Authorization: `Bearer ${Cookies.get('token')}`}
     })
     .then(()=>{
@@ -187,7 +187,7 @@ function App() {
 
   // 重寄驗證信
   const handleResendVerification = () => {
-    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",
+    axios.post("/Allend/backend/public/api/emailverification-notification",
     {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -225,7 +225,7 @@ function App() {
   const handleLogin = async() => {
     try {
       const res = await axios.post(
-        "http://localhost/Allend/backend/public/api/login",
+        "/Allend/backend/public/api/login",
         {
           email: LoginName.current.value,
           password: LoginPassword.current.value,
@@ -249,7 +249,7 @@ function App() {
   // 取得會員email
   const fetchMemberEmail = async () => {
     try{
-      const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
+      const response = await axios.get("/Allend/backend/public/api/user/email", {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
@@ -271,7 +271,7 @@ function App() {
   const sendForgetPWD = () => {
     axios({
       method: "post",
-      url: "http://localhost/Allend/backend/public/api/forgetpwd",
+      url: "/Allend/backend/public/api/forgetpwd",
       data: {
         email: ForgetName.current.value,
       },

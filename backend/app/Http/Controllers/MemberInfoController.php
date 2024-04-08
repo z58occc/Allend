@@ -108,7 +108,7 @@ class MemberInfoController extends Controller
         ->join('identity', 'members.identity', '=', 'identity.iid')
         ->join('country as c1', 'c1.country_id', '=', 'active_location')
         ->join('country as c2', 'c2.country_id', '=', 'location')
-        ->select(['email', 'i_identity as identity', 'nickname', 'seniority as experience',
+        ->select(['email', 'i_identity as identity', 'seniority as experience',
                 'c1.country_city as locations', 'mobile_phone as phone', 'name', 'id_card as idCard',
                 'gender','c2.country_city as area',])
         ->where('mid', $user->mid)->first();
@@ -134,13 +134,11 @@ class MemberInfoController extends Controller
             'phone' =>"required|max:10",
             'gender' => "required",
             'area' => "required",
-            'nickname' => "required",
         ]);
 
         try{
             Member::where('mid', $user_id)->update([
                 'identity' => $request->identity,
-                'nickname' => $request->nickname,
                 'seniority' => $request->exprience,
                 'active_location' => $request->location,
                 'mobile_phone' => $request->phone,
@@ -248,9 +246,29 @@ class MemberInfoController extends Controller
         }
     }
 
+    // 獲取頭像、姓名
+    public function getAvatar(Request $request)
+    {
+        $mid = Auth::id();
+        $result = DB::table('members')->where('mid', $mid)
+        ->select(DB::raw('ifnull(avatar, "") as image'), DB::raw('ifnull(name, "") as name'))->get();
+
+        return response()->json($result);
+    }
+
     // 修改頭像
     public function updateAvatar(Request $request)
     {
+        try{
+            $request->validate([
+            'image' => ['required', 'mimes:jpg,png,svg', 'file']
+        ]);
+        }catch(Throwable $err){
+            return response()->json([
+                'error' => '圖片不符合格式'
+            ]);
+        }
+
         if ($request->image !== null && $mid = Auth::id())
         {
             DB::table('members')->where('mid', $mid)->update(['avatar' => $request->image]);
@@ -390,7 +408,7 @@ class MemberInfoController extends Controller
             ->join('country', 'country_id', '=', 'c_active_location')
             ->select('cid', 'c_name','type', 'c_status', 'c_amount','c_unit','c_duration','country_city as active_location',
             'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
-            ->where('mid_demmand',$mid)->where('c_status',[1, 3])
+            ->where('mid_demmand',$mid)->whereIn('c_status',[1, 3])
             ->orderBy('created_at', 'desc')->orderBy('cid', 'desc');
 
             // 發案已結案

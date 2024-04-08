@@ -3,16 +3,14 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import "./ProjectForm.css";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { FaBriefcase } from "react-icons/fa";
 import InputGroup from 'react-bootstrap/InputGroup';
+import { FaBriefcase, FaUserAlt, FaPhoneAlt } from "react-icons/fa";
 import { IoBriefcaseSharp } from "react-icons/io5";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { SiUnity } from "react-icons/si";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
-import { FaUserAlt } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import { FaPhoneAlt } from "react-icons/fa";
 
 // 發案表單
 function ProjectForm() {
@@ -116,9 +114,7 @@ function ProjectForm() {
 
         <Row>
           <Col>
-
             <Form.Label>預算金額：</Form.Label>
-
             <InputGroup>
               <InputGroup.Text controlId="budget"> <RiMoneyDollarCircleFill /> </InputGroup.Text>
               <Form.Control
@@ -126,10 +122,6 @@ function ProjectForm() {
                 placeholder="填寫金額"
                 value={budget}
                 onChange={(e) => {
-                  // const value = parseInt(e.target.value);
-                  // if (!isNaN(value) && value > 0) {
-                  //   setBudget(value);
-                  // }
                   const newValue = e.target.value.replace(/\D/g, '');
                   setBudget(newValue ? parseInt(newValue) : '');
                 }}
@@ -157,7 +149,6 @@ function ProjectForm() {
           </Col>
         </Row>
 
-
         <Form.Label>合作期程：</Form.Label>
         <InputGroup>
           <InputGroup.Text controlId="cooperationTime"> <IoIosTime /> </InputGroup.Text>
@@ -168,14 +159,13 @@ function ProjectForm() {
             required
           >
             <option value="">請選擇</option>
-            <option value="short">短期</option>
-            <option value="long">長期</option>
+            <option value="短">短期</option>
+            <option value="長">長期</option>
           </Form.Control>
         </InputGroup>
 
         <Row>
           <Col>
-
             <Form.Label>地點選擇：</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="location"> <MdPlace /> </InputGroup.Text>
@@ -184,7 +174,6 @@ function ProjectForm() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
-
               >
                 <option value="">請選擇</option>
                 <optgroup label="北部">
@@ -246,7 +235,6 @@ function ProjectForm() {
           />
         </InputGroup>
 
-
         <Form.Label>聯絡人Email：</Form.Label>
         <InputGroup>
           <InputGroup.Text controlId="email"> < HiOutlineMail /> </InputGroup.Text>
@@ -258,7 +246,7 @@ function ProjectForm() {
               setEmail(e.target.value);
               validateEmail(e.target.value);
             }}
-            isInvalid={!!emailError}
+            isInvalid={emailError}
             required
           />
         </InputGroup>
@@ -280,12 +268,11 @@ function ProjectForm() {
         </InputGroup>
 
         <div className="text-center">
-          {" "}
-          {/* Center align the submit button */}
           <Button variant="primary" type="submit">
             提交
           </Button>
         </div>
+
       </Form>
     </div>
   );
