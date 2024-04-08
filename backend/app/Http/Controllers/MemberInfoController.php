@@ -351,7 +351,6 @@ class MemberInfoController extends Controller
             ->update([
                 'q_amount' => $request->amount,
                 'q_message' => $request->message !== null ? $request->message : "",
-                'updated_at' => now(),
             ]);
         }
         return response()->json([
@@ -390,7 +389,7 @@ class MemberInfoController extends Controller
             ->join('country', 'country_id', '=', 'c_active_location')
             ->select('cid', 'c_name','type', 'c_status', 'c_amount','c_unit','c_duration','country_city as active_location',
             'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
-            ->where('mid_demmand',$mid)->where('c_status',[1, 3])
+            ->where('mid_demmand',$mid)->whereIn('c_status',[1, 3])
             ->orderBy('created_at', 'desc')->orderBy('cid', 'desc');
 
             // 發案已結案
@@ -471,7 +470,6 @@ class MemberInfoController extends Controller
     {
         if(Auth::id()){
             $userId = Auth::guard('api')->id();
-
             $selectdemmand = $request->input('did');
             DB::table('demmand')->whereIn('did',[$selectdemmand])
                                 ->where('mid',$userId)

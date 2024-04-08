@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './StarRating.css'; 
+import './StarRating1.css'; 
 
-const Star = ({ onRatingChange }) => {
+const Star1 = ({ onRatingChange }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
@@ -40,7 +40,7 @@ const Star = ({ onRatingChange }) => {
   );
 };
 
-export default Star;
+export default Star1;
 
 
 
