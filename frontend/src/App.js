@@ -427,7 +427,7 @@ function App() {
 
       {/* 登入 */}
       <Modal show={showLogin} onHide={handleClose} centered style={{ borderRadius: '10px' }}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
           <div className="row justify-content-center w-100">
             <div className="col text-center">
               <Modal.Title>會員登入</Modal.Title>
@@ -521,7 +521,7 @@ function App() {
         onHide={() => setShowForgotPassword(false)}
         centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
           <Modal.Title className="col text-center">忘記密碼</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -546,7 +546,7 @@ function App() {
 
       {/* 註冊 */}
       <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
           <Modal.Title className="col text-center"><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>
         <Modal.Body>
