@@ -109,7 +109,7 @@ function App() {
   const registerUser = async (email, password, confirmPassword) => {
     try {
       const res = await axios.post(
-        "/Allend/backend/public/api/register",
+        "http://localhost/Allend/backend/public/api/register",
         {
           email: email,
           password: password,
@@ -225,7 +225,7 @@ function App() {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "/Allend/backend/public/api/login",
+        "http://localhost/Allend/backend/public/api/login",
         {
           email: LoginName.current.value,
           password: LoginPassword.current.value,
@@ -271,7 +271,7 @@ function App() {
   const sendForgetPWD = () => {
     axios({
       method: "post",
-      url: "/Allend/backend/public/api/forgetpwd",
+      url: "http://localhost/Allend/backend/public/api/forgetpwd",
       data: {
         email: ForgetName.current.value,
       },

@@ -994,19 +994,19 @@ function Findcase() {
         <Modal show={show} onHide={close}>
           <Modal.Header closeButton >
             <Modal.Title style={{ fontSize: 15 }}>
-              報價表單:
+              報價表單：
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
             <Form>
-              <div>案件名稱:{posts[key]?.d_name}</div>
+              <div>案件名稱：{posts[key]?.d_name}</div>
               <hr></hr>
               <div>案件編號：{posts[key]?.did}</div>
               <hr></hr>
               <div>案件類別：{posts[key]?.type}</div>
               <hr></hr>
-              <div>案件地點:{posts[key]?.country_city}</div>
+              <div>案件地點：{posts[key]?.country_city}</div>
               <hr></hr>
               <Form.Label>報價金額</Form.Label>
               <Form.Group
@@ -1021,7 +1021,7 @@ function Findcase() {
                   defaultValue={posts[key]?.d_amount}
                   ref={QuoteAmount}
                 ></Form.Control>
-                <div className="mt-2"> &nbsp;&nbsp;{`/${posts[key]?.d_unit}`}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
+                <div className="mt-2"> &nbsp;/&nbsp;{posts[key]?.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
               </Form.Group>
               <Form.Group
                 className="mb-3"

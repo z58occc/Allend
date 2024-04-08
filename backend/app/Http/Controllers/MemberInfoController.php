@@ -259,16 +259,6 @@ class MemberInfoController extends Controller
     // 修改頭像
     public function updateAvatar(Request $request)
     {
-        try{
-            $request->validate([
-            'image' => ['required', 'mimes:jpg,png,svg', 'file']
-        ]);
-        }catch(Throwable $err){
-            return response()->json([
-                'error' => '圖片不符合格式'
-            ]);
-        }
-
         if ($request->image !== null && $mid = Auth::id())
         {
             DB::table('members')->where('mid', $mid)->update(['avatar' => $request->image]);
