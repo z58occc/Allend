@@ -103,7 +103,9 @@ function App() {
     }
   }
 
-  // 註冊
+  const [errorRegister, seterrorRegister] = useState('');
+
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
   const registerUser = async (email, password, confirmPassword) => {
     try {
       const res = await axios.post(
@@ -114,12 +116,11 @@ function App() {
           password_confirmation: confirmPassword,
         }
       );
-      if (res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!') {
         await loginUser(email, password);
-      }
-      return res.data;
+        setShowVerificationModal(true);
+      return true;
     } catch (err) {
-      console.log(err);
+      return false;
     }
   };
   // 註冊後登入
@@ -156,6 +157,7 @@ function App() {
     })
     .catch((err) => {
       console.log(err.response)
+      return false;
     })
   };
 
@@ -169,9 +171,15 @@ function App() {
     const confirmPassword = RegisterConfPassword.current.value;
     try {
       const data = await registerUser(email, password, confirmPassword);
-      console.log(data);
-      setIsVerificationSent(true);
-      setShowRegister(false);
+      if (data) {
+        setIsVerificationSent(true);
+        setShowRegister(false);
+      }else{
+        seterrorRegister('輸入資料格式有誤或是電子郵件已被註冊!')
+      }
+      // console.log(data);
+      // setIsVerificationSent(true);
+      // setShowRegister(false);
     } catch (err) {
       console.log(err);
     }
@@ -526,7 +534,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>帳號</Form.Label>
+            <Form.Label>帳號 {errorRegister && <span style={{color:'red',paddingLeft:'20px'}}>{errorRegister}</span>}</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formBasicEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
@@ -534,7 +542,7 @@ function App() {
                 placeholder="Enter email"
                 required
                 ref={RegisterEmail}
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" // Regular expression for email format
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"// Regular expression for email format
               />
               <Form.Control.Feedback type="invalid">
                 請輸入有效的電子郵件
@@ -569,7 +577,7 @@ function App() {
         </Modal.Body>
       </Modal>
       {/* 註冊 */}
-      <Modal show={isVerificationSent} onHide={() => setIsVerificationSent(false)} centered>
+      <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered>
         <Modal.Body>
           <div>
             <h2>郵件已發送</h2>
