@@ -1,11 +1,12 @@
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
+import { CaseContext } from "./MainScreen2";
 function GetQuoteModal({ show, onHide, data }) {
-
-
+  const {fetchData} = useContext(CaseContext);
   // 同意報價按鈕
   const handleAgree = (mid,qid) => {
+
     fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree", {
       method: 'POST',
       headers: {
@@ -22,6 +23,7 @@ function GetQuoteModal({ show, onHide, data }) {
       })
       .then((data) => {
         console.log(data);
+        fetchData();
         onHide();
       })
       .catch((error) => {

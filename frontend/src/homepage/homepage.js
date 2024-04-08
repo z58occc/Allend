@@ -292,70 +292,96 @@ function Homepage() {
         <div className="d-flex  justify-content-center mt-5">
 
 
-          <Row className="justify-content-md-center">
-            <Col xs lg="7">
-              <Carousel
-                activeIndex={carouselpage}
-                onSelect={handleSelect}
-                style={{ overflow: " hidden", backgroundColor: "#9CAFAA" }}
-                id="carousel"
-                interval={null}
-                indicators={false}
-                controls={true}
-                prevIcon={
-                  <span style={{ color: "black", fontSize: "4rem" }}>‹</span>
-                }
-                nextIcon={
-                  <span style={{ color: "black", fontSize: "4rem" }}>›</span>
-                }
-              >
+          {/* <Row className="justify-content-md-center"> */}
+          {/* <Col xs lg="7"> */}
+          <Carousel
+            activeIndex={carouselpage}
+            onSelect={handleSelect}
+            style={{ overflow: " hidden", backgroundColor: "#9CAFAA",width:"600px" }}
+            id="carousel"
+            interval={null}
+            indicators={false}
+            controls={true}
+            prevIcon={
+              <span style={{ color: "black", fontSize: "4rem" }}>‹</span>
+            }
+            nextIcon={
+              <span style={{ color: "black", fontSize: "4rem" }}>›</span>
+            }
+          >
 
-                {/* 接api輪播圖 */}
-                {posts.slice(2, 5).map((post, index) => {
-                  return (
-                    <Carousel.Item >
-                      <Row className=" justify-content-md-center align-items-end">
-                        <Col xs lg="6">
-                          <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
-                        </Col>
-                        <Col xs lg="5">
-                          <Link to={`./talent/${post.mid}`}>
-                            <h3 style={{ marginTop: 100 }}>{post.name}</h3>
-                          </Link>
-                          <Row
+            {/* 接api輪播圖 */}
+            {posts.slice(3, 6).map((post, index) => {
+              return (
+                <Carousel.Item  >
+                  <Row className=" justify-content-md-center  ">
+                    <Col xs lg="6" style={{ padding: "0px" }}>
+                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                    </Col>
+                    <Col xs lg="2" style={{ padding: "0px" }}>
+                      {/* style={{  }} */}
+                      <Link to={`./talent/${post.mid}`} style={{ fontSize: "18px", position: "relative", left: "30px" }}>
+                        <span >{post.name}</span>
+                      </Link>
+                      {/* <Row
                             id="carouselimg"
                             className=" justify-content-md-center"
                           >
-                            {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
-                              return (
-                                <Col xs lg="4" style={{ zIndex: 100 }}>
-                                  {" "}
-                                  <img
-                                    src={`data:image/jpeg;base64,${post.project_image}`}
-                                    onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
-                                    onMouseLeave={() => handleMouseLeave(`data:image/jpeg;base64,${post.project_image}`)}
-                                  />
-                                </Col>
-                              )
-                            })}
-                          </Row>
-                        </Col>
-                      </Row>
-                    </Carousel.Item>
+                               {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
+                                return (
+                                  <Col xs lg="4" style={{ zIndex: 100 }}>
+                                    {" "}
+                                    <img
+                                      src={`data:image/jpeg;base64,${post.project_image}`}
+                                      onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
+                                      onMouseLeave={() => handleMouseLeave(`data:image/jpeg;base64,${post.project_image}`)}
+                                    />
+                                  </Col>
+                                )
+                              })}
+                </Row> */}
+                    </Col>
+                  </Row>
+                </Carousel.Item>
 
-                  )
+              )
 
-                })}
-                {/* 接api輪播圖 */}
+            })}
+            {/* 接api輪播圖 */}
+
+            {/* 接api輪播圖 */}
+            {/* {posts.slice(3, 6).map((post, index) => {
+              return (
+                <Carousel.Item style={{ backgroundImage: `url(data:image/jpeg;base64,${post.project_image})`, backgroundSize: "665px 250px" }}>
+                  <Row className=" justify-content-md-center  ">
+                    <Col xs lg="6">
+                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto", visibility: "hidden" }} />
+                      <Link className="justify-content-md-center" style={{ textAlign: "end", position: "relative", bottom: "80px", left: "30px" }} to={`./talent/${post.mid}`}>
+                        <h3 >{post.name}</h3>
+                      </Link>
+                    </Col> */}
+                    {/* <Col xs lg="5">
+                          <Link className="justify-content-md-center" style={{alignItems:"end"}} to={`./talent/${post.mid}`}>
+                            <h3 >{post.name}</h3>
+                          </Link>
+
+                        </Col> */}
+                  {/* </Row>
+                </Carousel.Item>
+
+              )
+
+            })} */}
+            {/* 接api輪播圖 */}
 
 
 
 
 
 
-              </Carousel>
-            </Col>
-          </Row>
+          </Carousel>
+          {/* </Col> */}
+          {/* </Row> */}
         </div>
         {/* 輪播圖 */}
       </div>

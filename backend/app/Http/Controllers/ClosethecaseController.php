@@ -39,7 +39,7 @@ class ClosethecaseController extends Controller
         $mid = Auth::id();
         $cid = $request->input('cid');
         DB::table('established_case')
-        ->where('cid',$cid)->where('demmand_mid', $mid)
+        ->where('cid',$cid)->where('mid_demmand', $mid)
         ->update([
             'demmand_star' => $request->input('demmand_star'),
             'demmand_comment' => $request->input('demmand_comment'),
@@ -68,7 +68,7 @@ class ClosethecaseController extends Controller
         $mid = Auth::id();
         $cid = $request->input('cid');
         DB::table('established_case')
-        ->where('cid',$cid)->where('service_mid', $mid)
+        ->where('cid',$cid)->where('mid_service', $mid)
         ->update([
             'service_star' => $request->input('service_star'),
             'service_comment' => $request->input('service_comment'),
