@@ -3,12 +3,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation ,useNavigate } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { FaUserLock } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+// import { FaUserLock } from "react-icons/fa";
+// import { FaLock } from "react-icons/fa";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
@@ -102,6 +102,10 @@ function App() {
       console.log(err)
     }
   }
+
+  const [errorRegister, seterrorRegister] = useState('');
+
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
   const registerUser = async (email, password, confirmPassword) => {
     try {
       const res = await axios.post(
@@ -112,17 +116,14 @@ function App() {
           password_confirmation: confirmPassword,
         }
       );
-      if (res.data.message !== '輸入資料格式有誤或是電子郵件已被註冊!') {
         await loginUser(email, password);
-      }
-      return res.data;
+        setShowVerificationModal(true);
+      return true;
     } catch (err) {
-      console.log(err);
+      return false;
     }
   };
-
-
-
+  // 註冊後登入
   const loginUser = async (email, password) => {
     try {
       const res = await axios.post(
@@ -140,6 +141,7 @@ function App() {
     }
   };
 
+  // 登出處理
   const handleLogout = () => {
     const cookie = 
     axios({
@@ -155,46 +157,53 @@ function App() {
     })
     .catch((err) => {
       console.log(err.response)
+      return false;
     })
   };
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
+  // 處理註冊
   const handleRegister = async () => {
     const email = RegisterEmail.current.value;
     const password = RegisterPassword.current.value;
     const confirmPassword = RegisterConfPassword.current.value;
     try {
       const data = await registerUser(email, password, confirmPassword);
-      console.log(data);
-      setIsVerificationSent(true);
-      setShowRegister(false);
+      if (data) {
+        setIsVerificationSent(true);
+        setShowRegister(false);
+      }else{
+        seterrorRegister('輸入資料格式有誤或是電子郵件已被註冊!')
+      }
+      // console.log(data);
+      // setIsVerificationSent(true);
+      // setShowRegister(false);
     } catch (err) {
       console.log(err);
     }
   };
+
   // 重寄驗證信
   const handleResendVerification = () => {
-    
-    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",null,
+    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",
     {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
-    
     })
-      .then((res) => {
-        console.log(res.data);
-        setIsVerificationSent(true); 
-        setCountdown(60);
-        setIsButtonDisabled(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    .then((res) => {
+      console.log(res.data);
+      setIsVerificationSent(true); 
+      setCountdown(60);
+      setIsButtonDisabled(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
   useEffect(() => {
     let timer = null;
     if (countdown > 0) {
@@ -229,7 +238,6 @@ function App() {
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
-        
       } else {
         console.error('An error occurred while logging in:', error.message);
         setErrorMessage('登入失敗');
@@ -238,7 +246,7 @@ function App() {
   };
 
 
-  //取得會員email
+  // 取得會員email
   const fetchMemberEmail = async () => {
     try{
       const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
@@ -276,7 +284,7 @@ function App() {
       });
   };
 
-  //控制連結顏色切換
+  // 控制連結顏色切換
   const [selectedLink, setSelectedLink] = useState(null);
   const location = useLocation();
 
@@ -526,7 +534,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>帳號</Form.Label>
+            <Form.Label>帳號 {errorRegister && <span style={{color:'red',paddingLeft:'20px'}}>{errorRegister}</span>}</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formBasicEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
@@ -534,7 +542,7 @@ function App() {
                 placeholder="Enter email"
                 required
                 ref={RegisterEmail}
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" // Regular expression for email format
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"// Regular expression for email format
               />
               <Form.Control.Feedback type="invalid">
                 請輸入有效的電子郵件
@@ -569,7 +577,7 @@ function App() {
         </Modal.Body>
       </Modal>
       {/* 註冊 */}
-      <Modal show={isVerificationSent} onHide={() => setIsVerificationSent(false)} centered>
+      <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered>
         <Modal.Body>
           <div>
             <h2>郵件已發送</h2>

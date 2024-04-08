@@ -75,7 +75,7 @@ Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
 Route::post('/callback', [ECPaymentController::class, 'Callback']);
 
 //取得email
-Route::middleware(['auth', 'verified'])->get('/user/email', GetmemberemailController::class);
+Route::get('/user/email', GetmemberemailController::class);
 // 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
 // Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
@@ -105,10 +105,6 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/logout', 'logout');
 });
 
-// 轉址
-Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
-// 回調
-Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
 
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);

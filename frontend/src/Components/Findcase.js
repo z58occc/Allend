@@ -940,9 +940,9 @@ function Findcase() {
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
                       <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
                         <div>{post.d_name}</div>
-                        <div id={changecolortype == true ? "active" : ""}>案件類別:{post.type}</div>
-                        <div id={changecolorbudge == true ? "active" : ""}>預算:${post.d_amount}/{post.d_unit}</div>
-                        <div id={changecolorcity == true ? "active" : ""}>地點:{post.country_city}</div>
+                        <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
+                        <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
+                        <div id={changecolorcity == true ? "active" : ""}>地點：{post.country_city}</div>
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
                       </Link>
                     </Col>
@@ -957,7 +957,7 @@ function Findcase() {
                       <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
-                        <div >刊登時間:</div>
+                        <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
@@ -987,9 +987,9 @@ function Findcase() {
             <Form>
               <div>案件名稱:{posts[key]?.d_name}</div>
               <hr></hr>
-              <div>案件編號:{posts[key]?.did}</div>
+              <div>案件編號：{posts[key]?.did}</div>
               <hr></hr>
-              <div>案件類別:{posts[key]?.type}</div>
+              <div>案件類別：{posts[key]?.type}</div>
               <hr></hr>
               <div>案件地點:{posts[key]?.country_city}</div>
               <hr></hr>

@@ -39,7 +39,7 @@ class AuthController extends Controller
         catch (ValidationException $exception){
             return response()->json([
                 'message' => '輸入資料格式有誤或是電子郵件已被註冊!'
-            ]);
+            ],422);
         }
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
@@ -79,7 +79,6 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
-        
 
         if(!Auth::attempt($credentials)){
             return response()->json([
@@ -87,11 +86,11 @@ class AuthController extends Controller
             ],401);
         }
         $token = auth()->setTTL(120)->attempt($credentials);
+
         $user = Auth::user();
         Member::where('mid', $user->mid)->update(['last_login' => now()]);
 
         return response()->json([
-            'user_login_time' => now(),
             'token' => $token,
         ]);
     }
