@@ -22,12 +22,10 @@ function RatingPage() {
         );
         const result = await res.data;
         setCaseNum(result);
-        console.log(result);
       } catch (err) {
         console.log(err)
         if(err.response.status === 401){
           // return <Navigate to='/switch'></Navigate>
-
         }
       }
     };

@@ -392,7 +392,7 @@ function Homepage() {
       <Footer></Footer>
       {/* 新手教學視窗 */}
       <Modal show={showNewbie} onHide={handleClose} centered style={{ borderRadius: '20px' }}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center">
               <Modal.Title>平台如何運作</Modal.Title>

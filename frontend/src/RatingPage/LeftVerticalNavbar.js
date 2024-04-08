@@ -35,15 +35,17 @@ const LeftVerticalNavbar = () => {
         setShowModal(false);
     };
     const avatar = useRef();
+
     // 修改頭像
-    const handleSaveImage = () => {
+    const handleSaveImage = async() => {
         const avatarFile = new FileReader();
         avatarFile.onload = (e) => {
           axios({
             method: "post",
             url: "http://localhost/Allend/backend/public/api/avatar",
             data: {image: e.target.result},
-            headers: {Authorization: `Bearer ${Cookies.get('token')}`},
+            headers: {Authorization: `Bearer ${Cookies.get('token')}`,'Content-Type': 'multipart/form-data',
+        },
           })
             .then((res) => {
               console.log(res.data);
@@ -53,7 +55,7 @@ const LeftVerticalNavbar = () => {
             });
         };
         avatarFile.readAsDataURL(avatar.current.files[0]);
-    
+        
         if (imageFile) {
             setUsermember({ ...usermember, image: URL.createObjectURL(imageFile) });
             setShowModal(false);
@@ -64,7 +66,6 @@ const LeftVerticalNavbar = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        console.log(file);
         if (file) {
             setImageFile(file);
         }
@@ -88,7 +89,6 @@ const LeftVerticalNavbar = () => {
         fetchData();
 
       }, []);
-    console.log(usermember.name)
 
 
 
