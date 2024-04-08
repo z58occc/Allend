@@ -1006,7 +1006,7 @@ function Findcase() {
                   defaultValue={posts[key]?.d_amount}
                   ref={QuoteAmount}
                 ></Form.Control>
-                <div className="mt-2"> {"/" + posts[key]?.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
+                <div className="mt-2"> &nbsp;&nbsp;{`/${posts[key]?.d_unit}`}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
               </Form.Group>
               <Form.Group
                 className="mb-3"
