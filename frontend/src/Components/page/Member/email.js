@@ -41,19 +41,13 @@ function FreelancerForm() {
   const [isFormComplete, setIsFormComplete] = useState(false);
   const [isFreelancer, setIsFreelancer] = useState(true);
 
-    // useEffect(() => {
-    //   // 检查表单是否完整
-    //   const isComplete = Object.values(formData).every((value) => value !== "");
-    //   setIsFormComplete(isComplete);
-    // }, [formData]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
         const res = await axios.get(
-          "/Allend/backend/public/api/mem",
+          "http://localhost/Allend/backend/public/api/mem",
           { headers: headers }
         );
         const result = await res.data;
@@ -114,9 +108,6 @@ console.log(formData)
     }));
     const isComplete = Object.values(formData).every((value) => value !== "");
     setIsFormComplete(isComplete);
-    // console.log(Object.values(formData.experience))
-    // console.log(Object.values(formData.locations))
-
   };
 
   const handleSubmit = (e) => {
