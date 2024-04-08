@@ -93,7 +93,7 @@ Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接
 Route::get('/publish_recevice', [ClosethecaseController::class,'receviceData']); // 案主接收結果的按鈕 => 發案者、接案者案件狀態轉成已結案
 Route::post('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕 => 在已結案發送評價
 // Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
-Route::get('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
+Route::post('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
 // Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面
 
 Route::controller(AuthController::class)->group(function(){

@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import Start from "./Start";
+import Star1 from "./Star1";
 import Cookies from "js-cookie";
 const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
   //星星數
@@ -95,7 +95,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <Start style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Start>
+              <Star1 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star1>
               <div style={{ margin: "10px auto" }}>
                 <textarea maxLength={100} rows={5} cols={40} value={Comment} onChange={(e)=>{setComment(e.target.value)}}/>
               </div>
