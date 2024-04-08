@@ -248,7 +248,7 @@ function App() {
 
   // 取得會員email
   const fetchMemberEmail = async () => {
-    try{
+    try {
       const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`,
@@ -385,7 +385,7 @@ function App() {
               <Link
                 to="/ProjectForm"
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "100px", textAlign: "center" }}
                 onClick={() => handleLinkClick("/ProjectForm")}
               >
                 發案
@@ -427,7 +427,7 @@ function App() {
 
       {/* 登入 */}
       <Modal show={showLogin} onHide={handleClose} centered style={{ borderRadius: '10px' }}>
-        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
+        <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center">
               <Modal.Title>會員登入</Modal.Title>
@@ -521,7 +521,7 @@ function App() {
         onHide={() => setShowForgotPassword(false)}
         centered
       >
-        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
+        <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center">忘記密碼</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -546,7 +546,7 @@ function App() {
 
       {/* 註冊 */}
       <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
-        <Modal.Header closeButton style={{borderBottom: '1px solid black'}}>
+        <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center"><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>
         <Modal.Body>
