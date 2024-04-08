@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Footer from "../homepage/Footer";
 import Dropdown from "react-bootstrap/Dropdown";
-import { GoTriangleDown } from "react-icons/go";
+import { GoCheckbox, GoTriangleDown } from "react-icons/go";
 import "../../src/App.css";
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
@@ -108,6 +108,7 @@ function Findcase() {
   // Modal上面
   const [key, setkey] = useState(0);
   const [show, setShow] = useState(false);
+  const [showdropdown, setShowdropdown] = useState(false);
 
 
 
@@ -295,7 +296,7 @@ function Findcase() {
 
 
           // 在點擊下一個按鈕後 清空案件
-          // setMycitys([]);
+          setMycitys([]);
           console.log(posts);
           console.log(mycitys);
           // 在點擊下一個按鈕後 清空案件
@@ -326,9 +327,9 @@ function Findcase() {
 
               //   }
               // }
-              let x = data.filter(item => item.country_city == "台北市");
-              let y = [...mycitys,...x];
-              setPosts(y);
+              let TPE = data.filter(item => item.country_city == "台北市");
+              let TPEx = [...posts, ...TPE];
+              setPosts(TPEx);
               changeBottomcolorOff();
               changecitycolor();
 
@@ -336,266 +337,172 @@ function Findcase() {
               console.log(mycitys);
               break;
             case "新北市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "新北市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                  console.log(mycitys);
-                } else {
-                  console.log(mycitys);
-                  setPosts(mycitys);
-                }
-              }
+              let TPH = data.filter(item => item.country_city == "新北市");
+              let TPHx = [...posts, ...TPH];
+              setPosts(TPHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "桃園市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "桃園市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                }
-              }
+              let TYC = data.filter(item => item.country_city == "桃園市");
+              let TYCx = [...posts, ...TYC];
+              setPosts(TYCx);
+
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "基隆市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "基隆市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let KLU = data.filter(item => item.country_city == "基隆市");
+              let KLUx = [...posts, ...KLU];
+              setPosts(KLUx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "新竹市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "新竹市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let HSC = data.filter(item => item.country_city == "新竹市");
+              let HSCx = [...posts, ...HSC];
+              setPosts(HSCx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "新竹縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "新竹縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let HSH = data.filter(item => item.country_city == "新竹縣");
+              let HSHx = [...posts, ...HSH];
+              setPosts(HSHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "彰化縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "彰化縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let CWH = data.filter(item => item.country_city == "彰化縣");
+              let CWHx = [...posts, ...CWH];
+              setPosts(CWHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "南投縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "南投縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let NTO = data.filter(item => item.country_city == "南投縣");
+              let NTOx = [...posts, ...NTO];
+              setPosts(NTOx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "雲林縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "雲林縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let YLH = data.filter(item => item.country_city == "雲林縣");
+              let YLHx = [...posts, ...YLH];
+              setPosts(YLHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "高雄市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "高雄市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let KHH = data.filter(item => item.country_city == "高雄市");
+              let KHHx = [...posts, ...KHH];
+              setPosts(KHHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "台南市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "台南市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let TNN = data.filter(item => item.country_city == "台南市");
+              let TNNx = [...posts, ...TNN];
+              setPosts(TNNx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "嘉義市":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "嘉義市") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let CYI = data.filter(item => item.country_city == "嘉義市");
+              let CYIx = [...posts, ...CYI];
+              setPosts(CYIx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "嘉義縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "嘉義縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let CHY = data.filter(item => item.country_city == "嘉義縣");
+              let CHYx = [...posts, ...CHY];
+              setPosts(CHYx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "屏東縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "屏東縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let IUH = data.filter(item => item.country_city == "屏東縣");
+              let IUHx = [...posts, ...IUH];
+              setPosts(IUHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "宜蘭縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "宜蘭縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let ILN = data.filter(item => item.country_city == "宜蘭縣");
+              let ILNx = [...posts, ...ILN];
+              setPosts(ILNx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "花蓮縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "花蓮縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let HWA = data.filter(item => item.country_city == "花蓮縣");
+              let HWAx = [...posts, ...HWA];
+              setPosts(HWAx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "臺東縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "臺東縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let TTT = data.filter(item => item.country_city == "臺東縣");
+              let TTTx = [...posts, ...TTT];
+              setPosts(TTTx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "澎湖縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "澎湖縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let PEH = data.filter(item => item.country_city == "澎湖縣");
+              let PEHx = [...posts, ...PEH];
+              setPosts(PEHx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "金門縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "金門縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let KMN = data.filter(item => item.country_city == "金門縣");
+              let KMNx = [...posts, ...KMN];
+              setPosts(KMNx);
               changeBottomcolorOff();
               changecitycolor();
 
 
               break;
             case "連江縣":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].country_city == "連江縣") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
+              let LNN = data.filter(item => item.country_city == "連江縣");
+              let LNNx = [...posts, ...LNN];
+              setPosts(LNNx);
               changeBottomcolorOff();
               changecitycolor();
 
@@ -887,32 +794,32 @@ function Findcase() {
 
         {/* 下拉選單 */}
         <div style={{ display: "flex" }} >
-          <Dropdown>
-            <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
+          <Dropdown show={showdropdown}>
+            <Dropdown.Toggle onClick={() => setShowdropdown(true)} id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-              <Dropdown.Item onClick={() => fetchData("台北市")} className="selected-option" >台北市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新北市")} className="selected-option" >新北市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("桃園市")} className="selected-option">桃園市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("基隆市")} className="selected-option">基隆市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新竹市")} className="selected-option">新竹市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("新竹縣")} className="selected-option">新竹縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("彰化縣")} className="selected-option">彰化縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("南投縣")} className="selected-option">南投縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("雲林縣")} className="selected-option">雲林縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("高雄市")} className="selected-option">高雄市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("台南市")} className="selected-option">台南市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("嘉義市")} className="selected-option">嘉義市</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("嘉義縣")} className="selected-option">嘉義縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("屏東縣")} className="selected-option">屏東縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("宜蘭縣")} className="selected-option">宜蘭縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("花蓮縣")} className="selected-option">花蓮縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("臺東縣")} className="selected-option">臺東縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("澎湖縣")} className="selected-option">澎湖縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("金門縣")} className="selected-option">金門縣</Dropdown.Item>
-              <Dropdown.Item onClick={() => fetchData("連江縣")} className="selected-option">連江縣</Dropdown.Item>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>台北市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新北市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>桃園市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>基隆市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新竹市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新竹縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>彰化縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>南投縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>雲林縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>高雄市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>台南市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>嘉義市</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>嘉義縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>屏東縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>宜蘭縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>花蓮縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>臺東縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>澎湖縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>金門縣</div>
+              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>連江縣</div>
             </Dropdown.Menu>
           </Dropdown>
-
+          <input type="checkbox"></input>
 
           <Dropdown className="mx-5">
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
