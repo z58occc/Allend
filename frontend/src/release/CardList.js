@@ -69,12 +69,18 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     didOfDeletedData = deletedData.map(item => item.did);
 
     try {
-      const response = await fetch("http://localhost/api/delPublishCase", {
+      const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delpublishcase", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
-        body: JSON.stringify({ did: didOfDeletedData }),
+        body: JSON.stringify
+        (
+          { 
+            did: didOfDeletedData,
+          }
+        ),
       });
       console.log(didOfDeletedData)
 

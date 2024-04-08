@@ -168,8 +168,8 @@ function ProjectForm() {
             required
           >
             <option value="">請選擇</option>
-            <option value="short">短期</option>
-            <option value="long">長期</option>
+            <option value="短">短期</option>
+            <option value="長">長期</option>
           </Form.Control>
         </InputGroup>
 
