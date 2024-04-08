@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
+import { FaStar } from "react-icons/fa";
+
 
 
 
@@ -17,45 +19,45 @@ function CaseContext() {
 
 
     // Modal下面 送資料回去
-  const QuoteAmount = useRef();
-  const QuoteMessage = useRef();
+    const QuoteAmount = useRef();
+    const QuoteMessage = useRef();
 
 
-  const sendQuote = async (did, q_amount, q_message) => {
-    try {
-      fetch("http://localhost/Allend/backend/public/api/quote", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-        body: JSON.stringify({
-          did: did,
-          q_amount: q_amount,
-          q_message: q_message
-        })
-      })
+    const sendQuote = async (did, q_amount, q_message) => {
+        try {
+            fetch("http://localhost/Allend/backend/public/api/quote", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+                body: JSON.stringify({
+                    did: did,
+                    q_amount: q_amount,
+                    q_message: q_message
+                })
+            })
 
-    } catch (err) {
-      console.log(err);
-    }
-  };
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
 
-  const handleClose = async (d) => {
-    setShow(false);
-    const q_amount = QuoteAmount.current.value;
-    const q_message = QuoteMessage.current.value;
-    const did = d;
-    try {
-      const data = await sendQuote(did, q_amount, q_message);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
+    const handleClose = async (d) => {
+        setShow(false);
+        const q_amount = QuoteAmount.current.value;
+        const q_message = QuoteMessage.current.value;
+        const did = d;
+        try {
+            const data = await sendQuote(did, q_amount, q_message);
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
 
-  };
-  // Modal下面 送資料回去
+    };
+    // Modal下面 送資料回去
     const [key, setkey] = useState(0);
     const [posts, setPosts] = useState([]);
     const [members, setMembers] = useState([]);
@@ -64,9 +66,7 @@ function CaseContext() {
     const [endnumber, setEndnumber] = useState(0);
 
 
-    // console.log(url);
-    // debugger;
-    // console.log(urlParameter, );
+
     async function fetchData(id) {
         console.log(id);
         fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
@@ -84,23 +84,8 @@ function CaseContext() {
     useEffect(() => {
         const id = urlParameter.replace("?", "");
         fetchData(id);
-        // if (  ){
-        //     console.log(456768687, endnumber);
-        // }
+
     }, [urlParameter]);
-
-    // const fetchData = async () => {
-    //     fetch("http://localhost/Allend/backend/public/api/demmand_content/12")
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //             console.log(data.dammand);
-    //             setPosts(data.dammand);
-    //             setMembers(data.members);
-    //             setServiceStarAvg(data.service_star_avg);
-    //         })
-    // }
-
 
 
 
@@ -152,13 +137,7 @@ function CaseContext() {
                         <Button onClick={handleShow} >我要報價</Button>
                         <br></br>
                         {service_star_avg}
-                        <br></br>
-                        <CiStar />
-                        <CiStar />
-                        <CiStar />
-                        <CiStar />
-                        <CiStar />
-                        <br></br>
+                        <div style={{color:"yellow"}}>☆<FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
                         最後上線時間：{members.last_login}
                         <br></br>
                         <FaHeart style={{ color: 'red' }} />

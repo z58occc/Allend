@@ -289,9 +289,18 @@ function Findcase() {
         .then((response) => response.json())
         .then((data) => {
 
-          console.log(data);
           setPosts(data);
+
+
+
+          // 在點擊下一個按鈕後 清空案件
           setMycitys([]);
+          console.log(posts);
+          console.log(mycitys);
+          // 在點擊下一個按鈕後 清空案件
+
+
+
           // if (changecolortype == true) {
           //   changeBottomcolorOff();
 
@@ -698,7 +707,6 @@ function Findcase() {
           console.log(mycitys);
           console.log(posts);
           console.log(data);
-          console.log(posts);
 
 
         });
@@ -732,7 +740,6 @@ function Findcase() {
         });
     }
   };
-  console.log(posts);
 
 
 
@@ -746,6 +753,10 @@ function Findcase() {
 
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
   // 分頁
+
+
+
+
 
   {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -777,6 +788,9 @@ function Findcase() {
     });
   };
   {/* 置頂按鈕 */ }
+
+
+
 
 
 
@@ -931,7 +945,7 @@ function Findcase() {
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {currentPosts.map((post, index) => {
+          {posts.map((post, index) => {
 
             return (
               <div>
