@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navbar, Nav, Image, Button, Modal, Form } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
 import member from './member.png';
 import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 
 
@@ -19,7 +21,7 @@ const LeftVerticalNavbar = () => {
     ];
 
     const [usermember, setUsermember] = useState({
-        name: '會員',
+        name: '',
         image: member // 默认头像
     });
     const [showModal, setShowModal] = useState(false);
@@ -32,8 +34,26 @@ const LeftVerticalNavbar = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
-
+    const avatar = useRef();
+    // 修改頭像
     const handleSaveImage = () => {
+        const avatarFile = new FileReader();
+        avatarFile.onload = (e) => {
+          axios({
+            method: "post",
+            url: "http://localhost/Allend/backend/public/api/avatar",
+            data: {image: e.target.result},
+            headers: {Authorization: `Bearer ${Cookies.get('token')}`},
+          })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        avatarFile.readAsDataURL(avatar.current.files[0]);
+    
         if (imageFile) {
             setUsermember({ ...usermember, image: URL.createObjectURL(imageFile) });
             setShowModal(false);
@@ -44,24 +64,43 @@ const LeftVerticalNavbar = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        console.log(file);
         if (file) {
             setImageFile(file);
         }
     };
+    // 獲取頭像、姓名
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = Cookies.get("token");
+            const headers = { Authorization: `Bearer ${token}` };
+            const res = await axios.get(
+              "http://localhost/Allend/backend/public/api/avaname",
+              { headers: headers }
+            );
+            const result = await res.data;
+            setUsermember({name:result[0].name, image:result[0].image});
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchData();
 
+      }, []);
+    console.log(usermember.name)
 
 
 
 
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
-
-            <Button variant="link" onClick={handleEditmember} style={{ margin: 'auto' }}>
-                <Image src={usermember.image} roundedCircle width="100" height="100" />
-            </Button>
-
-            <Navbar.Text style={{ fontSize: '20px' }}>{usermember.name}</Navbar.Text>
-
+       
+            <div variant="link" onClick={handleEditmember} >
+                <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/>
+            </div>
+            <div style={{ fontSize: '20px' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
+   
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>修改頭像</Modal.Title>
@@ -70,7 +109,7 @@ const LeftVerticalNavbar = () => {
                     <Form>
                         <Form.Group controlId="formImageFile">
                             <Form.Label>選擇圖片檔案</Form.Label>
-                            <Form.Control type="file" accept="image/*" onChange={handleFileChange} />
+                            <Form.Control type="file" accept="image/*" ref={avatar} onChange={handleFileChange} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

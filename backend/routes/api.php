@@ -134,8 +134,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/updatedemmand', 'updateDemmandInfo');
     // 修改密碼
     Route::post('/fixp', 'updatePassword');
-    // 獲取頭像
-    Route::get('/avaimg', 'getAvatar');
+    // 獲取頭像、姓名
+    Route::get('/avaname', 'getAvatar');
     // 修改頭像
     Route::post('/avatar', 'updateAvatar');
     // 獲取接案紀錄

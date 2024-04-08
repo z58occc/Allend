@@ -20,7 +20,6 @@ function FreelancerForm() {
     phone: "",
     gender: "",
     area: "",
-    nickname: "",
   });
 
   const handleReset = () => {
@@ -34,7 +33,6 @@ function FreelancerForm() {
       phone: "",
       gender: "",
       area: "",
-      nickname: "",
     });
     setIsSubmitted(false);
   };
@@ -43,45 +41,34 @@ function FreelancerForm() {
   const [isFormComplete, setIsFormComplete] = useState(false);
   const [isFreelancer, setIsFreelancer] = useState(true);
 
-  //   useEffect(() => {
-  //     // 检查表单是否完整
-  //     const isComplete = Object.values(formData).every((value) => value !== "");
-  //     setIsFormComplete(isComplete);
-  //   }, [formData]);
-  const isNotFirst = useRef(false);
-  const [isLoading, setIsLoading] = useState(false);
+    // useEffect(() => {
+    //   // 检查表单是否完整
+    //   const isComplete = Object.values(formData).every((value) => value !== "");
+    //   setIsFormComplete(isComplete);
+    // }, [formData]);
 
   useEffect(() => {
-    // console.log(2);
-    // if (isNotFirst.current == false) {
-    //   isNotFirst.current = true;
-    //   return;
-    // }
-    const fetchData = async (complete) => {
+    const fetchData = async () => {
       try {
         const token = Cookies.get("token");
         const headers = { Authorization: `Bearer ${token}` };
         const res = await axios.get(
-          "http://localhost/Allend/backend/public/api/mem",
+          "/Allend/backend/public/api/mem",
           { headers: headers }
         );
         const result = await res.data;
-        // setIsLoading(true);
-        // setTimeout(() => {
-        //   complete(result);
-        //   setIsLoading(false);
-        // }, 3000);
         setFormData(result);
       } catch (err) {
         console.log(err);
       }
-      // setIsLoading(false);
     };
     fetchData();
+    
     // fetchData((result) => {
     //   setFormData(result);
     // });
   }, []);
+console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,11 +105,18 @@ function FreelancerForm() {
         e.target.classList.remove("is-invalid");
       }
     }
+    if(name === "experience"){
 
+    }
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+    const isComplete = Object.values(formData).every((value) => value !== "");
+    setIsFormComplete(isComplete);
+    // console.log(Object.values(formData.experience))
+    // console.log(Object.values(formData.locations))
+
   };
 
   const handleSubmit = (e) => {
@@ -132,7 +126,7 @@ function FreelancerForm() {
       url: "http://localhost/Allend/backend/public/api/updateprofiles",
       data: {
         identity: formData.identity,
-        nickname: formData.nickname,
+        // nickname: formData.nickname,
         experience: formData.experience,
         location: formData.locations,
         idCard: formData.idCard,
@@ -211,7 +205,7 @@ function FreelancerForm() {
                 {/* 身分 */}
 
                 {/* 暱稱 */}
-                {isFreelancer && (
+                {/* {isFreelancer && (
                   <Form.Group as={Row}>
                     <Form.Label column sm={6}>
                       暱稱：
@@ -228,7 +222,7 @@ function FreelancerForm() {
                       </Col>
                     )}
                   </Form.Group>
-                )}
+                )} */}
                 {/* 暱稱 */}
 
                 {/* 年資、接案地點 */}
@@ -254,7 +248,7 @@ function FreelancerForm() {
                         <option value="2">2 年</option>
                         <option value="3">3 年</option>
                         <option value="4">4 年</option>
-                        <option value="4">5 年以上</option>
+                        <option value="5">5 年以上</option>
                       </Form.Select>
                     </div>
                     <div className="col-sm-6">
