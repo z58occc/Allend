@@ -45,7 +45,7 @@ function ProjectForm() {
         d_email: email,
         d_mobile_phone: contact,
       },
-      headers: { Authorization: Cookies.get("token") },
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
       .then((res) => {
         console.log(res);

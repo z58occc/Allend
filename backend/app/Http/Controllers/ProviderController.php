@@ -22,7 +22,7 @@ class ProviderController extends Controller
     public function callback(){
         try{
             $SocialUser = Socialite::driver('google')->stateless()->user();
-            // dd($SocialUser->email);
+
             $user = Member::where('email', $SocialUser->getEmail())->first();
             if($user){
                 $token = JWTAuth::fromUser($user);
