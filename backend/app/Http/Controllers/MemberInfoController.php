@@ -490,8 +490,8 @@ class MemberInfoController extends Controller
         ]);
     }
 
-    // 獲取服務管理頁面
-    public function getService(Request $request)
+    // 獲取服務管理頁面(服務、作品、影音)
+    public function getServicePage(Request $request)
     {
         $mid = Auth::id();
         if($mid){
@@ -649,7 +649,7 @@ class MemberInfoController extends Controller
             'image'=>$imageData,
             'created_at'=>now(),
             'updated_at'=>now()
-        ]); 
+        ]);
         return response($work);
     }
 
@@ -777,7 +777,47 @@ class MemberInfoController extends Controller
     }
 
     // 獲取我的收藏
-    public function getCollection(){
+    public function getCollection(Request $request)
+    {
+        $mid = Auth::id();
+        if($mid){
+
+            $service_query = DB::table('service')
+            ->join('category', 'catid', '=', 's_type')
+            ->join('country', 'country_id', '=', 's_active_location')
+            ->select('sid', 'image', 's_name', 'type', 's_description', 's_amount', 's_unit',
+            'country_city as s_active_location', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
+            ->where('mid',$mid);
+
+            $project_query = DB::table('project')->select('pid','image','p_name','p_description',
+            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at')) ->where('mid',$mid);
+
+            $video_query = DB::table('video')->select('vid','src','v_name','v_description',
+            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
+
+            // 服務搜尋
+            if($request->has('servicesearch')){
+                $service_query->where('s_name','like','%'.$request->input('servicesearch').'%');
+            }
+            // 作品搜尋
+            if($request->has('projectsearch')){
+                $project_query->where('p_name','like','%'.$request->input('projectsearch').'%');
+            }
+            // 影音搜尋
+            if($request->has('videosearch')){
+                $video_query->where('v_name','like','%'.$request->input('videosearch').'%');
+            }
+
+            // 分頁顯示
+            // $service_results = $service_query->paginate(4);
+            // $project_results =  $project_query->paginate(6);
+            // $video_results = $video_query->paginate(6);
+            return response()->json([
+                'service' => $service_query->get(),
+                'project' => $project_query->get(),
+                'video' => $video_query->get(),
+            ]);
+        }
 
     }
 }

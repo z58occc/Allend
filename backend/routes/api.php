@@ -70,11 +70,11 @@ Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
-//綠界
+// 綠界
 Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
 Route::post('/callback', [ECPaymentController::class, 'Callback']);
 
-//取得email
+// 取得email
 Route::get('/user/email', GetmemberemailController::class);
 // 接發案內容
 // Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
@@ -104,7 +104,6 @@ Route::controller(AuthController::class)->group(function(){
     // 登出
     Route::post('/logout', 'logout');
 });
-
 
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
@@ -152,8 +151,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 刪除發案紀錄
     Route::post('/delpublishcase', 'delPublishCase');
 
-    // 獲取服務管理頁面
-    Route::get('/memservice', 'getService');
+    // 獲取服務管理頁面(服務、作品、影音)
+    Route::get('/memservice', 'getServicePage');
     // 新增服務
     Route::post('/addservice', 'addService');
     // 編輯服務
@@ -172,6 +171,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/upvideo', 'updateVideo');
     // 刪除影音
     Route::post('/delvideo', 'delVideo');
+
     // 獲取我的收藏頁面
     Route::get('/collection', 'getCollection');
 });
