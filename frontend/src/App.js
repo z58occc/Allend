@@ -27,7 +27,7 @@ import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
-import PayButton from "./Components/paybutton";
+import PayButton from "./release/paybutton";
 import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen2";
 
@@ -136,6 +136,7 @@ function App() {
       Cookies.set("token", res.data.token);
       setIsLoggedIn(true);
       setShowLogin(false);
+      navigate('/switch');
     } catch (err) {
       console.log(err);
     }
@@ -234,7 +235,6 @@ function App() {
       Cookies.set('token', token);
       setIsLoggedIn(true);
       setShowLogin(false);
-      navigate("/switch");
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
@@ -262,6 +262,7 @@ function App() {
 
 
 
+  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href;
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
@@ -382,10 +383,10 @@ function App() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
-                to="/ProjectForm"
+                to={projectFormLink }
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
                 style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "100px", textAlign: "center" }}
-                onClick={() => handleLinkClick("/ProjectForm")}
+                onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm"): handleShow}
               >
                 發案
               </Link>
@@ -417,8 +418,7 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-        <Route path="/pay" element={<PayButton></PayButton>}></Route>
-        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
+        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route> 
       </Routes>
 
 

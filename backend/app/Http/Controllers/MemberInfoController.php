@@ -292,7 +292,7 @@ class MemberInfoController extends Controller
         ->select('cid', 'c_name','type', 'c_status', 'c_amount','c_unit','c_duration','country_city as active_location',
         'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
         ->where('mid_service',$mid)
-        ->whereIn('c_status',[1, 3]);
+        ->whereIn('c_status',[1, 3 ,4]);
 
         // 接案已結案
         $Case_completed_query = DB::table('established_case')
@@ -397,7 +397,7 @@ class MemberInfoController extends Controller
             ->join('country', 'country_id', '=', 'c_active_location')
             ->select('cid', 'c_name','type', 'c_status', 'c_amount','c_unit','c_duration','country_city as active_location',
             'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
-            ->where('mid_demmand',$mid)->whereIn('c_status',[1, 3])
+            ->where('mid_demmand',$mid)->whereIn('c_status',[1, 3, 4])
             ->orderBy('created_at', 'desc')->orderBy('cid', 'desc');
 
             // 發案已結案

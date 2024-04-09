@@ -73,6 +73,7 @@ Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote'])
 //綠界
 Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
 Route::post('/callback', [ECPaymentController::class, 'Callback']);
+Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
 
 //取得email
 Route::get('/user/email', GetmemberemailController::class);
