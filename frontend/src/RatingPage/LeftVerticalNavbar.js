@@ -16,7 +16,7 @@ const LeftVerticalNavbar = () => {
         { link: '/member', text: '會員中心' },
         { link: '/email', text: '會員維護' },
         { link: '/services', text: '案件管理' },
-        { link: '#contact', text: '服務管理' },
+        { link: '/manage', text: '服務管理' },
         { link: '#favorite', text: '收藏管理' },
     ];
 
