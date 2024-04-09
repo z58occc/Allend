@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card, Form, Col, Row } from "react-bootstrap";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
+import Cookies from "js-cookie";
+import { CaseContext } from "./MainScreen2";
 const Media = ({ data3 }) => {
   console.log(data3);
-
+  const { fetchData } = useContext(CaseContext);
+  const CaseData = data3;
   const [selectedItems, setSelectedItems] = useState(Array(data3.length).fill(false));
   const [checkedAll, setCheckedAll] = useState(false);
 
@@ -29,6 +32,60 @@ const Media = ({ data3 }) => {
   const handleClose = () => {
     setShow(false);
   }
+  //刪除
+
+
+  const [deletedIndex, setDeletedIndex] = useState([]);
+
+  let deletedData = [];
+  let didOfDeletedData = [];
+
+  const handleDeleted = async () => {
+    const deletedIndices = [];
+    selectedItems.forEach((item, index) => {
+      if (item === true) {
+        deletedIndices.push(index);
+      }
+    });
+    setDeletedIndex(deletedIndices);
+
+    deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+
+
+    didOfDeletedData = deletedData.map(item => item.vid);
+
+    try {
+      const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delvideo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify
+          (
+            {
+              vid: didOfDeletedData,
+            }
+          ),
+      });
+      console.log(didOfDeletedData)
+
+      fetchData();
+      setSelectedItems([false])
+      if (!response.ok) {
+        throw new Error('Failed to delete data');
+      }
+
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      // Handle successful response, such as updating the page or other operations
+
+    } catch (error) {
+      console.error('Error deleting data:', error);
+      // Handle error cases, such as displaying error messages or other handling
+    }
+  };
 
   return (
     <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '650px' }}>
@@ -37,7 +94,7 @@ const Media = ({ data3 }) => {
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => {handleShow()}}
+            onClick={() => { handleShow() }}
           >
             新增
           </Button>
@@ -52,7 +109,7 @@ const Media = ({ data3 }) => {
           <Button
             variant="danger"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { /* Missing delete functionality handler */ }}
+            onClick={() => { handleDeleted() }}
           >
             刪除
           </Button>

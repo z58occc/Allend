@@ -73,6 +73,7 @@ Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote'])
 // 綠界
 Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
 Route::post('/callback', [ECPaymentController::class, 'Callback']);
+Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
 
 // 取得email
 Route::get('/user/email', GetmemberemailController::class);
@@ -158,7 +159,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 編輯服務
     Route::post('/updateservice', 'updateService');
     // 刪除服務
-    Route::get('/delmemser', 'delService');
+    Route::post('/delmemser', 'delService');
     // 新增作品
     Route::post('/work', 'addWork');
     // 編輯作品

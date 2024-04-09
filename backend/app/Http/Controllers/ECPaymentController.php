@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Ecpay\Sdk\Factories\Factory;
 use Ecpay\Sdk\Services\UrlService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class ECPaymentController extends Controller
@@ -20,12 +21,12 @@ class ECPaymentController extends Controller
 
         $input = [
             'MerchantID' => '3002607',
-            'MerchantTradeNo' => 'Test' . time(),
+            'MerchantTradeNo' => $request->cid,
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
             'PaymentType' => 'aio',
-            'TotalAmount' => 100,
+            'TotalAmount' => $request->c_amount,
             'TradeDesc' => UrlService::ecpayUrlEncode('交易描述範例'),
-            'ItemName' => '範例商品一批 100 TWD x 1',
+            'ItemName' => $request->c_name,
             'ChoosePayment' => 'ATM',
             'EncryptType' => 1,
 
@@ -33,15 +34,14 @@ class ECPaymentController extends Controller
             'ExpireDate' => 7,
 
             // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-            'ReturnURL' => 'https://9fe3-111-253-221-6.ngrok-free.app/Allend/backend/public/api/callback',
-            'PaymentInfoURL' => 'https://fd55-111-253-221-6.ngrok-free.app/Allend/backend/public/api/callback',
+            'ReturnURL' => 'https://f5b0-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callback',
+            'PaymentInfoURL' => 'https://f5b0-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callbackinfo',
         ];
 
         
         $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
             // 生成表单数据
     $formData = $autoSubmitFormService->generate($input, $action);
-
     // Extract input fields using regular expression
     preg_match_all('/<input.*?name=("|\')(.*?)("|\')(?:\s+.*?value=("|\')(.*?)("|\'))?.*?>/', $formData, $matches);
 
@@ -51,7 +51,6 @@ class ECPaymentController extends Controller
         $value = $matches[5][$index] ?? ''; // Set default value to empty string if value attribute doesn't exist
         $jsonFormData[$name] = $value;
     }
-
     return Response::json($jsonFormData);
     }
 
@@ -66,10 +65,18 @@ class ECPaymentController extends Controller
     
         // Step 3: Respond back to ECPay
         if ($verificationPassed) {
+            $cid = $request->input('cid');
+            DB::table('established_case')->where('cid', $cid)
+            ->update(['c_status' => 2]);
             return '1|OK'; // Responding with "1|OK" to acknowledge successful receipt
         } else {
             // Respond with an error message if verification fails
             return '0|Error';
         }
+    }
+
+    public function CallbackInfo(Request $request)
+    {
+        dd($request->all());
     }
 }   

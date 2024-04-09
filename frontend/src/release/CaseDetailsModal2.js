@@ -1,9 +1,17 @@
-import { React, useContext, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+import PayButton from "./paybutton"
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
+  
+  const [selectedCase, setSelectedCase] = useState({
+    cid: '',
+    c_name: '',
+    c_amount: 0
+  });
+
   const received = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
       method: 'GET',
@@ -19,6 +27,16 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
       console.error(error);
     })
   }
+
+  useEffect(() => {
+    // 当 data[number] 发生变化时更新 selectedCase
+    setSelectedCase({
+      cid: data[number].cid,
+      c_name: data[number].c_name,
+      c_amount: data[number].c_amount
+    });
+  }, [data, number]);
+  console.log(selectedCase);
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
@@ -103,6 +121,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
             已收到案件
           </Button>
           }
+          <PayButton cName={selectedCase.c_name} cId={selectedCase.cid} cAmount={selectedCase.c_amount}  />
           
         </div>
       </Modal.Body>
