@@ -179,7 +179,8 @@ function Findcase() {
   }
 
   const handlechangecity = async (event) => {
-    setAll(false);
+    // setAll(false);
+    // fetchData();
     console.log(event);
     console.log(event.target);
     console.log(event.target.checked);
@@ -188,7 +189,7 @@ function Findcase() {
   }
 
   const handlechangebudget = async (event) => {
-    setAll(false);
+    // setAll(false);
     fetchDataByBudget(event.target.name, event.target.checked);
   }
 
@@ -710,13 +711,13 @@ function Findcase() {
 
           let budget = posts.filter(item => item.d_amount <= 5000)
           console.log(budget);
-          const budgets = [...mycitys, ...budget]
-          setMycitys(budgets);
+          // const budgets = [...mycitys, ...budget]
+          setPosts(budget);
         } else {
           console.log(mycitys);
-          let empty = mycitys.filter(item => item.country_city > 5000)
+          let empty = posts.filter(item => item.country_city > 5000)
           console.log(mycitys);
-          setMycitys(empty);
+          setPosts(empty);
         }
         break;
       case "1w":
@@ -791,15 +792,32 @@ function Findcase() {
       let city = posts.filter(item => item.country_city == cityname)
       console.log(city);
       const citys = [...mycitys, ...city]
-      setMycitys(citys);
+      console.log(citys);
+
+      setPosts(citys);
 
     } else {
       console.log(mycitys);
-      let empty = mycitys.filter(item => item.country_city != cityname)
-      console.log(mycitys);
-      setMycitys(empty);
+      let empty = posts.filter(item => item.country_city != cityname)
+      console.log(empty);
+      setPosts(empty);
     }
   }
+  console.log(mycitys);
+  //   if (bool == true) {
+
+  //     let city = posts.filter(item => item.country_city == cityname)
+  //     console.log(city);
+  //     const citys = [...mycitys, ...city]
+  //     setMycitys(citys);
+
+  //   } else {
+  //     console.log(mycitys);
+  //     let empty = mycitys.filter(item => item.country_city != cityname)
+  //     console.log(mycitys);
+  //     setMycitys(empty);
+  //   }
+  // }
 
 
 
