@@ -128,7 +128,7 @@ class MemberInfoController extends Controller
         $request->validate([
             'identity' => "required",
             'experience' => "required",
-            'locations' =>"required",
+            'location' =>"required",
             'idCard' => "required|max:10",
             'name' => "required",
             'phone' =>"required|max:10",
@@ -136,16 +136,20 @@ class MemberInfoController extends Controller
             'area' => "required",
         ]);
 
+        $identity = DB::table('identity')->where('i_identity', $request->identity)->value('iid');
+        $active_location = DB::table('country')->where('country_city', $request->location)->value('country_id');
+        $location = DB::table('country')->where('country_city', $request->area)->value('country_id');
+
         try{
             Member::where('mid', $user_id)->update([
-                'identity' => $request->identity,
+                'identity' => $identity,
                 'seniority' => $request->exprience,
-                'active_location' => $request->location,
+                'active_location' => $active_location,
                 'mobile_phone' => $request->phone,
                 'name' => $request->name,
                 'id_card' => $request->idCard,
                 'gender' => $request->gender,
-                'location' => $request->area,
+                'location' => $location,
                 'updated_at' => now(),
             ]);
         }catch(Throwable $err){

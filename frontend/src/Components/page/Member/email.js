@@ -99,9 +99,7 @@ console.log(formData)
         e.target.classList.remove("is-invalid");
       }
     }
-    if(name === "experience"){
 
-    }
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -234,7 +232,7 @@ console.log(formData)
                         value={formData.experience}
                         onChange={handleChange}
                       >
-                        <option value="">請選擇累積年資</option>
+                        <option>請選擇累積年資</option>
                         <option value="1">1 年</option>
                         <option value="2">2 年</option>
                         <option value="3">3 年</option>
