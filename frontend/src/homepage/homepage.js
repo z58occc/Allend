@@ -186,20 +186,20 @@ function Homepage() {
             <h4>新手教學</h4>
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
               <div className="col-3 l" style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
                 <p>為你篩選適合人才</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>刊登服務<FaWpforms style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>刊登服務<FaWpforms style={{ fontSize: '50px' }} /></h4>
                 <p>上架您的案件</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
                 <p>找人才輕鬆無壓力</p>
               </div>
               <div class="col-12 text-center">
-                <span style={{ color: "#FFB5B5" }}>找案件，找人才，由我們搞定！</span>
-                <button style={{ border: "none", backgroundColor: "#FFB5B5", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
+                <span style={{ color: "#FF9797" }}>找案件，找人才，由我們搞定！</span>
+                <button style={{ border: "none", backgroundColor: "#FF9797", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
 
               </div>
             </div>
@@ -297,7 +297,7 @@ function Homepage() {
           <Carousel
             activeIndex={carouselpage}
             onSelect={handleSelect}
-            style={{ overflow: " hidden", backgroundColor: "#9CAFAA",width:"600px" }}
+            style={{ overflow: " hidden", backgroundColor: "#9CAFAA", width: "600px" }}
             id="carousel"
             interval={null}
             indicators={false}
@@ -360,13 +360,13 @@ function Homepage() {
                         <h3 >{post.name}</h3>
                       </Link>
                     </Col> */}
-                    {/* <Col xs lg="5">
+            {/* <Col xs lg="5">
                           <Link className="justify-content-md-center" style={{alignItems:"end"}} to={`./talent/${post.mid}`}>
                             <h3 >{post.name}</h3>
                           </Link>
 
                         </Col> */}
-                  {/* </Row>
+            {/* </Row>
                 </Carousel.Item>
 
               )
@@ -412,7 +412,7 @@ function Homepage() {
             <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><TfiAnnouncement style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 pe-2"><TfiAnnouncement style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
 
@@ -425,7 +425,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 "><TbBellRinging style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 "><TbBellRinging style={{ fontSize: "35px", color: "#FF9797" }} />
 
                   </div>
                   <div className="col-10">
@@ -438,7 +438,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><IoIosPeople style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><IoIosPeople style={{ fontSize: "35px", color: "#FF9797" }} />
 
                   </div>
                   <div className="col-10">
@@ -456,7 +456,7 @@ function Homepage() {
             <div className="talent-modal-div" >
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><BsPersonVcard style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 pe-2"><BsPersonVcard style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">建立個人案件</h5>
@@ -468,7 +468,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><FaBriefcase style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><FaBriefcase style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
@@ -480,7 +480,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">無上限申請提案</h5>

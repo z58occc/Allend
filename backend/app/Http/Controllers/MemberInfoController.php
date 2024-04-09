@@ -413,7 +413,8 @@ class MemberInfoController extends Controller
 
             // 發案刊登搜尋
             if($request->has('demmandSearch')){
-                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+                $demmand_query
+                ->where('d_name','like','%'.$request->input('demmandSearch').'%');
             }
             // 發案進行中搜尋
             if($request->has('demmandProgressSearch')){
