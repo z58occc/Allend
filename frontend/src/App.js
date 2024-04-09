@@ -54,55 +54,6 @@ function App() {
   const RegisterPassword = useRef();
   const RegisterConfPassword = useRef();
 
-  // const handleRegister = () => {
-  //   const email = RegisterEmail.current.value
-  //   const password = RegisterPassword.current.value
-  //   const confirmpasswrod = RegisterConfPassword.current.value
-  //   const RegisterLogin = (data) => {
-  //     axios({
-  //       method:'post',
-  //       url:"http://localhost/PHP/Allend/backend/public/api/login",
-  //       data: {
-  //         email: data.email,
-  //         password:data.password
-  //       }
-  //     })
-  //     .then((res) => {return res.data;})
-  //     .then((data) => {
-  //       console.log(data);
-  //       Cookies.set('token', data.token);}
-  //       )
-  //   }
-
-  //   axios({
-  //     method: "post",
-  //     url: "http://localhost/PHP/Allend/backend/public/api/register",
-  //     data: {
-  //       email: RegisterEmail.current.value,
-  //       password: RegisterPassword.current.value,
-  //       password_confirmation: RegisterConfPassword.current.value,
-  //     },
-  //   })
-
-  //   .then((res) => {return res.data;})
-  //   .then((data) => {
-  //     console.log(data);
-  //     RegisterLogin(data)
-  //     })
-  // }
-
-  // google登入
-  const handleGoogleLogin = () => {
-    try {
-      axios({
-        method: 'get',
-        url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => console.log(res.data))
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   const [errorRegister, seterrorRegister] = useState('');
 
   const [showVerificationModal, setShowVerificationModal] = useState(false);
@@ -217,6 +168,18 @@ function App() {
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // google登入
+  const handleGoogleLogin = () => {
+    try {
+      axios({
+        method: 'get',
+        url: "http://localhost/Allend/backend/public/auth/google/redirect"
+      }).then((res) => console.log(res.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
   const [errorMessage, setErrorMessage] = useState('');
   const [memberEmail, setMemberEmail] = useState('');
   const navigate = useNavigate();

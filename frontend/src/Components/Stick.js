@@ -33,7 +33,8 @@ function Stick() {
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
                 <div style={{ textAlign: 'start', fontSize: 20, border: 'solid', }}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
-                        <AiFillGitlab style={{ color: '#4EFEB3' }} />
+                        <img src={talent.member && talent.member[0].avatar} />
+                        {/* <AiFillGitlab style={{ color: '#4EFEB3' }} /> */}
                         <p>{talent.member && talent.member[0].name}</p>
                         {Array.from({ length: talent.avg_star }, (_, i) => (<CiStar key={i} />))}
                     </div>

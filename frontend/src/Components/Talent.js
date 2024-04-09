@@ -14,7 +14,6 @@ import YouTubeEmbed from './youtube';
 
 
 function Talent() {
-
     const { mid } = useParams();
     const [talent, setTalent] = useState([]);
     useEffect(() => {
