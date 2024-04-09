@@ -21,7 +21,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
     })
     .then(()=>{
       fetchData();
-      onHide();
+      // onHide();
     })
     .catch((error)=>{
       console.error(error);
@@ -117,11 +117,11 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
             已收到案件
           </Button>
           :
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true}>
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true} style={{display:"none"}}>
             已收到案件
           </Button>
           }
-          <PayButton cName={selectedCase.c_name} cId={selectedCase.cid} cAmount={selectedCase.c_amount}  />
+          {data[number].c_status === 4 && <PayButton cName={selectedCase.c_name} cId={selectedCase.cid} cAmount={selectedCase.c_amount} />}
           
         </div>
       </Modal.Body>
