@@ -134,6 +134,7 @@ function Findcase() {
   const [messagewarm, setMessagewarm] = useState(false);
   const [amountwarm, setAmountwarm] = useState(false);
   const [all, setAll] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
 
   const [changecolor1, setChangecolor1] = useState(false);
@@ -178,14 +179,15 @@ function Findcase() {
     setChangecolorduration(true);
   }
 
-  const handlechangecity = async (event) => {
+  const handlechangecity = async () => {
     // setAll(false);
     // fetchData();
-    console.log(event);
-    console.log(event.target);
-    console.log(event.target.checked);
-    console.log(event.target.name);
-    fetchDataByCity(event.target.name, event.target.checked);
+    // console.log(event);
+    // console.log(event.target);
+    // console.log(event.target.checked);
+    // console.log(event.target.name);
+    // fetchDataByCity(event.target.name, event.target.checked);
+    setIsChecked(!isChecked);
   }
 
   const handlechangebudget = async (event) => {
@@ -955,13 +957,14 @@ function Findcase() {
         {/* 下拉選單 */}
         <div style={{ display: "flex" }} >
           <Dropdown >
-            <Dropdown.Toggle  id="dropdown-basic">地區</Dropdown.Toggle>
+            <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               <div>
                 <input
                   type="checkbox"
-                  onChange={handlechangecity}
                   name="台北市"
+                  checked={isChecked}
+                  onChange={handlechangecity}
                 >
                 </input>
                 台北市
@@ -1228,7 +1231,7 @@ function Findcase() {
 
             return (
               <div>
-              <div>{index+1}</div>
+                <div>{index + 1}</div>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
@@ -1247,7 +1250,7 @@ function Findcase() {
 
                       {/* className="position-absolute bottom-0 end-0" */}
                     </Col>
-                    <Col xs={1}>
+                    <Col xs={1} style={{ backgroundColor: "white" }}>
                       <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
