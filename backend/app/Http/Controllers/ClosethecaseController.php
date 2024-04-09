@@ -27,7 +27,7 @@ class ClosethecaseController extends Controller
     public function receviceData(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')->where('cid', $cid)
-        ->update(['c_status' => 2]);
+        ->update(['c_status' => 4]);
 
         return response()->json([
             'message' => '已確認案件結果'

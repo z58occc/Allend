@@ -11,6 +11,7 @@ export const CaseContext = createContext();
 const MainScreen2 = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
 
+  
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
@@ -97,7 +98,7 @@ const MainScreen2 = () => {
                         eventKey="screen1"
                         onClick={() => handleScreenChange("screen1")}
                       >
-                        未接案數
+                        刊登中
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ECPayment = () => {
+const ECPayment = ({cName, cId, cAmount}) => {
     const [formData, setFormData] = useState({
         MerchantID: '',
         MerchantTradeNo: '',
@@ -13,15 +13,21 @@ const ECPayment = () => {
         PaymentType: '',
         TradeDesc: '',
         ChoosePayment: '',
-        EncryptType: 0,
-        ExpireDate: 0,
+        EncryptType: 1,
+        ExpireDate: 1,
     });
 
     useEffect(() => {
         // 发起请求获取后端数据
-        axios.post('http://localhost/Allend/backend/public/api/ecpay') // 根据您的后端路由进行修改
+        axios.post('http://localhost/Allend/backend/public/api/ecpay',{
+            c_name: cName,
+            cid: cId,
+            c_amount: cAmount
+        
+        }) // 根据您的后端路由进行修改
             .then(response => {
                 // 将后端数据设置为 formData 的状态
+                console.log(response.data);
                 setFormData(response.data);
             })
             .catch(error => console.error('Error fetching data:', error));
@@ -34,6 +40,7 @@ const ECPayment = () => {
         form.type = 'hidden';
         form.action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
+
         // 添加表单字段
         Object.entries(formData).forEach(([key, value]) => {
             const input = document.createElement('input');
@@ -42,6 +49,8 @@ const ECPayment = () => {
             input.value = value;
             form.appendChild(input);
         });
+
+        
 
         // 将表单添加到页面并自动提交
         document.body.appendChild(form);
