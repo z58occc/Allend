@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SearchPage from './SearchPage';
 import CardList from './CardList';
 import Pagination from 'react-bootstrap/Pagination';
 
