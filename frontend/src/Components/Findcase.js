@@ -127,11 +127,13 @@ function Findcase() {
   };
   // Modal上面
 
+
   const [posts, setPosts] = useState([]);
   const [mycitys, setMycitys] = useState([]);
   const [changeorder, setChangeorder] = useState(false);
   const [messagewarm, setMessagewarm] = useState(false);
   const [amountwarm, setAmountwarm] = useState(false);
+  const [all, setAll] = useState(true);
 
 
   const [changecolor1, setChangecolor1] = useState(false);
@@ -177,14 +179,12 @@ function Findcase() {
   }
 
   const handlechangecity = async (event) => {
+    setAll(false);
+    console.log(event);
     console.log(event.target);
+    console.log(event.target.checked);
     console.log(event.target.name);
-    fetchData(event.target.name);
-    // const { name, checked } = event.target;
-    // setPosts((posts) => ({
-    //   ...posts,
-    //   [name]: checked,
-    // }))
+    fetchData(event.target.name, event.target.checked);
   }
 
 
@@ -265,7 +265,7 @@ function Findcase() {
 
   }
 
-  const fetchData = async (type) => {
+  const fetchData = async (type, bool) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
       setCurrentPage(1);
@@ -313,11 +313,12 @@ function Findcase() {
         .then((data) => {
 
           setPosts(data);
+          console.log(data);
 
 
 
           // 在點擊下一個按鈕後 清空案件
-          setMycitys([]);
+            // setMycitys([]);
           console.log(posts);
           console.log(mycitys);
           // 在點擊下一個按鈕後 清空案件
@@ -328,322 +329,337 @@ function Findcase() {
           //   changeBottomcolorOff();
 
           // }
-          switch (type) {
-            case "台北市":
-              // for (let i = 0; i < data.length; i++) {
-              //   // const x = data.filter((data) => data[i].country_city == "台北市");
-              //   // console.log(x);
-              //   // setPosts(x);
-              //   if (data[i].country_city == "台北市") {
-              //     // console.log(data[i]);
-              //     mycitys.push(data[i]);
-              //     const y = mycitys.filter((x) => x.did < 13);
-              //     // console.log(y);
-              //     // console.log(mycitys);
-              //     // [...mycitys,(data[i])];
-              //     // const x = []
-              //     // console.log(x);
-              //     setPosts(y);
-              //     console.log(mycitys);
+          if (bool == true) {
+            switch (type) {
 
-              //   }
-              // }
-              console.log("台北市");
-              let TPE = data.filter(item => item.country_city == "台北市");
-              let TPEx = [...posts, ...TPE];
-              setPosts(TPEx);
-              changeBottomcolorOff();
-              changecitycolor();
+              // break;
+              case "台北市":
+                // for (let i = 0; i < data.length; i++) {
+                //   // const x = data.filter((data) => data[i].country_city == "台北市");
+                //   // console.log(x);
+                //   // setPosts(x);
+                //   if (data[i].country_city == "台北市") {
+                //     // console.log(data[i]);
+                //     mycitys.push(data[i]);
+                //     const y = mycitys.filter((x) => x.did < 13);
+                //     // console.log(y);
+                //     // console.log(mycitys);
+                //     // [...mycitys,(data[i])];
+                //     // const x = []
+                //     // console.log(x);
+                //     setPosts(y);
+                //     console.log(mycitys);
 
+                //   }
+                // }
 
-              console.log(mycitys);
-              break;
-            case "新北市":
-              let TPH = data.filter(item => item.country_city == "新北市");
-              let TPHx = [...posts, ...TPH];
-              setPosts(TPHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                console.log("台北市");
+                let TPE = data.filter(item => item.country_city == "台北市");
+                console.log(TPE);
+                
+                let TPEx = [...mycitys, ...TPE];
+                setMycitys(TPEx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "桃園市":
-              let TYC = data.filter(item => item.country_city == "桃園市");
-              let TYCx = [...posts, ...TYC];
-              setPosts(TYCx);
-
-              changeBottomcolorOff();
-              changecitycolor();
-
-
-              break;
-            case "基隆市":
-              let KLU = data.filter(item => item.country_city == "基隆市");
-              let KLUx = [...posts, ...KLU];
-              setPosts(KLUx);
-              changeBottomcolorOff();
-              changecitycolor();
+                console.log(mycitys);
+                break;
+              case "新北市":
+                let TPH = data.filter(item => item.country_city == "新北市");
+                let TPHx = [...mycitys, ...TPH];
+                setMycitys(TPHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "新竹市":
-              let HSC = data.filter(item => item.country_city == "新竹市");
-              let HSCx = [...posts, ...HSC];
-              setPosts(HSCx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "桃園市":
+                let TYC = data.filter(item => item.country_city == "桃園市");
+                let TYCx = [...mycitys, ...TYC];
+                setMycitys(TYCx);
+
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "新竹縣":
-              let HSH = data.filter(item => item.country_city == "新竹縣");
-              let HSHx = [...posts, ...HSH];
-              setPosts(HSHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "基隆市":
+                let KLU = data.filter(item => item.country_city == "基隆市");
+                let KLUx = [...mycitys, ...KLU];
+                setMycitys(KLUx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "彰化縣":
-              let CWH = data.filter(item => item.country_city == "彰化縣");
-              let CWHx = [...posts, ...CWH];
-              setPosts(CWHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "新竹市":
+                let HSC = data.filter(item => item.country_city == "新竹市");
+                let HSCx = [...mycitys, ...HSC];
+                setMycitys(HSCx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "南投縣":
-              let NTO = data.filter(item => item.country_city == "南投縣");
-              let NTOx = [...posts, ...NTO];
-              setPosts(NTOx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "新竹縣":
+                let HSH = data.filter(item => item.country_city == "新竹縣");
+                let HSHx = [...mycitys, ...HSH];
+                setMycitys(HSHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "雲林縣":
-              let YLH = data.filter(item => item.country_city == "雲林縣");
-              let YLHx = [...posts, ...YLH];
-              setPosts(YLHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "彰化縣":
+                let CWH = data.filter(item => item.country_city == "彰化縣");
+                let CWHx = [...mycitys, ...CWH];
+                setMycitys(CWHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "高雄市":
-              let KHH = data.filter(item => item.country_city == "高雄市");
-              let KHHx = [...posts, ...KHH];
-              setPosts(KHHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "南投縣":
+                let NTO = data.filter(item => item.country_city == "南投縣");
+                let NTOx = [...mycitys, ...NTO];
+                setMycitys(NTOx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "台南市":
-              let TNN = data.filter(item => item.country_city == "台南市");
-              let TNNx = [...posts, ...TNN];
-              setPosts(TNNx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "雲林縣":
+                let YLH = data.filter(item => item.country_city == "雲林縣");
+                let YLHx = [...mycitys, ...YLH];
+                setMycitys(YLHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "嘉義市":
-              let CYI = data.filter(item => item.country_city == "嘉義市");
-              let CYIx = [...posts, ...CYI];
-              setPosts(CYIx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "高雄市":
+                let KHH = data.filter(item => item.country_city == "高雄市");
+                let KHHx = [...mycitys, ...KHH];
+                setMycitys(KHHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "嘉義縣":
-              let CHY = data.filter(item => item.country_city == "嘉義縣");
-              let CHYx = [...posts, ...CHY];
-              setPosts(CHYx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "台南市":
+                let TNN = data.filter(item => item.country_city == "台南市");
+                let TNNx = [...mycitys, ...TNN];
+                setMycitys(TNNx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "屏東縣":
-              let IUH = data.filter(item => item.country_city == "屏東縣");
-              let IUHx = [...posts, ...IUH];
-              setPosts(IUHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "嘉義市":
+                let CYI = data.filter(item => item.country_city == "嘉義市");
+                let CYIx = [...mycitys, ...CYI];
+                setMycitys(CYIx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "宜蘭縣":
-              let ILN = data.filter(item => item.country_city == "宜蘭縣");
-              let ILNx = [...posts, ...ILN];
-              setPosts(ILNx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "嘉義縣":
+                let CHY = data.filter(item => item.country_city == "嘉義縣");
+                let CHYx = [...mycitys, ...CHY];
+                setMycitys(CHYx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "花蓮縣":
-              let HWA = data.filter(item => item.country_city == "花蓮縣");
-              let HWAx = [...posts, ...HWA];
-              setPosts(HWAx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "屏東縣":
+                let IUH = data.filter(item => item.country_city == "屏東縣");
+                let IUHx = [...mycitys, ...IUH];
+                setMycitys(IUHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "臺東縣":
-              let TTT = data.filter(item => item.country_city == "臺東縣");
-              let TTTx = [...posts, ...TTT];
-              setPosts(TTTx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "宜蘭縣":
+                let ILN = data.filter(item => item.country_city == "宜蘭縣");
+                let ILNx = [...mycitys, ...ILN];
+                setMycitys(ILNx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "澎湖縣":
-              let PEH = data.filter(item => item.country_city == "澎湖縣");
-              let PEHx = [...posts, ...PEH];
-              setPosts(PEHx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "花蓮縣":
+                let HWA = data.filter(item => item.country_city == "花蓮縣");
+                let HWAx = [...mycitys, ...HWA];
+                setMycitys(HWAx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "金門縣":
-              let KMN = data.filter(item => item.country_city == "金門縣");
-              let KMNx = [...posts, ...KMN];
-              setPosts(KMNx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "臺東縣":
+                let TTT = data.filter(item => item.country_city == "臺東縣");
+                let TTTx = [...mycitys, ...TTT];
+                setMycitys(TTTx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "連江縣":
-              let LNN = data.filter(item => item.country_city == "連江縣");
-              let LNNx = [...posts, ...LNN];
-              setPosts(LNNx);
-              changeBottomcolorOff();
-              changecitycolor();
+                break;
+              case "澎湖縣":
+                let PEH = data.filter(item => item.country_city == "澎湖縣");
+                let PEHx = [...mycitys, ...PEH];
+                setMycitys(PEHx);
+                changeBottomcolorOff();
+                changecitycolor();
 
 
-              break;
-            case "5k":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_amount <= 5000) {
+                break;
+              case "金門縣":
+                let KMN = data.filter(item => item.country_city == "金門縣");
+                let KMNx = [...mycitys, ...KMN];
+                setMycitys(KMNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case "連江縣":
+                let LNN = data.filter(item => item.country_city == "連江縣");
+                let LNNx = [...mycitys, ...LNN];
+                setMycitys(LNNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case "5k":
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_amount <= 5000) {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
+                }
+                changeBottomcolorOff();
+                changebudgecolor();
+
+
+                break;
+              case "1w":
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_amount >= 5000 && data[i].d_amount <= 10000) {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
+                }
+                changeBottomcolorOff();
+                changebudgecolor();
+
+
+                break;
+
+              case "5w":
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_amount >= 10000 && data[i].d_amount <= 50000) {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
+                }
+                changeBottomcolorOff();
+                changebudgecolor();
+
+
+                break;
+
+              case "10w":
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_amount >= 50000 && data[i].d_amount <= 100000) {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
+                }
+                changeBottomcolorOff();
+                changebudgecolor();
+
+
+                break;
+              case "30w":
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_amount >= 100000 && data[i].d_amount <= 300000) {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
+                }
+                changeBottomcolorOff();
+                changebudgecolor();
+
+                break;
+              case "all":
+                changeBottomcolorOff();
+
+                setChangecolor1(true);
+                for (let i = 0; i < data.length; i++) {
                   mycitys.push(data[i]);
                   setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
                 }
-              }
-              changeBottomcolorOff();
-              changebudgecolor();
+                break;
+              case "短":
+                changeBottomcolorOff();
 
-
-              break;
-            case "1w":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_amount >= 5000 && data[i].d_amount <= 10000) {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
-              changeBottomcolorOff();
-              changebudgecolor();
-
-
-              break;
-
-            case "5w":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_amount >= 10000 && data[i].d_amount <= 50000) {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
-              changeBottomcolorOff();
-              changebudgecolor();
-
-
-              break;
-
-            case "10w":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_amount >= 50000 && data[i].d_amount <= 100000) {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
-              changeBottomcolorOff();
-              changebudgecolor();
-
-
-              break;
-            case "30w":
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_amount >= 100000 && data[i].d_amount <= 300000) {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-              }
-              changeBottomcolorOff();
-              changebudgecolor();
-
-              break;
-            case "all":
-              changeBottomcolorOff();
-
-              setChangecolor1(true);
-              for (let i = 0; i < data.length; i++) {
-                mycitys.push(data[i]);
-                setPosts(mycitys);
-              }
-              break;
-            case "短":
-              changeBottomcolorOff();
-
-              setChangecolor2(true);
-              changedurationcolor();
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_duration == "短") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-                } else {
-                  setPosts(mycitys);
-                }
-
-              }
-              break;
-            case "長":
-              changeBottomcolorOff();
-              changedurationcolor();
-              setChangecolor3(true);
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].d_duration == "長") {
-                  mycitys.push(data[i]);
-                  setPosts(mycitys);
-
-                } else {
-                  setPosts(mycitys);
+                setChangecolor2(true);
+                changedurationcolor();
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_duration == "短") {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
+                  } else {
+                    setPosts(mycitys);
+                  }
 
                 }
-              }
-              break;
+                break;
+              case "長":
+                changeBottomcolorOff();
+                changedurationcolor();
+                setChangecolor3(true);
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].d_duration == "長") {
+                    mycitys.push(data[i]);
+                    setPosts(mycitys);
 
-            default:
-              break;
+                  } else {
+                    setPosts(mycitys);
+
+                  }
+                }
+                break;
+
+              default:
+                break;
+            }
+          }else{
+            console.log(mycitys);
+            let empty = mycitys.filter(item=>item.country_city != type)
+            console.log(empty);
+            setMycitys(empty);
           }
+
+
+
           console.log(mycitys);
           console.log(posts);
           console.log(data);
@@ -1001,7 +1017,9 @@ function Findcase() {
               </div>
             </Dropdown.Menu>
           </Dropdown>
-          <input type="checkbox"></input>
+
+
+
 
           <Dropdown className="mx-5">
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
@@ -1044,7 +1062,7 @@ function Findcase() {
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {posts.map((post, index) => {
+          {(all == true ? posts : mycitys).map((post, index) => {
 
             return (
               <div>
