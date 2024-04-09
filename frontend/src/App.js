@@ -145,11 +145,11 @@ function App() {
   
   // 登出處理
   const handleLogout = () => {
-          clearInterval(tokenCheckInterval.current);
-          Cookies.remove("token");
-          setIsLoggedIn(false); // Update login status
-          setMemberEmail('');
-          setShowLogoutMessage(true);
+    clearInterval(tokenCheckInterval.current);
+    Cookies.remove("token");
+    setIsLoggedIn(false); // Update login status
+    setMemberEmail('');
+    setShowLogoutMessage(true);
 
   };
 
