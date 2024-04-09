@@ -413,7 +413,8 @@ class MemberInfoController extends Controller
 
             // 發案刊登搜尋
             if($request->has('demmandSearch')){
-                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+                $demmand_query
+                ->where('d_name','like','%'.$request->input('demmandSearch').'%');
             }
             // 發案進行中搜尋
             if($request->has('demmandProgressSearch')){
@@ -476,8 +477,7 @@ class MemberInfoController extends Controller
     // 刪除發案刊登紀錄
     public function delPublishCase(Request $request)
     {
-        if(Auth::id()){
-            $userId = Auth::guard('api')->id();
+        if($userId = Auth::id()){
             $selectdemmand = $request->input('did');
             DB::table('demmand')->whereIn('did',[$selectdemmand])
                                 ->where('mid',$userId)
@@ -485,6 +485,9 @@ class MemberInfoController extends Controller
 
             return response()->json(['message'=>'刪除成功']);
         }
+        return response()->json([
+            'error' => '刪除失敗'
+        ]);
     }
 
     // 獲取服務管理頁面
@@ -603,22 +606,25 @@ class MemberInfoController extends Controller
     {
         if(Auth::id()){
             $userId = Auth::id();
-
-            $selectservice = $request->input('sid');
-            DB::table('service')->whereIn('sid',$selectservice)
-                                ->where('mid',$userId)
-                                ->delete();
-            $selectproject = $request->input('pid');
-            DB::table('project')->whereIn('pid',$selectproject)
-                                ->where('mid',$userId)
-                                ->delete();
-
-            $selectvideo = $request->input('vid');
-            DB::table('video')->whereIn('vid',$selectvideo)
-                            ->where('mid',$userId)
-                            ->delete();
-
-            return response()->json(['message'=>'刪除成功']);
+            try{
+                $request->validate([
+                    'sid' => 'required'
+                ]);
+            }catch (ValidationException $exception){
+                return response()->json([
+                    'error' => '未選擇要刪除的服務'
+                ]);
+            }
+            try{
+                $del = DB::table('service')
+                ->whereIn('sid',[$request->input('sid')])->where('mid',$userId)
+                ->delete();
+            }catch (Throwable $err){
+                return response()->json([
+                    'error' => '刪除服務失敗'
+                ]);
+            }
+            return response()->json(['message'=>'刪除服務成功']);
         }
     }
 
@@ -674,6 +680,30 @@ class MemberInfoController extends Controller
         return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
     }
 
+    // 刪除作品
+    public function delWork(Request $request)
+    {
+        $mid = Auth::id();
+
+        try{
+            $request->validate([
+            'pid' => 'required'
+        ]);
+        }catch (ValidationException $exception){
+            return response()->json([
+                'error' => '未選擇要刪除的作品'
+            ], 422);
+        }
+
+        $del = DB::table('project')
+        ->whereIn('pid', [$request->input('pid')])->where('mid', $mid)
+        ->delete();
+
+        return response()->json([
+            'message' => '刪除作品成功'
+        ]);
+    }
+
     // 新增影音
     public function addVideo(Request $request)
     {
@@ -692,7 +722,9 @@ class MemberInfoController extends Controller
             'created_at'=>now(),
             'updated_at'=>now(),
         ]);
-        return response($video);
+        return response()->json([
+            'message' => '新增成功'
+        ]);
     }
 
     // 編輯影音
@@ -712,7 +744,36 @@ class MemberInfoController extends Controller
             'src' => $request->src,
             'updated_at' => now()
         ]);
-        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
+        return response()->json($result ? ['message' => '編輯成功'] : ['error' => '編輯失敗']);
+    }
+
+    // 刪除影音
+    public function delVideo(Request $request)
+    {
+        $mid = Auth::id();
+
+        try{
+            $request->validate([
+                'vid' => 'required'
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json([
+                'error' => '未選擇要刪除的影音'
+            ], 422);
+        }
+
+        try{
+            $del = DB::table('video')
+        ->whereIn('vid',[$request->input('vid')])->where('mid',$mid)
+        ->delete();
+        }catch(Throwable $err){
+            return response()->json([
+                'error' => '刪除影音失敗'
+            ]);
+        }
+        return response()->json([
+            'message' => '刪除影音成功'
+        ]);
     }
 
     // 獲取我的收藏

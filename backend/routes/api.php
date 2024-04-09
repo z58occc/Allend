@@ -170,6 +170,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/video', 'addVideo');
     // 編輯影音
     Route::post('/upvideo', 'updateVideo');
+    // 刪除影音
+    Route::post('/delvideo', 'delVideo');
     // 獲取我的收藏頁面
     Route::get('/collection', 'getCollection');
 });
