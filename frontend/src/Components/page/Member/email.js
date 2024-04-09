@@ -13,7 +13,7 @@ function FreelancerForm() {
   const [formData, setFormData] = useState({
     identity: "",
     experience: "",
-    locations: "",
+    location: "",
     idCard: "",
     email: "",
     name: "",
@@ -26,7 +26,7 @@ function FreelancerForm() {
     setFormData({
       identity: "",
       experience: "",
-      locations: "",
+      location: "",
       idCard: "",
       email: formData.email,
       name: "",
@@ -66,10 +66,10 @@ console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "identity") {
-      // 根據用戶選擇的身份類型来更新isFreelancer狀態
-      setIsFreelancer(value === "freelancer");
-    }
+    // if (name === "identity") {
+    //   // 根據用戶選擇的身份類型来更新isFreelancer狀態
+    //   setIsFreelancer(value === "freelancer");
+    // }
 
     if (name === "idCard") {
       const firstCharIsValid = /^[A-Z]/.test(value[0]);
@@ -86,26 +86,25 @@ console.log(formData)
       }
     }
 
-    if (name === "email") {
-      // 檢查是否包含 @ 字符
-      const isValidEmail = value.includes("@");
+    // if (name === "email") {
+    //   // 檢查是否包含 @ 字符
+    //   const isValidEmail = value.includes("@");
 
-      // 如果不包含 @ 字符，則顯示紅框
-      if (!isValidEmail) {
-        // 在表單控制元素中添加 is-invalid 類
-        e.target.classList.add("is-invalid");
-      } else {
-        // 如果格式正確，則移除 is-invalid 類
-        e.target.classList.remove("is-invalid");
-      }
-    }
-    if(name === "experience"){
+    //   // 如果不包含 @ 字符，則顯示紅框
+    //   if (!isValidEmail) {
+    //     // 在表單控制元素中添加 is-invalid 類
+    //     e.target.classList.add("is-invalid");
+    //   } else {
+    //     // 如果格式正確，則移除 is-invalid 類
+    //     e.target.classList.remove("is-invalid");
+    //   }
+    // }
 
-    }
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData(() => ({
+      ...formData,
       [name]: value,
     }));
+
     const isComplete = Object.values(formData).every((value) => value !== "");
     setIsFormComplete(isComplete);
   };
@@ -117,9 +116,8 @@ console.log(formData)
       url: "http://localhost/Allend/backend/public/api/updateprofiles",
       data: {
         identity: formData.identity,
-        // nickname: formData.nickname,
         experience: formData.experience,
-        location: formData.locations,
+        location: formData.location,
         idCard: formData.idCard,
         phone: formData.phone,
         gender: formData.gender,
@@ -225,8 +223,8 @@ console.log(formData)
                     接案地點：
                   </Form.Label>
                 </Form.Group>
-                <Form.Group>
-                  
+
+                <Form.Group as={Row}>
                   <div className="row">
                     <div className="col-sm-6">
                       <Form.Select
@@ -245,7 +243,7 @@ console.log(formData)
                     <div className="col-sm-6">
                       <Form.Select
                         name="location"
-                        value={formData.locations}
+                        value={formData.location}
                         onChange={handleChange}
                       >
                         <option value="">請選擇地點</option>
@@ -443,7 +441,6 @@ console.log(formData)
                   }}
                 >
                   <Button
-                    
                     type="submit"
                     variant="danger"
                     style={{ width: "50%", fontSize: "15px" }}

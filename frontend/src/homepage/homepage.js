@@ -263,11 +263,17 @@ function Homepage() {
 
         {/* 接api輪播圖 */}
         <h4>會員作品</h4>
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5" >
           <Carousel
             activeIndex={carouselpage}
             onSelect={handleSelect}
-            style={{ overflow: " hidden", background: "linear-gradient( #A3D1D1,#D1E9E9 ,#95CACA,#B3D9D9)", width: "700px", height: "275px" }}
+            style={{
+              overflow: " hidden",
+              background: "linear-gradient( #A3D1D1,#D1E9E9 ,#95CACA,#B3D9D9)",
+              width: "750px",
+              height: "275px",
+              borderRadius: "10px"
+            }}
             id="carousel"
             interval={5000}
             indicators={true}

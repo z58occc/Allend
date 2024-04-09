@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Card, Button, Form, Modal, Table } from "react-bootstrap";
+import React, { useContext, useState, } from "react";
+import { Card, Button, Form, } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
 import CaseDetailsModal1 from "./CaseDetailsModal1";
