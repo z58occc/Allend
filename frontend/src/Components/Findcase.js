@@ -24,6 +24,14 @@ import "./Findcase.css";
 function Findcase() {
 
 
+  // 進來頁面 直接先跑一次fetch
+  useEffect(() => {
+    fetchData()
+  }, []);
+  // 進來頁面 直接先跑一次fetch
+
+
+
   // 上/下一頁
 
 
@@ -168,10 +176,23 @@ function Findcase() {
     setChangecolorduration(true);
   }
 
+  const handlechangecity = async (event) => {
+    console.log(event.target);
+    console.log(event.target.name);
+    fetchData(event.target.name);
+    // const { name, checked } = event.target;
+    // setPosts((posts) => ({
+    //   ...posts,
+    //   [name]: checked,
+    // }))
+  }
 
-  useEffect(() => {
-    fetchData()
-  }, []);
+
+
+
+
+
+
   const sortData = async (s) => {
     setCurrentPage(1);
     switch (s) {
@@ -327,6 +348,7 @@ function Findcase() {
 
               //   }
               // }
+              console.log("台北市");
               let TPE = data.filter(item => item.country_city == "台北市");
               let TPEx = [...posts, ...TPE];
               setPosts(TPEx);
@@ -797,26 +819,186 @@ function Findcase() {
           <Dropdown show={showdropdown}>
             <Dropdown.Toggle onClick={() => setShowdropdown(true)} id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>台北市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新北市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>桃園市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>基隆市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新竹市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新竹縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>彰化縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>南投縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>雲林縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>高雄市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>台南市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>嘉義市</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>嘉義縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>屏東縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>宜蘭縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>花蓮縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>臺東縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>澎湖縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>金門縣</div>
-              <div><input type="checkbox" style={{ zIndex: "100px" }}></input>連江縣</div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="台北市"
+                >
+                </input>
+                台北市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="新北市"
+                >
+                </input>
+                新北市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="桃園市"
+                >
+                </input>
+                桃園市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="基隆市"
+                >
+                </input>
+                基隆市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="新竹市"
+                >
+                </input>
+                新竹市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="新竹縣"
+                >
+                </input>
+                新竹縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="彰化縣"
+                >
+                </input>
+                彰化縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="南投縣"
+                >
+                </input>
+                南投縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="雲林縣"
+                >
+                </input>
+                雲林縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="高雄市"
+                >
+                </input>
+                高雄市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="台南市"
+                >
+                </input>
+                台南市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="嘉義市"
+                >
+                </input>
+                嘉義市
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="嘉義縣"
+                >
+                </input>
+                嘉義縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="屏東縣"
+                >
+                </input>
+                屏東縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="宜蘭縣"
+                >
+                </input>
+                宜蘭縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="花蓮縣"
+                >
+                </input>
+                花蓮縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="臺東縣"
+                >
+                </input>
+                臺東縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="澎湖縣"
+                >
+                </input>
+                澎湖縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="金門縣"
+                >
+                </input>
+                金門縣
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  onChange={handlechangecity}
+                  name="連江縣"
+                >
+                </input>
+                連江縣
+              </div>
             </Dropdown.Menu>
           </Dropdown>
           <input type="checkbox"></input>
