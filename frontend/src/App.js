@@ -222,6 +222,7 @@ function App() {
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
+  const [rememberEmail, setRememberEmail] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -313,7 +314,7 @@ function App() {
       <div
         className="p-1"
         style={{
-          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg, #EFBC9B, #ffdab9,#ffcab9)",
+          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B, #ffdab9,#ffcab9)",
         }}
       >
         <Link to="/">
@@ -383,10 +384,10 @@ function App() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
-                to={projectFormLink }
+                to={projectFormLink}
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "100px", textAlign: "center" }}
-                onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm"): handleShow}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center" }}
+                onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm") : handleShow}
               >
                 發案
               </Link>
@@ -418,7 +419,7 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route> 
+        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
       </Routes>
 
 
@@ -466,10 +467,12 @@ function App() {
                     <Form.Group className="mb-3">
                       <Form.Check
                         type="checkbox"
-                        id="rememberPassword"
-                        label="Remember Password"
+                        id="rememberEmail"
+                        label="Remember Email"
                         className="mt-2"
                         style={{ color: "#FCFCFC" }}
+                        checked={rememberEmail}
+                        onChange={(e) => setRememberEmail(e.target.checked)}
                       />
                     </Form.Group>
                   </div>
