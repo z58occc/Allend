@@ -27,7 +27,6 @@ import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
-import PayButton from "./release/paybutton";
 import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen2";
 
@@ -53,55 +52,6 @@ function App() {
   const RegisterEmail = useRef();
   const RegisterPassword = useRef();
   const RegisterConfPassword = useRef();
-
-  // const handleRegister = () => {
-  //   const email = RegisterEmail.current.value
-  //   const password = RegisterPassword.current.value
-  //   const confirmpasswrod = RegisterConfPassword.current.value
-  //   const RegisterLogin = (data) => {
-  //     axios({
-  //       method:'post',
-  //       url:"http://localhost/PHP/Allend/backend/public/api/login",
-  //       data: {
-  //         email: data.email,
-  //         password:data.password
-  //       }
-  //     })
-  //     .then((res) => {return res.data;})
-  //     .then((data) => {
-  //       console.log(data);
-  //       Cookies.set('token', data.token);}
-  //       )
-  //   }
-
-  //   axios({
-  //     method: "post",
-  //     url: "http://localhost/PHP/Allend/backend/public/api/register",
-  //     data: {
-  //       email: RegisterEmail.current.value,
-  //       password: RegisterPassword.current.value,
-  //       password_confirmation: RegisterConfPassword.current.value,
-  //     },
-  //   })
-
-  //   .then((res) => {return res.data;})
-  //   .then((data) => {
-  //     console.log(data);
-  //     RegisterLogin(data)
-  //     })
-  // }
-
-  // google登入
-  const handleGoogleLogin = () => {
-    try {
-      axios({
-        method: 'get',
-        url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => console.log(res.data))
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   const [errorRegister, seterrorRegister] = useState('');
 
@@ -141,25 +91,66 @@ function App() {
       console.log(err);
     }
   };
+  const [tokenExpiration, setTokenExpiration] = useState(null);
+  const tokenCheckInterval = useRef(null);
 
+  useEffect(() => {
+    // 檢查是否有保存的token
+    const token = Cookies.get('token');
+    if (token) {
+      setIsLoggedIn(true);
+      // 初始化token過期時間
+      const tokenExpirationTime = getTokenExpirationTime(token);
+      setTokenExpiration(tokenExpirationTime);
+      // 開始定時檢查token是否過期
+      startTokenExpirationCheck(tokenExpirationTime);
+    }
+  }, []);
+
+  useEffect(() => {
+    // 清除定時器
+    return () => {
+      clearInterval(tokenCheckInterval.current);
+    };
+  }, []);
+
+    // 解析token並獲取過期時間
+    const getTokenExpirationTime = (token) => {
+      const decodedToken = parseJwt(token);
+      if (!decodedToken) return null;
+      return decodedToken.exp * 1000; // 轉換為毫秒
+    };
+    
+
+      // 解析JWT token
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const startTokenExpirationCheck = (expirationTime) => {
+    tokenCheckInterval.current = setInterval(() => {
+      const currentTime = Date.now();
+      if (currentTime > expirationTime) {
+        // token過期，執行登出操作
+        handleLogout();
+      }
+    }, 3600000); // 每小時檢查一次
+  };
+
+  const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
+  
   // 登出處理
   const handleLogout = () => {
-    const cookie =
-      axios({
-        method: 'post',
-        url: "http://localhost/Allend/backend/public/api/logout",
-        headers: { Authorization: `Bearer ${Cookies.get('token')}` }
-      })
-        .then(() => {
+          clearInterval(tokenCheckInterval.current);
           Cookies.remove("token");
           setIsLoggedIn(false); // Update login status
           setMemberEmail('');
-          navigate('/')
-        })
-        .catch((err) => {
-          console.log(err.response)
-          return false;
-        })
+          setShowLogoutMessage(true);
+
   };
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
@@ -217,6 +208,18 @@ function App() {
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // google登入
+  const handleGoogleLogin = () => {
+    try {
+      axios({
+        method: 'get',
+        url: "http://localhost/Allend/backend/public/auth/google/redirect"
+      }).then((res) => console.log(res.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
   const [errorMessage, setErrorMessage] = useState('');
   const [memberEmail, setMemberEmail] = useState('');
   const navigate = useNavigate();
@@ -236,6 +239,10 @@ function App() {
       Cookies.set('token', token);
       setIsLoggedIn(true);
       setShowLogin(false);
+      const tokenExpirationTime = getTokenExpirationTime(token);
+      setTokenExpiration(tokenExpirationTime);
+      startTokenExpirationCheck(tokenExpirationTime);
+      console.log(tokenExpirationTime)
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
@@ -263,12 +270,13 @@ function App() {
 
 
 
-  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href;
+  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發按按鈕登入判別
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
     setShowForgotPassword(true);
   };
+
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
@@ -290,7 +298,9 @@ function App() {
   const [selectedLink, setSelectedLink] = useState(null);
   const location = useLocation();
 
-  // 根据当前路径更新选中链接状态
+
+  
+  
   useEffect(() => {
     setSelectedLink(location.pathname);
     const token = Cookies.get("token");
@@ -300,7 +310,7 @@ function App() {
     }
   }, [location, isLoggedIn]);
 
-  // 处理链接点击事件
+  
   const handleLinkClick = (path) => {
     setSelectedLink(path);
   };
@@ -609,6 +619,16 @@ function App() {
             )}
           </div>
         </Modal.Body>
+      </Modal>
+
+      <Modal show={showLogoutMessage} onHide={() => setShowLogoutMessage(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>已登出</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>為確保您的帳戶安全，已將您的帳號自動登出</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowLogoutMessage(false)}>關閉</Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
