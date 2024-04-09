@@ -18,11 +18,11 @@ import "./Pagination.css"
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
 import "./Findcase.css";
+import { dropdown } from "./drop";
 
 
 
 function Findcase() {
-
 
   // 進來頁面 直接先跑一次fetch
   useEffect(() => {
@@ -134,7 +134,6 @@ function Findcase() {
   const [messagewarm, setMessagewarm] = useState(false);
   const [amountwarm, setAmountwarm] = useState(false);
   const [all, setAll] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
 
 
   const [changecolor1, setChangecolor1] = useState(false);
@@ -179,6 +178,13 @@ function Findcase() {
     setChangecolorduration(true);
   }
 
+
+
+
+
+  const [isChecked, setIsChecked] = useState(false);
+
+
   const handlechangecity = async () => {
     // setAll(false);
     // fetchData();
@@ -190,10 +196,28 @@ function Findcase() {
     setIsChecked(!isChecked);
   }
 
+  console.log()
+
   const handlechangebudget = async (event) => {
     // setAll(false);
     fetchDataByBudget(event.target.name, event.target.checked);
   }
+
+  const [checkedState, setCheckedState] = useState(
+    new Array(dropdown.length).fill(false)
+  );
+  const handleOnChange = (position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    setCheckedState(updatedCheckedState);
+    console.log(updatedCheckedState);
+    console.log(position);
+    console.log(updatedCheckedState[position]);
+    fetchData(position, updatedCheckedState[position]);
+  };
+
+
 
 
 
@@ -272,7 +296,7 @@ function Findcase() {
 
   }
 
-  const fetchData = async (type, bool, budget) => {
+  const fetchData = async (type, bool) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
       setCurrentPage(1);
@@ -326,8 +350,7 @@ function Findcase() {
 
           // 在點擊下一個按鈕後 清空案件
           // setMycitys([]);
-          console.log(posts);
-          console.log(mycitys);
+
           // 在點擊下一個按鈕後 清空案件
 
 
@@ -336,214 +359,633 @@ function Findcase() {
           //   changeBottomcolorOff();
 
           // }
+          if (bool == true) {
+            switch (type) {
+              case 0:
+                // for (let i = 0; i < data.length; i++) {
+                //   // const x = data.filter((data) => data[i].country_city == "台北市");
+                //   // console.log(x);
+                //   // setPosts(x);
+                //   if (data[i].country_city == "台北市") {
+                //     // console.log(data[i]);
+                //     mycitys.push(data[i]);
+                //     const y = mycitys.filter((x) => x.did < 13);
+                //     // console.log(y);
+                //     // console.log(mycitys);
+                //     // [...mycitys,(data[i])];
+                //     // const x = []
+                //     // console.log(x);
+                //     setPosts(y);
+                //     console.log(mycitys);
 
+                //   }
+                // }
+
+                console.log("台北市");
+                let TPE = data.filter(item => item.country_city == "台北市");
+                console.log(TPE);
+
+                let TPEx = [...mycitys, ...TPE];
+                setMycitys(TPEx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                console.log(mycitys);
+                break;
+              case 1:
+                let TPH = data.filter(item => item.country_city == "新北市");
+                let TPHx = [...mycitys, ...TPH];
+                setMycitys(TPHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 2:
+                let TYC = data.filter(item => item.country_city == "桃園市");
+                let TYCx = [...mycitys, ...TYC];
+                setMycitys(TYCx);
+
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 3:
+                let KLU = data.filter(item => item.country_city == "基隆市");
+                let KLUx = [...mycitys, ...KLU];
+                setMycitys(KLUx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 4:
+                let HSC = data.filter(item => item.country_city == "新竹市");
+                let HSCx = [...mycitys, ...HSC];
+                setMycitys(HSCx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 5:
+                let HSH = data.filter(item => item.country_city == "新竹縣");
+                let HSHx = [...mycitys, ...HSH];
+                setMycitys(HSHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 6:
+                let CWH = data.filter(item => item.country_city == "彰化縣");
+                let CWHx = [...mycitys, ...CWH];
+                setMycitys(CWHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 7:
+                let NTO = data.filter(item => item.country_city == "南投縣");
+                let NTOx = [...mycitys, ...NTO];
+                setMycitys(NTOx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 8:
+                let YLH = data.filter(item => item.country_city == "雲林縣");
+                let YLHx = [...mycitys, ...YLH];
+                setMycitys(YLHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 9:
+                let KHH = data.filter(item => item.country_city == "高雄市");
+                let KHHx = [...mycitys, ...KHH];
+                setMycitys(KHHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 10:
+                let TNN = data.filter(item => item.country_city == "台南市");
+                let TNNx = [...mycitys, ...TNN];
+                setMycitys(TNNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 11:
+                let CYI = data.filter(item => item.country_city == "嘉義市");
+                let CYIx = [...mycitys, ...CYI];
+                setMycitys(CYIx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 12:
+                let CHY = data.filter(item => item.country_city == "嘉義縣");
+                let CHYx = [...mycitys, ...CHY];
+                setMycitys(CHYx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 13:
+                let IUH = data.filter(item => item.country_city == "屏東縣");
+                let IUHx = [...mycitys, ...IUH];
+                setMycitys(IUHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 14:
+                let ILN = data.filter(item => item.country_city == "宜蘭縣");
+                let ILNx = [...mycitys, ...ILN];
+                setMycitys(ILNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 15:
+                let HWA = data.filter(item => item.country_city == "花蓮縣");
+                let HWAx = [...mycitys, ...HWA];
+                setMycitys(HWAx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 16:
+                let TTT = data.filter(item => item.country_city == "臺東縣");
+                let TTTx = [...mycitys, ...TTT];
+                setMycitys(TTTx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 17:
+                let PEH = data.filter(item => item.country_city == "澎湖縣");
+                let PEHx = [...mycitys, ...PEH];
+                setMycitys(PEHx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 18:
+                let KMN = data.filter(item => item.country_city == "金門縣");
+                let KMNx = [...mycitys, ...KMN];
+                setMycitys(KMNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 19:
+                let LNN = data.filter(item => item.country_city == "連江縣");
+                let LNNx = [...mycitys, ...LNN];
+                setMycitys(LNNx);
+                changeBottomcolorOff();
+                changecitycolor();
+
+              default:
+                break;
+            }
+          } else {
+            switch (type) {
+              case 0:
+                // for (let i = 0; i < data.length; i++) {
+                //   // const x = data.filter((data) => data[i].country_city == "台北市");
+                //   // console.log(x);
+                //   // setPosts(x);
+                //   if (data[i].country_city == "台北市") {
+                //     // console.log(data[i]);
+                //     mycitys.push(data[i]);
+                //     const y = mycitys.filter((x) => x.did < 13);
+                //     // console.log(y);
+                //     // console.log(mycitys);
+                //     // [...mycitys,(data[i])];
+                //     // const x = []
+                //     // console.log(x);
+                //     setPosts(y);
+                //     console.log(mycitys);
+
+                //   }
+                // }
+
+                console.log(mycitys);
+                let empty0 = mycitys.filter(item => item.country_city != "台北市");
+                
+                setMycitys(empty0);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                console.log(mycitys);
+                break;
+              case 1:
+                console.log(mycitys);
+                let empty1 = mycitys.filter(item => item.country_city != "新北市");
+                
+                setMycitys(empty1);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 2:
+                console.log(mycitys);
+                let empty2 = mycitys.filter(item => item.country_city != "桃園市");
+                
+                setMycitys(empty2);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 3:
+                console.log(mycitys);
+                let empty3 = mycitys.filter(item => item.country_city != "基隆市");
+                
+                setMycitys(empty3);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 4:
+                console.log(mycitys);
+                let empty4 = mycitys.filter(item => item.country_city != "新竹市");
+                
+                setMycitys(empty4);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 5:
+                console.log(mycitys);
+                let empty5 = mycitys.filter(item => item.country_city != "新竹縣");
+                
+                setMycitys(empty5);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 6:
+                console.log(mycitys);
+                let empty6 = mycitys.filter(item => item.country_city != "彰化縣");
+                
+                setMycitys(empty6);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 7:
+                console.log(mycitys);
+                let empty7 = mycitys.filter(item => item.country_city != "南投縣");
+                                setMycitys(empty7);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 8:
+                console.log(mycitys);
+                let empty8 = mycitys.filter(item => item.country_city != "雲林縣");
+                                setMycitys(empty8);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 9:
+                console.log(mycitys);
+                let empty9 = mycitys.filter(item => item.country_city != "高雄市");
+                                setMycitys(empty9);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 10:
+                console.log(mycitys);
+                let empty10 = mycitys.filter(item => item.country_city != "台南市");
+                
+
+                setMycitys(empty10);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 11:
+                console.log(mycitys);
+                let empty11 = mycitys.filter(item => item.country_city != "嘉義市");
+                
+
+                setMycitys(empty11);
+                changeBottomcolorOff();
+                changecitycolor();
+
+                break;
+              case 12:
+                console.log(mycitys);
+                let empty12 = mycitys.filter(item => item.country_city != "嘉義縣");
+                                setMycitys(empty12);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 13:
+                console.log(mycitys);
+                let empty13 = mycitys.filter(item => item.country_city != "屏東縣");
+                                setMycitys(empty13);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 14:
+                console.log(mycitys);
+                let empty14 = mycitys.filter(item => item.country_city != "宜蘭縣");
+                                setMycitys(empty14);
+                changeBottomcolorOff();
+                changecitycolor();
+
+
+                break;
+              case 15:
+                console.log(mycitys);
+                let empty15 = mycitys.filter(item => item.country_city != "花蓮縣");
+                                setMycitys(empty15);
+                changeBottomcolorOff();
+                changecitycolor();
+
+                break;
+              case 16:
+                console.log(mycitys);
+                let empty16 = mycitys.filter(item => item.country_city != "臺東縣");
+                                setMycitys(empty16);
+                changeBottomcolorOff();
+                changecitycolor();
+
+                break;
+              case 17:
+                console.log(mycitys);
+                let empty17 = mycitys.filter(item => item.country_city != "澎湖縣");
+                
+
+                setMycitys(empty17);
+                changeBottomcolorOff();
+                changecitycolor();
+
+                break;
+              case 18:
+                console.log(mycitys);
+                let empty18 = mycitys.filter(item => item.country_city != "金門縣");
+                                setMycitys(empty18);
+                changeBottomcolorOff();
+                changecitycolor();
+
+                break;
+              case 19:
+                console.log(mycitys);
+                let empty19 = mycitys.filter(item => item.country_city != "連江縣");
+                                setMycitys(empty19);
+                changeBottomcolorOff();
+                changecitycolor();
+
+              default:
+                break;
+            }
+
+          }
 
 
 
           // switch (type) {
 
           //               // break;
-          //               case "台北市":
-          //                 // for (let i = 0; i < data.length; i++) {
-          //                 //   // const x = data.filter((data) => data[i].country_city == "台北市");
-          //                 //   // console.log(x);
-          //                 //   // setPosts(x);
-          //                 //   if (data[i].country_city == "台北市") {
-          //                 //     // console.log(data[i]);
-          //                 //     mycitys.push(data[i]);
-          //                 //     const y = mycitys.filter((x) => x.did < 13);
-          //                 //     // console.log(y);
-          //                 //     // console.log(mycitys);
-          //                 //     // [...mycitys,(data[i])];
-          //                 //     // const x = []
-          //                 //     // console.log(x);
-          //                 //     setPosts(y);
-          //                 //     console.log(mycitys);
+          // case "台北市":
+          //   // for (let i = 0; i < data.length; i++) {
+          //   //   // const x = data.filter((data) => data[i].country_city == "台北市");
+          //   //   // console.log(x);
+          //   //   // setPosts(x);
+          //   //   if (data[i].country_city == "台北市") {
+          //   //     // console.log(data[i]);
+          //   //     mycitys.push(data[i]);
+          //   //     const y = mycitys.filter((x) => x.did < 13);
+          //   //     // console.log(y);
+          //   //     // console.log(mycitys);
+          //   //     // [...mycitys,(data[i])];
+          //   //     // const x = []
+          //   //     // console.log(x);
+          //   //     setPosts(y);
+          //   //     console.log(mycitys);
 
-          //                 //   }
-          //                 // }
+          //   //   }
+          //   // }
 
-          //                 console.log("台北市");
-          //                 let TPE = data.filter(item => item.country_city == "台北市");
-          //                 console.log(TPE);
+          //   console.log("台北市");
+          //   let TPE = data.filter(item => item.country_city == "台北市");
+          //   console.log(TPE);
 
-          //                 let TPEx = [...mycitys, ...TPE];
-          //                 setMycitys(TPEx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
-
-
-          //                 console.log(mycitys);
-          //                 break;
-          //               case "新北市":
-          //                 let TPH = data.filter(item => item.country_city == "新北市");
-          //                 let TPHx = [...mycitys, ...TPH];
-          //                 setMycitys(TPHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   let TPEx = [...mycitys, ...TPE];
+          //   setMycitys(TPEx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "桃園市":
-          //                 let TYC = data.filter(item => item.country_city == "桃園市");
-          //                 let TYCx = [...mycitys, ...TYC];
-          //                 setMycitys(TYCx);
-
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
-
-
-          //                 break;
-          //               case "基隆市":
-          //                 let KLU = data.filter(item => item.country_city == "基隆市");
-          //                 let KLUx = [...mycitys, ...KLU];
-          //                 setMycitys(KLUx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   console.log(mycitys);
+          //   break;
+          // case "新北市":
+          //   let TPH = data.filter(item => item.country_city == "新北市");
+          //   let TPHx = [...mycitys, ...TPH];
+          //   setMycitys(TPHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "新竹市":
-          //                 let HSC = data.filter(item => item.country_city == "新竹市");
-          //                 let HSCx = [...mycitys, ...HSC];
-          //                 setMycitys(HSCx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "桃園市":
+          //   let TYC = data.filter(item => item.country_city == "桃園市");
+          //   let TYCx = [...mycitys, ...TYC];
+          //   setMycitys(TYCx);
+
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "新竹縣":
-          //                 let HSH = data.filter(item => item.country_city == "新竹縣");
-          //                 let HSHx = [...mycitys, ...HSH];
-          //                 setMycitys(HSHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "基隆市":
+          //   let KLU = data.filter(item => item.country_city == "基隆市");
+          //   let KLUx = [...mycitys, ...KLU];
+          //   setMycitys(KLUx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "彰化縣":
-          //                 let CWH = data.filter(item => item.country_city == "彰化縣");
-          //                 let CWHx = [...mycitys, ...CWH];
-          //                 setMycitys(CWHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "新竹市":
+          //   let HSC = data.filter(item => item.country_city == "新竹市");
+          //   let HSCx = [...mycitys, ...HSC];
+          //   setMycitys(HSCx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "南投縣":
-          //                 let NTO = data.filter(item => item.country_city == "南投縣");
-          //                 let NTOx = [...mycitys, ...NTO];
-          //                 setMycitys(NTOx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "新竹縣":
+          //   let HSH = data.filter(item => item.country_city == "新竹縣");
+          //   let HSHx = [...mycitys, ...HSH];
+          //   setMycitys(HSHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "雲林縣":
-          //                 let YLH = data.filter(item => item.country_city == "雲林縣");
-          //                 let YLHx = [...mycitys, ...YLH];
-          //                 setMycitys(YLHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "彰化縣":
+          //   let CWH = data.filter(item => item.country_city == "彰化縣");
+          //   let CWHx = [...mycitys, ...CWH];
+          //   setMycitys(CWHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "高雄市":
-          //                 let KHH = data.filter(item => item.country_city == "高雄市");
-          //                 let KHHx = [...mycitys, ...KHH];
-          //                 setMycitys(KHHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "南投縣":
+          //   let NTO = data.filter(item => item.country_city == "南投縣");
+          //   let NTOx = [...mycitys, ...NTO];
+          //   setMycitys(NTOx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "台南市":
-          //                 let TNN = data.filter(item => item.country_city == "台南市");
-          //                 let TNNx = [...mycitys, ...TNN];
-          //                 setMycitys(TNNx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "雲林縣":
+          //   let YLH = data.filter(item => item.country_city == "雲林縣");
+          //   let YLHx = [...mycitys, ...YLH];
+          //   setMycitys(YLHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "嘉義市":
-          //                 let CYI = data.filter(item => item.country_city == "嘉義市");
-          //                 let CYIx = [...mycitys, ...CYI];
-          //                 setMycitys(CYIx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "高雄市":
+          //   let KHH = data.filter(item => item.country_city == "高雄市");
+          //   let KHHx = [...mycitys, ...KHH];
+          //   setMycitys(KHHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "嘉義縣":
-          //                 let CHY = data.filter(item => item.country_city == "嘉義縣");
-          //                 let CHYx = [...mycitys, ...CHY];
-          //                 setMycitys(CHYx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "台南市":
+          //   let TNN = data.filter(item => item.country_city == "台南市");
+          //   let TNNx = [...mycitys, ...TNN];
+          //   setMycitys(TNNx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "屏東縣":
-          //                 let IUH = data.filter(item => item.country_city == "屏東縣");
-          //                 let IUHx = [...mycitys, ...IUH];
-          //                 setMycitys(IUHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "嘉義市":
+          //   let CYI = data.filter(item => item.country_city == "嘉義市");
+          //   let CYIx = [...mycitys, ...CYI];
+          //   setMycitys(CYIx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "宜蘭縣":
-          //                 let ILN = data.filter(item => item.country_city == "宜蘭縣");
-          //                 let ILNx = [...mycitys, ...ILN];
-          //                 setMycitys(ILNx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "嘉義縣":
+          //   let CHY = data.filter(item => item.country_city == "嘉義縣");
+          //   let CHYx = [...mycitys, ...CHY];
+          //   setMycitys(CHYx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "花蓮縣":
-          //                 let HWA = data.filter(item => item.country_city == "花蓮縣");
-          //                 let HWAx = [...mycitys, ...HWA];
-          //                 setMycitys(HWAx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "屏東縣":
+          //   let IUH = data.filter(item => item.country_city == "屏東縣");
+          //   let IUHx = [...mycitys, ...IUH];
+          //   setMycitys(IUHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "臺東縣":
-          //                 let TTT = data.filter(item => item.country_city == "臺東縣");
-          //                 let TTTx = [...mycitys, ...TTT];
-          //                 setMycitys(TTTx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "宜蘭縣":
+          //   let ILN = data.filter(item => item.country_city == "宜蘭縣");
+          //   let ILNx = [...mycitys, ...ILN];
+          //   setMycitys(ILNx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "澎湖縣":
-          //                 let PEH = data.filter(item => item.country_city == "澎湖縣");
-          //                 let PEHx = [...mycitys, ...PEH];
-          //                 setMycitys(PEHx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "花蓮縣":
+          //   let HWA = data.filter(item => item.country_city == "花蓮縣");
+          //   let HWAx = [...mycitys, ...HWA];
+          //   setMycitys(HWAx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "金門縣":
-          //                 let KMN = data.filter(item => item.country_city == "金門縣");
-          //                 let KMNx = [...mycitys, ...KMN];
-          //                 setMycitys(KMNx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "臺東縣":
+          //   let TTT = data.filter(item => item.country_city == "臺東縣");
+          //   let TTTx = [...mycitys, ...TTT];
+          //   setMycitys(TTTx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
-          //                 break;
-          //               case "連江縣":
-          //                 let LNN = data.filter(item => item.country_city == "連江縣");
-          //                 let LNNx = [...mycitys, ...LNN];
-          //                 setMycitys(LNNx);
-          //                 changeBottomcolorOff();
-          //                 changecitycolor();
+          //   break;
+          // case "澎湖縣":
+          //   let PEH = data.filter(item => item.country_city == "澎湖縣");
+          //   let PEHx = [...mycitys, ...PEH];
+          //   setMycitys(PEHx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
+
+
+          //   break;
+          // case "金門縣":
+          //   let KMN = data.filter(item => item.country_city == "金門縣");
+          //   let KMNx = [...mycitys, ...KMN];
+          //   setMycitys(KMNx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
+
+
+          //   break;
+          // case "連江縣":
+          //   let LNN = data.filter(item => item.country_city == "連江縣");
+          //   let LNNx = [...mycitys, ...LNN];
+          //   setMycitys(LNNx);
+          //   changeBottomcolorOff();
+          //   changecitycolor();
 
 
           //                 break;
@@ -663,9 +1105,9 @@ function Findcase() {
           //             }
 
 
-          console.log(mycitys);
-          console.log(posts);
-          console.log(data);
+          // console.log(mycitys);
+          // console.log(posts);
+          // console.log(data);
 
         });
     } else {
@@ -698,7 +1140,6 @@ function Findcase() {
         });
     }
   };
-  console.log(posts);
 
 
 
@@ -805,7 +1246,6 @@ function Findcase() {
       setPosts(empty);
     }
   }
-  console.log(mycitys);
   //   if (bool == true) {
 
   //     let city = posts.filter(item => item.country_city == cityname)
@@ -958,12 +1398,12 @@ function Findcase() {
         <div style={{ display: "flex" }} >
           <Dropdown >
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
-            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            {/* <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               <div>
                 <input
                   type="checkbox"
                   name="台北市"
-                  checked={isChecked}
+                  checked={checkedState}
                   onChange={handlechangecity}
                 >
                 </input>
@@ -1140,6 +1580,23 @@ function Findcase() {
                 </input>
                 連江縣
               </div>
+            </Dropdown.Menu> */}
+            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+              {dropdown.map(({ name }, index) => {
+                return (
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={checkedState[index]}
+                      name={name}
+                      value={name}
+                      onChange={() => handleOnChange(index)}
+                    >
+                    </input>
+                    {name}
+                  </div>
+                )
+              })}
             </Dropdown.Menu>
           </Dropdown>
 
@@ -1221,13 +1678,13 @@ function Findcase() {
 
 
 
-
+        {/* all == true ? posts : */}
 
         {/* 案件欄位 */}
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {(all == true ? posts : mycitys).map((post, index) => {
+          {mycitys.map((post, index) => {
 
             return (
               <div>

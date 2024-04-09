@@ -30,6 +30,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import PayButton from "./release/paybutton";
 import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen2";
+import Test from "./Components/test";
 
 
 
@@ -419,6 +420,7 @@ function App() {
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route> 
+        <Route path="/test" element={<Test></Test>}></Route> 
       </Routes>
 
 
