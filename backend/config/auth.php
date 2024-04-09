@@ -105,6 +105,7 @@ return [
             'table' => 'members_reset_tokens',
             'expire' => 30,
             'throttle' => 5,
+            'notification' => \App\Http\Notifications\ResetPassword::class,
         ],
     ],
 
