@@ -12,11 +12,30 @@ import Cookies from "js-cookie";
 
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTermProgress, setSearchTermProgress] = useState('');
+  const [searchTermCompleted, setSearchTermCompleted] = useState('');
 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data1;
 
+
+  //搜尋選擇case
+  const handleSearch = (searchTerm) => {
+    switch (screen) {
+      case 1:
+        setSearchTerm(searchTerm);
+        break;
+      case 2:
+        setSearchTermProgress(searchTerm);
+        break;
+      case 3:
+        setSearchTermCompleted(searchTerm);
+        break;
+      default:
+        setSearchTerm(searchTerm);
+    }
+  };
 
 
   // 控制key回傳對應Modal
@@ -176,29 +195,51 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     </h1>)
 
   }
+
+  //根據條件選擇screen的casedata
+  let filteredData = CaseData;
+  switch (screen) {
+  case 1:
+    if (searchTerm) {
+      filteredData = CaseData.filter(item => item.d_name.includes(searchTerm));
+    }
+    break;
+  case 2:
+    if (searchTermProgress) {
+      filteredData = CaseData.filter(item => item.c_name.includes(searchTermProgress));
+    }
+    break;
+  case 3:
+    if (searchTermCompleted) {
+      filteredData = CaseData.filter(item => item.c_name.includes(searchTermCompleted));
+    }
+    break;
+  default:
+    filteredData = CaseData;
+}
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div
         className="d-flex justify-content-around"
-        style={{ width: "800px", visibility }}
+        style={{ width: "800px" }}
       >
-        <Button
+        <Button 
           variant="primary"
-          style={{ fontSize: "12px", width: "110px", whiteSpace: "nowrap" }}
+          style={{ fontSize: "12px", width: "110px", whiteSpace: "nowrap",visibility }}
           onClick={handleToggleAll}
         >
           {checked ? "取消全選" : "全選"}
         </Button>
         <Button
           variant="danger"
-          style={{ fontSize: "12px", width: "100px" }}
+          style={{ fontSize: "12px", width: "100px" ,visibility}}
           onClick={() => handleDeleted()}
         >
           刪除
         </Button>
-        <SearchPage />
+        <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
-      {CaseData.map((item, index) => (
+      {filteredData.map((item, index) => (
         <Card
           key={index}
           className="my-3"

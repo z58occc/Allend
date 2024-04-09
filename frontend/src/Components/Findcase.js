@@ -936,8 +936,8 @@ function Findcase() {
 
         {/* 下拉選單 */}
         <div style={{ display: "flex" }} >
-          <Dropdown show={showdropdown}>
-            <Dropdown.Toggle onClick={() => setShowdropdown(true)} id="dropdown-basic">地區</Dropdown.Toggle>
+          <Dropdown >
+            <Dropdown.Toggle  id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               <div>
                 <input

@@ -9,6 +9,9 @@ import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
 // import CaseContext from './CaseContext';
 const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTermProgress, setSearchTermProgress] = useState('');
+  const [searchTermCompleted, setSearchTermCompleted] = useState('');
   const CaseData = data1
   // 控制key回傳對應Modal
   
@@ -19,7 +22,21 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   }
   //
   const {fetchData} = useContext(CaseContext);
- 
+  const handleSearch = (searchTerm) => {
+    switch (screen) {
+      case 1:
+        setSearchTerm(searchTerm);
+        break;
+      case 2:
+        setSearchTermProgress(searchTerm);
+        break;
+      case 3:
+        setSearchTermCompleted(searchTerm);
+        break;
+      default:
+        setSearchTerm(searchTerm);
+    }
+  };
   
   // 案件詳情Modal
   const [showModal1, setShowModal1] = useState(false)
@@ -32,6 +49,8 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
     setShowModal1(false);
     setSelectedDataKey(0);
   }
+
+  
   //棄件
   const handleDeleted = (qid) => {
     fetch('http://127.0.0.1/Allend/backend/public/api/delmembertakecase',{
@@ -55,22 +74,41 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
   // CardList選擇子元件
   let ComponentToRender;
   if (selectedComponent === 'component1') {
-    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/> ;
+    ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} searchTerm={searchTerm} onSearch={handleSearch}/> ;
   } else if (selectedComponent === 'component2') {
-    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+    ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} searchTerm={searchTerm} onSearch={handleSearch}/>;
   } else if (selectedComponent === 'component3') {
-    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData}/>;
+    ComponentToRender = <CaseDetailsModal3 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} searchTerm={searchTerm} onSearch={handleSearch}/>;
   }
-  
+  let filteredData = CaseData;
+  switch (screen) {
+    case 1:
+      if (searchTerm) {
+        filteredData = CaseData.filter(item => item.d_name.includes(searchTerm));
+      }
+      break;
+    case 2:
+      if (searchTermProgress) {
+        filteredData = CaseData.filter(item => item.c_name.includes(searchTermProgress));
+      }
+      break;
+    case 3:
+      if (searchTermCompleted) {
+        filteredData = CaseData.filter(item => item.c_name.includes(searchTermCompleted));
+      }
+      break;
+    default:
+      filteredData = CaseData;
+  }
 
   return (
     <div className="d-flex flex-wrap justify-content-around">
-      <div className="d-flex justify-content-end" style={{ width: '800px', visibility }} >
-        <SearchPage></SearchPage>
+      <div className="d-flex justify-content-end" style={{ width: '800px' }} >
+      <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
       {
       // CaseData.length === 0 ? <h2>未有紀錄</h2>   
-       CaseData.map((item, index) => (
+       filteredData.map((item, index) => (
         <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: '1' }}>
