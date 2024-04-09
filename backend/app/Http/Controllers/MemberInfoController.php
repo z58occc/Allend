@@ -519,13 +519,13 @@ class MemberInfoController extends Controller
             }
 
             // 分頁顯示
-            $service_results = $service_query->paginate(4);
-            $project_results =  $project_query->paginate(6);
-            $video_results = $video_query->paginate(6);
+            // $service_results = $service_query->paginate(4);
+            // $project_results =  $project_query->paginate(6);
+            // $video_results = $video_query->paginate(6);
             return response()->json([
-                'service' => $service_results,
-                'project' => $project_results,
-                'video' => $video_results,
+                'service' => $service_query->get(),
+                'project' => $project_query->get(),
+                'video' => $video_query->get(),
             ]);
         }
     }
@@ -533,6 +533,7 @@ class MemberInfoController extends Controller
     // 新增服務
     public function addService(Request $request)
     {
+        $mid = Auth::id();
         $this->validate($request,[
             's_name'=>['required'], //服務名稱
             's_type'=>['required'], //類別
@@ -546,6 +547,7 @@ class MemberInfoController extends Controller
             $data = $request->image ->get();
             $mime_type = $request->image->getMimeType();
             $imageData = base64_encode($data);
+
             // $src = "data: $mime_type;base64,$imageData";
         }
 
@@ -556,6 +558,7 @@ class MemberInfoController extends Controller
         $country = DB::table('country')->where('country_city',$active_location)->value('country_id');
 
         $service = DB::table('service')->insert([
+            'mid' => $mid,
             's_name'=>$request['s_name'],
             's_type'=>$catid,
             's_description'=>$request['s_description'],
@@ -629,11 +632,9 @@ class MemberInfoController extends Controller
             'p_description'=>['required'],
         ]);
 
-        if(isset($request->image)){
+        if($request->hasFile('image')){
             $data = $request->image->get();
-            // $mime_type = $request->image->getMimeType();
             $imageData = base64_encode($data);
-            // $src = "data: $mime_type;base64,$imageData";
         }
         $work = DB::table('project')->insert([
             'p_name'=>$request['p_name'],
@@ -642,7 +643,7 @@ class MemberInfoController extends Controller
             'image'=>$imageData,
             'created_at'=>now(),
             'updated_at'=>now()
-        ]);
+        ]); 
         return response($work);
     }
 

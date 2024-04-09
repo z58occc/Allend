@@ -1,30 +1,17 @@
 import React, { useState } from 'react';
 import { Button, Card, Form, Col, Row } from "react-bootstrap";
-
-const Work = () => {
+import CaseDetailsModal2 from './CaseDetailsModal2';
+const Work = ({data2}) => {
   // Generate random data for six items
-  const generateRandomData = () => {
-    const data = [];
-    for (let i = 0; i < 6; i++) {
-      data.push({
-        id: i + 1,
-        title: `Title ${i + 1}`,
-        content: `Content ${i + 1}`,
-        media: i % 2 === 0 ? 'https://via.placeholder.com/150' : 'https://via.placeholder.com/150x150.png',
-      });
-    }
-    return data;
-  };
+  console.log(data2);
 
-  // Initialize data and selected status
-  const [data] = useState(generateRandomData());
-  const [selectedItems, setSelectedItems] = useState(Array(data.length).fill(false));
+  const [selectedItems, setSelectedItems] = useState(Array(data2.length).fill(false));
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all
   const handleToggleAll = () => {
     setCheckedAll(!checkedAll);
-    setSelectedItems(Array(data.length).fill(!checkedAll));
+    setSelectedItems(Array(data2.length).fill(!checkedAll));
   };
 
   // Handle individual selection
@@ -34,6 +21,14 @@ const Work = () => {
     setSelectedItems(newSelectedItems);
     setCheckedAll(newSelectedItems.every((item) => item));
   };
+  //
+  const [show,setShow] = useState(false);
+  const handleShow = () => {
+    setShow(true);
+  }
+  const handleClose = () => {
+    setShow(false);
+  }
 
   return (
     <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '650px' }}>
@@ -42,7 +37,7 @@ const Work = () => {
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { /* Missing delete functionality handler */ }}
+            onClick={() => {handleShow()}}
           >
             新增  
           </Button>
@@ -63,10 +58,10 @@ const Work = () => {
         </div>
         {/* Generate six Cards */}
         <Row className="justify-content-center" style={{ marginLeft: "40px" }}>
-          {data.map((item, index) => (
+          {data2.map((item, index) => (
             <Col key={index} xs={6} md={4} className="my-3">
               <Card style={{ width: "200px" }}>
-                <Card.Img variant="top" src={item.media} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                 <Card.Body className="d-flex flex-column">
                     <Card.Title>
                       <Form.Check
@@ -74,7 +69,7 @@ const Work = () => {
                         checked={selectedItems[index] || false}
                         onChange={() => handleChecked(index)}
                         style={{margin:"0 10px 3px 10px"}}
-                      /> <span style={{margin:"0 20px"}}>{item.title}</span>
+                      /> <span style={{margin:"0 20px"}}>{item.p_name}</span>
                     </Card.Title>
                 </Card.Body>  
 
@@ -83,6 +78,7 @@ const Work = () => {
           ))}
         </Row>
       </div>
+      <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
     </div>
   );
 };
