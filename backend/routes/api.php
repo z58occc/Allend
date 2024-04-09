@@ -160,7 +160,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 編輯服務
     Route::post('/updateservice', 'updateService');
     // 刪除服務
-    Route::get('/delmemser', 'delService');
+    Route::post('/delmemser', 'delService');
     // 新增作品
     Route::post('/work', 'addWork');
     // 編輯作品
@@ -171,6 +171,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/video', 'addVideo');
     // 編輯影音
     Route::post('/upvideo', 'updateVideo');
+    // 刪除影音
+    Route::post('/delvideo', 'delVideo');
     // 獲取我的收藏頁面
     Route::get('/collection', 'getCollection');
 });

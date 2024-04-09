@@ -5,8 +5,6 @@ import Carousel from "react-bootstrap/Carousel";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import Category from "../Components/Category";
-import product4 from "../Components/img/product4.jpg";
-import product9 from "../Components/img/product9.jpg";
 import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
@@ -61,27 +59,8 @@ function Homepage() {
     fetchData()
   }, []);
 
-  const [isHovered, setIsHovered] = useState(false); // State to track hover status
-  // const [activeProduct, setActiveProduct] = useState(Product); // State to track active product
-  const [activeproduct4, setActiveproduct4] = useState(product4);
-  const [activeproduct9, setActiveproduct9] = useState(product9);
 
-  const handleMouseEnter = (image) => {
-    setIsHovered(true);
-    setActiveProduct(image);
-    setActiveproduct4(image);
-    setActiveproduct9(image);
-    setChange(true);
-  };
 
-  const handleMouseLeave = (image) => {
-    setIsHovered(false);
-    setActiveProduct(image);
-    setActiveproduct4(product4);
-    setActiveproduct9(product9);
-    setChange(false);
-
-  };
   {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -119,7 +98,6 @@ function Homepage() {
 
   const [showNewbie, setShowNewbie] = useState(false);
   const handleClose = () => setShowNewbie(false);
-
 
 
 
@@ -186,20 +164,20 @@ function Homepage() {
             <h4>新手教學</h4>
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
               <div className="col-3 l" style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
                 <p>為你篩選適合人才</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>刊登服務<FaWpforms style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>刊登服務<FaWpforms style={{ fontSize: '50px' }} /></h4>
                 <p>上架您的案件</p>
               </div>
               <div className="col-3 " style={{ textAlign: 'center' }}>
-                <h4 style={{ color: "#FFB5B5" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
+                <h4 style={{ color: "#FF9797" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
                 <p>找人才輕鬆無壓力</p>
               </div>
               <div class="col-12 text-center">
-                <span style={{ color: "#FFB5B5" }}>找案件，找人才，由我們搞定！</span>
-                <button style={{ border: "none", backgroundColor: "#FFB5B5", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
+                <span style={{ color: "#FF9797" }}>找案件，找人才，由我們搞定！</span>
+                <button style={{ border: "none", backgroundColor: "#FF9797", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
 
               </div>
             </div>
@@ -249,8 +227,6 @@ function Homepage() {
 
 
 
-
-
         {/* 最新刊登 */}
         <div className="row mt-3" >
           <h4>最新刊登</h4>
@@ -285,22 +261,16 @@ function Homepage() {
 
 
 
-
-
-        {/* 輪播圖 */}
+        {/* 接api輪播圖 */}
         <h4>會員作品</h4>
-        <div className="d-flex  justify-content-center mt-5">
-
-
-          {/* <Row className="justify-content-md-center"> */}
-          {/* <Col xs lg="7"> */}
+        <div className="d-flex justify-content-center mt-5">
           <Carousel
             activeIndex={carouselpage}
             onSelect={handleSelect}
-            style={{ overflow: " hidden", backgroundColor: "#9CAFAA",width:"600px" }}
+            style={{ overflow: " hidden", background: "linear-gradient( #A3D1D1,#D1E9E9 ,#95CACA,#B3D9D9)", width: "700px", height: "275px" }}
             id="carousel"
-            interval={null}
-            indicators={false}
+            interval={5000}
+            indicators={true}
             controls={true}
             prevIcon={
               <span style={{ color: "black", fontSize: "4rem" }}>‹</span>
@@ -309,83 +279,27 @@ function Homepage() {
               <span style={{ color: "black", fontSize: "4rem" }}>›</span>
             }
           >
-
-            {/* 接api輪播圖 */}
             {posts.slice(3, 6).map((post, index) => {
               return (
                 <Carousel.Item  >
-                  <Row className=" justify-content-md-center  ">
+                  <Row className="justify-content-md-center">
                     <Col xs lg="6" style={{ padding: "0px" }}>
-                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto" }} />
+                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
                     </Col>
-                    <Col xs lg="2" style={{ padding: "0px" }}>
+                    <Col xs lg="2" className="d-flex justify-content-center align-items-center" style={{ padding: "0px" }}>
                       {/* style={{  }} */}
-                      <Link to={`./talent/${post.mid}`} style={{ fontSize: "18px", position: "relative", left: "30px" }}>
+                      <Link to={`./talent/${post.mid}`} style={{ fontSize: "20px", position: "relative", left: "30px" }}>
                         <span >{post.name}</span>
                       </Link>
-                      {/* <Row
-                            id="carouselimg"
-                            className=" justify-content-md-center"
-                          >
-                               {posts.slice(carouselpage * 3, carouselpage * 3 + 3).map((post, index) => {
-                                return (
-                                  <Col xs lg="4" style={{ zIndex: 100 }}>
-                                    {" "}
-                                    <img
-                                      src={`data:image/jpeg;base64,${post.project_image}`}
-                                      onMouseEnter={() => handleMouseEnter(`data:image/jpeg;base64,${post.project_image}`)}
-                                      onMouseLeave={() => handleMouseLeave(`data:image/jpeg;base64,${post.project_image}`)}
-                                    />
-                                  </Col>
-                                )
-                              })}
-                </Row> */}
                     </Col>
                   </Row>
                 </Carousel.Item>
-
               )
-
             })}
-            {/* 接api輪播圖 */}
-
-            {/* 接api輪播圖 */}
-            {/* {posts.slice(3, 6).map((post, index) => {
-              return (
-                <Carousel.Item style={{ backgroundImage: `url(data:image/jpeg;base64,${post.project_image})`, backgroundSize: "665px 250px" }}>
-                  <Row className=" justify-content-md-center  ">
-                    <Col xs lg="6">
-                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", height: "auto", margin: "auto", visibility: "hidden" }} />
-                      <Link className="justify-content-md-center" style={{ textAlign: "end", position: "relative", bottom: "80px", left: "30px" }} to={`./talent/${post.mid}`}>
-                        <h3 >{post.name}</h3>
-                      </Link>
-                    </Col> */}
-                    {/* <Col xs lg="5">
-                          <Link className="justify-content-md-center" style={{alignItems:"end"}} to={`./talent/${post.mid}`}>
-                            <h3 >{post.name}</h3>
-                          </Link>
-
-                        </Col> */}
-                  {/* </Row>
-                </Carousel.Item>
-
-              )
-
-            })} */}
-            {/* 接api輪播圖 */}
-
-
-
-
-
-
           </Carousel>
-          {/* </Col> */}
-          {/* </Row> */}
         </div>
-        {/* 輪播圖 */}
       </div>
-
+      {/* 接api輪播圖 */}
 
 
 
@@ -412,7 +326,7 @@ function Homepage() {
             <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><TfiAnnouncement style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 pe-2"><TfiAnnouncement style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
 
@@ -425,7 +339,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 "><TbBellRinging style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 "><TbBellRinging style={{ fontSize: "35px", color: "#FF9797" }} />
 
                   </div>
                   <div className="col-10">
@@ -438,7 +352,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><IoIosPeople style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><IoIosPeople style={{ fontSize: "35px", color: "#FF9797" }} />
 
                   </div>
                   <div className="col-10">
@@ -456,7 +370,7 @@ function Homepage() {
             <div className="talent-modal-div" >
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2 pe-2"><BsPersonVcard style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2 pe-2"><BsPersonVcard style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">建立個人案件</h5>
@@ -468,7 +382,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><FaBriefcase style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><FaBriefcase style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
@@ -480,7 +394,7 @@ function Homepage() {
               </div>
               <div className="my-4 container-fluid container-xl">
                 <div className="row">
-                  <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "3964C3" }} />
+                  <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">無上限申請提案</h5>
