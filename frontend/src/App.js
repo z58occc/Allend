@@ -29,7 +29,7 @@ import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
 import PayButton from "./Components/paybutton";
 import { FcGoogle } from "react-icons/fc";
-
+import MainScreen3 from "./servicePage/MainScreen2";
 
 
 
@@ -417,7 +417,8 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-        <Route path="/pay" element={<PayButton></PayButton>}></Route>
+        <Route path="/pay" element={<PayButton></PayButton>}></Route> 
+        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route> 
       </Routes>
 
 

@@ -413,7 +413,8 @@ class MemberInfoController extends Controller
 
             // 發案刊登搜尋
             if($request->has('demmandSearch')){
-                $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
+                $demmand_query
+                ->where('d_name','like','%'.$request->input('demmandSearch').'%');
             }
             // 發案進行中搜尋
             if($request->has('demmandProgressSearch')){
@@ -492,26 +493,33 @@ class MemberInfoController extends Controller
     {
         $mid = Auth::id();
         if($mid){
-            $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
+            $service_query = DB::table('service')
+            ->join('category', 'catid', '=', 's_type')
+            ->join('country', 'country_id', '=', 's_active_location')
+            ->select('sid', 'image', 's_name', 'type', 's_description', 's_amount', 's_unit',
+            'country_city as s_active_location', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
+            ->where('mid',$mid);
 
-            $project_query = DB::table('project')->select('p_name','image')->where('mid',$mid);
+            $project_query = DB::table('project')->select('pid','image','p_name','p_description',
+            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at')) ->where('mid',$mid);
 
-            $video_query = DB::table('video')->select('v_name','src')->where('mid',$mid);
+            $video_query = DB::table('video')->select('vid','src','v_name','v_description',
+            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
 
-            //服務搜尋
+            // 服務搜尋
             if($request->has('servicesearch')){
                 $service_query->where('s_name','like','%'.$request->input('servicesearch').'%');
             }
-            //作品搜尋
+            // 作品搜尋
             if($request->has('projectsearch')){
                 $project_query->where('p_name','like','%'.$request->input('projectsearch').'%');
             }
-            //影音搜尋
+            // 影音搜尋
             if($request->has('videosearch')){
                 $video_query->where('v_name','like','%'.$request->input('videosearch').'%');
             }
 
-            //分頁顯示
+            // 分頁顯示
             $service_results = $service_query->paginate(4);
             $project_results =  $project_query->paginate(6);
             $video_results = $video_query->paginate(6);

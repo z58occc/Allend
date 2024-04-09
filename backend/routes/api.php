@@ -164,6 +164,8 @@ Route::controller(MemberInfoController::class)->group(function(){
     Route::post('/work', 'addWork');
     // 編輯作品
     Route::post('/upwork', 'updateWork');
+    // 刪除作品
+    Route::post('/delwork', 'delWork');
     // 新增影音
     Route::post('/video', 'addVideo');
     // 編輯影音
