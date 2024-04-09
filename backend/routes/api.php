@@ -159,7 +159,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 編輯服務
     Route::post('/updateservice', 'updateService');
     // 刪除服務
-    Route::get('/delmemser', 'delService');
+    Route::post('/delmemser', 'delService');
     // 新增作品
     Route::post('/work', 'addWork');
     // 編輯作品
