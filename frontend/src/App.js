@@ -417,8 +417,8 @@ function App() {
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-        <Route path="/pay" element={<PayButton></PayButton>}></Route> 
-        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route> 
+        <Route path="/pay" element={<PayButton></PayButton>}></Route>
+        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
       </Routes>
 
 
@@ -472,7 +472,6 @@ function App() {
                         style={{ color: "#FCFCFC" }}
                       />
                     </Form.Group>
-
                   </div>
                 </div>
 
@@ -482,11 +481,18 @@ function App() {
                       登入
                     </Button>
                   </div>
-                  <Form.Text>
-                    <a href="/forgot-password" onClick={toForgotPassword} >
-                      忘記密碼?
-                    </a>
-                  </Form.Text>
+                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <Form.Text style={{ flexGrow: 1 }}>
+                      <a href="/forgot-password" onClick={toForgotPassword}>
+                        忘記密碼?
+                      </a>
+                    </Form.Text>
+                    <Form.Text style={{ flexGrow: 1, textAlign: 'right' }}>
+                      <a href="/Register" onClick={toRegister}>
+                        立即註冊
+                      </a>
+                    </Form.Text>
+                  </div>
                   <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <div style={{ width: "50%" }}>
                       <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
@@ -497,23 +503,15 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <Button onClick={handleGoogleLogin} variant="white">
+                    <Button style={{ marginTop: "15px" }} onClick={handleGoogleLogin} variant="white">
                       <FcGoogle style={{ fontSize: "20px" }} />
                     </Button>
                   </div>
                 </div>
               </div>
-
             </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Form.Text>
-            <a href="/Register" onClick={toRegister}>
-              立即註冊
-            </a>
-          </Form.Text>
-        </Modal.Footer>
       </Modal>
       {/* 登入 */}
 
