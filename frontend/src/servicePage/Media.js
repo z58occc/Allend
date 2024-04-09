@@ -130,12 +130,12 @@ const Media = ({ data3 }) => {
                     /> <span style={{ margin: "0 20px" }}>{item.v_name}</span>
                   </Card.Title>
                 </Card.Body>
-                <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
               </Card>
             </Col>
           ))}
         </Row>
       </div>
+      <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
     </div>
   );
 };
