@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 // import axios from 'axios';
 // import Cookies from 'js-cookie';
@@ -6,97 +5,55 @@ import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen2";
 import Cookies from "js-cookie";
-const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
+const CaseDetailsModal1 = ({ show, onHide }) => {
   //useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);
 
-  const [nameOfCase, setNameOfCase] = useState("");
+  const [nameOfService, setNameOfService] = useState("");
   const [category, setCategory] = useState("");
-  const [cooperationTime, setCooperationTime] = useState("");
   const [location, setLocation] = useState("");
   const [details, setDetails] = useState("");
   const [budget, setBudget] = useState("");
   const [unit, setUnit] = useState("");
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const handleSubmit = (e) => {
+  const [imageFile, setImageFile] = useState(null);
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch('http://127.0.0.1/Allend/backend/public/api/updatepublishcase', {
+    const formData = new FormData();
+    formData.append('s_name', nameOfService);
+    formData.append('s_type', category);
+    formData.append('s_description', details);
+    formData.append('s_amount', budget);
+    formData.append('s_unit', unit);
+    formData.append('s_active_location', location);
+    formData.append('image', imageFile);
+
+
+
+
+    await fetch('http://127.0.0.1/Allend/backend/public/api/addservice', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
-      body: JSON.stringify({
-        index: data[number].did,
-        case_name: nameOfCase,
-        type: category,
-        amount: budget,
-        unit: unit,
-        duration: cooperationTime,
-        location: location,
-        details: details,
-        contact_name: userName,
-        email: email,
-        phone: contact,
-      }),
+      body: formData,
     })
-    .then((res) => {
+      .then((res) => {
         console.log(res);
         onHide();
         fetchData();
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error('There was a problem updating the case:', error);
-    });  
-
-
-
-    if (!emailError) {
-      // setNameOfCase("");
-      // setCategory("");
-      // setCooperationTime("");
-      // setLocation("");
-      // setDetails("");
-      // setBudget("");
-      // setUnit("");
-      // setUserName("");
-      // setEmail("");
-      // setContact("");
-    } else {
-      console.error("Form submission error: Email format is incorrect.");
-    }
+      });
   };
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setNameOfCase(data[number].d_name);
-      setCategory(data[number].type);
-      setCooperationTime(data[number].d_duration);
-      setLocation(data[number].active_location);
-      setDetails(data[number].d_description);
-      setBudget(data[number].d_amount);
-      setUnit(data[number].d_unit);
-      setUserName(data[number].d_contact_name);
-      setEmail(data[number].d_email);
-      setContact(data[number].d_mobile_phone);
-    }
-  }, [data, number]);
-
-  const validateEmail = (value) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (regex.test(value)) {
-      setEmailError("");
-    } else {
-      setEmailError("Invalid email format");
-    }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
   };
-
-  if (!data || data.length === 0) {
-    return null; // Render nothing if data is empty or undefined
-  }
+  
 
   return (
     <Modal
@@ -108,22 +65,20 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Label>案件編號：{data[number].did}</Form.Label>
         <Form >
           <Form.Group controlId="numberOfPeople">
-            <Form.Label>案件名稱：{data[number].d_name}</Form.Label>
+            <Form.Label>服務名稱：{ }</Form.Label>
             <Form.Control
               type="text"
-              placeholder="填寫案件名稱"
-              value={nameOfCase}
-              onChange={(e) => setNameOfCase(e.target.value)}
-
+              placeholder="填寫服務名稱"
+              value={nameOfService}
+              onChange={(e) => setNameOfService(e.target.value)}
               required
             />
           </Form.Group>
 
           <Form.Group controlId="category">
-            <Form.Label>需求類別：</Form.Label>
+            <Form.Label>服務類型：</Form.Label>
             <Form.Control
               as="select"
               value={category}
@@ -142,7 +97,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           <Row>
             <Col>
               <Form.Group controlId="budget">
-                <Form.Label>預算金額：</Form.Label>
+                <Form.Label>報價金額：</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="填寫金額"
@@ -171,27 +126,12 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               </Form.Group>
             </Col>
           </Row>
-          <Form.Group controlId="cooperationTime">
-            <Form.Label>合作期程：</Form.Label>
-
-            <Form.Control
-              as="select"
-              value={cooperationTime}
-              onChange={(e) => setCooperationTime(e.target.value)}
-              required
-            >
-              <option value="">請選擇</option>
-              <option value="短">短期</option>
-              <option value="長">長期</option>
-            </Form.Control>
-          </Form.Group>
           <Row>
             <Col>
               <Form.Group controlId="location">
-                <Form.Label>地點選擇：</Form.Label>
+                <Form.Label>服務地點：</Form.Label>
                 <Form.Control
                   as="select"
-                  value={data[number].active_location}
                   onChange={(e) => setLocation(e.target.value)}
                   required
                 >
@@ -233,7 +173,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           </Row>
 
           <Form.Group controlId="details">
-            <Form.Label>需求詳情：</Form.Label>
+            <Form.Label>服務描述：</Form.Label>
             <Form.Control
               as="textarea"
               placeholder="請輸入最少十個字"
@@ -242,43 +182,11 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               required
             />
           </Form.Group>
-
-          <Form.Group controlId="userName">
-            <Form.Label>聯絡人名稱：</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="請輸入聯絡人名稱"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              required
-            />
+          <Form.Group controlId="formImageFile">
+            <Form.Label>選擇圖片檔案</Form.Label>
+            <Form.Control type="file" accept="image/*" onChange={handleImageChange} />
           </Form.Group>
 
-          <Form.Group controlId="email">
-            <Form.Label>聯絡人Email：</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="請輸入email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                validateEmail(e.target.value);
-              }}
-              isInvalid={!!emailError}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group controlId="contact">
-            <Form.Label>聯絡方式：</Form.Label>
-            <Form.Control
-              type="phone"
-              placeholder="請輸入電話號碼"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
-              required
-            />
-          </Form.Group>
         </Form>
         <div className="mb-2 d-flex justify-content-around">
           <Button
@@ -289,7 +197,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               handleSubmit(e); // Pass the event object to handleSubmit
             }}
           >
-            儲存變更
+            發布
           </Button>
           <Button variant="secondary" size="lg" onClick={onHide}>
             取消

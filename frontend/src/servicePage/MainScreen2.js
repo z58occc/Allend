@@ -6,60 +6,43 @@ import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 export const CaseContext = createContext();
 const MainScreen3 = () => {
-  const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
-
-  const handleScreenChange = (screenName) => {
-    setActiveScreen(screenName);
-  };
-  const [Case, setCase] = useState({
-    demmand_published: [
+  const [Service, setService] = useState({
+    service: [
       {
-        did: 0,
-        d_name: "",
-        type: "",
-        d_amount: 0,
-        d_unit: "",
-        d_duration: "",
-        active_location: "",
-        d_description: "",
-        d_contact_name: "",
-        d_email: "",
-        d_mobile_phone: "",
-        updated_at: "",
+        "sid": 0,
+        "image": "",
+        "s_name": "",
+        "type": "",
+        "s_description": "",
+        "s_amount": 0,
+        "s_unit": "",
+        "s_active_location": "",
+        "updated_at": ""
       },
     ],
-    demmand_progress: [
+    project: [
       {
-        cid: 0,
-        c_name: "",
-        type: "",
-        c_amount: 0,
-        c_unit: "",
-        c_duration: "",
-        active_location: "",
-        c_description: "",
-        c_contact_name: "",
-        c_email: "",
-        c_mobile_phone: "",
-        created_at: "",
+        "pid": 5,
+        "image": " ",
+        "p_name": "心靈顧問",
+        "p_description": "1對1式心靈開導",
+        "updated_at": "2024/03/22"
       },
     ],
-    demmand_completed: [
+    video : [
       {
-        cid: 0,
-        c_name: "",
-        type: "",
-        c_amount: 0,
-        c_unit: "",
-        created_at: "",
-        completed_time: "",
-      },
-    ],
+        "vid": 9,
+        "src": "https://www.youtube.com/watch?v=XH3_TXjyhks",
+        "v_name": "網站設計",
+        "v_description": "網站設計",
+        "updated_at": "2024/03/22"
+      }
+    ]
   });
-  // http://127.0.0.1/Allend/public/api/mempublishcase
+  //
   const fetchData = async () => {
     const result = await axios.get(
-      "http://127.0.0.1/Allend/backend/public/api/mempublishcase",
+      "http://127.0.0.1/Allend/backend/public/api/memservice",
       {
         headers: {
           "Content-Type": "application/json",
@@ -67,16 +50,16 @@ const MainScreen3 = () => {
         },
       }
     );
-    setCase(result.data);
+    setService(result.data);
   };
   useEffect(() => {
     fetchData();
   }, []);
 
-  console.log(Case);
+  console.log(Service);
 
   return (
-    <CaseContext.Provider value={{ Case, setCase, fetchData }}>
+    <CaseContext.Provider value={{ fetchData }}>
       <Container xxl={12}>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
@@ -88,7 +71,7 @@ const MainScreen3 = () => {
               {/* 主畫面區域 */}
               <Row>
                 <Col md={12}>
-                    <Screen1/>
+                  <Screen1 data={Service}/>
                 </Col>
               </Row>
             </Container>
