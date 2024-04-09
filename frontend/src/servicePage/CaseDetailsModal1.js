@@ -5,7 +5,8 @@ import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen2";
 import Cookies from "js-cookie";
-const CaseDetailsModal1 = ({ show, onHide }) => {
+const CaseDetailsModal1 = ({ show, onHide , data}) => {
+  console.log(data);
   //useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);
 
@@ -67,7 +68,7 @@ const CaseDetailsModal1 = ({ show, onHide }) => {
       <Modal.Body>
         <Form >
           <Form.Group controlId="numberOfPeople">
-            <Form.Label>服務名稱：{ }</Form.Label>
+            <Form.Label>服務名稱：</Form.Label>
             <Form.Control
               type="text"
               placeholder="填寫服務名稱"

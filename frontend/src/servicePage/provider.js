@@ -6,11 +6,13 @@ import { CaseContext } from "./MainScreen2";
 const Provider = ({ data1 }) => {
 
   const CaseData = data1;
+  const [Service, setService] = useState(CaseData);
   const { fetchData } = useContext(CaseContext);
   //
   const [selectedItems, setSelectedItems] = useState(Array(data1.length).fill(false));
   const [checkedAll, setCheckedAll] = useState(false);
-
+  //
+  const [index, setIndex] = useState(0);
 
   const handleToggleAll = () => {
     setCheckedAll(!checkedAll);
@@ -26,8 +28,10 @@ const Provider = ({ data1 }) => {
   };
   //
   const [show,setShow] = useState(false);
-  const handleShow = () => {
+  const handleShow = (index) => {
     setShow(true);
+    setIndex(index);
+    setService(CaseData[0]);
   }
   const handleClose = () => {
     setShow(false);
@@ -121,6 +125,9 @@ const Provider = ({ data1 }) => {
               key={index}
               className=""
               style={{ width: "720px", height: "95px", margin: '10px auto' }}
+              onClick={(index)=>{
+                handleShow(index);
+              }}
             >
               <Card.Body style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
@@ -148,7 +155,7 @@ const Provider = ({ data1 }) => {
           ))}
         </div>
       </div>
-      <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      <CaseDetailsModal1 show={show} onHide={handleClose} data={Service}></CaseDetailsModal1>
     </div>
   );
 };
