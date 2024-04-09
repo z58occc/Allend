@@ -29,7 +29,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   }
 
   useEffect(() => {
-    // 当 data[number] 发生变化时更新 selectedCase
+    // 當 data[number] 發生變化更新 selectedCase
     setSelectedCase({
       cid: data[number].cid,
       c_name: data[number].c_name,
