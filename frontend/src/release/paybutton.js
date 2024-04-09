@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { Button } from "react-bootstrap";
 const ECPayment = ({cName, cId, cAmount}) => {
     const [formData, setFormData] = useState({
         MerchantID: '',
@@ -58,9 +58,9 @@ const ECPayment = ({cName, cId, cAmount}) => {
     };
 
     return (
-        <div>
-            <button onClick={handleSubmit}>前往付款</button>
-        </div>
+        <>
+            <Button variant="info" size="lg" onClick={handleSubmit}>前往付款</Button>
+        </>
     );
 };
 
