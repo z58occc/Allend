@@ -105,20 +105,42 @@ class MemberInfoController extends Controller
         // }
         $user = Auth::user();
         $user_info = DB::table('members')
-        ->join('identity', 'members.identity', '=', 'identity.iid')
-        ->join('country as c1', 'c1.country_id', '=', 'active_location')
-        ->join('country as c2', 'c2.country_id', '=', 'location')
-        ->select(['email', 'i_identity as identity', 'seniority as experience',
-                'c1.country_city as locations', 'mobile_phone as phone', 'name', 'id_card as idCard',
-                'gender','c2.country_city as area',])
-        ->where('mid', $user->mid)->first();
-        // 確保沒有null值出去
-        foreach($user_info as $key => &$value){
-            if ($value === null){
-                $user_info->$key = "";
-            }
+        ->select(['email', DB::raw('ifnull(seniority, "") as experience'),DB::raw('ifnull(mobile_phone, "") as phone'),
+        DB::raw('ifnull(name, "") as name'),DB::raw('ifnull(id_card, "") as idCard'),DB::raw('ifnull(gender, "") as gender')])
+        ->where('mid', $user->mid);
+
+        $judge = DB::table('members')->select('identity', 'active_location', 'location')->where('mid', $user->mid)->first();
+        if ($judge->identity !== null){
+            $user_info->join('identity', 'members.identity', '=', 'identity.iid')->addSelect('i_identity as identity');
+        }else{
+            $user_info->addSelect(DB::raw('ifnull(identity, "") as identity'));
         }
-        return response()->json($user_info);
+        if ($judge->active_location !== null){
+            $user_info->join('country as c1', 'c1.country_id', '=', 'active_location')->addSelect('c1.country_city as location');
+        }else{
+            $user_info->addSelect(DB::raw('ifnull(active_location, "") as location'));
+        }
+        if ($judge->location !== null){
+            $user_info->join('country as c2', 'c2.country_id', '=', 'location')->addSelect('c2.country_city as area');
+        }else{
+            $user_info->addSelect(DB::raw('ifnull(location, "") as area'));
+        }
+
+        // ->join('identity', 'members.identity', '=', 'identity.iid')
+        // ->join('country as c1', 'c1.country_id', '=', 'active_location')
+        // ->join('country as c2', 'c2.country_id', '=', 'location')
+        // ->select(['email', DB::raw('ifnull(i_identity, "") as identity'), DB::raw('ifnull(seniority, "") as experience'),
+        //         DB::raw('ifnull(c1.country_city, "") as locations'), DB::raw('ifnull(mobile_phone, "") as phone'),
+        //         DB::raw('ifnull(name, "")'), DB::raw('ifnull(id_card, "") as idCard'),
+        //         DB::raw('ifnull(gender, "")'),DB::raw('ifnull(c2.country_city, "") as area'),])
+        // ->where('mid', $user->mid)->first();
+        // 確保沒有null值出去
+        // foreach($user_info as $key => &$value){
+        //     if ($value === null){
+        //         $user_info->$key = "";
+        //     }
+        // }
+        return response()->json($user_info->first());
     }
 
     // 修改接案方資料

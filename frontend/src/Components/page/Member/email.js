@@ -12,8 +12,8 @@ function FreelancerForm() {
 
   const [formData, setFormData] = useState({
     identity: "",
-    experience: "",
-    locations: "",
+    experience: 0,
+    location: "",
     idCard: "",
     email: "",
     name: "",
@@ -25,8 +25,8 @@ function FreelancerForm() {
   const handleReset = () => {
     setFormData({
       identity: "",
-      experience: "",
-      locations: "",
+      experience: 0,
+      location: "",
       idCard: "",
       email: formData.email,
       name: "",
@@ -100,14 +100,14 @@ console.log(formData)
       }
     }
 
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData(() => ({
+      ...formData,
       [name]: value,
     }));
+
     const isComplete = Object.values(formData).every((value) => value !== "");
     setIsFormComplete(isComplete);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     axios({
@@ -115,9 +115,8 @@ console.log(formData)
       url: "http://localhost/Allend/backend/public/api/updateprofiles",
       data: {
         identity: formData.identity,
-        // nickname: formData.nickname,
         experience: formData.experience,
-        location: formData.locations,
+        location: formData.location,
         idCard: formData.idCard,
         phone: formData.phone,
         gender: formData.gender,
@@ -223,8 +222,8 @@ console.log(formData)
                     接案地點：
                   </Form.Label>
                 </Form.Group>
-                <Form.Group>
-                  
+
+                <Form.Group as={Row}>
                   <div className="row">
                     <div className="col-sm-6">
                       <Form.Select
@@ -232,7 +231,7 @@ console.log(formData)
                         value={formData.experience}
                         onChange={handleChange}
                       >
-                        <option>請選擇累積年資</option>
+                        <option value="">請選擇累積年資</option>
                         <option value="1">1 年</option>
                         <option value="2">2 年</option>
                         <option value="3">3 年</option>
@@ -243,7 +242,7 @@ console.log(formData)
                     <div className="col-sm-6">
                       <Form.Select
                         name="location"
-                        value={formData.locations}
+                        value={formData.location}
                         onChange={handleChange}
                       >
                         <option value="">請選擇地點</option>
@@ -441,7 +440,6 @@ console.log(formData)
                   }}
                 >
                   <Button
-                    
                     type="submit"
                     variant="danger"
                     style={{ width: "50%", fontSize: "15px" }}
