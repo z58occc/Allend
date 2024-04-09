@@ -794,8 +794,8 @@ function Findcase() {
 
         {/* 下拉選單 */}
         <div style={{ display: "flex" }} >
-          <Dropdown show={showdropdown}>
-            <Dropdown.Toggle onClick={() => setShowdropdown(true)} id="dropdown-basic">地區</Dropdown.Toggle>
+          <Dropdown >
+            <Dropdown.Toggle  id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               <div><input type="checkbox" style={{ zIndex: "100px" }}></input>台北市</div>
               <div><input type="checkbox" style={{ zIndex: "100px" }}></input>新北市</div>

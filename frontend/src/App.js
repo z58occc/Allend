@@ -318,28 +318,27 @@ function App() {
         <Link to="/">
           <img style={{ width: 80, height: 80 }} src={ourLogo} alt="" />
         </Link>
-        <span className="slogan-text" style={{ marginLeft: 5 }}>包您滿意</span>
+        <span className="slogan-text" style={{ marginLeft: 5, letterSpacing: "2px" }}>包您滿意</span>
         <div
           className="search-container"
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
 
 
-
           {/* 搜索框 */}
-          <input type="text" placeholder="Search.." style={{ width: '500px', height: '55px', borderRadius: '10px' }} />
-          <Button type="submit" style={{ height: '55px', width: '55px', borderRadius: '10px' }}>
-            <i className="fa fa-search"></i>
-          </Button>
+          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '700px' }}>
+            <input type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
+            <button type="submit" style={{ height: '70px', width: '55px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
+              <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
+            </button>
+          </div>
           {/* 搜索框 */}
-
-
 
 
           {isLoggedIn ? ( // Check if user is logged in
-            <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleLogout}>登出</Button>
+            <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleLogout}>登出</Button>
           ) : (
-            <Button style={{ height: '55px', width: '110px', borderRadius: '10px', fontSize: '20px' }} onClick={handleShow}>登入/註冊</Button>
+            <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
           )}
           {isLoggedIn && (
             <div className="nav-item">
@@ -426,19 +425,19 @@ function App() {
 
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered style={{ borderRadius: '10px' }}>
+      <Modal show={showLogin} onHide={handleClose} centered>
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
-            <div className="col text-center">
+            <div className="col text-center" >
               <Modal.Title>會員登入</Modal.Title>
             </div>
           </div>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body style={{ borderBottom: '1px solid black' }}>
           <Form>
             <div className="container row">
-              <div className="col-6">
+              <div className="col-12">
                 <div className="row ">
                   <div className="col-sm-12 ">
                     <Form.Label>帳號{errorMessage && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorMessage}</span>}</Form.Label>
@@ -454,7 +453,7 @@ function App() {
 
                   <div className="col-sm-12">
                     <Form.Label>密碼</Form.Label>
-                    <InputGroup>
+                    <InputGroup >
                       <InputGroup.Text controlId="formBasicPassword"><RiLockPasswordFill /></InputGroup.Text>
                       <Form.Control
                         type="password"
@@ -469,36 +468,38 @@ function App() {
                         id="rememberPassword"
                         label="Remember Password"
                         className="mt-2"
+                        style={{ color: "#FCFCFC" }}
                       />
                     </Form.Group>
-                    <Form.Text>
-                      <a href="/forgot-password" onClick={toForgotPassword}>
-                        忘記密碼?
-                      </a>
-                    </Form.Text>
-                  </div>
-                </div>
-              </div>
 
-              <div className="col-sm-6 d-flex flex-column align-items-center">
-                <div className="mb-3">
-                  <Button variant="primary" onClick={handleLogin} id="login" style={{ borderRadius: '10px', width: "120px", height: "90px", fontSize: "20px" }}>
-                    登入
-                  </Button>
-                </div>
-                <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <div style={{ width: "50%" }}>
-                    <hr style={{ width: "100%", margin: "10px 0", borderTop: "2px solid black" }} />
-                  </div>
-                  <div style={{ margin: "0 10px" }}>or</div>
-                  <div style={{ width: "50%" }}>
-                    <hr style={{ width: "100%", margin: "10px 0", borderTop: "2px solid black" }} />
                   </div>
                 </div>
-                <div>
-                  <Button onClick={handleGoogleLogin} variant="white">
-                    <FcGoogle style={{ fontSize: "20px" }} />
-                  </Button>
+
+                <div className="col-sm-12 d-flex flex-column align-items-center">
+                  <div className="mb-12 " style={{ textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                    <Button variant="primary" onClick={handleLogin} id="login" style={{ borderRadius: '20px', height: "40px", fontSize: "20px", width: "420px" }}>
+                      登入
+                    </Button>
+                  </div>
+                  <Form.Text>
+                    <a href="/forgot-password" onClick={toForgotPassword} >
+                      忘記密碼?
+                    </a>
+                  </Form.Text>
+                  <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <div style={{ width: "50%" }}>
+                      <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
+                    </div>
+                    <div style={{ margin: "0 10px" }}>or</div>
+                    <div style={{ width: "50%" }}>
+                      <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <Button onClick={handleGoogleLogin} variant="white">
+                      <FcGoogle style={{ fontSize: "20px" }} />
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -522,7 +523,7 @@ function App() {
         centered
       >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
-          <Modal.Title className="col text-center">忘記密碼</Modal.Title>
+          <Modal.Title className="col text-center" >忘記密碼</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -547,7 +548,7 @@ function App() {
       {/* 註冊 */}
       <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
-          <Modal.Title className="col text-center"><FaUserPlus />會員註冊</Modal.Title>
+          <Modal.Title className="col text-center" ><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
