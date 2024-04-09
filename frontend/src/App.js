@@ -127,7 +127,7 @@ function App() {
   const loginUser = async (email, password) => {
     try {
       const res = await axios.post(
-        "/Allend/backend/public/api/login",
+        "http://localhost/Allend/backend/public/api/login",
         {
           email: email,
           password: password,
