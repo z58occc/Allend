@@ -27,7 +27,6 @@ import MainScreen2 from "./release/MainScreen2";
 import axios from "axios";
 import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
-import PayButton from "./release/paybutton";
 import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen2";
 
@@ -139,10 +138,11 @@ function App() {
         // token過期，執行登出操作
         handleLogout();
       }
-    }, 60000); // 每分鐘檢查一次
+    }, 3600000); // 每小時檢查一次
   };
 
   const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
+  
   // 登出處理
   const handleLogout = () => {
           clearInterval(tokenCheckInterval.current);
@@ -269,12 +269,13 @@ function App() {
 
 
 
-  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href;
+  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發按按鈕登入判別
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
     setShowForgotPassword(true);
   };
+
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({

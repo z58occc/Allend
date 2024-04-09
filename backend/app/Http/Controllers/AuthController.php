@@ -85,7 +85,7 @@ class AuthController extends Controller
                 'error' => '帳號或密碼錯誤'
             ],401);
         }
-        $token = auth()->setTTL(1)->attempt($credentials);
+        $token = auth()->setTTL(120)->attempt($credentials);
 
         $user = Auth::user();
         Member::where('mid', $user->mid)->update(['last_login' => now()]);
