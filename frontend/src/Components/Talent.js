@@ -185,7 +185,7 @@ function Talent() {
                                 <div style={{ border: "solid",borderRadius: "5px" , borderWidth: "1px" ,height: "75px", backgroundColor: "white"}}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
                                         <div className='mt-4 '>
-                                            <span style={{ border: 'solid',borderRadius: "5px", borderWidth: "1px" , backgroundColor:"#E0E0E0"  }}>{item.c_name}</span>
+                                            <span style={{ border: 'solid',borderRadius: "5px", borderWidth: "1px" , backgroundColor:"#E0E0E0" }}>{item.c_name}</span>
                                             <Link style={{ margin: "30px" }} to='/casecontext'></Link>
                                             {item.completed_time}案主：{item.name}
                                         </div>
