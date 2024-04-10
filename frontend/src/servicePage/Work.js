@@ -4,6 +4,7 @@ import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import EditModal2 from './EditModal2';
+import Pagination from 'react-bootstrap/Pagination';
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
@@ -97,10 +98,32 @@ const Work = ({ data2 }) => {
       // Handle error cases, such as displaying error messages or other handling
     }
   };
+  //分頁
+    console.log(data2)
+    const [active, setActive] = useState(1);
+    let items = [];
+    const handleSetActive = (number) => {
+      setActive(number)
+    }
+  // 
+  const CasePerPage = 6;
+  const page = Math.ceil(data2.length / CasePerPage);
+  console.log(page);
+  data2 = data2?.slice(CasePerPage * (active - 1), CasePerPage * active)
+  console.log(data2);
+
+  for (let number = 1; number <= page; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active} onClick={() => handleSetActive(number)}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
 
   return (
-    <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '650px' }}>
-      <div className="d-flex flex-wrap justify-content-around align-items-center" style={{ height: '100%', marginTop: "10px" }}>
+    <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '700px' }}>
+      <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
         <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <Button
             variant="success"
@@ -125,12 +148,13 @@ const Work = ({ data2 }) => {
           </Button>
         </div>
         {/* Generate six Cards */}
-        <Row className="justify-content-center" style={{ marginLeft: "40px" }}>
+        <Row style={{width:'1000px'}}>
+
           {data2.map((item, index) => (
-            <Col key={index} xs={6} md={4} className="my-3" onClick={()=>handleShow1(index)}>
+            <Col key={index} style={{width:'200px', }}  className='col-4 d-flex justify-content-center'  onClick={()=>handleShow1(index)}>
               <Card style={{ width: "200px" }}>
-                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
-                <Card.Body className="d-flex flex-column">
+                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{  height: '180px', objectFit: 'cover' }} />
+                <Card.Body className="d-flex ">
                   <Card.Title>
                     <Form.Check
                       type="checkbox"
@@ -140,11 +164,13 @@ const Work = ({ data2 }) => {
                     /> <span style={{ margin: "0 20px" }}>{item.p_name}</span>
                   </Card.Title>
                 </Card.Body>
-
               </Card>
             </Col>
           ))}
+
+        <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
         </Row>
+        
       </div>
       <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
       <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
