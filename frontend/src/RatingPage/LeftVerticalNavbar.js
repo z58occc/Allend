@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
 import member from './member.png';
 import { Link } from "react-router-dom";
-import Cookies from 'js-cookie';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 
@@ -122,7 +122,7 @@ const LeftVerticalNavbar = () => {
 
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
-            
+
             <div variant="link" onClick={handleEditmember} >
                 <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/>
                 {/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}

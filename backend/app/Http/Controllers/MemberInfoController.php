@@ -106,7 +106,8 @@ class MemberInfoController extends Controller
         ->select(['email', DB::raw('ifnull(i_identity, "") as identity'), DB::raw('ifnull(seniority, "") as experience'),
                 DB::raw('ifnull(c1.country_city, "") as locations'), DB::raw('ifnull(mobile_phone, "") as phone'),
                 DB::raw('ifnull(name, "") as name'), DB::raw('ifnull(id_card, "") as idCard'),
-                DB::raw('ifnull(gender, "") as gender'),DB::raw('ifnull(c2.country_city, "") as area'),])
+                DB::raw('ifnull(gender, "") as gender'),DB::raw('ifnull(c2.country_city, "") as area'),
+                DB::raw('ifnull(fb, "") as fb'), DB::raw('ifnull(line, "") as line')])
         ->where('mid', $mid)->first();
 
         return response()->json($user_info);
