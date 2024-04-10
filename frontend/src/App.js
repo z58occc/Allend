@@ -33,6 +33,7 @@ import Test from "./Components/test";
 
 
 
+
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -541,7 +542,7 @@ function App() {
         centered
       >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
-          <Modal.Title className="col text-center" >忘記密碼</Modal.Title>
+          <Modal.Title className="col text-center" >忘記密碼 ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

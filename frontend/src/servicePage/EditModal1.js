@@ -62,12 +62,14 @@ const EditModal1 = ({ show, onHide, data, index }) => {
     setImageFile(file);
   };
   useEffect(() => {
+    if(data === "object"){
     setNameOfService(data[index].s_name)
     setCategory(data[index].s_type)
     setLocation(data[index].s_active_location)
     setDetails(data[index].s_description)
     setBudget(data[index].s_amount)
     setUnit(data[index].s_unit)
+    }
   }, [data,index])
 
 
