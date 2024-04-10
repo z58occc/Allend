@@ -38,10 +38,8 @@ function Talent() {
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&display=swap"
-                        rel="stylesheet"
-                    />
+
+
                     <link
                         rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -81,7 +79,7 @@ function Talent() {
                         </Nav>
                         <hr></hr>
                         <div style={{paddingBottom:"20px"}}>關於</div>
-                        <div id='about' style={{ width: 500, height: 250 }}>
+                        <div id='about' style={{ width: 500, height: 250, fontWeight:"700"}}>
                             {talent.member && talent.member[0].about}
                         </div>
                         <hr></hr>
@@ -188,12 +186,12 @@ function Talent() {
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
                                 <div style={{paddingBottom:"20px"}}>成交件數({talent.case_member_count})</div>
-                                <div style={{ border: "solid",borderRadius: "5px" , borderWidth: "1px", backgroundColor: "white", paddingBottom:"20px"}}>
+                                <div style={{ borderRadius: "5px" , borderWidth: "1px", backgroundColor: "white", paddingBottom:"20px"}}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
-                                        <div className='mt-4' >
-                                            <span style={{ border: 'solid',borderRadius: "5px", borderWidth: "1px" , backgroundColor:"#E0E0E0" }}>{item.c_name}</span>
-                                            <Link style={{ margin: "30px" }} to='/casecontext'></Link>
-                                            <span>案主：{item.name}</span><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
+                                        <div className='mt-4 d-flex' >
+                                            <Col className='col-2' style={{borderRadius: "5px", borderWidth: "1px", padding:"0px" }}><span style={{backgroundColor:"#E0E0E0"}}>{item.c_name}</span></Col>
+
+                                            <Col className='col-2'>案主：{item.name}</Col><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
                                         </div>
                                     ))}
                                 </div>
