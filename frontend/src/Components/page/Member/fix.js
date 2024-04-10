@@ -20,12 +20,12 @@ function PasswordForm() {
   // 修改密碼
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (newPassword !== confirmNewPassword) {
-      setMessage("新密碼與確認新密碼不一致");
-      return; // 返回以防止後續的 Axios 請求
-    }
+    // if (newPassword !== confirmNewPassword) {
+    //   setMessage("新密碼與確認新密碼不一致");
+    //   return; // 返回以防止後續的 Axios 請求
+    // }
     const cookie = Cookies.get("token");
-    const response = axios({
+    axios({
       method: "post",
       url: "http://localhost/Allend/backend/public/api/updatepassword",
       data: {
@@ -38,8 +38,8 @@ function PasswordForm() {
       },
     })
       .then((res) => {
-        setMessage(response.data.message);
-        console.log(res);
+        setMessage(res.data.message);
+        // console.log(res.data.error);
         // 在這裡處理成功後的邏輯
       })
       .then(() => {
@@ -48,7 +48,10 @@ function PasswordForm() {
         setConfirmNewPassword("");
       })
       .catch((err) => {
-        console.log(err);
+        setMessage(err.response.data.error);
+        
+        
+        // setMessage(err.data.error);
         // 在這裡處理錯誤
       });
   };
