@@ -40,9 +40,11 @@ const EditModal3 = ({ show, onHide, data, index }) => {
   };
   //
   useEffect(() => {
-    setNameOfVideo (data[index].v_name)
-    setDetails(data[index].v_description)
-    setURL(data[index].src)
+    if(data[index] && data[index].v_name){
+      setNameOfVideo (data[index].v_name)
+      setDetails(data[index].v_description)
+      setURL(data[index].src) 
+    }
   }, [data,index])
 
   return (

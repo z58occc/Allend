@@ -150,7 +150,7 @@ const Media = ({ data3 }) => {
         {/* Generate six Cards */}
         <Row style={{ width: '1000px' }}>
           {data3.map((item, index) => (
-            <Col key={index} style={{ width: '200px', }} className='col-4 d-flex justify-content-center' onClick={() => handleShow1(index)}>
+            <Col key={index} style={{ width: '200px', }} className='col-4 d-flex justify-content-center'>
               <Card style={{ width: "240px" }}>
                 <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
                 <Card.Body className="d-flex flex-column">
@@ -160,7 +160,7 @@ const Media = ({ data3 }) => {
                       checked={selectedItems[index] || false}
                       onChange={() => handleChecked(index)}
                       style={{ margin: "0 10px 3px 10px" }}
-                    /> <span style={{ margin: "0 20px" }}>{item.v_name}</span>
+                    /> <span style={{ margin: "0 20px" }}  key={index} onClick={() => handleShow1(index)}>{item.v_name}</span>
                   </Card.Title>
                 </Card.Body>
               </Card>

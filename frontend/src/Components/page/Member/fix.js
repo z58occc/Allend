@@ -15,6 +15,7 @@ function PasswordForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  
 
   // 修改密碼
   const handleSubmit = (event) => {
@@ -24,7 +25,7 @@ function PasswordForm() {
       return; // 返回以防止後續的 Axios 請求
     }
     const cookie = Cookies.get("token");
-    axios({
+    const response = axios({
       method: "post",
       url: "http://localhost/Allend/backend/public/api/updatepassword",
       data: {
@@ -37,6 +38,7 @@ function PasswordForm() {
       },
     })
       .then((res) => {
+        setMessage(response.data.message);
         console.log(res);
         // 在這裡處理成功後的邏輯
       })
@@ -106,8 +108,9 @@ function PasswordForm() {
                     <Button variant="primary" type="submit">
                       提交
                     </Button>
+                    <span style={{color:'red', paddingLeft:'20px'}}>{message}</span>
                   </Form>
-                  {message && <Alert variant="info">{message}</Alert>}
+                    
                 </div>
               </Col>
             </Row>
