@@ -116,7 +116,7 @@ Route::controller(MemberInfoController::class)->group(function(){
     // 修改發案方資料
     Route::post('/updatedemmand', 'updateDemmandInfo');
     // 修改密碼
-    Route::post('/fixp', 'updatePassword');
+    Route::post('/updatepassword', 'updatePassword');
     // 獲取頭像、姓名
     Route::get('/avaname', 'getAvatar');
     // 修改頭像

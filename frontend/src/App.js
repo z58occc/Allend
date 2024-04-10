@@ -290,7 +290,7 @@ function App() {
   const sendForgetPWD = () => {
     axios({
       method: "post",
-      url: "http://localhost/Allend/backend/public/api/forgetpwd",
+      url: "http://localhost/Allend/backend/public/api/forgot-password",
       data: {
         email: ForgetName.current.value,
       },
@@ -306,9 +306,6 @@ function App() {
   // 控制連結顏色切換
   const [selectedLink, setSelectedLink] = useState(null);
   const location = useLocation();
-
-
-
 
   useEffect(() => {
     setSelectedLink(location.pathname);
