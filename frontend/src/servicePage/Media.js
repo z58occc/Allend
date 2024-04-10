@@ -4,8 +4,9 @@ import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+import EditModal3 from './EditModal3';
 const Media = ({ data3 }) => {
-  console.log(data3);
+
   const { fetchData } = useContext(CaseContext);
   const CaseData = data3;
   const [selectedItems, setSelectedItems] = useState(Array(data3.length).fill(false));
@@ -24,13 +25,23 @@ const Media = ({ data3 }) => {
     setSelectedItems(newSelectedItems);
     setCheckedAll(newSelectedItems.every((item) => item));
   };
-  //
+  //新增
   const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(true);
   }
   const handleClose = () => {
     setShow(false);
+  }
+  //編輯Modal;
+  const [index, setIndex] = useState(0);
+  const [show1,setShow1] = useState(false);
+  const handleShow1 = (index) => {
+    setShow1(true);
+    setIndex(index);
+  }
+  const handleClose1 = () => {
+    setShow1(false);
   }
   //刪除
 
@@ -117,7 +128,7 @@ const Media = ({ data3 }) => {
         {/* Generate six Cards */}
         <Row className="justify-content-center" style={{ marginLeft: "40px" }}>
           {data3.map((item, index) => (
-            <Col key={index} xs={6} md={4} className="my-3">
+            <Col key={index} xs={6} md={4} className="my-3" onClick={()=>{handleShow1(index)}}>
               <Card style={{ width: "240px" }}>
                 <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
                 <Card.Body className="d-flex flex-column">
@@ -136,6 +147,7 @@ const Media = ({ data3 }) => {
         </Row>
       </div>
       <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+      <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
     </div>
   );
 };

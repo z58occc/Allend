@@ -184,10 +184,10 @@ function Talent() {
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
                                 成交件數：({talent.case_member_count})
-                                <div style={{ border: "solid" }}>
+                                <div style={{ border: "solid",borderRadius: "5px" , borderWidth: "1px" ,height: "75px", backgroundColor: "white"}}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
-                                        <div className='mt-4 ' style={{paddingBottom:'20px'}}>
-                                            <span style={{ border: 'solid' }}>{item.c_name}</span>
+                                        <div className='mt-4 '>
+                                            <span style={{ border: 'solid',borderRadius: "5px", borderWidth: "1px" , backgroundColor:"#E0E0E0"  }}>{item.c_name}</span>
                                             <Link style={{ margin: "30px" }} to='/casecontext'></Link>
                                             <span>案主：{item.name}</span><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
                                         </div>

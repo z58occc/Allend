@@ -185,15 +185,15 @@ function Findcase() {
   const [isChecked, setIsChecked] = useState(false);
 
 
-  const handlechangecity = async () => {
+  const handlechangecity = async (event) => {
     // setAll(false);
     // fetchData();
-    // console.log(event);
-    // console.log(event.target);
-    // console.log(event.target.checked);
-    // console.log(event.target.name);
-    // fetchDataByCity(event.target.name, event.target.checked);
-    setIsChecked(!isChecked);
+    // setIsChecked(!isChecked);
+    console.log(event);
+    console.log(event.target);
+    console.log(event.target.checked);
+    console.log(event.target.name);
+    fetchData(event.target.name, event.target.checked);
   }
 
   console.log()
@@ -207,6 +207,8 @@ function Findcase() {
     new Array(dropdown.length).fill(false)
   );
   const handleOnChange = (position) => {
+    setAll(false);
+
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
     );
@@ -214,7 +216,7 @@ function Findcase() {
     console.log(updatedCheckedState);
     console.log(position);
     console.log(updatedCheckedState[position]);
-    fetchData(position, updatedCheckedState[position]);
+    fetchData(position, updatedCheckedState[position], updatedCheckedState);
   };
 
 
@@ -296,7 +298,7 @@ function Findcase() {
 
   }
 
-  const fetchData = async (type, bool) => {
+  const fetchData = async (type, bool, updatedCheckedState) => {
     if (window.location.href == "http://localhost:3000/findcase") {
       let url = "http://localhost/Allend/backend/public/api/findcase?type=";
       setCurrentPage(1);
@@ -359,209 +361,530 @@ function Findcase() {
           //   changeBottomcolorOff();
 
           // }
+
+
+
+          // if (bool == true) {
+          //   if (mycitys.length == 16) {
+          //     mycitys.length = 0;
+          //   }
+          //   console.log(mycitys)
+          //   let city = posts.filter(item => item.country_city == type)
+          //   console.log(city);
+          //   const citys = [...mycitys, ...city]
+          //   setMycitys(citys);
+
+
+
+          // } else {
+          //   if (mycitys.length != 16) {
+          //     console.log(posts);
+          //     let restore = posts.filter(item => item.country_city != type)
+          //     const pre = [...mycitys, ...restore]
+          //     console.log(mycitys);
+          //     setMycitys(pre);
+          //   }
+          // }
+
+
           if (bool == true) {
             switch (type) {
               case 0:
-                // for (let i = 0; i < data.length; i++) {
-                //   // const x = data.filter((data) => data[i].country_city == "台北市");
-                //   // console.log(x);
-                //   // setPosts(x);
-                //   if (data[i].country_city == "台北市") {
-                //     // console.log(data[i]);
-                //     mycitys.push(data[i]);
-                //     const y = mycitys.filter((x) => x.did < 13);
-                //     // console.log(y);
-                //     // console.log(mycitys);
-                //     // [...mycitys,(data[i])];
-                //     // const x = []
-                //     // console.log(x);
-                //     setPosts(y);
-                //     console.log(mycitys);
-
-                //   }
+                // if (mycitys.length == 16) {
+                //   mycitys.length = 0;
                 // }
+                // let TPE = data.filter(item => item.country_city == "台北市");
+                // console.log(TPE);
 
-                console.log("台北市");
-                let TPE = data.filter(item => item.country_city == "台北市");
-                console.log(TPE);
+                // let TPEx = [...mycitys, ...TPE];
+                // setMycitys(TPEx);
 
-                let TPEx = [...mycitys, ...TPE];
-                setMycitys(TPEx);
-                changeBottomcolorOff();
-                changecitycolor();
+
+                
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
                 console.log(mycitys);
                 break;
               case 1:
-                let TPH = data.filter(item => item.country_city == "新北市");
-                let TPHx = [...mycitys, ...TPH];
-                setMycitys(TPHx);
-                changeBottomcolorOff();
-                changecitycolor();
+               
+                  console.log("新北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "新北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 2:
-                let TYC = data.filter(item => item.country_city == "桃園市");
-                let TYCx = [...mycitys, ...TYC];
-                setMycitys(TYCx);
+                
+                  console.log("桃園市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "桃園市");
+                  console.log(add);
 
-                changeBottomcolorOff();
-                changecitycolor();
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 3:
-                let KLU = data.filter(item => item.country_city == "基隆市");
-                let KLUx = [...mycitys, ...KLU];
-                setMycitys(KLUx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("基隆市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "基隆市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 4:
-                let HSC = data.filter(item => item.country_city == "新竹市");
-                let HSCx = [...mycitys, ...HSC];
-                setMycitys(HSCx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("新竹市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "新竹市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 5:
-                let HSH = data.filter(item => item.country_city == "新竹縣");
-                let HSHx = [...mycitys, ...HSH];
-                setMycitys(HSHx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("新竹縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "新竹縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 6:
-                let CWH = data.filter(item => item.country_city == "彰化縣");
-                let CWHx = [...mycitys, ...CWH];
-                setMycitys(CWHx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("彰化縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "彰化縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 7:
-                let NTO = data.filter(item => item.country_city == "南投縣");
-                let NTOx = [...mycitys, ...NTO];
-                setMycitys(NTOx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("南投縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "南投縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 8:
-                let YLH = data.filter(item => item.country_city == "雲林縣");
-                let YLHx = [...mycitys, ...YLH];
-                setMycitys(YLHx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("雲林縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "雲林縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 9:
-                let KHH = data.filter(item => item.country_city == "高雄市");
-                let KHHx = [...mycitys, ...KHH];
-                setMycitys(KHHx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("高雄市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "高雄市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 10:
-                let TNN = data.filter(item => item.country_city == "台南市");
-                let TNNx = [...mycitys, ...TNN];
-                setMycitys(TNNx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("台南市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台南市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 11:
-                let CYI = data.filter(item => item.country_city == "嘉義市");
-                let CYIx = [...mycitys, ...CYI];
-                setMycitys(CYIx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("嘉義市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "嘉義市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 12:
-                let CHY = data.filter(item => item.country_city == "嘉義縣");
-                let CHYx = [...mycitys, ...CHY];
-                setMycitys(CHYx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("嘉義縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "嘉義縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 13:
-                let IUH = data.filter(item => item.country_city == "屏東縣");
-                let IUHx = [...mycitys, ...IUH];
-                setMycitys(IUHx);
-                changeBottomcolorOff();
-                changecitycolor();
+               
+                  console.log("屏東縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "屏東縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 14:
-                let ILN = data.filter(item => item.country_city == "宜蘭縣");
-                let ILNx = [...mycitys, ...ILN];
-                setMycitys(ILNx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("宜蘭縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "宜蘭縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 15:
-                let HWA = data.filter(item => item.country_city == "花蓮縣");
-                let HWAx = [...mycitys, ...HWA];
-                setMycitys(HWAx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("花蓮縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "花蓮縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 16:
-                let TTT = data.filter(item => item.country_city == "臺東縣");
-                let TTTx = [...mycitys, ...TTT];
-                setMycitys(TTTx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("臺東縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "臺東縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 17:
-                let PEH = data.filter(item => item.country_city == "澎湖縣");
-                let PEHx = [...mycitys, ...PEH];
-                setMycitys(PEHx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("澎湖縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "澎湖縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 18:
-                let KMN = data.filter(item => item.country_city == "金門縣");
-                let KMNx = [...mycitys, ...KMN];
-                setMycitys(KMNx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("金門縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "金門縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
 
 
+                console.log(mycitys);
                 break;
               case 19:
-                let LNN = data.filter(item => item.country_city == "連江縣");
-                let LNNx = [...mycitys, ...LNN];
-                setMycitys(LNNx);
-                changeBottomcolorOff();
-                changecitycolor();
+                
+                  console.log("連江縣");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "連江縣");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                
+
+
+                console.log(mycitys);
+                break;
+              case 20:
+                if (updatedCheckedState.includes(true)) {
+                  break
+                } else {
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                }
+
+
+                console.log(mycitys);
+                break;
+              case 21:
+                if (updatedCheckedState.includes(true)) {
+                  break
+                } else {
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                }
+
+
+                console.log(mycitys);
+                break;
+              case 22:
+                if (updatedCheckedState.includes(true)) {
+                  break
+                } else {
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                }
+
+
+                console.log(mycitys);
+                break;
+              case 23:
+                if (updatedCheckedState.includes(true)) {
+                  break
+                } else {
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                }
+
+
+                console.log(mycitys);
+                break;
+              case 24:
+                if (updatedCheckedState.includes(true)) {
+                  break
+                } else {
+                  console.log("台北市");
+                  if (mycitys.length == 16) {
+                    mycitys.length = 0;
+                  }
+                  var add = data.filter(item => item.country_city == "台北市");
+                  console.log(add);
+
+                  var addx = [...mycitys, ...add];
+                  setMycitys(addx);
+
+                  changeBottomcolorOff();
+                  changecitycolor();
+                }
+
+
+                console.log(mycitys);
+                break;
+
 
               default:
                 break;
@@ -569,29 +892,21 @@ function Findcase() {
           } else {
             switch (type) {
               case 0:
-                // for (let i = 0; i < data.length; i++) {
-                //   // const x = data.filter((data) => data[i].country_city == "台北市");
-                //   // console.log(x);
-                //   // setPosts(x);
-                //   if (data[i].country_city == "台北市") {
-                //     // console.log(data[i]);
-                //     mycitys.push(data[i]);
-                //     const y = mycitys.filter((x) => x.did < 13);
-                //     // console.log(y);
-                //     // console.log(mycitys);
-                //     // [...mycitys,(data[i])];
-                //     // const x = []
-                //     // console.log(x);
-                //     setPosts(y);
-                //     console.log(mycitys);
-
-                //   }
-                // }
-
-                console.log(mycitys);
-                let empty0 = mycitys.filter(item => item.country_city != "台北市");
                 
-                setMycitys(empty0);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "台北市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "台北市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
@@ -599,180 +914,458 @@ function Findcase() {
                 console.log(mycitys);
                 break;
               case 1:
-                console.log(mycitys);
-                let empty1 = mycitys.filter(item => item.country_city != "新北市");
-                
-                setMycitys(empty1);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "新北市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "新北市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
-
                 break;
               case 2:
-                console.log(mycitys);
-                let empty2 = mycitys.filter(item => item.country_city != "桃園市");
-                
-                setMycitys(empty2);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "桃園市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "桃園市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 3:
-                console.log(mycitys);
-                let empty3 = mycitys.filter(item => item.country_city != "基隆市");
-                
-                setMycitys(empty3);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "基隆市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "基隆市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 4:
-                console.log(mycitys);
-                let empty4 = mycitys.filter(item => item.country_city != "新竹市");
-                
-                setMycitys(empty4);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "新竹市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "新竹市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
 
                 break;
               case 5:
-                console.log(mycitys);
-                let empty5 = mycitys.filter(item => item.country_city != "新竹縣");
-                
-                setMycitys(empty5);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "新竹縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "新竹縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
-
                 break;
               case 6:
-                console.log(mycitys);
-                let empty6 = mycitys.filter(item => item.country_city != "彰化縣");
-                
-                setMycitys(empty6);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "彰化縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "彰化縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 7:
-                console.log(mycitys);
-                let empty7 = mycitys.filter(item => item.country_city != "南投縣");
-                                setMycitys(empty7);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "南投縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "南投縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 8:
-                console.log(mycitys);
-                let empty8 = mycitys.filter(item => item.country_city != "雲林縣");
-                                setMycitys(empty8);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "雲林縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "雲林縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
 
                 break;
               case 9:
-                console.log(mycitys);
-                let empty9 = mycitys.filter(item => item.country_city != "高雄市");
-                                setMycitys(empty9);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "高雄市")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "高雄市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
-
                 break;
               case 10:
-                console.log(mycitys);
-                let empty10 = mycitys.filter(item => item.country_city != "台南市");
-                
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "台南市")
+                  console.log(y);
+                  setMycitys(y);
 
-                setMycitys(empty10);
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "台南市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
 
                 break;
               case 11:
-                console.log(mycitys);
-                let empty11 = mycitys.filter(item => item.country_city != "嘉義市");
-                
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "嘉義市")
+                  console.log(y);
+                  setMycitys(y);
 
-                setMycitys(empty11);
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "嘉義市");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
                 break;
               case 12:
-                console.log(mycitys);
-                let empty12 = mycitys.filter(item => item.country_city != "嘉義縣");
-                                setMycitys(empty12);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "嘉義縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "嘉義縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
 
                 break;
               case 13:
-                console.log(mycitys);
-                let empty13 = mycitys.filter(item => item.country_city != "屏東縣");
-                                setMycitys(empty13);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "屏東縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "屏東縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 14:
-                console.log(mycitys);
-                let empty14 = mycitys.filter(item => item.country_city != "宜蘭縣");
-                                setMycitys(empty14);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "宜蘭縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "宜蘭縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
 
                 break;
               case 15:
-                console.log(mycitys);
-                let empty15 = mycitys.filter(item => item.country_city != "花蓮縣");
-                                setMycitys(empty15);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "花蓮縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "花蓮縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
                 break;
               case 16:
-                console.log(mycitys);
-                let empty16 = mycitys.filter(item => item.country_city != "臺東縣");
-                                setMycitys(empty16);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "臺東縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "臺東縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
-
                 break;
               case 17:
-                console.log(mycitys);
-                let empty17 = mycitys.filter(item => item.country_city != "澎湖縣");
-                
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "澎湖縣")
+                  console.log(y);
+                  setMycitys(y);
 
-                setMycitys(empty17);
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "澎湖縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
                 break;
               case 18:
-                console.log(mycitys);
-                let empty18 = mycitys.filter(item => item.country_city != "金門縣");
-                                setMycitys(empty18);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "金門縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "金門縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
 
                 break;
               case 19:
-                console.log(mycitys);
-                let empty19 = mycitys.filter(item => item.country_city != "連江縣");
-                                setMycitys(empty19);
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.country_city != "連江縣")
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.country_city != "連江縣");
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
                 changeBottomcolorOff();
                 changecitycolor();
+                break;
+              case 20:
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.d_amount >= 5000)
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.d_amount >= 5000);
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
+                changeBottomcolorOff();
+                changecitycolor();
+                break;
+              case 21:
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.d_amount <= 5000 || item.d_amount >= 10000)
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.d_amount <= 5000 || item.d_amount >= 10000);
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
+                changeBottomcolorOff();
+                changecitycolor();
+                break;
+              case 22:
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.d_amount <= 10000 || item.d_amount >= 50000)
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.d_amount <= 10000 || item.d_amount >= 50000);
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
+                changeBottomcolorOff();
+                changecitycolor();
+                break;
+              case 23:
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.d_amount <= 50000 || item.d_amount >= 100000)
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.d_amount <= 50000 || item.d_amount >= 100000);
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
+                changeBottomcolorOff();
+                changecitycolor();
+                break;
+              case 24:
+                if (updatedCheckedState.includes(true)) {
+                  console.log(1);
+                  console.log(mycitys);
+                  const y = mycitys.filter(item => item.d_amount <= 100000 || item.d_amount >= 300000)
+                  console.log(y);
+                  setMycitys(y);
+
+                  break;
+                } else {
+                  console.log(mycitys);
+                  var restore0 = data.filter(item => item.d_amount <= 100000 || item.d_amount >= 300000);
+                  var x = [...mycitys, ...restore0]
+                  setMycitys(x);
+                }
+                changeBottomcolorOff();
+                changecitycolor();
+                break;
 
               default:
                 break;
@@ -1246,19 +1839,19 @@ function Findcase() {
       setPosts(empty);
     }
   }
-  //   if (bool == true) {
+  // if (bool == true) {
 
-  //     let city = posts.filter(item => item.country_city == cityname)
-  //     console.log(city);
-  //     const citys = [...mycitys, ...city]
-  //     setMycitys(citys);
+  //   let city = posts.filter(item => item.country_city == cityname)
+  //   console.log(city);
+  //   const citys = [...mycitys, ...city]
+  //   setMycitys(citys);
 
-  //   } else {
-  //     console.log(mycitys);
-  //     let empty = mycitys.filter(item => item.country_city != cityname)
-  //     console.log(mycitys);
-  //     setMycitys(empty);
-  //   }
+  // } else {
+  //   console.log(mycitys);
+  //   let empty = mycitys.filter(item => item.country_city != cityname)
+  //   console.log(mycitys);
+  //   setMycitys(empty);
+  // }
   // }
 
 
@@ -1349,6 +1942,11 @@ function Findcase() {
         />
 
         {/* 分類按鈕 */}
+
+        <span> post:{posts.length}</span>
+        <br></br>
+        <span> mycitys:{mycitys.length}</span>
+
         <div style={{ marginLeft: "60px", marginRight: "0" }}>
           <div className="container mt-5">
             <div className="row justify-content-center">
@@ -1403,7 +2001,6 @@ function Findcase() {
                 <input
                   type="checkbox"
                   name="台北市"
-                  checked={checkedState}
                   onChange={handlechangecity}
                 >
                 </input>
@@ -1582,7 +2179,7 @@ function Findcase() {
               </div>
             </Dropdown.Menu> */}
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-              {dropdown.map(({ name }, index) => {
+              {dropdown.slice(0, 20).map(({ name }, index) => {
                 return (
                   <div>
                     <input
@@ -1602,12 +2199,26 @@ function Findcase() {
 
 
 
-
           <Dropdown className="mx-5">
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <div>
+              {dropdown.slice(20, 26).map(({ name }, index) => {
+                return (
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={checkedState[index + 20]}
+                      name={name}
+                      value={name}
+                      onChange={() => handleOnChange(index + 20)}
+                    >
+                    </input>
+                    {name}
+                  </div>
+                )
+              })}
+              {/* <div>
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
@@ -1651,7 +2262,7 @@ function Findcase() {
                 >
                 </input>
                 10萬到30萬
-              </div>
+              </div> */}
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -1684,7 +2295,7 @@ function Findcase() {
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {mycitys.map((post, index) => {
+          {(all == true ? posts : mycitys).map((post, index) => {
 
             return (
               <div>

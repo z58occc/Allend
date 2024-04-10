@@ -100,7 +100,13 @@ const CardList = ({visibility,selectedComponent,text,data1,screen}) => {
     default:
       filteredData = CaseData;
   }
-
+  // 
+  if (!CaseData || CaseData.length === 0) {
+    return (<h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      未有紀錄
+    </h1>)
+  }
+  //
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div className="d-flex justify-content-end" style={{ width: '800px' }} >

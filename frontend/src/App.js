@@ -115,15 +115,15 @@ function App() {
     };
   }, []);
 
-    // 解析token並獲取過期時間
-    const getTokenExpirationTime = (token) => {
-      const decodedToken = parseJwt(token);
-      if (!decodedToken) return null;
-      return decodedToken.exp * 1000; // 轉換為毫秒
-    };
-    
+  // 解析token並獲取過期時間
+  const getTokenExpirationTime = (token) => {
+    const decodedToken = parseJwt(token);
+    if (!decodedToken) return null;
+    return decodedToken.exp * 1000; // 轉換為毫秒
+  };
 
-      // 解析JWT token
+
+  // 解析JWT token
   const parseJwt = (token) => {
     try {
       return JSON.parse(atob(token.split('.')[1]));
@@ -143,7 +143,7 @@ function App() {
   };
 
   const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
-  
+
   // 登出處理
   const handleLogout = () => {
     clearInterval(tokenCheckInterval.current);
@@ -228,7 +228,7 @@ function App() {
       console.log(err)
     }
   }
-  
+
   const [errorMessage, setErrorMessage] = useState('');
   const [memberEmail, setMemberEmail] = useState('');
   const navigate = useNavigate();
@@ -308,8 +308,8 @@ function App() {
   const location = useLocation();
 
 
-  
-  
+
+
   useEffect(() => {
     setSelectedLink(location.pathname);
     const token = Cookies.get("token");
@@ -319,7 +319,7 @@ function App() {
     }
   }, [location, isLoggedIn]);
 
-  
+
   const handleLinkClick = (path) => {
     setSelectedLink(path);
   };
@@ -369,7 +369,7 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
-                <span>您好，{memberEmail}</span>
+                <span style={{ fontSize: '28px' }}>您好，{memberEmail}</span>
               </Link>
             </div>
           )}
@@ -439,7 +439,7 @@ function App() {
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
-        <Route path="/test" element={<Test></Test>}></Route> 
+        <Route path="/test" element={<Test></Test>}></Route>
       </Routes>
 
 
@@ -455,85 +455,82 @@ function App() {
             </div>
           </div>
         </Modal.Header>
-
-        <Modal.Body style={{ borderBottom: '1px solid black' }}>
-          <Form>
-            <div className="container row">
-              <div className="col-12">
-                <div className="row ">
-                  <div className="col-sm-12 ">
-                    <Form.Label>帳號{errorMessage && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorMessage}</span>}</Form.Label>
-                    <InputGroup>
-                      <InputGroup.Text controlId="formBasicEmail">< FaUser /></InputGroup.Text>
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        ref={LoginName}
-                      />
-                    </InputGroup>
-                  </div>
-
-                  <div className="col-sm-12">
-                    <Form.Label>密碼</Form.Label>
-                    <InputGroup >
-                      <InputGroup.Text controlId="formBasicPassword"><RiLockPasswordFill /></InputGroup.Text>
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        ref={LoginPassword}
-                      />
-                    </InputGroup>
-
-                    <Form.Group className="mb-3">
-                      <Form.Check
-                        type="checkbox"
-                        id="rememberEmail"
-                        label="Remember Email"
-                        className="mt-2"
-                        style={{ color: "#FCFCFC" }}
-                        checked={rememberEmail}
-                        onChange={(e) => setRememberEmail(e.target.checked)}
-                      />
-                    </Form.Group>
-                  </div>
+        <Modal.Body className="d-flex align-items-center justify-content-center" style={{ borderBottom: '1px solid black' }}>
+          <div className="container row">
+            <div className="col-12">
+              <div className="row ">
+                <div className="col-sm-12 ">
+                  <Form.Label>帳號{errorMessage && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorMessage}</span>}</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text controlId="formBasicEmail">< FaUser /></InputGroup.Text>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      ref={LoginName}
+                    />
+                  </InputGroup>
                 </div>
 
-                <div className="col-sm-12 d-flex flex-column align-items-center">
-                  <div className="mb-12 " style={{ textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                    <Button variant="primary" onClick={handleLogin} id="login" style={{ borderRadius: '20px', height: "40px", fontSize: "20px", width: "420px" }}>
-                      登入
-                    </Button>
+                <div className="col-sm-12">
+                  <Form.Label>密碼</Form.Label>
+                  <InputGroup >
+                    <InputGroup.Text controlId="formBasicPassword"><RiLockPasswordFill /></InputGroup.Text>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      ref={LoginPassword}
+                    />
+                  </InputGroup>
+
+                  <Form.Group className="mb-3">
+                    <Form.Check
+                      type="checkbox"
+                      id="rememberEmail"
+                      label="Remember Email"
+                      className="mt-2"
+                      style={{ color: "#FCFCFC" }}
+                      checked={rememberEmail}
+                      onChange={(e) => setRememberEmail(e.target.checked)}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+
+              <div className="col-sm-12 d-flex flex-column align-items-center">
+                <div className="mb-12 " style={{ textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                  <Button variant="primary" onClick={handleLogin} id="login" style={{ borderRadius: '20px', height: "40px", fontSize: "20px", width: "420px" }}>
+                    登入
+                  </Button>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                  <Form.Text style={{ flexGrow: 1 }}>
+                    <a href="/forgot-password" onClick={toForgotPassword}>
+                      忘記密碼?
+                    </a>
+                  </Form.Text>
+                  <Form.Text style={{ flexGrow: 1, textAlign: 'right' }}>
+                    <a href="/Register" onClick={toRegister}>
+                      立即註冊
+                    </a>
+                  </Form.Text>
+                </div>
+                <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <div style={{ width: "50%" }}>
+                    <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                    <Form.Text style={{ flexGrow: 1 }}>
-                      <a href="/forgot-password" onClick={toForgotPassword}>
-                        忘記密碼?
-                      </a>
-                    </Form.Text>
-                    <Form.Text style={{ flexGrow: 1, textAlign: 'right' }}>
-                      <a href="/Register" onClick={toRegister}>
-                        立即註冊
-                      </a>
-                    </Form.Text>
+                  <div style={{ margin: "0 10px" }}>or</div>
+                  <div style={{ width: "50%" }}>
+                    <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
                   </div>
-                  <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <div style={{ width: "50%" }}>
-                      <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
-                    </div>
-                    <div style={{ margin: "0 10px" }}>or</div>
-                    <div style={{ width: "50%" }}>
-                      <hr style={{ width: "100%", margin: "10px 0", borderTop: "3px solid black" }} />
-                    </div>
-                  </div>
-                  <div>
-                    <Button style={{ marginTop: "15px" }} onClick={handleGoogleLogin} variant="white">
-                      <FcGoogle style={{ fontSize: "20px" }} />
-                    </Button>
-                  </div>
+                </div>
+                <div>
+                  <Button style={{ marginTop: "15px" }} onClick={handleGoogleLogin} variant="white">
+                    <FcGoogle style={{ fontSize: "20px" }} />
+                  </Button>
                 </div>
               </div>
             </div>
-          </Form>
+          </div>
         </Modal.Body>
       </Modal>
       {/* 登入 */}

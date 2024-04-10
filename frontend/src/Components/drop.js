@@ -59,4 +59,19 @@ export const dropdown = [
     {
         name:"連江縣"
     },
+    {
+        name:"5千以下"
+    },
+    {
+        name:"5千~1萬"
+    },
+    {
+        name:"1萬到5萬"
+    },
+    {
+        name:"5萬到10萬"
+    },
+    {
+        name:"10萬到30萬"
+    }
 ]
