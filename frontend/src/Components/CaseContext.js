@@ -3,9 +3,8 @@ import Footer from '../homepage/Footer'
 import { VscAccount } from "react-icons/vsc";
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
-import Button from 'react-bootstrap/Button';
+import { Form, Button, Row, Col } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import { FaStar } from "react-icons/fa";
 
@@ -16,6 +15,14 @@ import { FaStar } from "react-icons/fa";
 
 function CaseContext() {
 
+
+    const close = async () => {
+        setShow(false);
+        setMessagewarm(false);
+        setAmountwarm(false);
+    }
+    const [messagewarm, setMessagewarm] = useState(false);
+    const [amountwarm, setAmountwarm] = useState(false);
 
 
     // Modal下面 送資料回去
@@ -45,15 +52,30 @@ function CaseContext() {
 
 
     const handleClose = async (d) => {
-        setShow(false);
+
         const q_amount = QuoteAmount.current.value;
         const q_message = QuoteMessage.current.value;
-        const did = d;
-        try {
-            const data = await sendQuote(did, q_amount, q_message);
-            console.log(data);
-        } catch (err) {
-            console.log(err);
+        setShow(false);
+        if (q_amount.length == 0 && q_message.length < 10) {
+            setShow(true);
+            setAmountwarm(true);
+            setMessagewarm(true);
+        } else if (q_amount.length == 0) {
+            setAmountwarm(true);
+            setShow(true);
+        } else if (q_message.length < 10) {
+            setShow(true);
+            setMessagewarm(true);
+        } else {
+            const did = d;
+            try {
+                const data = await sendQuote(did, q_amount, q_message);
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+            setMessagewarm(false);
+            setAmountwarm(false);
         }
 
     };
@@ -113,84 +135,90 @@ function CaseContext() {
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
+                <Row className="mt-5">
+                    <Col xs={8} style={{backgroundColor:"#8A1D1A",color:"white"}}>
+                        <div >
+                            案件編號：{posts.did}<br></br>
+                            案件名稱：{posts.d_name}<br></br>
+                            案件類別：{posts.d_type}<br></br>
+                            {posts.updated_at}更新：<br></br>
+                            <ul>
+                                <li>預算金額：{posts.d_amount}/{posts.d_unit}</li>
+                                <li>地點：{posts.d_active_location}</li>
+                                <li>案件期程：{posts.d_duration}</li>
+                                <li>案件說明：{posts.d_description}</li>
+                            </ul>
+                        </div>
+                        <div className='mt-5'>
+                            <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
+                        </div>
 
-                <div className='row mt-5'>
-                    <div className='col-sm-9' style={{ border: 'solid',borderRadius: "5px", borderWidth: "2px" }}>
-                        案件編號：{posts.did}<br></br>
-                        案件名稱：{posts.d_name}<br></br>
-                        案件類別：{posts.d_type}<br></br>
-                        {posts.updated_at}更新：<br></br>
-                        <ul>
-                            <li>預算金額：{posts.d_amount}/{posts.d_unit}</li>
-                            <li>地點：{posts.d_active_location}</li>
-                            <li>案件期程：{posts.d_duration}</li>
-                            <li>案件說明：{posts.d_description}</li>
-                        </ul>
-                    </div>
-                    <div className='col-sm-3' >
-                        案主資訊
-                        <hr></hr>
-                        <VscAccount />
-                        {members.avatar}
-                        {members.name}
-                        <br></br>
-                        <Button onClick={handleShow} >我要報價</Button>
-                        <br></br>
-                        {service_star_avg}
-                        <div style={{color:"yellow"}}>☆<FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
-                        最後上線時間：{members.last_login}
-                        <br></br>
-                        <FaHeart style={{ color: 'red' }} />
-                    </div>
-                </div>
+                    </Col>
+                    <Col xs={2}></Col>
+                    <Col xs={2} style={{border:"solid"}}>
+                        <div  >
+                            <div>案主資訊</div>
+                            <hr></hr>
+                            <div></div>
+                            <img style={{ width: "50px" }} src={members.avatar}></img>
+                            {members.name}
+                            <div>{service_star_avg}</div>
+                            <div style={{ color: "yellow" }}>☆<FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
+                            <div>最後上線時間：{members.last_login}</div>
+                            <div className="mt-3">
+                                <FaHeart size={25} style={{ color: 'red' }} />
+                                <Button style={{marginLeft:"30px"}} onClick={handleShow} >我要報價</Button>
+                            </div>
 
-                <div className='mt-5'>
-                    <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
-                </div>
+                        </div>
+                    </Col>
+                </Row>
+
 
 
                 {/* 我要報價頁面 */}
-                {/* 我要報價頁面 */}
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header>
-                        <Modal.Title
-                            style={{ fontSize: 15 }}
-                        >
-                            案件名稱:<span>{posts.d_name}</span>
-                            <hr></hr>
-                            案件編號:<span >{posts.did}</span>
-                            <hr></hr>
-                            案件類別:<span>{posts.d_type}</span>
-                            <hr></hr>
-                            案件地點:<span>{posts.d_active_location}</span>
-                            <hr></hr>
+                <Modal show={show} onHide={close}>
+                    <Modal.Header closeButton >
+                        <Modal.Title style={{ fontSize: 15 }}>
+                            報價表單：
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+
                         <Form>
+                            <div>案件名稱：{posts.d_name}</div>
+                            <hr></hr>
+                            <div>案件編號：{posts.did}</div>
+                            <hr></hr>
+                            <div>案件類別：{posts.d_type}</div>
+                            <hr></hr>
+                            <div>案件地點：{posts.d_active_location}</div>
+                            <hr></hr>
                             <Form.Label>報價金額</Form.Label>
                             <Form.Group
                                 className="mb-3 d-flex"
                                 controlId="exampleForm.ControlInput1"
                             >
+                                {/* <input style={{ width: "100px" }}  ref={QuoteAmount}></input> */}
                                 <Form.Control
                                     style={{ width: "100px" }}
                                     type=""
                                     autoFocus
-                                    value={posts.d_amount}
+                                    defaultValue={posts.d_amount}
                                     ref={QuoteAmount}
                                 ></Form.Control>
-                                <span className="mt-2">{"/" + posts.d_unit}</span>
+                                <div className="mt-2"> &nbsp;/&nbsp;{posts[key]?.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
                                 <Form.Label>接案人留言</Form.Label>
+                                <div style={{ display: (messagewarm != true ? "none" : ""), color: "red" }}>請輸入至少10個字以上</div>
                                 <Form.Control
                                     as="textarea"
                                     rows={3}
-                                    placeholder="請輸入訊息"
+                                    placeholder=" 請輸入至少10個字以上"
                                     ref={QuoteMessage}
                                 />
                             </Form.Group>
@@ -202,7 +230,6 @@ function CaseContext() {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                {/* 我要報價頁面 */}
                 {/* 我要報價頁面 */}
                 <br></br>
                 <br></br>

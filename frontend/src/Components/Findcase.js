@@ -1966,11 +1966,6 @@ function Findcase() {
 
         {/* 分類按鈕 */}
 
-        <span> post:{posts.length}</span>
-        <br></br>
-        <span> mycitys:{mycitys.length}</span>
-        <br></br>
-        <span> temp:{temp.length}</span>
 
         <div style={{ marginLeft: "60px", marginRight: "0" }}>
           <div className="container mt-5">
@@ -2320,11 +2315,10 @@ function Findcase() {
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {(all == true ? posts : mycitys).map((post, index) => {
+          {(all == true ? currentPosts : mycitys).map((post, index) => {
 
             return (
               <div>
-                <div>{index + 1}</div>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
