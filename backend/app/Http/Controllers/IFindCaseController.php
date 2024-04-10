@@ -19,7 +19,7 @@ class IFindCaseController extends Controller
 
         // 選擇地區、案件金額
         $location = $request->location;
-        $amount = $request->amount;
+        $amount = explode(',', $request->amount);
         if (!(empty($location) && empty($amount))) {
 
             if(!empty($location) && DB::table('contry')->where('country_city', $location)->exists()){
@@ -27,11 +27,25 @@ class IFindCaseController extends Controller
             }
 
             if(!empty($amount)){
-                switch($amount){
-                    case "1":
-
+                foreach($amount as $val){
+                    switch($val){
+                        case "1":
+                            $query->whereIn('d_amount', [0, 5000]);
+                            break;
+                        case "2":
+                            $query->whereIn('d_amount', [5001, 10000]);
+                            break;
+                        case "3":
+                            $query->whereIn('d_amount', [10001, 50000]);
+                            break;
+                        case "4":
+                            $query->whereIn('d_amount', [50001, 100000]);
+                            break;
+                        case "5":
+                            $query->whereIn('d_amount', [100000, 300000]);
+                            break;
+                    }
                 }
-                $query->whereIn('d_amount',explode(',',$amount));
             }
         }
 
