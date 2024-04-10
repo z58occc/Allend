@@ -18,8 +18,5 @@ class GetmemberemailController extends Controller
         }else{
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
-        
-        
     }
 }

@@ -37,7 +37,7 @@ const LeftVerticalNavbar = () => {
     const avatar = useRef();
 
     // 修改頭像
-    const handleSaveImage = async() => {
+    const handleSaveImage = () => {
         const avatarFile = new FileReader();
         avatarFile.onload = (e) => {
           axios({
@@ -55,7 +55,25 @@ const LeftVerticalNavbar = () => {
             });
         };
         avatarFile.readAsDataURL(avatar.current.files[0]);
-        
+
+        // const formData = new FormData();
+        // formData.append('image', imageFile);
+        // axios({
+        //     method: 'post',
+        //     url: "http://localhost/Allend/backend/public/api/avatar",
+        //     data:formData,
+        //     headers: {Authorization: `Bearer ${Cookies.get('token')}`},
+        //     'Content-Type': 'multipart/form-data'
+        // })
+        // .then(response => console.log(response.data))
+        // .then(blob => {
+        //     // 將返回的二進制數據轉換為可顯示的圖片 URL
+        //     const imageUrl = URL.createObjectURL(blob);
+        //     setImageFile(imageUrl);
+        // })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
         if (imageFile) {
             setUsermember({ ...usermember, image: URL.createObjectURL(imageFile) });
             setShowModal(false);
@@ -66,6 +84,7 @@ const LeftVerticalNavbar = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        console.log(file)
         if (file) {
             setImageFile(file);
         }
@@ -81,13 +100,21 @@ const LeftVerticalNavbar = () => {
               { headers: headers }
             );
             const result = await res.data;
-            setUsermember({name:result[0].name, image:result[0].image});
+            // const bidata = atob(result[0].image)
+
+            // const bytes = new Uint8Array(bidata.length);
+            // for (let i = 0; i < bidata.length; i++) {
+            //   bytes[i] = bidata.charCodeAt(i);
+            // }
+            // const blob = new Blob([bytes]);
+            // const fileUrl = URL.createObjectURL(blob);
+            // setImageFile(fileUrl);
+            setUsermember({name:result[0].name, image: result[0].image});
           } catch (err) {
             console.log(err);
           }
         };
         fetchData();
-
       }, []);
 
 
@@ -95,9 +122,10 @@ const LeftVerticalNavbar = () => {
 
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
-       
+            
             <div variant="link" onClick={handleEditmember} >
                 <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/>
+                {/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
             <div style={{ fontSize: '20px' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
    
