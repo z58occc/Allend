@@ -24,13 +24,14 @@ const Pagination = ({
                         return prev - 1;
                     })
                 }
+                style={{borderRadius: "5px"}}
             >
                 上一頁
             </button>
             {pages.map((page, index) => {
                 return (
                     <button
-                        style={{ margin: "3px" }}
+                        style={{ margin: "3px" ,borderRadius: "5px"}}
                         className={currentPage === page ? "active" : ""}
                         key={index}
                         onClick={() => {
@@ -48,6 +49,7 @@ const Pagination = ({
                         return prev + 1;
                     })
                 }
+                style={{borderRadius: "5px"}}
             >
                 下一頁
             </button>

@@ -199,10 +199,13 @@ const Findman = () => {
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
+   
   };
+  
 
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
+    
   };
 
   {/* 置頂按鈕 */ }
@@ -274,7 +277,7 @@ const Findman = () => {
           {/* 左邊 */}
           <div className="col-sm-2" style={{ marginTop: "10px" }}>
             <br></br>
-            <div style={{ height: "200px", border: "solid", paddingTop: "10px" }}>
+            <div style={{ height: "200px", border: "solid", paddingTop: "10px",borderRadius: "5px" }}>
               <div style={{ fontSize: "18px" }}>接案人身分</div>
               <hr></hr>
               <input
@@ -304,7 +307,7 @@ const Findman = () => {
             </div>
             <br></br>
             <div
-              style={{ height: "240px", border: "solid", paddingTop: "10px" }}
+              style={{ height: "240px", border: "solid", paddingTop: "10px",borderRadius: "5px" }}
             ><div style={{ fontSize: "18px" }}>年資</div>
               <hr></hr>
               <input
@@ -350,7 +353,7 @@ const Findman = () => {
             </div>
             <br></br>
             <div
-              style={{ height: "250px", overflowY: "scroll", border: "solid", paddingTop: "10px" }}
+              style={{ height: "250px", overflowY: "scroll", border: "solid", paddingTop: "10px",borderRadius: "5px" }}
             >
               <div style={{ fontSize: "18px" }}>地點</div>
               <hr></hr>

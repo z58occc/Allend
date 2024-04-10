@@ -3,6 +3,7 @@ import { Button, Card, Form, Col, Row } from "react-bootstrap";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+import EditModal2 from './EditModal2';
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
@@ -31,6 +32,16 @@ const Work = ({ data2 }) => {
   }
   const handleClose = () => {
     setShow(false);
+  }
+  //編輯Modal;
+  const [index, setIndex] = useState(0);
+  const [show1,setShow1] = useState(false);
+  const handleShow1 = (index) => {
+    setShow1(true);
+    setIndex(index);
+  }
+  const handleClose1 = () => {
+    setShow1(false);
   }
   //刪除
 
@@ -116,7 +127,7 @@ const Work = ({ data2 }) => {
         {/* Generate six Cards */}
         <Row className="justify-content-center" style={{ marginLeft: "40px" }}>
           {data2.map((item, index) => (
-            <Col key={index} xs={6} md={4} className="my-3">
+            <Col key={index} xs={6} md={4} className="my-3" onClick={()=>handleShow1(index)}>
               <Card style={{ width: "200px" }}>
                 <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                 <Card.Body className="d-flex flex-column">
@@ -136,6 +147,7 @@ const Work = ({ data2 }) => {
         </Row>
       </div>
       <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+      <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
     </div>
   );
 };

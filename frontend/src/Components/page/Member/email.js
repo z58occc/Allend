@@ -105,8 +105,8 @@ console.log(formData)
       [name]: value,
     }));
 
-    const isComplete = Object.values(formData).every((value) => value !== "");
-    setIsFormComplete(isComplete);
+    // const isComplete = Object.values(formData).every((value) => value !== "");
+    // setIsFormComplete(isComplete);
   };
 
   const handleSubmit = (e) => {
@@ -232,12 +232,12 @@ console.log(formData)
                         value={formData.experience}
                         onChange={handleChange}
                       >
-                        <option value="">請選擇累積年資</option>
-                        <option value="1">1 年</option>
-                        <option value="2">2 年</option>
-                        <option value="3">3 年</option>
-                        <option value="4">4 年</option>
-                        <option value="5">5 年以上</option>
+                        <option name ="idn" value="">請選擇累積年資</option>
+                        <option name ="idn" value="1">1 年</option>
+                        <option name ="idn" value="2">2 年</option>
+                        <option name ="idn" value="3">3 年</option>
+                        <option name ="idn" value="4">4 年</option>
+                        <option name ="idn" value="5">5 年以上</option>
                       </Form.Select>
                     </div>
                     <div className="col-sm-6">
@@ -444,7 +444,7 @@ console.log(formData)
                     type="submit"
                     variant="danger"
                     style={{ width: "50%", fontSize: "15px" }}
-                    disabled={!isFormComplete}
+                    // disabled={!isFormComplete}
                   >
                     提交
                   </Button>
