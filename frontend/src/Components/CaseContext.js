@@ -115,7 +115,7 @@ function CaseContext() {
                 />
 
                 <div className='row mt-5'>
-                    <div className='col-sm-9' style={{ border: 'solid' }}>
+                    <div className='col-sm-9' style={{ border: 'solid',borderRadius: "5px", borderWidth: "2px" }}>
                         案件編號：{posts.did}<br></br>
                         案件名稱：{posts.d_name}<br></br>
                         案件類別：{posts.d_type}<br></br>
