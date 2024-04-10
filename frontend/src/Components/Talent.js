@@ -79,11 +79,13 @@ function Talent() {
                                 <Nav.Link href='#price'>評價</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                        <div id='about' style={{ width: 500, height: 250, border: 'solid' }}>
+                        <hr></hr>
+                        <div style={{paddingBottom:"20px"}}>關於</div>
+                        <div id='about' style={{ width: 500, height: 250 }}>
                             {talent.member && talent.member[0].about}
                         </div>
-
-                        <div id='item' className='mt-5'>作品：</div>
+                        <hr></hr>
+                        <div id='item' className='mt-5'>作品</div>
                         <div className="row ">
                             {talent.project && talent.project.map((item, index) => (
                                 <div className="col-sm-4 " key={item}>
@@ -103,8 +105,8 @@ function Talent() {
                             ))}
 
                         </div>
-
-                        <div id='video' className='mt-5'>影音：</div>
+                            <hr></hr>
+                        <div id='video' className='mt-5'>影音</div>
 
                         <div className="row">
                             {talent.video && talent.video.map((item, index) => (
@@ -120,7 +122,8 @@ function Talent() {
                                 </div>
                             ))}
                         </div>
-                        <p id='serve' className='mt-5'>服務：</p>
+                        <hr></hr>
+                        <p id='serve' className='mt-5'>服務</p>
                         <div className='row'>
 
                             {talent.service && talent.service.map((item, index) => (
@@ -141,21 +144,22 @@ function Talent() {
                                 </Link>
                             ))}
                         </div>
+                        <hr></hr>
                         <div className='mt-5 row'>
-                            評價({talent.case_complete && talent.case_complete}):<br></br>
+                            <div style={{paddingBottom:'20px'}}>評價({talent.case_complete && talent.case_complete})</div>
                             {talent.established_case && talent.established_case.map((item, index) => (
-                                <div style={{ border: "solid" }}>
+                                <div style={{  }}>
                                     <div id='price'>
-                                        <span style={{ borderRadius: '10px', backgroundColor: 'skyblue', padding: '2px' }}>
+                                        <span style={{ borderRadius: '10px', padding: '2px',border:'solid 1px' }}>
                                             案件</span>
-                                        <div >
-                                            {item.c_name}</div>
+                                        <span style={{padding:'20px'}}>
+                                            {item.c_name}</span>
                                     </div>
                                     <div>
                                         <Row>
                                             <Col xs lg="1"><Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
                                             <Col xs lg="10">
-                                                <div style={{ border: 'solid' }} >
+                                                <div style={{ backgroundColor: 'lightblue' }} >
                                                     案主評價：{Array.from({ length: item.demmand_star }, (_, i) => (
                                                         <CiStar key={i} />
                                                     ))}
@@ -169,7 +173,7 @@ function Talent() {
                                         <Row className='mt-1' style={{ marginLeft: "50px" }}>
                                             <Col xs lg="1"><Image src={item.s_avatar === "" ? member : item.s_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
                                             <Col xs lg="10">
-                                                <div style={{ border: 'solid' }} >
+                                                <div style={{ padding:"20px" }} >
                                                     接案人留言：{item.service_comment}
                                                     <br></br>
                                                     <div style={{ textAlign: 'right' }}>{item.service_time}</div>
@@ -179,11 +183,11 @@ function Talent() {
                                     </div>
                                 </div>
                             ))}
-                            <br></br>
+                            <hr></hr>
 
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
-                                成交件數：({talent.case_member_count})
+                                <div style={{paddingBottom:"20px"}}>成交件數({talent.case_member_count})</div>
                                 <div style={{ border: "solid",borderRadius: "5px" , borderWidth: "1px" ,height: "75px", backgroundColor: "white"}}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
                                         <div className='mt-4 '>
