@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
 import Pagination from 'react-bootstrap/Pagination';
 

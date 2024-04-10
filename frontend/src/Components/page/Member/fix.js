@@ -3,7 +3,7 @@ import { Form, Button, Alert, Col, Row, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
-import "./fix.css";
+// import "./fix.css";
 import Footer from "../../../homepage/Footer";
 import Cookies from "js-cookie";
 import { FaLock } from "react-icons/fa";
@@ -69,7 +69,7 @@ function PasswordForm() {
             <Row className="justify-content-center">
               <Col sm={6} style={{ padding: "20px" }}>
                 <div>
-                  <h2><BsWrenchAdjustable /> 修改密碼</h2>
+                  <h2><BsWrenchAdjustable />修改密碼</h2>
 
                   <Form onSubmit={handleSubmit}>
                     <Form.Label>舊密碼：{oerr && oerr.map((v) => {return <span style={{color:'red'}}>{v}</span>})}</Form.Label>
@@ -126,7 +126,6 @@ function PasswordForm() {
         </Row>
       </Container>
       <Footer></Footer>
-
     </>
   );
 }

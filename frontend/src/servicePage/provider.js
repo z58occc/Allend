@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Card, Form } from "react-bootstrap";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Pagination from 'react-bootstrap/Pagination';
 const Provider = ({ data1 }) => {

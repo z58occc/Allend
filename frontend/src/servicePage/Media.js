@@ -3,7 +3,7 @@ import { Button, Card, Form, Col, Row } from "react-bootstrap";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
 import Pagination from 'react-bootstrap/Pagination';
 const Media = ({ data3 }) => {

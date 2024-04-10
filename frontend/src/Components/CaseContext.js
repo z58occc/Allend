@@ -14,8 +14,6 @@ import { FaStar } from "react-icons/fa";
 
 
 function CaseContext() {
-
-
     const close = async () => {
         setShow(false);
         setMessagewarm(false);
@@ -167,7 +165,7 @@ function CaseContext() {
                             <div>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
                                 <FaHeart size={25} style={{ color: 'red' }} />
-                                <Button style={{marginLeft:"30px"}} onClick={handleShow} >我要報價</Button>
+                                <Button style={{marginLeft:"30px"}} onClick={handleShow}>我要報價</Button>
                             </div>
 
                         </div>

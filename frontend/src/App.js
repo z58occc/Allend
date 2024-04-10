@@ -28,8 +28,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FcGoogle } from "react-icons/fc";
-import MainScreen3 from "./servicePage/MainScreen2";
+import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
+import CollectionsMain from "./Collections/CollectionsMain";
 
 
 
@@ -328,7 +329,6 @@ function App() {
 
 
   return (
-
     <>
       <div
         className="p-1"
@@ -349,7 +349,7 @@ function App() {
           {/* 搜索框 */}
           <div style={{ display: 'flex', alignItems: 'center', maxWidth: '700px' }}>
             <input type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
-            <button type="submit" style={{ height: '70px', width: '55px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
+            <button type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
               <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
             </button>
           </div>
@@ -369,12 +369,13 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
-                <span style={{ fontSize: '28px' }}>您好，{memberEmail}</span>
+                <span style={{ fontSize: '28px'}}>您好，{memberEmail}</span>
               </Link>
             </div>
           )}
         </div>
       </div>
+      
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -439,6 +440,7 @@ function App() {
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
+        <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
       </Routes>
 
