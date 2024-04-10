@@ -5,8 +5,10 @@ import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen2";
 import Cookies from "js-cookie";
-const CaseDetailsModal1 = ({ show, onHide}) => {
-  //useContext from Mainscreen
+const EditModal1 = ({ show, onHide, data, index }) => {
+  console.log(data);
+  console.log(data[index]);
+  //useContext from Mainscreen 
   const { fetchData } = useContext(CaseContext);
 
   const [nameOfService, setNameOfService] = useState("");
@@ -33,7 +35,7 @@ const CaseDetailsModal1 = ({ show, onHide}) => {
 
 
 
-    await fetch('http://127.0.0.1/Allend/backend/public/api/addservice', {
+    await fetch('http://127.0.0.1/Allend/backend/public/api/updateservice', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`,
@@ -59,7 +61,15 @@ const CaseDetailsModal1 = ({ show, onHide}) => {
     const file = e.target.files[0];
     setImageFile(file);
   };
-  
+  useEffect(() => {
+    setNameOfService(data[index].s_name)
+    setCategory(data[index].s_type)
+    setLocation(data[index].s_active_location)
+    setDetails(data[index].s_description)
+    setBudget(data[index].s_amount)
+    setUnit(data[index].s_unit)
+  }, [data,index])
+
 
   return (
     <Modal
@@ -214,4 +224,4 @@ const CaseDetailsModal1 = ({ show, onHide}) => {
   );
 };
 
-export default CaseDetailsModal1;
+export default EditModal1;
