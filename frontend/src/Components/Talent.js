@@ -5,10 +5,12 @@ import Nav from 'react-bootstrap/Nav';
 import { Link, useParams } from 'react-router-dom';
 import Stick from './Stick';
 import { FaFacebook } from "react-icons/fa";
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row ,Image} from 'react-bootstrap';
 import { FaLine } from "react-icons/fa";
 import axios from 'axios';
 import YouTubeEmbed from './youtube';
+import member from '../RatingPage/member.png';
+
 
 
 
@@ -84,7 +86,7 @@ function Talent() {
                         <div id='item' className='mt-5'>作品：</div>
                         <div className="row ">
                             {talent.project && talent.project.map((item, index) => (
-                                <div className="col-sm-4  ">
+                                <div className="col-sm-4 " key={item}>
                                     <div className='card'>
                                         <div className="card-header">
                                             <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
@@ -146,12 +148,12 @@ function Talent() {
                                     <div id='price'>
                                         <span style={{ borderRadius: '10px', backgroundColor: 'skyblue', padding: '2px' }}>
                                             案件</span>
-                                        <Link to='/casecontext' style={{ marginLeft: 30 }}>
-                                            {item.c_name}</Link>
+                                        <div >
+                                            {item.c_name}</div>
                                     </div>
                                     <div>
                                         <Row>
-                                            <Col xs lg="1"><FaFacebook size={30}></FaFacebook></Col>
+                                            <Col xs lg="1"><Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
                                             <Col xs lg="10">
                                                 <div style={{ border: 'solid' }} >
                                                     案主評價：{Array.from({ length: item.demmand_star }, (_, i) => (
@@ -165,7 +167,7 @@ function Talent() {
                                             </Col>
                                         </Row>
                                         <Row className='mt-1' style={{ marginLeft: "50px" }}>
-                                            <Col xs lg="1"><FaLine size={30}></FaLine></Col>
+                                            <Col xs lg="1"><Image src={item.s_avatar === "" ? member : item.s_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
                                             <Col xs lg="10">
                                                 <div style={{ border: 'solid' }} >
                                                     接案人留言：{item.service_comment}
@@ -184,10 +186,10 @@ function Talent() {
                                 成交件數：({talent.case_member_count})
                                 <div style={{ border: "solid" }}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
-                                        <div className='mt-4 '>
+                                        <div className='mt-4 ' style={{paddingBottom:'20px'}}>
                                             <span style={{ border: 'solid' }}>{item.c_name}</span>
                                             <Link style={{ margin: "30px" }} to='/casecontext'></Link>
-                                            {item.completed_time}案主：{item.name}
+                                            <span>案主：{item.name}</span><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
                                         </div>
                                     ))}
                                 </div>
