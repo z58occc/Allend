@@ -42,7 +42,7 @@ class IFindCaseController extends Controller
                             $query->whereIn('d_amount', [50001, 100000]);
                             break;
                         case "5":
-                            $query->whereIn('d_amount', [100000, 300000]);
+                            $query->whereIn('d_amount', [100001, 300000]);
                             break;
                     }
                 }

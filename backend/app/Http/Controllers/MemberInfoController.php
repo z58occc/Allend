@@ -121,17 +121,21 @@ class MemberInfoController extends Controller
             $request->validate([
                 'identity' => "required",
                 'experience' => "required",
-                'location' =>"required",
-                'idCard' => "required|max:10",
+                'location' => "required",
+                'idCard' => "max:10",
                 'name' => "required",
-                'phone' =>"required|max:10",
-                'gender' => "required",
-                'area' => "required",
+                'phone' => "required|max:10",
+            ], [
+                'identity.required' => '身分為必填欄位',
+                'experience.required' => '年資為必填欄位',
+                'location.required' => '接案地點為必填欄位',
+                'idCard.max' => '身分證號請填寫10位',
+                'name.required' => '姓名為必填欄位',
+                'phone.required' => '手機號碼為必填欄位',
+                'phone.max' => '手機號碼必須為10位'
             ]);
         } catch (ValidationException $exception){
-            return response()->json([
-                'error' => $exception->errors()
-            ]);
+            return response()->json($exception->errors(), 422);
         }
 
         $identity = DB::table('identity')->where('i_identity', $request->identity)->value('iid');
@@ -145,19 +149,21 @@ class MemberInfoController extends Controller
                 'active_location' => $active_location,
                 'mobile_phone' => $request->phone,
                 'name' => $request->name,
-                'id_card' => $request->idCard,
-                'gender' => $request->gender,
-                'location' => $location,
+                'id_card' => $request->idCard !== null ? $request->idCard : null,
+                'gender' => $request->gender !== null ? $request->gender : null,
+                'location' => $location !== null ? $location : null,
+                'fb' => $request->fb !== null ? $request->fb : null,
+                'line' => $request->line !== null ? $request->line : null,
                 'updated_at' => now(),
             ]);
+            return response()->json([
+                'error' => '修改成功'
+            ], 200);
         }catch(Throwable $err){
             return response()->json([
                 'error' => '修改失敗'
             ]);
         }
-        return response()->json([
-            'error' => '修改成功'
-        ]);
     }
 
     // 獲取發案方資料
@@ -182,8 +188,8 @@ class MemberInfoController extends Controller
             ]);
         } catch (ValidationException $exception){
             return response()->json([
-                'error' => $exception->errors()
-            ]);
+                'error' => '缺少必填欄位'
+            ], 422);
         }
 
         try{
@@ -195,11 +201,11 @@ class MemberInfoController extends Controller
         }catch(Throwable $err){
             return response()->json([
                 'error' => '修改失敗'
-            ]);
+            ], 409);
         }
         return response()->json([
             'error' => '修改成功'
-        ]);
+        ], 200);
     }
 
     // 修改密碼
@@ -209,12 +215,15 @@ class MemberInfoController extends Controller
         try{
             $request->validate([
                 'oldpassword' => ['required'],
-                'password' => ['required', 'confirmed', 'min:6']
+                'password' => ['required', 'confirmed', 'min:8']
+            ],[
+                'oldpassword' => '舊密碼為必填欄位',
+                'password' => '新密碼為必填欄位',
+                'password.confirmed' => "新密碼與確認新密碼不一致",
+                'password.min' => '新密碼至少8個字元'
             ]);
-        }catch (Throwable $err){
-            return response()->json([
-                'error' => '請輸入正確的密碼，密碼長度至少為6位數'
-            ],422);
+        }catch (ValidationException $exception){
+            return response()->json($exception->errors(), 422);
         }
 
         if(Hash::check($request->oldpassword, $user->password)){
@@ -253,11 +262,11 @@ class MemberInfoController extends Controller
             DB::table('members')->where('mid', $mid)->update(['avatar' => $request->image]);
             return response()->json([
                 'message' => '更新成功'
-            ]);
+            ], 200);
         }
         return response()->json([
             'error' => '更新失敗'
-        ]);
+        ], 409);
     }
 
     // 獲取接案紀錄
@@ -345,8 +354,8 @@ class MemberInfoController extends Controller
                 ]);
             } catch (ValidationException $exception){
                 return response()->json([
-                    'error' => $exception->errors()
-                ]);
+                    'error' => '金額為必填欄位'
+                ], 422);
             }
             try{
                 $new = DB::table('quote')->where('did', $request->did)
@@ -357,11 +366,11 @@ class MemberInfoController extends Controller
                 ]);
                 return response()->json([
                     'message' => '更新成功'
-                ]);
+                ], 200);
             }catch (Throwable $err){
                 return response()->json([
                     'error' => '更新失敗'
-                ]);
+                ], 409);
             }
         }
     }
@@ -378,7 +387,7 @@ class MemberInfoController extends Controller
             }catch(ValidationException $exception){
                 return response()->json([
                     'error' => $exception->errors()
-                ]);
+                ], 422);
             }
             $selectQuote = $request->input('qid');
             try{
@@ -387,11 +396,11 @@ class MemberInfoController extends Controller
                 ->where('qid',$selectQuote)->delete();
                 return response()->json([
                     'error' => '刪除成功'
-                ]);
+                ], 200);
             }catch (Throwable $err){
                 return response()->json([
                     'error' => '刪除失敗'
-                ]);
+                ], 409);
             }
         }
     }
@@ -461,18 +470,30 @@ class MemberInfoController extends Controller
                 'case_name' => 'required',
                 'type' => 'required',
                 'amount' => 'required',
-                'unit' => 'required',
+                'unit' => 'required|string',
                 'duration' => 'required',
                 'location' => 'required',
                 'details' => 'required | min:10',
                 'contact_name' => 'required',
                 'email' => 'required',
                 'phone' => 'required | max:10',
+            ], [
+                'case_name.required' => '案件名稱為必填欄位',
+                'type.required' => '案件類型為必填欄位',
+                'amount.required' => '金額為必填欄位',
+                'unit.required' => '單位為必填欄位',
+                'unit.string' => '單位為字串',
+                'duration.required' => '案件期程為必填欄位',
+                'location.required' => '案件地點為必填欄位',
+                'details.required' => '案件描述為必填欄位',
+                'details.min' => '案件描述至少十個字',
+                'contact_name.required' => '聯絡人姓名為必填欄位',
+                'email.required' => '電子郵件為必填欄位',
+                'phone.required' => '手機號碼為必填欄位',
+                'phone.max' => '手機號碼至多為10位'
             ]);
         }catch (ValidationException $exception){
-            return response()->json([
-                'error' => $exception->errors()
-            ]);
+            return response()->json($exception->errors(), 422);
         }
 
         $type = DB::table('category')->where('type', $request->type)->value('catid');
@@ -495,11 +516,11 @@ class MemberInfoController extends Controller
             ]);
             return response()->json([
                 'mnessage' => '更新成功'
-            ]);
+            ], 200);
         }catch(Throwable $err){
             return response()->json([
                 'error' => '更新失敗'
-            ]);
+            ], 409);
         }
     }
     }
@@ -696,52 +717,73 @@ class MemberInfoController extends Controller
     public function addWork(Request $request)
     {
         $mid = Auth::id();
-        $this->validate($request,[
-            'p_name'=>['required'],
-            'image'=>['required'],
-            'p_description'=>['required'],
-        ]);
+        try{
+            $this->validate($request,[
+                'p_name'=>['required'],
+                'image'=>['required'],
+                'p_description'=>['required'],
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json($exception->errors(),422);
+        }
 
         if($request->hasFile('image')){
             $data = $request->image->get();
             $imageData = base64_encode($data);
         }
-        $work = DB::table('project')->insert([
-            'p_name'=>$request['p_name'],
-            'p_description'=>$request['p_description'],
-            'mid'=>$mid,
-            'image'=>$imageData,
-            'created_at'=>now(),
-            'updated_at'=>now()
-        ]);
-        return response($work);
+        try {
+            $work = DB::table('project')->insert([
+                'p_name'=>$request['p_name'],
+                'p_description'=>$request['p_description'],
+                'mid'=>$mid,
+                'image'=>$imageData,
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ]);
+            return response()->json([
+                'message' => '新增成功'
+            ]);
+        }catch (Throwable $err){
+            return response()->json([
+                'error' => '新增失敗'
+            ]);
+        }
     }
 
     // 編輯作品
     public function updateWork(Request $request){
         $mid = Auth::id();
-        $request->validate([
-            'pid' => ['required'],
-            'image'=>['required'],
-            'p_name'=>['required'],
-            'p_description'=>['required'],
-        ]);
+        try{
+            $request->validate([
+                'pid' => ['required'],
+                'image'=>['required'],
+                'p_name'=>['required'],
+                'p_description'=>['required'],
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json($exception->errors());
+        }
 
         if (isset($request->image)) {
             $data = $request->image->get();
-            // $mime_type = $request->image->getMimeType();
             $imageData = base64_encode($data);
-            // $src = "data: $mime_type;base64,$imageData";
         }
-
-        $result = DB::table('project')->where('mid', $mid)->where('pid', $request->pid)
-        ->update([
-            'p_name' => $request->p_name,
-            'p_description' => $request->p_description,
-            'image' => $imageData,
-            'updated_at' => now()
-        ]);
-        return response()->json($result ? ['message' => '編輯成功'] : ['message' => '編輯失敗']);
+        try{
+            $result = DB::table('project')->where('mid', $mid)->where('pid', $request->pid)
+            ->update([
+                'p_name' => $request->p_name,
+                'p_description' => $request->p_description,
+                'image' => $imageData,
+                'updated_at' => now()
+            ]);
+            return response()->json([
+                'message' => '編輯成功'
+            ]);
+        }catch (Throwable $err){
+            return response()->json([
+                'error' => '編輯失敗'
+            ]);
+        }
     }
 
     // 刪除作品
@@ -752,11 +794,12 @@ class MemberInfoController extends Controller
         try{
             $request->validate([
             'pid' => 'required'
-        ]);
-        }catch (ValidationException $exception){
-            return response()->json([
-                'error' => '未選擇要刪除的作品'
             ]);
+        }catch (ValidationException $exception){
+            return response()->json(
+                // 'error' => '未選擇要刪除的作品'
+                $exception->errors()
+            );
         }
         try{
             $del = DB::table('project')
@@ -798,11 +841,11 @@ class MemberInfoController extends Controller
                 'updated_at'=>now(),
             ]);
             return response()->json([
-                'message' => '新增成功'
+                'message' => '新增影音成功'
             ]);
         }catch(Throwable $err){
             return response()->json([
-                'error' => '新增失敗'
+                'error' => '新增影音失敗'
             ]);
         }
     }
@@ -831,11 +874,11 @@ class MemberInfoController extends Controller
                 'updated_at' => now()
             ]);
             return response()->json([
-                'message' => '編輯成功'
+                'message' => '編輯影音成功'
             ]);
         }catch(Throwable $err){
             return response()->json([
-                'error' => '編輯失敗'
+                'error' => '編輯影音失敗'
             ]);
         }
     }
