@@ -27,12 +27,14 @@ class TalentController extends Controller
                     ->groupBy('demmand_star')
                     ->get()
                     ->count();
-        $establised_query = DB::table('established_case')
-                                ->select('demmand_star', 'demmand_time', 'demmand_comment', 'c_name', 'completed_time', 'mid_demmand','service_comment','service_time')
+        $establised_query = DB::table('established_case as e')
+                                ->join('members as d','d.mid', '=','e.mid_demmand')
+                                ->join('members as s','s.mid', '=','e.mid_service')
+                                ->select('demmand_star', 'demmand_time', 'demmand_comment', 'c_name', 'completed_time', 'mid_demmand','service_comment','service_time','d.avatar as d_avatar','s.avatar as s_avatar')
                                 // ->joinSub($subquery, 'sub', function ($join) {
                                 //     $join->on('established_case.mid_service', '=', 'sub.mid_service');
                                 // })
-                    ->where('established_case.mid_service', $mid)
+                    ->where('e.mid_service', $mid)
                     ->whereNotNull('demmand_star') // 如果 demmand_star 是 NULL，將其排除
                     ->whereNotNull('demmand_time')
                     ->whereNotNull('demmand_comment')
@@ -40,7 +42,9 @@ class TalentController extends Controller
                     ->whereNotNull('completed_time')
                     ->whereNotNull('mid_demmand')
                     ->whereNotNull('service_comment')
-                    ->whereNotNull('service_time');
+                    ->whereNotNull('service_time')
+                    ->whereNotNull('d.avatar')
+                    ->whereNotNull('s.avatar');
         $project_query = DB::table('project')->select('pid', 'image', 'p_name', 'p_description', 'created_at')->where('mid',$mid);
         $video_query = DB::table('video')->select('vid', 'v_name', 'v_description', 'src', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
         $service_query = DB::table('service')->select('sid', 's_name', 's_amount', 's_unit', 'image', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
@@ -50,7 +54,7 @@ class TalentController extends Controller
                             ->count();
         $case_member = DB::table('established_case as e')
                             ->join('members as m','m.mid', '=','e.mid_service')
-                            ->select('e.c_name','completed_time','m.name')
+                            ->select('e.c_name','m.name',DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
                             ->where('mid_service', $mid)
                             ->where('c_status',2);
 

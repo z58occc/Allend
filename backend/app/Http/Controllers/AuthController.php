@@ -50,16 +50,15 @@ class AuthController extends Controller
             ]);
 
             // 發送信箱驗證信
-            event(new Registered($user));
+            // event(new Registered($user));
 
             return response()->json([
                 'email' => $request->email,
                 'password' => $request->password,
             ]);
-        }
-        catch(Throwable $err){
+        }catch(Throwable $err){
             return response()->json([
-                'message' => '該信箱已被註冊過'
+                'error' => '該信箱已被註冊過'
             ]);
         }
     }
@@ -103,32 +102,4 @@ class AuthController extends Controller
             'message' => '已成功登出'
         ]);
     }
-
-    //  // 從請求頭獲取 JWT
-    //  $jwt = $request->bearerToken();
-
-    //  if (!$jwt) {
-    //      // 如果未提供 JWT，直接拒絕請求
-    //      return response()->json(['error' => 'Token not provided.'], 401);
-    //  }
-
-    //  try {
-    //      // 解碼並驗證 JWT
-    //      $payload = JWT::decode($jwt, env('JWT_SECRET'), ['HS256']);
-
-    //      // 驗證通過，可以在請求中添加用戶信息
-    //      $request->merge(['user' => $payload->user]);
-    //  } catch (ExpiredException $e) {
-    //      // 處理 JWT 過期
-    //      return response()->json(['error' => 'Provided token is expired.'], 400);
-    //  } catch (SignatureInvalidException $e) {
-    //      // 處理 JWT 簽名無效
-    //      return response()->json(['error' => 'Invalid credentials.'], 400);
-    //  } catch (Exception $e) {
-    //      // 處理其他異常
-    //      return response()->json(['error' => 'Could not decode token.'], 400);
-    //  }
-
-    //  // 繼續處理請求
-    //  return $next($request);
 }
