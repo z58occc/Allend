@@ -57,19 +57,11 @@ function FreelancerForm() {
       }
     };
     fetchData();
-    
-    // fetchData((result) => {
-    //   setFormData(result);
-    // });
   }, []);
 console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // if (name === "identity") {
-    //   // 根據用戶選擇的身份類型来更新isFreelancer狀態
-    //   setIsFreelancer(value === "freelancer");
-    // }
 
     if (name === "idCard") {
       const firstCharIsValid = /^[A-Z]/.test(value[0]);
@@ -85,20 +77,6 @@ console.log(formData)
         e.target.classList.remove("is-invalid");
       }
     }
-
-    // if (name === "email") {
-    //   // 檢查是否包含 @ 字符
-    //   const isValidEmail = value.includes("@");
-
-    //   // 如果不包含 @ 字符，則顯示紅框
-    //   if (!isValidEmail) {
-    //     // 在表單控制元素中添加 is-invalid 類
-    //     e.target.classList.add("is-invalid");
-    //   } else {
-    //     // 如果格式正確，則移除 is-invalid 類
-    //     e.target.classList.remove("is-invalid");
-    //   }
-    // }
 
     setFormData(() => ({
       ...formData,
@@ -123,6 +101,8 @@ console.log(formData)
         gender: formData.gender,
         area: formData.area,
         name: formData.name,
+        fb:formData.fb,
+        line:formData.line
       },
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     });
@@ -432,6 +412,34 @@ console.log(formData)
                 {/* 所在地區 */}
 
                 <br />
+                <Form.Group as={Row} >
+                  <Form.Label column sm={6}>
+                    LINE連結：
+                  </Form.Label>
+                  <Form.Label column sm={6}>
+                    FB連結：
+                  </Form.Label>
+                </Form.Group>
+
+                <Form.Group as={Row} className="pb-3">
+                  <Col sm={6}>
+                    <Form.Control
+                      type="text"
+                      name="line"
+                      value={formData.line}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Control
+                      type="text"
+                      name="fb"
+                      value={formData.fb}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Form.Group>
+
 
                 <div
                   style={{
@@ -444,7 +452,6 @@ console.log(formData)
                     type="submit"
                     variant="danger"
                     style={{ width: "50%", fontSize: "15px" }}
-                    // disabled={!isFormComplete}
                   >
                     提交
                   </Button>

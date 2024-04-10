@@ -68,11 +68,10 @@ const MainScreen3 = () => {
 
           <Col sm={2}>
             <Container fluid style={{ width: "900px" }}>
-              {/* 主畫面區域 */}
               <Row>
-                <Col md={12}>
+                {/* <Col md={12}> */}
                   <Screen1 data={Service}/>
-                </Col>
+                {/* </Col> */}
               </Row>
             </Container>
           </Col>

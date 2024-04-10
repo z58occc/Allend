@@ -27,6 +27,10 @@ class IFindCaseController extends Controller
             }
 
             if(!empty($amount)){
+                switch($amount){
+                    case "1":
+
+                }
                 $query->whereIn('d_amount',explode(',',$amount));
             }
         }

@@ -33,6 +33,7 @@ import Test from "./Components/test";
 
 
 
+
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -139,7 +140,7 @@ function App() {
         // token過期，執行登出操作
         handleLogout();
       }
-    }, 3600000); // 每小時檢查一次
+    }, 60000); // 每小時檢查一次
   };
 
   const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
@@ -151,8 +152,16 @@ function App() {
     setIsLoggedIn(false); // Update login status
     setMemberEmail('');
     setShowLogoutMessage(true);
+    navigate('/');
 
   };
+  const handleclickout = () =>{
+    Cookies.remove("token");
+    setIsLoggedIn(false);
+    setMemberEmail('');
+    navigate('/');
+
+  }
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -282,7 +291,7 @@ function App() {
   const sendForgetPWD = () => {
     axios({
       method: "post",
-      url: "http://localhost/Allend/backend/public/api/forgetpwd",
+      url: "http://localhost/Allend/backend/public/api/forgot-password",
       data: {
         email: ForgetName.current.value,
       },
@@ -298,9 +307,6 @@ function App() {
   // 控制連結顏色切換
   const [selectedLink, setSelectedLink] = useState(null);
   const location = useLocation();
-
-
-
 
   useEffect(() => {
     setSelectedLink(location.pathname);
@@ -349,7 +355,7 @@ function App() {
 
 
           {isLoggedIn ? ( // Check if user is logged in
-            <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleLogout}>登出</Button>
+            <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleclickout}>登出</Button>
           ) : (
             <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
           )}
@@ -534,7 +540,7 @@ function App() {
         centered
       >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
-          <Modal.Title className="col text-center" >忘記密碼</Modal.Title>
+          <Modal.Title className="col text-center" >忘記密碼 ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -605,7 +611,8 @@ function App() {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* 註冊 */}
+
+
       <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered>
         <Modal.Body>
           <div>
