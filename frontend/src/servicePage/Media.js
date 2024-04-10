@@ -121,9 +121,9 @@ const Media = ({ data3 }) => {
   }
 
   return (
-    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '650px' }}>
+    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '800px' }}>
       <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -150,7 +150,7 @@ const Media = ({ data3 }) => {
         {/* Generate six Cards */}
         <Row style={{ width: '1000px' }}>
           {data3.map((item, index) => (
-            <Col key={index} style={{ width: '200px', }} className='col-4 d-flex justify-content-center'>
+            <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
               <Card style={{ width: "240px" }}>
                 <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
                 <Card.Body className="d-flex flex-column">
