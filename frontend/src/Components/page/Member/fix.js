@@ -10,13 +10,13 @@ import { FaLock } from "react-icons/fa";
 import InputGroup from 'react-bootstrap/InputGroup';
 import { BsWrenchAdjustable } from "react-icons/bs";
 
-// 修改密碼
 function PasswordForm() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  // 修改密碼
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newPassword !== confirmNewPassword) {
@@ -26,7 +26,7 @@ function PasswordForm() {
     const cookie = Cookies.get("token");
     axios({
       method: "post",
-      url: "http://localhost/Allend/backend/public/api/resetpwd",
+      url: "http://localhost/Allend/backend/public/api/updatepassword",
       data: {
         oldpassword: oldPassword,
         password: newPassword,
