@@ -4,6 +4,7 @@ import CaseDetailsModal1 from './CaseDetailsModal1';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import EditModal1 from './EditModal1';
+import Pagination from 'react-bootstrap/Pagination';
 const Provider = ({ data1 }) => {
 
   const CaseData = data1;
@@ -27,7 +28,7 @@ const Provider = ({ data1 }) => {
     setCheckedAll(newSelectedItems.every((item) => item));
   };
   //新增Modal;
-  const [show,setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(true);
   }
@@ -35,7 +36,7 @@ const Provider = ({ data1 }) => {
     setShow(false);
   }
   //編輯Modal;
-  const [show1,setShow1] = useState(false);
+  const [show1, setShow1] = useState(false);
   const handleShow1 = (index) => {
     setShow1(true);
     setIndex(index);
@@ -44,65 +45,87 @@ const Provider = ({ data1 }) => {
     setShow1(false);
   }
   //刪除
-    const [deletedIndex, setDeletedIndex] = useState([]);
+  const [deletedIndex, setDeletedIndex] = useState([]);
 
-    let deletedData = [];
-    let didOfDeletedData = [];
-  
-    const handleDeleted = async () => {
-      const deletedIndices = [];
-      selectedItems.forEach((item, index) => {
-        if (item === true) {
-          deletedIndices.push(index);
-        }
-      });
-      setDeletedIndex(deletedIndices);
-  
-      deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
-  
-  
-      didOfDeletedData = deletedData.map(item => item.sid);
-  
-      try {
-        const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delmemser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
-          },
-          body: JSON.stringify
+  let deletedData = [];
+  let didOfDeletedData = [];
+
+  const handleDeleted = async () => {
+    const deletedIndices = [];
+    selectedItems.forEach((item, index) => {
+      if (item === true) {
+        deletedIndices.push(index);
+      }
+    });
+    setDeletedIndex(deletedIndices);
+
+    deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+
+
+    didOfDeletedData = deletedData.map(item => item.sid);
+
+    try {
+      const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delmemser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify
           (
-            { 
+            {
               sid: didOfDeletedData,
             }
           ),
-        });
-        console.log(didOfDeletedData)
-  
-        fetchData();
-        setSelectedItems([false])
-        if (!response.ok) {
-          throw new Error('Failed to delete data');
-        }
-  
-        const responseData = await response.json();
-        console.log('Response data:', responseData);
-  
-        // Handle successful response, such as updating the page or other operations
-  
-      } catch (error) {
-        console.error('Error deleting data:', error);
-        // Handle error cases, such as displaying error messages or other handling
+      });
+      console.log(didOfDeletedData)
+
+      fetchData();
+      setSelectedItems([false])
+      if (!response.ok) {
+        throw new Error('Failed to delete data');
       }
-    };
+
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      // Handle successful response, such as updating the page or other operations
+
+    } catch (error) {
+      console.error('Error deleting data:', error);
+      // Handle error cases, such as displaying error messages or other handling
+    }
+  };
+  //
+  console.log(data1)
+  const [active, setActive] = useState(1);
+  let items = [];
+  const handleSetActive = (number) => {
+    setActive(number)
+  }
+  //
+  const CasePerPage = 4;
+  const page = Math.ceil(data1.length / CasePerPage);
+  console.log(page);
+  data1 = data1?.slice(CasePerPage * (active - 1), CasePerPage * active)
+  console.log(data1);
+
+  for (let number = 1; number <= page; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active} onClick={() => handleSetActive(number)}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
-    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '600px' }}>
+    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '750px' }}>
       <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
+        <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px'}}>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={()=>{handleShow()}}
+            onClick={() => { handleShow() }}
           >
             新增
           </Button>
@@ -116,7 +139,7 @@ const Provider = ({ data1 }) => {
           <Button
             variant="danger"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => {handleDeleted()}}
+            onClick={() => { handleDeleted() }}
           >
             刪除
           </Button>
@@ -130,7 +153,7 @@ const Provider = ({ data1 }) => {
               key={index}
               className=""
               style={{ width: "720px", height: "95px", margin: '10px auto' }}
-              onClick={()=>{
+              onClick={() => {
                 handleShow1(index);
               }}
             >
@@ -158,6 +181,7 @@ const Provider = ({ data1 }) => {
 
 
           ))}
+        <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
         </div>
       </div>
       <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>

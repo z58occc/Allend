@@ -5,6 +5,7 @@ import CaseDetailsModal3 from './CaseDetailsModal3';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import EditModal3 from './EditModal3';
+import Pagination from 'react-bootstrap/Pagination';
 const Media = ({ data3 }) => {
 
   const { fetchData } = useContext(CaseContext);
@@ -35,7 +36,7 @@ const Media = ({ data3 }) => {
   }
   //編輯Modal;
   const [index, setIndex] = useState(0);
-  const [show1,setShow1] = useState(false);
+  const [show1, setShow1] = useState(false);
   const handleShow1 = (index) => {
     setShow1(true);
     setIndex(index);
@@ -97,10 +98,31 @@ const Media = ({ data3 }) => {
       // Handle error cases, such as displaying error messages or other handling
     }
   };
+  //分頁
+  console.log(data3)
+  const [active, setActive] = useState(1);
+  let items = [];
+  const handleSetActive = (number) => {
+    setActive(number)
+  }
+  // 
+  const CasePerPage = 6;
+  const page = Math.ceil(data3.length / CasePerPage);
+  console.log(page);
+  data3 = data3?.slice(CasePerPage * (active - 1), CasePerPage * active)
+  console.log(data3);
+
+  for (let number = 1; number <= page; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active} onClick={() => handleSetActive(number)}>
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   return (
     <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '650px' }}>
-      <div className="d-flex flex-wrap justify-content-around align-items-center" style={{ height: '100%', marginTop: "10px" }}>
+      <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
         <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <Button
             variant="success"
@@ -126,9 +148,9 @@ const Media = ({ data3 }) => {
           </Button>
         </div>
         {/* Generate six Cards */}
-        <Row className="justify-content-center" style={{ marginLeft: "40px" }}>
+        <Row style={{ width: '1000px' }}>
           {data3.map((item, index) => (
-            <Col key={index} xs={6} md={4} className="my-3" onClick={()=>{handleShow1(index)}}>
+            <Col key={index} style={{ width: '200px', }} className='col-4 d-flex justify-content-center' onClick={() => handleShow1(index)}>
               <Card style={{ width: "240px" }}>
                 <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
                 <Card.Body className="d-flex flex-column">
@@ -144,6 +166,7 @@ const Media = ({ data3 }) => {
               </Card>
             </Col>
           ))}
+          <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
         </Row>
       </div>
       <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
