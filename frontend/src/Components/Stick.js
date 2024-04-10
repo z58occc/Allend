@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
-import { Button } from 'react-bootstrap';
 import { FaFacebook } from "react-icons/fa";
 import { FaLine } from "react-icons/fa";
 import { CiChat1 } from "react-icons/ci";
@@ -9,6 +8,10 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CopyButton from './CopyButton';
 import { AiFillGitlab } from "react-icons/ai";
+import {  FaUserAlt} from "react-icons/fa";
+import { IoIosTime } from "react-icons/io";
+import { MdPlace } from "react-icons/md";
+import { FaBriefcase } from "react-icons/fa";
 
 function Stick() {
 
@@ -29,26 +32,26 @@ function Stick() {
 
     return (
 
-        <div>
+        <div> 
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid', }}>
+                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:"530px"}}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
-                        <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px'}}/>
+                        <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px',marginTop:"10px"}}/>
                         {/* <AiFillGitlab style={{ color: '#4EFEB3' }} /> */}
                         <p>{talent.member && talent.member[0].name}</p>
                         {Array.from({ length: talent.avg_star }, (_, i) => (<CiStar key={i} />))}
                     </div>
                     <div  style={{ marginBottom: '15px',marginTop: '15px' }}>
-                        <div style={{ marginBottom: '10px' }}>
+                        <div style={{ marginBottom: '10px' }}><FaUserAlt style={{color: "#FFB5B5"}}/>
                             接案身分：{talent.member && talent.member[0].i_identity}
                         </div>
-                        <div style={{ marginBottom: '10px' }}>
+                        <div style={{ marginBottom: '10px' }}><IoIosTime style={{color: "#FFB5B5"}}/>
                             上線時間：{talent.member && talent.member[0].last_login}
                         </div>
-                        <div style={{ marginBottom: '10px' }}> 
+                        <div style={{ marginBottom: '10px' }}><MdPlace style={{color: "#FFB5B5"}}/>
                             接案地點：{talent.member && talent.member[0].country_city}
                         </div>
-                        <div>
+                        <div><FaBriefcase style={{color: "#FFB5B5"}}/>
                             成交件數：{talent.case_member_count}
                         </div>
                     </div>
