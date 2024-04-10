@@ -75,35 +75,35 @@ function Category() {
                     <div className="col-2 text-center">
                         <Link to='/findcase/?type=1' onClick={() => fetchData("網站設計")}>
                             <div >網站設計</div>
-                            <img src={a1} style={{ width: '75px' }}></img>
+                            <img src={a1} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center" >
                         <Link to='/findcase/?type=2' onClick={() => fetchData("軟體程式")} >
                             <div >軟體程式</div>
-                            <img src={a2} style={{ width: '75px' }}></img>
+                            <img src={a2} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center" >
                         <Link to='/findcase/?type=3' onClick={() => fetchData("平面設計")} >
                             <div >平面設計</div>
-                            <img src={a5} style={{ width: '75px' }}></img>
+                            <img src={a5} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 text-center" >
                         <Link to='/findcase/?type=4' onClick={() => fetchData("文字語言")} >
                             <div >文字語言</div>
-                            <img src={a4} style={{ width: '72px' }}></img>
+                            <img src={a4} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none " />
                     </div>
                     <div className="col-2 text-center" >
                         <Link to='/findcase/?type=5' onClick={() => fetchData("專業諮詢")} >
                             <div >專業諮詢</div>
-                            <img src={a6} style={{ width: '75px' }}></img>
+                            <img src={a6} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
