@@ -218,7 +218,7 @@ class MemberInfoController extends Controller
         }
 
         if(Hash::check($request->oldpassword, $user->password)){
-            DB::update([ 'password' => Hash::make($request->password)]);
+            Member::where('mid', $user->mid)->update(['password' => Hash::make($request->password)]);
 
             return response()->json([
                 'message' => '修改密碼成功'
