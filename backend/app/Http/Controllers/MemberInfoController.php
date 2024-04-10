@@ -213,8 +213,8 @@ class MemberInfoController extends Controller
             ]);
         }catch (Throwable $err){
             return response()->json([
-                'error' => '資料不正確，請重新輸入'
-            ]);
+                'error' => '請輸入正確的密碼，密碼長度至少為6位數'
+            ],422);
         }
 
         if(Hash::check($request->oldpassword, $user->password)){
@@ -222,11 +222,11 @@ class MemberInfoController extends Controller
 
             return response()->json([
                 'message' => '修改密碼成功'
-            ]);
+            ],200);
         }
         return response()->json([
             'error' => '舊密碼有誤，請重新輸入'
-        ]);
+        ],409);
     }
 
     // 獲取頭像、姓名

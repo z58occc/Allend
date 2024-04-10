@@ -287,6 +287,7 @@ function App() {
     setShowForgotPassword(true);
   };
 
+  const [Forgetmessage,setForgetmessage] = useState('');
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
@@ -297,6 +298,7 @@ function App() {
       },
     })
       .then((res) => {
+        setForgetmessage('已發送重設密碼信件，請至信箱查看');
         return res.data;
       })
       .catch(($err) => {
@@ -544,7 +546,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Email<span style={{padding:'20px',color:"red"}}>{Forgetmessage}</span></Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control

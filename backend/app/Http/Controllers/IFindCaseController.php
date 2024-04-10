@@ -22,7 +22,7 @@ class IFindCaseController extends Controller
         $amount = explode(',', $request->amount);
         if (!(empty($location) && empty($amount))) {
 
-            if(!empty($location) && DB::table('contry')->where('country_city', $location)->exists()){
+            if(!empty($location) && DB::table('country')->where('country_city', $location)->exists()){
                 $query->whereIn('country_city',explode(',',$location));
             }
 

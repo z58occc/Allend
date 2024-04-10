@@ -6,8 +6,7 @@ import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen2";
 import Cookies from "js-cookie";
 const EditModal1 = ({ show, onHide, data, index }) => {
-  console.log(data);
-  console.log(data[index]);
+
   //useContext from Mainscreen 
   const { fetchData } = useContext(CaseContext);
 
@@ -62,7 +61,7 @@ const EditModal1 = ({ show, onHide, data, index }) => {
     setImageFile(file);
   };
   useEffect(() => {
-    if(data === "object"){
+    if(data[index] && data[index].s_name){
     setNameOfService(data[index].s_name)
     setCategory(data[index].s_type)
     setLocation(data[index].s_active_location)

@@ -11,7 +11,7 @@ const Layout = ({ navItems, userProfile }) => {
           <LeftVerticalNavbar navItems={navItems} userProfile={userProfile} />
         </Col>
         <Col md={9}>
-          <MainContent />
+          {/* <MainContent /> */}
         </Col>
       </Row>
     </Container>

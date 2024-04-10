@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Button, Card, Form, Col, Row } from "react-bootstrap";
+import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import EditModal2 from './EditModal2';
 import Pagination from 'react-bootstrap/Pagination';
+
+
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
@@ -122,9 +124,9 @@ const Work = ({ data2 }) => {
 
 
   return (
-    <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '700px' }}>
-      <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+    <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '800px' }}>
+      <Container className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+        <Row className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -146,13 +148,12 @@ const Work = ({ data2 }) => {
           >
             刪除
           </Button>
-        </div>
+        </Row>
         {/* Generate six Cards */}
-        <Row style={{width:'1000px'}}>
-
+        <Row style={{width:'1000px'}} className='justify-content-center'>
           {data2.map((item, index) => (
-            <Col key={index} style={{width:'200px', }}  className='col-4 d-flex justify-content-center'  onClick={()=>handleShow1(index)}>
-              <Card style={{ width: "200px" }}>
+            <Col key={index} style={{ }}  className='mb-3 col-4 d-flex justify-content-center'>
+              <Card style={{ width: "240px" }}>
                 <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{  height: '180px', objectFit: 'cover' }} />
                 <Card.Body className="d-flex ">
                   <Card.Title>
@@ -171,7 +172,7 @@ const Work = ({ data2 }) => {
         <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
         </Row>
         
-      </div>
+      </Container>
       <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
       <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
     </div>

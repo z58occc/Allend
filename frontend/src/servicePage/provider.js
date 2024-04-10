@@ -104,7 +104,7 @@ const Provider = ({ data1 }) => {
     setActive(number)
   }
   //
-  const CasePerPage = 4;
+  const CasePerPage = 6;
   const page = Math.ceil(data1.length / CasePerPage);
   console.log(page);
   data1 = data1?.slice(CasePerPage * (active - 1), CasePerPage * active)
@@ -119,7 +119,7 @@ const Provider = ({ data1 }) => {
   }
 
   return (
-    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '750px' }}>
+    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '800px' }}>
       <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
         <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px'}}>
           <Button
@@ -153,11 +153,8 @@ const Provider = ({ data1 }) => {
               key={index}
               className=""
               style={{ width: "720px", height: "95px", margin: '10px auto' }}
-              onClick={() => {
-                handleShow1(index);
-              }}
             >
-              <Card.Body style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Card.Body key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
                   <Form.Check
                     type="checkbox"
@@ -166,7 +163,9 @@ const Provider = ({ data1 }) => {
                     style={{ marginBottom: "30px", fontSize: "18px", marginRight: "10px" }}
                     onChange={() => handleChecked(index)}
                   />
-                  <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }}>
+                  <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
+                handleShow1(index);
+              }}>
                     {item.s_name}
                   </Card.Title>
                 </div>
