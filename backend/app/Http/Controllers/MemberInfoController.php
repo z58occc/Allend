@@ -140,7 +140,7 @@ class MemberInfoController extends Controller
         try{
             Member::where('mid', $user_id)->update([
                 'identity' => $identity,
-                'seniority' => $request->exprience,
+                'seniority' => $request->experience,
                 'active_location' => $active_location,
                 'mobile_phone' => $request->phone,
                 'name' => $request->name,

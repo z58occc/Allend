@@ -3,10 +3,10 @@ import { Button, Card, Form } from "react-bootstrap";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+import EditModal1 from './EditModal1';
 const Provider = ({ data1 }) => {
 
   const CaseData = data1;
-  const [Service, setService] = useState(CaseData);
   const { fetchData } = useContext(CaseContext);
   //
   const [selectedItems, setSelectedItems] = useState(Array(data1.length).fill(false));
@@ -26,19 +26,24 @@ const Provider = ({ data1 }) => {
     setSelectedItems(newSelectedItems);
     setCheckedAll(newSelectedItems.every((item) => item));
   };
-  //
+  //新增Modal;
   const [show,setShow] = useState(false);
-  const handleShow = (index) => {
+  const handleShow = () => {
     setShow(true);
-    setIndex(index);
-    setService(CaseData[0]);
   }
   const handleClose = () => {
     setShow(false);
   }
-    //刪除
-
-
+  //編輯Modal;
+  const [show1,setShow1] = useState(false);
+  const handleShow1 = (index) => {
+    setShow1(true);
+    setIndex(index);
+  }
+  const handleClose1 = () => {
+    setShow1(false);
+  }
+  //刪除
     const [deletedIndex, setDeletedIndex] = useState([]);
 
     let deletedData = [];
@@ -125,8 +130,8 @@ const Provider = ({ data1 }) => {
               key={index}
               className=""
               style={{ width: "720px", height: "95px", margin: '10px auto' }}
-              onClick={(index)=>{
-                handleShow(index);
+              onClick={()=>{
+                handleShow1(index);
               }}
             >
               <Card.Body style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -155,7 +160,8 @@ const Provider = ({ data1 }) => {
           ))}
         </div>
       </div>
-      <CaseDetailsModal1 show={show} onHide={handleClose} data={Service}></CaseDetailsModal1>
+      <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
     </div>
   );
 };
