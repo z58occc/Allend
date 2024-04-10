@@ -153,11 +153,8 @@ const Provider = ({ data1 }) => {
               key={index}
               className=""
               style={{ width: "720px", height: "95px", margin: '10px auto' }}
-              onClick={() => {
-                handleShow1(index);
-              }}
             >
-              <Card.Body style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Card.Body key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
                   <Form.Check
                     type="checkbox"
@@ -166,7 +163,9 @@ const Provider = ({ data1 }) => {
                     style={{ marginBottom: "30px", fontSize: "18px", marginRight: "10px" }}
                     onChange={() => handleChecked(index)}
                   />
-                  <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }}>
+                  <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
+                handleShow1(index);
+              }}>
                     {item.s_name}
                   </Card.Title>
                 </div>

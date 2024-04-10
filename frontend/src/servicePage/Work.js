@@ -151,9 +151,9 @@ const Work = ({ data2 }) => {
         <Row style={{width:'1000px'}}>
 
           {data2.map((item, index) => (
-            <Col key={index} style={{width:'200px', }}  className='col-4 d-flex justify-content-center'  onClick={()=>handleShow1(index)}>
+            <Col key={index} style={{width:'200px', }}  className='col-4 d-flex justify-content-center'>
               <Card style={{ width: "200px" }}>
-                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{  height: '180px', objectFit: 'cover' }} />
+                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{  height: '180px', objectFit: 'cover' }}   onClick={()=>handleShow1(index)}/>
                 <Card.Body className="d-flex ">
                   <Card.Title>
                     <Form.Check
