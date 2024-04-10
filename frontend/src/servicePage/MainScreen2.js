@@ -60,20 +60,18 @@ const MainScreen3 = () => {
 
   return (
     <CaseContext.Provider value={{ fetchData }}>
-      <Container xxl={12}>
+      <Container>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={2}>
-            <Container fluid style={{ width: "900px" }}>
+          <Col sm={9}>
+            {/* <Container fluid > */}
               <Row>
-                {/* <Col md={12}> */}
                   <Screen1 data={Service}/>
-                {/* </Col> */}
               </Row>
-            </Container>
+            {/* </Container> */}
           </Col>
         </Row>
       </Container>

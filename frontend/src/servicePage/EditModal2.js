@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 const EditModal2 = ({ show, onHide ,data ,index}) => {
   //useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);
-
+  console.log(typeof data[index]);
   const [nameOfWork, setNameOfWork] = useState("");
   const [details, setDetails] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -43,8 +43,10 @@ const EditModal2 = ({ show, onHide ,data ,index}) => {
   };
 
   useEffect(() => {
+    if(data[index] && data[index].p_name){
     setNameOfWork (data[index].p_name)
     setDetails(data[index].p_description)
+    }
   }, [data,index])
 
   return (
