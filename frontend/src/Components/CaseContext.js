@@ -134,8 +134,8 @@ function CaseContext() {
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
                 <Row className="mt-5">
-                    <Col xs={8} style={{backgroundColor:"#8A1D1A",color:"white"}}>
-                        <div >
+                    <Col xs={8} style={{backgroundColor:"#8A1D1A",color:"white",borderRadius:"5px"}}>
+                        <div style={{marginTop:"10px"}}>
                             案件編號：{posts.did}<br></br>
                             案件名稱：{posts.d_name}<br></br>
                             案件類別：{posts.d_type}<br></br>
@@ -153,16 +153,16 @@ function CaseContext() {
 
                     </Col>
                     <Col xs={2}></Col>
-                    <Col xs={2} style={{border:"solid"}}>
+                    <Col xs={2} style={{border:"solid" , borderRadius:"5px"}}>
                         <div  >
-                            <div>案主資訊</div>
+                            <div style={{marginTop:"5px"}}>案主資訊</div>
                             <hr></hr>
-                            <div></div>
-                            <img style={{ width: "50px" }} src={members.avatar}></img>
-                            {members.name}
-                            <div>服務星數：{service_star_avg}</div>
-                            <div style={{ color: "yellow" }}>☆<FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
-                            <div>最後上線時間：{members.last_login}</div>
+                            <div>
+                            <img style={{ width: "60px" }} src={members.avatar}></img></div>
+                            <div>{members.name}</div>
+                            <div style={{marginTop:"5px"}}>服務星數{service_star_avg}</div>
+                            <div style={{ color: "yellow",marginTop:"5px" }}><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
+                            <div style={{marginTop:"5px"}}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
                                 <FaHeart size={25} style={{ color: 'red' }} />
                                 <Button style={{marginLeft:"30px"}} onClick={handleShow}>我要報價</Button>

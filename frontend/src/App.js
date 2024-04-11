@@ -31,6 +31,7 @@ import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
+import PublicMessagesPage from './Components/PublicMessagesPage';
 
 
 
@@ -281,7 +282,7 @@ function App() {
 
 
 
-  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發按按鈕登入判別
+  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發案按鈕登入判別
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
@@ -359,7 +360,7 @@ function App() {
           {isLoggedIn ? ( // Check if user is logged in
             <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleclickout}>登出</Button>
           ) : (
-            <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
+            <Button className="slogan-text"  style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
           )}
           {isLoggedIn && (
             <div className="nav-item">
@@ -386,7 +387,7 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
-                我要接案
+             <span className="slogan-text">我要接案</span>
               </Link>
             </li>
 
@@ -397,7 +398,7 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/findman")}
               >
-                我要找人
+               <span className="slogan-text">我要找人</span> 
               </Link>
             </li>
           </ul>
@@ -409,7 +410,7 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center" }}
                 onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm") : handleShow}
               >
-                發案
+                <span className="slogan-text">發案</span> 
               </Link>
             </li>
           </ul>
@@ -420,7 +421,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase" element={<Findcase></Findcase>}></Route>
-        <Route path="/findcase/:s_type" element={<Findcase></Findcase>}></Route>
+        <Route path="/findcase/:type" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type" element={<Findman></Findman>}></Route>
         <Route path="/findman" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
@@ -442,6 +443,7 @@ function App() {
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
+        <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
       </Routes>
 
 
