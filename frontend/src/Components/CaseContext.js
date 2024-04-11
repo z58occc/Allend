@@ -160,14 +160,13 @@ function CaseContext() {
                             <div></div>
                             <img style={{ width: "50px" }} src={members.avatar}></img>
                             {members.name}
-                            <div>{service_star_avg}</div>
+                            <div>服務星數：{service_star_avg}</div>
                             <div style={{ color: "yellow" }}>☆<FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
                             <div>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
                                 <FaHeart size={25} style={{ color: 'red' }} />
                                 <Button style={{marginLeft:"30px"}} onClick={handleShow}>我要報價</Button>
                             </div>
-
                         </div>
                     </Col>
                 </Row>

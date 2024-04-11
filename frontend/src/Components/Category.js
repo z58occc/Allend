@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import a1 from "../Components/img/a1.png"
 import a2 from "../Components/img/a2.png"
-
 import a4 from "../Components/img/a4.png"
 import a5 from "../Components/img/a5.png"
 import a6 from "../Components/img/a6.png"
@@ -87,10 +86,10 @@ function Category() {
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center" >
-                        <Link to='/findcase/?type=3' onClick={() => fetchData("平面設計")} >
+                        <a to='/findcase/?type=3' onClick={() => fetchData("平面設計")} >
                             <div >平面設計</div>
                             <img src={a5} style={{ width: '60px' }}></img>
-                        </Link>
+                        </a>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 text-center" >

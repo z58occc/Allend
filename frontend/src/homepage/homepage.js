@@ -45,7 +45,6 @@ function Homepage() {
           data.service[i].d_active_location = data.demmand[i]["d_active_location"];
           data.service[i].d_created_at = data.demmand[i]["created_at"];
           data.service[i].project_image = data.project[i]["image"];
-
         }
         setkey(index);
         setPosts(data.service);
