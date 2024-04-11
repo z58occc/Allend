@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { MediaContext } from "./Media";
 const CaseDetailsModal3 = ({ show, onHide }) => {
   //useContext from Mainscreen
-  const {setSelectedItems, setCheckedAll} = useContext(MediaContext) ;
+  // const {setSelectedItems, setCheckedAll} = useContext(MediaContext) ;
   const { fetchData } = useContext(CaseContext);
 
   const [nameOfVideo, setNameOfVideo] = useState("");
@@ -34,8 +34,8 @@ const CaseDetailsModal3 = ({ show, onHide }) => {
         console.log(res);
         onHide();
         fetchData();
-        setSelectedItems(Array(6).fill(false));
-        setCheckedAll(false);
+        // setSelectedItems(Array(6).fill(false));
+        // setCheckedAll(false);
       })
       .catch((error) => {
         console.error('There was a problem updating the case:', error);
