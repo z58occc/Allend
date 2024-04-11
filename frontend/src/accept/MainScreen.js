@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, useEffect, createContext } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
-// import SearchPage from './SearchPage';
+import SearchPage from './SearchPage';
 import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
@@ -48,9 +48,7 @@ const MainScreen = () => {
     setCase(result.data);
   };
 
-
   useEffect(() => {
-
     fetchData();
   }, []);
 
@@ -103,12 +101,8 @@ const MainScreen = () => {
                 <Col md={12}>
                   {/* 右側主畫面區域 */}
                   {activeScreen === "screen1" && <Screen1 data={Case.Quote} />}
-                  {activeScreen === "screen2" && (
-                    <Screen2 data={Case.CaseInProgress} />
-                  )}
-                  {activeScreen === "screen3" && (
-                    <Screen3 data={Case.CaseCompleted} />
-                  )}
+                  {activeScreen === "screen2" && (<Screen2 data={Case.CaseInProgress} />)}
+                  {activeScreen === "screen3" && (<Screen3 data={Case.CaseCompleted} />)}
                 </Col>
               </Row>
             </Container>

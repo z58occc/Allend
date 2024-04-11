@@ -167,7 +167,6 @@ function CaseContext() {
                                 <FaHeart size={25} style={{ color: 'red' }} />
                                 <Button style={{marginLeft:"30px"}} onClick={handleShow}>我要報價</Button>
                             </div>
-
                         </div>
                     </Col>
                 </Row>

@@ -1,3 +1,6 @@
+a {
+  text-decoration: none;
+}
 .search-container {
   scale: 0.5;
   /* float: right; */

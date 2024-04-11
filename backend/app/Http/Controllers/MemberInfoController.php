@@ -15,7 +15,7 @@ class MemberInfoController extends Controller
 {
     public function __construct(Request $request)
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth','verified',]);
     }
 
     // 獲取儀錶板
@@ -917,30 +917,29 @@ class MemberInfoController extends Controller
     {
         $mid = Auth::id();
         if($mid){
-            $service_query = DB::table('service')
-            ->join('category', 'catid', '=', 's_type')
-            ->join('country', 'country_id', '=', 's_active_location')
-            ->select('sid', 'image', 's_name', 'type', 's_description', 's_amount', 's_unit',
-            'country_city as s_active_location', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
-            ->where('mid',$mid);
+            // 案件收藏
+            $case_collections = DB::table('collection')
+            ->join('demmand', 'demmand.did', '=', 'collection.did')
+            ->join('members', 'demmand.mid', '=', 'members.mid')
+            ->select('collection.did', 'name','d_name','d_duration','d_amount', 'd_unit',
+            DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
+            ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
-            $project_query = DB::table('project')->select('pid','image','p_name','p_description',
-            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at')) ->where('mid',$mid);
+            // 服務收藏
+            $service_collections = DB::table('collection')
+            ->join('service', 'service.sid', '=', 'collection.sid')
+            ->join('members', 'service.mid', '=', 'members.mid')
+            ->select('collection.sid', 'name','s_name','s_amount', 's_unit',
+            DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
+            ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
-            $video_query = DB::table('video')->select('vid','src','v_name','v_description',
-            DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
-
-            // 服務搜尋
-            if($request->has('servicesearch')){
-                $service_query->where('s_name','like','%'.$request->input('servicesearch').'%');
+            // 案件收藏搜尋
+            if($request->has('casecollectionsearch')){
+                $case_collections->where('d_name','like','%'.$request->input('casecollectionsearch').'%');
             }
-            // 作品搜尋
-            if($request->has('projectsearch')){
-                $project_query->where('p_name','like','%'.$request->input('projectsearch').'%');
-            }
-            // 影音搜尋
-            if($request->has('videosearch')){
-                $video_query->where('v_name','like','%'.$request->input('videosearch').'%');
+            // 服務收藏搜尋
+            if($request->has('servicecollectionsearch')){
+                $service_collections->where('s_name','like','%'.$request->input('servicecollectionsearch').'%');
             }
 
             // 分頁顯示
@@ -948,9 +947,8 @@ class MemberInfoController extends Controller
             // $project_results =  $project_query->paginate(6);
             // $video_results = $video_query->paginate(6);
             return response()->json([
-                'service' => $service_query->get(),
-                'project' => $project_query->get(),
-                'video' => $video_query->get(),
+                'case' => $case_collections->get(),
+                'service' => $service_collections->get(),
             ]);
         }
     }

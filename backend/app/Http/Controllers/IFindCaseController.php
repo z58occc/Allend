@@ -17,7 +17,7 @@ class IFindCaseController extends Controller
         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
         ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at','created_at');
 
-        // 選擇地區、案件金額
+        // 選擇地區、案件金額 (以url方式傳參，複選以,隔開)
         $location = $request->location;
         $amount = explode(',', $request->amount);
         if (!(empty($location) && empty($amount))) {

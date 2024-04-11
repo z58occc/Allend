@@ -34,12 +34,8 @@ function Findcase() {
 
 
   // 上/下一頁
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
-
-
   // 上/下一頁
 
 

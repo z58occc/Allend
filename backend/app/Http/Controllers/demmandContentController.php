@@ -11,7 +11,10 @@ class DemmandContentController extends Controller
     {
         // 呈現案件詳細訊息
         $query = DB::table('demmand')
-        ->select('did','d_name','d_type','updated_at','d_amount','d_active_location','d_duration','d_description','d_unit')
+        ->join('country', 'country_id', '=', 'd_active_location')
+        ->join('category', 'catid', '=', 'd_type')
+        ->select('did','d_name','type as d_type','d_amount','country_city as d_active_location','d_duration',
+        'd_description','d_unit',DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
         ->where('did', $did);
 
         $query_mid = DB::table('demmand')->select('mid')->where('did',$did)->first();
@@ -20,7 +23,6 @@ class DemmandContentController extends Controller
         $total_start = $establised_query->sum('service_star');
         $count = $establised_query->count();
         $avg = $count > 0 ? $total_start / $count : 0;
-
 
         // 案主的資料
         $member_query = DB::table('members')->select('name', 'avatar','last_login')->where('mid',$query_mid->mid);
