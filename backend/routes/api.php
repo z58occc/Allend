@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 // use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ClosethecaseController;
 use Illuminate\Support\Facades\Route;
@@ -73,6 +74,9 @@ Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
 
 // 取得email
 Route::get('/user/email', GetmemberemailController::class);
+
+//聊天室
+Route::post('new-message',ChatController::class);
 
 // 從移交到結案、評價畫面
 Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)

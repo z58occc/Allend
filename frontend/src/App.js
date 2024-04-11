@@ -31,6 +31,7 @@ import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
+import PublicMessagesPage from './Components/PublicMessagesPage';
 
 
 
@@ -281,7 +282,7 @@ function App() {
 
 
 
-  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發按按鈕登入判別
+  const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發案按鈕登入判別
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
@@ -442,6 +443,7 @@ function App() {
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
+        <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
       </Routes>
 
 

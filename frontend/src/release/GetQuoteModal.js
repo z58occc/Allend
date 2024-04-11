@@ -58,7 +58,7 @@ function GetQuoteModal({ show, onHide, data }) {
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>案件名稱</Modal.Title>
+        <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
         <Table bordered hover>

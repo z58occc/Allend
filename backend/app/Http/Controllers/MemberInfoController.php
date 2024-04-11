@@ -382,7 +382,7 @@ class MemberInfoController extends Controller
         if($mid){
             try {
                 $request->validate([
-                    'qid' => 'requierd'
+                    'qid' => 'required'
                 ]);
             }catch(ValidationException $exception){
                 return response()->json([

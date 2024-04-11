@@ -146,7 +146,6 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setQuote(data);
       })
       .catch((error) => {
@@ -168,6 +167,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         onHide={handleModalClose1}
         number={selectedDataKey}
         data={CaseData}
+
+        
       />
     );
   } else if (selectedComponent === "component2") {
