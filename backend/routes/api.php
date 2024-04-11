@@ -31,6 +31,7 @@ use App\Http\Controllers\ServiceContentController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\UpdateProjectController;
 use App\Http\Controllers\UpdateServiceController;
+use Illuminate\Support\Facades\Auth;
 
 // use App\Http\Controllers\VideoController;
 // use App\Http\Controllers\WorkController;

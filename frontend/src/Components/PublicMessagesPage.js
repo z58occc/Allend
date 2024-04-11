@@ -9,31 +9,46 @@ export default function PublicMessagesPage() {
     const [user,setUser] = useState('');
     const [message,setMessage] = useState('');
     const [messages,setMessages] = useState([]);
+    const [member, setMember] = useState('');
     
     async function handleSendMessage(e){
         e.preventDefault();
-
-        if(!user){
-            alert('Please set your username');
-            return;
-        }
 
         if(!message){
             alert('Please type your message');
             return;
         }
         try{
-            await Axios.post('/new-message', {
-                
-                user:user,
-                message:message
+            await Axios.post('/api/new-message', {
+                message:message,},{
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                },
             });
         }catch(error){
             console.error(error);
         }
-    }
+    };
+
 
     useEffect(()=>{
+        const fetchMember = async () => {
+            try {
+            const response = await Axios.get("http://localhost/Allend/backend/public/api/user/email", {
+                headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+            });
+            setMember(response.data.mid);
+            } catch (error) {
+            console.error('Failed to fetch member email:', error);
+            }
+        };
+        const token = Cookies.get("token");
+        if (token) {
+            fetchMember();
+        }
+
         Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
         const echo = new Echo({
             authEndpoint: 'http://localhost:8000/broadcasting/auth',
@@ -43,7 +58,7 @@ export default function PublicMessagesPage() {
             wsPort: 443,
             disableStats: true,
             encrypted: true,
-            cluster:'zh-tw',
+            cluster:'eu',
             auth: {
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`
@@ -52,14 +67,15 @@ export default function PublicMessagesPage() {
         });
 
 
-        echo.channel('private-chat').subscribed(()=>{
+        echo.private('user.' + member).subscribed(()=>{
+
             console.log('Subscribed to private-chat');
         }).listen('.message.new',(data)=>{
             setMessages((oldMessages)=>[...oldMessages,data]);
             setMessage('');
             console.log(setMessages)
         });
-    },[]);
+    },[member]);
     return (
         <div>
         <div>
@@ -74,13 +90,6 @@ export default function PublicMessagesPage() {
         </div>
         <div>
         <form onSubmit={(e) => handleSendMessage(e)}>
-        <input
-        type="text"
-        placeholder="Set your username"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        required
-        />
         <div>
         <input
         type="text"
