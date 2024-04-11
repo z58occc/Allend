@@ -28,7 +28,7 @@ const CaseCollection = ({data}) => {
 
   
   return (
-      <div style={{ width: '100%', height: '1200px', }}>
+      <div style={{ width: '100%', height: '100vh' }}>
         <CollectionList selectedComponent={'case'} screen={1} data={data}></CollectionList>
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>

@@ -167,8 +167,6 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         onHide={handleModalClose1}
         number={selectedDataKey}
         data={CaseData}
-
-        
       />
     );
   } else if (selectedComponent === "component2") {
