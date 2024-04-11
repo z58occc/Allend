@@ -18,16 +18,17 @@ import "./Pagination.css"
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
 import "./Findcase.css";
-import { dropdown } from "./drop";
+import { dropdown } from "./dropCity";
+import Category from "./Category";
 
 
 
 function Findcase() {
 
   // 進來頁面 直接先跑一次fetch
-  useEffect(() => {
-    fetchData()
-  }, []);
+  // useEffect(() => {
+  //   fetchDataNew()
+  // }, []);
   // 進來頁面 直接先跑一次fetch
 
 
@@ -205,20 +206,58 @@ function Findcase() {
   }
 
   const [checkedState, setCheckedState] = useState(
-    new Array(dropdown.length).fill(false)
-  );
-  const handleOnChange = (position) => {
-    setAll(false);
+    {
+      taipei: false,
+      newtaipei: false,
+      taoyuan: false,
+      keelung: false,
+      hsinchu: false,
+      hsinchucounty: false,
+      yilan: false,
+      taichung: false,
+      miaoli: false,
+      changhua: false,
+      nantou: false,
+      yunlin: false,
+      kaohsiung: false,
+      tainan: false,
+      chiayi: false,
+      chiayicounty: false,
+      pingtung: false,
+      hualien: false,
+      taitung: false,
+      penghu: false,
+      kinmen: false,
+      lienchang: false,
+    });
 
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-    console.log(updatedCheckedState);
-    console.log(position);
-    console.log(updatedCheckedState[position]);
-    fetchData(position, updatedCheckedState[position], updatedCheckedState);
-  };
+    const  handleOnChange = (event) => {
+      const { name, checked } = event.target;
+      setCheckedState((prevState) => ({
+        ...prevState,
+        [name]: checked,
+      }));
+      console.log(checkedState);
+    };
+
+    
+  // const handleOnChange = (position) => {
+  //   setAll(false);
+
+  //   const updatedCheckedState = checkedState.map((item, index) =>
+  //     index === position ? !item : item
+  //   );
+  //   setCheckedState(updatedCheckedState);
+  //   console.log(updatedCheckedState);
+  //   console.log(position);
+  //   console.log(updatedCheckedState[position]);
+  //   setCitybool(updatedCheckedState);
+  //   setCitychange(position);
+  //   // fetchData(position, updatedCheckedState[position], updatedCheckedState);
+  // };
+  const [citychange, setCitychange] = useState();
+  const [cityname, setCityname] = useState([]);
+  const [citybool, setCitybool] = useState([]);
 
 
 
@@ -298,6 +337,115 @@ function Findcase() {
 
 
   }
+
+
+
+  // console.log(cityQuery);
+
+
+  const { type } = useParams();
+
+
+
+
+
+  useEffect(() => {
+    const fetchDataNew = async () => {
+      try {
+        console.log(citybool);
+        let cityQuery = []
+        for (let i = 0; i < citybool.length; i++) {
+          if (citybool[i] == true) {
+            cityQuery.push(citybool[i]);
+          }
+
+        }
+        console.log(cityQuery);
+        const getcity = (citychange) => {
+          switch (citychange) {
+            case 0:
+              return "台北市"
+            case 1:
+              return "新北市"
+            case 2:
+              return "桃園市"
+            case 3:
+              return "基隆市"
+            case 4:
+              return "新竹市"
+            case 5:
+              return "新竹縣"
+            case 6:
+              return "彰化縣"
+            case 7:
+              return "南投縣"
+            case 8:
+              return "雲林縣"
+            case 9:
+              return "高雄市"
+            case 10:
+              return "台南市"
+            case 11:
+              return "嘉義市"
+            case 12:
+              return "嘉義縣"
+            case 13:
+              return "屏東縣"
+            case 14:
+              return "宜蘭縣"
+            case 15:
+              return "花蓮縣"
+            case 16:
+              return "臺東縣"
+            case 17:
+              return "澎湖縣"
+            case 18:
+              return "金門縣"
+            case 19:
+              return "連江縣"
+            default:
+              break;
+          }
+        }
+
+
+
+
+        console.log(citybool);
+
+        const cityvalue = getcity(citychange);
+
+
+        console.log(cityvalue);
+
+
+
+        console.log(cityname);
+
+
+        let url = `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${cityvalue}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            setPosts(data);
+          })
+        console.log()
+
+
+
+
+      } catch (err) {
+        console.error(err);
+      }
+
+    };
+    fetchDataNew();
+  }, [type, citychange])
+
+
+
+
+
 
   const fetchData = async (type, bool, updatedCheckedState) => {
     if (window.location.href == "http://localhost:3000/findcase") {
@@ -1967,39 +2115,39 @@ function Findcase() {
         {/* 分類按鈕 */}
 
 
-        <div style={{ marginLeft: "60px", marginRight: "0" }}>
+        {/* <div style={{ marginLeft: "60px", marginRight: "0" }}>
           <div className="container mt-5">
             <div className="row justify-content-center">
               <div className="col-sm-2 text-center">
-                <Link to="/findcase" onClick={() => fetchData("網站設計")}>
+                <Link to={`/findcase/1`} >
                   <div>網站設計</div>
                   <img src={a1} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
               <div className="col-sm-2 text-center">
-                <Link to="/findcase" onClick={() => fetchData("軟體程式")}>
+                <Link to="/findcase" >
                   <div>軟體程式</div>
                   <img src={a2} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
               <div className="col-sm-2 text-center">
-                <Link to="/findcase" onClick={() => fetchData("平面設計")}>
+                <Link to="/findcase" >
                   <div>平面設計</div>
                   <img src={a5} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
               <div className="col-sm-2 text-center">
-                <Link to="/findcase" onClick={() => fetchData("文字語言")}>
+                <Link to="/findcase" >
                   <div>文字語言</div>
                   <img src={a4} style={{ width: "60px" }}></img>
                 </Link>
                 <hr className="d-sm-none" />
               </div>
               <div className="col-sm-2 text-center">
-                <Link to="/findcase" onClick={() => fetchData("專業諮詢")}>
+                <Link to="/findcase" >
                   <div>專業諮詢</div>
                   <img src={a6} style={{ width: "60px" }}></img>
                 </Link>
@@ -2007,7 +2155,8 @@ function Findcase() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <Category></Category>
         {/* 分類按鈕 */}
 
         <br></br>
@@ -2020,7 +2169,7 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  name="台北市"
+                  name="taipei"
                   onChange={handlechangecity}
                 >
                 </input>
@@ -2030,7 +2179,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="新北市"
+                  name="newtaipei"
                 >
                 </input>
                 新北市
@@ -2039,7 +2188,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="桃園市"
+                  name="taoyuan"
                 >
                 </input>
                 桃園市
@@ -2048,7 +2197,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="基隆市"
+                  name="keelung"
                 >
                 </input>
                 基隆市
@@ -2057,7 +2206,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="新竹市"
+                  name="hsinchu"
                 >
                 </input>
                 新竹市
@@ -2066,7 +2215,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="新竹縣"
+                  name="hsinchucounty"
                 >
                 </input>
                 新竹縣
@@ -2198,8 +2347,8 @@ function Findcase() {
                 連江縣
               </div>
             </Dropdown.Menu> */}
-            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-              {dropdown.slice(0, 20).map(({ name }, index) => {
+            {/* <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+              {dropdown.map(({ name }, index) => {
                 return (
                   <div>
                     <input
@@ -2207,13 +2356,195 @@ function Findcase() {
                       checked={checkedState[index]}
                       name={name}
                       value={name}
-                      onChange={() => handleOnChange(index)}
+                      onChange={() => handleOnChange(name,index)}
                     >
                     </input>
                     {name}
                   </div>
                 )
               })}
+            </Dropdown.Menu> */}
+            <Dropdown.Menu>
+              <input
+                type="checkbox"
+                name="taipei"
+                value="1"
+                id="taipeiCheckbox"
+                
+              ></input>
+              <label htmlFor="taipeiCheckbox">臺北市</label><br></br>
+              <input
+                type="checkbox"
+                name="newtaipei"
+                value="2"
+                id="newtaipeiCheckbox"
+                onChange={()=>handleOnChange()}
+              ></input>
+              <label htmlFor="newtaipeiCheckbox">新北市</label><br></br>
+              <input
+                type="checkbox"
+                name="taoyuan"
+                value="3"
+                id="taoyuanCheckbox"
+                
+              ></input>
+              <label htmlFor="taoyuanCheckbox">桃園市</label><br></br>
+              <input
+                type="checkbox"
+                name="keelung"
+                value="4"
+                id="keelungCheckbox"
+                
+              ></input>
+              <label htmlFor="keelungCheckbox">基隆市</label><br></br>
+              <input
+                type="checkbox"
+                name="hsinchu"
+                value="5"
+                id="hsinchuCheckbox"
+                
+              ></input>
+              <label htmlFor="hsinchuCheckbox">新竹市</label><br></br>
+              <input
+                type="checkbox"
+                name="hsinchucounty"
+                value="6"
+                id="hsinchucountyCheckbox"
+                
+              ></input>
+              <label htmlFor="hsinchucountyCheckbox">新竹縣</label><br></br>
+              <optgroup label="中部"></optgroup>
+              <input
+                type="checkbox"
+                name="taichung"
+                value="8"
+                id="taichungCheckbox"
+                
+              ></input>
+              <label htmlFor="taichungCheckbox">臺中市</label><br></br>
+              <input
+                type="checkbox"
+                name="miaoli"
+                value="9"
+                id="miaoliCheckbox"
+                
+              ></input>
+              <label htmlFor="miaoliCheckbox">苗栗縣</label><br></br>
+              <input
+                type="checkbox"
+                name="changhua"
+                value="10"
+                id="changhuaCheckbox"
+                
+              ></input>
+              <label htmlFor="changhuaCheckbox">彰化縣</label><br></br>
+              <input
+                type="checkbox"
+                name="nantou"
+                value="11"
+                id="nantouCheckbox"
+                
+              ></input>
+              <label htmlFor="nantouCheckbox">南投縣</label><br></br>
+              <optgroup label="南部"></optgroup>
+              <input
+                type="checkbox"
+                name="yunlin"
+                value="12"
+                id="yunlinCheckbox"
+                
+              ></input>
+              <label htmlFor="yunlinCheckbox">雲林縣</label><br></br>
+              <input
+                type="checkbox"
+                name="kaohsiung"
+                value="13"
+                id="kaohsiungCheckbox"
+                
+              ></input>
+              <label htmlFor="kaohsiungCheckbox">高雄市</label><br></br>
+              <input
+                type="checkbox"
+                name="tainan"
+                value="14"
+                id="tainanCheckbox"
+                
+              ></input>
+              <label htmlFor="tainanCheckbox">臺南市</label><br></br>
+              <input
+                type="checkbox"
+                name="chiayi"
+                value="15"
+                id="chiayiCheckbox"
+                
+              ></input>
+              <label htmlFor="chiayiCheckbox">嘉義市</label><br></br>
+              <input
+                type="checkbox"
+                name="chiayicounty"
+                value="16"
+                id="chiayicountyCheckbox"
+                
+              ></input>
+              <label htmlFor="chiayicountyCheckbox">嘉義縣</label><br></br>
+              <input
+                type="checkbox"
+                name="pingtung"
+                value="17"
+                id="pingtungCheckbox"
+                
+              ></input>
+              <label htmlFor="pingtungCheckbox">屏東縣</label><br></br>
+              <optgroup label="東部"></optgroup>
+              <input
+                type="checkbox"
+                name="yilan"
+                value="7"
+                id="yilanCheckbox"
+                
+              ></input>
+              <label htmlFor="yilanCheckbox">宜蘭縣</label><br></br>
+              <input
+                type="checkbox"
+                name="hualien"
+                value="18"
+                id="hualienCheckbox"
+                
+              ></input>
+              <label htmlFor="hualienCheckbox">花蓮縣</label><br></br>
+              <input
+                type="checkbox"
+                name="taitung"
+                value="19"
+                id="taitungCheckbox"
+                
+              ></input>
+              <label htmlFor="taitungCheckbox">臺東縣</label><br></br>
+              <optgroup label="離島"></optgroup>
+              <input
+                type="checkbox"
+                name="penghu"
+                value="20"
+                id="penghuCheckbox"
+                
+              ></input>
+              <label htmlFor="penghuCheckbox">澎湖縣</label><br></br>
+              <input
+                type="checkbox"
+                name="kinmen"
+                value="21"
+                id="kinmenCheckbox"
+                
+              ></input>
+              <label htmlFor="kinmenCheckbox">金門縣</label><br></br>
+              <input
+                type="checkbox"
+                name="lienchang"
+                value="22"
+                id="lienchangCheckbox"
+                
+              ></input>
+              <label htmlFor="lienchangCheckbox">連江縣</label><br></br>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -2315,7 +2646,7 @@ function Findcase() {
 
         <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
         <div >
-          {(all == true ? currentPosts : mycitys).map((post, index) => {
+          {posts.map((post, index) => {
 
             return (
               <div>
