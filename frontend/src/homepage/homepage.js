@@ -159,9 +159,9 @@ function Homepage() {
         <div><Category></Category></div>
 
         {/* 新手教學 */}
-        <section class="adbar-section mt-5">
+        <h4>新手教學</h4>
+        <section class="adbar-section mt-4">
           <div class="container-lg container-pad">
-            <h4>新手教學</h4>
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
               <div className="col-3 l" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: "#FF9797" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
@@ -186,7 +186,7 @@ function Homepage() {
 
 
         {/* 最新服務 */}
-        <h4 className=" mt-5">最新服務</h4>
+        <h4 className="mt-5">最新服務</h4>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="posts-container" style={{ display: "flex" }}>
             {posts.slice(0, 3).map((post, index) => {
@@ -228,8 +228,8 @@ function Homepage() {
 
 
         {/* 最新刊登 */}
+        <h4>最新刊登</h4>
         <div className="row mt-3" >
-          <h4>最新刊登</h4>
           <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ display: "flex" }}>
               {posts.slice(0, 3).map((post, index) => {
@@ -262,8 +262,8 @@ function Homepage() {
 
 
         {/* 接api輪播圖 */}
-        <h4>會員作品</h4>
-        <div className="d-flex justify-content-center mt-5" >
+        <h4 style={{textAlign: "center"}}>精選作品</h4>
+        <div className="d-flex justify-content-center mt-4" >
           <Carousel
             activeIndex={carouselpage}
             onSelect={handleSelect}
