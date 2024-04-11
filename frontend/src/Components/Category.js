@@ -87,7 +87,7 @@ function Category() {
                         <Link to={`/findcase/3`}  >
                             <div >平面設計</div>
                             <img src={a5} style={{ width: '60px' }}></img>
-                        </a>
+                        </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 text-center" >

@@ -29,7 +29,7 @@ const ServiceCollection = ({data}) => {
   
 
   return (
-      <div style={{ width: '100%', height: '100vh', background: 'lightgreen' }}>
+      <div style={{ width: '100%', height: '100vh', }}>
         <CollectionList visibility='hidden' selectedComponent={'servicecollection'} data={data} screen={2}></CollectionList>    
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>

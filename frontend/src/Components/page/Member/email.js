@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 
 // 接案者維護資料
 function FreelancerForm() {
-  // const history = useHistory();
 
   const [formData, setFormData] = useState({
     identity: "",
@@ -20,6 +19,8 @@ function FreelancerForm() {
     phone: "",
     gender: "",
     area: "",
+    fb: "",
+    line: "",
   });
 
   const handleReset = () => {
@@ -33,13 +34,14 @@ function FreelancerForm() {
       phone: "",
       gender: "",
       area: "",
+      fb: "",
+      line: ""
     });
     setIsSubmitted(false);
   };
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isFormComplete, setIsFormComplete] = useState(false);
-  const [isFreelancer, setIsFreelancer] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,8 +60,8 @@ function FreelancerForm() {
     };
     fetchData();
   }, []);
-console.log(formData)
 
+  // 偵測input變化
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -87,6 +89,7 @@ console.log(formData)
     // setIsFormComplete(isComplete);
   };
 
+  // 更新資料
   const handleSubmit = (e) => {
     e.preventDefault();
     axios({
@@ -106,8 +109,6 @@ console.log(formData)
       },
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     });
-    // 在這裡處理表單提交
-    console.log(formData);
 
     // 设置表单提交完成的状态为true
     setIsSubmitted(true);
@@ -287,14 +288,7 @@ console.log(formData)
                     />
                   </Col>
                   <Col sm={6}>
-                    {/* <Form.Control
-                      type="email"
-                      name="email"
-                      placeholder="請輸入Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                    /> */}
-                    <p>{formData.email}</p>
+                    <div className="mt-2">{formData.email}</div>
                   </Col>
                 </Form.Group>
 
@@ -412,6 +406,7 @@ console.log(formData)
                 {/* 所在地區 */}
 
                 <br />
+
                 <Form.Group as={Row} >
                   <Form.Label column sm={6}>
                     LINE連結：
@@ -439,7 +434,6 @@ console.log(formData)
                     />
                   </Col>
                 </Form.Group>
-
 
                 <div
                   style={{
