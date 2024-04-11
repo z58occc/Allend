@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Button, Card, Form, Col, Row } from "react-bootstrap";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
@@ -6,13 +6,19 @@ import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
 import Pagination from 'react-bootstrap/Pagination';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+export const MediaContext = createContext();
 const Media = ({ data3 }) => {
 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data3;
-  const [selectedItems, setSelectedItems] = useState(Array(data3.length).fill(false));
+  const [selectedItems, setSelectedItems] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all
@@ -196,7 +202,9 @@ const Media = ({ data3 }) => {
             <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
           </Row>
         </div>
-        <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+        <MediaContext.Provider value={{setSelectedItems, setCheckedAll}} >
+          <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+        </MediaContext.Provider>
         <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
       </div>
 

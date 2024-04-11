@@ -1,20 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
 import Pagination from 'react-bootstrap/Pagination';
-
+export const WorkContext = createContext();
 
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data2;
-  const [selectedItems, setSelectedItems] = useState(Array(data2.length).fill(false));
+  const [selectedItems, setSelectedItems] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [checkedAll, setCheckedAll] = useState(false);
-
   // Handle select all / deselect all
   const handleToggleAll = () => {
     setCheckedAll(!checkedAll);
@@ -198,7 +204,9 @@ const Work = ({ data2 }) => {
         </Row>
 
       </Container>
-      <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+      <WorkContext.Provider value={{setSelectedItems, setCheckedAll}}>
+        <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+      </WorkContext.Provider> 
       <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
     </div>
   );

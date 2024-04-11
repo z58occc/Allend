@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Button, Card, Form } from "react-bootstrap";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import Cookies from "js-cookie";
@@ -6,11 +6,21 @@ import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Pagination from 'react-bootstrap/Pagination';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+export const DataContext = createContext();
 const Provider = ({ data1 }) => {
+  
+
   const CaseData = data1;
   const { fetchData } = useContext(CaseContext);
   //
-  const [selectedItems, setSelectedItems] = useState(Array(data1.length).fill(false));
+  const [selectedItems, setSelectedItems] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [checkedAll, setCheckedAll] = useState(false);
   //
   const [index, setIndex] = useState(0);
@@ -83,10 +93,10 @@ const Provider = ({ data1 }) => {
 
       
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
-      setSelectedItems(Array(updatedCaseData.length).fill(false));
-      setCheckedAll(false);
       // setSelectedItems([false])
       fetchData();
+      setSelectedItems(Array(updatedCaseData.length).fill(false));
+      setCheckedAll(false);
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -209,7 +219,10 @@ const Provider = ({ data1 }) => {
         <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
         </div>
       </div>
-      <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      <DataContext.Provider value={{setCheckedAll , setSelectedItems}}>
+        <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      </DataContext.Provider>
+      
       <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
     </div>
   );
