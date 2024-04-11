@@ -104,7 +104,7 @@ class MemberInfoController extends Controller
         ->leftJoin('country as c1', 'c1.country_id', '=', 'active_location')
         ->leftJoin('country as c2', 'c2.country_id', '=', 'location')
         ->select(['email', DB::raw('ifnull(i_identity, "") as identity'), DB::raw('ifnull(seniority, "") as experience'),
-                DB::raw('ifnull(c1.country_city, "") as locations'), DB::raw('ifnull(mobile_phone, "") as phone'),
+                DB::raw('ifnull(c1.country_city, "") as location'), DB::raw('ifnull(mobile_phone, "") as phone'),
                 DB::raw('ifnull(name, "") as name'), DB::raw('ifnull(id_card, "") as idCard'),
                 DB::raw('ifnull(gender, "") as gender'),DB::raw('ifnull(c2.country_city, "") as area'),
                 DB::raw('ifnull(fb, "") as fb'), DB::raw('ifnull(line, "") as line')])
@@ -921,7 +921,7 @@ class MemberInfoController extends Controller
             $case_collections = DB::table('collection')
             ->join('demmand', 'demmand.did', '=', 'collection.did')
             ->join('members', 'demmand.mid', '=', 'members.mid')
-            ->select('collection.did', 'name','d_name','d_duration','d_amount', 'd_unit',
+            ->select('fid', 'collection.did','demmand.mid', 'name','d_name','d_duration','d_amount', 'd_unit',
             DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
             ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
@@ -929,7 +929,7 @@ class MemberInfoController extends Controller
             $service_collections = DB::table('collection')
             ->join('service', 'service.sid', '=', 'collection.sid')
             ->join('members', 'service.mid', '=', 'members.mid')
-            ->select('collection.sid', 'name','s_name','s_amount', 's_unit',
+            ->select('fid','collection.sid','service.mid', 'name','s_name','s_amount', 's_unit',
             DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
             ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
@@ -949,6 +949,32 @@ class MemberInfoController extends Controller
             return response()->json([
                 'case' => $case_collections->get(),
                 'service' => $service_collections->get(),
+            ]);
+        }
+    }
+
+    // 取消收藏
+    public function delCollection(Request $request)
+    {
+        $mid = Auth::id();
+        try {
+            $request->validate([
+                'fid' => 'required'
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json([
+                'error' => '未選擇要取消的收藏'
+            ]);
+        }
+
+        try{
+            DB::table('collection')->where('fid', $request->input('fid'))->delete();
+            return response()->json([
+                'message' => '取消收藏成功'
+            ]);
+        }catch (Throwable $err){
+            return response()->json([
+                'error' => '取消收藏失敗'
             ]);
         }
     }

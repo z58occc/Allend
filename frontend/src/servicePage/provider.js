@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Pagination from 'react-bootstrap/Pagination';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 export const DataContext = createContext();
 const Provider = ({ data1 }) => {
   

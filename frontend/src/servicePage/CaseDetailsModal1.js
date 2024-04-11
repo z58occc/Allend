@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { DataContext } from "./provider";
 const CaseDetailsModal1 = ({ show, onHide}) => {
   //useContext from Mainscreen
-  const {setSelectedItems,setCheckedAll} = useContext(DataContext)
+  // const {setSelectedItems,setCheckedAll} = useContext(DataContext)
   const { fetchData } = useContext(CaseContext);
 
   const [nameOfService, setNameOfService] = useState("");
@@ -52,8 +52,8 @@ const CaseDetailsModal1 = ({ show, onHide}) => {
         setUnit("")
         onHide();
         fetchData();
-        setSelectedItems(Array(6).fill(false));
-        setCheckedAll(false);
+        // setSelectedItems(Array(6).fill(false));
+        // setCheckedAll(false);
       })
       .catch((error) => {
         console.error('There was a problem updating the case:', error);

@@ -1,11 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Button} from 'react-bootstrap';
 import SearchBox from './SearchBox';
+import { Link } from 'react-router-dom';
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
 const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
-  const TotalData = data;
+  const [TotalData, setTotalData] = useState(data);
+  // const TotalData = data;
 
+  console.log(data)
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
   const handlesetSelectedDataKey = (index)=>{
@@ -29,18 +34,34 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
         setSearchCase(searchTerm);
     }
   };
-  
-  // 案件詳情Modal
-  const [showModal1, setShowModal1] = useState(false)
-  
-  // 子元件編輯查看
-  const handleModalShow1 = () => {
-    setShowModal1(true);
+
+  // 取消收藏按鈕
+  const handleCancelCollection = (fid) => {
+    axios({
+      method: 'post',
+      url: "http://localhost/Allend/backend/public/api/delcollection",
+      data: {fid: fid},
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+    })
+    .then((res) => {
+      console.log(res.data);
+      const newData = TotalData.filter((item) => item.fid !== fid);
+      setTotalData(newData)
+    })
+    .catch((err) => console.log(err))
   }
-  const handleModalClose1 = () => {
-    setShowModal1(false);
-    setSelectedDataKey(0);
-  }
+  
+  // // 案件詳情Modal
+  // const [showModal1, setShowModal1] = useState(false)
+  
+  // // 子元件編輯查看
+  // const handleModalShow1 = () => {
+  //   setShowModal1(true);
+  // }
+  // const handleModalClose1 = () => {
+  //   setShowModal1(false);
+  //   setSelectedDataKey(0);
+  // }
 
   
 
@@ -50,8 +71,9 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
   //   ComponentToRender = <CaseDetailsModal1 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} searchTerm={searchTerm} onSearch={handleSearch}/> ;
   // } else if (selectedComponent === 'servicecollection') {
   //   ComponentToRender = <CaseDetailsModal2 show={showModal1} onHide={handleModalClose1} number={selectedDataKey} data={CaseData} searchTerm={searchTerm} onSearch={handleSearch}/>;
-  // } 
+  // }
 
+  // 篩選符合搜索標題的資料
   let filteredData = TotalData;
   switch (screen) {
     case 1:
@@ -74,49 +96,55 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
       <div className="d-flex justify-content-end me-2" style={{ width: '100%'}} >
         <SearchBox className="" onSearch={handleSearch} searchTerm={screen === 1 ? searchcase : searchservice}></SearchBox>
       </div>
-      {
-      TotalData.length === 0 || !TotalData
-      ? <h1 style={{ marginTop: '50px',fontWeight: '550',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>未有紀錄</h1>
+      {filteredData.length === 0 || !filteredData
+      ? <div style={{ fontSize: '24px', marginTop: '50px',fontWeight: '550',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {screen === 1
+          ? <>還沒有收藏的案件喔～快去<Link to='/findcase'>我要接案</Link>找尋心儀的案件吧！</>
+          : <>還沒有收藏的服務喔～快去<Link to='/findman'>我要找人</Link>找尋心儀的服務吧！</>}
+        </div>
       : filteredData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '720px', height: '180px', display: 'flex' }}>
+        <Card key={item.fid} className="my-3" style={{ width: '720px', height: '180px', display: 'flex' }}>
           <div className="d-flex bd-highlight">
-            <Card.Body style={{ flex: '1' }}>
-              <Card.Text>收藏日期：{screen === 1 ? item.created_at : item.created_at}</Card.Text>
-              <Card.Title style={{ fontWeight: '550'}}>{screen === 1 ? item.d_name : item.s_name}</Card.Title>
-              <div className='mt-2'>{screen === 1 ? <>案主：{item.name}</> : <>服務提供：{item.name}</> }</div>
+            <Card.Body style={{ flex: '1' }} >
+              <Link to={screen === 1 ? `/casecontext/?${item.did}` : `/talent/${item.mid}`}>
+                <Card.Text>收藏日期：{screen === 1 ? item.created_at : item.created_at}</Card.Text>
+                <Card.Title style={{ fontWeight: '550'}}>{screen === 1 ? item.d_name : item.s_name}</Card.Title>
+                <div className='mt-2'>{screen === 1 ? <>案主：{item.name}</> : <>服務提供：{item.name}</> }</div>
 
-              <hr style={{ background: 'black' }} />
+                <hr style={{ background: 'black' }} />
 
-              <div className="d-flex justify-content-between">
-                <Card.Text>{screen === 1 ? <>合作期程：{item.d_duration}</> : <></>}</Card.Text>
-                <Card.Text> {screen === 1
-                  ? <>案件預算：{item.d_amount}&nbsp;/&nbsp;{item.d_unit}</>
-                  : <>服務報價：{item.s_amount}&nbsp;/&nbsp;{item.s_unit}</>}
-                </Card.Text>
-              </div>
+                <div className="d-flex justify-content-between">
+                  <Card.Text>{screen === 1 ? <>合作期程：{item.d_duration}</> : <></>}</Card.Text>
+                  <Card.Text>{screen === 1
+                    ? <>案件預算：{item.d_amount}&nbsp;/&nbsp;{item.d_unit}</>
+                    : <>服務報價：{item.s_amount}&nbsp;/&nbsp;{item.s_unit}</>}
+                  </Card.Text>
+                </div>
+              </Link>
             </Card.Body>
-            {/* {screen !== 1  ? 
-            <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
-              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
-              {text}
-              </Button>
-            </div>:
+
+            {
+            // screen !== 1  ? 
+            // <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
+            //   <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap'}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
+            //   {text}
+            //   </Button>
+            // </div>:
 
             <div className="d-flex flex-column justify-content-center" >
-              <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap' ,marginTop: "auto" ,marginBottom: "40px"}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
+              {/* <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap' ,marginTop: "auto" ,marginBottom: "40px"}} onClick={() => {handleModalShow1(); handlesetSelectedDataKey(index)}} >
                 編輯
-              </Button>
+              </Button> */}
               <Button
-                variant="secondary" 
-                className="my-2 d-inline-block"
-                style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center',visibility }}
-                onClick={()=>{handleDeleted(item.qid)}}
+                variant="danger" 
+                className=" d-inline-block"
+                style={{ width: '110px', fontSize: '14px', whiteSpace: 'nowrap', textAlign: 'cente',  }}
+                onClick={()=>{handleCancelCollection(item.fid)}}
               >
-                棄件
+                取消收藏
               </Button>
             </div>
-            } */}
-            
+            }
           </div>
         </Card>
       ))}
