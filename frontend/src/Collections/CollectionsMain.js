@@ -5,6 +5,7 @@ import { Container, Row, Col, Nav } from "react-bootstrap";
 import ServiceCollection from "./ServiceCollection";
 import CaseCollection from "./CaseCollection";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+import Footer from "../homepage/Footer";
 import "./Collection.css";
 
 const CollectionsMain = () => {
@@ -45,6 +46,7 @@ const CollectionsMain = () => {
 
 
   return (
+    <>
       <Container>
         <Row>
 
@@ -94,6 +96,8 @@ const CollectionsMain = () => {
 
         </Row>
       </Container>
+    <Footer></Footer>
+    </>
   );
 };
 
