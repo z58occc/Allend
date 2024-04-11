@@ -76,10 +76,12 @@ function Serve() {
               className="mb-3 mt-5"
               style={{borderBottom: '1px solid black'}}
             >
-              <Tab eventKey="home" title="服務內容" style={{ width: 500, height: 500 ,backgroundColor:"#FCFCFC"}}>
+              <Tab eventKey="home" title="服務內容" style={{  height: 250 ,backgroundColor:"#FCFCFC",borderRadius: "5px"}}>
+              <div style={{ whiteSpace: 'pre-wrap' }}>
                 {serve.service && serve.service[0].s_description}
+                </div>
               </Tab>
-              <Tab eventKey="profile" title="服務評價" style={{ width: 500, height: 500 ,backgroundColor:"#FCFCFC"}}>
+              <Tab eventKey="profile" title="服務評價" style={{  height: 250 ,backgroundColor:"#FCFCFC",borderRadius: "5px"}}>
                 {serve.service_comments && serve.service_comments.map((item, index) => (
 
                   <div style={{ border: 'solid' }} className='mt-5'>
