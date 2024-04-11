@@ -14,7 +14,9 @@ class GetmemberemailController extends Controller
             $userid = Auth::id();
 
             $email = DB::table('members')->where('mid',$userid)->value('email');
-            return response()->json(['email'=>$email]);
+            $members = DB::table('members')->where('mid', $userid)->value('mid');
+            return response()->json(['email'=>$email,
+                                    'mid'=>$members]);
         }else{
             return response()->json(['error' => 'Unauthorized'], 401);
         }

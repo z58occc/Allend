@@ -9,9 +9,10 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class MessageEvent
+class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -27,6 +28,7 @@ class MessageEvent
 
 
     public function broadcastWith(){
+        
         return [
             'id'=>Str::orderedUuid(),
             'user'=>$this->user,
@@ -43,10 +45,10 @@ class MessageEvent
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn():Channel
     {
-        return [
-            new PrivateChannel('private-chat'),
-        ];
+        $user = Auth::id();
+        return new PrivateChannel('user.'.$user);
+        
     }
 }
