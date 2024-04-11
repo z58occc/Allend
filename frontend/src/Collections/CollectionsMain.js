@@ -15,21 +15,26 @@ const CollectionsMain = () => {
     setActiveScreen(tab)
   }
   // 資料初始化
-  const [collections, setCollections] = useState({
-    case: [
-      {
-        did: 0,
-        created_at:""
-      },
-    ],
-    service: [
-      {
-        sid: 0,
-        created_at:""
-      },
-    ],
-  });
-
+  // const [collections, setCollections] = useState({
+  //   case: [
+  //     // {
+  //     //   did: 0,
+  //     //   created_at:""
+  //     // },
+  //   ],
+  //   service: [
+  //     // {
+  //     //   sid: 0,
+  //     //   created_at:""
+  //     // },
+  //   ],
+  // });
+  const [caseDate, setCaseData] = useState([]);
+  const [serviceData, setServiceData] = useState([])
+  // 更新資料
+  const handleUpdateData = (updatedData, screen) => {
+    screen === 1 ? setCaseData(updatedData) : setServiceData(updatedData)
+  }
   // 撈案件、服務收藏資料
   const fetchData = async () => {
     const result = await axios.get(
@@ -38,7 +43,8 @@ const CollectionsMain = () => {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },
       }
     );
-    setCollections(result.data);
+    setCaseData(result.data.case);
+    setServiceData(result.data.service)
   };
   useEffect(() => {
     fetchData();
@@ -84,10 +90,10 @@ const CollectionsMain = () => {
                 {/* 下方主畫面區域 */}
                   <Col md={12} >
                     {activeScreen === "case" && (
-                      <CaseCollection data={collections.case} />
+                      <CaseCollection data={caseDate} dataUpdate={handleUpdateData}/>
                     )}
                     {activeScreen === "service" && (
-                      <ServiceCollection data={collections.service} />
+                      <ServiceCollection data={serviceData} dataUpdate={handleUpdateData}/>
                     )}
                   </Col>
                 </Row>

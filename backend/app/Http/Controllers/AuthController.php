@@ -50,7 +50,7 @@ class AuthController extends Controller
             ]);
 
             // 發送信箱驗證信
-            // event(new Registered($user));
+            event(new Registered($user));
 
             return response()->json([
                 'email' => $request->email,

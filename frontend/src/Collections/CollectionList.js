@@ -6,11 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
-const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
-  const [TotalData, setTotalData] = useState(data);
-  // const TotalData = data;
-
-  console.log(data)
+const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdate}) => {
   // 控制key回傳對應Modal
   const [selectedDataKey, setSelectedDataKey] = useState(0);
   const handlesetSelectedDataKey = (index)=>{
@@ -44,9 +40,8 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
     .then((res) => {
-      console.log(res.data);
-      const newData = TotalData.filter((item) => item.fid !== fid);
-      setTotalData(newData)
+      const newData = data.filter((item) => item.fid !== fid);
+      dataUpdate(newData, screen)
     })
     .catch((err) => console.log(err))
   }
@@ -74,20 +69,20 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
   // }
 
   // 篩選符合搜索標題的資料
-  let filteredData = TotalData;
+  let filteredData = data;
   switch (screen) {
     case 1:
       if (searchcase) {
-        filteredData = TotalData.filter(item => item.d_name.includes(searchcase));
+        filteredData = data.filter(item => item.d_name.includes(searchcase));
       }
       break;
     case 2:
       if (searchservice) {
-        filteredData = TotalData.filter(item => item.c_name.includes(searchservice));
+        filteredData = data.filter(item => item.c_name.includes(searchservice));
       }
       break;
     default:
-      filteredData = TotalData;
+      filteredData = data;
   }
 
 
@@ -96,7 +91,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen}) => {
       <div className="d-flex justify-content-end me-2" style={{ width: '100%'}} >
         <SearchBox className="" onSearch={handleSearch} searchTerm={screen === 1 ? searchcase : searchservice}></SearchBox>
       </div>
-      {filteredData.length === 0 || !filteredData
+      {filteredData?.length === 0 || !filteredData
       ? <div style={{ fontSize: '24px', marginTop: '50px',fontWeight: '550',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {screen === 1
           ? <>還沒有收藏的案件喔～快去<Link to='/findcase'>我要接案</Link>找尋心儀的案件吧！</>

@@ -90,7 +90,7 @@ function App() {
       Cookies.set("token", res.data.token);
       setIsLoggedIn(true);
       setShowLogin(false);
-      navigate('/switch');
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -191,21 +191,20 @@ function App() {
 
   // 重寄驗證信
   const handleResendVerification = () => {
-    axios.post("http://localhost/Allend/backend/public/api/emailverification-notification",
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setIsVerificationSent(true);
-        setCountdown(60);
-        setIsButtonDisabled(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios({
+      method: 'post',
+      url: "http://localhost/Allend/backend/public/api/emailverification-notification",
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` }
+    })
+    .then((res) => {
+      console.log(res.data);
+      setIsVerificationSent(true);
+      setCountdown(60);
+      setIsButtonDisabled(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
 
   useEffect(() => {
