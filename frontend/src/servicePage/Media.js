@@ -3,9 +3,11 @@ import { Button, Card, Form, Col, Row } from "react-bootstrap";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
 import Pagination from 'react-bootstrap/Pagination';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 const Media = ({ data3 }) => {
 
   const { fetchData } = useContext(CaseContext);
@@ -62,7 +64,8 @@ const Media = ({ data3 }) => {
     setDeletedIndex(deletedIndices);
 
     deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
-
+    // 從CaseData中過濾掉已刪除的項目
+    const updatedCaseData = CaseData.filter((item, index) => !deletedIndices.includes(index));
 
     didOfDeletedData = deletedData.map(item => item.vid);
 
@@ -83,7 +86,9 @@ const Media = ({ data3 }) => {
       console.log(didOfDeletedData)
 
       fetchData();
-      setSelectedItems([false])
+      // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
+      setSelectedItems(Array(updatedCaseData.length).fill(false));
+      setCheckedAll(false);
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -119,11 +124,14 @@ const Media = ({ data3 }) => {
       </Pagination.Item>
     );
   }
+  if (!CaseData || CaseData.length === 0) {
+    return (
+      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
 
-  return (
-    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '650px' }}>
-      <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            未有紀錄，點此按鈕新增
+          </h1>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -131,47 +139,68 @@ const Media = ({ data3 }) => {
           >
             新增
           </Button>
-
-          <Button
-            variant="primary"
-            style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
-            onClick={handleToggleAll}
-          >
-            {checkedAll ? "取消全選" : "全選"}
-          </Button>
-          <Button
-            variant="danger"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleDeleted() }}
-          >
-            刪除
-          </Button>
+          <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
         </div>
-        {/* Generate six Cards */}
-        <Row style={{ width: '1000px' }}>
-          {data3.map((item, index) => (
-            <Col key={index} style={{ width: '200px', }} className='col-4 d-flex justify-content-center'>
-              <Card style={{ width: "240px" }}>
-                <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
-                <Card.Body className="d-flex flex-column">
-                  <Card.Title>
-                    <Form.Check
-                      type="checkbox"
-                      checked={selectedItems[index] || false}
-                      onChange={() => handleChecked(index)}
-                      style={{ margin: "0 10px 3px 10px" }}
-                    /> <span style={{ margin: "0 20px" }}  key={index} onClick={() => handleShow1(index)}>{item.v_name}</span>
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-          <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
-        </Row>
+
       </div>
-      <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
-      <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
-    </div>
+    )
+  }
+  return (
+    <>
+      <div style={{ fontSize: "36px", background: '#F0F0F0' }}>影音</div>
+      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
+        <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+            <Button
+              variant="success"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleShow() }}
+            >
+              新增
+            </Button>
+
+            <Button
+              variant="primary"
+              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              onClick={handleToggleAll}
+            >
+              {checkedAll ? "取消全選" : "全選"}
+            </Button>
+            <Button
+              variant="danger"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleDeleted() }}
+            >
+              刪除
+            </Button>
+          </div>
+          {/* Generate six Cards */}
+          <Row style={{ width: '1000px' }}>
+            {data3.map((item, index) => (
+              <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
+                <Card style={{ width: "240px" }}>
+                  <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
+                  <Card.Body className="d-flex flex-column">
+                    <Card.Title>
+                      <Form.Check
+                        type="checkbox"
+                        checked={selectedItems[index] || false}
+                        onChange={() => handleChecked(index)}
+                        style={{ margin: "0 10px 3px 10px" }}
+                      /> <span style={{ margin: "0 20px" }} key={index} onClick={() => handleShow1(index)}>{item.v_name}</span>
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+            <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+          </Row>
+        </div>
+        <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+        <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
+      </div>
+
+    </>
   );
 };
 

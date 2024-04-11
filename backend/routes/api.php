@@ -138,7 +138,7 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取服務管理頁面(服務、作品、影音)
     Route::get('/memservice', 'getServicePage');
-    // 新增服務
+    // 新增服務--
     Route::post('/addservice', 'addService');
     // 編輯服務
     Route::post('/updateservice', 'updateService');

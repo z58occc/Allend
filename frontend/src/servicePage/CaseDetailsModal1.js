@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 // import Cookies from 'js-cookie';
 import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import Cookies from "js-cookie";
 const CaseDetailsModal1 = ({ show, onHide}) => {
   //useContext from Mainscreen

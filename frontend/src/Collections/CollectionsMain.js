@@ -2,10 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { createContext, useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
-import Screen1 from "./Screen1";
+// import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 export const CaseContext = createContext();
-const MainScreen3 = () => {
+
+const CollectionsMain = () => {
   const [Service, setService] = useState({
     service: [
       {
@@ -53,27 +54,23 @@ const MainScreen3 = () => {
     setService(result.data);
   };
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
-  console.log(Service);
+  // console.log(Service);
 
   return (
     <CaseContext.Provider value={{ fetchData }}>
-      <Container xxl={12}>
+      <Container>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={2}>
-            <Container fluid style={{ width: "900px" }}>
+          <Col sm={9}>
               <Row>
-                {/* <Col md={12}> */}
-                  <Screen1 data={Service}/>
-                {/* </Col> */}
+                  {/* <Screen1 data={Service}/> */}
               </Row>
-            </Container>
           </Col>
         </Row>
       </Container>
@@ -83,4 +80,4 @@ const MainScreen3 = () => {
 
 // 畫面1、畫面2、畫面3 等 component 的定義...
 
-export default MainScreen3;
+export default CollectionsMain;

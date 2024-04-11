@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import { Button, Card, Form } from "react-bootstrap";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Pagination from 'react-bootstrap/Pagination';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 const Provider = ({ data1 }) => {
-
   const CaseData = data1;
   const { fetchData } = useContext(CaseContext);
   //
@@ -60,7 +60,8 @@ const Provider = ({ data1 }) => {
     setDeletedIndex(deletedIndices);
 
     deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
-
+    // 從CaseData中過濾掉已刪除的項目
+    const updatedCaseData = CaseData.filter((item, index) => !deletedIndices.includes(index));
 
     didOfDeletedData = deletedData.map(item => item.sid);
 
@@ -80,8 +81,12 @@ const Provider = ({ data1 }) => {
       });
       console.log(didOfDeletedData)
 
+      
+      // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
+      setSelectedItems(Array(updatedCaseData.length).fill(false));
+      setCheckedAll(false);
+      // setSelectedItems([false])
       fetchData();
-      setSelectedItems([false])
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -104,7 +109,7 @@ const Provider = ({ data1 }) => {
     setActive(number)
   }
   //
-  const CasePerPage = 4;
+  const CasePerPage = 6;
   const page = Math.ceil(data1.length / CasePerPage);
   console.log(page);
   data1 = data1?.slice(CasePerPage * (active - 1), CasePerPage * active)
@@ -117,9 +122,30 @@ const Provider = ({ data1 }) => {
       </Pagination.Item>
     );
   }
+  if (!CaseData || CaseData.length === 0) {
+    return (
+      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
+
+        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            未有紀錄，點此按鈕新增
+          </h1>
+          <Button
+            variant="success"
+            style={{ fontSize: "12px", width: "100px", height: '100%' }}
+            onClick={() => { handleShow() }}
+          >
+            新增
+          </Button>
+          <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+        </div>
+
+      </div>
+    )
+  }
 
   return (
-    <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '750px' }}>
+    <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
       <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
         <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px'}}>
           <Button

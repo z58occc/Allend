@@ -1,9 +1,9 @@
 .search-container {
   scale: 0.5;
-  float: right;
+  /* float: right; */
 }
 
-.search-container input[type=text] {
+.search-container input[type="text"] {
   padding: 5px;
   font-size: 28px;
   border: none;
@@ -13,7 +13,7 @@
   padding: 6px 10px;
   margin-right: 16px;
   background: #ddd;
-  font-size: 25px;
+  font-size: 32px;
   border: none;
   cursor: pointer;
 }
@@ -32,7 +32,7 @@ nav button {
 }
 
 .modal-content {
-  background-image: url('../src/Components/img/background.jpg');
+  background-image: url("../src/Components/img/background.jpg");
   background-size: cover;
   /* 確保背景圖片覆蓋整個視窗 */
   background-color: rgba(255, 255, 255, 0.4);
@@ -46,10 +46,11 @@ nav button {
 .slogan-text {
   font-family: "Noto Sans TC", sans-serif;
   font-size: large;
+  font-weight: 400;
 }
 
 .nav-link:hover {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 body {
@@ -58,7 +59,7 @@ body {
 
 body::before {
   content: "";
-  background-image: url('../src/Components/img/background.jpg');
+  background-image: url("../src/Components/img/background.jpg");
   /* 請根據您的圖片路徑設置 */
   background-size: cover;
   background-repeat: no-repeat;

@@ -3,7 +3,7 @@ import { Form, Button, Alert, Col, Row, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
-import "./fix.css";
+// import "./fix.css";
 import Footer from "../../../homepage/Footer";
 import Cookies from "js-cookie";
 import { FaLock } from "react-icons/fa";
@@ -16,16 +16,17 @@ function PasswordForm() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState("");
   
-
+  const [oerr, setOerr] = useState("")
+  const [err, setErr] = useState("")
   // 修改密碼
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (newPassword !== confirmNewPassword) {
-      setMessage("新密碼與確認新密碼不一致");
-      return; // 返回以防止後續的 Axios 請求
-    }
+    // if (newPassword !== confirmNewPassword) {
+    //   setMessage("新密碼與確認新密碼不一致");
+    //   return; // 返回以防止後續的 Axios 請求
+    // }
     const cookie = Cookies.get("token");
-    const response = axios({
+    axios({
       method: "post",
       url: "http://localhost/Allend/backend/public/api/updatepassword",
       data: {
@@ -38,8 +39,8 @@ function PasswordForm() {
       },
     })
       .then((res) => {
-        setMessage(response.data.message);
-        console.log(res);
+        setMessage(res.data.message);
+        // console.log(res.data.error);
         // 在這裡處理成功後的邏輯
       })
       .then(() => {
@@ -48,7 +49,11 @@ function PasswordForm() {
         setConfirmNewPassword("");
       })
       .catch((err) => {
-        console.log(err);
+        setMessage(err.response.data.error);
+        console.log((err.response.data.password))
+        setOerr(err.response.data.oldpassword)
+        setErr(err.response.data.password)
+        // setMessage(err.data.error);
         // 在這裡處理錯誤
       });
   };
@@ -64,10 +69,10 @@ function PasswordForm() {
             <Row className="justify-content-center">
               <Col sm={6} style={{ padding: "20px" }}>
                 <div>
-                  <h2><BsWrenchAdjustable /> 修改密碼</h2>
+                  <h2><BsWrenchAdjustable />修改密碼</h2>
 
                   <Form onSubmit={handleSubmit}>
-                    <Form.Label>舊密碼：</Form.Label>
+                    <Form.Label>舊密碼：{oerr && oerr.map((v) => {return <span style={{color:'red'}}>{v}</span>})}</Form.Label>
                     <InputGroup>
                       <InputGroup.Text controlId="formOldPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
@@ -104,13 +109,16 @@ function PasswordForm() {
                         aria-describedby="formConfirmNewPassword"
                       />
                     </InputGroup>
+                    {err &&
+                      err.map((v) => {
+                        return <p style={{color:'red', }}>{v}</p>
+                      })
+                    }
                     <br />
                     <Button variant="primary" type="submit">
                       提交
                     </Button>
-                    <span style={{color:'red', paddingLeft:'20px'}}>{message}</span>
                   </Form>
-                    
                 </div>
               </Col>
             </Row>
@@ -118,7 +126,6 @@ function PasswordForm() {
         </Row>
       </Container>
       <Footer></Footer>
-
     </>
   );
 }

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Button, Card, Form, Col, Row } from "react-bootstrap";
+import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import Cookies from "js-cookie";
-import { CaseContext } from "./MainScreen2";
+import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
 import Pagination from 'react-bootstrap/Pagination';
+
+
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
@@ -36,7 +38,7 @@ const Work = ({ data2 }) => {
   }
   //編輯Modal;
   const [index, setIndex] = useState(0);
-  const [show1,setShow1] = useState(false);
+  const [show1, setShow1] = useState(false);
   const handleShow1 = (index) => {
     setShow1(true);
     setIndex(index);
@@ -62,10 +64,12 @@ const Work = ({ data2 }) => {
     setDeletedIndex(deletedIndices);
 
     deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+    // 從CaseData中過濾掉已刪除的項目
+    const updatedCaseData = CaseData.filter((item, index) => !deletedIndices.includes(index));
 
-
+    
     didOfDeletedData = deletedData.map(item => item.pid);
-
+    
     try {
       const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delwork", {
         method: "POST",
@@ -74,16 +78,19 @@ const Work = ({ data2 }) => {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify
-          (
-            {
-              pid: didOfDeletedData,
-            }
-          ),
+        (
+          {
+            pid: didOfDeletedData,
+          }
+        ),
       });
       console.log(didOfDeletedData)
-
+      
       fetchData();
-      setSelectedItems([false])
+      // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
+      setSelectedItems(Array(updatedCaseData.length).fill(false));
+      setCheckedAll(false);
+      // setSelectedItems([false])
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -99,12 +106,12 @@ const Work = ({ data2 }) => {
     }
   };
   //分頁
-    console.log(data2)
-    const [active, setActive] = useState(1);
-    let items = [];
-    const handleSetActive = (number) => {
-      setActive(number)
-    }
+  console.log(data2)
+  const [active, setActive] = useState(1);
+  let items = [];
+  const handleSetActive = (number) => {
+    setActive(number)
+  }
   // 
   const CasePerPage = 6;
   const page = Math.ceil(data2.length / CasePerPage);
@@ -120,11 +127,31 @@ const Work = ({ data2 }) => {
     );
   }
 
+  if (!CaseData || CaseData.length === 0) {
+    return (
+      <div style={{ width: '100%', background: 'lightpink', height: '800px' }}>
 
+        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            未有紀錄，點此按鈕新增
+          </h1>
+          <Button
+            variant="success"
+            style={{ fontSize: "12px", width: "100px", height: '100%' }}
+            onClick={() => { handleShow() }}
+          >
+            新增
+          </Button>
+          <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+        </div>
+
+      </div>
+    )
+  }
   return (
-    <div style={{ width: '100%', background: 'lightpink ', outline: '1px solid black', height: '700px' }}>
-      <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+    <div style={{ width: '100%', background: 'lightpink ', height: '800px' }}>
+      <Container className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+        <Row className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -146,14 +173,13 @@ const Work = ({ data2 }) => {
           >
             刪除
           </Button>
-        </div>
+        </Row>
         {/* Generate six Cards */}
-        <Row style={{width:'1000px'}}>
-
+        <Row style={{ width: '1000px' }} className='justify-content-center'>
           {data2.map((item, index) => (
-            <Col key={index} style={{width:'200px', }}  className='col-4 d-flex justify-content-center'>
-              <Card style={{ width: "200px" }}>
-                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{  height: '180px', objectFit: 'cover' }}   onClick={()=>handleShow1(index)}/>
+            <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
+              <Card style={{ width: "240px" }}>
+                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} />
                 <Card.Body className="d-flex ">
                   <Card.Title>
                     <Form.Check
@@ -168,10 +194,10 @@ const Work = ({ data2 }) => {
             </Col>
           ))}
 
-        <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
+          <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
         </Row>
-        
-      </div>
+
+      </Container>
       <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
       <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
     </div>

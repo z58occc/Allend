@@ -17,7 +17,7 @@ const LeftVerticalNavbar = () => {
         { link: '/email', text: '會員維護' },
         { link: '/services', text: '案件管理' },
         { link: '/manage', text: '服務管理' },
-        { link: '#favorite', text: '收藏管理' },
+        { link: '/collect', text: '收藏管理' },
     ];
 
     const [usermember, setUsermember] = useState({
@@ -44,15 +44,14 @@ const LeftVerticalNavbar = () => {
             method: "post",
             url: "http://localhost/Allend/backend/public/api/avatar",
             data: {image: e.target.result},
-            headers: {Authorization: `Bearer ${Cookies.get('token')}`,'Content-Type': 'multipart/form-data',
-        },
-          })
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            headers: {Authorization: `Bearer ${Cookies.get('token')}`,'Content-Type': 'multipart/form-data',},
+        })
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
         };
         avatarFile.readAsDataURL(avatar.current.files[0]);
 
@@ -123,11 +122,11 @@ const LeftVerticalNavbar = () => {
     return (
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
 
-            <div variant="link" onClick={handleEditmember} >
+            <div variant="link" className='mt-2' onClick={handleEditmember} >
                 <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/>
                 {/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
-            <div style={{ fontSize: '20px' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
+            <div style={{ fontSize: '20px',fontWeight:'800', marginTop:'10px'}}>{usermember.name === "" ? "會員" : usermember.name}</div>
    
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
@@ -158,20 +157,19 @@ const LeftVerticalNavbar = () => {
                         if (index === 1 || index === 2) {
                             return (
                                 <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion">
-                                    <Accordion.Item eventKey={`${index}-1`}>
+                                    <Accordion.Item eventKey={`${index}-1`} className='bg-grey'>
                                         <Accordion.Header>{item.text}</Accordion.Header>
                                         <Accordion.Body>
                                             {index === 1 ? (
                                                 <div className="links-container">
                                                     <Link to="/switch" className="nav-link-no-arrow">資料維護</Link>
-                                                    <br></br>
+                                                    <br/>
                                                     <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
                                                 </div>
-
                                             ) : (
                                                 <div className="links-container">
                                                     <Link to="/commit" className="nav-link-no-arrow">發案紀錄</Link>
-                                                    <br></br>
+                                                    <br/>
                                                     <Link to="/service" className="nav-link-no-arrow">接案紀錄</Link>
                                                 </div>
                                             )}
@@ -181,7 +179,7 @@ const LeftVerticalNavbar = () => {
                             );
                         } else {
                             return (
-                                <Nav.Link key={index} href={item.link} style={{ fontSize: '24px' }}>{item.text}</Nav.Link>
+                                <Nav.Link key={index} href={item.link} style={{ fontSize: '24px', textAlign:'center' }}>{item.text}</Nav.Link>
                             );
                         }
                     })}
