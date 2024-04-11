@@ -19,7 +19,7 @@ export default function PublicMessagesPage() {
             return;
         }
         try{
-            await Axios.post('/api/new-message', {
+            await Axios.post('/new-message', {
                 message:message,},{
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`,
