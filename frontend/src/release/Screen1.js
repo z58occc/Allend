@@ -16,7 +16,7 @@ const Screen1 = ({data}) => {
   }
   //
   const CasePerPage = 5;
-  const page = data ? (((data.length % CasePerPage) === 0) ? ((data.length / CasePerPage)) : (data.length / CasePerPage) + 1) : 1 ;
+  const page = Math.ceil(data.length / CasePerPage);
   console.log(page);
   data = data?.slice(  CasePerPage * (active-1) , CasePerPage * active)  
   console.log(data);

@@ -117,6 +117,12 @@ const Provider = ({ data1 }) => {
       </Pagination.Item>
     );
   }
+  if (!CaseData || CaseData.length === 0) {
+    return (
+    <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      未有紀錄
+    </h1>)
+  }
 
   return (
     <div style={{ width: '100%', background: 'lightblue', outline: '1px solid black', height: '800px' }}>
