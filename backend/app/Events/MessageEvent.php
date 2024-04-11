@@ -9,7 +9,6 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class MessageEvent
@@ -22,10 +21,10 @@ class MessageEvent
      */
     public function __construct($user, $message)
     {
-        $this->$user = Auth::id();
+        $this->user = $user;
         $this->message = $message;
     }
-        
+
 
     public function broadcastWith(){
         return [

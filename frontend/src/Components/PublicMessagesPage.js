@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import Messagebox from './Messagebox';
+import Cookies from "js-cookie";
 export default function PublicMessagesPage() {
 
     const [user,setUser] = useState('');
@@ -42,7 +43,12 @@ export default function PublicMessagesPage() {
             wsPort: 443,
             disableStats: true,
             encrypted: true,
-            cluster:'zh-tw'
+            cluster:'zh-tw',
+            auth: {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`
+                },
+            },
         });
 
 
