@@ -18,10 +18,8 @@ function Category() {
     const url = "http://localhost/Allend/backend/public/api/findcase?type="
     const href = window.location.href
     const type = new URL(href);
-    console.log(type.pathname);
     if (type.pathname == "/findcase") {
-        fetchData();
-        console.log("1")
+        // fetchData();
     }
 
     // switch (type.pathname) {
@@ -32,37 +30,37 @@ function Category() {
     //         break;
 
     // }
-    const fetchData = async (type) => {
-        let url = "http://localhost/Allend/backend/public/api/findcase?type=";
-        switch (type) {
-            case "網站設計":
-                url += "1";
-                break;
-            case "軟體程式":
-                url += "2";
-                break;
-            case "平面設計":
-                url += "3";
-                break;
-            case "文字語言":
-                url += "4";
-                break;
-            case "專業諮詢":
-                url += "5";
-                break;
-            default:
-                break;
+    // const fetchData = async (type) => {
+    //     let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+    //     switch (type) {
+    //         case "網站設計":
+    //             url += "1";
+    //             break;
+    //         case "軟體程式":
+    //             url += "2";
+    //             break;
+    //         case "平面設計":
+    //             url += "3";
+    //             break;
+    //         case "文字語言":
+    //             url += "4";
+    //             break;
+    //         case "專業諮詢":
+    //             url += "5";
+    //             break;
+    //         default:
+    //             break;
 
 
-        }
+    //     }
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setPosts(data);
-            })
-    }
+    //     fetch(url)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log(data);
+    //             setPosts(data);
+    //         })
+    // }
     return (
 
 
@@ -73,35 +71,35 @@ function Category() {
                 <div className="row justify-content-center">
 
                     <div className="col-2 text-center">
-                        <Link to='/findcase/?type=1' onClick={() => fetchData("網站設計")}>
+                        <Link to={`/findcase/1`} >
                             <div >網站設計</div>
-                            <img src={a1} style={{ width: '60px' }}></img>
+                            <img src={a1} style={{ width: '60px' }} ></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center" >
-                        <Link to='/findcase/?type=2' onClick={() => fetchData("軟體程式")} >
+                        <Link to={`/findcase/2`}  >
                             <div >軟體程式</div>
                             <img src={a2} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center" >
-                        <Link to='/findcase/?type=3' onClick={() => fetchData("平面設計")} >
+                        <Link to={`/findcase/3`}  >
                             <div >平面設計</div>
                             <img src={a5} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-sm-2 text-center" >
-                        <Link to='/findcase/?type=4' onClick={() => fetchData("文字語言")} >
+                        <Link to={`/findcase/4`}  >
                             <div >文字語言</div>
                             <img src={a4} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none " />
                     </div>
                     <div className="col-2 text-center" >
-                        <Link to='/findcase/?type=5' onClick={() => fetchData("專業諮詢")} >
+                        <Link to={`/findcase/5`}  >
                             <div >專業諮詢</div>
                             <img src={a6} style={{ width: '60px' }}></img>
                         </Link>

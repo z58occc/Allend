@@ -3,8 +3,10 @@ import { Modal, Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import { CaseContext } from "./MainScreen3";
 import Cookies from "js-cookie";
+import { WorkContext } from "./Work";
 const CaseDetailsModal2 = ({ show, onHide }) => {
   //useContext from Mainscreen
+  const {setSelectedItems, setCheckedAll} = useContext(WorkContext)
   const { fetchData } = useContext(CaseContext);
 
   const [nameOfWork, setNameOfWork] = useState("");
@@ -31,6 +33,8 @@ const CaseDetailsModal2 = ({ show, onHide }) => {
         console.log(res);
         onHide();
         fetchData();
+        setSelectedItems(Array(6).fill(false));
+        setCheckedAll(false);
       })
       .catch((error) => {
         console.error('There was a problem updating the case:', error);

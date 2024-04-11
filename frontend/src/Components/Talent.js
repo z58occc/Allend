@@ -191,7 +191,7 @@ function Talent() {
                                         <div className='mt-4 d-flex' >
                                             <Col className='col-2' style={{borderRadius: "5px", borderWidth: "1px", padding:"0px" }}><span style={{backgroundColor:"#E0E0E0"}}>{item.c_name}</span></Col>
 
-                                            <Col className='col-4'>案主：{item.name}</Col><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
+                                            <Col className='col-3'>案主：{item.name}</Col><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
                                         </div>
                                     ))}
                                 </div>

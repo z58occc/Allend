@@ -5,7 +5,6 @@ import { CaseContext } from "./MainScreen2";
 import PayButton from "./paybutton"
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
-  
   const [selectedCase, setSelectedCase] = useState({
     cid: '',
     c_name: '',
@@ -117,7 +116,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
             已收到案件
           </Button>
           :
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true} style={{display:"none"}}>
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true} style={data[number].c_status === 4 ? { display: 'none' } : {}} >
             已收到案件
           </Button>
           }
