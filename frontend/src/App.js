@@ -7,6 +7,7 @@ import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
@@ -24,15 +25,13 @@ import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
-import axios from "axios";
-import Cookies from "js-cookie";
 import InputGroup from 'react-bootstrap/InputGroup';
-import { FcGoogle } from "react-icons/fc";
 import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
-
+import axios from "axios";
+import Cookies from "js-cookie";
 
 
 

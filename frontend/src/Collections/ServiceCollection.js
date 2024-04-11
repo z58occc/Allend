@@ -14,9 +14,9 @@ const ServiceCollection = ({data, dataUpdate}) => {
   
   const CasePerPage = 5;
   console.log(data?.length);
-  const page = Math.ceil(data?.length / CasePerPage);
+  const page = Math.ceil(data.length / CasePerPage);
   console.log(page);
-  data = data?.slice(CasePerPage * (active-1) , CasePerPage * active)  
+  data = data.slice(CasePerPage * (active-1) , CasePerPage * active)  
 
 
   for (let number = 1; number <= page; number++) {

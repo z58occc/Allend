@@ -14,21 +14,7 @@ const CollectionsMain = () => {
   const handleScreenChange = (tab) => { // 改變顯示主畫面
     setActiveScreen(tab)
   }
-  // 資料初始化
-  // const [collections, setCollections] = useState({
-  //   case: [
-  //     // {
-  //     //   did: 0,
-  //     //   created_at:""
-  //     // },
-  //   ],
-  //   service: [
-  //     // {
-  //     //   sid: 0,
-  //     //   created_at:""
-  //     // },
-  //   ],
-  // });
+  // 資料初始化 (案件、服務)
   const [caseDate, setCaseData] = useState([]);
   const [serviceData, setServiceData] = useState([])
   // 更新資料
@@ -44,7 +30,7 @@ const CollectionsMain = () => {
       }
     );
     setCaseData(result.data.case);
-    setServiceData(result.data.service)
+    setServiceData(result.data.service);
   };
   useEffect(() => {
     fetchData();

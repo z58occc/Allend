@@ -91,7 +91,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       <div className="d-flex justify-content-end me-2" style={{ width: '100%'}} >
         <SearchBox className="" onSearch={handleSearch} searchTerm={screen === 1 ? searchcase : searchservice}></SearchBox>
       </div>
-      {filteredData?.length === 0 || !filteredData
+      {filteredData.length === 0
       ? <div style={{ fontSize: '24px', marginTop: '50px',fontWeight: '550',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {screen === 1
           ? <>還沒有收藏的案件喔～快去<Link to='/findcase'>我要接案</Link>找尋心儀的案件吧！</>
