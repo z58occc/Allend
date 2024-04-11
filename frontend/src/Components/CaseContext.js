@@ -134,7 +134,7 @@ function CaseContext() {
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
                 <Row className="mt-5">
-                    <Col xs={8} style={{backgroundColor:"#8A1D1A",color:"white",borderRadius:"5px"}}>
+                    <Col xs={8} style={{border:"solid",borderRadius:"5px"}}>
                         <div style={{marginTop:"10px"}}>
                             案件編號：{posts.did}<br></br>
                             案件名稱：{posts.d_name}<br></br>

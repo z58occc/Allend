@@ -58,5 +58,5 @@ export const dropdown = [
     },
     {
         name: "連江縣"
-    }
+   }
 ]

@@ -183,16 +183,16 @@ function Findcase() {
   const [isChecked, setIsChecked] = useState(false);
 
 
-  const handlechangecity = async (event) => {
-    // setAll(false);
-    // fetchData();
-    // setIsChecked(!isChecked);
-    console.log(event);
-    console.log(event.target);
-    console.log(event.target.checked);
-    console.log(event.target.name);
-    fetchData(event.target.name, event.target.checked);
-  }
+  // const handlechangecity = async (event) => {
+  //   // setAll(false);
+  //   // fetchData();
+  //   // setIsChecked(!isChecked);
+  //   console.log(event);
+  //   console.log(event.target);
+  //   console.log(event.target.checked);
+  //   console.log(event.target.name);
+  //   fetchData(event.target.name, event.target.checked);
+  // }
 
   console.log()
 
@@ -201,42 +201,74 @@ function Findcase() {
     fetchDataByBudget(event.target.name, event.target.checked);
   }
 
-  const [checkedState, setCheckedState] = useState(
+  const [checkedState, setCheckedState] = React.useState(
     {
-      taipei: false,
-      newtaipei: false,
-      taoyuan: false,
-      keelung: false,
-      hsinchu: false,
-      hsinchucounty: false,
-      yilan: false,
-      taichung: false,
-      miaoli: false,
-      changhua: false,
-      nantou: false,
-      yunlin: false,
-      kaohsiung: false,
-      tainan: false,
-      chiayi: false,
-      chiayicounty: false,
-      pingtung: false,
-      hualien: false,
-      taitung: false,
-      penghu: false,
-      kinmen: false,
-      lienchang: false,
+      台北市: false,
+      新北市: false,
+      桃園市: false,
+      基隆市: false,
+      新竹市: false,
+      新竹縣: false,
+      彰化縣: false,
+      南投縣: false,
+      雲林縣: false,
+      高雄市: false,
+      台南市: false,
+      嘉義市: false,
+      嘉義縣: false,
+      屏東縣: false,
+      宜蘭縣: false,
+      花蓮縣: false,
+      臺東縣: false,
+      澎湖縣: false,
+      金門縣: false,
+      連江縣: false,
     });
 
-    const  handleOnChange = (event) => {
-      const { name, checked } = event.target;
-      setCheckedState((prevState) => ({
-        ...prevState,
-        [name]: checked,
-      }));
-      console.log(checkedState);
-    };
+  const handlechangecity = (event) => {
+    const { name, checked } = event.target;
+    console.log(event.target);
+    setCheckedState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
 
-    
+
+
+
+    console.log(checkedState);
+    const x = Object.values(checkedState)[0];
+    console.log(x);
+    if (Object.values(checkedState)[0] == true) {
+      console.log(1);
+    }
+    const y = Object.keys(checkedState);
+    console.log(y);
+
+
+
+    // const countryQuery = Object.keys(checkedState)
+    //   .filter((key) => checkedState[key])
+    //   .map((key) => {
+    //     switch (key) {
+    //       case "台北市":
+    //         return "台北市"
+
+    //       default:
+    //         break;
+    //     }
+    //   })
+    // console.log(countryQuery[0]);
+    // let url = `http://localhost/Allend/backend/public/api/findcase?&location=${countryQuery}`;
+    // fetch(url)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setPosts(data);
+    //   })
+
+  };
+
+
   // const handleOnChange = (position) => {
   //   setAll(false);
 
@@ -345,87 +377,92 @@ function Findcase() {
 
 
 
+  // if (Object.value(checkedState[0]) == true) {
+  //   console.log(1);
+  // }
+  // for (let i = 0; i < citybool.length; i++) {
+  //   if (citybool[i] == true) {
+  //     cityQuery.push(citybool[i]);
+  //   }
+
   useEffect(() => {
     const fetchDataNew = async () => {
+
       try {
-        console.log(citybool);
-        let cityQuery = []
-        for (let i = 0; i < citybool.length; i++) {
-          if (citybool[i] == true) {
-            cityQuery.push(citybool[i]);
-          }
+        console.log(1);
+        const countryQuery = Object.keys(checkedState)
+          .filter((key) => checkedState[key])
+          .map((key) => {
+            switch (key) {
+              case "台北市":
+                return "台北市"
 
-        }
-        console.log(cityQuery);
-        const getcity = (citychange) => {
-          switch (citychange) {
-            case 0:
-              return "台北市"
-            case 1:
-              return "新北市"
-            case 2:
-              return "桃園市"
-            case 3:
-              return "基隆市"
-            case 4:
-              return "新竹市"
-            case 5:
-              return "新竹縣"
-            case 6:
-              return "彰化縣"
-            case 7:
-              return "南投縣"
-            case 8:
-              return "雲林縣"
-            case 9:
-              return "高雄市"
-            case 10:
-              return "台南市"
-            case 11:
-              return "嘉義市"
-            case 12:
-              return "嘉義縣"
-            case 13:
-              return "屏東縣"
-            case 14:
-              return "宜蘭縣"
-            case 15:
-              return "花蓮縣"
-            case 16:
-              return "臺東縣"
-            case 17:
-              return "澎湖縣"
-            case 18:
-              return "金門縣"
-            case 19:
-              return "連江縣"
-            default:
-              break;
-          }
-        }
-
-
-
-
-        console.log(citybool);
-
-        const cityvalue = getcity(citychange);
-
-
-        console.log(cityvalue);
-
-
-
-        console.log(cityname);
-
-
-        let url = `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${cityvalue}`;
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            setPosts(data);
+              default:
+                return "";
+            }
           })
-        console.log()
+        const x = countryQuery[0];
+        console.log(countryQuery);
+        console.log(1);
+        // }
+        // const getcity = (citychange) => {
+        //   // switch (citychange) {
+        //   //   case 0:
+        //   //     return "台北市"
+        //   //   case 1:
+        //   //     return "新北市"
+        //   //   case 2:
+        //   //     return "桃園市"
+        //   //   case 3:
+        //   //     return "基隆市"
+        //   //   case 4:
+        //   //     return "新竹市"
+        //   //   case 5:
+        //   //     return "新竹縣"
+        //   //   case 6:
+        //   //     return "彰化縣"
+        //   //   case 7:
+        //   //     return "南投縣"
+        //   //   case 8:
+        //   //     return "雲林縣"
+        //   //   case 9:
+        //   //     return "高雄市"
+        //   //   case 10:
+        //   //     return "台南市"
+        //   //   case 11:
+        //   //     return "嘉義市"
+        //   //   case 12:
+        //   //     return "嘉義縣"
+        //   //   case 13:
+        //   //     return "屏東縣"
+        //   //   case 14:
+        //   //     return "宜蘭縣"
+        //   //   case 15:
+        //   //     return "花蓮縣"
+        //   //   case 16:
+        //   //     return "臺東縣"
+        //   //   case 17:
+        //   //     return "澎湖縣"
+        //   //   case 18:
+        //   //     return "金門縣"
+        //   //   case 19:
+        //   //     return "連江縣"
+        //   //   default:
+        //   //     break;
+        //   // }
+        // }
+
+
+
+
+
+
+
+        // let url = `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${x}`;
+        const response = await axios.get(
+          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${x}`
+        );
+        setPosts(response.data);
 
 
 
@@ -436,7 +473,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [type, citychange])
+  }, [type,checkedState])
 
 
 
@@ -2161,11 +2198,11 @@ function Findcase() {
         <div style={{ display: "flex" }} >
           <Dropdown >
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
-            {/* <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               <div>
                 <input
                   type="checkbox"
-                  name="taipei"
+                  name="台北市"
                   onChange={handlechangecity}
                 >
                 </input>
@@ -2175,7 +2212,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="newtaipei"
+                  name="新北市"
                 >
                 </input>
                 新北市
@@ -2184,7 +2221,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="taoyuan"
+                  name="桃園市"
                 >
                 </input>
                 桃園市
@@ -2193,7 +2230,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="keelung"
+                  name=" 基隆市"
                 >
                 </input>
                 基隆市
@@ -2202,7 +2239,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="hsinchu"
+                  name="新竹市"
                 >
                 </input>
                 新竹市
@@ -2211,7 +2248,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  name="hsinchucounty"
+                  name="新竹縣"
                 >
                 </input>
                 新竹縣
@@ -2342,7 +2379,7 @@ function Findcase() {
                 </input>
                 連江縣
               </div>
-            </Dropdown.Menu> */}
+            </Dropdown.Menu>
             {/* <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
               {dropdown.map(({ name }, index) => {
                 return (
@@ -2360,7 +2397,7 @@ function Findcase() {
                 )
               })}
             </Dropdown.Menu> */}
-            <Dropdown.Menu>
+            {/* <Dropdown.Menu>
               <input
                 type="checkbox"
                 name="taipei"
@@ -2541,7 +2578,7 @@ function Findcase() {
                 
               ></input>
               <label htmlFor="lienchangCheckbox">連江縣</label><br></br>
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
           </Dropdown>
 
 
@@ -2550,7 +2587,7 @@ function Findcase() {
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {dropdown.slice(20, 26).map(({ name }, index) => {
+              {/* {dropdown.slice(20, 26).map(({ name }, index) => {
                 return (
                   <div>
                     <input
@@ -2564,7 +2601,7 @@ function Findcase() {
                     {name}
                   </div>
                 )
-              })}
+              })} */}
               {/* <div>
                 <input
                   type="checkbox"
