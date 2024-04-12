@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
@@ -15,14 +15,11 @@ const Work = ({ data2 }) => {
   // 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data2;
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(()=>{
+    setSelectedItems(Array.from(CaseData).fill(false));
+  },[data2])
   const [checkedAll, setCheckedAll] = useState(false);
   // Handle select all / deselect all
   const handleToggleAll = () => {
