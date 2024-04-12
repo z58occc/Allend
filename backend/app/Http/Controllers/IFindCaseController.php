@@ -30,19 +30,19 @@ class IFindCaseController extends Controller
                 foreach(explode(',', $request->amount) as $val){
                     switch($val){
                         case "1":
-                            $query->whereBetween('d_amount', [0, 5000]);
+                            $query->orWhereBetween('d_amount', [0, 5000]);
                             break;
                         case "2":
-                            $query->whereBetween('d_amount', [5001, 10000]);
+                            $query->orWhereBetween('d_amount', [5001, 10000]);
                             break;
                         case "3":
-                            $query->whereBetween('d_amount', [10001, 50000]);
+                            $query->orWhereBetween('d_amount', [10001, 50000]);
                             break;
                         case "4":
-                            $query->whereBetween('d_amount', [50001, 100000]);
+                            $query->orWhereBetween('d_amount', [50001, 100000]);
                             break;
                         case "5":
-                            $query->whereBetween('d_amount', [100001, 300000]);
+                            $query->orWhereBetween('d_amount', [100001, 300000]);
                             break;
                     }
                 }
