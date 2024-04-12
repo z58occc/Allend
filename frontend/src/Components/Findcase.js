@@ -299,15 +299,10 @@ function Findcase() {
         break;
     }
 
-
   }
 
 
-
-
-
   const { type } = useParams();
-
 
 
   useEffect(() => {
@@ -827,7 +822,7 @@ function Findcase() {
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
                       <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
-                        <div>{post.d_name}</div>
+                        <div style={{ marginTop: "10px" }}>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點：{post.country_city}</div>
@@ -835,13 +830,13 @@ function Findcase() {
                       </Link>
                     </Col>
                     <Col xs={6} >
-                      <div >{post.d_description}</div>
+                      <div style={{ marginTop: "10px" }}>{post.d_description}</div>
                     </Col>
                     <Col >
 
                     </Col>
                     <Col xs={1} style={{ backgroundColor: "white" }}>
-                      <div style={{ textAlign: "start", fontSize: "10px", marginTop: "20px" }}>
+                      <div style={{ textAlign: "start", fontSize: "13px", marginTop: "20px" }}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
@@ -863,9 +858,9 @@ function Findcase() {
 
         {/* 我要報價頁面 */}
         <Modal show={show} onHide={close}>
-          <Modal.Header closeButton >
-            <Modal.Title style={{ fontSize: 15 }}>
-              報價表單：
+          <Modal.Header closeButton>
+            <Modal.Title style={{ fontSize: "19px" }} >
+              報價表單
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -908,8 +903,8 @@ function Findcase() {
               </Form.Group>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={() => { handleClose(posts[key]?.did) }}>
+          <Modal.Footer style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button variant="primary" onClick={() => handleClose(posts[key]?.did)}>
               送出
             </Button>
           </Modal.Footer>

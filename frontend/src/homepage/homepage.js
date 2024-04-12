@@ -207,12 +207,12 @@ function Homepage() {
                         ></img>
                       </div>
                       <div className="card-body">
-                        <div>{post.s_name}</div>
-                        <div>${post.s_amount} / 件</div>
+                        <div style={{ fontSize: "17px" }}>{`【${post.s_name}】`}</div>
+                        <div style={{ fontSize: "14px", color: "#FF5151" }}>${post.s_amount} / 件</div>
                         <hr></hr>
-                        <div>{post.name}</div>
+                        <div style={{ fontSize: "15px" }}>{post.name}</div>
                       </div>
-                      <div className="card-footer ">{post.created_at}</div>
+                      <div style={{ fontSize: "12px" }} className="card-footer ">{post.created_at}</div>
                     </Link>
                   </Col>
                 </Row>
@@ -259,7 +259,7 @@ function Homepage() {
 
 
         {/* 接api輪播圖 */}
-        <h4 style={{textAlign: "center"}}>精選作品</h4>
+        <h4 style={{ textAlign: "center" }}>精選作品</h4>
         <div className="d-flex justify-content-center mt-4" >
           <Carousel
             activeIndex={carouselpage}

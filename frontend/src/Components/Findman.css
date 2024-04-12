@@ -1,3 +1,4 @@
 input[type="checkbox"]:checked + label {
     color: orange; /* 这里是你想要的文字颜色 */
   }
+
