@@ -18,12 +18,13 @@ class IFindCaseController extends Controller
         ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at','created_at');
 
         // 選擇地區、案件金額 (以url方式傳參，複選以,隔開)
-        $location = $request->location;
+        $location = explode(',', $request->location);
         $amount = explode(',', $request->amount);
+
         if (!(empty($location) && empty($amount))) {
 
-            if(!empty($location) && DB::table('country')->where('country_city', $location)->exists()){
-                $query->whereIn('country_city',explode(',',$location));
+            if(!empty($location)){
+                $query->whereIn('country_city',$location);
             }
 
             if(!empty($amount)){
