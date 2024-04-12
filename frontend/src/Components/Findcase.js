@@ -341,7 +341,28 @@ function Findcase() {
             }
           })
           .join(",");
+        const budget = Object.keys(budgetstate)
+          .filter((key) => budgetstate[key])
+          .map((key) => {
+            switch (key) {
+              case "五千":
+                return "5千以下";
+              case "一萬":
+                return "5千到1萬";
+              case "五萬":
+                return "1萬到5萬";
+              case "十萬":
+                return "5萬到10萬";
+              case "三十萬":
+                return "10萬到30萬";
 
+              default:
+                break;
+            }
+          })
+          .join(",");
+          setbudgetid(budget);
+          console.log(budgetid);
 
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
@@ -409,7 +430,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [budgetid,orderQuery, durationQuery, type, checkedState, budgetstate])
 
 
 
@@ -874,7 +895,7 @@ function Findcase() {
 
         {/* 目前篩選條件(複選) */}
 
-        <div>目前你的篩選條件是:"{cityid}"</div>
+        <div>目前你的篩選條件是:"{cityid}","{budgetid}"</div>
 
         {/* 目前篩選條件(複選) */}
 
