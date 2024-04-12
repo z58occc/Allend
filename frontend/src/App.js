@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -33,6 +33,7 @@ import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
 
+export const IsLoggedInContext = createContext()
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -327,7 +328,7 @@ function App() {
 
 
   return (
-    <>
+    <IsLoggedInContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <div
         className="p-1"
         style={{
@@ -417,15 +418,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
-        <Route path="/findcase" element={<Findcase></Findcase>}></Route>
-        <Route path="/findcase/:type" element={<Findcase></Findcase>}></Route>
-        <Route path="/findman/:s_type" element={<Findman></Findman>}></Route>
-        <Route path="/findman" element={<Findman></Findman>}></Route>
+        <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
+        <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
-        <Route path="/talent" element={<Talent></Talent>}></Route>
-        <Route path="/talent/:mid" element={<Talent></Talent>}></Route>
+        {/* <Route path="/talent" element={<Talent></Talent>}></Route> */}
+        <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
         <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
@@ -640,7 +639,7 @@ function App() {
           <Button variant="secondary" onClick={() => setShowLogoutMessage(false)}>關閉</Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </IsLoggedInContext.Provider>
   );
 }
 

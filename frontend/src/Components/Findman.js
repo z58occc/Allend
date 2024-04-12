@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { GoTriangleDown } from "react-icons/go";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
+import { IsLoggedInContext } from "../App";
 import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
@@ -12,16 +13,18 @@ import "./Findman.css";
 
 
 const Findman = () => {
+  // 是否登入
+  const {isLoggedIn} = useContext(IsLoggedInContext);
 
-  const [service, setService] = React.useState([]);
+  const [service, setService] = useState([]);
 
-  const [identity, setIdentity] = React.useState({
+  const [identity, setIdentity] = useState({
     personal: false,
     company: false,
     studio: false,
   });
 
-  const [seniority, setSeniority] = React.useState({
+  const [seniority, setSeniority] = useState({
     year1: false,
     year2: false,
     year3: false,
@@ -29,7 +32,7 @@ const Findman = () => {
     year5: false,
   });
 
-  const [country, setCountry] = React.useState({
+  const [country, setCountry] = useState({
     taipei: false,
     newtaipei: false,
     taoyuan: false,
@@ -59,9 +62,9 @@ const Findman = () => {
   // 儲存排序紐顏色
   const [act, setAct] = useState();
 
-  const [sort, setSort] = React.useState({});
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [totalPages, setTotalPages] = React.useState(0);
+  const [sort, setSort] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -156,18 +159,17 @@ const Findman = () => {
           })
           .join(",");
 
-        const sortQuery = Object.keys(sort);
+    const sortQuery = Object.keys(sort);
 
-        const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-          ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type} `
-        );
-        setService(response.data.data);
-
-        setTotalPages(response.data.last_page);
-      } catch (err) {
-        console.error(err);
-      }
+    const response = await axios.get(
+      `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+      ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type} `
+    );
+    setService(response.data.data);
+    setTotalPages(response.data.last_page);
+    } catch (err) {
+      console.error(err);
+    }
     };
     fetchService();
   }, [identity, seniority, country, sort, currentPage, s_type]);
@@ -211,6 +213,7 @@ const Findman = () => {
 
   };
 
+  //
   {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -586,7 +589,7 @@ const Findman = () => {
                         <br></br>
                       </Link></span>
                     <div className="card-footer">
-                      <FaHeart color="red"></FaHeart>
+                      <FaHeart color="red" onClick={() => {(item.sid)}}></FaHeart>
                       <Chatbutton></Chatbutton>
                     </div>
                   </div>

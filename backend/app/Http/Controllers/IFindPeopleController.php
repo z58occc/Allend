@@ -16,6 +16,7 @@ class IFindPeopleController extends Controller
         $country_query = $request->input('country');
         $sort_query = $request->input('sort');
         $type_query = $request->input('s_type');
+
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')

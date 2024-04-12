@@ -21,6 +21,12 @@ class IndexController extends Controller
                         ->select('d_name','d_amount','country_city as d_active_location','did',
                         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'));
 
+        // 搜尋功能
+        if($request->has('did')){
+            $dammand_query->where('d_name', 'like', '%'.$request->input('did').'%');
+        }elseif($request->has('sid')){
+            $query->where('s_name', 'like', '%'.$request->input('sid').'%');
+        }
         // //發案名稱
         // if($request->has('d_name')){
         //     $dammand_query->where('d_name',$request->d_name);
