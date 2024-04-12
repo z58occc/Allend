@@ -34,6 +34,8 @@ nav button {
   background-color: peachpuff;
 }
 
+
+
 .modal-content {
   background-image: url("../src/Components/img/background.jpg");
   background-size: cover;
@@ -49,7 +51,7 @@ nav button {
 .slogan-text {
   font-family: "Noto Sans TC", sans-serif;
   font-size: large;
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .nav-link:hover {
@@ -76,4 +78,19 @@ body::before {
   /* 您可以调整透明度的值 */
   z-index: -1;
   /* 将伪元素置于body内容之后 */
+}
+
+
+.custom-modal .modal-content {
+  border-radius: 8px !important; /* 調整這個值以改變圓角的大小 */ 
+}
+
+.custom-modal .modal-header {
+  border-top-left-radius: 8px!important; 
+  border-top-right-radius: 8px!important; 
+}
+
+.custom-modal .modal-footer {
+  border-bottom-left-radius: 8px!important; 
+  border-bottom-right-radius: 8px!important; 
 }

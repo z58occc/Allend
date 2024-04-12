@@ -382,7 +382,7 @@ function App() {
               <Link
                 to="/findcase"
                 className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black",borderRadius: "8px 0 0 8px" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
              <span className="slogan-text">我要接案</span>
@@ -393,7 +393,7 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black",borderRadius: "0 8px 8px 0" }}
                 onClick={() => handleLinkClick("/findman")}
               >
                <span className="slogan-text">我要找人</span> 
@@ -405,7 +405,7 @@ function App() {
               <Link
                 to={projectFormLink}
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center",borderRadius:"8px" }}
                 onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm") : handleShow}
               >
                 <span className="slogan-text">發案</span> 
@@ -449,7 +449,7 @@ function App() {
 
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered>
+      <Modal show={showLogin} onHide={handleClose} centered  className="custom-modal">
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center" >
@@ -542,6 +542,7 @@ function App() {
         show={showForgotPassword}
         onHide={() => setShowForgotPassword(false)}
         centered
+        className="custom-modal"
       >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center" >忘記密碼 ?</Modal.Title>
@@ -567,7 +568,7 @@ function App() {
       {/* 忘記密碼 */}
 
       {/* 註冊 */}
-      <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
+      <Modal show={showRegister} onHide={() => setShowRegister(false)} centered className="custom-modal">
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center" ><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>
