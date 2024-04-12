@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from "react-bootstrap";
+import InputGroup from 'react-bootstrap/InputGroup';
+import axios from "axios";
+import Cookies from "js-cookie";
 import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
@@ -25,14 +27,11 @@ import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
-import InputGroup from 'react-bootstrap/InputGroup';
 import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
-import axios from "axios";
-import Cookies from "js-cookie";
-
+import "./App.css";
 
 
 function App() {
@@ -156,7 +155,7 @@ function App() {
     navigate('/');
 
   };
-  const handleclickout = () =>{
+  const handleclickout = () => {
     Cookies.remove("token");
     setIsLoggedIn(false);
     setMemberEmail('');
@@ -195,15 +194,15 @@ function App() {
       url: "http://localhost/Allend/backend/public/api/emailverification-notification",
       headers: { Authorization: `Bearer ${Cookies.get("token")}` }
     })
-    .then((res) => {
-      console.log(res.data);
-      setIsVerificationSent(true);
-      setCountdown(60);
-      setIsButtonDisabled(true);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        console.log(res.data);
+        setIsVerificationSent(true);
+        setCountdown(60);
+        setIsButtonDisabled(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -235,7 +234,7 @@ function App() {
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
-  const [rememberEmail, setRememberEmail] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -287,7 +286,7 @@ function App() {
     setShowForgotPassword(true);
   };
 
-  const [Forgetmessage,setForgetmessage] = useState('');
+  const [Forgetmessage, setForgetmessage] = useState('');
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
@@ -358,7 +357,7 @@ function App() {
           {isLoggedIn ? ( // Check if user is logged in
             <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleclickout}>登出</Button>
           ) : (
-            <Button className="slogan-text"  style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
+            <Button className="slogan-text" style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
           )}
           {isLoggedIn && (
             <div className="nav-item">
@@ -368,13 +367,13 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
-                <span style={{ fontSize: '28px'}}>您好，{memberEmail}</span>
+                <span style={{ fontSize: '28px' }}>您好，{memberEmail}</span>
               </Link>
             </div>
           )}
         </div>
       </div>
-      
+
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -382,10 +381,10 @@ function App() {
               <Link
                 to="/findcase"
                 className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black", borderRadius: "8px 0 0 8px" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
-             <span className="slogan-text">我要接案</span>
+                <span className="slogan-text">我要接案</span>
               </Link>
             </li>
 
@@ -393,10 +392,10 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black", borderRadius: "0 8px 8px 0" }}
                 onClick={() => handleLinkClick("/findman")}
               >
-               <span className="slogan-text">我要找人</span> 
+                <span className="slogan-text">我要找人</span>
               </Link>
             </li>
           </ul>
@@ -405,10 +404,10 @@ function App() {
               <Link
                 to={projectFormLink}
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center", borderRadius: "8px" }}
                 onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm") : handleShow}
               >
-                <span className="slogan-text">發案</span> 
+                <span className="slogan-text">發案</span>
               </Link>
             </li>
           </ul>
@@ -450,7 +449,7 @@ function App() {
 
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered>
+      <Modal show={showLogin} onHide={handleClose} centered className="custom-modal">
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center" >
@@ -488,12 +487,12 @@ function App() {
                   <Form.Group className="mb-3">
                     <Form.Check
                       type="checkbox"
-                      id="rememberEmail"
-                      label="Remember Email"
+                      id="rememberPassword"
+                      label="Remember Password"
                       className="mt-2"
                       style={{ color: "#FCFCFC" }}
-                      checked={rememberEmail}
-                      onChange={(e) => setRememberEmail(e.target.checked)}
+                      checked={rememberPassword}
+                      onChange={(e) => setRememberPassword(e.target.checked)}
                     />
                   </Form.Group>
                 </div>
@@ -543,13 +542,14 @@ function App() {
         show={showForgotPassword}
         onHide={() => setShowForgotPassword(false)}
         centered
+        className="custom-modal"
       >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center" >忘記密碼 ?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Email<span style={{padding:'20px',color:"red"}}>{Forgetmessage}</span></Form.Label>
+            <Form.Label>Email<span style={{ padding: '20px', color: "red" }}>{Forgetmessage}</span></Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
@@ -568,7 +568,7 @@ function App() {
       {/* 忘記密碼 */}
 
       {/* 註冊 */}
-      <Modal show={showRegister} onHide={() => setShowRegister(false)} centered>
+      <Modal show={showRegister} onHide={() => setShowRegister(false)} centered className="custom-modal">
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <Modal.Title className="col text-center" ><FaUserPlus />會員註冊</Modal.Title>
         </Modal.Header>

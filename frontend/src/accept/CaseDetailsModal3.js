@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Star2 from './Star2';
 import Cookies from 'js-cookie';
-
-const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
+import { CaseContext } from './MainScreen';
+const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
+  const {fetchData} = useContext(CaseContext);
   //星星數
   const [Star, setStar] = useState(0);
   const handleRatingChange = (rating) => {
@@ -29,6 +30,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
     })
       .then((res) => {
         onHide();
+        fetchData();
         return res.json();
       })
       .then((success) => {

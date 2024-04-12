@@ -1,21 +1,19 @@
-import "../../src/App.css";
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Carousel from "react-bootstrap/Carousel";
-import Footer from "./Footer";
 import { Link } from "react-router-dom";
-import Category from "../Components/Category";
+import Carousel from "react-bootstrap/Carousel";
 import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
-import { FaWpforms } from "react-icons/fa";
-import { FaHandshake } from "react-icons/fa";
+import { FaWpforms, FaHandshake, FaBriefcase } from "react-icons/fa";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { TbBellRinging } from "react-icons/tb";
 import { IoIosPeople } from "react-icons/io";
 import { BsPersonVcard } from "react-icons/bs";
 import { RiDraftLine } from "react-icons/ri";
-import { FaBriefcase } from "react-icons/fa";
+import Footer from "./Footer";
+import Category from "../Components/Category";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../src/App.css";
 import "./homepage.css";
 
 
@@ -209,12 +207,12 @@ function Homepage() {
                         ></img>
                       </div>
                       <div className="card-body">
-                        <div>{post.s_name}</div>
-                        <div>${post.s_amount} / 件</div>
+                        <div style={{ fontSize: "17px" }}>{`【${post.s_name}】`}</div>
+                        <div style={{ fontSize: "14px", color: "#FF5151" }}>${post.s_amount} / 件</div>
                         <hr></hr>
-                        <div>{post.name}</div>
+                        <div style={{ fontSize: "15px" }}>{post.name}</div>
                       </div>
-                      <div className="card-footer ">{post.created_at}</div>
+                      <div style={{ fontSize: "12px" }} className="card-footer ">{post.created_at}</div>
                     </Link>
                   </Col>
                 </Row>
@@ -261,7 +259,7 @@ function Homepage() {
 
 
         {/* 接api輪播圖 */}
-        <h4 style={{textAlign: "center"}}>精選作品</h4>
+        <h4 style={{ textAlign: "center" }}>精選作品</h4>
         <div className="d-flex justify-content-center mt-4" >
           <Carousel
             activeIndex={carouselpage}

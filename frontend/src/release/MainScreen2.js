@@ -1,17 +1,20 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import React, { createContext, useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
+import axios from "axios";
+import Cookies from "js-cookie";
 // import SearchPage from './SearchPage';
+import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
-import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+import Footer from "../homepage/Footer";
+
 export const CaseContext = createContext();
+
+
 const MainScreen2 = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
 
-  
   const handleScreenChange = (screenName) => {
     setActiveScreen(screenName);
   };
@@ -80,6 +83,7 @@ const MainScreen2 = () => {
   console.log(Case);
 
   return (
+    <>
     <CaseContext.Provider value={{ Case, setCase, fetchData }}>
       <Container xxl={12}>
         <Row>
@@ -141,6 +145,8 @@ const MainScreen2 = () => {
         </Row>
       </Container>
     </CaseContext.Provider>
+    <Footer/> 
+    </>
   );
 };
 

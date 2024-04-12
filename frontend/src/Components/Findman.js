@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../homepage/Footer";
-import Category from "./Category2";
-import { GoTriangleDown } from "react-icons/go";
-import NextPage from "../homepage/NextPage";
 import { Link, useParams } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
-import Chatbutton from "./ChatButtom";
-import axios from "axios";
+import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
+import { GoTriangleDown } from "react-icons/go";
+import { FaHeart } from "react-icons/fa";
+import axios from "axios";
+import NextPage from "../homepage/NextPage";
+import Chatbutton from "./ChatButtom";
+import Category from "./Category2";
 import "./Findman.css";
 
 
@@ -56,6 +56,8 @@ const Findman = () => {
 
   const { s_type } = useParams();
 
+  // 儲存排序紐顏色
+  const [act, setAct] = useState();
 
   const [sort, setSort] = React.useState({});
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -195,17 +197,18 @@ const Findman = () => {
 
   const clicksort = (sorttype) => {
     setSort({ [sorttype]: true });
+    setAct(sorttype)
   };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
-   
+
   };
-  
+
 
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
-    
+
   };
 
   {/* 置頂按鈕 */ }
@@ -277,7 +280,7 @@ const Findman = () => {
           {/* 左邊 */}
           <div className="col-sm-2" style={{ marginTop: "10px" }}>
             <br></br>
-            <div style={{ height: "200px", border: "solid", paddingTop: "10px",borderRadius: "5px" }}>
+            <div style={{ height: "200px", border: "solid", paddingTop: "10px", borderRadius: "5px" }}>
               <div style={{ fontSize: "18px" }}>接案人身分</div>
               <hr></hr>
               <input
@@ -307,7 +310,7 @@ const Findman = () => {
             </div>
             <br></br>
             <div
-              style={{ height: "240px", border: "solid", paddingTop: "10px",borderRadius: "5px" }}
+              style={{ height: "240px", border: "solid", paddingTop: "10px", borderRadius: "5px" }}
             ><div style={{ fontSize: "18px" }}>年資</div>
               <hr></hr>
               <input
@@ -353,7 +356,7 @@ const Findman = () => {
             </div>
             <br></br>
             <div
-              style={{ height: "250px", overflowY: "scroll", border: "solid", paddingTop: "10px",borderRadius: "5px" }}
+              style={{ height: "250px", overflowY: "scroll", border: "solid", paddingTop: "10px", borderRadius: "5px" }}
             >
               <div style={{ fontSize: "18px" }}>地點</div>
               <hr></hr>
@@ -545,15 +548,15 @@ const Findman = () => {
           {/* 右邊 */}
           <div className="col-sm-10">
             <div style={{ textAlign: "end" }}>
-              <button onClick={() => clicksort(1)}>
+              <button className={act === 1 ? "active" : ""} onClick={() => clicksort(1)}>
                 作品數
                 <GoTriangleDown />
               </button>
-              <button onClick={() => clicksort(2)}>
+              <button className={act === 2 ? "active" : ""} onClick={() => clicksort(2)}>
                 新服務
                 <GoTriangleDown />
               </button>
-              <button onClick={() => clicksort(3)}>
+              <button className={act === 3 ? "active" : ""} onClick={() => clicksort(3)}>
                 上線時間
                 <GoTriangleDown />
               </button>
@@ -573,14 +576,15 @@ const Findman = () => {
                         style={{ width: 300, height: 200, position: "block" }}
                       />
                     </div>
-                    <Link to={`/talent/${item.mid}`} className="card-body">
-                      服務名稱：{item.s_name}
-                      <br></br>
-                      人才名稱：{item.name}
-                      <br></br>
-                      作品數：{item.ptotal}
-                      <br></br>
-                    </Link>
+                    <span className="sortBtn">
+                      <Link to={`/talent/${item.mid}`} className="card-body">
+                        服務名稱：{item.s_name}
+                        <br></br>
+                        人才名稱：{item.name}
+                        <br></br>
+                        作品數：{item.ptotal}
+                        <br></br>
+                      </Link></span>
                     <div className="card-footer">
                       <FaHeart color="red"></FaHeart>
                       <Chatbutton></Chatbutton>

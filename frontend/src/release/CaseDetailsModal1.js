@@ -1,11 +1,10 @@
-import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-// import axios from 'axios';
-// import Cookies from 'js-cookie';
-import { Modal, Button } from "react-bootstrap";
-import { Form, Row, Col } from "react-bootstrap";
-import { CaseContext } from "./MainScreen2";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import axios from "axios";
 import Cookies from "js-cookie";
+import { CaseContext } from "./MainScreen2";
+
+
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
   //useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Modal, Card } from "react-bootstrap";
 import StarRating from "./StarRating";
-import { Button, Modal } from "react-bootstrap";
+
 
 const FinishedCase = ({ data }) => {
   const [showModal, setShowModal] = useState(false);

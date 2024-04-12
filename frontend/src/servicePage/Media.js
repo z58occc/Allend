@@ -1,24 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row } from "react-bootstrap";
+import Pagination from 'react-bootstrap/Pagination';
+import Cookies from "js-cookie";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
-import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
-import Pagination from 'react-bootstrap/Pagination';
+
+
+
 export const MediaContext = createContext();
+
+
 const Media = ({ data3 }) => {
 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data3;
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(()=>{
+    setSelectedItems(Array.from(CaseData).fill(false));
+  },[data3])
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all
@@ -132,23 +134,24 @@ const Media = ({ data3 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
-
+      <div style={{ width: '100%', background: 'lightpink', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center', 
+      borderRadius: "0 0 10px 10px"}}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            未有紀錄，點此按鈕新增
-          </h1>
-          <Button
-            variant="success"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleShow() }}
-          >
-            新增
-          </Button>
-          <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+          <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <h2>未有影音紀錄，點此按鈕新增</h2>
+            <Button
+              variant="success"
+              size="sm"
+              style={{ fontSize: "15px", width: "100px", height: '55px' }}
+              onClick={() => { handleShow() }}
+            >
+              新增
+            </Button>
+            <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+          </div>
         </div>
-
       </div>
+
     )
   }
   return (
@@ -207,8 +210,9 @@ const Media = ({ data3 }) => {
         </MediaContext.Provider>
         <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
       </div>
-
+      
     </>
+    
   );
 };
 

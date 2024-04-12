@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
-import CaseDetailsModal2 from './CaseDetailsModal2';
+import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
+import CaseDetailsModal2 from './CaseDetailsModal2';
 import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
-import Pagination from 'react-bootstrap/Pagination';
+
+
 export const WorkContext = createContext();
+
 
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data2;
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(() => {
+    setSelectedItems(Array.from(CaseData).fill(false));
+  }, [data2])
   const [checkedAll, setCheckedAll] = useState(false);
   // Handle select all / deselect all
   const handleToggleAll = () => {
@@ -73,9 +73,9 @@ const Work = ({ data2 }) => {
     // 從CaseData中過濾掉已刪除的項目
     const updatedCaseData = CaseData.filter((item, index) => !deletedIndices.includes(index));
 
-    
+
     didOfDeletedData = deletedData.map(item => item.pid);
-    
+
     try {
       const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delwork", {
         method: "POST",
@@ -84,14 +84,14 @@ const Work = ({ data2 }) => {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify
-        (
-          {
-            pid: didOfDeletedData,
-          }
-        ),
+          (
+            {
+              pid: didOfDeletedData,
+            }
+          ),
       });
       console.log(didOfDeletedData)
-      
+
       fetchData();
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
       setSelectedItems(Array(updatedCaseData.length).fill(false));
@@ -135,23 +135,23 @@ const Work = ({ data2 }) => {
 
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightpink', height: '800px' }}>
-
+      <div style={{ width: '100%', background: '#FFC78E', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            未有紀錄，點此按鈕新增
-          </h1>
-          <Button
-            variant="success"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleShow() }}
-          >
-            新增
-          </Button>
-          <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+          <div style={{justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <h3>未有作品紀錄，點此按鈕新增</h3>
+            <Button
+              variant="success"
+              size="sm"
+              style={{ fontSize: "15px", width: "100px", height: '55px' }}
+              onClick={() => { handleShow() }}
+            >
+              新增
+            </Button>
+            <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+          </div>
         </div>
-
       </div>
+
     )
   }
   return (
@@ -204,9 +204,9 @@ const Work = ({ data2 }) => {
         </Row>
 
       </Container>
-      <WorkContext.Provider value={{setSelectedItems, setCheckedAll}}>
+      <WorkContext.Provider value={{ setSelectedItems, setCheckedAll }}>
         <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
-      </WorkContext.Provider> 
+      </WorkContext.Provider>
       <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
     </div>
   );

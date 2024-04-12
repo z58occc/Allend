@@ -1,6 +1,6 @@
 import React from "react";
-import ourLogo from "../homepage/ourLogo.jpg";
 import { Row } from "react-bootstrap";
+import ourLogo from "../homepage/ourLogo.jpg";
 
 function Footer() {
   return (

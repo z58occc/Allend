@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '../homepage/Footer';
-import { CiStar } from "react-icons/ci";
-import Nav from 'react-bootstrap/Nav';
 import { Link, useParams } from 'react-router-dom';
 import Stick from './Stick';
-import { FaFacebook } from "react-icons/fa";
-import { Col, Row ,Image} from 'react-bootstrap';
-import { FaLine } from "react-icons/fa";
+import { Col, Row, Image } from 'react-bootstrap';
 import axios from 'axios';
 import YouTubeEmbed from './youtube';
 import member from '../RatingPage/member.png';
-
-
+import Footer from '../homepage/Footer';
+import { CiStar } from "react-icons/ci";
+import Nav from 'react-bootstrap/Nav';
 
 
 
@@ -78,8 +74,8 @@ function Talent() {
                             </Nav.Item>
                         </Nav>
                         <hr></hr>
-                        <div style={{paddingBottom:"20px"}}>關於</div>
-                        <div id='about' style={{ width: 500, height: 250, fontWeight:"700"}}>
+                        <div style={{ paddingBottom: "20px" }}>關於</div>
+                        <div id='about' style={{ width: 500, height: 250, fontWeight: "700" }}>
                             {talent.member && talent.member[0].about}
                         </div>
                         <hr></hr>
@@ -103,7 +99,7 @@ function Talent() {
                             ))}
 
                         </div>
-                            <hr></hr>
+                        <hr></hr>
                         <div id='video' className='mt-5'>影音</div>
 
                         <div className="row">
@@ -144,18 +140,18 @@ function Talent() {
                         </div>
                         <hr></hr>
                         <div className='mt-5 row'>
-                            <div style={{paddingBottom:'20px'}}>評價({talent.case_complete && talent.case_complete})</div>
+                            <div id='price' style={{ paddingBottom: '20px' }}>評價({talent.case_complete && talent.case_complete})</div>
                             {talent.established_case && talent.established_case.map((item, index) => (
-                                <div style={{  }}>
+                                <div style={{}}>
                                     <div id='price'>
-                                        <span style={{ borderRadius: '10px', padding: '2px',border:'solid 1px' }}>
+                                        <span style={{ borderRadius: '10px', padding: '2px', border: 'solid 1px' }}>
                                             案件</span>
-                                        <span style={{padding:'20px'}}>
+                                        <span style={{ padding: '20px' }}>
                                             {item.c_name}</span>
                                     </div>
                                     <div>
                                         <Row>
-                                            <Col xs lg="1"><Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
+                                            <Col xs lg="1"><Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{ cursor: 'pointer' }} /></Col>
                                             <Col xs lg="10">
                                                 <div style={{ backgroundColor: 'lightblue' }} >
                                                     案主評價：{Array.from({ length: item.demmand_star }, (_, i) => (
@@ -169,9 +165,9 @@ function Talent() {
                                             </Col>
                                         </Row>
                                         <Row className='mt-1' style={{ marginLeft: "50px" }}>
-                                            <Col xs lg="1"><Image src={item.s_avatar === "" ? member : item.s_avatar} roundedCircle width="50" height="50" style={{cursor:'pointer'}}/></Col>
+                                            <Col xs lg="1"><Image src={item.s_avatar === "" ? member : item.s_avatar} roundedCircle width="50" height="50" style={{ cursor: 'pointer' }} /></Col>
                                             <Col xs lg="10">
-                                                <div style={{ padding:"20px" }} >
+                                                <div style={{ padding: "20px" }} >
                                                     接案人留言：{item.service_comment}
                                                     <br></br>
                                                     <div style={{ textAlign: 'right' }}>{item.service_time}</div>
@@ -185,13 +181,13 @@ function Talent() {
 
                             {/* 成交件數 */}
                             <div className='mt-5 row'>
-                                <div style={{paddingBottom:"20px"}}>成交件數({talent.case_member_count})</div>
-                                <div style={{ borderRadius: "5px" , borderWidth: "1px", backgroundColor: "white", paddingBottom:"20px"}}>
+                                <div style={{ paddingBottom: "20px" }}>成交件數({talent.case_member_count})</div>
+                                <div style={{ borderRadius: "5px", borderWidth: "1px", backgroundColor: "white", paddingBottom: "20px" }}>
                                     {talent.case_member && talent.case_member.map((item, index) => (
                                         <div className='mt-4 d-flex' >
-                                            <Col className='col-2' style={{borderRadius: "5px", borderWidth: "1px", padding:"0px" }}><span style={{backgroundColor:"#E0E0E0"}}>{item.c_name}</span></Col>
+                                            <Col className='col-2' style={{ borderRadius: "5px", borderWidth: "1px", padding: "0px" }}><span style={{ backgroundColor: "#E0E0E0" }}>{item.c_name}</span></Col>
 
-                                            <Col className='col-3'>案主：{item.name}</Col><span style={{fontSize:"small",paddingLeft:"10px"}}>{item.completed_time}</span>
+                                            <Col className='col-3'>案主：{item.name}</Col><span style={{ fontSize: "small", paddingLeft: "10px" }}>{item.completed_time}</span>
                                         </div>
                                     ))}
                                 </div>

@@ -531,7 +531,7 @@ class MemberInfoController extends Controller
         if($userId = Auth::id()){
             try{
                 $request->validate([
-                    'did' => 'requierd'
+                    'did' => 'required'
                 ]);
             }catch(ValidationException $exception){
                 return response()->json([
@@ -541,7 +541,7 @@ class MemberInfoController extends Controller
 
             $selectdemmand = $request->input('did');
             try{
-                DB::table('demmand')->whereIn('did',[$selectdemmand])
+                DB::table('demmand')->whereIn('did',$selectdemmand)
                                     ->where('mid',$userId)
                                     ->delete();
 
@@ -701,7 +701,7 @@ class MemberInfoController extends Controller
             }
             try{
                 $del = DB::table('service')
-                ->whereIn('sid',[$request->input('sid')])->where('mid',$userId)
+                ->whereIn('sid',$request->input('sid'))->where('mid',$userId)
                 ->delete();
 
                 return response()->json(['message'=>'刪除服務成功']);
@@ -803,7 +803,7 @@ class MemberInfoController extends Controller
         }
         try{
             $del = DB::table('project')
-            ->whereIn('pid', [$request->input('pid')])->where('mid', $mid)
+            ->whereIn('pid', $request->input('pid'))->where('mid', $mid)
             ->delete();
 
             return response()->json([
@@ -900,7 +900,7 @@ class MemberInfoController extends Controller
 
         try{
             $del = DB::table('video')
-            ->whereIn('vid',[$request->input('vid')])->where('mid',$mid)
+            ->whereIn('vid',$request->input('vid'))->where('mid',$mid)
             ->delete();
             return response()->json([
                 'message' => '刪除影音成功'
@@ -951,6 +951,63 @@ class MemberInfoController extends Controller
                 'service' => $service_collections->get(),
             ]);
         }
+    }
+
+    // 新增收藏
+    public function addCollection(Request $request)
+    {
+        $mid = Auth::id();
+        if ($request->input('did') !== null){
+            try{
+                $request->validate([
+                    'did' => 'required|exists:demmand,did'
+                ]);
+            }catch(ValidationException $exception){
+                return response()->json([
+                    'error' => '未選擇要收藏的案件'
+                ], 422);
+            }
+
+            try{
+                DB::table('collection')->insert([
+                    'did' => $request->input('did'),
+                    'mid' => $mid,
+                    'created_at' => now()
+                ]);
+                return response()->json([
+                    'message' => '收藏成功'
+                ]);
+            }catch (Throwable $err){
+                return response()->json([
+                    'error' => '收藏服務失敗'
+                ], 409);
+            }
+        }elseif($request->input('sid') !== null){
+             try{
+                 $request->validate([
+                     'sid' => 'required|exists:service,sid'
+                 ]);
+             }catch(ValidationException $exception){
+                 return response()->json([
+                     'error' => '未選擇要收藏的服務'
+                 ], 422);
+             }
+             try{
+                DB::table('collection')->insert([
+                    'sid' => $request->input('sid'),
+                    'mid' => $mid,
+                    'created_at' => now()
+                ]);
+                return response()->json([
+                    'message' => '收藏成功'
+                ]);
+            }catch (Throwable $err){
+                return response()->json([
+                    'error' => '收藏服務失敗'
+                ], 409);
+            }
+         }
+
     }
 
     // 取消收藏

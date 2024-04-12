@@ -1,10 +1,14 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import React, { createContext, useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
+import axios from "axios";
+import Cookies from "js-cookie";
 import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+import Footer from '../homepage/Footer';
+
 export const CaseContext = createContext();
+
+
 const MainScreen3 = () => {
   const [Service, setService] = useState({
     service: [
@@ -29,7 +33,7 @@ const MainScreen3 = () => {
         "updated_at": "2024/03/22"
       },
     ],
-    video : [
+    video: [
       {
         "vid": 9,
         "src": "https://www.youtube.com/watch?v=XH3_TXjyhks",
@@ -59,23 +63,26 @@ const MainScreen3 = () => {
   console.log(Service);
 
   return (
-    <CaseContext.Provider value={{ fetchData }}>
-      <Container>
-        <Row>
-          <Col sm={3} style={{ padding: "20px" }}>
-            <LeftVerticalNavbar />
-          </Col>
+    <>
+      <CaseContext.Provider value={{ fetchData }}>
+        <Container>
+          <Row>
+            <Col sm={3} style={{ padding: "20px" }}>
+              <LeftVerticalNavbar />
+            </Col>
 
-          <Col sm={9}>
-            {/* <Container fluid > */}
+            <Col sm={9}>
+              {/* <Container fluid > */}
               <Row>
-                  <Screen1 data={Service}/>
+                <Screen1 data={Service} />
               </Row>
-            {/* </Container> */}
-          </Col>
-        </Row>
-      </Container>
-    </CaseContext.Provider>
+              {/* </Container> */}
+            </Col>
+          </Row>
+        </Container>
+      </CaseContext.Provider>
+      <Footer></Footer>
+    </>
   );
 };
 

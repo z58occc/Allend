@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CardList from './CardList';
 import Pagination from 'react-bootstrap/Pagination';
-// import SearchPage from './SearchPage';
-// import {Button} from 'react-bootstrap';
+import CardList from './CardList';
+
+
 const Screen2 = ({data}) => {
   //頁數控制
   const [active,setActive] = useState(1);
@@ -29,7 +29,7 @@ const Screen2 = ({data}) => {
   
   return (
     
-      <div style={{ width: '100%', height: '100vh', background: 'lightgreen' }}>
+      <div style={{ width: '100%', height: '100vh', background: 'lightgreen',borderRadius: "10px"  }}>
         <CardList visibility= 'hidden' selectedComponent={'component2'} text={"案件詳情"} data1={data} screen={2}></CardList>    
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>
