@@ -210,6 +210,7 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
+    
 
   };
 
@@ -217,8 +218,7 @@ function Findcase() {
 
   const handlechangebudget = (event) => {
     const { name, checked } = event.target;
-    console.log(event.target.checked);
-
+    console.log(event.target)
     setBudgetstate((prevState) => ({
       ...prevState,
       [name]: checked,
