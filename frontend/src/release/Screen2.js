@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CardList from './CardList';
 import Pagination from 'react-bootstrap/Pagination';
-// import SearchPage from './SearchPage';
-// import {Button} from 'react-bootstrap';
+import CardList from './CardList';
+
+
 const Screen2 = ({data}) => {
   //頁數控制
   const [active,setActive] = useState(1);

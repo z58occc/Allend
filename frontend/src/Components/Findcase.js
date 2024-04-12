@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Footer from "../homepage/Footer";
-import Dropdown from "react-bootstrap/Dropdown";
-import { GoCheckbox, GoTriangleDown } from "react-icons/go";
-import "../../src/App.css";
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
-import Cookies from "js-cookie";
-import Pagination from "./Pagination";
-import "./Pagination.css"
+import { GoCheckbox, GoTriangleDown } from "react-icons/go";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
-import "./Findcase.css";
+import axios from "axios";
+import Cookies from "js-cookie";
+import Footer from "../homepage/Footer";
+import Pagination from "./Pagination";
 import Category from "./Category";
+import "./Pagination.css"
+import "../../src/App.css";
+import "./Findcase.css";
 
 
 

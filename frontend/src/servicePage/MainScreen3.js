@@ -1,10 +1,14 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import React, { createContext, useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
+import axios from "axios";
+import Cookies from "js-cookie";
 import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+
+
 export const CaseContext = createContext();
+
+
 const MainScreen3 = () => {
   const [Service, setService] = useState({
     service: [

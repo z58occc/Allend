@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import Pagination from 'react-bootstrap/Pagination';
 // import { CaseProvider } from './CaseContext';
 import CardList from './CardList';
-import Pagination from 'react-bootstrap/Pagination';
 
 
 

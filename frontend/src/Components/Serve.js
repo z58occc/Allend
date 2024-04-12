@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '../homepage/Footer';
-import { CiStar } from "react-icons/ci";
+import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { Link, useParams } from 'react-router-dom';
-import Stick from './Stick';
+import { CiStar } from "react-icons/ci";
 import axios from 'axios';
+import Footer from '../homepage/Footer';
+import Stick from './Stick';
 import "./Serve.css";
 
 

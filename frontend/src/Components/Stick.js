@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaLine } from "react-icons/fa";
+import { FaFacebook, FaLine, FaUserAlt, FaBriefcase } from "react-icons/fa";
 import { CiChat1 } from "react-icons/ci";
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import CopyButton from './CopyButton';
 import { AiFillGitlab } from "react-icons/ai";
-import {  FaUserAlt} from "react-icons/fa";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
-import { FaBriefcase } from "react-icons/fa";
+import CopyButton from './CopyButton';
+import axios from 'axios';
 
 function Stick() {
 

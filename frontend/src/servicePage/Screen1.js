@@ -3,7 +3,6 @@ import React from 'react';
 import Provider from './provider';
 import Work from './Work';
 import Media from './Media';
-import { Container, Row, Col, Nav } from "react-bootstrap";
 
 
 const Screen1 = ({data}) => {

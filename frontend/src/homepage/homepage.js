@@ -1,21 +1,19 @@
-import "../../src/App.css";
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Carousel from "react-bootstrap/Carousel";
-import Footer from "./Footer";
 import { Link } from "react-router-dom";
-import Category from "../Components/Category";
+import Carousel from "react-bootstrap/Carousel";
 import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
-import { FaWpforms } from "react-icons/fa";
-import { FaHandshake } from "react-icons/fa";
+import { FaWpforms, FaHandshake, FaBriefcase } from "react-icons/fa";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { TbBellRinging } from "react-icons/tb";
 import { IoIosPeople } from "react-icons/io";
 import { BsPersonVcard } from "react-icons/bs";
 import { RiDraftLine } from "react-icons/ri";
-import { FaBriefcase } from "react-icons/fa";
+import Footer from "./Footer";
+import Category from "../Components/Category";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../src/App.css";
 import "./homepage.css";
 
 

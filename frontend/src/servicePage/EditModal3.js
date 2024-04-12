@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Form, Row, Col } from "react-bootstrap";
-import { CaseContext } from "./MainScreen3";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import Cookies from "js-cookie";
+import { CaseContext } from "./MainScreen3";
+
+
 const EditModal3 = ({ show, onHide, data, index }) => {
   //useContext from Mainscreen
 

@@ -3,6 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import PayButton from "./paybutton"
+
+
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
   const [selectedCase, setSelectedCase] = useState({

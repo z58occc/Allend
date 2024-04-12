@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import GridComponent from "./GridComponent";
 import Rating from "./Rating";
 import LeftVerticalNavbar from "./LeftVerticalNavbar";
 import Footer from "../homepage/Footer";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Container } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
 
 //會員中心
 function RatingPage() {
