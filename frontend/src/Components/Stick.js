@@ -9,6 +9,8 @@ import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import CopyButton from './CopyButton';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 
 function Stick() {
