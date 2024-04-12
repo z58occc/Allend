@@ -589,7 +589,7 @@ const Findman = () => {
                         <br></br>
                       </Link></span>
                     <div className="card-footer">
-                      <FaHeart color="red" onClick={() => {(item.sid)}}></FaHeart>
+                      <FaHeart color="red" onClick={() => {}}></FaHeart>
                       <Chatbutton></Chatbutton>
                     </div>
                   </div>
