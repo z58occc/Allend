@@ -3,8 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { GoTriangleDown } from "react-icons/go";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import axios from "axios";
+import Cookies from 'js-cookie';
 import { IsLoggedInContext } from "../App";
 import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
@@ -14,7 +15,7 @@ import "./Findman.css";
 
 const Findman = () => {
   // 是否登入
-  const {isLoggedIn} = useContext(IsLoggedInContext);
+  const {isLoggedIn, setIsLoggedIn} = useContext(IsLoggedInContext);
 
   const [service, setService] = useState([]);
 
@@ -67,6 +68,10 @@ const Findman = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
+    if(Cookies.get('token')){
+      setIsLoggedIn(true)
+    }
+
     const fetchService = async () => {
       try {
         const identityQuery = Object.keys(identity)
@@ -160,19 +165,70 @@ const Findman = () => {
           .join(",");
 
     const sortQuery = Object.keys(sort);
+    if (isLoggedIn){
+      const response = await axios.get(
+        `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+        ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`,
+        {headers:{Authorization: `Bearer ${Cookies.get('token')}`}}
+      );
+      setService(response.data.data);
+      setTotalPages(response.data.last_page);
+    }else{
+      const response = await axios.get(
+        `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+        ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+      );
+      setService(response.data.data);
+      setTotalPages(response.data.last_page);
 
-    const response = await axios.get(
-      `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-      ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type} `
-    );
-    setService(response.data.data);
-    setTotalPages(response.data.last_page);
+    }
     } catch (err) {
       console.error(err);
     }
     };
     fetchService();
-  }, [identity, seniority, country, sort, currentPage, s_type]);
+  }, [identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
+
+  // 加入收藏
+  const addServiceCollection = (sid) => {
+    axios({
+      method: "post",
+      url: "http://localhost/Allend/backend/public/api/addcollection",
+      data:{ sid: sid },
+      headers: {Authorization: `Bearer ${Cookies.get('token')}`}
+    })
+    .then((res) => {console.log(res.data);
+      const newData = service.filter((item) => {
+        if(item.sid === sid){
+          item.fid = res.data.fid.fid
+        }
+        return true
+      });
+      setService(newData)
+    })
+    .catch((err) => {console.log(err)})
+  }
+
+  // 取消收藏
+  const cancelServiceCollection = (fid) => {
+    axios({
+      method: 'post',
+      url: "http://localhost/Allend/backend/public/api/delcollection",
+      data: { fid: fid },
+      headers: {Authorization: `Bearer ${Cookies.get('token')}`}
+    })
+    .then((res) => {
+      console.log(res.data);
+      const newData = service.filter((item) => {
+        if(item.fid === fid){
+          item.fid = null
+        }
+        return true
+      });
+      setService(newData)
+    })
+    .catch((err) => {console.log(err)})
+  }
 
   const handleidentityChange = (event) => {
     const { name, checked } = event.target;
@@ -589,7 +645,9 @@ const Findman = () => {
                         <br></br>
                       </Link></span>
                     <div className="card-footer">
-                      <FaHeart color="red" onClick={() => {}}></FaHeart>
+                      {isLoggedIn === true && item.fid
+                      ? <FaHeart color="red" onClick={() => {cancelServiceCollection(item.fid)}} />
+                      : <FaRegHeart onClick={() => {addServiceCollection(item.sid)}} />}
                       <Chatbutton></Chatbutton>
                     </div>
                   </div>

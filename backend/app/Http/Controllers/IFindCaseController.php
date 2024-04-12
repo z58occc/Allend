@@ -109,6 +109,11 @@ class IFindCaseController extends Controller
                 $query->orderBy('created_at', 'desc')->orderBy('did', 'desc');
             }
 
+        // 案件搜索
+        if($request->has('casesearch')){
+            $query->where('d_name', 'like', '%'.$request->input('casesearch').'%');
+        }
+
         $demands = $query->get();
 
         // 案件更新時間

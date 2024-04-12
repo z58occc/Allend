@@ -969,12 +969,25 @@ class MemberInfoController extends Controller
             }
 
             try{
-                DB::table('collection')->insert([
-                    'did' => $request->input('did'),
-                    'mid' => $mid,
-                    'created_at' => now()
-                ]);
+                if(DB::table('collection')->where('did', $request->input('did'))->where('mid', $mid)->exists()){
+                    DB::table('collection')->update([
+                        'collect' => 1,
+                        'created_at' => now()
+                    ]);
+                }else{
+                    DB::table('collection')->insert([
+                        'did' => $request->input('did'),
+                        'mid' => $mid,
+                        'collect' => 1,
+                        'created_at' => now()
+                    ]);
+                }
+                $fid = DB::table('collection')
+                ->where('did', $request->input('did'))->where('mid', $mid)
+                ->select('fid')->first();
+
                 return response()->json([
+                    'fid' => $fid,
                     'message' => '收藏成功'
                 ]);
             }catch (Throwable $err){
@@ -993,12 +1006,25 @@ class MemberInfoController extends Controller
                  ], 422);
              }
              try{
-                DB::table('collection')->insert([
-                    'sid' => $request->input('sid'),
-                    'mid' => $mid,
-                    'created_at' => now()
-                ]);
+                if(DB::table('collection')->where('sid', $request->input('sid'))->where('mid', $mid)->exists()){
+                    DB::table('collection')->update([
+                        'collect' => 1,
+                        'created_at' => now()
+                    ]);
+                }else{
+                    DB::table('collection')->insert([
+                        'sid' => $request->input('sid'),
+                        'mid' => $mid,
+                        'collect' => 1,
+                        'created_at' => now()
+                    ]);
+                }
+                $fid = DB::table('collection')
+                ->where('sid', $request->input('sid'))->where('mid', $mid)
+                ->select('fid')->first();
+
                 return response()->json([
+                    'fid' => $fid,
                     'message' => '收藏成功'
                 ]);
             }catch (Throwable $err){
@@ -1007,7 +1033,6 @@ class MemberInfoController extends Controller
                 ], 409);
             }
          }
-
     }
 
     // 取消收藏
@@ -1016,7 +1041,7 @@ class MemberInfoController extends Controller
         $mid = Auth::id();
         try {
             $request->validate([
-                'fid' => 'required'
+                'fid' => 'required|exists:collection,fid'
             ]);
         }catch (ValidationException $exception){
             return response()->json([
@@ -1025,7 +1050,11 @@ class MemberInfoController extends Controller
         }
 
         try{
-            DB::table('collection')->where('fid', $request->input('fid'))->delete();
+            DB::table('collection')
+            ->where('fid', $request->input('fid'))
+            ->where('mid', $mid)
+            ->update(['collect' => 0]);
+
             return response()->json([
                 'message' => '取消收藏成功'
             ]);

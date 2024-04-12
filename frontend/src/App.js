@@ -326,7 +326,6 @@ function App() {
 
 
 
-
   return (
     <IsLoggedInContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <div
