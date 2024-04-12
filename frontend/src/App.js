@@ -28,10 +28,10 @@ import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
 import MainScreen3 from "./servicePage/MainScreen3";
-import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
+import Search from "./Components/search";
 
 
 function App() {
@@ -439,8 +439,8 @@ function App() {
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
-        <Route path="/test" element={<Test></Test>}></Route>
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        <Route path="/search" element={<Search></Search>}></Route>
       </Routes>
 
 
