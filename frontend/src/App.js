@@ -444,7 +444,7 @@ function App() {
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/search" element={<Search></Search>}></Route>
-        
+
       </Routes>
 
 
@@ -641,7 +641,6 @@ function App() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <h2>註冊成功</h2>
           </div>
-
           <div>
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               <h5>郵件已發送</h5></div>
