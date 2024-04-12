@@ -953,6 +953,61 @@ class MemberInfoController extends Controller
         }
     }
 
+    // 新增收藏
+    public function addCollection(Request $request)
+    {
+        $mid = Auth::id();
+        if ($request->did !== null){
+            try{
+                $request->validate([
+                    'did' => 'required'
+                ]);
+            }catch(ValidationException $exception){
+                return response()->json([
+                    'error' => '未選擇要收藏的案件'
+                ], 422);
+            }
+
+            try{
+                DB::table('ocllection')->insert([
+                    'did' => $request->input('did'),
+                    'mid' => $mid
+                ]);
+                return response()->json([
+                    'message' => '收藏成功'
+                ]);
+            }catch (Throwable $err){
+                return response()->json([
+                    'error' => '收藏服務失敗'
+                ], 409);
+            }
+        }elseif($request->sid !== null){
+             try{
+                 $request->validate([
+                     'sid' => 'required'
+                 ]);
+             }catch(ValidationException $exception){
+                 return response()->json([
+                     'error' => '未選擇要收藏的服務'
+                 ], 422);
+             }
+             try{
+                DB::table('ocllection')->insert([
+                    'sid' => $request->input('sid'),
+                    'mid' => $mid
+                ]);
+                return response()->json([
+                    'message' => '收藏成功'
+                ]);
+            }catch (Throwable $err){
+                return response()->json([
+                    'error' => '收藏服務失敗'
+                ], 409);
+            }
+         }
+
+    }
+
     // 取消收藏
     public function delCollection(Request $request)
     {

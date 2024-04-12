@@ -164,6 +164,8 @@ Route::controller(MemberInfoController::class)->group(function(){
 
     // 獲取我的收藏頁面
     Route::get('/collection', 'getCollection');
+    // 新增收藏
+    Route::post('/addcollection', 'addCollection');
     // 取消收藏
     Route::post('/delcollection', 'delCollection');
 });

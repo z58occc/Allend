@@ -11,15 +11,15 @@ export const DataContext = createContext();
 
 
 const Provider = ({ data1 }) => {
-  
+
   const CaseData = data1;
   const { fetchData } = useContext(CaseContext);
   //
   const [selectedItems, setSelectedItems] = useState([]);
   //
-  useEffect(()=>{
+  useEffect(() => {
     setSelectedItems(Array.from(CaseData).fill(false));
-  },[data1])
+  }, [data1])
   //
   const [checkedAll, setCheckedAll] = useState(false);
   //
@@ -91,7 +91,7 @@ const Provider = ({ data1 }) => {
       });
       console.log(didOfDeletedData)
 
-      
+
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
       // setSelectedItems([false])
       fetchData();
@@ -134,30 +134,30 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
-
+      <div style={{ width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            未有紀錄，點此按鈕新增
-          </h1>
-          <Button
-            variant="success"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleShow() }}
-          >
-            新增
-          </Button>
-          <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <h1>未有紀錄，點此按鈕新增</h1>
+            <Button
+              variant="success"
+              size="sm"
+              style={{ fontSize: "12px", width: "100px", height: '55px' }}
+              onClick={() => { handleShow() }}
+            >
+              新增
+            </Button>
+            <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+          </div>
         </div>
-
       </div>
+
     )
   }
 
   return (
     <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
       <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px'}}>
+        <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
           <Button
             variant="success"
             style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -200,8 +200,8 @@ const Provider = ({ data1 }) => {
                     onChange={() => handleChecked(index)}
                   />
                   <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
-                handleShow1(index);
-              }}>
+                    handleShow1(index);
+                  }}>
                     {item.s_name}
                   </Card.Title>
                 </div>
@@ -216,13 +216,13 @@ const Provider = ({ data1 }) => {
 
 
           ))}
-        <Pagination style={{ justifyContent: "center"}}>{items}</Pagination>
+          <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
         </div>
       </div>
-      <DataContext.Provider value={{setCheckedAll , setSelectedItems}}>
+      <DataContext.Provider value={{ setCheckedAll, setSelectedItems }}>
         <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
       </DataContext.Provider>
-      
+
       <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
     </div>
   );
