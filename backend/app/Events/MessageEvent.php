@@ -16,13 +16,14 @@ class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private  $user ,$message;
+    private  $senderId ,$message ,$receiverId;
     /**
      * Create a new event instance.
      */
-    public function __construct($user, $message)
+    public function __construct($receiverId,$senderId, $message)
     {
-        $this->user = $user;
+        $this->receiverId =$receiverId;
+        $this->senderId = $senderId;
         $this->message = $message;
     }
 
@@ -31,7 +32,8 @@ class MessageEvent implements ShouldBroadcast
         
         return [
             'id'=>Str::orderedUuid(),
-            'user'=>$this->user,
+            'senderId'=>$this->senderId,
+            'receiveuser'=>$this->receiverId,
             'message'=>$this->message,
             'created_at'=>now()->toDateTimeString(),
         ];
@@ -47,8 +49,8 @@ class MessageEvent implements ShouldBroadcast
      */
     public function broadcastOn():Channel
     {
-        $user = Auth::id();
-        return new PrivateChannel('user.'.$user);
+        
+        return new PrivateChannel('private-chat.'.$this->receiverId. '.' .$this->senderId);
         
     }
 }

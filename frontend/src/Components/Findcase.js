@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
-import { GoCheckbox, GoTriangleDown } from "react-icons/go";
+import { GoTriangleDown } from "react-icons/go";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
 import axios from "axios";
@@ -115,11 +115,9 @@ function Findcase() {
 
 
   const [posts, setPosts] = useState([]);
-  const [mycitys, setMycitys] = useState([]);
   const [changeorder, setChangeorder] = useState(false);
   const [messagewarm, setMessagewarm] = useState(false);
   const [amountwarm, setAmountwarm] = useState(false);
-  const [temp, setTemp] = useState([]);
 
 
   const [changecolor1, setChangecolor1] = useState(false);
@@ -205,9 +203,9 @@ function Findcase() {
       連江縣: false,
     });
 
+  const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     const { name, checked } = event.target;
-    console.log(event.target);
     setCheckedState((prevState) => ({
       ...prevState,
       [name]: checked,
@@ -215,15 +213,51 @@ function Findcase() {
 
   };
 
+  const [budgetid, setbudgetid] = useState([]);
 
   const handlechangebudget = (event) => {
     const { name, checked } = event.target;
-    console.log(event.target);
-    setCheckedState((prevState) => ({
+    console.log(event.target.checked);
+
+    setBudgetstate((prevState) => ({
       ...prevState,
       [name]: checked,
     }));
   }
+  const [durationQuery, setDurationQuery] = useState();
+  const handlechangeduration = (duration) => {
+    console.log(duration);
+    switch (duration) {
+      case "短":
+        setDurationQuery("短");
+        break;
+      case "長":
+        setDurationQuery("長");
+        break;
+      case "all":
+        setDurationQuery("");
+        break;
+
+      default:
+        break;
+    }
+
+  }
+  const [orderQuery, setOrderquery] = useState();
+  const handlechangeOrder = (number) => {
+    switch (number) {
+      case 1:
+        setOrderquery(1);
+        break;
+      case 2:
+        setOrderquery(2);
+        break;
+
+      default:
+        break;
+    }
+  }
+
 
 
 
@@ -234,28 +268,6 @@ function Findcase() {
     setCurrentPage(1);
     switch (s) {
 
-      case "updated_at":
-        changeBottomcolorOff();
-        setChangecolorupdated_at(true);
-        setChangecolor4(true);
-        for (let i = 0; i < posts.length; i++) {
-          const x = posts.sort(function (a, b) { return parseInt(a.updated_at) - parseInt(b.updated_at) });
-          setPosts(x);
-        }
-        break;
-
-      case "created_at":
-        changeBottomcolorOff();
-        setChangecolorcreated_at(true);
-        setChangecolor5(true);
-        for (let i = 0; i < posts.length; i++) {
-
-          const x = posts.sort(function (a, b) { return a.created_at < b.created_at ? 1 : -1 });
-          console.log(x);
-          setPosts(x);
-        }
-        console.log(1);
-        break;
 
       case "d_amount":
         changeBottomcolorOff();
@@ -314,13 +326,21 @@ function Findcase() {
           .map((key) => {
             switch (key) {
               case "五千":
-                return
-                break;
+                return 1;
+              case "一萬":
+                return 2;
+              case "五萬":
+                return 3;
+              case "十萬":
+                return 4;
+              case "三十萬":
+                return 5;
 
               default:
                 break;
             }
           })
+          .join(",");
 
 
         const countryQuery = Object.keys(checkedState)
@@ -373,12 +393,14 @@ function Findcase() {
             }
           })
           .join(",");
-        console.log(countryQuery);
+
+
 
         const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}`
+          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
         );
-
+        setCityid(countryQuery);
+        console.log(response.data);
         setPosts(response.data);
 
       } catch (err) {
@@ -387,7 +409,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [type, checkedState])
+  }, [orderQuery, durationQuery, type, checkedState, budgetstate])
 
 
 
@@ -551,6 +573,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   name="台北市"
+                  id="台北市"
                   onChange={handlechangecity}
                 >
                 </input>
@@ -561,6 +584,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="新北市"
+                  id="新北市"
                 >
                 </input>
                 新北市
@@ -570,6 +594,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="桃園市"
+                  id="桃園市"
                 >
                 </input>
                 桃園市
@@ -579,6 +604,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="基隆市"
+                  id="基隆市"
                 >
                 </input>
                 基隆市
@@ -588,6 +614,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="新竹市"
+                  id="新竹市"
                 >
                 </input>
                 新竹市
@@ -597,6 +624,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="新竹縣"
+                  id="新竹縣"
                 >
                 </input>
                 新竹縣
@@ -606,6 +634,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="彰化縣"
+                  id="彰化縣"
                 >
                 </input>
                 彰化縣
@@ -615,6 +644,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="南投縣"
+                  id="南投縣"
                 >
                 </input>
                 南投縣
@@ -624,6 +654,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="雲林縣"
+                  id="雲林縣"
                 >
                 </input>
                 雲林縣
@@ -633,6 +664,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="高雄市"
+                  id="高雄市"
                 >
                 </input>
                 高雄市
@@ -642,6 +674,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="台南市"
+                  id="台南市"
                 >
                 </input>
                 台南市
@@ -651,6 +684,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="嘉義市"
+                  id="嘉義市"
                 >
                 </input>
                 嘉義市
@@ -660,6 +694,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="嘉義縣"
+                  id="嘉義縣"
                 >
                 </input>
                 嘉義縣
@@ -669,6 +704,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="屏東縣"
+                  id="屏東縣"
                 >
                 </input>
                 屏東縣
@@ -678,6 +714,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="宜蘭縣"
+                  id="宜蘭縣"
                 >
                 </input>
                 宜蘭縣
@@ -687,6 +724,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="花蓮縣"
+                  id="花蓮縣"
                 >
                 </input>
                 花蓮縣
@@ -696,6 +734,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="臺東縣"
+                  id="臺東縣"
                 >
                 </input>
                 臺東縣
@@ -705,6 +744,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="澎湖縣"
+                  id="澎湖縣"
                 >
                 </input>
                 澎湖縣
@@ -714,6 +754,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="金門縣"
+                  id="金門縣"
                 >
                 </input>
                 金門縣
@@ -723,6 +764,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangecity}
                   name="連江縣"
+                  id="連江縣"
                 >
                 </input>
                 連江縣
@@ -743,6 +785,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangebudget}
                   name="五千"
+                  id="五千以下"
                 >
                 </input>
                 5千以下
@@ -752,6 +795,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangebudget}
                   name="一萬"
+                  id="五千到一萬"
                 >
                 </input>
                 5千~1萬
@@ -761,6 +805,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangebudget}
                   name="五萬"
+                  id="一萬到五萬"
                 >
                 </input>
                 1萬到5萬
@@ -770,6 +815,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangebudget}
                   name="十萬"
+                  id="五萬到十萬"
                 >
                 </input>
                 5萬到10萬
@@ -779,6 +825,7 @@ function Findcase() {
                   type="checkbox"
                   onChange={handlechangebudget}
                   name="三十萬"
+                  id="十到三十萬  "
                 >
                 </input>
                 10萬到30萬
@@ -791,16 +838,16 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""} onClick={() => fetchData("all")}>全部案件</button>
-          <button className={changecolor2 == true ? "active" : ""} onClick={() => fetchData("短")}>短期案件</button>
-          <button className={changecolor3 == true ? "active" : ""} onClick={() => fetchData("長")}>長期案件</button>
+          <button className={changecolor1 == true ? "active" : ""} onClick={() => handlechangeduration("all")}>全部案件</button>
+          <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
+          <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
 
 
         {/* 右下4顆按鈕 */}
         <div style={{ textAlign: "end" }}>
-          <button className={changecolor4 == true ? "active" : ""} onClick={() => sortData("updated_at")}>最近更新<GoTriangleDown /></button>
-          <button className={changecolor5 == true ? "active" : ""} onClick={() => sortData("created_at")}>最新刊登<GoTriangleDown /></button>
+          <button className={changecolor5 == true ? "active" : ""} onClick={() => handlechangeOrder(1)}>最新刊登<GoTriangleDown /></button>
+          <button className={changecolor4 == true ? "active" : ""} onClick={() => handlechangeOrder(2)}>最近更新<GoTriangleDown /></button>
           <button className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額<GoTriangleDown /></button>
           <button className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數<GoTriangleDown /></button>
         </div>
@@ -812,9 +859,31 @@ function Findcase() {
 
         {/* 案件欄位 */}
 
-        <div className="mt-5" style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}><IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!</div>
+
+
+        {/* 沒有符合條件的資料 */}
+        <div
+          className="mt-5"
+          style={{ display: (posts.length != 0 ? "none" : ""), fontSize: "40px", textAlign: "center" }}>
+          <IoIosSad size={80} color="#002546" />Oops!! 看來目前沒有符合篩選條件的資料喔!
+        </div>
+        {/* 沒有符合條件的資料 */}
+
+
+
+
+        {/* 目前篩選條件(複選) */}
+
+        <div>目前你的篩選條件是:"{cityid}"</div>
+
+        {/* 目前篩選條件(複選) */}
+
+
+
+
+
         <div >
-          {posts.map((post, index) => {
+          {currentPosts.map((post, index) => {
 
             return (
               <div>

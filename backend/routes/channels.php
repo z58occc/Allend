@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Broadcast::channel('user.{id}', function ($user, $id) {
-    $members = DB::table('members')->where('mid', $id)->first();
-    return $members && Auth::id() === $members->mid;
+Broadcast::channel('private-chat.{receiverId}.{senderId}', function ($user, $senderId ,$receiverId) {
+    $members = DB::table('members')->where('mid', $senderId)->value('mid');
+
+    return  Auth::id() === $members->mid;
 });

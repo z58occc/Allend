@@ -10,7 +10,7 @@ import GetQuoteModal from "./GetQuoteModal";
 import Cookies from "js-cookie";
 // import CaseContext from './CaseContext';
 
-const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
+const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermProgress, setSearchTermProgress] = useState('');
@@ -273,8 +273,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
 
               }
 
-              {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.asdemmand_star} ></StarRating></Card.Text >)}
-              {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.demmand_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
+              {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.service_star} ></StarRating></Card.Text >)}
+              {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.service_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
                 <Card.Text>
                   {screen === 3 ? (
@@ -299,7 +299,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 </Card.Text>
               </div>
             </Card.Body>
-            {screen !== 1 ? (
+            {screen === 2 && (
               <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
                 <Button
                   variant="primary"
@@ -317,12 +317,37 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                     handlesetSelectedDataKey(index);
                   }}
                 >
-                  {text}
+                  案件詳情
                 </Button>
               </div>
+            )}
+
+            {screen === 3 && (
+              <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
+                <Button
+                  variant="primary"
+                  key={index}
+                  className="my-2"
+                  style={{
+                    width: item.demmand_comment ? "120px" : "110px",
+                    fontSize: "12px",
+                    whiteSpace: "nowrap",
+                    marginTop: "auto", // 將上方的 margin 設為 auto
+                    marginBottom: "40px", // 調整下方的 margin
+                  }}
+                  onClick={() => {
+                    handleModalShow1();
+                    handlesetSelectedDataKey(index);
+                  }}
+                  disabled={item.demmand_comment ? true : false}
+                >
+                  {item.demmand_comment ? '已提出評論' : '提出評論'}
+                </Button>
+              </div>
+            )}
 
 
-            ) : (
+            {screen === 1 && (
               <div className="d-flex flex-column justify-content-center" >
                 <Button
                   variant="primary"
