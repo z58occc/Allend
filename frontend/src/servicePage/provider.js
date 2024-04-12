@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
+import Footer from '../homepage/Footer';
 
 
 export const DataContext = createContext();
@@ -134,14 +135,15 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+       borderRadius: "10px 10px 0 0" }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h1>未有紀錄，點此按鈕新增</h1>
+          <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <h3>未有案件紀錄，點此按鈕新增</h3>
             <Button
               variant="success"
               size="sm"
-              style={{ fontSize: "12px", width: "100px", height: '55px' }}
+              style={{ fontSize: "15px", width: "100px", height: '55px' }}
               onClick={() => { handleShow() }}
             >
               新增
@@ -225,6 +227,8 @@ const Provider = ({ data1 }) => {
 
       <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
     </div>
+     
+    
   );
 };
 

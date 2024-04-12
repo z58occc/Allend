@@ -155,7 +155,7 @@ function App() {
     navigate('/');
 
   };
-  const handleclickout = () =>{
+  const handleclickout = () => {
     Cookies.remove("token");
     setIsLoggedIn(false);
     setMemberEmail('');
@@ -194,15 +194,15 @@ function App() {
       url: "http://localhost/Allend/backend/public/api/emailverification-notification",
       headers: { Authorization: `Bearer ${Cookies.get("token")}` }
     })
-    .then((res) => {
-      console.log(res.data);
-      setIsVerificationSent(true);
-      setCountdown(60);
-      setIsButtonDisabled(true);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        console.log(res.data);
+        setIsVerificationSent(true);
+        setCountdown(60);
+        setIsButtonDisabled(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -234,7 +234,7 @@ function App() {
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
-  const [rememberEmail, setRememberEmail] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -286,7 +286,7 @@ function App() {
     setShowForgotPassword(true);
   };
 
-  const [Forgetmessage,setForgetmessage] = useState('');
+  const [Forgetmessage, setForgetmessage] = useState('');
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
@@ -357,7 +357,7 @@ function App() {
           {isLoggedIn ? ( // Check if user is logged in
             <Button style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleclickout}>登出</Button>
           ) : (
-            <Button className="slogan-text"  style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
+            <Button className="slogan-text" style={{ height: '70px', width: '140px', borderRadius: '10px', fontSize: '26px' }} onClick={handleShow}>登入/註冊</Button>
           )}
           {isLoggedIn && (
             <div className="nav-item">
@@ -367,13 +367,13 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
-                <span style={{ fontSize: '28px'}}>您好，{memberEmail}</span>
+                <span style={{ fontSize: '28px' }}>您好，{memberEmail}</span>
               </Link>
             </div>
           )}
         </div>
       </div>
-      
+
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -381,10 +381,10 @@ function App() {
               <Link
                 to="/findcase"
                 className={`nav-link ${selectedLink === "/findcase" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black",borderRadius: "8px 0 0 8px" }}
+                style={{ backgroundColor: selectedLink === "/findcase" ? "#D6DAC8" : "#ffcab9", color: "black", borderRadius: "8px 0 0 8px" }}
                 onClick={() => handleLinkClick("/findcase")}
               >
-             <span className="slogan-text">我要接案</span>
+                <span className="slogan-text">我要接案</span>
               </Link>
             </li>
 
@@ -392,10 +392,10 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black",borderRadius: "0 8px 8px 0" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black", borderRadius: "0 8px 8px 0" }}
                 onClick={() => handleLinkClick("/findman")}
               >
-               <span className="slogan-text">我要找人</span> 
+                <span className="slogan-text">我要找人</span>
               </Link>
             </li>
           </ul>
@@ -404,10 +404,10 @@ function App() {
               <Link
                 to={projectFormLink}
                 className={`nav-link ${selectedLink === "/ProjectForm" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center",borderRadius:"8px" }}
+                style={{ backgroundColor: selectedLink === "/ProjectForm" ? "#D6DAC8" : "#ffcab9", color: "black", width: "120px", textAlign: "center", borderRadius: "8px" }}
                 onClick={isLoggedIn ? () => handleLinkClick("/ProjectForm") : handleShow}
               >
-                <span className="slogan-text">發案</span> 
+                <span className="slogan-text">發案</span>
               </Link>
             </li>
           </ul>
@@ -448,7 +448,7 @@ function App() {
 
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered  className="custom-modal">
+      <Modal show={showLogin} onHide={handleClose} centered className="custom-modal">
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center" >
@@ -486,12 +486,12 @@ function App() {
                   <Form.Group className="mb-3">
                     <Form.Check
                       type="checkbox"
-                      id="rememberEmail"
-                      label="Remember Email"
+                      id="rememberPassword"
+                      label="Remember Password"
                       className="mt-2"
                       style={{ color: "#FCFCFC" }}
-                      checked={rememberEmail}
-                      onChange={(e) => setRememberEmail(e.target.checked)}
+                      checked={rememberPassword}
+                      onChange={(e) => setRememberPassword(e.target.checked)}
                     />
                   </Form.Group>
                 </div>
@@ -548,7 +548,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Email<span style={{padding:'20px',color:"red"}}>{Forgetmessage}</span></Form.Label>
+            <Form.Label>Email<span style={{ padding: '20px', color: "red" }}>{Forgetmessage}</span></Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
