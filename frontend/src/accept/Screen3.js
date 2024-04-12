@@ -30,9 +30,9 @@ const Screen3 = ({data}) => {
   return (
     <>
       <div style={{ width: '100%', height: '100vh', background: 'lightyellow' }}>
-      <CardList visibility= 'hidden' selectedComponent={'component3'} text={'提出評論'} data1={data} screen={3}></CardList>
-      <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
-    </div>
+        <CardList visibility= 'hidden' selectedComponent={'component3'} data1={data} screen={3}></CardList>
+        <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
+      </div>
     </>
   );
 };
