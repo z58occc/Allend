@@ -17,7 +17,7 @@ class TalentController extends Controller
         $query = DB::table('members')
                     ->join('identity','iid','=','identity')
                     ->join('country','country_id','=','active_location')
-                    ->select('avatar','name','i_identity','about','fb','line','last_login','country_city')
+                    ->select('avatar','name','i_identity','about','fb','line','last_login','country_city','mid')
                     ->where('mid',$mid);
 
         $case_complete = DB::table('established_case')

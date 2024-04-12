@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Broadcast::channel('user.{id}', function ($user, $id) {
-    $members = DB::table('members')->where('mid', $id)->first();
-    return $members && Auth::id() === $members->mid;
+Broadcast::channel('private-chat.{receiverId}.{senderId}', function ($user, $receiverId, $senderId) {
+    
+    $members = DB::table('members')->where('mid', $senderId)->first();
+
+    return  Auth::user()->mid === $members->mid;
 });

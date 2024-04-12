@@ -12,7 +12,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermProgress, setSearchTermProgress] = useState('');
   const [searchTermCompleted, setSearchTermCompleted] = useState('');
-  const CaseData = data1
+  const CaseData = data1;
   // 控制key回傳對應Modal
 
   const [selectedDataKey, setSelectedDataKey] = useState(0);
