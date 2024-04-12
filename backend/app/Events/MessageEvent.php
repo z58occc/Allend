@@ -47,10 +47,11 @@ class MessageEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn():Channel
+    public function broadcastOn():Array
     {
         
-        return new PrivateChannel('private-chat.'.$this->receiverId. '.' .$this->senderId);
+        return [new PrivateChannel('private-chat.'.$this->receiverId. '.' .$this->senderId),
+                new PrivateChannel('private-chat.'.$this->senderId. '.' .$this->receiverId)];
         
     }
 }

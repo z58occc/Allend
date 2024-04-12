@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { FaFacebook, FaLine, FaUserAlt, FaBriefcase } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import CopyButton from './CopyButton';
 import axios from 'axios';
+
 
 function Stick() {
 
