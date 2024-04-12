@@ -1,4 +1,4 @@
-import React, { useContext, useState, } from "react";
+import React, { useContext, useEffect, useState, } from "react";
 import { Card, Button, Form, } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
@@ -44,18 +44,19 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     setSelectedDataKey(index);
   };
   // 全選功能
+  console.log(data1);
   const [checked, setChecked] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]); //設置selectedItems為空陣列，裡面為被選到的index值
+  const [selectedItems, setSelectedItems] = useState(Array.from(data1).fill(false)); //設置selectedItems為空陣列，裡面為被選到的index值
+  useEffect(()=>{
+    setSelectedItems(Array.from(data1).fill(false))
+  },[data1]);
+  
+  console.log(selectedItems);
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
     newSelectedItems[index] = !newSelectedItems[index];
     setSelectedItems(newSelectedItems);
+    console.log(selectedItems);
     const isAllSelected = newSelectedItems.every((item) => item); //查看newSelectedItems每個是否為true，return 1 or 0
     setChecked(isAllSelected);
   };
@@ -65,9 +66,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     const newSelectedItems = CaseData.map(() => isAllSelected);
     setSelectedItems(newSelectedItems);
   };
-  //刪除
-
-
+  
+//刪除
   const [deletedIndex, setDeletedIndex] = useState([]);
 
   let deletedData = [];
@@ -83,7 +83,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     setDeletedIndex(deletedIndices);
 
     deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
-
+    const updateData = CaseData.filter((item, index) => !deletedIndices.includes(index));
 
     didOfDeletedData = deletedData.map(item => item.did);
 
@@ -100,11 +100,12 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
             did: didOfDeletedData,
           }
         ),
-      });
-      console.log(didOfDeletedData)
-
-      fetchData();
-      setSelectedItems([false])
+      }).then(()=>{
+        fetchData();
+        setSelectedItems(Array.from(data1.length).fill(false));
+      })     
+      console.log(updateData);
+      console.log(selectedItems);
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -256,7 +257,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 className="align-self-center"
                 style={{ marginLeft: "20px", visibility }}
                 checked={selectedItems[index] || false}
-                onChange={() => handleChecked(index)}
+                onChange={() => {handleChecked(index)}}
               />
               {screen === 3
                 ?
