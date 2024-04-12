@@ -135,14 +135,14 @@ const Work = ({ data2 }) => {
 
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightpink', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '100%', background: '#FFC78E', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h1>未有紀錄，點此按鈕新增</h1>
+          <div style={{justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <h3>未有作品紀錄，點此按鈕新增</h3>
             <Button
               variant="success"
               size="sm"
-              style={{ fontSize: "12px", width: "100px", height: '55px' }}
+              style={{ fontSize: "15px", width: "100px", height: '55px' }}
               onClick={() => { handleShow() }}
             >
               新增

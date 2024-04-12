@@ -29,7 +29,7 @@ const Screen2 = ({data}) => {
   
   return (
     
-      <div style={{ width: '100%', height: '100vh', background: 'lightgreen' }}>
+      <div style={{ width: '100%', height: '100vh', background: 'lightgreen',borderRadius: "10px"  }}>
         <CardList visibility= 'hidden' selectedComponent={'component2'} text={"案件詳情"} data1={data} screen={2}></CardList>    
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>

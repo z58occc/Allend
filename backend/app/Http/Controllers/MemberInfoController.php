@@ -957,10 +957,10 @@ class MemberInfoController extends Controller
     public function addCollection(Request $request)
     {
         $mid = Auth::id();
-        if ($request->did !== null){
+        if ($request->input('did') !== null){
             try{
                 $request->validate([
-                    'did' => 'required'
+                    'did' => 'required|exists:demmand,did'
                 ]);
             }catch(ValidationException $exception){
                 return response()->json([
@@ -969,9 +969,10 @@ class MemberInfoController extends Controller
             }
 
             try{
-                DB::table('ocllection')->insert([
+                DB::table('collection')->insert([
                     'did' => $request->input('did'),
-                    'mid' => $mid
+                    'mid' => $mid,
+                    'created_at' => now()
                 ]);
                 return response()->json([
                     'message' => '收藏成功'
@@ -981,10 +982,10 @@ class MemberInfoController extends Controller
                     'error' => '收藏服務失敗'
                 ], 409);
             }
-        }elseif($request->sid !== null){
+        }elseif($request->input('sid') !== null){
              try{
                  $request->validate([
-                     'sid' => 'required'
+                     'sid' => 'required|exists:service,sid'
                  ]);
              }catch(ValidationException $exception){
                  return response()->json([
@@ -992,9 +993,10 @@ class MemberInfoController extends Controller
                  ], 422);
              }
              try{
-                DB::table('ocllection')->insert([
+                DB::table('collection')->insert([
                     'sid' => $request->input('sid'),
-                    'mid' => $mid
+                    'mid' => $mid,
+                    'created_at' => now()
                 ]);
                 return response()->json([
                     'message' => '收藏成功'

@@ -7,6 +7,7 @@ import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
+import Footer from "../homepage/Footer";
 
 export const CaseContext = createContext();
 
@@ -82,6 +83,7 @@ const MainScreen2 = () => {
   console.log(Case);
 
   return (
+    <>
     <CaseContext.Provider value={{ Case, setCase, fetchData }}>
       <Container xxl={12}>
         <Row>
@@ -143,6 +145,8 @@ const MainScreen2 = () => {
         </Row>
       </Container>
     </CaseContext.Provider>
+    <Footer/> 
+    </>
   );
 };
 

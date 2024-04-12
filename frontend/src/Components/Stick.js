@@ -68,7 +68,8 @@ function Stick() {
                                 <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
                             </div>
                             <div className='col-sm-6' >
-                                <div><CiChat1 size={20} />聊聊</div>
+                                <Link to={`/chat/${talent.member?.[0]?.mid}`}>
+                                <div><CiChat1 size={20} />聊聊</div></Link>
                             </div>
                         </div>
                     </div>
