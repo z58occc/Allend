@@ -137,7 +137,7 @@ const Work = ({ data2 }) => {
     return (
       <div style={{ width: '100%', background: '#FFC78E', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <div style={{justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <h3>未有作品紀錄，點此按鈕新增</h3>
             <Button
               variant="success"
@@ -155,60 +155,65 @@ const Work = ({ data2 }) => {
     )
   }
   return (
-    <div style={{ width: '100%', background: 'lightpink ', height: '800px' }}>
-      <Container className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <Row className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <Button
-            variant="success"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleShow() }}
-          >
-            新增
-          </Button>
-          <Button
-            variant="primary"
-            style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
-            onClick={handleToggleAll}
-          >
-            {checkedAll ? "取消全選" : "全選"}
-          </Button>
-          <Button
-            variant="danger"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleDeleted() }}
-          >
-            刪除
-          </Button>
-        </Row>
-        {/* Generate six Cards */}
-        <Row style={{ width: '1000px' }} className='justify-content-center'>
-          {data2.map((item, index) => (
-            <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
-              <Card style={{ width: "240px" }}>
-                <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} />
-                <Card.Body className="d-flex ">
-                  <Card.Title>
-                    <Form.Check
-                      type="checkbox"
-                      checked={selectedItems[index] || false}
-                      onChange={() => handleChecked(index)}
-                      style={{ margin: "0 10px 3px 10px" }}
-                    /> <span style={{ margin: "0 20px" }}>{item.p_name}</span>
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+    <>
+      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
+      <div style={{ width: '100%', background: 'lightpink ', height: '800px',borderRadius:"10px" }}>
+        <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+          <div className="mb-3 d-flex justify-content-around " style={{ width: "100%", height: '50px' }}>
+            <Button
+              variant="success"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleShow() }}
+            >
+              新增
+            </Button>
+            <Button
+              variant="primary"
+              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              onClick={handleToggleAll}
+            >
+              {checkedAll ? "取消全選" : "全選"}
+            </Button>
+            <Button
+              variant="danger"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleDeleted() }}
+            >
+              刪除
+            </Button>
+          </div>
+          {/* Generate six Cards */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Row style={{ width: '1000px',marginTop: "10px" }} >
+              {data2.map((item, index) => (
+                <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
+                  <Card style={{ width: "240px" }}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} />
+                    <Card.Body className="d-flex ">
+                      <Card.Title>
+                        <Form.Check
+                          type="checkbox"
+                          checked={selectedItems[index] || false}
+                          onChange={() => handleChecked(index)}
+                          style={{ margin: "0 10px 3px 10px" }}
+                        /> <span style={{ margin: "0 20px" }}>{item.p_name}</span>
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
 
-          <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
-        </Row>
+              <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+            </Row>
+          </div>
 
-      </Container>
-      <WorkContext.Provider value={{ setSelectedItems, setCheckedAll }}>
-        <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
-      </WorkContext.Provider>
-      <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
-    </div>
+        </div>
+        <WorkContext.Provider value={{ setSelectedItems, setCheckedAll }}>
+          <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
+        </WorkContext.Provider>
+        <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
+      </div>
+    </>
   );
 };
 

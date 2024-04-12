@@ -18,9 +18,9 @@ const Media = ({ data3 }) => {
   const CaseData = data3;
   const [selectedItems, setSelectedItems] = useState([]);
   //
-  useEffect(()=>{
+  useEffect(() => {
     setSelectedItems(Array.from(CaseData).fill(false));
-  },[data3])
+  }, [data3])
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all
@@ -134,8 +134,10 @@ const Media = ({ data3 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-      <div style={{ width: '100%', background: 'lightpink', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center', 
-      borderRadius: "0 0 10px 10px"}}>
+      <div style={{
+        width: '100%', background: 'lightpink', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        borderRadius: "0 0 10px 10px"
+      }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <h2>未有影音紀錄，點此按鈕新增</h2>
@@ -156,10 +158,10 @@ const Media = ({ data3 }) => {
   }
   return (
     <>
-      <div style={{ fontSize: "36px", background: '#F0F0F0' }}>影音</div>
-      <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
-        <div className="d-flex flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
+      <div style={{ width: '100%', background: '#FFC78E', height: '800px',borderRadius:"10px" }}>
+        <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+          <div className="mb-3 d-flex justify-content-around" style={{ width: "800px", height: '50px' }}>
             <Button
               variant="success"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
@@ -184,35 +186,37 @@ const Media = ({ data3 }) => {
             </Button>
           </div>
           {/* Generate six Cards */}
-          <Row style={{ width: '1000px' }}>
-            {data3.map((item, index) => (
-              <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
-                <Card style={{ width: "240px" }}>
-                  <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
-                  <Card.Body className="d-flex flex-column">
-                    <Card.Title>
-                      <Form.Check
-                        type="checkbox"
-                        checked={selectedItems[index] || false}
-                        onChange={() => handleChecked(index)}
-                        style={{ margin: "0 10px 3px 10px" }}
-                      /> <span style={{ margin: "0 20px" }} key={index} onClick={() => handleShow1(index)}>{item.v_name}</span>
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-            <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
-          </Row>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Row style={{ width: '1000px', marginTop: "10px" }}>
+              {data3.map((item, index) => (
+                <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
+                  <Card style={{ width: "240px" }}>
+                    <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
+                    <Card.Body className="d-flex flex-column">
+                      <Card.Title>
+                        <Form.Check
+                          type="checkbox"
+                          checked={selectedItems[index] || false}
+                          onChange={() => handleChecked(index)}
+                          style={{ margin: "0 10px 3px 10px" }}
+                        /> <span style={{ margin: "0 20px" }} key={index} onClick={() => handleShow1(index)}>{item.v_name}</span>
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+              <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+            </Row>
+          </div>
         </div>
-        <MediaContext.Provider value={{setSelectedItems, setCheckedAll}} >
+        <MediaContext.Provider value={{ setSelectedItems, setCheckedAll }} >
           <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
         </MediaContext.Provider>
         <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
       </div>
-      
+
     </>
-    
+
   );
 };
 
