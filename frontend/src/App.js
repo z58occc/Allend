@@ -32,6 +32,9 @@ import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
 import Search from "./Components/search";
+import { TiTickOutline } from "react-icons/ti";
+import { FaRegCircle } from "react-icons/fa";
+
 
 export const IsLoggedInContext = createContext()
 
@@ -327,7 +330,7 @@ function App() {
 
 
   return (
-    <IsLoggedInContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <div
         className="p-1"
         style={{
@@ -439,6 +442,8 @@ function App() {
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        <Route path="/search" element={<Search></Search>}></Route>
+
       </Routes>
 
 
@@ -614,17 +619,39 @@ function App() {
         </Modal.Body>
       </Modal>
 
-
-      <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered>
+      {/* 註冊成功畫面 */}
+      <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered className="custom-modal">
         <Modal.Body>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              {/* 圓圈 */}
+              <FaRegCircle style={{ fontSize: '80px', color: '#79FF79' }} />
+              {/* 勾 */}
+              <div style={{
+                position: 'absolute', // 讓勾能夠被放置在圓圈內
+                top: '50%', // 縱向居中
+                left: '50%', // 橫向居中
+                transform: 'translate(-50%, -50%)', // 將勾放置在圓圈中心
+              }}>
+                <TiTickOutline style={{ color: '#79FF79', fontSize: '60px' }} />
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <h2>註冊成功</h2>
+          </div>
           <div>
-            <h2>郵件已發送</h2>
-            <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p>
-            {countdown > 0 ? (
-              <button disabled>重新發送 ({countdown})</button>
-            ) : (
-              <button onClick={handleResendVerification}>重新發送驗證郵件</button>
-            )}
+            <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+              <h5>郵件已發送</h5></div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p></div>
+            <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+              {countdown > 0 ? (
+                <Button variant="success" disabled>重新發送 ({countdown})</Button>
+              ) : (
+                <Button variant="success" onClick={handleResendVerification}>重新發送驗證郵件</Button>
+              )}
+            </div>
           </div>
         </Modal.Body>
       </Modal>
