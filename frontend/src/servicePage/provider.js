@@ -135,6 +135,7 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
+      
       <div style={{ width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
        borderRadius: "10px 10px 0 0" }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
@@ -157,7 +158,10 @@ const Provider = ({ data1 }) => {
   }
 
   return (
-    <div style={{ width: '100%', background: 'lightblue', height: '800px' }}>
+
+    <>
+    <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
+    <div style={{ width: '100%', background: 'lightblue', height: '800px',borderRadius:"10px" }}>
       <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
         <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
           <Button
@@ -227,7 +231,7 @@ const Provider = ({ data1 }) => {
 
       <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
     </div>
-     
+    </>
     
   );
 };
