@@ -442,6 +442,7 @@ function App() {
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
       </Routes>
 
 

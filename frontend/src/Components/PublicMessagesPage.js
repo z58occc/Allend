@@ -4,13 +4,14 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import Messagebox from './Messagebox';
 import Cookies from "js-cookie";
+import { Link, useParams } from 'react-router-dom';
 export default function PublicMessagesPage() {
 
     const [user,setUser] = useState('');
     const [message,setMessage] = useState('');
     const [messages,setMessages] = useState([]);
-    const [member, setMember] = useState('');
-    
+    const [senderId, setsenderId] = useState('');
+    const {receiverId} = useParams();
     async function handleSendMessage(e){
         e.preventDefault();
 
@@ -19,11 +20,12 @@ export default function PublicMessagesPage() {
             return;
         }
         try{
-            await Axios.post('/new-message', {
+            await Axios.post(`/new-message?receiverId=${receiverId}`, {
                 message:message,},{
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`,
                 },
+                
             });
         }catch(error){
             console.error(error);
@@ -39,7 +41,8 @@ export default function PublicMessagesPage() {
                 Authorization: `Bearer ${Cookies.get("token")}`,
                 },
             });
-            setMember(response.data.mid);
+            setsenderId(response.data.mid);
+            
             } catch (error) {
             console.error('Failed to fetch member email:', error);
             }
@@ -47,35 +50,39 @@ export default function PublicMessagesPage() {
         const token = Cookies.get("token");
         if (token) {
             fetchMember();
+            
         }
 
         Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
-        const echo = new Echo({
-            authEndpoint: 'http://localhost:8000/broadcasting/auth',
-            broadcaster: 'pusher',
-            key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
-            wsHost: 'realtime-pusher.ably.io',
-            wsPort: 443,
-            disableStats: true,
-            encrypted: true,
-            cluster:'eu',
-            auth: {
-                headers: {
-                    Authorization: `Bearer ${Cookies.get("token")}`
-                },
-            },
-        });
+        const subscribeToPrivateChat = () => {
+            if (senderId && receiverId) {
+                const echo = new Echo({
+                    authEndpoint: 'http://localhost:8000/broadcasting/auth',
+                    broadcaster: 'pusher',
+                    key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
+                    wsHost: 'realtime-pusher.ably.io',
+                    wsPort: 443,
+                    disableStats: true,
+                    encrypted: true,
+                    cluster: 'eu',
+                    auth: {
+                        headers: {
+                            Authorization: `Bearer ${Cookies.get("token")}`
+                        },
+                    },
+                });
+                echo.private(`private-chat.${receiverId}.${senderId}`).subscribed(() => {
+                    console.log('Subscribed to private-chat');
+                }).listen('.message.new', (data) => {
+                    setMessages((oldMessages) => [...oldMessages, data]);
+                    console.log(setMessages)
+                });
+            }
+        };
+    
+        subscribeToPrivateChat();
+    },[senderId, receiverId]);
 
-
-        echo.private('user.' + member).subscribed(()=>{
-
-            console.log('Subscribed to private-chat');
-        }).listen('.message.new',(data)=>{
-            setMessages((oldMessages)=>[...oldMessages,data]);
-            setMessage('');
-            console.log(setMessages)
-        });
-    },[member]);
     return (
         <div>
         <div>

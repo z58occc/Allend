@@ -9,7 +9,7 @@ function Messagebox({message}) {
         <div>
             <div>
                 <p>
-                    <b>{message.user}</b>
+                    <b>{message.receiveuser}</b>
                 </p>
                 <p>{message.message}</p>
                 <p>{formatDate(message.createdAt)}</p>

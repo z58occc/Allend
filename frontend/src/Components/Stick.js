@@ -4,7 +4,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaLine } from "react-icons/fa";
 import { CiChat1 } from "react-icons/ci";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import CopyButton from './CopyButton';
 import { AiFillGitlab } from "react-icons/ai";
@@ -71,7 +71,8 @@ function Stick() {
                                 <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
                             </div>
                             <div className='col-sm-6' >
-                                <div><CiChat1 size={20} />聊聊</div>
+                                <Link to={`/chat/${talent.member?.[0]?.mid}`}>
+                                <div><CiChat1 size={20} />聊聊</div></Link>
                             </div>
                         </div>
                     </div>

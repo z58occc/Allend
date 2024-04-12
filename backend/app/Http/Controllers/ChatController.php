@@ -11,8 +11,11 @@ class ChatController extends Controller
 
     public function __invoke(Request $request)
     {
-        $user = Auth::id();
-        event(new MessageEvent($user, $request->message));
-        return 'ok';
+        $senderId = Auth::id();
+        $receiverId = $request->receiverId;
+        event(new MessageEvent($receiverId, $senderId ,$request->message));
+        return response()->json(['receiverId' => $receiverId,
+                                    'senderId' => $senderId,
+                                    'message' => $request->message]);
     }
 }
