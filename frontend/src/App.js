@@ -620,7 +620,7 @@ function App() {
         </Modal.Body>
       </Modal>
 
-
+      {/* 註冊成功畫面 */}
       <Modal show={showVerificationModal} onHide={() => setShowVerificationModal(false)} centered className="custom-modal">
         <Modal.Body>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -641,6 +641,7 @@ function App() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <h2>註冊成功</h2>
           </div>
+
           <div>
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               <h5>郵件已發送</h5></div>
