@@ -1,7 +1,9 @@
-import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
+import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+
+
 function GetQuoteModal({ show, onHide, data }) {
   const {fetchData} = useContext(CaseContext);
   // 同意報價按鈕

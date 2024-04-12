@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const StarRating = ({ rating, width, fontSize }) => {
   const starStyle = {
     display: 'inline-block',

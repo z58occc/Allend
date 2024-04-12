@@ -1,7 +1,9 @@
 import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import Star1 from "./Star1";
 import Cookies from "js-cookie";
+import Star1 from "./Star1";
+
+
 const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
   //星星數
   const [Star , setStar] = useState(0);

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../homepage/Footer";
-import Category from "./Category2";
-import { GoTriangleDown } from "react-icons/go";
-import NextPage from "../homepage/NextPage";
 import { Link, useParams } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
-import Chatbutton from "./ChatButtom";
-import axios from "axios";
+import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
+import { GoTriangleDown } from "react-icons/go";
+import { FaHeart } from "react-icons/fa";
+import axios from "axios";
+import NextPage from "../homepage/NextPage";
+import Chatbutton from "./ChatButtom";
+import Category from "./Category2";
 import "./Findman.css";
 
 

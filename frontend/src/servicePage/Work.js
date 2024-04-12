@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
-import CaseDetailsModal2 from './CaseDetailsModal2';
+import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
+import CaseDetailsModal2 from './CaseDetailsModal2';
 import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
-import Pagination from 'react-bootstrap/Pagination';
+
+
 export const WorkContext = createContext();
+
 
 const Work = ({ data2 }) => {
   console.log(data2);
   // 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data2;
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(()=>{
+    setSelectedItems(Array.from(CaseData).fill(false));
+  },[data2])
   const [checkedAll, setCheckedAll] = useState(false);
   // Handle select all / deselect all
   const handleToggleAll = () => {

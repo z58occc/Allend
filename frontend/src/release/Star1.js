@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './StarRating1.css'; 
 
+
 const Star1 = ({ onRatingChange }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);

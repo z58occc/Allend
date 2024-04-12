@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Button } from "react-bootstrap";
+import axios from 'axios';
+
+
 const ECPayment = ({cName, cId, cAmount}) => {
     const [formData, setFormData] = useState({
         MerchantID: '',

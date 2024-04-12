@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from "react-bootstrap";
+import InputGroup from 'react-bootstrap/InputGroup';
+import axios from "axios";
+import Cookies from "js-cookie";
 import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
@@ -25,14 +27,11 @@ import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
-import InputGroup from 'react-bootstrap/InputGroup';
 import MainScreen3 from "./servicePage/MainScreen3";
 import Test from "./Components/test";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
-import axios from "axios";
-import Cookies from "js-cookie";
-
+import "./App.css";
 
 
 function App() {

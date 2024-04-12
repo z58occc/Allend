@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import CardList from './CardList';
 import Pagination from 'react-bootstrap/Pagination';
+import CardList from './CardList';
+
 
 const Screen3 = ({data}) => {
   //頁數控制

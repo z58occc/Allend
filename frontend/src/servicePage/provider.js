@@ -1,25 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form } from "react-bootstrap";
-import CaseDetailsModal1 from './CaseDetailsModal1';
+import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
+import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
-import Pagination from 'react-bootstrap/Pagination';
+
+
 export const DataContext = createContext();
+
+
 const Provider = ({ data1 }) => {
   
-
   const CaseData = data1;
   const { fetchData } = useContext(CaseContext);
   //
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(()=>{
+    setSelectedItems(Array.from(CaseData).fill(false));
+  },[data1])
+  //
   const [checkedAll, setCheckedAll] = useState(false);
   //
   const [index, setIndex] = useState(0);

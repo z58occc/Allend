@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '../homepage/Footer';
-import { CiStar } from "react-icons/ci";
-import Nav from 'react-bootstrap/Nav';
 import { Link, useParams } from 'react-router-dom';
 import Stick from './Stick';
 import { FaFacebook } from "react-icons/fa";
@@ -9,6 +6,8 @@ import { Col, Row, Image } from 'react-bootstrap';
 import { FaLine } from "react-icons/fa";
 import axios from 'axios';
 import YouTubeEmbed from './youtube';
+import Stick from './Stick';
+import axios from 'axios';
 import member from '../RatingPage/member.png';
 
 

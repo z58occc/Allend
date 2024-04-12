@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Form, Row, Col } from "react-bootstrap";
-import { CaseContext } from "./MainScreen3";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import Cookies from "js-cookie";
+import { CaseContext } from "./MainScreen3";
 import { WorkContext } from "./Work";
+
+
 const CaseDetailsModal2 = ({ show, onHide }) => {
   //useContext from Mainscreen
   // const {setSelectedItems, setCheckedAll} = useContext(WorkContext)

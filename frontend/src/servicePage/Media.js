@@ -1,24 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row } from "react-bootstrap";
+import Pagination from 'react-bootstrap/Pagination';
+import Cookies from "js-cookie";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
-import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
-import Pagination from 'react-bootstrap/Pagination';
+
+
 export const MediaContext = createContext();
+
+
 const Media = ({ data3 }) => {
 
   const { fetchData } = useContext(CaseContext);
   const CaseData = data3;
-  const [selectedItems, setSelectedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  //
+  useEffect(()=>{
+    setSelectedItems(Array.from(CaseData).fill(false));
+  },[data3])
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all

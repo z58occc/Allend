@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import StarRating from './StarRating';
 import { Button, Modal } from 'react-bootstrap';
 
+
 const FinishedCase = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDataKey, setSelectedDataKey] = useState(0);

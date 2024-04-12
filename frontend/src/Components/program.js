@@ -1,11 +1,11 @@
 import React from 'react'
-import Footer from '../homepage/Footer';
-import Category2 from './Category2'
-import { GoTriangleDown } from "react-icons/go";
-import NextPage from '../homepage/NextPage';
 import { Link } from 'react-router-dom';
+import { GoTriangleDown } from "react-icons/go";
 import { CiStar } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
+import NextPage from '../homepage/NextPage';
+import Footer from '../homepage/Footer';
+import Category2 from './Category2'
 import Buttom1 from './Buttom1';
 import Product from '../Components/img/Product.jpg';
 import product2 from './img/product2.jpg';
