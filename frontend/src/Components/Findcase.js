@@ -165,6 +165,21 @@ function Findcase() {
   }
 
 
+  const [budgetstate, setBudgetstate] = React.useState(
+    {
+      五千: false,
+      一萬: false,
+      五萬: false,
+      十萬: false,
+      三十萬: false,
+    }
+  );
+
+
+
+
+
+
 
   const [checkedState, setCheckedState] = React.useState(
     {
@@ -199,6 +214,20 @@ function Findcase() {
     }));
 
   };
+
+
+  const handlechangebudget = (event) => {
+    const { name, checked } = event.target;
+    console.log(event.target);
+    setCheckedState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  }
+
+
+
+
 
 
   const sortData = async (s) => {
@@ -285,6 +314,20 @@ function Findcase() {
     const fetchDataNew = async () => {
 
       try {
+        const budgetQuery = Object.keys(budgetstate)
+          .filter((key) => budgetstate[key])
+          .map((key) => {
+            switch (key) {
+              case "五千":
+                return
+                break;
+
+              default:
+                break;
+            }
+          })
+
+
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
           .map((key) => {
@@ -334,6 +377,7 @@ function Findcase() {
                 return "";
             }
           })
+          .join(",");
         console.log(countryQuery);
 
         const response = await axios.get(
@@ -702,8 +746,8 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  
-                  name="5k"
+                  onChange={handlechangebudget}
+                  name="五千"
                 >
                 </input>
                 5千以下
@@ -711,8 +755,8 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  
-                  name="1w"
+                  onChange={handlechangebudget}
+                  name="一萬"
                 >
                 </input>
                 5千~1萬
@@ -720,8 +764,8 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  
-                  name="5w"
+                  onChange={handlechangebudget}
+                  name="五萬"
                 >
                 </input>
                 1萬到5萬
@@ -729,8 +773,8 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  
-                  name="10w"
+                  onChange={handlechangebudget}
+                  name="十萬"
                 >
                 </input>
                 5萬到10萬
@@ -738,8 +782,8 @@ function Findcase() {
               <div>
                 <input
                   type="checkbox"
-                  
-                  name="30w"
+                  onChange={handlechangebudget}
+                  name="三十萬"
                 >
                 </input>
                 10萬到30萬
