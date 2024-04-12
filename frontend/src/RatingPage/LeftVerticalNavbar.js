@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LeftVerticalNavbar.css';
 import member from './member.png';
+import { FaCamera } from "react-icons/fa";
 
 
 
@@ -40,18 +41,18 @@ const LeftVerticalNavbar = () => {
     const handleSaveImage = () => {
         const avatarFile = new FileReader();
         avatarFile.onload = (e) => {
-          axios({
-            method: "post",
-            url: "http://localhost/Allend/backend/public/api/avatar",
-            data: {image: e.target.result},
-            headers: {Authorization: `Bearer ${Cookies.get('token')}`,'Content-Type': 'multipart/form-data',},
-        })
-        .then((res) => {
-            console.log(res.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            axios({
+                method: "post",
+                url: "http://localhost/Allend/backend/public/api/avatar",
+                data: { image: e.target.result },
+                headers: { Authorization: `Bearer ${Cookies.get('token')}`, 'Content-Type': 'multipart/form-data', },
+            })
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         };
         avatarFile.readAsDataURL(avatar.current.files[0]);
 
@@ -91,43 +92,59 @@ const LeftVerticalNavbar = () => {
     // 獲取頭像、姓名
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const token = Cookies.get("token");
-            const headers = { Authorization: `Bearer ${token}` };
-            const res = await axios.get(
-              "http://localhost/Allend/backend/public/api/avaname",
-              { headers: headers }
-            );
-            const result = await res.data;
-            // const bidata = atob(result[0].image)
+            try {
+                const token = Cookies.get("token");
+                const headers = { Authorization: `Bearer ${token}` };
+                const res = await axios.get(
+                    "http://localhost/Allend/backend/public/api/avaname",
+                    { headers: headers }
+                );
+                const result = await res.data;
+                // const bidata = atob(result[0].image)
 
-            // const bytes = new Uint8Array(bidata.length);
-            // for (let i = 0; i < bidata.length; i++) {
-            //   bytes[i] = bidata.charCodeAt(i);
-            // }
-            // const blob = new Blob([bytes]);
-            // const fileUrl = URL.createObjectURL(blob);
-            // setImageFile(fileUrl);
-            setUsermember({name:result[0].name, image: result[0].image});
-          } catch (err) {
-            console.log(err);
-          }
+                // const bytes = new Uint8Array(bidata.length);
+                // for (let i = 0; i < bidata.length; i++) {
+                //   bytes[i] = bidata.charCodeAt(i);
+                // }
+                // const blob = new Blob([bytes]);
+                // const fileUrl = URL.createObjectURL(blob);
+                // setImageFile(fileUrl);
+                setUsermember({ name: result[0].name, image: result[0].image });
+            } catch (err) {
+                console.log(err);
+            }
         };
         fetchData();
-      }, []);
+    }, []);
 
 
 
 
     return (
-        <Navbar bg="light" variant="light" expand="lg" className="flex-column">
 
-            <div variant="link" className='mt-2' onClick={handleEditmember} >
-                <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/>
-                {/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
+
+
+
+
+        <Navbar bg="light" variant="light" expand="lg" className="flex-column">
+            <div variant="link" className='mt-2' onClick={handleEditmember} style={{ position: 'relative' }}>
+                <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{ cursor: 'pointer' }} />
+                < FaCamera
+                    style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        right: 0,
+                        backgroundColor: 'white',
+                        borderRadius: '50%',
+                        padding: '5px',
+                        cursor: 'pointer',
+                        fontSize: "24px"
+                    }}
+                    onClick={handleEditmember} // 添加点击事件
+                />{/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
-            <div style={{ fontSize: '20px',fontWeight:'800', marginTop:'10px'}}>{usermember.name === "" ? "會員" : usermember.name}</div>
-   
+            <div style={{ fontSize: '20px', fontWeight: '800', marginTop: '10px' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
+
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>修改頭像</Modal.Title>
@@ -163,13 +180,13 @@ const LeftVerticalNavbar = () => {
                                             {index === 1 ? (
                                                 <div className="links-container">
                                                     <Link to="/switch" className="nav-link-no-arrow">資料維護</Link>
-                                                    <br/>
+                                                    <br />
                                                     <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
                                                 </div>
                                             ) : (
                                                 <div className="links-container">
                                                     <Link to="/commit" className="nav-link-no-arrow">發案紀錄</Link>
-                                                    <br/>
+                                                    <br />
                                                     <Link to="/service" className="nav-link-no-arrow">接案紀錄</Link>
                                                 </div>
                                             )}
@@ -179,7 +196,7 @@ const LeftVerticalNavbar = () => {
                             );
                         } else {
                             return (
-                                <Nav.Link key={index} href={item.link} style={{ fontSize: '24px', textAlign:'center' }}>{item.text}</Nav.Link>
+                                <Nav.Link key={index} href={item.link} style={{ fontSize: '24px', textAlign: 'center' }}>{item.text}</Nav.Link>
                             );
                         }
                     })}
