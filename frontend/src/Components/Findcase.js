@@ -29,33 +29,57 @@ function Findcase() {
   // 上/下一頁
 
 
-
   // Modal下面 送資料回去
   const QuoteAmount = useRef();
   const QuoteMessage = useRef();
+
+
+
+
+
+  const [failshow, setFailshow] = useState(false);
+  const [successshow, setSuccessshow] = useState(false);
+  const [success, setSuccess] = useState();
   const sendQuote = async (did, q_amount, q_message) => {
-    try {
-      fetch("http://localhost/Allend/backend/public/api/quote", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-        body: JSON.stringify({
-          did: did,
-          q_amount: q_amount,
-          q_message: q_message
-        })
+
+    fetch("http://localhost/Allend/backend/public/api/quote", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+      body: JSON.stringify({
+        did: did,
+        q_amount: q_amount,
+        q_message: q_message
+      })
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data.message);
+        setSuccess(data.message);
+        setSuccessshow(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log(1);
+        setFailshow(true);
+
       })
 
-    } catch (err) {
-      console.log(err);
-    }
   };
   const close = async () => {
     setShow(false);
     setMessagewarm(false);
     setAmountwarm(false);
+    setFailshow(false);
+    setSuccessshow(false);
   }
 
 
@@ -210,7 +234,7 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
-    
+
 
   };
 
@@ -361,8 +385,8 @@ function Findcase() {
             }
           })
           .join(",");
-          setbudgetid(budget);
-          console.log(budgetid);
+        setbudgetid(budget);
+        console.log(budgetid);
 
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
@@ -430,7 +454,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [budgetid,orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
 
 
@@ -589,7 +613,7 @@ function Findcase() {
         <div style={{ display: "flex" }} >
           <Dropdown >
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
-            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto', minWidth: "130px", padding: "10px" }}>
               <div>
                 <input
                   type="checkbox"
@@ -598,7 +622,7 @@ function Findcase() {
                   onChange={handlechangecity}
                 >
                 </input>
-                台北市
+                &nbsp;&nbsp;台北市
               </div>
               <div>
                 <input
@@ -608,7 +632,7 @@ function Findcase() {
                   id="新北市"
                 >
                 </input>
-                新北市
+                &nbsp;&nbsp;新北市
               </div>
               <div>
                 <input
@@ -618,7 +642,7 @@ function Findcase() {
                   id="桃園市"
                 >
                 </input>
-                桃園市
+                &nbsp;&nbsp;桃園市
               </div>
               <div>
                 <input
@@ -628,7 +652,7 @@ function Findcase() {
                   id="基隆市"
                 >
                 </input>
-                基隆市
+                &nbsp;&nbsp;基隆市
               </div>
               <div>
                 <input
@@ -638,7 +662,7 @@ function Findcase() {
                   id="新竹市"
                 >
                 </input>
-                新竹市
+                &nbsp;&nbsp;新竹市
               </div>
               <div>
                 <input
@@ -648,7 +672,7 @@ function Findcase() {
                   id="新竹縣"
                 >
                 </input>
-                新竹縣
+                &nbsp;&nbsp;新竹縣
               </div>
               <div>
                 <input
@@ -658,7 +682,7 @@ function Findcase() {
                   id="彰化縣"
                 >
                 </input>
-                彰化縣
+                &nbsp;&nbsp;彰化縣
               </div>
               <div>
                 <input
@@ -668,7 +692,7 @@ function Findcase() {
                   id="南投縣"
                 >
                 </input>
-                南投縣
+                &nbsp;&nbsp;南投縣
               </div>
               <div>
                 <input
@@ -678,7 +702,7 @@ function Findcase() {
                   id="雲林縣"
                 >
                 </input>
-                雲林縣
+                &nbsp;&nbsp;雲林縣
               </div>
               <div>
                 <input
@@ -688,7 +712,7 @@ function Findcase() {
                   id="高雄市"
                 >
                 </input>
-                高雄市
+                &nbsp;&nbsp;高雄市
               </div>
               <div>
                 <input
@@ -698,7 +722,7 @@ function Findcase() {
                   id="台南市"
                 >
                 </input>
-                台南市
+                &nbsp;&nbsp;台南市
               </div>
               <div>
                 <input
@@ -708,7 +732,7 @@ function Findcase() {
                   id="嘉義市"
                 >
                 </input>
-                嘉義市
+                &nbsp;&nbsp;嘉義市
               </div>
               <div>
                 <input
@@ -718,7 +742,7 @@ function Findcase() {
                   id="嘉義縣"
                 >
                 </input>
-                嘉義縣
+                &nbsp;&nbsp;嘉義縣
               </div>
               <div>
                 <input
@@ -728,7 +752,7 @@ function Findcase() {
                   id="屏東縣"
                 >
                 </input>
-                屏東縣
+                &nbsp;&nbsp;屏東縣
               </div>
               <div>
                 <input
@@ -738,7 +762,7 @@ function Findcase() {
                   id="宜蘭縣"
                 >
                 </input>
-                宜蘭縣
+                &nbsp;&nbsp;宜蘭縣
               </div>
               <div>
                 <input
@@ -748,7 +772,7 @@ function Findcase() {
                   id="花蓮縣"
                 >
                 </input>
-                花蓮縣
+                &nbsp;&nbsp;花蓮縣
               </div>
               <div>
                 <input
@@ -758,7 +782,7 @@ function Findcase() {
                   id="臺東縣"
                 >
                 </input>
-                臺東縣
+                &nbsp;&nbsp;臺東縣
               </div>
               <div>
                 <input
@@ -768,7 +792,7 @@ function Findcase() {
                   id="澎湖縣"
                 >
                 </input>
-                澎湖縣
+                &nbsp;&nbsp;澎湖縣
               </div>
               <div>
                 <input
@@ -778,7 +802,7 @@ function Findcase() {
                   id="金門縣"
                 >
                 </input>
-                金門縣
+                &nbsp;&nbsp;金門縣
               </div>
               <div>
                 <input
@@ -788,8 +812,9 @@ function Findcase() {
                   id="連江縣"
                 >
                 </input>
-                連江縣
+                &nbsp;&nbsp;連江縣
               </div>
+
             </Dropdown.Menu>
 
           </Dropdown>
@@ -799,7 +824,7 @@ function Findcase() {
           <Dropdown className="mx-5">
             <Dropdown.Toggle id="dropdown-basic">案件金額</Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{ minWidth: "150px", padding: "10px" }}>
 
               <div>
                 <input
@@ -809,7 +834,7 @@ function Findcase() {
                   id="五千以下"
                 >
                 </input>
-                5千以下
+                &nbsp;&nbsp;5千以下
               </div>
               <div>
                 <input
@@ -819,7 +844,7 @@ function Findcase() {
                   id="五千到一萬"
                 >
                 </input>
-                5千~1萬
+                &nbsp;&nbsp;5千~1萬
               </div>
               <div>
                 <input
@@ -829,7 +854,7 @@ function Findcase() {
                   id="一萬到五萬"
                 >
                 </input>
-                1萬到5萬
+                &nbsp;&nbsp;1萬到5萬
               </div>
               <div>
                 <input
@@ -839,7 +864,7 @@ function Findcase() {
                   id="五萬到十萬"
                 >
                 </input>
-                5萬到10萬
+                &nbsp;&nbsp;5萬到10萬
               </div>
               <div>
                 <input
@@ -849,7 +874,7 @@ function Findcase() {
                   id="十到三十萬  "
                 >
                 </input>
-                10萬到30萬
+                &nbsp;&nbsp;10萬到30萬
               </div>
             </Dropdown.Menu>
           </Dropdown>
@@ -946,8 +971,8 @@ function Findcase() {
         </div>
         {/* 案件欄位 */}
 
-        {/* 我要報價頁面 */}
-        <Modal show={show} onHide={close}>
+        {/* 我要報價Modal */}
+        <Modal show={show} onHide={close} >
           <Modal.Header closeButton>
             <Modal.Title style={{ fontSize: "19px" }} >
               報價表單
@@ -999,7 +1024,57 @@ function Findcase() {
             </Button>
           </Modal.Footer>
         </Modal>
-        {/* 我要報價頁面 */}
+
+
+
+
+
+
+
+
+        {/* 我要報價Modal */}
+
+
+
+
+
+
+        {/*報價失敗Modal  */}
+
+        
+          <Modal show={failshow} onHide={close} style={{marginTop:"250px"}}>
+
+            <Modal.Body>
+              <div>報價失敗，請確認帳號是否有登入及驗證</div>
+            </Modal.Body>
+
+          </Modal>
+        {/*報價失敗Modal  */}
+
+
+
+
+        {/*報價成功Modal  */}
+
+        
+          <Modal show={successshow} onHide={close} style={{marginTop:"250px"}}>
+
+            <Modal.Body>
+              <div>{success}</div>
+            </Modal.Body>
+
+          </Modal>
+        {/*報價成功Modal  */}
+
+
+
+
+
+
+
+
+
+
 
         {/* 上/下一頁 */}
         <div className="d-flex  justify-content-center mt-3">

@@ -134,12 +134,11 @@ function CaseContext() {
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
                 <Row className="mt-5">
-                    <Col xs={8} style={{backgroundColor:"#FCFCFC",color:"black",borderRadius:"5px"}}>
-                        <div style={{marginTop:"10px"}}>
-                            案件編號：{posts.did}<br></br>
-                            案件名稱：{posts.d_name}<br></br>
-                            案件類別：{posts.d_type}<br></br>
-                            {posts.updated_at}更新：<br></br>
+                    <Col xs={8} style={{ backgroundColor: "#FCFCFC", color: "black", borderRadius: "5px" }}>
+                        <div style={{ marginTop: "10px" }}>
+                            <div>案件編號：{posts.did}</div>
+                            <div>案件名稱：{posts.d_name}</div>
+                            <div>案件類別：{posts.d_type}</div>
                             <ul>
                                 <li>預算金額：{posts.d_amount}/{posts.d_unit}</li>
                                 <li>地點：{posts.d_active_location}</li>
@@ -148,28 +147,31 @@ function CaseContext() {
                             </ul>
                         </div>
                         <div className='mt-5'>
-                            <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
+                            <div style={{ position: "absolute", right: "30px", bottom: "0px" }}>更新時間:{posts.updated_at}</div>
                         </div>
 
                     </Col>
                     <Col xs={2}></Col>
-                    <Col xs={2} style={{border:"solid" , borderRadius:"5px"}}>
+                    <Col xs={2} style={{ border: "solid", borderRadius: "5px" }}>
                         <div  >
-                            <div style={{marginTop:"5px"}}>案主資訊</div>
+                            <div style={{ marginTop: "5px" }}>案主資訊</div>
                             <hr></hr>
                             <div>
-                            <img style={{ width: "60px" }} src={members.avatar}></img></div>
+                                <img style={{ width: "60px" }} src={members.avatar}></img></div>
                             <div>{members.name}</div>
-                            <div style={{marginTop:"5px"}}>服務星數{service_star_avg}</div>
-                            <div style={{ color: "yellow",marginTop:"5px" }}><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></div>
-                            <div style={{marginTop:"5px"}}>最後上線時間：{members.last_login}</div>
+                            <div >
+                                評價:&nbsp;
+                                {Array.from({ length: service_star_avg }, (_, i) => (<FaStar key={i} className="mb-1" style={{ color: "yellow" }} />))}
+                            </div>
+                            <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
                                 <FaHeart size={25} style={{ color: 'red' }} />
-                                <Button style={{marginLeft:"30px"}} onClick={handleShow}>我要報價</Button>
+                                <Button style={{ marginLeft: "30px" }} onClick={handleShow}>我要報價</Button>
                             </div>
                         </div>
                     </Col>
                 </Row>
+                <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
 
 
 
