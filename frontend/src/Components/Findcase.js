@@ -339,6 +339,9 @@ function Findcase() {
 
 
   const { type } = useParams();
+  console.log(type);
+  const { casesearch } = useParams();
+  console.log(casesearch);
 
 
   useEffect(() => {
@@ -442,7 +445,7 @@ function Findcase() {
 
 
         const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}&casesearch=${casesearch}`
         );
         setCityid(countryQuery);
         console.log(response.data);
@@ -454,7 +457,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [casesearch,budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
 
 

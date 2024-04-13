@@ -11,7 +11,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
-import Homepage from "./homepage/Homepage";
+import Homepage from "./homepage/homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
@@ -27,9 +27,10 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
-import Search from "./Components/search";
 import { TiTickOutline } from "react-icons/ti";
 import { FaRegCircle } from "react-icons/fa";
+import Dropdown from "react-bootstrap/Dropdown";
+
 
 
 export const IsLoggedInContext = createContext()
@@ -322,15 +323,23 @@ function App() {
   const handleLinkClick = (path) => {
     setSelectedLink(path);
   };
+  const [inputvalue, setInputvalue] = useState("")
+  const [togglename, setTogglename] = useState("找案件");
+  console.log(inputvalue);
 
-
-
+  const handleInputChange = (event) => {
+    console.log(event.target.value);
+    setInputvalue(event.target.value);
+  }
+  const search = () => {
+    setInputvalue(inputvalue);
+  }
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <div
         className="p-1"
         style={{
-          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B, #ffdab9,#ffcab9)",
+          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B, #ffdab9,#ffcab9)", zIndex: 100
         }}
       >
         <Link to="/">
@@ -345,10 +354,22 @@ function App() {
 
           {/* 搜索框 */}
           <div style={{ display: 'flex', alignItems: 'center', maxWidth: '700px' }}>
-            <input type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
-            <button type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
-              <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
-            </button>
+            <input onChange={handleInputChange} defaultValue={inputvalue} type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
+            <Dropdown drop="end">
+              <Dropdown.Toggle id="dropdown-basic">{togglename}</Dropdown.Toggle>
+              <Dropdown.Menu >
+                <div >
+                  <button onClick={() => setTogglename("找案件")} style={{ fontSize: "25px" }} >找案件</button>
+                  <button onClick={() => setTogglename("找服務")} style={{ fontSize: "25px" }}>找服務</button>
+                </div>
+
+              </Dropdown.Menu>
+            </Dropdown>
+            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : "/findman"}>
+              <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
+                <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
+              </button>
+            </Link>
           </div>
           {/* 搜索框 */}
 
@@ -372,7 +393,6 @@ function App() {
           )}
         </div>
       </div>
-
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -416,7 +436,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
-        <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
+        <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route exact path="/serve/:mid?/:sid?" element={<Serve></Serve>}></Route>
@@ -432,7 +452,6 @@ function App() {
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
-        <Route path="/search" element={<Search></Search>}></Route>
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
       </Routes>
 
