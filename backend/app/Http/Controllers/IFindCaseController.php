@@ -22,31 +22,36 @@ class IFindCaseController extends Controller
         $amount = $request->input('amount');
         if (!(empty($location) && empty($amount))) {
 
-            if(!empty($location) && DB::table('country')->whereIn('country_city', explode(',', $request->location))->exists()){
-                $query->whereIn('country_city',explode(',', $request->location));
+            if(!empty($location) && DB::table('country')->whereIn('country_city', explode(',', $location))->exists()){
+                $query->whereIn('country_city',explode(',', $location));
             }
 
             if(!empty($amount)){
-                foreach(explode(',', $request->amount) as $val){
-                    switch($val){
-                        case "1":
-                            $query->orWhereBetween('d_amount', [0, 5000]);
-                            break;
-                        case "2":
-                            $query->orWhereBetween('d_amount', [5001, 10000]);
-                            break;
-                        case "3":
-                            $query->orWhereBetween('d_amount', [10001, 50000]);
-                            break;
-                        case "4":
-                            $query->orWhereBetween('d_amount', [50001, 100000]);
-                            break;
-                        case "5":
-                            $query->orWhereBetween('d_amount', [100001, 300000]);
-                            break;
+                $query->where(function ($query) use ($amount){
+                    foreach(explode(',', $amount) as $val){
+                        switch($val){
+                            case "1":
+                                $query->orWhereBetween('d_amount', [0, 5000]);
+                                break;
+                            case "2":
+                                $query->orWhereBetween('d_amount', [5001, 10000]);
+                                break;
+                            case "3":
+                                $query->orWhereBetween('d_amount', [10001, 50000]);
+                                break;
+                            case "4":
+                                $query->orWhereBetween('d_amount', [50001, 100000]);
+                                break;
+                            case "5":
+                                $query->orWhereBetween('d_amount', [100001, 300000]);
+                                break;
+                        }
                     }
                 }
+            );
             }
+            return $query->get();
+
         }
 
         // 期程 (短、長)

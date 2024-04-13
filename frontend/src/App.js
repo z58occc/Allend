@@ -334,7 +334,7 @@ function App() {
     setInputvalue(inputvalue);
   }
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow }}>
       <div
         className="p-1"
         style={{
@@ -444,7 +444,7 @@ function App() {
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
-        <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
+        <Route path="/casecontext/:id" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import { Row, Col, Modal, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
 import { FaWpforms, FaHandshake, FaBriefcase } from "react-icons/fa";
 import { AiOutlineArrowUp } from "react-icons/ai";
@@ -14,7 +14,7 @@ import Footer from "./Footer";
 import Category from "../Components/Category";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../src/App.css";
-import "./homepage.css";
+import "./Homepage.css";
 
 
 function Homepage() {
@@ -146,19 +146,19 @@ function Homepage() {
         <div><Category></Category></div>
 
         {/* 新手教學 */}
-        <h4>新手教學</h4>
+        <h4 className="mt-5">新手教學</h4>
         <section className="adbar-section mt-4">
           <div className="container-lg container-pad">
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
-              <div className="col-3 l" style={{ textAlign: 'center' }}>
+              <div className="col-3" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: "#FF9797" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
                 <p>為你篩選適合人才</p>
               </div>
-              <div className="col-3 " style={{ textAlign: 'center' }}>
+              <div className="col-3" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: "#FF9797" }}>刊登服務<FaWpforms style={{ fontSize: '50px' }} /></h4>
                 <p>上架您的案件</p>
               </div>
-              <div className="col-3 " style={{ textAlign: 'center' }}>
+              <div className="col-3" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: "#FF9797" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
                 <p>找人才輕鬆無壓力</p>
               </div>
@@ -174,11 +174,11 @@ function Homepage() {
 
         {/* 最新服務 */}
         <h4 className="mt-5">最新服務</h4>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="d-flex justify-content-center">
           <div className="posts-container" style={{ display: "flex" }}>
             {newService.map((post, index) => {
               return (
-                <Row key={index} style={{ margin: "48px" }}>
+                <Row key={index} style={{ margin: "30px" }}>
                   <Col style={{ flexGrow: 1 }}>
                     <Link
                       to={`./serve/${post.mid}/${post.sid}`}
@@ -213,15 +213,14 @@ function Homepage() {
         {/* 最新服務 */}
 
 
-
         {/* 最新刊登 */}
-        <h4>最新刊登</h4>
+        <h4 className="mt-3">最新刊登</h4>
         <div className="row mt-3" >
           <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ display: "flex" }}>
               {newPublish.map((post, index) => {
                 return (
-                  <Row key={index} style={{ margin: "12px" }}>
+                  <Row key={index} style={{ margin: "30px 32px 30px 32px" }}>
                     <Col>
                       <Link to={`./casecontext/?${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
                         <div className="toast show ">

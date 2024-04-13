@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,  } from "react-router-dom";
 import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { GoTriangleDown } from "react-icons/go";
@@ -16,7 +16,7 @@ import styles from "./Findman.module.css";
 
 const Findman = () => {
   // 是否登入
-  const {isLoggedIn, setIsLoggedIn} = useContext(IsLoggedInContext);
+  const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
   // 儲存撈回來的資料
   const [service, setService] = useState([]);
 
@@ -632,7 +632,7 @@ const Findman = () => {
                       <div>
                         {isLoggedIn === true && item.fid
                         ? <FaHeart className={styles.faheart} onClick={() => {cancelServiceCollection(item.fid)}} />
-                        : <FaRegHeart className={styles.faregheart} onClick={() => {addServiceCollection(item.sid)}} />}
+                        : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => {addServiceCollection(item.sid)} : handleShow} />}
                       </div>
                       <Chatbutton />
                     </div>

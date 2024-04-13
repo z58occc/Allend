@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -11,17 +11,13 @@ import Cookies from "js-cookie";
 import Footer from "../homepage/Footer";
 import Pagination from "./Pagination";
 import Category from "./Category";
-import "./Pagination.css"
 import "../../src/App.css";
+import "./Pagination.css"
 import "./Findcase.css";
 
 
 
 function Findcase() {
-
-
-
-
 
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,9 +28,6 @@ function Findcase() {
   // Modal下面 送資料回去
   const QuoteAmount = useRef();
   const QuoteMessage = useRef();
-
-
-
 
 
   const [failshow, setFailshow] = useState(false);
@@ -70,9 +63,7 @@ function Findcase() {
         console.log(error);
         console.log(1);
         setFailshow(true);
-
       })
-
   };
   const close = async () => {
     setShow(false);
@@ -83,10 +74,8 @@ function Findcase() {
   }
 
 
-
   // 送出報價按鈕
   const handleClose = async (d) => {
-
     const q_amount = QuoteAmount.current.value;
     const q_message = QuoteMessage.current.value;
     setShow(false);
@@ -127,8 +116,6 @@ function Findcase() {
   // Modal上面
   const [key, setkey] = useState(0);
   const [show, setShow] = useState(false);
-
-
 
   const handleShow = (index) => {
     setShow(true);
@@ -819,9 +806,7 @@ function Findcase() {
                 </input>
                 &nbsp;&nbsp;連江縣
               </div>
-
             </Dropdown.Menu>
-
           </Dropdown>
 
 
@@ -924,8 +909,15 @@ function Findcase() {
 
 
         {/* 目前篩選條件(複選) */}
+        <div>
+        {cityid.length > 0 || budgetid.length > 0
+        ? <>目前你的篩選條件是：<br/>
+            {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment> }<br/>
+            {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
+          </>
+        : null}
+        </div>
 
-        <div>目前你的篩選條件是:"{cityid}","{budgetid}"</div>
 
         {/* 目前篩選條件(複選) */}
 
@@ -935,13 +927,12 @@ function Findcase() {
 
         <div >
           {currentPosts.map((post, index) => {
-
             return (
               <div>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
-                      <Link to={`/casecontext/?${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
+                      <Link to={`/casecontext/${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
                         <div style={{ marginTop: "10px" }}>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
@@ -1045,9 +1036,7 @@ function Findcase() {
 
 
         {/*報價失敗Modal  */}
-
-
-        <Modal show={failshow} onHide={close} style={{ marginTop: "250px" }}>
+          <Modal show={failshow} onHide={close} style={{marginTop:"250px"}}>
 
           <Modal.Body>
             <div>報價失敗，請確認帳號是否有登入及驗證</div>
@@ -1060,9 +1049,7 @@ function Findcase() {
 
 
         {/*報價成功Modal  */}
-
-
-        <Modal show={successshow} onHide={close} style={{ marginTop: "250px" }}>
+          <Modal show={successshow} onHide={close} style={{marginTop:"250px"}}>
 
           <Modal.Body>
             <div>{success}</div>
