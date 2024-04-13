@@ -180,7 +180,6 @@ const Findman = () => {
       );
       setService(response.data.data);
       setTotalPages(response.data.last_page);
-
     }
     } catch (err) {
       console.error(err);
@@ -198,12 +197,7 @@ const Findman = () => {
       headers: {Authorization: `Bearer ${Cookies.get('token')}`}
     })
     .then((res) => {console.log(res.data);
-      const newData = service.filter((item) => {
-        if(item.sid === sid){
-          item.fid = res.data.fid.fid
-        }
-        return true
-      });
+      const newData = service.map((item) => item.sid === sid ? {...item, fid: res.data.fid.fid} : item);
       setService(newData)
     })
     .catch((err) => {console.log(err)})
@@ -219,12 +213,7 @@ const Findman = () => {
     })
     .then((res) => {
       console.log(res.data);
-      const newData = service.filter((item) => {
-        if(item.fid === fid){
-          item.fid = null
-        }
-        return true
-      });
+      const newData = service.map((item) => item.fid === fid ? {...item, fid:null} : item);
       setService(newData)
     })
     .catch((err) => {console.log(err)})

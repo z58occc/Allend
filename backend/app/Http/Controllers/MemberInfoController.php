@@ -970,7 +970,10 @@ class MemberInfoController extends Controller
 
             try{
                 if(DB::table('collection')->where('did', $request->input('did'))->where('mid', $mid)->exists()){
-                    DB::table('collection')->update([
+                    DB::table('collection')
+                    ->where('did', $request->input('did'))
+                    ->where('mid', $mid)
+                    ->update([
                         'collect' => 1,
                         'created_at' => now()
                     ]);
@@ -1007,7 +1010,10 @@ class MemberInfoController extends Controller
              }
              try{
                 if(DB::table('collection')->where('sid', $request->input('sid'))->where('mid', $mid)->exists()){
-                    DB::table('collection')->update([
+                    DB::table('collection')
+                    ->where('sid', $request->input('sid'))
+                    ->where('mid', $mid)
+                    ->update([
                         'collect' => 1,
                         'created_at' => now()
                     ]);
@@ -1061,7 +1067,7 @@ class MemberInfoController extends Controller
         }catch (Throwable $err){
             return response()->json([
                 'error' => '取消收藏失敗'
-            ]);
+            ], 409);
         }
     }
 }
