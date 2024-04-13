@@ -430,10 +430,10 @@ function App() {
         <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
-        <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
+        {/* <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
         <Route path="/word" element={<Word></Word>}></Route>
         <Route path="/pro" element={<Pro></Pro>}></Route>
-        <Route path="/program" element={<Program></Program>}></Route>
+        <Route path="/program" element={<Program></Program>}></Route> */}
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
