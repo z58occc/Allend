@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import Stick from './Stick';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Col, Row, Image } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import { CiStar } from "react-icons/ci";
 import axios from 'axios';
-import YouTubeEmbed from './youtube';
 import member from '../RatingPage/member.png';
 import Footer from '../homepage/Footer';
-import { CiStar } from "react-icons/ci";
-import Nav from 'react-bootstrap/Nav';
+import YouTubeEmbed from './youtube';
+import Stick from './Stick';
 
 
 
 function Talent() {
     const { mid } = useParams();
     const [talent, setTalent] = useState([]);
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchtalent = async () => {
             try {
                 const respone = await axios.get(`http://localhost/Allend/backend/public/api/talent?mid=${mid}`);
                 setTalent(respone.data);
             } catch (err) {
-                console.error(err);
+                if(err.response.status === 404){
+                    navigate('/')
+                }
             }
         };
         fetchtalent();
@@ -35,7 +39,6 @@ function Talent() {
 
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
                     <link
                         rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -47,8 +50,8 @@ function Talent() {
                         }}
                     />
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
                 </div>
+                
                 <div className='row mt-5 p-5'>
                     <div className='col-sm-2 ' >
                         <div style={{ position: '-webkit-sticky', top: 0 }}>

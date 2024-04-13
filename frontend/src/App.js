@@ -20,10 +20,6 @@ import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
 import Switch from "../src/Components/page/Member/Switch";
 import Fix from "./Components/page/Member/fix";
-import Softdesign from "./Components/softdesign"
-import Word from "./Components/word";
-import Pro from "./Components/pro";
-import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
@@ -425,15 +421,10 @@ function App() {
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route path="/serve" element={<Serve></Serve>}></Route>
         <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
-        {/* <Route path="/talent" element={<Talent></Talent>}></Route> */}
         <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
         <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
-        {/* <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
-        <Route path="/word" element={<Word></Word>}></Route>
-        <Route path="/pro" element={<Pro></Pro>}></Route>
-        <Route path="/program" element={<Program></Program>}></Route> */}
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
         <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
         <Route path="/service" element={<MainScreen></MainScreen>}></Route>
@@ -443,7 +434,7 @@ function App() {
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/search" element={<Search></Search>}></Route>
-
+        {/* <Route path="*" element={<Homepage></Homepage>}></Route> */}
       </Routes>
 
 

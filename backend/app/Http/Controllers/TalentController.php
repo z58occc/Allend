@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class TalentController extends Controller
 {
     public function __invoke(Request $request)
     {
+        try{
+            $request->validate([
+                'mid' => 'exists:members,mid'
+            ]);
+        }catch (ValidationException $exception){
+            abort(404);
+        }
         // 人才頁面
         $mid = $request->input('mid');
         $sid = $request->input('sid');
