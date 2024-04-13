@@ -5,9 +5,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import Cookies from "js-cookie";
-import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
+import { FaUser, FaUserLock, FaLock, FaRegCircle } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
+import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
@@ -26,11 +27,8 @@ import MainScreen2 from "./release/MainScreen2";
 import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
+import Search from "./Components/search";
 import "./App.css";
-import { TiTickOutline } from "react-icons/ti";
-import { FaRegCircle } from "react-icons/fa";
-import Dropdown from "react-bootstrap/Dropdown";
-
 
 
 export const IsLoggedInContext = createContext()
