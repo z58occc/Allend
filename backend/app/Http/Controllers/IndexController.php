@@ -27,7 +27,7 @@ class IndexController extends Controller
                         ->select('members.mid', 'name','image');
 
         $Date_response = [
-            'service' => $query->orderBy('created_at','desc')->orderBy('sid', 'desc')->limit(3)->get(),
+            'service' => $query->orderBy('created_at','desc')->orderBy('sid', 'desc')->limit(4)->get(),
             'demmand'=>$dammand_query->orderBy('created_at','desc')->limit(3)->get(),
             'project'=>$project_query->inRandomOrder()->limit(3)->distinct()->get(),
         ];

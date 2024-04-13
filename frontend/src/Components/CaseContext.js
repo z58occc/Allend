@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-import Footer from '../homepage/Footer'
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { useParams } from 'react-router-dom';
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { VscAccount } from "react-icons/vsc";
 import { CiStar } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import Modal from 'react-bootstrap/Modal';
 import Cookies from "js-cookie";
-import { FaStar } from "react-icons/fa";
-
-
-
-
+import { IsLoggedInContext } from "../App";
+import Footer from '../homepage/Footer'
+import axios from 'axios';
 
 
 function CaseContext() {
+    const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
+
     const close = async () => {
         setShow(false);
         setMessagewarm(false);
@@ -22,12 +22,11 @@ function CaseContext() {
     const [messagewarm, setMessagewarm] = useState(false);
     const [amountwarm, setAmountwarm] = useState(false);
 
-
     // Modal下面 送資料回去
     const QuoteAmount = useRef();
     const QuoteMessage = useRef();
 
-
+    // 送出報價
     const sendQuote = async (did, q_amount, q_message) => {
         try {
             fetch("http://localhost/Allend/backend/public/api/quote", {
@@ -50,7 +49,6 @@ function CaseContext() {
 
 
     const handleClose = async (d) => {
-
         const q_amount = QuoteAmount.current.value;
         const q_message = QuoteMessage.current.value;
         setShow(false);
@@ -85,39 +83,75 @@ function CaseContext() {
     const url = window.location.href;
     const [endnumber, setEndnumber] = useState(0);
 
-
+    const { id } = useParams();
 
     async function fetchData(id) {
-        console.log(id);
-        fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                console.log(data.dammand);
-                setPosts(data.dammand);
-                setMembers(data.members);
-                setServiceStarAvg(data.service_star_avg);
+        if (isLoggedIn){
+            fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`,
+            {headers:{'Authorization': `Bearer ${Cookies.get('token')}`}})
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data.dammand)
+                    setPosts(data.dammand);
+                    setMembers(data.members);
+                    setServiceStarAvg(data.service_star_avg);
             })
-
+        }else{
+            fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data.dammand)
+                    setPosts(data.dammand);
+                    setMembers(data.members);
+                    setServiceStarAvg(data.service_star_avg);
+            })
+        }
     }
-    const urlParameter = window.location.search;
+
     useEffect(() => {
-        const id = urlParameter.replace("?", "");
+        if(Cookies.get('token')){
+            setIsLoggedIn(true)
+        }
+      
         fetchData(id);
 
-    }, [urlParameter]);
+    }, [id, isLoggedIn]);
 
+    // 加入收藏
+    const addServiceCollection = (did) => {
+        axios({
+        method: "post",
+        url: "http://localhost/Allend/backend/public/api/addcollection",
+        data:{ did: did },
+        headers: { Authorization: `Bearer ${Cookies.get('token')}` }
+        })
+        .then((res) => {
+            setPosts({...posts, fid: res.data.fid.fid})
+        })
+        .catch((err) => {console.log(err)})
+    }
+
+    // 取消收藏
+    const cancelServiceCollection = (fid) => {
+        axios({
+            method: 'post',
+            url: "http://localhost/Allend/backend/public/api/delcollection",
+            data: { fid: fid },
+            headers: { Authorization: `Bearer ${Cookies.get('token')}` }
+        })
+        .then((res) => {
+            setPosts({...posts, fid: null})
+        })
+        .catch((err) => {console.log(err)})
+    }
 
 
     const [show, setShow] = useState(false);
-
-    const handleShow = () => setShow(true);
+    const handlePopShow = () => setShow(true);
     const redTextStyle = {
         color: 'red'
     };
-    useEffect(() => {
-        fetchData()
-    }, []);
+
 
     return (
         <>
@@ -133,6 +167,7 @@ function CaseContext() {
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                 />
+
                 <Row className="mt-5">
                     <Col xs={8} style={{ backgroundColor: "#FCFCFC", color: "black", borderRadius: "5px" }}>
                         <div style={{ marginTop: "10px" }}>
@@ -140,16 +175,21 @@ function CaseContext() {
                             <div>案件名稱：{posts.d_name}</div>
                             <div>案件類別：{posts.d_type}</div>
                             <ul>
-                                <li>預算金額：{posts.d_amount}/{posts.d_unit}</li>
+                                <li>預算金額：{posts.d_amount}&nbsp;/&nbsp;{posts.d_unit}</li>
                                 <li>地點：{posts.d_active_location}</li>
                                 <li>案件期程：{posts.d_duration}</li>
                                 <li>案件說明：{posts.d_description}</li>
                             </ul>
                         </div>
                         <div className='mt-5'>
-                            <div style={{ position: "absolute", right: "30px", bottom: "0px" }}>更新時間:{posts.updated_at}</div>
+                        {isLoggedIn === true && posts.fid
+                        ?   <>
+                                <FaHeart size={25} style={{ color: 'red', cursor: 'pointer', marginRight: '5px'}} onClick={() => {cancelServiceCollection(posts.fid)}}/>
+                                <span style={{color: 'red'}}>已收藏</span>
+                            </>
+                        :   <FaRegHeart size={25} style={{cursor: 'pointer'}} onClick={isLoggedIn ? () => {addServiceCollection(posts.did)} : handleShow} />}
+                            <div style={{ position: "absolute", right: "30px", bottom: "0px" }}>更新時間：{posts.updated_at}</div>
                         </div>
-
                     </Col>
                     <Col xs={2}></Col>
                     <Col xs={2} style={{ border: "solid", borderRadius: "5px" }}>
@@ -160,13 +200,12 @@ function CaseContext() {
                                 <img style={{ width: "60px" }} src={members.avatar}></img></div>
                             <div>{members.name}</div>
                             <div >
-                                評價:&nbsp;
+                                評價：&nbsp;
                                 {Array.from({ length: service_star_avg }, (_, i) => (<FaStar key={i} className="mb-1" style={{ color: "yellow" }} />))}
                             </div>
                             <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
-                                <FaHeart size={25} style={{ color: 'red' }} />
-                                <Button style={{ marginLeft: "30px" }} onClick={handleShow}>我要報價</Button>
+                                <Button style={{ marginLeft: "30px" }} onClick={handlePopShow}>我要報價</Button>
                             </div>
                         </div>
                     </Col>
@@ -206,7 +245,7 @@ function CaseContext() {
                                     defaultValue={posts.d_amount}
                                     ref={QuoteAmount}
                                 ></Form.Control>
-                                <div className="mt-2"> &nbsp;/&nbsp;{posts[key]?.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
+                                <div className="mt-2"> &nbsp;/&nbsp;{posts.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
