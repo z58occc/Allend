@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class ServiceContentController extends Controller
 {
     public function __invoke(Request $request)
     {
+        try{
+            $request->validate([
+                'sid' => 'required|exists:service,sid',
+                'mid' => 'required|exists:members,mid'
+            ]);
+        }catch(ValidationException $exception){
+            abort(404);
+        }
         $sid = $request->input('sid');
         $mid = $request->input('mid');
         // 服務內容

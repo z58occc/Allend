@@ -13,7 +13,7 @@ class TalentController extends Controller
     {
         try{
             $request->validate([
-                'mid' => 'exists:members,mid'
+                'mid' => 'required|exists:members,mid'
             ]);
         }catch (ValidationException $exception){
             abort(404);

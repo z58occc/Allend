@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -17,16 +17,20 @@ function Serve() {
   const { mid } = useParams();
   const { sid } = useParams();
   const [serve, setServe] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchService = async () => {
-      const response = await axios.get(`http://localhost/Allend/backend/public/api/service_content?mid=${mid}&sid=${sid}`);
-      setServe(response.data);
-      try {
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    try{
+        const response = await axios.get(`http://localhost/Allend/backend/public/api/service_content?mid=${mid}&sid=${sid}`);
+        setServe(response.data);
+      }catch (err){
+          if(err.response.status === 404){
+            navigate('/')
+          }
+        }
+    }
+
     fetchService();
   }, [mid, sid]);
 

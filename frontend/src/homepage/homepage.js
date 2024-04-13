@@ -24,34 +24,26 @@ function Homepage() {
     setCarouselpage(selectedIndex);
   };
   // 最新服務 刊登 接API
-  const [key, setkey] = useState(0);
-  const [posts, setPosts] = useState([]);
   const [activeProduct, setActiveProduct] = useState();
 
-  const fetchData = (index) => {
+  // 儲存最新服務、最新刊登、作品
+  const [newService, setNewService] = useState([])
+  const [newPublish, setNewPublish] = useState([])
+  const [projects, setProjects] = useState([]);
+
+  const fetchData = () => {
     fetch("http://127.0.0.1/Allend/backend/public/api/index")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        // console.log(data.service);
-        // console.log(data.demmand);
-        // console.log(data.project);
-        for (let i = 0; i < 9; i++) {
-          data.service[i].d_name = data.demmand[i]["d_name"];
-          data.service[i].d_amount = data.demmand[i]["d_amount"];
-          data.service[i].did = data.demmand[i]["did"];
-          data.service[i].d_active_location = data.demmand[i]["d_active_location"];
-          data.service[i].d_created_at = data.demmand[i]["created_at"];
-          data.service[i].project_image = data.project[i]["image"];
-        }
-        setkey(index);
-        setPosts(data.service);
-
+        setNewService(data.service)
+        setNewPublish(data.demmand)
+        setProjects(data.project)
       })
       .catch((err) => {
         console.log(err.message);
       });
   }
+
   useEffect(() => {
     fetchData()
   }, []);
@@ -113,8 +105,6 @@ function Homepage() {
 
 
 
-
-
   return (
     <>
       {/* 置頂按鈕 */}
@@ -157,8 +147,8 @@ function Homepage() {
 
         {/* 新手教學 */}
         <h4>新手教學</h4>
-        <section class="adbar-section mt-4">
-          <div class="container-lg container-pad">
+        <section className="adbar-section mt-4">
+          <div className="container-lg container-pad">
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
               <div className="col-3 l" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: "#FF9797" }}>提出需求<FaHandshake style={{ fontSize: '50px' }} /></h4>
@@ -172,7 +162,7 @@ function Homepage() {
                 <h4 style={{ color: "#FF9797" }}>完全免費<MdOutlineMoneyOff style={{ fontSize: '50px' }} /></h4>
                 <p>找人才輕鬆無壓力</p>
               </div>
-              <div class="col-12 text-center">
+              <div className="col-12 text-center">
                 <span style={{ color: "#FF9797" }}>找案件，找人才，由我們搞定！</span>
                 <button style={{ border: "none", backgroundColor: "#FF9797", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
 
@@ -186,10 +176,10 @@ function Homepage() {
         <h4 className="mt-5">最新服務</h4>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="posts-container" style={{ display: "flex" }}>
-            {posts.slice(0, 3).map((post, index) => {
+            {newService.map((post, index) => {
               return (
-                <Row style={{ margin: "48px" }}>
-                  <Col key={index} style={{ flexGrow: 1 }}>
+                <Row key={index} style={{ margin: "48px" }}>
+                  <Col style={{ flexGrow: 1 }}>
                     <Link
                       to={`./serve/${post.mid}/${post.sid}`}
                       className="card"
@@ -229,10 +219,10 @@ function Homepage() {
         <div className="row mt-3" >
           <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ display: "flex" }}>
-              {posts.slice(0, 3).map((post, index) => {
+              {newPublish.map((post, index) => {
                 return (
-                  <Row style={{ margin: "12px" }}>
-                    <Col key={index}>
+                  <Row key={index} style={{ margin: "12px" }}>
+                    <Col>
                       <Link to={`./casecontext/?${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
                         <div className="toast show ">
                           <div className="toast-header">
@@ -242,7 +232,7 @@ function Homepage() {
                             </strong>
                           </div>
                           <div className="toast-body">
-                            <div>刊登日期：{post.d_created_at}</div>
+                            <div>刊登日期：{post.created_at}</div>
                             <div>地點：{post.d_active_location}</div>
                           </div>
                         </div>
@@ -257,8 +247,7 @@ function Homepage() {
         {/* 最新刊登 */}
 
 
-
-        {/* 接api輪播圖 */}
+        {/* 輪播圖 */}
         <h4 style={{ textAlign: "center" }}>精選作品</h4>
         <div className="d-flex justify-content-center mt-4" >
           <Carousel
@@ -282,15 +271,15 @@ function Homepage() {
               <span style={{ color: "black", fontSize: "4rem" }}>›</span>
             }
           >
-            {posts.slice(3, 6).map((post, index) => {
+            {projects.map((post, index) => {
               return (
-                <Carousel.Item  >
+                <Carousel.Item key={index}>
                   <Row className="justify-content-md-center">
                     <Col xs lg="6" style={{ padding: "0px" }}>
-                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.project_image}`} style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
+                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.image}`} 
+                      style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
                     </Col>
                     <Col xs lg="2" className="d-flex justify-content-center align-items-center" style={{ padding: "0px" }}>
-                      {/* style={{  }} */}
                       <Link to={`./talent/${post.mid}`} style={{ fontSize: "20px", position: "relative", left: "30px" }}>
                         <span >{post.name}</span>
                       </Link>
@@ -301,12 +290,9 @@ function Homepage() {
             })}
           </Carousel>
         </div>
+        {/* 輪播圖 */}
       </div>
-      {/* 接api輪播圖 */}
 
-
-
-      <Footer></Footer>
       {/* 新手教學視窗 */}
       <Modal show={showNewbie} onHide={handleClose} centered style={{ borderRadius: '20px' }}>
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
@@ -323,8 +309,6 @@ function Homepage() {
           </div>
         </Modal.Header>
         <Modal.Body>
-
-
           {showOrganContent && (
             <div className="organ-modal-div ">
               <div className="my-4 container-fluid container-xl">
@@ -333,9 +317,9 @@ function Homepage() {
                   </div>
                   <div className="col-10">
 
-                    <h5 className="fs-4 text-primary"> 發布工作 獲取報價</h5>
+                    <h5 className="fs-4 text-primary">發布工作 獲取報價</h5>
                     <p className="fs-6">
-                      依指示填寫需求表單，能免費發布工作，讓專業人才向你提供報價!
+                      依指示填寫需求表單，能免費發布工作，讓專業人才向你提供報價！
                     </p>
                   </div>
                 </div>
@@ -359,7 +343,7 @@ function Homepage() {
 
                   </div>
                   <div className="col-10">
-                    <h5 className="fs-4 text-primary">挑選人才，輕鬆完成工作!</h5>
+                    <h5 className="fs-4 text-primary">挑選人才，輕鬆完成工作！</h5>
                     <p className="fs-6">
                       會持續以信件通知最新工作進度，也能直接連絡提供報價的專業人才。
                     </p>
@@ -378,7 +362,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">建立個人案件</h5>
                     <p className="fs-6">
-                      提供建立個人專業服務與工作背景，詳細完整的個人專頁。能夠大大提升接案的成功率!
+                      提供建立個人專業服務與工作背景、詳細完整的個人專頁來提升接案的成功率！
                     </p>
                   </div>
                 </div>
@@ -390,7 +374,7 @@ function Homepage() {
                   <div className="col-10">
                     <h5 className="fs-4 text-primary">快速送出你的提案</h5>
                     <p className="fs-6">
-                      每日更新工作案件提供最新接案機會!案主會根據你的提案報價與個人專頁決定是否採用。所有關於工作進度都會通過信件通知!
+                      每日更新工作案件提供最新接案機會！案主會根據你的提案報價與個人專頁決定是否採用。所有關於工作進度都會通過信件通知!
                     </p>
                   </div>
                 </div>
@@ -400,7 +384,7 @@ function Homepage() {
                   <div className="col-2"><RiDraftLine style={{ fontSize: "35px", color: "#FF9797" }} />
                   </div>
                   <div className="col-10">
-                    <h5 className="fs-4 text-primary">無上限申請提案</h5>
+                    <h5 className="fs-4 text-primary">無上限申請提案！</h5>
                     <p className="fs-6">
                       免費提案報價，輕鬆接案無負擔。
                     </p>
@@ -411,6 +395,7 @@ function Homepage() {
           )}
         </Modal.Body>
       </Modal>
+      <Footer></Footer>
     </>
   );
 }

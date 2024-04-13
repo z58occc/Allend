@@ -22,12 +22,14 @@ class IndexController extends Controller
                         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'));
 
         //作品
-        $project_query = DB::table('project')->select('image');
+        $project_query = DB::table('project')
+                        ->join('members', 'project.mid', '=', 'members.mid')
+                        ->select('members.mid', 'name','image');
 
         $Date_response = [
-            'service' => $query->orderBy('created_at','desc')->orderBy('sid', 'desc')->get(),
-            'demmand'=>$dammand_query->orderBy('created_at','desc')->get(),
-            'project'=>$project_query->get(),
+            'service' => $query->orderBy('created_at','desc')->orderBy('sid', 'desc')->limit(3)->get(),
+            'demmand'=>$dammand_query->orderBy('created_at','desc')->limit(3)->get(),
+            'project'=>$project_query->inRandomOrder()->limit(3)->distinct()->get(),
         ];
 
         return response()->json($Date_response);

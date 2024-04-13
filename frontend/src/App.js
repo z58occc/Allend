@@ -11,7 +11,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
-import Homepage from "./homepage/homepage";
+import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
@@ -419,8 +419,7 @@ function App() {
         <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
-        <Route path="/serve" element={<Serve></Serve>}></Route>
-        <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
+        <Route exact path="/serve/:mid?/:sid?" element={<Serve></Serve>}></Route>
         <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
         <Route path="/switch" element={<Switch></Switch>}></Route>
         <Route path="/member" element={<Member></Member>}></Route>
@@ -434,7 +433,7 @@ function App() {
         <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         <Route path="/search" element={<Search></Search>}></Route>
-        {/* <Route path="*" element={<Homepage></Homepage>}></Route> */}
+        {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
       </Routes>
 
 
