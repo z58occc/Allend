@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, } from "react";
-import { Card, Button, Form, } from "react-bootstrap";
+import { Card, Button, Form, Modal } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import StarRating from "./StarRating";
 import CaseDetailsModal1 from "./CaseDetailsModal1";
@@ -8,18 +8,23 @@ import CaseDetailsModal3 from "./CaseDetailsModal3";
 import { CaseContext } from "./MainScreen2";
 import GetQuoteModal from "./GetQuoteModal";
 import Cookies from "js-cookie";
-// import CaseContext from './CaseContext';
+
 
 const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermProgress, setSearchTermProgress] = useState('');
   const [searchTermCompleted, setSearchTermCompleted] = useState('');
-
   const { fetchData } = useContext(CaseContext);
   const CaseData = data1;
-
-
+  //刪除MODAL
+  const [showDeletedModal, setShowDeletedModal] = useState(false);
+  const handleDeletedModal = () => {
+    setShowDeletedModal(true);
+  }
+  const handleClosedDeletedModal = () => {
+    setShowDeletedModal(false);
+  }
   //搜尋選擇case
   const handleSearch = (searchTerm) => {
     switch (screen) {
@@ -47,10 +52,16 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   console.log(data1);
   const [checked, setChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState(Array.from(data1).fill(false)); //設置selectedItems為空陣列，裡面為被選到的index值
-  useEffect(()=>{
+  useEffect(() => {
     setSelectedItems(Array.from(data1).fill(false))
-  },[data1]);
-  
+  }, [data1]);
+  useEffect(() => {
+    const hasSelected = selectedItems.some(item => item === true);
+    setDisabledDeleteButton(!hasSelected);
+  }, [selectedItems]);
+  //刪除disable
+  const [disabledDeleteButton, setDisabledDeleteButton] = useState(true);
+
   console.log(selectedItems);
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
@@ -66,8 +77,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
     const newSelectedItems = CaseData.map(() => isAllSelected);
     setSelectedItems(newSelectedItems);
   };
-  
-//刪除
+
+  //刪除
   const [deletedIndex, setDeletedIndex] = useState([]);
 
   let deletedData = [];
@@ -95,15 +106,15 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify
-        (
-          { 
-            did: didOfDeletedData,
-          }
-        ),
-      }).then(()=>{
+          (
+            {
+              did: didOfDeletedData,
+            }
+          ),
+      }).then(() => {
         fetchData();
         setSelectedItems(Array.from(data1.length).fill(false));
-      })     
+      })
       console.log(updateData);
       console.log(selectedItems);
       if (!response.ok) {
@@ -199,41 +210,42 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   //根據條件選擇screen的casedata
   let filteredData = CaseData;
   switch (screen) {
-  case 1:
-    if (searchTerm) {
-      filteredData = CaseData.filter(item => item.d_name.includes(searchTerm));
-    }
-    break;
-  case 2:
-    if (searchTermProgress) {
-      filteredData = CaseData.filter(item => item.c_name.includes(searchTermProgress));
-    }
-    break;
-  case 3:
-    if (searchTermCompleted) {
-      filteredData = CaseData.filter(item => item.c_name.includes(searchTermCompleted));
-    }
-    break;
-  default:
-    filteredData = CaseData;
-}
+    case 1:
+      if (searchTerm) {
+        filteredData = CaseData.filter(item => item.d_name.includes(searchTerm));
+      }
+      break;
+    case 2:
+      if (searchTermProgress) {
+        filteredData = CaseData.filter(item => item.c_name.includes(searchTermProgress));
+      }
+      break;
+    case 3:
+      if (searchTermCompleted) {
+        filteredData = CaseData.filter(item => item.c_name.includes(searchTermCompleted));
+      }
+      break;
+    default:
+      filteredData = CaseData;
+  }
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div
         className="d-flex justify-content-around"
         style={{ width: "800px" }}
       >
-        <Button 
+        <Button
           variant="primary"
-          style={{ fontSize: "12px", width: "110px", whiteSpace: "nowrap",visibility }}
+          style={{ fontSize: "12px", width: "110px", whiteSpace: "nowrap", visibility }}
           onClick={handleToggleAll}
         >
           {checked ? "取消全選" : "全選"}
         </Button>
         <Button
           variant="danger"
-          style={{ fontSize: "12px", width: "100px" ,visibility}}
-          onClick={() => handleDeleted()}
+          style={{ fontSize: "12px", width: "100px", visibility }}
+          onClick={() => handleDeletedModal()}
+          disabled={disabledDeleteButton}
         >
           刪除
         </Button>
@@ -257,7 +269,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 className="align-self-center"
                 style={{ marginLeft: "20px", visibility }}
                 checked={selectedItems[index] || false}
-                onChange={() => {handleChecked(index)}}
+                onChange={() => { handleChecked(index) }}
               />
               {screen === 3
                 ?
@@ -300,7 +312,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
               </div>
             </Card.Body>
             {screen === 2 && (
-              <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
+              <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
                 <Button
                   variant="primary"
                   key={index}
@@ -323,7 +335,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             )}
 
             {screen === 3 && (
-              <div className="d-flex flex-column justify-content-center" style={{height : "150px"}}>
+              <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
                 <Button
                   variant="primary"
                   key={index}
@@ -388,6 +400,25 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
 
       {/* 查看報價Modal */}
       <GetQuoteModal show={showModal} onHide={handleCloseModal} data={Quote}></GetQuoteModal>
+      {/*  */}
+
+
+      <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+        <Modal.Header closeButton>
+          <Modal.Title>{/* 標題內容 */}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          確定刪除所選案件?
+        </Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button variant="danger" onClick={handleDeleted}>
+            確定
+          </Button>
+          <Button variant="secondary" onClick={handleClosedDeletedModal}>
+            關閉
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       {ComponentToRender}
     </div>
