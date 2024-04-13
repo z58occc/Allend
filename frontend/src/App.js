@@ -364,7 +364,7 @@ function App() {
 
               </Dropdown.Menu>
             </Dropdown>
-            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : "/findman"}>
+            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
               <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
                 <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
               </button>
@@ -436,7 +436,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
-        <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
+        <Route path="/findman/:s_type?/:servicesearch?" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
         <Route exact path="/serve/:mid?/:sid?" element={<Serve></Serve>}></Route>
         <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>

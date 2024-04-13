@@ -338,9 +338,9 @@ function Findcase() {
   }
 
 
-  const { type } = useParams();
+  const { type,casesearch } = useParams();
   console.log(type);
-  const { casesearch } = useParams();
+  // const { casesearch } = useParams();
   console.log(casesearch);
 
 
@@ -442,14 +442,16 @@ function Findcase() {
           })
           .join(",");
 
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+          );
+          setPosts(response.data);
 
+          // &casesearch=${casesearch}
+          
 
-        const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}&casesearch=${casesearch}`
-        );
         setCityid(countryQuery);
-        console.log(response.data);
-        setPosts(response.data);
+
 
       } catch (err) {
         console.error(err);
@@ -457,7 +459,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [casesearch,budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
 
 
@@ -1044,14 +1046,14 @@ function Findcase() {
 
         {/*報價失敗Modal  */}
 
-        
-          <Modal show={failshow} onHide={close} style={{marginTop:"250px"}}>
 
-            <Modal.Body>
-              <div>報價失敗，請確認帳號是否有登入及驗證</div>
-            </Modal.Body>
+        <Modal show={failshow} onHide={close} style={{ marginTop: "250px" }}>
 
-          </Modal>
+          <Modal.Body>
+            <div>報價失敗，請確認帳號是否有登入及驗證</div>
+          </Modal.Body>
+
+        </Modal>
         {/*報價失敗Modal  */}
 
 
@@ -1059,14 +1061,14 @@ function Findcase() {
 
         {/*報價成功Modal  */}
 
-        
-          <Modal show={successshow} onHide={close} style={{marginTop:"250px"}}>
 
-            <Modal.Body>
-              <div>{success}</div>
-            </Modal.Body>
+        <Modal show={successshow} onHide={close} style={{ marginTop: "250px" }}>
 
-          </Modal>
+          <Modal.Body>
+            <div>{success}</div>
+          </Modal.Body>
+
+        </Modal>
         {/*報價成功Modal  */}
 
 
