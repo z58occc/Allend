@@ -12,7 +12,7 @@ import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
-import Homepage from "./homepage/homepage";
+import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
