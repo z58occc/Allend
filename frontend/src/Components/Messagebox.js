@@ -1,18 +1,22 @@
 import React from 'react'
 
-function Messagebox({message}) {
+function Messagebox({message ,userId}) {
     const formatDate = (value)=>{
         if(!value) return '';
-        return new Date(value).toLocaleDateString();
+        const date = new Date(value);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
     };
+
+    const isSentByCurrentUser = message.senderId === userId;
     return (
-        <div>
-            <div>
-                <p>
-                    <b>{message.receiveuser}</b>
-                </p>
-                <p>{message.message}</p>
-                <p>{formatDate(message.createdAt)}</p>
+        
+        <div style={{ textAlign: isSentByCurrentUser ? 'right' : 'left'}}>
+            <div >
+                <span style={{backgroundColor:isSentByCurrentUser ?"#e2f7cb":"#d4d4d4",width:'fit-content'}}>{message.message}</span>
+                <p >{formatDate(message.created_at)}</p>
             </div>
         </div>
     );

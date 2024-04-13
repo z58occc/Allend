@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Link, Routes, Route, useLocation, useNavigate, Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from "react-bootstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -43,6 +43,8 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //聊天室窗狀態
+
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -330,6 +332,11 @@ function App() {
 
 
   return (
+
+      
+    
+    
+    
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <div
         className="p-1"
@@ -416,35 +423,35 @@ function App() {
           </ul>
         </div>
       </nav >
+      
+              <Routes>
+                  <Route path="/" element={<Homepage></Homepage>}></Route>
+                  <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
+                  <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
+                  <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
+                  <Route path="/serve" element={<Serve></Serve>}></Route>
+                  <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
+                  {/* <Route path="/talent" element={<Talent></Talent>}></Route> */}
+                  <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
+                  <Route path="/switch" element={<Switch></Switch>}></Route>
+                  <Route path="/member" element={<Member></Member>}></Route>
+                  <Route path="/fix" element={<Fix></Fix>}></Route>
+                  <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
+                  <Route path="/word" element={<Word></Word>}></Route>
+                  <Route path="/pro" element={<Pro></Pro>}></Route>
+                  <Route path="/program" element={<Program></Program>}></Route>
+                  <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
+                  <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
+                  <Route path="/service" element={<MainScreen></MainScreen>}></Route>
+                  <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
+                  <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
+                  <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
+                  <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+                  {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage ></PublicMessagesPage>}></Route> */}
+                  <Route path="/search" element={<Search></Search>}></Route>
 
-
-      <Routes>
-        <Route path="/" element={<Homepage></Homepage>}></Route>
-        <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
-        <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
-        <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
-        <Route path="/serve" element={<Serve></Serve>}></Route>
-        <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
-        {/* <Route path="/talent" element={<Talent></Talent>}></Route> */}
-        <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
-        <Route path="/switch" element={<Switch></Switch>}></Route>
-        <Route path="/member" element={<Member></Member>}></Route>
-        <Route path="/fix" element={<Fix></Fix>}></Route>
-        <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
-        <Route path="/word" element={<Word></Word>}></Route>
-        <Route path="/pro" element={<Pro></Pro>}></Route>
-        <Route path="/program" element={<Program></Program>}></Route>
-        <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
-        <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
-        <Route path="/service" element={<MainScreen></MainScreen>}></Route>
-        <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
-        <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
-        <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
-        <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
-        <Route path="/search" element={<Search></Search>}></Route>
-
-      </Routes>
+              </Routes>
+      
 
 
 

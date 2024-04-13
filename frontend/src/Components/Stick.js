@@ -9,10 +9,15 @@ import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import CopyButton from './CopyButton';
 import axios from 'axios';
-
+import PublicMessagesPage from './PublicMessagesPage';
 
 function Stick() {
 
+    const [showChat, setShowChat] = useState(false);
+
+    const toggleChat = () => {
+      setShowChat(!showChat);
+    };
     const { mid } = useParams();
 
     const [talent, setTalent] = useState([]);
@@ -69,8 +74,13 @@ function Stick() {
                                 <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
                             </div>
                             <div className='col-sm-6' >
-                                <Link to={`/chat/${talent.member?.[0]?.mid}`}>
-                                <div><CiChat1 size={20} />聊聊</div></Link>
+                                
+                            <div onClick={toggleChat}>
+                                        <CiChat1 size={20} />
+                                        聊聊
+                                    </div>
+                            {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)}
+                            
                             </div>
                         </div>
                     </div>
