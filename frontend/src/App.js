@@ -5,13 +5,14 @@ import { Modal, Button, Form } from "react-bootstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import Cookies from "js-cookie";
-import { FaUser, FaUserLock, FaLock } from "react-icons/fa";
+import { FaUser, FaUserLock, FaLock, FaRegCircle } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa6";
+import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
-import Homepage from "./homepage/homepage";
+import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
 import Member from "../src/RatingPage/RatingPage";
@@ -20,10 +21,6 @@ import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
 import Switch from "../src/Components/page/Member/Switch";
 import Fix from "./Components/page/Member/fix";
-import Softdesign from "./Components/softdesign"
-import Word from "./Components/word";
-import Pro from "./Components/pro";
-import Program from "./Components/program";
 import CaseContext from "./Components/CaseContext";
 import MainScreen from "./accept/MainScreen";
 import MainScreen2 from "./release/MainScreen2";
@@ -31,9 +28,8 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
-import Search from "./Components/search";
-import { TiTickOutline } from "react-icons/ti";
-import { FaRegCircle } from "react-icons/fa";
+import Dropdown from "react-bootstrap/Dropdown";
+
 
 
 export const IsLoggedInContext = createContext()
@@ -328,20 +324,23 @@ function App() {
   const handleLinkClick = (path) => {
     setSelectedLink(path);
   };
+  const [inputvalue, setInputvalue] = useState("")
+  const [togglename, setTogglename] = useState("找案件");
+  console.log(inputvalue);
 
-
-
+  const handleInputChange = (event) => {
+    console.log(event.target.value);
+    setInputvalue(event.target.value);
+  }
+  const search = () => {
+    setInputvalue(inputvalue);
+  }
   return (
-
-      
-    
-    
-    
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow }}>
       <div
         className="p-1"
         style={{
-          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B, #ffdab9,#ffcab9)",
+          display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B, #ffdab9,#ffcab9)", zIndex: 100
         }}
       >
         <Link to="/">
@@ -356,10 +355,22 @@ function App() {
 
           {/* 搜索框 */}
           <div style={{ display: 'flex', alignItems: 'center', maxWidth: '700px' }}>
-            <input type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
-            <button type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
-              <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
-            </button>
+            <input onChange={handleInputChange} defaultValue={inputvalue} type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
+            <Dropdown drop="end">
+              <Dropdown.Toggle id="dropdown-basic">{togglename}</Dropdown.Toggle>
+              <Dropdown.Menu >
+                <div >
+                  <button onClick={() => setTogglename("找案件")} style={{ fontSize: "25px" }} >找案件</button>
+                  <button onClick={() => setTogglename("找服務")} style={{ fontSize: "25px" }}>找服務</button>
+                </div>
+
+              </Dropdown.Menu>
+            </Dropdown>
+            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
+              <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
+                <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
+              </button>
+            </Link>
           </div>
           {/* 搜索框 */}
 
@@ -383,7 +394,6 @@ function App() {
           )}
         </div>
       </div>
-
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -423,35 +433,28 @@ function App() {
           </ul>
         </div>
       </nav >
-      
-              <Routes>
-                  <Route path="/" element={<Homepage></Homepage>}></Route>
-                  <Route path="/findcase/:type?" element={<Findcase></Findcase>}></Route>
-                  <Route path="/findman/:s_type?" element={<Findman></Findman>}></Route>
-                  <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
-                  <Route path="/serve" element={<Serve></Serve>}></Route>
-                  <Route path="/serve/:mid/:sid" element={<Serve></Serve>}></Route>
-                  {/* <Route path="/talent" element={<Talent></Talent>}></Route> */}
-                  <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
-                  <Route path="/switch" element={<Switch></Switch>}></Route>
-                  <Route path="/member" element={<Member></Member>}></Route>
-                  <Route path="/fix" element={<Fix></Fix>}></Route>
-                  <Route path="/softdesign" element={<Softdesign></Softdesign>}></Route>
-                  <Route path="/word" element={<Word></Word>}></Route>
-                  <Route path="/pro" element={<Pro></Pro>}></Route>
-                  <Route path="/program" element={<Program></Program>}></Route>
-                  <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
-                  <Route path="/casecontext/:did" element={<CaseContext></CaseContext>}></Route>
-                  <Route path="/service" element={<MainScreen></MainScreen>}></Route>
-                  <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
-                  <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
-                  <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
-                  <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
-                  {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage ></PublicMessagesPage>}></Route> */}
-                  <Route path="/search" element={<Search></Search>}></Route>
 
-              </Routes>
-      
+
+      <Routes>
+        <Route path="/" element={<Homepage></Homepage>}></Route>
+        <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
+        <Route path="/findman/:s_type?/:servicesearch?" element={<Findman></Findman>}></Route>
+        <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
+        <Route exact path="/serve/:mid?/:sid?" element={<Serve></Serve>}></Route>
+        <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
+        <Route path="/switch" element={<Switch></Switch>}></Route>
+        <Route path="/member" element={<Member></Member>}></Route>
+        <Route path="/fix" element={<Fix></Fix>}></Route>
+        <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
+        <Route path="/casecontext/:id" element={<CaseContext></CaseContext>}></Route>
+        <Route path="/service" element={<MainScreen></MainScreen>}></Route>
+        <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
+        <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
+        <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
+        {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
+        <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
+      </Routes>
 
 
 

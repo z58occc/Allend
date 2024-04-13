@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { CiStar } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
-import { FaFacebook, FaLine, FaUserAlt, FaBriefcase } from "react-icons/fa";
-import { CiChat1 } from "react-icons/ci";
+import { FaFacebook, FaLine, FaUserAlt, FaBriefcase, FaHeart  } from "react-icons/fa";
+import { CiStar, CiChat1 } from "react-icons/ci";
 import { AiFillGitlab } from "react-icons/ai";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
@@ -33,9 +31,9 @@ function Stick() {
         fetchtalent();
     }, [mid])
 
-    return (
 
-        <div> 
+    return (
+        <>
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
                 <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:"530px"}}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
@@ -73,7 +71,7 @@ function Stick() {
                             <div className='col-sm-6'>
                                 <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
                             </div>
-                            <div className='col-sm-6' >
+                            <div className='text-center' >
                                 
                             <div onClick={toggleChat}>
                                         <CiChat1 size={20} />
@@ -86,8 +84,8 @@ function Stick() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default Stick
+export default Stick;

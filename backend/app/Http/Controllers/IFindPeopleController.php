@@ -42,8 +42,8 @@ class IFindPeopleController extends Controller
         ->join('project as p', 'p.mid', '=', 'm.mid')
         ->join('country as c','c.country_id','=','m.active_location')
         ->select('s.s_type','s.image','s.sid','m.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name',
-        'identity','seniority','c.country_city','s.created_at','m.last_login',
-        DB::raw('(select fid from collection c where c.sid = s.sid and c.mid = 7 and collect = 1) as fid'))
+        'identity','seniority','c.country_city','s.created_at','m.last_login',)
+        ->selectRaw('(select fid from collection c where c.sid = s.sid and c.mid = ? and collect = 1) as fid', [$mid])
         ->groupBy('s.s_type','m.mid','s.sid','s.image','m.name','s_name','identity','seniority','c.country_city',
         's.created_at','m.last_login');
     }else{

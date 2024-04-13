@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DemmandContentController extends Controller
@@ -10,12 +11,22 @@ class DemmandContentController extends Controller
     public function __invoke($did)
     {
         // 呈現案件詳細訊息
-        $query = DB::table('demmand')
-        ->join('country', 'country_id', '=', 'd_active_location')
-        ->join('category', 'catid', '=', 'd_type')
-        ->select('did','d_name','type as d_type','d_amount','country_city as d_active_location','d_duration',
-        'd_description','d_unit',DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
-        ->where('did', $did);
+        if($mid = Auth::id()){
+            $query = DB::table('demmand as d')
+            ->join('country', 'country_id', '=', 'd_active_location')
+            ->join('category', 'catid', '=', 'd_type')
+            ->select('did','d_name','type as d_type','d_amount','country_city as d_active_location','d_duration',
+            'd_description','d_unit',DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
+            ->selectRaw('(select fid from collection c where c.did = d.did and c.mid = ? and collect = 1) as fid', [$mid])
+            ->where('did', $did);
+        }else{
+            $query = DB::table('demmand')
+            ->join('country', 'country_id', '=', 'd_active_location')
+            ->join('category', 'catid', '=', 'd_type')
+            ->select('did','d_name','type as d_type','d_amount','country_city as d_active_location','d_duration',
+            'd_description','d_unit',DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
+            ->where('did', $did);
+        }
 
         $query_mid = DB::table('demmand')->select('mid')->where('did',$did)->first();
         // 該案主星數

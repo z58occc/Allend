@@ -923,7 +923,7 @@ class MemberInfoController extends Controller
             ->join('members', 'demmand.mid', '=', 'members.mid')
             ->select('fid', 'collection.did','demmand.mid', 'name','d_name','d_duration','d_amount', 'd_unit',
             DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
-            ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
+            ->where('collection.mid', $mid)->where('collect', 1)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
             // 服務收藏
             $service_collections = DB::table('collection')
@@ -931,7 +931,7 @@ class MemberInfoController extends Controller
             ->join('members', 'service.mid', '=', 'members.mid')
             ->select('fid','collection.sid','service.mid', 'name','s_name','s_amount', 's_unit',
             DB::raw('date_format(collection.created_at, "%Y/%m/%d") as created_at'))
-            ->where('collection.mid', $mid)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
+            ->where('collection.mid', $mid)->where('collect', 1)->orderBy('created_at', 'desc')->orderBy('fid', 'desc');
 
             // 案件收藏搜尋
             if($request->has('casecollectionsearch')){

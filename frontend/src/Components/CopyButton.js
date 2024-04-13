@@ -2,6 +2,7 @@ import React from 'react';
 import ClipboardJS from 'clipboard';
 import { CiShare2 } from "react-icons/ci";
 
+
 class CopyButton extends React.Component {
   componentDidMount() {
     // 初始化 ClipboardJS
@@ -30,7 +31,7 @@ class CopyButton extends React.Component {
 
   render() {
     return (
-      <i id="copyButton"><CiShare2 size={30}/></i>
+      <i id="copyButton" style={{cursor:'pointer'}}><CiShare2 size={30}/></i>
     );
   }
 }
