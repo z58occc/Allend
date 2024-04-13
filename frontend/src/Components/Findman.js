@@ -10,13 +10,14 @@ import { IsLoggedInContext } from "../App";
 import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
-import "./Findman.css";
+import styles from "./Findman.module.css";
+// import "./Findman.css";
 
 
 const Findman = () => {
   // 是否登入
   const {isLoggedIn, setIsLoggedIn} = useContext(IsLoggedInContext);
-
+  // 儲存撈回來的資料
   const [service, setService] = useState([]);
 
   const [identity, setIdentity] = useState({
@@ -60,7 +61,7 @@ const Findman = () => {
 
   const { s_type } = useParams();
 
-  // 儲存排序紐顏色
+  // 儲存排序鈕顏色
   const [act, setAct] = useState();
 
   const [sort, setSort] = useState({});
@@ -164,28 +165,28 @@ const Findman = () => {
           })
           .join(",");
 
-    const sortQuery = Object.keys(sort);
-    if (isLoggedIn){
-      const response = await axios.get(
-        `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-        ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`,
-        {headers:{Authorization: `Bearer ${Cookies.get('token')}`}}
-      );
-      setService(response.data.data);
-      setTotalPages(response.data.last_page);
-    }else{
-      const response = await axios.get(
-        `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-        ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
-      );
-      setService(response.data.data);
-      setTotalPages(response.data.last_page);
-    }
-    } catch (err) {
-      console.error(err);
-    }
-    };
-    fetchService();
+        const sortQuery = Object.keys(sort);
+        if (isLoggedIn){
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`,
+            {headers:{Authorization: `Bearer ${Cookies.get('token')}`}}
+          );
+          setService(response.data.data);
+          setTotalPages(response.data.last_page);
+        } else {
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+          );
+          setService(response.data.data);
+          setTotalPages(response.data.last_page);
+        }
+        } catch (err) {
+          console.error(err);
+        }
+        };
+        fetchService();
   }, [identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
 
   // 加入收藏
@@ -194,9 +195,9 @@ const Findman = () => {
       method: "post",
       url: "http://localhost/Allend/backend/public/api/addcollection",
       data:{ sid: sid },
-      headers: {Authorization: `Bearer ${Cookies.get('token')}`}
+      headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
-    .then((res) => {console.log(res.data);
+    .then((res) => {
       const newData = service.map((item) => item.sid === sid ? {...item, fid: res.data.fid.fid} : item);
       setService(newData)
     })
@@ -209,11 +210,10 @@ const Findman = () => {
       method: 'post',
       url: "http://localhost/Allend/backend/public/api/delcollection",
       data: { fid: fid },
-      headers: {Authorization: `Bearer ${Cookies.get('token')}`}
+      headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
     .then((res) => {
-      console.log(res.data);
-      const newData = service.map((item) => item.fid === fid ? {...item, fid:null} : item);
+      const newData = service.map((item) => item.fid === fid ? {...item, fid: null} : item);
       setService(newData)
     })
     .catch((err) => {console.log(err)})
@@ -247,18 +247,16 @@ const Findman = () => {
     setAct(sorttype)
   };
 
+  {/* 切換上下頁 */ }
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
 
   };
-
-
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
-
   };
+  {/* 切換上下頁 */ }
 
-  //
   {/* 置頂按鈕 */ }
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -272,10 +270,7 @@ const Findman = () => {
       }
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
-
-    // Clean up by removing the scroll event listener
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -323,280 +318,279 @@ const Findman = () => {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <Category></Category>
-        <hr></hr>
+        <hr />
         <div className="row">
           {/* 左邊 */}
-          <div className="col-sm-2" style={{ marginTop: "10px" }}>
-            <br></br>
-            <div style={{ height: "200px", border: "solid", paddingTop: "10px", borderRadius: "5px" }}>
-              <div style={{ fontSize: "18px" }}>接案人身分</div>
-              <hr></hr>
-              <input
-                type="checkbox"
-                name="personal"
-                value="1"
-                id="personalCheckbox"
-                onChange={handleidentityChange}
-              ></input>
-              <label htmlFor="personalCheckbox">個人</label><br></br>
-              <input
-                type="checkbox"
-                name="company"
-                value="2"
-                id="companyCheckbox"
-                onChange={handleidentityChange}
-              ></input>
-              <label htmlFor="companyCheckbox">公司</label><br></br>
-              <input
-                type="checkbox"
-                name="studio"
-                value="3"
-                id="studioCheckbox"
-                onChange={handleidentityChange}
-              ></input>
-              <label htmlFor="studioCheckbox">工作室</label>
+          <div className="col-sm-2" style={{marginTop:'45px' }}>
+            {/* <br></br> */}
+            <div className={`${styles.selectContainer}`}>
+              <div className={`${styles.identity}`}>接案人身分</div>
+              <div className={`${styles.checkboxContainer}`}>
+                <input
+                  type="checkbox"
+                  name="personal"
+                  value="1"
+                  id="personalCheckbox"
+                  onChange={handleidentityChange}
+                ></input>
+                <label className="ms-2" htmlFor="personalCheckbox">個人</label><br></br>
+                <input
+                  type="checkbox"
+                  name="company"
+                  value="2"
+                  id="companyCheckbox"
+                  onChange={handleidentityChange}
+                ></input>
+                <label className="ms-2" htmlFor="companyCheckbox">公司</label><br></br>
+                <input
+                  type="checkbox"
+                  name="studio"
+                  value="3"
+                  id="studioCheckbox"
+                  onChange={handleidentityChange}
+                ></input>
+                <label className="ms-2" htmlFor="studioCheckbox">工作室</label>
+              </div>
             </div>
-            <br></br>
-            <div
-              style={{ height: "240px", border: "solid", paddingTop: "10px", borderRadius: "5px" }}
-            ><div style={{ fontSize: "18px" }}>年資</div>
-              <hr></hr>
-              <input
-                type="checkbox"
-                name="year1"
-                value="1"
-                id="year1Checkbox"
-                onChange={handleseniorityChange}
-              ></input>
-              <label htmlFor="year1Checkbox">1年</label><br></br>
-              <input
-                type="checkbox"
-                name="year2"
-                value="2"
-                id="year2Checkbox"
-                onChange={handleseniorityChange}
-              ></input>
-              <label htmlFor="year2Checkbox">2年</label><br></br>
-              <input
-                type="checkbox"
-                name="year3"
-                value="3"
-                id="year3Checkbox"
-                onChange={handleseniorityChange}
-              ></input>
-              <label htmlFor="year3Checkbox">3年</label><br></br>
-              <input
-                type="checkbox"
-                name="year4"
-                value="4"
-                id="year4Checkbox"
-                onChange={handleseniorityChange}
-              ></input>
-              <label htmlFor="year4Checkbox">4年</label><br></br>
-              <input
-                type="checkbox"
-                name="year5"
-                value="5"
-                id="year5Checkbox"
-                onChange={handleseniorityChange}
-              ></input>
-              <label htmlFor="year5Checkbox">5年以上</label><br></br>
+
+            <div className={`${styles.selectContainer}`}>
+              <div className={`${styles.identity}`}>年資</div>
+              <div className={`${styles.checkboxContainer}`}>
+                <input
+                  type="checkbox"
+                  name="year1"
+                  value="1"
+                  id="year1Checkbox"
+                  onChange={handleseniorityChange}
+                ></input>
+                <label className="ms-2" htmlFor="year1Checkbox">1年</label><br></br>
+                <input
+                  type="checkbox"
+                  name="year2"
+                  value="2"
+                  id="year2Checkbox"
+                  onChange={handleseniorityChange}
+                ></input>
+                <label className="ms-2" htmlFor="year2Checkbox">2年</label><br></br>
+                <input
+                  type="checkbox"
+                  name="year3"
+                  value="3"
+                  id="year3Checkbox"
+                  onChange={handleseniorityChange}
+                ></input>
+                <label className="ms-2" htmlFor="year3Checkbox">3年</label><br></br>
+                <input
+                  type="checkbox"
+                  name="year4"
+                  value="4"
+                  id="year4Checkbox"
+                  onChange={handleseniorityChange}
+                ></input>
+                <label className="ms-2" htmlFor="year4Checkbox">4年</label><br></br>
+                <input
+                  type="checkbox"
+                  name="year5"
+                  value="5"
+                  id="year5Checkbox"
+                  onChange={handleseniorityChange}
+                ></input>
+                <label className="ms-2" htmlFor="year5Checkbox">5年以上</label><br></br>
+              </div>
             </div>
-            <br></br>
-            <div
-              style={{ height: "250px", overflowY: "scroll", border: "solid", paddingTop: "10px", borderRadius: "5px" }}
-            >
-              <div style={{ fontSize: "18px" }}>地點</div>
-              <hr></hr>
-              <optgroup label="北部"></optgroup>
-              <input
-                type="checkbox"
-                name="taipei"
-                value="1"
-                id="taipeiCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="taipeiCheckbox">臺北市</label><br></br>
-              <input
-                type="checkbox"
-                name="newtaipei"
-                value="2"
-                id="newtaipeiCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="newtaipeiCheckbox">新北市</label><br></br>
-              <input
-                type="checkbox"
-                name="taoyuan"
-                value="3"
-                id="taoyuanCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="taoyuanCheckbox">桃園市</label><br></br>
-              <input
-                type="checkbox"
-                name="keelung"
-                value="4"
-                id="keelungCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="keelungCheckbox">基隆市</label><br></br>
-              <input
-                type="checkbox"
-                name="hsinchu"
-                value="5"
-                id="hsinchuCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="hsinchuCheckbox">新竹市</label><br></br>
-              <input
-                type="checkbox"
-                name="hsinchucounty"
-                value="6"
-                id="hsinchucountyCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="hsinchucountyCheckbox">新竹縣</label><br></br>
-              <optgroup label="中部"></optgroup>
-              <input
-                type="checkbox"
-                name="taichung"
-                value="8"
-                id="taichungCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="taichungCheckbox">臺中市</label><br></br>
-              <input
-                type="checkbox"
-                name="miaoli"
-                value="9"
-                id="miaoliCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="miaoliCheckbox">苗栗縣</label><br></br>
-              <input
-                type="checkbox"
-                name="changhua"
-                value="10"
-                id="changhuaCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="changhuaCheckbox">彰化縣</label><br></br>
-              <input
-                type="checkbox"
-                name="nantou"
-                value="11"
-                id="nantouCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="nantouCheckbox">南投縣</label><br></br>
-              <optgroup label="南部"></optgroup>
-              <input
-                type="checkbox"
-                name="yunlin"
-                value="12"
-                id="yunlinCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="yunlinCheckbox">雲林縣</label><br></br>
-              <input
-                type="checkbox"
-                name="kaohsiung"
-                value="13"
-                id="kaohsiungCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="kaohsiungCheckbox">高雄市</label><br></br>
-              <input
-                type="checkbox"
-                name="tainan"
-                value="14"
-                id="tainanCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="tainanCheckbox">臺南市</label><br></br>
-              <input
-                type="checkbox"
-                name="chiayi"
-                value="15"
-                id="chiayiCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="chiayiCheckbox">嘉義市</label><br></br>
-              <input
-                type="checkbox"
-                name="chiayicounty"
-                value="16"
-                id="chiayicountyCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="chiayicountyCheckbox">嘉義縣</label><br></br>
-              <input
-                type="checkbox"
-                name="pingtung"
-                value="17"
-                id="pingtungCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="pingtungCheckbox">屏東縣</label><br></br>
-              <optgroup label="東部"></optgroup>
-              <input
-                type="checkbox"
-                name="yilan"
-                value="7"
-                id="yilanCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="yilanCheckbox">宜蘭縣</label><br></br>
-              <input
-                type="checkbox"
-                name="hualien"
-                value="18"
-                id="hualienCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="hualienCheckbox">花蓮縣</label><br></br>
-              <input
-                type="checkbox"
-                name="taitung"
-                value="19"
-                id="taitungCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="taitungCheckbox">臺東縣</label><br></br>
-              <optgroup label="離島"></optgroup>
-              <input
-                type="checkbox"
-                name="penghu"
-                value="20"
-                id="penghuCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="penghuCheckbox">澎湖縣</label><br></br>
-              <input
-                type="checkbox"
-                name="kinmen"
-                value="21"
-                id="kinmenCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="kinmenCheckbox">金門縣</label><br></br>
-              <input
-                type="checkbox"
-                name="lienchang"
-                value="22"
-                id="lienchangCheckbox"
-                onChange={handlecountryChange}
-              ></input>
-              <label htmlFor="lienchangCheckbox">連江縣</label><br></br>
+
+            <div className={`${styles.selectContainer}`} style={{height:'500px'}}>
+              <div className={`${styles.identity}`}>地點</div>
+              <div className={`${styles.checkboxContainer}`} style={{overflowY: 'scroll', height: "90%"}}>
+                <optgroup label="北部"></optgroup>
+                <input
+                  type="checkbox"
+                  name="taipei"
+                  value="1"
+                  id="taipeiCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="taipeiCheckbox">臺北市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="newtaipei"
+                  value="2"
+                  id="newtaipeiCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="newtaipeiCheckbox">新北市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="taoyuan"
+                  value="3"
+                  id="taoyuanCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="taoyuanCheckbox">桃園市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="keelung"
+                  value="4"
+                  id="keelungCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="keelungCheckbox">基隆市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="hsinchu"
+                  value="5"
+                  id="hsinchuCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="hsinchuCheckbox">新竹市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="hsinchucounty"
+                  value="6"
+                  id="hsinchucountyCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="hsinchucountyCheckbox">新竹縣</label><br></br>
+                <optgroup label="中部"></optgroup>
+                <input
+                  type="checkbox"
+                  name="taichung"
+                  value="8"
+                  id="taichungCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="taichungCheckbox">臺中市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="miaoli"
+                  value="9"
+                  id="miaoliCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="miaoliCheckbox">苗栗縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="changhua"
+                  value="10"
+                  id="changhuaCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="changhuaCheckbox">彰化縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="nantou"
+                  value="11"
+                  id="nantouCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="nantouCheckbox">南投縣</label><br></br>
+                <optgroup label="南部"></optgroup>
+                <input
+                  type="checkbox"
+                  name="yunlin"
+                  value="12"
+                  id="yunlinCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="yunlinCheckbox">雲林縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="kaohsiung"
+                  value="13"
+                  id="kaohsiungCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="kaohsiungCheckbox">高雄市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="tainan"
+                  value="14"
+                  id="tainanCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="tainanCheckbox">臺南市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="chiayi"
+                  value="15"
+                  id="chiayiCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="chiayiCheckbox">嘉義市</label><br></br>
+                <input
+                  type="checkbox"
+                  name="chiayicounty"
+                  value="16"
+                  id="chiayicountyCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="chiayicountyCheckbox">嘉義縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="pingtung"
+                  value="17"
+                  id="pingtungCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="pingtungCheckbox">屏東縣</label><br></br>
+                <optgroup label="東部"></optgroup>
+                <input
+                  type="checkbox"
+                  name="yilan"
+                  value="7"
+                  id="yilanCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="yilanCheckbox">宜蘭縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="hualien"
+                  value="18"
+                  id="hualienCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="hualienCheckbox">花蓮縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="taitung"
+                  value="19"
+                  id="taitungCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="taitungCheckbox">臺東縣</label><br></br>
+                <optgroup label="離島"></optgroup>
+                <input
+                  type="checkbox"
+                  name="penghu"
+                  value="20"
+                  id="penghuCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="penghuCheckbox">澎湖縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="kinmen"
+                  value="21"
+                  id="kinmenCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="kinmenCheckbox">金門縣</label><br></br>
+                <input
+                  type="checkbox"
+                  name="lienchang"
+                  value="22"
+                  id="lienchangCheckbox"
+                  onChange={handlecountryChange}
+                ></input>
+                <label htmlFor="lienchangCheckbox">連江縣</label><br></br>
+              </div>
             </div>
-            <br></br>
           </div>
 
           {/* 右邊 */}
           <div className="col-sm-10">
             <div style={{ textAlign: "end" }}>
-              <button className={act === 1 ? "active" : ""} onClick={() => clicksort(1)}>
+              <button className={act === 1 ? "active" : "" } onClick={() => clicksort(1)}>
                 作品數
                 <GoTriangleDown />
               </button>
@@ -609,35 +603,38 @@ const Findman = () => {
                 <GoTriangleDown />
               </button>
             </div>
-            <div className="row ">
+            <div className="row">
               {service.map((item, index) => (
                 <div
-                  className="col-sm-4 "
+                  className="col-xxl-4 col-md-6 mb-4"
                   key={index}
                   style={{ marginBottom: "5px", marginTop: "5px" }}
                 >
                   <div className="card">
-                    <div className="card-header">
+                    <div className="card-header" 
+                    style={{height:'255px', width:'100%'}}
+                    >
                       <img
                         src={`data:image/jpeg;base64,${item.image}`}
                         alt="service"
-                        style={{ width: 300, height: 200, position: "block" }}
+                        // style={{ width: 300, height: 200, position: "block" }}
+                        style={{ height: '100%', width:'100%',position: "block"}}
                       />
                     </div>
-                    <span className="sortBtn">
-                      <Link to={`/talent/${item.mid}`} className="card-body">
-                        服務名稱：{item.s_name}
-                        <br></br>
-                        人才名稱：{item.name}
-                        <br></br>
-                        作品數：{item.ptotal}
-                        <br></br>
-                      </Link></span>
-                    <div className="card-footer">
-                      {isLoggedIn === true && item.fid
-                      ? <FaHeart color="red" onClick={() => {cancelServiceCollection(item.fid)}} />
-                      : <FaRegHeart onClick={() => {addServiceCollection(item.sid)}} />}
-                      <Chatbutton></Chatbutton>
+                    {/* <div className="sortBtn"> */}
+                    <Link to={`/talent/${item.mid}`} className={`card-body text-decoration-none ${styles.link}`}>
+                      <div>服務名稱：{item.s_name}</div>
+                      <div>人才名稱：{item.name}</div>
+                      <div>作品數：{item.ptotal}</div>
+                    </Link>
+                    {/* </div> */}
+                    <div className="card-footer d-flex justify-content-between align-items-center">
+                      <div>
+                        {isLoggedIn === true && item.fid
+                        ? <FaHeart className={styles.faheart} onClick={() => {cancelServiceCollection(item.fid)}} />
+                        : <FaRegHeart className={styles.faregheart} onClick={() => {addServiceCollection(item.sid)}} />}
+                      </div>
+                      <Chatbutton />
                     </div>
                   </div>
                 </div>
@@ -645,6 +642,7 @@ const Findman = () => {
             </div>
           </div>
         </div>
+
         <NextPage
           currentPage={currentPage}
           totalPages={totalPages}
