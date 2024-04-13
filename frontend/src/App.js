@@ -27,8 +27,9 @@ import MainScreen2 from "./release/MainScreen2";
 import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
-import Search from "./Components/search";
 import "./App.css";
+import Dropdown from "react-bootstrap/Dropdown";
+
 
 
 export const IsLoggedInContext = createContext()
