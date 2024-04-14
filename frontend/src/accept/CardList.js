@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button ,Modal} from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
 // import CaseContext from './CaseContext';
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
+  const { fetchData } = useContext(CaseContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermProgress, setSearchTermProgress] = useState('');
   const [searchTermCompleted, setSearchTermCompleted] = useState('');
@@ -20,8 +21,15 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
     setSelectedDataKey(index);
     console.log(index);
   }
+  const [showDeletedModal, setShowDeletedModal] = useState(false);
+  //刪除MODAL
+  const handleDeletedModal = () => {
+    setShowDeletedModal(true);
+  }
+  const handleClosedDeletedModal = () => {
+    setShowDeletedModal(false);
+  }
   //
-  const { fetchData } = useContext(CaseContext);
   const handleSearch = (searchTerm) => {
     switch (screen) {
       case 1:
@@ -64,6 +72,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       })
     })
       .then(() => {
+        handleClosedDeletedModal()
         fetchData();
       })
       .catch((error) => {
@@ -145,7 +154,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                     variant="secondary"
                     className="my-2 d-inline-block"
                     style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center', visibility }}
-                    onClick={() => { handleDeleted(item.qid) }}
+                    onClick={() => { handleDeletedModal() }}
                   >
                     棄件
                   </Button>
@@ -168,9 +177,25 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               )}
 
             </div>
+            {/* 棄件MODAL */}
+      <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+        <Modal.Header closeButton>
+          <Modal.Title>{/* 標題內容 */}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          確定捨棄此案件?
+        </Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button variant="danger" onClick={() => { handleDeleted(item.qid) }}>
+            確定
+          </Button>
+          <Button variant="secondary" onClick={handleClosedDeletedModal}>
+            關閉
+          </Button>
+        </Modal.Footer>
+      </Modal>
           </Card>
         ))}
-
 
 
 

@@ -17,16 +17,18 @@ const SearchBox = ({ onSearch }) => {
     onSearch(searchTerm);
   };
   return (
-    <MDBCol md="3">
-      <form className="form-inline mt-3 mb-3" onSubmit={handleSubmit}>
-        <MDBIcon icon="search" />
-        <input className="form-control form-control-sm ml-3 w-75" 
-        type="text" 
-        placeholder="Search" 
-        aria-label="Search"
-        value={searchTerm}
-        onChange={handleChange}
-        />
+    <MDBCol md="4" className="d-flex">
+      <form className="form-inline" onSubmit={handleSubmit}>
+        <div className="d-flex justify-content-center align-items-center">
+          <MDBIcon icon="search" />
+          <input className="form-control form-control-sm ms-2 w-100" 
+          type="text" 
+          placeholder="Search" 
+          aria-label="Search"
+          value={searchTerm}
+          onChange={handleChange}
+          />
+        </div>
       </form>
     </MDBCol>
   );
