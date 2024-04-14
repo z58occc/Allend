@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
@@ -214,6 +214,8 @@ function Findcase() {
       連江縣: false,
     });
 
+  const [typeid, setTypeid] = useState();
+
   const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     const { name, checked } = event.target;
@@ -225,7 +227,10 @@ function Findcase() {
 
   };
 
-  const [budgetid, setbudgetid] = useState([]);
+
+
+
+  const [budgetid, setBudgetid] = useState([]);
 
   const handlechangebudget = (event) => {
     const { name, checked } = event.target;
@@ -325,16 +330,36 @@ function Findcase() {
   }
 
 
-  const { type,casesearch } = useParams();
-  console.log(type);
-  // const { casesearch } = useParams();
-  console.log(casesearch);
+  const { type, casesearch } = useParams();
+
 
 
   useEffect(() => {
     const fetchDataNew = async () => {
 
       try {
+
+
+        switch (type) {
+          case "1":
+            setTypeid("網站設計");
+            break;
+          case "2":
+            setTypeid("軟體程式");
+            break;
+          case "3":
+            setTypeid("平面設計");
+            break;
+          case "4":
+            setTypeid("文字語言");
+            break;
+          case "5":
+            setTypeid("專業諮詢");
+            break;
+
+          default:
+            break;
+        }
         const budgetQuery = Object.keys(budgetstate)
           .filter((key) => budgetstate[key])
           .map((key) => {
@@ -375,7 +400,7 @@ function Findcase() {
             }
           })
           .join(",");
-        setbudgetid(budget);
+        setBudgetid(budget);
         console.log(budgetid);
 
         const countryQuery = Object.keys(checkedState)
@@ -429,13 +454,15 @@ function Findcase() {
           })
           .join(",");
 
-          const response = await axios.get(
-            `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
-          );
-          setPosts(response.data);
 
-          // &casesearch=${casesearch}
-          
+
+        const response = await axios.get(
+          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+        );
+        setPosts(response.data);
+
+        // &casesearch=${casesearch}
+
 
         setCityid(countryQuery);
 
@@ -448,61 +475,28 @@ function Findcase() {
     fetchDataNew();
   }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
+  // 
 
 
 
-  const fetchData = async (type) => {
-    if (window.location.href == "http://localhost:3000/findcase") {
-      let url = "http://localhost/Allend/backend/public/api/findcase?type=";
-      setCurrentPage(1);
-      switch (type) {
-        case "網站設計":
-          changeBottomcolorOff();
 
-          setChangecolortype(true);
-          setCurrentPage(1);
-          url += "1";
-          break;
-        case "軟體程式":
-          changeBottomcolorOff();
 
-          setChangecolortype(true);
-          setCurrentPage(1);
-          url += "2";
-          break;
-        case "平面設計":
-          changeBottomcolorOff();
+  // 全部案件
+  const fetchData = async () => {
+    let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+    setCurrentPage(1);
 
-          setChangecolortype(true);
-          setCurrentPage(1);
-          url += "3";
-          break;
-        case "文字語言":
-          changeBottomcolorOff();
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
 
-          setChangecolortype(true);
-          setCurrentPage(1);
-          url += "4";
-          break;
-        case "專業諮詢":
-          changeBottomcolorOff();
+        setPosts(data);
+        console.log(data);
+      });
 
-          setChangecolortype(true);
-          setCurrentPage(1);
-          url += "5";
-          break;
-        default:
 
-      }
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-
-          setPosts(data);
-          console.log(data);
-        });
-    }
   };
+  // 全部案件
 
 
 
@@ -874,7 +868,7 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""} onClick={() => handlechangeduration("all")}>全部案件</button>
+          <button className={changecolor1 == true ? "active" : ""} onClick={() => fetchData()}>全部案件</button>
           <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
           <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
@@ -905,20 +899,21 @@ function Findcase() {
         </div>
         {/* 沒有符合條件的資料 */}
 
-
+        {/* type != 0 */}
 
 
         {/* 目前篩選條件(複選) */}
         <div>
-        {cityid.length > 0 || budgetid.length > 0
-        ? <>目前你的篩選條件是：<br/>
-            {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment> }<br/>
-            {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
-          </>
-        : null}
+          {cityid.length > 0 || budgetid.length > 0 || type != null
+            ? <>目前你的篩選條件是<br />
+              <div style={{ display: (typeid == null ? "none" : "") }}>類別：「{typeid}」</div>
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
+            </>
+            : null}
         </div>
 
-
+        {/* <Link to="./findcase" onClick={() => fetchData()} >清空篩選條件</Link> */}
         {/* 目前篩選條件(複選) */}
 
 
@@ -1036,7 +1031,7 @@ function Findcase() {
 
 
         {/*報價失敗Modal  */}
-          <Modal show={failshow} onHide={close} style={{marginTop:"250px"}}>
+        <Modal show={failshow} onHide={close} style={{ marginTop: "250px" }}>
 
           <Modal.Body>
             <div>報價失敗，請確認帳號是否有登入及驗證</div>
@@ -1049,7 +1044,7 @@ function Findcase() {
 
 
         {/*報價成功Modal  */}
-          <Modal show={successshow} onHide={close} style={{marginTop:"250px"}}>
+        <Modal show={successshow} onHide={close} style={{ marginTop: "250px" }}>
 
           <Modal.Body>
             <div>{success}</div>
