@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
+import { Button, Card, Form, Col, Row, Modal } from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
 import CaseDetailsModal2 from './CaseDetailsModal2';
@@ -34,6 +34,14 @@ const Work = ({ data2 }) => {
     setSelectedItems(newSelectedItems);
     setCheckedAll(newSelectedItems.every((item) => item));
   };
+  //deleted Modal
+  const [showDeletedModal, setShowDeletedModal] = useState(false);
+  const handleDeletedModal = () => {
+    setShowDeletedModal(true);
+  }
+  const handleClosedDeletedModal = () => {
+    setShowDeletedModal(false);
+  }
   //
   const [show, setShow] = useState(false);
   const handleShow = () => {
@@ -96,7 +104,7 @@ const Work = ({ data2 }) => {
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
       setSelectedItems(Array(updatedCaseData.length).fill(false));
       setCheckedAll(false);
-      // setSelectedItems([false])
+      handleClosedDeletedModal();
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -112,18 +120,19 @@ const Work = ({ data2 }) => {
     }
   };
   //分頁
-  console.log(data2)
+  //頁數控制
+  const CasePerPage = 6;
+  const page = Math.ceil(data2.length / CasePerPage);
   const [active, setActive] = useState(1);
   let items = [];
+  data2 = data2?.slice(CasePerPage * (active - 1), CasePerPage * active);
+  if (data2?.length === 0 && active > 1) {
+    setActive(() => active - 1)
+  }
   const handleSetActive = (number) => {
     setActive(number)
   }
-  // 
-  const CasePerPage = 6;
-  const page = Math.ceil(data2.length / CasePerPage);
-  console.log(page);
-  data2 = data2?.slice(CasePerPage * (active - 1), CasePerPage * active)
-  console.log(data2);
+  //
 
   for (let number = 1; number <= page; number++) {
     items.push(
@@ -157,7 +166,7 @@ const Work = ({ data2 }) => {
   return (
     <>
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
-      <div style={{ width: '100%', background: 'lightpink ', height: '800px',borderRadius:"10px" }}>
+      <div style={{ width: '100%', background: 'lightpink ', height: '800px', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className="mb-3 d-flex justify-content-around " style={{ width: "100%", height: '50px' }}>
             <Button
@@ -177,14 +186,14 @@ const Work = ({ data2 }) => {
             <Button
               variant="danger"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
-              onClick={() => { handleDeleted() }}
+              onClick={() => { handleDeletedModal() }}
             >
               刪除
             </Button>
           </div>
           {/* Generate six Cards */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Row style={{ width: '1000px',marginTop: "10px" }} >
+            <Row style={{ width: '1000px', marginTop: "10px" }} >
               {data2.map((item, index) => (
                 <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
@@ -212,6 +221,24 @@ const Work = ({ data2 }) => {
           <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
         </WorkContext.Provider>
         <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
+
+        {/* 刪除 */}
+        <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+          <Modal.Header closeButton>
+            <Modal.Title>{/* 標題內容 */}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+            確定刪除所選作品?
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-center">
+            <Button variant="danger" onClick={() => handleDeleted()}>
+              確定
+            </Button>
+            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+              關閉
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );
