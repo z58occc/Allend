@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form ,Modal} from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
 import CaseDetailsModal1 from './CaseDetailsModal1';
@@ -30,7 +30,14 @@ const Provider = ({ data1 }) => {
     setCheckedAll(!checkedAll);
     setSelectedItems(Array(data1.length).fill(!checkedAll));
   };
-
+  //deleted Modal
+  const [showDeletedModal, setShowDeletedModal] = useState(false);
+  const handleDeletedModal = () => {
+    setShowDeletedModal(true);
+  }
+  const handleClosedDeletedModal = () => {
+    setShowDeletedModal(false);
+  }
   //
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
@@ -97,6 +104,7 @@ const Provider = ({ data1 }) => {
       // setSelectedItems([false])
       fetchData();
       setSelectedItems(Array(updatedCaseData.length).fill(false));
+      setShowDeletedModal(false);
       setCheckedAll(false);
       if (!response.ok) {
         throw new Error('Failed to delete data');
@@ -184,7 +192,7 @@ const Provider = ({ data1 }) => {
             <Button
               variant="danger"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
-              onClick={() => { handleDeleted() }}
+              onClick={() =>  handleDeletedModal() }
             >
               刪除
             </Button>
@@ -233,6 +241,25 @@ const Provider = ({ data1 }) => {
         </DataContext.Provider>
 
         <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
+
+
+            {/* 刪除 */}
+        <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+        <Modal.Header closeButton>
+          <Modal.Title>{/* 標題內容 */}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          確定刪除所選服務?
+        </Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button variant="danger" onClick={()=>handleDeleted()}>
+            確定
+          </Button>
+          <Button variant="secondary" onClick={handleClosedDeletedModal}>
+            關閉
+          </Button>
+        </Modal.Footer>
+      </Modal>
       </div>
     </>
 

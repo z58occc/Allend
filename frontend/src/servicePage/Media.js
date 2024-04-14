@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form, Col, Row } from "react-bootstrap";
+import { Button, Card, Form, Col, Row ,Modal} from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
 import YouTubeEmbed from '../Components/youtube';
@@ -36,6 +36,14 @@ const Media = ({ data3 }) => {
     setSelectedItems(newSelectedItems);
     setCheckedAll(newSelectedItems.every((item) => item));
   };
+  //deleted Modal
+  const [showDeletedModal, setShowDeletedModal] = useState(false);
+  const handleDeletedModal = () => {
+    setShowDeletedModal(true);
+  }
+  const handleClosedDeletedModal = () => {
+    setShowDeletedModal(false);
+  }
   //新增
   const [show, setShow] = useState(false);
   const handleShow = () => {
@@ -97,6 +105,7 @@ const Media = ({ data3 }) => {
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
       setSelectedItems(Array(updatedCaseData.length).fill(false));
       setCheckedAll(false);
+      handleClosedDeletedModal();
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
@@ -181,7 +190,7 @@ const Media = ({ data3 }) => {
             <Button
               variant="danger"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
-              onClick={() => { handleDeleted() }}
+              onClick={() => { handleDeletedModal() }}
             >
               刪除
             </Button>
@@ -214,6 +223,24 @@ const Media = ({ data3 }) => {
           <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
         </MediaContext.Provider>
         <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
+        
+        {/* 刪除 */}
+        <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+          <Modal.Header closeButton>
+            <Modal.Title>{/* 標題內容 */}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+            確定刪除所選影音?
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-center">
+            <Button variant="danger" onClick={() => handleDeleted()}>
+              確定
+            </Button>
+            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+              關閉
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
 
     </>
