@@ -251,30 +251,30 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         </Button>
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
+
+
       {filteredData.map((item, index) => (
         <Card
           key={index}
           className="my-3"
-          style={{ width: "720px", height: "150px", display: "flex" }}
+          style={{ width: "720px", height: "", display: "flex" }}
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
-              {screen === 1 ? (
-                <Card.Text>更新日期：{item.updated_at}</Card.Text>
+            <Card.Text>{screen === 1 ? (
+                <>更新日期：{item.updated_at}</>
               ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : (
-                <Card.Text>建立日期：{item.created_at}</Card.Text>
-              )}
+                <>建立日期：{item.created_at}</>
+              )}</Card.Text>
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
-                style={{ marginLeft: "20px", visibility }}
+                style={{ paddingLeft: "1.25rem", visibility }}
                 checked={selectedItems[index] || false}
                 onChange={() => { handleChecked(index) }}
               />
-              {screen === 3
-                ?
-                <></>
-                :
+              {screen !== 3
+                &&
                 <Card.Title
                   style={
                     screen === 1 ? { marginLeft: "25px" } : { marginLeft: "0px" }
@@ -282,35 +282,30 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 >
                   {screen === 1 ? item.d_name : item.c_name}
                 </Card.Title>
-
               }
 
               {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.service_star} ></StarRating></Card.Text >)}
               {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.service_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
-                <Card.Text>
-                  {screen === 3 ? (
-                    <>評論日期：{item.completed_time}</>
-                  ) : screen === 1 ? (
-                    <> 合作期程：{item.d_duration}</>
-                  ) : (
-                    <> 合作期程：{item.c_duration}</>
-                  )}
-                </Card.Text>
-                <Card.Text>
+                <span>
+                  {screen === 3
+                  ? <>評論日期：{item.completed_time}</>
+                  : 
+                  screen === 1 
+                    ? (<>合作期程：{item.d_duration}</>) 
+                    : (<>合作期程：{item.c_duration}</>)
+                  }
+                </span>
+                <span>
                   金額：
-                  {screen === 1 ? (
-                    <>
-                      {item.d_amount} / {item.d_unit}
-                    </>
-                  ) : (
-                    <>
-                      {item.c_amount} / {item.c_unit}
-                    </>
-                  )}
-                </Card.Text>
+                  {screen === 1
+                  ? (<>{item.d_amount} / {item.d_unit}</>)
+                  : (<>{item.c_amount} / {item.c_unit}</>)}
+                </span>
               </div>
             </Card.Body>
+
+            
             {screen === 2 && (
               <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
                 <Button
@@ -360,13 +355,13 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
 
 
             {screen === 1 && (
-              <div className="d-flex flex-column justify-content-center" >
+              <div className="d-flex flex-column justify-content-evenly" >
                 <Button
                   variant="primary"
                   key={index}
-                  className="my-2"
+                  className=""
                   style={{
-                    width: "110px",
+                    width: "",
                     fontSize: "12px",
                     whiteSpace: "nowrap",
                   }}
@@ -379,9 +374,9 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 </Button>
                 <Button
                   variant="secondary"
-                  className="my-2 d-inline-block"
+                  className="m d-inline-block"
                   style={{
-                    width: "110px",
+                    width: "",
                     fontSize: "12px",
                     whiteSpace: "nowrap",
                     textAlign: "center",

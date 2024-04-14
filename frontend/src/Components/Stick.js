@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FaFacebook, FaLine, FaUserAlt, FaBriefcase, FaHeart  } from "react-icons/fa";
 import { CiStar, CiChat1 } from "react-icons/ci";
 import { AiFillGitlab } from "react-icons/ai";
@@ -35,7 +35,7 @@ function Stick() {
     return (
         <>
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:"530px"}}>
+                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:""}}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
                         <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px',marginTop:"10px"}}/>
                         {/* <AiFillGitlab style={{ color: '#4EFEB3' }} /> */}
@@ -67,20 +67,20 @@ function Stick() {
                     </div>
 
                     <div style={{ padding: '12px', borderTop: 'solid' }}>
-                        <div className='row'>
-                            <div className='col-sm-6'>
+                        {/* <div className='row'> */}
+                            {/* <div className='col-sm-6'>
                                 <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
-                            </div>
-                            <div className='text-center' >
+                            </div> */}
+                            {/* <div className='text-center' > */}
                                 
-                            <div onClick={toggleChat}>
+                            <div onClick={toggleChat} className='text-center p-2'>
                                         <CiChat1 size={20} />
                                         聊聊
                                     </div>
                             {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)}
                             
-                            </div>
-                        </div>
+                            {/* </div> */}
+                        {/* </div> */}
                     </div>
                 </div>
             </div>

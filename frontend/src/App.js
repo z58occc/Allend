@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { Link, Routes, Route, useLocation, useNavigate, Router } from "react-router-dom";
+import { Link, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Form } from "react-bootstrap";
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -366,7 +366,7 @@ function App() {
 
               </Dropdown.Menu>
             </Dropdown>
-            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
+            <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
               <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
                 <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
               </button>

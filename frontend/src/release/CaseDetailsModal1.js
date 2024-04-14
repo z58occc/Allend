@@ -101,12 +101,12 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
     <Modal
       show={show}
       onHide={onHide}
-      style={{ width: "450px", marginInline: "550px" }}
+      centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton style={{ padding: '1rem 1rem 1rem 1.5rem'}}>
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ padding: '0 1.5rem 1rem'}}>
         <Form.Label>案件編號：{data[number].did}</Form.Label>
         <Form >
           <Form.Group controlId="numberOfPeople">
