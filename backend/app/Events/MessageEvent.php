@@ -16,30 +16,32 @@ class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private  $senderId ,$message ,$receiverId;
+    private  $senderId, $message, $receiverId;
     /**
      * Create a new event instance.
      */
-    public function __construct($receiverId,$senderId, $message)
+    public function __construct($receiverId, $senderId, $message)
     {
-        $this->receiverId =$receiverId;
+        $this->receiverId = $receiverId;
         $this->senderId = $senderId;
         $this->message = $message;
     }
 
 
-    public function broadcastWith(){
-        
+    public function broadcastWith()
+    {
+
         return [
-            'id'=>Str::orderedUuid(),
-            'senderId'=>$this->senderId,
-            'receiveuser'=>$this->receiverId,
-            'message'=>$this->message,
-            'created_at'=>now()->toDateTimeString(),
+            'id' => Str::orderedUuid(),
+            'senderId' => $this->senderId,
+            'receiveuser' => $this->receiverId,
+            'message' => $this->message,
+            'created_at' => now()->toDateTimeString(),
         ];
     }
 
-    public function broadcastAs(){
+    public function broadcastAs()
+    {
         return 'message.new';
     }
     /**
@@ -47,11 +49,12 @@ class MessageEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn():Array
+    public function broadcastOn(): array
     {
-        
-        return [new PrivateChannel('private-chat.'.$this->receiverId. '.' .$this->senderId),
-                new PrivateChannel('private-chat.'.$this->senderId. '.' .$this->receiverId)];
-        
+
+        return [
+            new PrivateChannel('private-chat.' . $this->receiverId . '.' . $this->senderId),
+            new PrivateChannel('private-chat.' . $this->senderId . '.' . $this->receiverId)
+        ];
     }
 }

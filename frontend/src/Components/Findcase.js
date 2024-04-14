@@ -890,6 +890,17 @@ function Findcase() {
         {/* 案件欄位 */}
 
 
+        {/* 目前篩選條件(複選) */}
+        <div>
+        {(cityid.length > 0 || budgetid.length > 0) &&
+        <>目前你的篩選條件是：<br/>
+            {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment> && <br/>}
+            {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
+        </>
+        }
+        </div>
+        {/* 目前篩選條件(複選) */}
+
 
         {/* 沒有符合條件的資料 */}
         <div
@@ -955,12 +966,10 @@ function Findcase() {
                   </Row>
                 </div>
               </div>)
-
-
-
           })}
         </div>
         {/* 案件欄位 */}
+        
 
         {/* 我要報價Modal */}
         <Modal show={show} onHide={close} >

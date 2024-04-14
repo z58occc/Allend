@@ -17,6 +17,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   const [searchTermCompleted, setSearchTermCompleted] = useState('');
   const { fetchData } = useContext(CaseContext);
   const CaseData = data1;
+
   //刪除MODAL
   const [showDeletedModal, setShowDeletedModal] = useState(false);
   const handleDeletedModal = () => {
@@ -25,6 +26,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   const handleClosedDeletedModal = () => {
     setShowDeletedModal(false);
   }
+  
   //搜尋選擇case
   const handleSearch = (searchTerm) => {
     switch (screen) {
@@ -105,12 +107,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
-        body: JSON.stringify
-          (
-            {
-              did: didOfDeletedData,
-            }
-          ),
+        body: JSON.stringify({ did: didOfDeletedData }),
       }).then(() => {
         fetchData();
         setSelectedItems(Array.from(data1.length).fill(false));
@@ -124,11 +121,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
       const responseData = await response.json();
       console.log('Response data:', responseData);
 
-      // Handle successful response, such as updating the page or other operations
-
     } catch (error) {
       console.error('Error deleting data:', error);
-      // Handle error cases, such as displaying error messages or other handling
     }
   };
 
@@ -251,30 +245,30 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         </Button>
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
+
+
       {filteredData.map((item, index) => (
         <Card
           key={index}
           className="my-3"
-          style={{ width: "720px", height: "150px", display: "flex" }}
+          style={{ width: "720px", height: "", display: "flex" }}
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
-              {screen === 1 ? (
-                <Card.Text>更新日期：{item.updated_at}</Card.Text>
+            <Card.Text>{screen === 1 ? (
+                <>更新日期：{item.updated_at}</>
               ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : (
-                <Card.Text>建立日期：{item.created_at}</Card.Text>
-              )}
+                <>建立日期：{item.created_at}</>
+              )}</Card.Text>
               <Form.Check
                 type="checkbox"
                 className="align-self-center"
-                style={{ marginLeft: "20px", visibility }}
+                style={{ paddingLeft: "1.25rem", visibility }}
                 checked={selectedItems[index] || false}
                 onChange={() => { handleChecked(index) }}
               />
-              {screen === 3
-                ?
-                <></>
-                :
+              {screen !== 3
+                &&
                 <Card.Title
                   style={
                     screen === 1 ? { marginLeft: "25px" } : { marginLeft: "0px" }
@@ -282,33 +276,26 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 >
                   {screen === 1 ? item.d_name : item.c_name}
                 </Card.Title>
-
               }
 
               {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.service_star} ></StarRating></Card.Text >)}
               {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.service_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
-                <Card.Text>
-                  {screen === 3 ? (
-                    <>評論日期：{item.completed_time}</>
-                  ) : screen === 1 ? (
-                    <> 合作期程：{item.d_duration}</>
-                  ) : (
-                    <> 合作期程：{item.c_duration}</>
-                  )}
-                </Card.Text>
-                <Card.Text>
+                <span>
+                  { screen === 3
+                  ? <>評論日期：{item.completed_time}</>
+                  : screen === 1 
+                    ? (<>合作期程：{item.d_duration}</>)
+                    : (<>合作期程：{item.c_duration}</>)
+                  }
+                </span>
+                <span>
                   金額：
-                  {screen === 1 ? (
-                    <>
-                      {item.d_amount} / {item.d_unit}
-                    </>
-                  ) : (
-                    <>
-                      {item.c_amount} / {item.c_unit}
-                    </>
-                  )}
-                </Card.Text>
+                  {screen === 1
+                  ? (<>{item.d_amount} / {item.d_unit}</>)
+                  : (<>{item.c_amount} / {item.c_unit}</>)
+                  }
+                </span>
               </div>
             </Card.Body>
             {screen === 2 && (
@@ -400,7 +387,6 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
 
       {/* 查看報價Modal */}
       <GetQuoteModal show={showModal} onHide={handleCloseModal} data={Quote}></GetQuoteModal>
-      {/*  */}
 
 
       <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">

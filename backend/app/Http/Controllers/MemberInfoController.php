@@ -1054,12 +1054,19 @@ class MemberInfoController extends Controller
                 'error' => '未選擇要取消的收藏'
             ]);
         }
-
+        $fid = $request->input('fid');
         try{
-            DB::table('collection')
-            ->where('fid', $request->input('fid'))
-            ->where('mid', $mid)
-            ->update(['collect' => 0]);
+            if(is_array($fid)){
+                DB::table('collection')
+                ->whereIn('fid', $fid)
+                ->where('mid', $mid)
+                ->update(['collect' => 0]);
+            }else{
+                DB::table('collection')
+                ->where('fid', $fid)
+                ->where('mid', $mid)
+                ->update(['collect' => 0]);
+            }
 
             return response()->json([
                 'message' => '取消收藏成功'

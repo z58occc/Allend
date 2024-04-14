@@ -39,6 +39,8 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //聊天室窗狀態
+
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -324,7 +326,6 @@ function App() {
   };
   const [inputvalue, setInputvalue] = useState("")
   const [togglename, setTogglename] = useState("找案件");
-  console.log(inputvalue);
 
   const handleInputChange = (event) => {
     console.log(event.target.value);
@@ -364,7 +365,7 @@ function App() {
 
               </Dropdown.Menu>
             </Dropdown>
-            <Link to={togglename == "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
+            <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
               <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
                 <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
               </button>
@@ -449,7 +450,7 @@ function App() {
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
-        <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
       </Routes>

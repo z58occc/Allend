@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import { FaFacebook, FaLine, FaUserAlt, FaBriefcase, FaHeart  } from "react-icons/fa";
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import { FaFacebook, FaLine, FaUserAlt, FaBriefcase  } from "react-icons/fa";
 import { CiStar, CiChat1 } from "react-icons/ci";
-import { AiFillGitlab } from "react-icons/ai";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import CopyButton from './CopyButton';
 import axios from 'axios';
+import PublicMessagesPage from './PublicMessagesPage';
+import { IsLoggedInContext } from "../App";
+import ChatButton from './ChatButtom';
 
+export const toggleChatContext = createContext()
 
 function Stick() {
 
+    const [showChat, setShowChat] = useState(false);
+
+    const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
+
+    const toggleChat = () => {
+      setShowChat(!showChat);
+    };
     const { mid } = useParams();
 
     const [talent, setTalent] = useState([]);
@@ -30,7 +40,7 @@ function Stick() {
     return (
         <>
             <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:"530px"}}>
+                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:""}}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
                         <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px',marginTop:"10px"}}/>
                         {/* <AiFillGitlab style={{ color: '#4EFEB3' }} /> */}
@@ -62,11 +72,19 @@ function Stick() {
                     </div>
 
                     <div style={{ padding: '12px', borderTop: 'solid' }}>
-                        <div className='text-center'>
-                            <Link className="text-decoration-none" to={`/chat/${talent.member?.[0]?.mid}`}>
-                                <CiChat1 size={20} />聊聊
-                            </Link>
-                        </div>
+                        {/* <div className='row'> */}
+                            {/* <div className='col-sm-6'>
+                                <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
+                            </div> */}
+                            {/* <div className='text-center' > */}
+                                
+                            <div onClick={isLoggedIn ? toggleChat : handleShow} className='text-center p-2'>
+                                        <ChatButton />
+                                    </div>
+                            {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)}
+                            
+                            {/* </div> */}
+                        {/* </div> */}
                     </div>
                 </div>
             </div>

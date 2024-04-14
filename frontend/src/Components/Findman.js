@@ -11,6 +11,7 @@ import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
 import styles from "./Findman.module.css";
+import PublicMessagesPage from "./PublicMessagesPage";
 // import "./Findman.css";
 
 
@@ -19,6 +20,15 @@ const Findman = () => {
   const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
   // 儲存撈回來的資料
   const [service, setService] = useState([]);
+
+  const [showChat, setShowChat] = useState(false);
+  const [selectedItemMid, setSelectedItemMid] = useState(null);
+
+
+  const toggleChat = (mid) => {
+    setSelectedItemMid(mid);
+    setShowChat(!showChat);
+  };
 
   const [identity, setIdentity] = useState({
     personal: false,
@@ -72,6 +82,8 @@ const Findman = () => {
     if(Cookies.get('token')){
       setIsLoggedIn(true)
     }
+
+
 
     const fetchService = async () => {
       try {
@@ -634,12 +646,14 @@ const Findman = () => {
                         ? <FaHeart className={styles.faheart} onClick={() => {cancelServiceCollection(item.fid)}} />
                         : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => {addServiceCollection(item.sid)} : handleShow} />}
                       </div>
-                      <Chatbutton />
+                      <div onClick={isLoggedIn ? ()=>toggleChat(item.mid) : handleShow} className='text-center p-2'>
+                      <Chatbutton /></div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
           </div>
         </div>
 

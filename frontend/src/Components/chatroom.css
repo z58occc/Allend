@@ -1,0 +1,58 @@
+.chat-window {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 500px;
+  height: 400px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.title-section {
+    height: 50px;
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chat-menu {
+    width: 30%;
+    background-color: #f2f2f2;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+
+
+
+
+
+  .message-input {
+    width: calc(100% - 90px); /* 90px 是 button 的寬度和 input 的 margin-right 的和 */
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .send-button {
+    width: 70px; /* 調整 button 的寬度 */
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
