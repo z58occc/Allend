@@ -111,19 +111,20 @@ const Media = ({ data3 }) => {
       // Handle error cases, such as displaying error messages or other handling
     }
   };
-  //分頁
-  console.log(data3)
-  const [active, setActive] = useState(1);
-  let items = [];
-  const handleSetActive = (number) => {
-    setActive(number)
-  }
-  // 
+
+  //頁數控制
   const CasePerPage = 6;
   const page = Math.ceil(data3.length / CasePerPage);
-  console.log(page);
-  data3 = data3?.slice(CasePerPage * (active - 1), CasePerPage * active)
-  console.log(data3);
+  const [active,setActive] = useState(1);
+  let items = [];
+  data3 = data3?.slice(  CasePerPage * (active-1) , CasePerPage * active);
+  if(data3?.length === 0 && active > 1){
+    setActive(()=>active - 1)
+  }  
+  const handleSetActive = (number)=>{
+    setActive(number)
+  }
+  //
 
   for (let number = 1; number <= page; number++) {
     items.push(

@@ -112,18 +112,19 @@ const Work = ({ data2 }) => {
     }
   };
   //分頁
-  console.log(data2)
-  const [active, setActive] = useState(1);
-  let items = [];
-  const handleSetActive = (number) => {
-    setActive(number)
-  }
-  // 
+  //頁數控制
   const CasePerPage = 6;
   const page = Math.ceil(data2.length / CasePerPage);
-  console.log(page);
-  data2 = data2?.slice(CasePerPage * (active - 1), CasePerPage * active)
-  console.log(data2);
+  const [active,setActive] = useState(1);
+  let items = [];
+  data2 = data2?.slice(  CasePerPage * (active-1) , CasePerPage * active);
+  if(data2?.length === 0 && active > 1){
+    setActive(()=>active - 1)
+  }  
+  const handleSetActive = (number)=>{
+    setActive(number)
+  }
+  //
 
   for (let number = 1; number <= page; number++) {
     items.push(

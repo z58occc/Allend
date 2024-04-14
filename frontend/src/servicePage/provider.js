@@ -113,18 +113,19 @@ const Provider = ({ data1 }) => {
     }
   };
   //
-  console.log(data1)
+  //頁數控制
+  const CasePerPage = 6;
+  const page = Math.ceil(data1.length / CasePerPage);
   const [active, setActive] = useState(1);
   let items = [];
+  data1 = data1?.slice(CasePerPage * (active - 1), CasePerPage * active);
+  if (data1?.length === 0 && active > 1) {
+    setActive(() => active - 1)
+  }
   const handleSetActive = (number) => {
     setActive(number)
   }
   //
-  const CasePerPage = 6;
-  const page = Math.ceil(data1.length / CasePerPage);
-  console.log(page);
-  data1 = data1?.slice(CasePerPage * (active - 1), CasePerPage * active)
-  console.log(data1);
 
   for (let number = 1; number <= page; number++) {
     items.push(
@@ -135,9 +136,11 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-      
-      <div style={{ width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
-       borderRadius: "10px 10px 0 0" }}>
+
+      <div style={{
+        width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        borderRadius: "10px 10px 0 0"
+      }}>
         <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
           <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <h3>未有案件紀錄，點此按鈕新增</h3>
@@ -160,79 +163,79 @@ const Provider = ({ data1 }) => {
   return (
 
     <>
-    <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
-    <div style={{ width: '100%', background: 'lightblue', height: '800px',borderRadius:"10px" }}>
-      <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-        <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
-          <Button
-            variant="success"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleShow() }}
-          >
-            新增
-          </Button>
-          <Button
-            variant="primary"
-            style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
-            onClick={handleToggleAll}
-          >
-            {checkedAll ? "取消全選" : "全選"}
-          </Button>
-          <Button
-            variant="danger"
-            style={{ fontSize: "12px", width: "100px", height: '100%' }}
-            onClick={() => { handleDeleted() }}
-          >
-            刪除
-          </Button>
-        </div>
-        {/* DATA */}
-        <div style={{}}>
-
-          {data1.map((item, index) => (
-
-            <Card
-              key={index}
-              className=""
-              style={{ width: "720px", height: "95px", margin: '10px auto' }}
+      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
+      <div style={{ width: '100%', background: 'lightblue', height: '800px', borderRadius: "10px" }}>
+        <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+          <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
+            <Button
+              variant="success"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleShow() }}
             >
-              <Card.Body key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-                  <Form.Check
-                    type="checkbox"
-                    className="mr-3"
-                    checked={selectedItems[index] || false}
-                    style={{ marginBottom: "30px", fontSize: "18px", marginRight: "10px" }}
-                    onChange={() => handleChecked(index)}
-                  />
-                  <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
-                    handleShow1(index);
-                  }}>
-                    {item.s_name}
-                  </Card.Title>
-                </div>
-                <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                  <hr style={{ background: "black", margin: "0px", width: "50%" }} />
-                </div>
-                <Card.Text style={{ fontSize: "14px" }}>
-                  {item.s_description}
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              新增
+            </Button>
+            <Button
+              variant="primary"
+              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              onClick={handleToggleAll}
+            >
+              {checkedAll ? "取消全選" : "全選"}
+            </Button>
+            <Button
+              variant="danger"
+              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              onClick={() => { handleDeleted() }}
+            >
+              刪除
+            </Button>
+          </div>
+          {/* DATA */}
+          <div style={{}}>
+
+            {data1.map((item, index) => (
+
+              <Card
+                key={index}
+                className=""
+                style={{ width: "720px", height: "95px", margin: '10px auto' }}
+              >
+                <Card.Body key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+                    <Form.Check
+                      type="checkbox"
+                      className="mr-3"
+                      checked={selectedItems[index] || false}
+                      style={{ marginBottom: "30px", fontSize: "18px", marginRight: "10px" }}
+                      onChange={() => handleChecked(index)}
+                    />
+                    <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
+                      handleShow1(index);
+                    }}>
+                      {item.s_name}
+                    </Card.Title>
+                  </div>
+                  <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                    <hr style={{ background: "black", margin: "0px", width: "50%" }} />
+                  </div>
+                  <Card.Text style={{ fontSize: "14px" }}>
+                    {item.s_description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
 
-          ))}
-          <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+            ))}
+            <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+          </div>
         </div>
-      </div>
-      <DataContext.Provider value={{ setCheckedAll, setSelectedItems }}>
-        <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
-      </DataContext.Provider>
+        <DataContext.Provider value={{ setCheckedAll, setSelectedItems }}>
+          <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+        </DataContext.Provider>
 
-      <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
-    </div>
+        <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
+      </div>
     </>
-    
+
   );
 };
 

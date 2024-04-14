@@ -111,6 +111,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
       }).then(() => {
         fetchData();
         setSelectedItems(Array.from(data1.length).fill(false));
+        handleClosedDeletedModal();
+        setChecked(false);
       })
       console.log(updateData);
       console.log(selectedItems);
