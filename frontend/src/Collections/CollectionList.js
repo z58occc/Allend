@@ -159,8 +159,8 @@ console.log(selectedItems.filter((item, i) => item))
       <div className="d-flex justify-content-end mt-3 " style={{ width: '100%'}}>
         <div className='me-auto d-flex align-items-center'>
           <Button
-            variant="primary"
-            style={{ fontSize: "18px", whiteSpace: "nowrap",padding: '0.5rem 1rem', borderRadius: '.5rem'}}
+            variant='primary'
+            className={`${styles.togglecollectionchecked}`}
             onClick={handleToggleAll}
           >
             {checked ? "取消全選" : "全選"}
@@ -168,11 +168,11 @@ console.log(selectedItems.filter((item, i) => item))
           
           <Button
             variant="danger"
-            style={{ fontSize: "12px", whiteSpace: "nowrap", }}
+            className={`${styles.deletecollectionchecked}`}
             onClick={handleOpenCancelModal}
             disabled={disabledDeleteButton}
           >
-            刪除135136
+            刪除收藏
           </Button>
         </div>
     {/* <div className='row w-100 d-flex justify-content-end'> */}
@@ -193,7 +193,7 @@ console.log(selectedItems.filter((item, i) => item))
             <div className='d-flex align-items-center' style={{ padding: "0 1.25rem" }}>
               <input
                   type="checkbox"
-                  className="align-self-center"
+                  className={`align-self-center ${styles.collectioncheckbox}`}
                   checked={selectedItems[index] || false}
                   onChange={() => { handleChecked(index) }}
                 />
@@ -218,12 +218,11 @@ console.log(selectedItems.filter((item, i) => item))
 
             { <div className="d-flex flex-column justify-content-center" >
                 <Button
-                  variant="danger" 
-                  className=" d-inline-block"
-                  style={{ width: '110px', fontSize: '14px', whiteSpace: 'nowrap', textAlign: 'cente',  }}
+                  variant="danger"
+                  className={`${styles.deletecollectionchecked}`}
                   onClick={()=>{singleCancel(item.fid)}}
                 >
-                  取消收藏
+                  刪除收藏
                 </Button>
               </div>
             }
@@ -234,10 +233,10 @@ console.log(selectedItems.filter((item, i) => item))
       {/* 確認刪除modal */}
       <Modal show={showCancelModal} onHide={handleCloseCancelModal} centered size="sm">
         <Modal.Header closeButton>
-          <Modal.Title>取消確認</Modal.Title>
+          <Modal.Title>刪除確認</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-          確定取消所選收藏?
+          確定刪除所選收藏?
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center">
           <Button variant="danger" onClick={multipleCancel}>

@@ -345,26 +345,26 @@ function App() {
         <Link to="/">
           <img style={{ width: 80, height: 80 }} src={ourLogo} alt="" />
         </Link>
-        <span className="slogan-text" style={{ marginLeft: 5, letterSpacing: "2px" }}>包您滿意</span>
+        <span className="slogan-text" style={{ letterSpacing: "2px" }}>包您滿意</span>
+
         <div
-          className="search-container"
-          style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
+          className="search-container d-flex align-items-center"
+          style={{ marginLeft: "auto" }}
         >
-
-
           {/* 搜索框 */}
-          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '700px' }}>
-            <input onChange={handleInputChange} defaultValue={inputvalue} type="text" placeholder="Search.." style={{ width: '500px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
-            <Dropdown drop="end">
+          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '600px' }}>
+            <Dropdown drop="start">
               <Dropdown.Toggle id="dropdown-basic">{togglename}</Dropdown.Toggle>
-              <Dropdown.Menu >
-                <div >
+              <Dropdown.Menu className="d-flex">
+                {/* <div > */}
                   <button onClick={() => setTogglename("找案件")} style={{ fontSize: "25px" }} >找案件</button>
                   <button onClick={() => setTogglename("找服務")} style={{ fontSize: "25px" }}>找服務</button>
-                </div>
 
+                {/* </div> */}
               </Dropdown.Menu>
             </Dropdown>
+            <input onChange={handleInputChange} defaultValue={inputvalue} type="text" placeholder="Search.." style={{ width: '350px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
+
             <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
               <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
                 <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
@@ -393,6 +393,7 @@ function App() {
           )}
         </div>
       </div>
+
       <nav className="navbar navbar-expand-sm">
         <div className="container-fluid" >
           <ul className="navbar-nav">
@@ -411,7 +412,7 @@ function App() {
               <Link
                 to="/findman"
                 className={`nav-link ${selectedLink === "/findman" ? "active" : ""}`}
-                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#ffcab9", color: "black", borderRadius: "0 8px 8px 0" }}
+                style={{ backgroundColor: selectedLink === "/findman" ? "#D6DAC8" : "#FFCAB9", color: "black", borderRadius: "0 8px 8px 0" }}
                 onClick={() => handleLinkClick("/findman")}
               >
                 <span className="slogan-text">我要找人</span>

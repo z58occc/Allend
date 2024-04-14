@@ -117,6 +117,7 @@ function CaseContext() {
 
     }, [id, isLoggedIn]);
 
+    const [textShow, setTextShow] = useState(false);
     // 加入收藏
     const addServiceCollection = (did) => {
         axios({
@@ -127,6 +128,10 @@ function CaseContext() {
         })
         .then((res) => {
             setPosts({...posts, fid: res.data.fid.fid})
+            setTextShow(true)
+            setTimeout(()=>{
+                setTextShow(false)
+            }, 3000)
         })
         .catch((err) => {console.log(err)})
     }
@@ -185,7 +190,7 @@ function CaseContext() {
                         {isLoggedIn === true && posts.fid
                         ?   <>
                                 <FaHeart size={25} style={{ color: 'red', cursor: 'pointer', marginRight: '5px'}} onClick={() => {cancelServiceCollection(posts.fid)}}/>
-                                <span style={{color: 'red'}}>已收藏</span>
+                                {textShow && <span style={{color: 'red'}}>已收藏！</span>}
                             </>
                         :   <FaRegHeart size={25} style={{cursor: 'pointer'}} onClick={isLoggedIn ? () => {addServiceCollection(posts.did)} : handleShow} />}
                             <div style={{ position: "absolute", right: "30px", bottom: "0px" }}>更新時間：{posts.updated_at}</div>

@@ -1,6 +1,3 @@
-a {
-  text-decoration: none;
-}
 .search-container {
   scale: 0.5;
   /* float: right; */
@@ -33,8 +30,6 @@ nav button {
 .navbar {
   background-color: peachpuff;
 }
-
-
 
 .modal-content {
   background-image: url("../src/Components/img/background.jpg");
@@ -80,17 +75,16 @@ body::before {
   /* 将伪元素置于body内容之后 */
 }
 
-
 .custom-modal .modal-content {
-  border-radius: 8px !important; /* 調整這個值以改變圓角的大小 */ 
+  border-radius: 8px !important; /* 調整這個值以改變圓角的大小 */
 }
 
 .custom-modal .modal-header {
-  border-top-left-radius: 8px!important; 
-  border-top-right-radius: 8px!important; 
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
 }
 
 .custom-modal .modal-footer {
-  border-bottom-left-radius: 8px!important; 
-  border-bottom-right-radius: 8px!important; 
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
 }

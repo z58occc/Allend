@@ -1,0 +1,19 @@
+.catrgorycontainer {
+  /* border: 1px solid black;
+  border-radius: 15px; */
+}
+.categorylink {
+  text-decoration: none;
+  color: black;
+}
+.categorylink > div:hover {
+  color: greenyellow;
+  background-color: deepskyblue;
+}
+.categorylink > div {
+  letter-spacing: 3px;
+  font-size: larger;
+  background-color: rgb(75, 123, 255);
+  border: 1px solid black;
+  border-radius: 15px;
+}

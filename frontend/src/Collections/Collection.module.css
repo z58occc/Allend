@@ -1,8 +1,4 @@
-input[type="checkbox"] {
-  display: none;
-}
-
-div > input[type="checkbox"] {
+.collectioncheckbox {
   position: relative;
   display: inline-block;
   width: 20px;
@@ -13,7 +9,7 @@ div > input[type="checkbox"] {
   cursor: pointer;
 }
 
-div > input[type="checkbox"]:checked + div > input[type="checkbox"]::after {
+.collectioncheckbox:checked + .collectioncheckbox::after {
   content: "123";
   position: absolute;
   top: 4px;
@@ -29,4 +25,15 @@ div > input[type="checkbox"]:checked + div > input[type="checkbox"]::after {
   padding: 1rem 1.25rem;
   vertical-align: middle;
   /* border: 1px solid black; */
+}
+
+.togglecollectionchecked,
+.deletecollectionchecked {
+  font-size: 18px;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+.deletecollectionchecked {
 }
