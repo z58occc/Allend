@@ -326,7 +326,6 @@ function App() {
   };
   const [inputvalue, setInputvalue] = useState("")
   const [togglename, setTogglename] = useState("找案件");
-  console.log(inputvalue);
 
   const handleInputChange = (event) => {
     console.log(event.target.value);

@@ -42,12 +42,12 @@ export default function PublicMessagesPage(props) {
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        const response = await Axios.get("http://localhost/Allend/backend/public/api/user/email", {
+        const response = await Axios.get(`http://localhost/Allend/backend/public/api/user/email?receiverId=${props.receiverId}`, {
           headers: {
             Authorization: `Bearer ${Cookies.get("token")}`,
           },
         })
-        setsenderId(response.data.mid)
+        setsenderId(response.data)
       } catch (error) {
         console.error("Failed to fetch member email:", error)
       }
@@ -59,7 +59,7 @@ export default function PublicMessagesPage(props) {
 
     Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
     const subscribeToPrivateChat = () => {
-      if (senderId && props.receiverId) {
+      if (senderId.mid && props.receiverId) {
         const echo = new Echo({
           authEndpoint: "http://localhost:8000/broadcasting/auth",
           broadcaster: "pusher",
@@ -76,7 +76,7 @@ export default function PublicMessagesPage(props) {
           },
         })
         echo
-          .private(`private-chat.${props.receiverId}.${senderId}`)
+          .private(`private-chat.${props.receiverId}.${senderId.mid}`)
           .subscribed(() => {
             setSconnect('連線成功')
           })
@@ -87,7 +87,7 @@ export default function PublicMessagesPage(props) {
       }
     }
     subscribeToPrivateChat()
-  }, [senderId, props.receiverId])
+  }, [senderId.mid, props.receiverId])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -101,7 +101,7 @@ export default function PublicMessagesPage(props) {
 
     <div className="chat-window">
           <div className="title-section">
-            標題
+            {senderId.receivername}({senderId.receiveremail})
           </div> 
           <div>
             <div style={{ display: 'flex', height: '400px' }}>
@@ -112,7 +112,7 @@ export default function PublicMessagesPage(props) {
                   <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'400px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
                   {Sconnect && <span>{Sconnect}</span>}
                     {messages.map((message, index) => (
-                      <Messagebox key={index} message={message} userId={senderId} />
+                      <Messagebox key={index} message={message} userId={senderId.mid} />
                     ))}
                   </div>
                   <div style={{marginTop: 'auto'}}>
