@@ -44,9 +44,9 @@ class AuthController extends Controller
         // 插入資料庫，若重複會回傳錯誤訊息
         try{
             $user = Member::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'last_login' => now()
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'last_login' => now()
             ]);
 
             // 發送信箱驗證信

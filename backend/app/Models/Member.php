@@ -23,6 +23,7 @@ class Member extends Authenticatable implements JWTSubject, MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'provider',
         'name',
         'avatar',
         'email',

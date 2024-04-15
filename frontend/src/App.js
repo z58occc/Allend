@@ -225,7 +225,7 @@ function App() {
       axios({
         method: 'get',
         url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => console.log(res.data))
+      }).then((res) => window.location.href = res.data)
     } catch (err) {
       console.log(err)
     }
