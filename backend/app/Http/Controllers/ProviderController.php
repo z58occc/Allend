@@ -23,11 +23,14 @@ class ProviderController extends Controller
         try{
             $SocialUser = Socialite::driver('google')->stateless()->user();
 
-            $user = Member::where('email', $SocialUser->getEmail())->first();
-            if($user){
+            $user = Member::where('email', $SocialUser->getEmail())->where('provider', 'google')->first();
+
+            if ($user->exists())
+            {
                 $token = JWTAuth::fromUser($user);
             }else{
                 $user = Member::create([
+                    'provider' => 'google',
                     'email' => $SocialUser->email,
                     'password' => "",
                     'name' => $SocialUser->name,
@@ -37,8 +40,8 @@ class ProviderController extends Controller
                 ]);
                 $token = JWTAuth::fromUser($user);
             }
+
             return response()->json([
-                'user_login_time' => now(),
                 'token' => $token,
             ]);
 
@@ -64,7 +67,6 @@ class ProviderController extends Controller
             // Auth::login($user);
 
             // return redirect('/dashboard');
-
         }catch(Exception $error){
             return $error;
         }
