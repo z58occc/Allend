@@ -630,7 +630,7 @@ function App() {
               <InputGroup.Text controlId="formBasicPassword"><FaUserLock /></InputGroup.Text>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="請輸入超過8位數"
                 required
                 ref={RegisterPassword}
               />
