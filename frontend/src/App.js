@@ -29,10 +29,11 @@ import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
 import Dropdown from "react-bootstrap/Dropdown";
-
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 
 export const IsLoggedInContext = createContext()
+
 
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -231,7 +232,7 @@ function App() {
       axios({
         method: 'get',
         url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => console.log(res.data))
+      }).then((res) => window.location.href = res.data)
     } catch (err) {
       console.log(err)
     }
@@ -244,6 +245,7 @@ function App() {
   const LoginPassword = useRef();
   const [rememberPassword, setRememberPassword] = useState(false);
 
+  // 一般登入
   const handleLogin = async () => {
     try {
       const res = await axios.post(
@@ -270,7 +272,6 @@ function App() {
     }
   };
 
-
   // 取得會員email
   const fetchMemberEmail = async () => {
     try {
@@ -288,6 +289,8 @@ function App() {
 
 
   const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發案按鈕登入判別
+
+  // 忘記密碼
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
@@ -340,6 +343,11 @@ function App() {
   const search = () => {
     setInputvalue(inputvalue);
   }
+  const handleChange = (event) => {
+    setTogglename(event.target.value);
+  };
+
+
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat,selectedItemMid,setSelectedItemMid,setShowChat }}>
       <div
@@ -357,27 +365,37 @@ function App() {
           className="search-container d-flex align-items-center"
           style={{ marginLeft: "auto" }}
         >
-          {/* 搜索框 */}
-          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '600px' }}>
-            <Dropdown drop="start">
-              <Dropdown.Toggle id="dropdown-basic">{togglename}</Dropdown.Toggle>
-              <Dropdown.Menu className="d-flex">
-                {/* <div > */}
-                  <button onClick={() => setTogglename("找案件")} style={{ fontSize: "25px" }} >找案件</button>
-                  <button onClick={() => setTogglename("找服務")} style={{ fontSize: "25px" }}>找服務</button>
-
-                {/* </div> */}
-              </Dropdown.Menu>
-            </Dropdown>
-            <input onChange={handleInputChange} defaultValue={inputvalue} type="text" placeholder="Search.." style={{ width: '350px', height: '70px', borderRadius: '10px 0 0 10px', border: '1px solid #ccc', paddingLeft: '10px' }} />
-
+          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '500px' }}>
+            {/* 搜索框 */}
+            <input
+              onChange={handleInputChange}
+              value={inputvalue}
+              type="text"
+              placeholder="Search..."
+              style={{ width: '280px', height: '70px', border: '1px solid #ccc', paddingLeft: '10px', borderRadius: "10px 0 0 10px" }}
+            />
+            {/* 找服務按鈕 */}
+            {/* 下拉選單 */}
+            <select
+              value={togglename}
+              onChange={handleChange}
+              style={{ fontSize: "25px", width: '100px', height: '70px', border: '1px solid #ccc' }}
+            >
+            {/* 選項 */}
+              <option value="找服務">找服務</option>
+              <option value="找案件">找案件</option>
+            </select>
+            {/* 搜索按鈕 */}
             <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
-              <button onClick={search} type="submit" style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}>
+              <button
+                onClick={search}
+                type="submit"
+                style={{ height: '70px', width: '70px', borderRadius: '0 10px 10px 0', border: '1px solid #ccc', backgroundColor: '#f0f0f0' }}
+              >
                 <i className="fa fa-search" style={{ color: "#46A3FF" }}></i>
               </button>
             </Link>
           </div>
-          {/* 搜索框 */}
 
 
           {isLoggedIn ? ( // Check if user is logged in
@@ -676,7 +694,7 @@ function App() {
         <Modal.Header closeButton>
           <Modal.Title>已登出</Modal.Title>
         </Modal.Header>
-        <Modal.Body>為確保您的帳戶安全，已將您的帳號自動登出</Modal.Body>
+        <Modal.Body>為確保您的帳戶安全，已將您的帳戶自動登出</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowLogoutMessage(false)}>關閉</Button>
         </Modal.Footer>

@@ -19,6 +19,7 @@ import "./Findcase.css";
 
 function Findcase() {
 
+
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -174,6 +175,38 @@ function Findcase() {
   }
 
 
+
+  const [allstate, setAllstate] = React.useState(
+    {
+      五千: false,
+      一萬: false,
+      五萬: false,
+      十萬: false,
+      三十萬: false,
+      台北市: false,
+      新北市: false,
+      桃園市: false,
+      基隆市: false,
+      新竹市: false,
+      新竹縣: false,
+      彰化縣: false,
+      南投縣: false,
+      雲林縣: false,
+      高雄市: false,
+      台南市: false,
+      嘉義市: false,
+      嘉義縣: false,
+      屏東縣: false,
+      宜蘭縣: false,
+      花蓮縣: false,
+      臺東縣: false,
+      澎湖縣: false,
+      金門縣: false,
+      連江縣: false,
+    }
+  );
+
+
   const [budgetstate, setBudgetstate] = React.useState(
     {
       五千: false,
@@ -214,18 +247,46 @@ function Findcase() {
       連江縣: false,
     });
 
+
+
+  
+
   const [typeid, setTypeid] = useState();
 
   const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     const { name, checked } = event.target;
+    console.log(event.target.checked);
+    console.log(name, checked);
     setCheckedState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+    setAllstate((prevState) => ({
       ...prevState,
       [name]: checked,
     }));
 
 
   };
+  console.log(allstate);
+
+  const handleChangeall = () => {
+
+    console.log(allstate);
+
+    const newState =
+      Object.keys(allstate).forEach((key) => allstate[key] = false);
+    console.log(newState);
+    // setAllstate(newState);
+    console.log(allstate);
+  }
+
+
+
+
+
+
 
 
 
@@ -239,6 +300,11 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
+    setAllstate((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+
   }
   const [durationQuery, setDurationQuery] = useState();
   const handlechangeduration = (duration) => {
@@ -332,13 +398,10 @@ function Findcase() {
 
   const { type, casesearch } = useParams();
 
-
-
   useEffect(() => {
     const fetchDataNew = async () => {
 
       try {
-
 
         switch (type) {
           case "1":
@@ -401,7 +464,6 @@ function Findcase() {
           })
           .join(",");
         setBudgetid(budget);
-        console.log(budgetid);
 
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
@@ -454,14 +516,20 @@ function Findcase() {
           })
           .join(",");
 
+        if (casesearch == undefined) {
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+          );
+          setPosts(response.data);
+        } else {
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/findcase?casesearch=${casesearch}`
+          );
+          setPosts(response.data);
+
+        }
 
 
-        const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
-        );
-        setPosts(response.data);
-
-        // &casesearch=${casesearch}
 
 
         setCityid(countryQuery);
@@ -482,8 +550,9 @@ function Findcase() {
 
 
   // 全部案件
+  const [factor, setFactor] = useState();
   const fetchData = async () => {
-    let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+    let url = "http://localhost/Allend/backend/public/api/findcase?";
     setCurrentPage(1);
 
     fetch(url)
@@ -493,7 +562,8 @@ function Findcase() {
         setPosts(data);
         console.log(data);
       });
-
+    console.log(type);
+    setFactor(false);
 
   };
   // 全部案件
@@ -544,7 +614,6 @@ function Findcase() {
     });
   };
   {/* 置頂按鈕 */ }
-
 
 
 
@@ -606,6 +675,7 @@ function Findcase() {
                   name="台北市"
                   id="台北市"
                   onChange={handlechangecity}
+                  // checked={allstate["台北市"] === true}
                 >
                 </input>
                 &nbsp;&nbsp;台北市
@@ -868,7 +938,11 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""} onClick={() => fetchData()}>全部案件</button>
+          <button className={changecolor1 == true ? "active" : ""}  >
+            <Link to={"/findcase/0"} style={{ textDecoration: "none", color: "black" }} onClick={() => fetchData()}>
+              全部案件
+            </Link>
+          </button>
           <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
           <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
@@ -890,16 +964,6 @@ function Findcase() {
         {/* 案件欄位 */}
 
 
-        {/* 目前篩選條件(複選) */}
-        <div>
-        {(cityid.length > 0 || budgetid.length > 0) &&
-        <>目前你的篩選條件是：<br/>
-            {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment> && <br/>}
-            {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
-        </>
-        }
-        </div>
-        {/* 目前篩選條件(複選) */}
 
 
         {/* 沒有符合條件的資料 */}
@@ -914,9 +978,9 @@ function Findcase() {
 
 
         {/* 目前篩選條件(複選) */}
-        <div>
+        <div style={{ display: (type == 0 ? "none" : "") }}>
           {cityid.length > 0 || budgetid.length > 0 || type != null
-            ? <>目前你的篩選條件是<br />
+            ? <>目前你的篩選條件是 <br />
               <div style={{ display: (typeid == null ? "none" : "") }}>類別：「{typeid}」</div>
               {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment>}<br />
               {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
@@ -924,9 +988,8 @@ function Findcase() {
             : null}
         </div>
 
-        {/* <Link to="./findcase" onClick={() => fetchData()} >清空篩選條件</Link> */}
+        <button><Link onClick={() => handleChangeall()} >清空篩選條件</Link></button>
         {/* 目前篩選條件(複選) */}
-
 
 
 
@@ -969,7 +1032,7 @@ function Findcase() {
           })}
         </div>
         {/* 案件欄位 */}
-        
+
 
         {/* 我要報價Modal */}
         <Modal show={show} onHide={close} >

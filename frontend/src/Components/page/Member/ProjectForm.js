@@ -11,6 +11,8 @@ import { SiUnity } from "react-icons/si";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
+import Footer from "../../../homepage/Footer";
+
 
 // 發案表單
 function ProjectForm() {
@@ -78,12 +80,13 @@ function ProjectForm() {
   };
 
   return (
+    <>
     <div className="project-form">
       <h2>發案表單</h2>
       <Form onSubmit={handleSubmit}>
 
-        <Form.Label>案件名稱：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">案件名稱：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="numberOfPeople"> <FaBriefcase /> </InputGroup.Text>
           <Form.Control
             type="text"
@@ -94,8 +97,8 @@ function ProjectForm() {
           />
         </InputGroup>
 
-        <Form.Label>需求類別：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">需求類別：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="category"> <IoBriefcaseSharp /> </InputGroup.Text>
           <Form.Control
             as="select"
@@ -114,8 +117,8 @@ function ProjectForm() {
 
         <Row>
           <Col>
-            <Form.Label>預算金額：</Form.Label>
-            <InputGroup>
+            <Form.Label className="project-formInput">預算金額：</Form.Label>
+            <InputGroup className="project-formInput">
               <InputGroup.Text controlId="budget"> <RiMoneyDollarCircleFill /> </InputGroup.Text>
               <Form.Control
                 type="number"
@@ -131,8 +134,8 @@ function ProjectForm() {
           </Col>
 
           <Col>
-            <Form.Label>單位：</Form.Label>
-            <InputGroup>
+            <Form.Label className="project-formInput">單位：</Form.Label>
+            <InputGroup className="project-formInput">
               <InputGroup.Text controlId="unit"> <SiUnity /> </InputGroup.Text>
               <Form.Control
                 type="text"
@@ -149,8 +152,8 @@ function ProjectForm() {
           </Col>
         </Row>
 
-        <Form.Label>合作期程：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">合作期程：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="cooperationTime"> <IoIosTime /> </InputGroup.Text>
           <Form.Control
             as="select"
@@ -166,8 +169,8 @@ function ProjectForm() {
 
         <Row>
           <Col>
-            <Form.Label>地點選擇：</Form.Label>
-            <InputGroup>
+            <Form.Label className="project-formInput">地點選擇：</Form.Label>
+            <InputGroup className="project-formInput">
               <InputGroup.Text controlId="location"> <MdPlace /> </InputGroup.Text>
               <Form.Control
                 as="select"
@@ -213,8 +216,9 @@ function ProjectForm() {
         </Row>
 
         <Form.Group controlId="details">
-          <Form.Label>需求詳情：</Form.Label>
+          <Form.Label className="project-formInput">需求詳情：</Form.Label>
           <Form.Control
+            className="project-formInput"
             as="textarea"
             placeholder="請輸入最少十個字"
             value={details}
@@ -223,8 +227,8 @@ function ProjectForm() {
           />
         </Form.Group>
 
-        <Form.Label>聯絡人名稱：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">聯絡人名稱：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="userName"> <FaUserAlt /> </InputGroup.Text>
           <Form.Control
             type="text"
@@ -235,8 +239,8 @@ function ProjectForm() {
           />
         </InputGroup>
 
-        <Form.Label>聯絡人Email：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">聯絡人Email：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="email"> < HiOutlineMail /> </InputGroup.Text>
           <Form.Control
             type="email"
@@ -251,8 +255,8 @@ function ProjectForm() {
           />
         </InputGroup>
 
-        <Form.Label>聯絡方式：</Form.Label>
-        <InputGroup>
+        <Form.Label className="project-formInput">聯絡方式：</Form.Label>
+        <InputGroup className="project-formInput">
           <InputGroup.Text controlId="contact"> <FaPhoneAlt /> </InputGroup.Text>
           <Form.Control
             type="text"
@@ -275,6 +279,8 @@ function ProjectForm() {
 
       </Form>
     </div>
+    <Footer></Footer>
+    </>
   );
 }
 

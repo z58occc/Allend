@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams,  } from "react-router-dom";
+import { Link, useParams, } from "react-router-dom";
 import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { GoTriangleDown } from "react-icons/go";
@@ -68,7 +68,7 @@ const Findman = () => {
     lienchang: false,
   });
 
-  const { s_type } = useParams();
+  const { s_type, servicesearch } = useParams();
 
   // 儲存排序鈕顏色
   const [act, setAct] = useState();
@@ -78,7 +78,7 @@ const Findman = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    if(Cookies.get('token')){
+    if (Cookies.get('token')) {
       setIsLoggedIn(true)
     }
 
@@ -177,28 +177,38 @@ const Findman = () => {
           .join(",");
 
         const sortQuery = Object.keys(sort);
-        if (isLoggedIn){
-          const response = await axios.get(
-            `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+        if (servicesearch == undefined) {
+          if (isLoggedIn) {
+            const response = await axios.get(
+              `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
             ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`,
-            {headers:{Authorization: `Bearer ${Cookies.get('token')}`}}
-          );
-          setService(response.data.data);
-          setTotalPages(response.data.last_page);
+              { headers: { Authorization: `Bearer ${Cookies.get('token')}` } }
+            );
+            setService(response.data.data);
+            setTotalPages(response.data.last_page);
+          } else {
+            const response = await axios.get(
+              `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
+            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+            );
+            setService(response.data.data);
+            setTotalPages(response.data.last_page);
+          }
         } else {
           const response = await axios.get(
             `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}&servicesearch=${servicesearch}`
           );
           setService(response.data.data);
           setTotalPages(response.data.last_page);
         }
-        } catch (err) {
-          console.error(err);
-        }
-        };
-        fetchService();
-  }, [identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
+
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchService();
+  }, [servicesearch, identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
 
   const [textShow, setTextShow] = useState(service.map((item, i) => ({
     sid: item.sid,
@@ -210,19 +220,19 @@ const Findman = () => {
     axios({
       method: "post",
       url: "http://localhost/Allend/backend/public/api/addcollection",
-      data:{ sid: sid },
+      data: { sid: sid },
       headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
-    .then((res) => {
-      const newData = service.map((item) => item.sid === sid ? {...item, fid: res.data.fid.fid} : item);
-      setService(newData)
-      // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:true} : item }))
-      // setTimeout(()=>{
-      //     setTextShow(service.map((item) => {item.sid === sid ? {...item, show:false} : item }))
-      // }, 3000)
+      .then((res) => {
+        const newData = service.map((item) => item.sid === sid ? { ...item, fid: res.data.fid.fid } : item);
+        setService(newData)
+        // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:true} : item }))
+        // setTimeout(()=>{
+        //     setTextShow(service.map((item) => {item.sid === sid ? {...item, show:false} : item }))
+        // }, 3000)
 
-    })
-    .catch((err) => {console.log(err)})
+      })
+      .catch((err) => { console.log(err) })
   }
 
   // 取消收藏
@@ -233,11 +243,11 @@ const Findman = () => {
       data: { fid: fid },
       headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
-    .then((res) => {
-      const newData = service.map((item) => item.fid === fid ? {...item, fid: null} : item);
-      setService(newData)
-    })
-    .catch((err) => {console.log(err)})
+      .then((res) => {
+        const newData = service.map((item) => item.fid === fid ? { ...item, fid: null } : item);
+        setService(newData)
+      })
+      .catch((err) => { console.log(err) })
   }
 
   const handleidentityChange = (event) => {
@@ -342,7 +352,7 @@ const Findman = () => {
         <hr />
         <div className="row">
           {/* 左邊 */}
-          <div className="col-sm-2" style={{marginTop:'45px' }}>
+          <div className="col-sm-2" style={{ marginTop: '45px' }}>
             {/* <br></br> */}
             <div className={`${styles.selectContainer}`}>
               <div className={`${styles.identity}`}>接案人身分</div>
@@ -420,9 +430,9 @@ const Findman = () => {
               </div>
             </div>
 
-            <div className={`${styles.selectContainer}`} style={{height:'500px'}}>
+            <div className={`${styles.selectContainer}`} style={{ height: '500px' }}>
               <div className={`${styles.identity}`}>地點</div>
-              <div className={`${styles.checkboxContainer}`} style={{overflowY: 'scroll', height: "90%"}}>
+              <div className={`${styles.checkboxContainer}`} style={{ overflowY: 'scroll', height: "90%" }}>
                 <optgroup label="北部"></optgroup>
                 <input
                   type="checkbox"
@@ -611,7 +621,7 @@ const Findman = () => {
           {/* 右邊 */}
           <div className="col-sm-10">
             <div style={{ textAlign: "end" }}>
-              <button className={act === 1 ? "active" : "" } onClick={() => clicksort(1)}>
+              <button className={act === 1 ? "active" : ""} onClick={() => clicksort(1)}>
                 作品數
                 <GoTriangleDown />
               </button>
@@ -632,14 +642,14 @@ const Findman = () => {
                   style={{ marginBottom: "5px", marginTop: "5px" }}
                 >
                   <div className="card">
-                    <div className="card-header" 
-                    style={{height:'255px', width:'100%'}}
+                    <div className="card-header"
+                      style={{ height: '255px', width: '100%' }}
                     >
                       <img
                         src={`data:image/jpeg;base64,${item.image}`}
                         alt="service"
                         // style={{ width: 300, height: 200, position: "block" }}
-                        style={{ height: '100%', width:'100%',position: "block"}}
+                        style={{ height: '100%', width: '100%', position: "block" }}
                       />
                     </div>
                     {/* <div className="sortBtn"> */}
@@ -652,20 +662,20 @@ const Findman = () => {
                     <div className="card-footer d-flex justify-content-between align-items-center">
                       <div>
                         {isLoggedIn === true && item.fid
-                        ? <>
-                          <FaHeart className={styles.faheart} onClick={() => {cancelServiceCollection(item.fid)}} />
-                          {/* {item.fid && (textShow === index) && <span style={{color: 'red'}}>已收藏！</span>} */}
+                          ? <>
+                            <FaHeart className={styles.faheart} onClick={() => { cancelServiceCollection(item.fid) }} />
+                            {/* {item.fid && (textShow === index) && <span style={{color: 'red'}}>已收藏！</span>} */}
                           </>
-                        : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => {addServiceCollection(item.sid);setTextShow(index)} : handleShow} />}
+                          : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid); setTextShow(index) } : handleShow} />}
                       </div>
-                      <div onClick={isLoggedIn ? ()=>toggleChat(item.mid) : handleShow} className='text-center p-2'>
-                      <Chatbutton /></div>
+                      <div onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} className='text-center p-2'>
+                        <Chatbutton /></div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
+            {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
           </div>
         </div>
 

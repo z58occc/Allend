@@ -123,7 +123,7 @@ class IFindPeopleController extends Controller
         }
 
         // 服務搜索
-        if($request->has('servicesearch')){
+        if($request->has('servicesearch') && $request->input('servicesearch') !== "undefined"){
             $member->where('s.s_name', 'like', '%'.$request->input('servicesearch').'%');
         }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mockery\Undefined;
 
 class IFindCaseController extends Controller
 {
@@ -51,7 +52,6 @@ class IFindCaseController extends Controller
             );
             }
             return $query->get();
-
         }
 
         // 期程 (短、長)
@@ -91,7 +91,7 @@ class IFindCaseController extends Controller
         }
 
         // 指定排序方式
-        $order = $request->order;
+        $order = $request->input('order');
         switch($order){
             // 最新刊登
             case '1':
@@ -115,7 +115,7 @@ class IFindCaseController extends Controller
             }
 
         // 案件搜索
-        if($request->has('casesearch')){
+        if($request->has('casesearch') && $request->input('casesearch') !== "undefined"){
             $query->where('d_name', 'like', '%'.$request->input('casesearch').'%');
         }
 

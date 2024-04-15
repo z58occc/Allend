@@ -50,7 +50,7 @@ const CaseDetailsModal2 = ({ show, onHide }) => {
     <Modal
       show={show}
       onHide={onHide}
-      style={{ width: "450px", marginInline: "550px" }}
+      className="row justify-content-center w-100"
     >
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>

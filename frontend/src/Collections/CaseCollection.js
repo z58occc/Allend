@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CollectionList from './CollectionList';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -11,10 +11,13 @@ const CaseCollection = ({data, dataUpdate}) => {
     setActive(number)
   }
 
-  const CasePerPage = 5;
+  const CasePerPage = 1;
   const page = Math.ceil(data.length / CasePerPage);
-  console.log(page);
   data = data.slice(CasePerPage * (active-1) , CasePerPage * active)  
+  if(data.length === 0 && active > 1){
+    setActive(()=>active - 1)
+  }
+  console.log(page);
   console.log(data);
 
   for (let number = 1; number <= page; number++) {
@@ -25,6 +28,13 @@ const CaseCollection = ({data, dataUpdate}) => {
     );
   }
 
+  // useEffect(()=>{
+  //   data = data.slice(CasePerPage * (active-1) , CasePerPage * active)  
+  //   if(data.length === 0 && active > 1){
+  //     setActive(()=>active - 1)
+  //   }
+  
+  // }, [active])
   
   return (
       <div style={{ width: '100%', height: '100vh' }}>

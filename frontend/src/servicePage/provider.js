@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form ,Modal} from "react-bootstrap";
+import { Button, Card, Form, Modal, Col, Row } from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Footer from '../homepage/Footer';
+import { FaPlus } from "react-icons/fa6";
+
 
 
 export const DataContext = createContext();
@@ -144,27 +146,29 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-
-      <div style={{
-        width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
-        borderRadius: "10px 10px 0 0"
-      }}>
-        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h3>未有案件紀錄，點此按鈕新增</h3>
-            <Button
-              variant="success"
-              size="sm"
-              style={{ fontSize: "15px", width: "100px", height: '55px' }}
-              onClick={() => { handleShow() }}
-            >
-              新增
-            </Button>
-            <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      <>
+        <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
+        <div style={{
+          width: '100%', background: 'lightblue', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          borderRadius: "10px 10px 0 0"
+        }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
+            <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <h3>未有案件紀錄，點此按鈕新增</h3>
+              <Button
+                variant="success"
+                size="sm"
+                style={{ fontSize: "15px", width: "100px", height: '55px' }}
+                onClick={() => { handleShow() }}
+                
+              >
+                新增
+              </Button>
+              <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+            </div>
           </div>
         </div>
-      </div>
-
+      </>
     )
   }
 
@@ -192,50 +196,41 @@ const Provider = ({ data1 }) => {
             <Button
               variant="danger"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
-              onClick={() =>  handleDeletedModal() }
+              onClick={() => handleDeletedModal()}
             >
               刪除
             </Button>
           </div>
           {/* DATA */}
-          <div style={{}}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Row style={{ width: '1000px', marginTop: "10px" }} >
+              {data1.map((item, index) => (
+                <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
+                  <Card style={{ width: "240px" }}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} onClick={()=>handleShow1(index)} />
+                    <Card.Body className="d-flex ">
+                      <Card.Title>
+                        <Form.Check
+                          type="checkbox"
+                          checked={selectedItems[index] || false}
+                          onChange={() => handleChecked(index)}
+                          style={{ margin: "0 10px 3px 10px" }}
+                        /> 
+                        <span style={{ margin: "0 20px" }}>{item.s_name}</span>
+      
+                      </Card.Title>
+  
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
 
-            {data1.map((item, index) => (
-
-              <Card
-                key={index}
-                className=""
-                style={{ width: "720px", height: "95px", margin: '10px auto' }}
-              >
-                <Card.Body key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-                    <Form.Check
-                      type="checkbox"
-                      className="mr-3"
-                      checked={selectedItems[index] || false}
-                      style={{ marginBottom: "30px", fontSize: "18px", marginRight: "10px" }}
-                      onChange={() => handleChecked(index)}
-                    />
-                    <Card.Title style={{ marginBottom: "0px", fontSize: "18px", marginRight: "10px" }} key={index} onClick={() => {
-                      handleShow1(index);
-                    }}>
-                      {item.s_name}
-                    </Card.Title>
-                  </div>
-                  <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                    <hr style={{ background: "black", margin: "0px", width: "50%" }} />
-                  </div>
-                  <Card.Text style={{ fontSize: "14px" }}>
-                    {item.s_description}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-
-
-            ))}
-            <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+              <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+            </Row>
           </div>
+
         </div>
+
         <DataContext.Provider value={{ setCheckedAll, setSelectedItems }}>
           <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
         </DataContext.Provider>
@@ -243,23 +238,23 @@ const Provider = ({ data1 }) => {
         <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
 
 
-            {/* 刪除 */}
+        {/* 刪除 */}
         <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
-        <Modal.Header closeButton>
-          <Modal.Title>{/* 標題內容 */}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-          確定刪除所選服務?
-        </Modal.Body>
-        <Modal.Footer className="d-flex justify-content-center">
-          <Button variant="danger" onClick={()=>handleDeleted()}>
-            確定
-          </Button>
-          <Button variant="secondary" onClick={handleClosedDeletedModal}>
-            關閉
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header closeButton>
+            <Modal.Title>{/* 標題內容 */}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+            確定刪除所選服務?
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-center">
+            <Button variant="danger" onClick={() => handleDeleted()}>
+              確定
+            </Button>
+            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+              關閉
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
 

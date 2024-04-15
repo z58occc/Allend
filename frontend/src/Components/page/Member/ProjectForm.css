@@ -2,11 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* 水平置中 */
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   padding: 20px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .project-form .btn-primary {
   margin-top: 20px; /* 可以調整上方間距 */
+}
+
+.project-formInput{
+  margin: .5rem 0;
 }
