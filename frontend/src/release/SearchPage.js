@@ -10,6 +10,8 @@ const SearchPage = ({ onSearch }) => {
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+
+    
   };
   const handleReset = (event) =>{
     event.preventDefault();
