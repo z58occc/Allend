@@ -71,35 +71,35 @@ function Category() {
                 <div className="row justify-content-center">
 
                     <div className="col-2 text-center">
-                    <Link to={`/findman/1`} style={{backgroundcolor: "#66B3FF", border: "null"}}  className={`${styles.categorylink}`}>
+                    <Link to={`/findcase/1`} style={{backgroundcolor: "#66B3FF", border: "null"}}  className={`${styles.categorylink}`}>
                             <div >網站設計</div>
                             <img src={a1} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center">
-                        <Link to={`/findman/2`} className={`${styles.categorylink}`}>
+                        <Link to={`/findcase/2`} className={`${styles.categorylink}`}>
                             <div >軟體程式</div>
                             <img src={a2} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center ">
-                        <Link to={`/findman/3`} className={`${styles.categorylink}`}>
+                        <Link to={`/findcase/3`} className={`${styles.categorylink}`}>
                             <div >平面設計</div>
                             <img src={a5} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className="col-2 text-center">
-                        <Link to={`/findman/4`} className={`${styles.categorylink}`}>
+                        <Link to={`/findcase/4`} className={`${styles.categorylink}`}>
                             <div >文字語言</div>
                             <img src={a4} style={{ width: '60px'}}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className={`col-2 text-center ${styles.catrgorycontainer}`}>
-                        <Link to={`/findman/5`} className={` ${styles.categorylink}`}>
+                        <Link to={`/findcase/5`} className={` ${styles.categorylink}`}>
                             <div>專業諮詢</div>
                             <img src={a6} style={{ width: '60px'}}></img>
                         </Link>

@@ -4,6 +4,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { FaTrashAlt } from "react-icons/fa";
+import "./searchpage.css";
+
 const SearchPage = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -31,12 +33,11 @@ const SearchPage = ({ onSearch }) => {
           aria-label="Search"
           value={searchTerm}
           onChange={handleChange}
-           
-       
-       />
-      <button onClick={handleReset} className="rounded-end">
-            <FaTrashAlt style={{fontSize:"16px"}}/>
-      </button>
+        />
+
+        <button onClick={handleReset} className="rounded-end  btn-height">
+          <FaTrashAlt style={{ fontSize: "16px" }} />
+        </button>
       </form>
 
     </MDBCol>
