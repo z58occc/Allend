@@ -19,6 +19,7 @@ import "./Findcase.css";
 
 function Findcase() {
 
+
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -219,6 +220,8 @@ function Findcase() {
   const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     const { name, checked } = event.target;
+    console.log(event);
+    console.log(name,checked);
     setCheckedState((prevState) => ({
       ...prevState,
       [name]: checked,
@@ -332,13 +335,10 @@ function Findcase() {
 
   const { type, casesearch } = useParams();
 
-
-
   useEffect(() => {
     const fetchDataNew = async () => {
 
       try {
-
 
         switch (type) {
           case "1":
@@ -401,7 +401,6 @@ function Findcase() {
           })
           .join(",");
         setBudgetid(budget);
-        console.log(budgetid);
 
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
@@ -454,12 +453,19 @@ function Findcase() {
           })
           .join(",");
 
+        if (casesearch == undefined) {
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+          );
+          setPosts(response.data);
+        } else {
+          const response = await axios.get(
+            `http://localhost/Allend/backend/public/api/findcase?casesearch=${casesearch}`
+          );
+          setPosts(response.data);
 
+        }
 
-        const response = await axios.get(
-          `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
-        );
-        setPosts(response.data);
 
         // &casesearch=${casesearch}
 
@@ -482,8 +488,9 @@ function Findcase() {
 
 
   // 全部案件
+  const [factor, setFactor] = useState();
   const fetchData = async () => {
-    let url = "http://localhost/Allend/backend/public/api/findcase?type=";
+    let url = "http://localhost/Allend/backend/public/api/findcase?";
     setCurrentPage(1);
 
     fetch(url)
@@ -493,7 +500,8 @@ function Findcase() {
         setPosts(data);
         console.log(data);
       });
-
+    console.log(type);
+    setFactor(false);
 
   };
   // 全部案件
@@ -868,7 +876,11 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""} onClick={() => fetchData()}>全部案件</button>
+          <button className={changecolor1 == true ? "active" : ""}  >
+            <Link to={"/findcase/0"} style={{ textDecoration: "none", color: "black" }} onClick={() => fetchData()}>
+              全部案件
+            </Link>
+          </button>
           <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
           <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
@@ -890,16 +902,6 @@ function Findcase() {
         {/* 案件欄位 */}
 
 
-        {/* 目前篩選條件(複選) */}
-        <div>
-        {(cityid.length > 0 || budgetid.length > 0) &&
-        <>目前你的篩選條件是：<br/>
-            {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment> && <br/>}
-            {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
-        </>
-        }
-        </div>
-        {/* 目前篩選條件(複選) */}
 
 
         {/* 沒有符合條件的資料 */}
@@ -914,9 +916,9 @@ function Findcase() {
 
 
         {/* 目前篩選條件(複選) */}
-        <div>
+        <div style={{ display: (type == 0 ? "none" : "") }}>
           {cityid.length > 0 || budgetid.length > 0 || type != null
-            ? <>目前你的篩選條件是<br />
+            ? <>目前你的篩選條件是 <br />
               <div style={{ display: (typeid == null ? "none" : "") }}>類別：「{typeid}」</div>
               {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：「{cityid}」</Fragment>}<br />
               {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：「{budgetid}」</Fragment>}
@@ -969,7 +971,7 @@ function Findcase() {
           })}
         </div>
         {/* 案件欄位 */}
-        
+
 
         {/* 我要報價Modal */}
         <Modal show={show} onHide={close} >

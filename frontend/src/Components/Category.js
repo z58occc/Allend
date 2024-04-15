@@ -67,7 +67,7 @@ function Category() {
         <div style={{ marginLeft: '60px', marginRight: '0' }}>
 
             <div className="container mt-5">
-            
+
                 <div className="row justify-content-center">
 
                     <div className="col-2 text-center">
