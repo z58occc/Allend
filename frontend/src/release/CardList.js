@@ -235,7 +235,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
       >
         <Button
           variant="primary"
-          // style={{ fontSize: "12px", width: "120px", whiteSpace: "nowrap", visibility,display: "flex",justifyContent: "center", alignItems: "center"}}
+          style={{visibility}}
           className={`${styles.togglecollectionchecked}`}
           onClick={handleToggleAll}
         >
@@ -253,7 +253,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         </Button>
         <Button
           variant="danger"
-          //style={{ fontSize: "12px", width: "120px", visibility }}
+          style={{visibility}}
           className={`${styles.deletecollectionchecked}`}
           onClick={() => handleDeletedModal()}
           disabled={disabledDeleteButton}
