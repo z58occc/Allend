@@ -3,15 +3,14 @@ import { MDBCol, MDBIcon } from "mdbreact";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { TiArrowBack } from "react-icons/ti";
 
 const SearchPage = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-
-    
+    const value = event.target.value;
+    setSearchTerm(value);
+    onSearch(value); // Pass the input value to the parent component
   };
   const handleReset = (event) =>{
     event.preventDefault();
@@ -34,7 +33,6 @@ const SearchPage = ({ onSearch }) => {
         onChange={handleChange}
         />
       </form>
-      <button onClick={handleReset} style={{height:"60%",marginTop:"12px"}}><TiArrowBack style={{fontSize:"24px"}}></TiArrowBack></button>
     </MDBCol>
   );
 }
