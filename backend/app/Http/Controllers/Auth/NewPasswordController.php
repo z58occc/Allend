@@ -30,7 +30,7 @@ class NewPasswordController extends Controller
         ]);
         }catch(Throwable $err){
             return response()->json([
-                'message' => '請確認密碼是否一致'
+                'error' => '請確認密碼是否一致'
             ]);
         }
 

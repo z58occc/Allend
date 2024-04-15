@@ -94,7 +94,7 @@ class ResetPassword extends ResetPasswordOri
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         }
 
-        return url(route('password.reset', [
+        return url(route('password.resets', [
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));

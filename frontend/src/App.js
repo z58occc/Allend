@@ -28,8 +28,6 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 
 export const IsLoggedInContext = createContext()
@@ -60,10 +58,6 @@ function App() {
   };
 
   // 註冊後直接登入
-  const RegisterEmail = useRef();
-  const RegisterPassword = useRef();
-  const RegisterConfPassword = useRef();
-
   const [errorRegister, seterrorRegister] = useState('');
 
   const [showVerificationModal, setShowVerificationModal] = useState(false);
@@ -78,7 +72,6 @@ function App() {
         }
       );
       await loginUser(email, password);
-      setShowVerificationModal(true);
       return true;
     } catch (err) {
       return false;
@@ -97,11 +90,37 @@ function App() {
       Cookies.set("token", res.data.token);
       setIsLoggedIn(true);
       setShowLogin(false);
+      setShowVerificationModal(true);
       navigate('/');
     } catch (err) {
       console.log(err);
     }
   };
+
+  const RegisterEmail = useRef();
+  const RegisterPassword = useRef();
+  const RegisterConfPassword = useRef();
+  // 處理註冊
+  const handleRegister = async () => {
+    const email = RegisterEmail.current.value;
+    const password = RegisterPassword.current.value;
+    const confirmPassword = RegisterConfPassword.current.value;
+    try {
+      const data = await registerUser(email, password, confirmPassword);
+      if (data) {
+        setIsVerificationSent(true);
+        setShowRegister(false);
+      } else {
+        seterrorRegister('輸入資料格式有誤或是電子郵件已被註冊!')
+      }
+      // console.log(data);
+      // setIsVerificationSent(true);
+      // setShowRegister(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const [tokenExpiration, setTokenExpiration] = useState(null);
   const tokenCheckInterval = useRef(null);
 
@@ -132,8 +151,7 @@ function App() {
     return decodedToken.exp * 1000; // 轉換為毫秒
   };
 
-
-  // 解析JWT token
+  // 解析JWT token function
   const parseJwt = (token) => {
     try {
       return JSON.parse(atob(token.split('.')[1]));
@@ -154,47 +172,26 @@ function App() {
 
   const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
 
-  // 登出處理
+  // 自動登出處理
   const handleLogout = () => {
     clearInterval(tokenCheckInterval.current);
     Cookies.remove("token");
-    setIsLoggedIn(false); // Update login status
+    setIsLoggedIn(false);
     setMemberEmail('');
     setShowLogoutMessage(true);
     navigate('/');
-
   };
+  // 手動登出處理
   const handleclickout = () => {
     Cookies.remove("token");
     setIsLoggedIn(false);
     setMemberEmail('');
     navigate('/');
-
   }
 
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  // 處理註冊
-  const handleRegister = async () => {
-    const email = RegisterEmail.current.value;
-    const password = RegisterPassword.current.value;
-    const confirmPassword = RegisterConfPassword.current.value;
-    try {
-      const data = await registerUser(email, password, confirmPassword);
-      if (data) {
-        setIsVerificationSent(true);
-        setShowRegister(false);
-      } else {
-        seterrorRegister('輸入資料格式有誤或是電子郵件已被註冊!')
-      }
-      // console.log(data);
-      // setIsVerificationSent(true);
-      // setShowRegister(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   // 重寄驗證信
   const handleResendVerification = () => {
@@ -204,7 +201,7 @@ function App() {
       headers: { Authorization: `Bearer ${Cookies.get("token")}` }
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setIsVerificationSent(true);
         setCountdown(60);
         setIsButtonDisabled(true);
@@ -261,7 +258,7 @@ function App() {
       const tokenExpirationTime = getTokenExpirationTime(token);
       setTokenExpiration(tokenExpirationTime);
       startTokenExpirationCheck(tokenExpirationTime);
-      console.log(tokenExpirationTime)
+      // console.log(tokenExpirationTime)
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.error);
@@ -285,8 +282,6 @@ function App() {
       console.error('Failed to fetch member email:', error);
     }
   };
-
-
 
   const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發案按鈕登入判別
 
@@ -678,10 +673,11 @@ function App() {
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               <h5>郵件已發送</h5></div>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p></div>
+              <p>請查看email，如果沒有收到，請點擊按鈕重新發送驗證郵件</p>
+            </div>
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               {countdown > 0 ? (
-                <Button variant="success" disabled>重新發送 ({countdown})</Button>
+                <Button variant="success" disabled>重新發送({countdown})</Button>
               ) : (
                 <Button variant="success" onClick={handleResendVerification}>重新發送驗證郵件</Button>
               )}

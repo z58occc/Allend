@@ -24,7 +24,7 @@ class ProviderController extends Controller
             $SocialUser = Socialite::driver('google')->stateless()->user();
 
             $user = Member::where('email', $SocialUser->getEmail())
-            ->where('provider', 'google')->orWhere('provider', '')->first();
+            ->where('provider', 'google')->orWhere('provider', null)->first();
 
             if ($user->exists())
             {
