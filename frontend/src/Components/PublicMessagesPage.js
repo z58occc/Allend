@@ -6,6 +6,7 @@ import Messagebox from "./Messagebox"
 import Cookies from "js-cookie"
 import "./chatroom.css";
 import { IsLoggedInContext } from "../App";
+import axios from "axios"
 export default function PublicMessagesPage(props) {
   
   const {setShowChat} = useContext(IsLoggedInContext);
@@ -41,8 +42,28 @@ export default function PublicMessagesPage(props) {
       console.error(error)
     }
   }
+  
+  const [history, setHistory] = useState([])
 
   useEffect(() => {
+
+    const historymessage = async ()=> {
+      try{
+        const response = Axios.get('http://localhost/Allend/backend/public/api/get-message',{
+        headers:{
+          Authorization:`Bearer ${Cookies.get("token")}`,
+        }
+      })
+      .then((response)=>{
+        setHistory(response.data)
+        console.log(response.data)
+      })
+    }catch(error){
+      console.error("Failed to fetch:", error)
+    }
+  }
+
+    
     const fetchMember = async () => {
       try {
         const response = await Axios.get(`http://localhost/Allend/backend/public/api/user/email?receiverId=${props.receiverId}`, {
@@ -57,7 +78,8 @@ export default function PublicMessagesPage(props) {
     }
     const token = Cookies.get("token")
     if (token) {
-      fetchMember()
+      fetchMember();
+      historymessage();
     }
 
     Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
@@ -110,7 +132,9 @@ export default function PublicMessagesPage(props) {
           <div>
             <div style={{ display: 'flex', height: '400px' }}>
               <div className="chat-menu">
-                <span >聊天選單</span>
+                {history.map((item,index)=>(
+                  <div key={index} >{item.receiver_id}</div>
+                ))}
               </div>
                 <div> 
                   <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'400px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
