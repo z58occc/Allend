@@ -1,9 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { MDBCol, MDBIcon } from "mdbreact";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-
+import { FaTrashAlt } from "react-icons/fa";
 const SearchPage = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -12,7 +12,7 @@ const SearchPage = ({ onSearch }) => {
     setSearchTerm(value);
     onSearch(value); // Pass the input value to the parent component
   };
-  const handleReset = (event) =>{
+  const handleReset = (event) => {
     event.preventDefault();
     onSearch("");
     setSearchTerm("");
@@ -22,17 +22,23 @@ const SearchPage = ({ onSearch }) => {
     onSearch(searchTerm);
   };
   return (
-    <MDBCol md="4" className="d-flex">
-      <form className="form-inline mt-3 mb-3" onSubmit={handleSubmit}>
+    <MDBCol md="5" className="d-flex">
+      <form className="form-inline d-flex justify-content-center align-items-center" onSubmit={handleSubmit}>
         <MDBIcon icon="search" />
-        <input className="form-control form-control-sm ml-3 w-75" 
-        type="text" 
-        placeholder="Search" 
-        aria-label="Search"
-        value={searchTerm}
-        onChange={handleChange}
-        />
+        <input className="form-control form-control-sm ms-2 w-75"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          value={searchTerm}
+          onChange={handleChange}
+           
+       
+       />
+      <button onClick={handleReset} className="rounded-end">
+            <FaTrashAlt style={{fontSize:"16px"}}/>
+      </button>
       </form>
+
     </MDBCol>
   );
 }
