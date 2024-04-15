@@ -16,9 +16,15 @@ const SearchBox = ({ onSearch }) => {
     event.preventDefault();
     onSearch(searchTerm);
   };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // 阻止預設提交行為
+      handleSubmit(event); // 調用 handleSubmit 函式
+    }
+  };
   return (
     <MDBCol md="4" className="d-flex">
-      <form className="form-inline" onSubmit={handleSubmit}>
+      <form className="form-inline" >
         <div className="d-flex justify-content-center align-items-center">
           <MDBIcon icon="search" />
           <input className="form-control form-control-sm ms-2 w-100" 
@@ -27,9 +33,11 @@ const SearchBox = ({ onSearch }) => {
           aria-label="Search"
           value={searchTerm}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           />
         </div>
       </form>
+      <button onClick={handleSubmit}>搜尋</button>
     </MDBCol>
   );
 }

@@ -8,13 +8,12 @@ import styles from './Collection.module.css';
 
 
 const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdate}) => {
-  console.log(data)
   // 控制key回傳對應Modal
-  const [selectedDataKey, setSelectedDataKey] = useState(0);
-  const handlesetSelectedDataKey = (index)=>{
-    setSelectedDataKey(index);
-    console.log(index);
-  }
+  // const [selectedDataKey, setSelectedDataKey] = useState(0);
+  // const handlesetSelectedDataKey = (index)=>{
+  //   setSelectedDataKey(index);
+  //   console.log(index);
+  // }
   // 全選
   const [checked, setChecked] = useState(false); // 是否全選
   const [selectedItems, setSelectedItems] = useState(Array.from(data).fill(false)); // 設置selectedItems為空陣列，裡面為被選到的index的true/false
@@ -28,7 +27,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
     setDisabledDeleteButton(!hasSelected);
   }, [selectedItems]);
 
-  // 沒有勾選，刪除鈕disabled
+  // 沒有勾選，刪除鈕呈現disabled
   const [disabledDeleteButton, setDisabledDeleteButton] = useState(true);
 
   // 判斷有無勾選
@@ -145,7 +144,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       break;
     case 2:
       if (searchservice) {
-        filteredData = data.filter(item => item.c_name.includes(searchservice));
+        filteredData = data.filter(item => item.s_name.includes(searchservice));
       }
       break;
     default:
