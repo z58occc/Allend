@@ -33,13 +33,13 @@ class ChatController extends Controller
     public function Getmessage(Request $request)
     {
         $senderId = Auth::id();
-        $receiverId = $request->receiverId;
-        $messages = DB::table('chat')
-            ->where('sender_id', $senderId)
-            ->where('receiver_id', $receiverId)
-            ->orWhere('sender_id', $receiverId)
-            ->where('receiver_id', $senderId)
+        // $receiverId = $request->receiverId;
+        $messages = DB::table('chat')->select('sender_id', 'receiver_id', 'content', 'sending_time')
+            ->orWhere('sender_id', $senderId)
+            ->orWhere('receiver_id', $senderId)
             ->get();
+
+
         return response()->json($messages);
     }
 }

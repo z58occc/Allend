@@ -344,7 +344,7 @@ function App() {
 
 
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat,selectedItemMid,setSelectedItemMid,setShowChat }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
       <div
         className="p-1"
         style={{
@@ -360,7 +360,7 @@ function App() {
           className="search-container d-flex align-items-center"
           style={{ marginLeft: "auto" }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', maxWidth: '500px' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             {/* 搜索框 */}
             <input
               onChange={handleInputChange}
@@ -374,11 +374,12 @@ function App() {
             <select
               value={togglename}
               onChange={handleChange}
-              style={{ fontSize: "25px", width: '100px', height: '70px', border: '1px solid #ccc' }}
+              style={{ fontSize: "29px", width: '150px', height: '70px', border: '1px solid #ccc' }}
+              
             >
-            {/* 選項 */}
-              <option value="找服務">找服務</option>
-              <option value="找案件">找案件</option>
+              {/* 選項 */}
+              <option value="找服務" style={{ fontSize: '18px' }}>找服務</option>
+              <option value="找案件" style={{ fontSize: '18px'}}>找案件</option>
             </select>
             {/* 搜索按鈕 */}
             <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
@@ -453,7 +454,7 @@ function App() {
         </div>
       </nav >
 
-      {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
+      {showChat && <PublicMessagesPage receiverId={selectedItemMid} />}
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
@@ -625,7 +626,7 @@ function App() {
               <InputGroup.Text controlId="formBasicPassword"><FaUserLock /></InputGroup.Text>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="請輸入超過8位數"
                 required
                 ref={RegisterPassword}
               />
