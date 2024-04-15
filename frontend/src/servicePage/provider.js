@@ -6,6 +6,8 @@ import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Footer from '../homepage/Footer';
+import { FaPlus } from "react-icons/fa6";
+
 
 
 export const DataContext = createContext();
@@ -158,6 +160,7 @@ const Provider = ({ data1 }) => {
                 size="sm"
                 style={{ fontSize: "15px", width: "100px", height: '55px' }}
                 onClick={() => { handleShow() }}
+                
               >
                 新增
               </Button>

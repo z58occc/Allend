@@ -253,7 +253,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         </Button>
         <Button
           variant="danger"
-          style={{visibility}}
+          style={{ visibility }}
           className={`${styles.deletecollectionchecked}`}
           onClick={() => handleDeletedModal()}
           disabled={disabledDeleteButton}
@@ -268,7 +268,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         <Card
           key={index}
           className="my-3"
-          style={{ width: "720px", display: "flex" }}
+          style={{ width: "720px", height: "", display: "flex" }}
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
@@ -339,7 +339,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             )}
 
             {screen === 3 && (
-              <div className="d-flex flex-column justify-content-center">
+              <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
                 <Button
                   variant="primary"
                   key={index}
