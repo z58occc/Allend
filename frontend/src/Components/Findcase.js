@@ -175,6 +175,38 @@ function Findcase() {
   }
 
 
+
+  const [allstate, setAllstate] = React.useState(
+    {
+      五千: false,
+      一萬: false,
+      五萬: false,
+      十萬: false,
+      三十萬: false,
+      台北市: false,
+      新北市: false,
+      桃園市: false,
+      基隆市: false,
+      新竹市: false,
+      新竹縣: false,
+      彰化縣: false,
+      南投縣: false,
+      雲林縣: false,
+      高雄市: false,
+      台南市: false,
+      嘉義市: false,
+      嘉義縣: false,
+      屏東縣: false,
+      宜蘭縣: false,
+      花蓮縣: false,
+      臺東縣: false,
+      澎湖縣: false,
+      金門縣: false,
+      連江縣: false,
+    }
+  );
+
+
   const [budgetstate, setBudgetstate] = React.useState(
     {
       五千: false,
@@ -215,20 +247,46 @@ function Findcase() {
       連江縣: false,
     });
 
+
+
+  
+
   const [typeid, setTypeid] = useState();
 
   const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     const { name, checked } = event.target;
-    console.log(event);
-    console.log(name,checked);
+    console.log(event.target.checked);
+    console.log(name, checked);
     setCheckedState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+    setAllstate((prevState) => ({
       ...prevState,
       [name]: checked,
     }));
 
 
   };
+  console.log(allstate);
+
+  const handleChangeall = () => {
+
+    console.log(allstate);
+
+    const newState =
+      Object.keys(allstate).forEach((key) => allstate[key] = false);
+    console.log(newState);
+    // setAllstate(newState);
+    console.log(allstate);
+  }
+
+
+
+
+
+
 
 
 
@@ -242,6 +300,11 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
+    setAllstate((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+
   }
   const [durationQuery, setDurationQuery] = useState();
   const handlechangeduration = (duration) => {
@@ -467,7 +530,6 @@ function Findcase() {
         }
 
 
-        // &casesearch=${casesearch}
 
 
         setCityid(countryQuery);
@@ -558,7 +620,6 @@ function Findcase() {
 
 
 
-
   return (
     <>
       {/* 置頂按鈕 */}
@@ -614,6 +675,7 @@ function Findcase() {
                   name="台北市"
                   id="台北市"
                   onChange={handlechangecity}
+                  // checked={allstate["台北市"] === true}
                 >
                 </input>
                 &nbsp;&nbsp;台北市
@@ -926,9 +988,8 @@ function Findcase() {
             : null}
         </div>
 
-        {/* <Link to="./findcase" onClick={() => fetchData()} >清空篩選條件</Link> */}
+        <button><Link onClick={() => handleChangeall()} >清空篩選條件</Link></button>
         {/* 目前篩選條件(複選) */}
-
 
 
 
