@@ -54,7 +54,7 @@ const EditModal2 = ({ show, onHide ,data ,index}) => {
     <Modal
       show={show}
       onHide={onHide}
-      style={{ width: "450px", marginInline: "550px" }}
+      className="row justify-content-center w-100"
     >
       <Modal.Header closeButton>
         <Modal.Title>作品資訊</Modal.Title>
