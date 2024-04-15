@@ -675,7 +675,7 @@ const Findman = () => {
                 </div>
               ))}
             </div>
-            {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
+            {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
           </div>
         </div>
 
