@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form ,Modal} from "react-bootstrap";
+import { Button, Card, Form, Modal } from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
 import Cookies from "js-cookie";
 import CaseDetailsModal1 from './CaseDetailsModal1';
@@ -144,27 +144,28 @@ const Provider = ({ data1 }) => {
   }
   if (!CaseData || CaseData.length === 0) {
     return (
-
-      <div style={{
-        width: '100%', background: 'lightblue', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center',
-        borderRadius: "10px 10px 0 0"
-      }}>
-        <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
-          <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <h3>未有案件紀錄，點此按鈕新增</h3>
-            <Button
-              variant="success"
-              size="sm"
-              style={{ fontSize: "15px", width: "100px", height: '55px' }}
-              onClick={() => { handleShow() }}
-            >
-              新增
-            </Button>
-            <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+      <>
+        <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
+        <div style={{
+          width: '100%', background: 'lightblue',height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          borderRadius: "10px 10px 0 0"
+        }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+            <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <h3>未有案件紀錄，點此按鈕新增</h3>
+              <Button
+                variant="success"
+                size="sm"
+                style={{ fontSize: "15px", width: "100px", height: '55px' }}
+                onClick={() => { handleShow() }}
+              >
+                新增
+              </Button>
+              <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
+            </div>
           </div>
         </div>
-      </div>
-
+      </>
     )
   }
 
@@ -192,7 +193,7 @@ const Provider = ({ data1 }) => {
             <Button
               variant="danger"
               style={{ fontSize: "12px", width: "100px", height: '100%' }}
-              onClick={() =>  handleDeletedModal() }
+              onClick={() => handleDeletedModal()}
             >
               刪除
             </Button>
@@ -243,23 +244,23 @@ const Provider = ({ data1 }) => {
         <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
 
 
-            {/* 刪除 */}
+        {/* 刪除 */}
         <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
-        <Modal.Header closeButton>
-          <Modal.Title>{/* 標題內容 */}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-          確定刪除所選服務?
-        </Modal.Body>
-        <Modal.Footer className="d-flex justify-content-center">
-          <Button variant="danger" onClick={()=>handleDeleted()}>
-            確定
-          </Button>
-          <Button variant="secondary" onClick={handleClosedDeletedModal}>
-            關閉
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header closeButton>
+            <Modal.Title>{/* 標題內容 */}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+            確定刪除所選服務?
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-center">
+            <Button variant="danger" onClick={() => handleDeleted()}>
+              確定
+            </Button>
+            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+              關閉
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
 

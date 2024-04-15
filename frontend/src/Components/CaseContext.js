@@ -156,7 +156,7 @@ function CaseContext() {
     const redTextStyle = {
         color: 'red'
     };
-
+console.log(service_star_avg)
 
     return (
         <>
@@ -205,8 +205,10 @@ function CaseContext() {
                                 <img style={{ width: "60px" }} src={members.avatar}></img></div>
                             <div>{members.name}</div>
                             <div >
-                                評價：&nbsp;
-                                {Array.from({ length: service_star_avg }, (_, i) => (<FaStar key={i} className="mb-1" style={{ color: "yellow" }} />))}
+                                評價：
+                                {service_star_avg !== 0 
+                                ? Array.from({ length: service_star_avg }, (_, i) => (<FaStar key={i} className="" style={{ color: "gold" }} />))
+                                : <>尚無評價</>}
                             </div>
                             <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
