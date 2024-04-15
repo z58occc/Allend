@@ -146,8 +146,8 @@ const Work = ({ data2 }) => {
     return (
       <>
         <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
-        <div style={{ width: '100%', background: '#FFC78E', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+        <div style={{ width: '100%', background: '#FFC78E', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px",marginTop: "30px" }}>
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <h3>未有作品紀錄，點此按鈕新增</h3>
               <Button

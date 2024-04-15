@@ -6,6 +6,8 @@ import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Footer from '../homepage/Footer';
+import { FaPlus } from "react-icons/fa6";
+
 
 
 export const DataContext = createContext();
@@ -150,7 +152,7 @@ const Provider = ({ data1 }) => {
           width: '100%', background: 'lightblue',height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           borderRadius: "10px 10px 0 0"
         }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px",marginTop: "30px" }}>
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <h3>未有案件紀錄，點此按鈕新增</h3>
               <Button
@@ -158,6 +160,7 @@ const Provider = ({ data1 }) => {
                 size="sm"
                 style={{ fontSize: "15px", width: "100px", height: '55px' }}
                 onClick={() => { handleShow() }}
+                
               >
                 新增
               </Button>

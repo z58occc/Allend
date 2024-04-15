@@ -150,9 +150,9 @@ const Media = ({ data3 }) => {
           width: '100%', background: 'lightpink',height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           borderRadius: "0 0 10px 10px"
         }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", height: '50px' }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-              <h2>未有影音紀錄，點此按鈕新增</h2>
+              <h3>未有影音紀錄，點此按鈕新增</h3>
               <Button
                 variant="success"
                 size="sm"

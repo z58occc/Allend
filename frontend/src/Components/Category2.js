@@ -13,12 +13,10 @@ function Category2() {
 
 
         <div style={{ marginLeft: '60px', marginRight: '0' }}>
-
             <div className="container mt-5">
                 <div className="row justify-content-center">
-
                     <div className="col-2 text-center ">
-                    <Link to={`/findman/1`} style={{backgroundcolor: "#66B3FF", border: "null"}}  className={`${styles.categorylink}`}>
+                        <Link to={`/findman/1`} style={{ backgroundcolor: "#66B3FF", border: "null" }} className={`${styles.categorylink}`}>
                             <div >網站設計</div>
                             <img src={a1} style={{ width: '60px' }}></img>
                         </Link>
@@ -41,14 +39,14 @@ function Category2() {
                     <div className="col-2 text-center">
                         <Link to={`/findman/4`} className={`${styles.categorylink}`}>
                             <div >文字語言</div>
-                            <img src={a4} style={{ width: '60px'}}></img>
+                            <img src={a4} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
                     <div className={`col-2 text-center ${styles.catrgorycontainer}`}>
                         <Link to={`/findman/5`} className={` ${styles.categorylink}`}>
                             <div>專業諮詢</div>
-                            <img src={a6} style={{ width: '60px'}}></img>
+                            <img src={a6} style={{ width: '60px' }}></img>
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
