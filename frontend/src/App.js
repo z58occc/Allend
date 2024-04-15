@@ -40,7 +40,13 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   //聊天室窗狀態
+  const [showChat, setShowChat] = useState(false);
+  const [selectedItemMid, setSelectedItemMid] = useState(null);
 
+  // const toggleChat = (mid) => {
+  //   setSelectedItemMid(mid);
+  //   setShowChat(!showChat);
+  // };
 
   const handleClose = () => setShowLogin(false);
   const handleShow = () => setShowLogin(true);
@@ -273,7 +279,7 @@ function App() {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
-      setMemberEmail(response.data.email);
+      setMemberEmail(response.data);
     } catch (error) {
       console.error('Failed to fetch member email:', error);
     }
@@ -335,7 +341,7 @@ function App() {
     setInputvalue(inputvalue);
   }
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat,selectedItemMid,setSelectedItemMid,setShowChat }}>
       <div
         className="p-1"
         style={{
@@ -387,7 +393,7 @@ function App() {
                 style={{ backgroundColor: selectedLink === "/member" ? "#D6DAC8" : "#ffcab9", color: "black" }}
                 onClick={() => handleLinkClick("/member")}
               >
-                <span style={{ fontSize: '28px' }}>您好，{memberEmail}</span>
+                <span style={{ fontSize: '28px' }}>您好，{memberEmail.email}</span>
               </Link>
             </div>
           )}
@@ -434,7 +440,7 @@ function App() {
         </div>
       </nav >
 
-
+      {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
@@ -452,7 +458,7 @@ function App() {
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
         {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
-        <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route>
+        {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
       </Routes>
 

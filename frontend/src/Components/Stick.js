@@ -1,25 +1,26 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { FaFacebook, FaLine, FaUserAlt, FaBriefcase  } from "react-icons/fa";
-import { CiStar, CiChat1 } from "react-icons/ci";
+import { CiStar } from "react-icons/ci";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import CopyButton from './CopyButton';
 import axios from 'axios';
-import PublicMessagesPage from './PublicMessagesPage';
 import { IsLoggedInContext } from "../App";
 import ChatButton from './ChatButtom';
+
 
 export const toggleChatContext = createContext()
 
 function Stick() {
 
-    const [showChat, setShowChat] = useState(false);
+    
 
-    const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
+    const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
 
-    const toggleChat = () => {
+    const toggleChat = (mid) => {
       setShowChat(!showChat);
+      setSelectedItemMid(mid);
     };
     const { mid } = useParams();
 
@@ -78,10 +79,10 @@ function Stick() {
                             </div> */}
                             {/* <div className='text-center' > */}
                                 
-                            <div onClick={isLoggedIn ? toggleChat : handleShow} className='text-center p-2'>
+                            <div onClick={isLoggedIn ? ()=>toggleChat(talent.member?.[0]?.mid) : handleShow} className='text-center p-2'>
                                         <ChatButton />
                                     </div>
-                            {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)}
+                            {/* {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)} */}
                             
                             {/* </div> */}
                         {/* </div> */}

@@ -11,18 +11,17 @@ import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
 import styles from "./Findman.module.css";
-import PublicMessagesPage from "./PublicMessagesPage";
 // import "./Findman.css";
 
 
 const Findman = () => {
   // 是否登入
-  const {isLoggedIn, setIsLoggedIn, handleShow} = useContext(IsLoggedInContext);
+  const {isLoggedIn, setIsLoggedIn, handleShow,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
   // 儲存撈回來的資料
   const [service, setService] = useState([]);
 
-  const [showChat, setShowChat] = useState(false);
-  const [selectedItemMid, setSelectedItemMid] = useState(null);
+  
+  
 
 
   const toggleChat = (mid) => {
@@ -206,7 +205,6 @@ const Findman = () => {
     show: false
   })));
 
-  console.log(textShow)
   // 加入收藏
   const addServiceCollection = (sid) => {
     axios({
@@ -667,7 +665,7 @@ const Findman = () => {
                 </div>
               ))}
             </div>
-            {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />}
+            {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
           </div>
         </div>
 

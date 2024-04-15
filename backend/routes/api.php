@@ -77,15 +77,15 @@ Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
 Route::get('/user/email', GetmemberemailController::class);
 
 //聊天室
-Route::post('new-message',ChatController::class);
+Route::post('new-message', [ChatController::class, 'Newmessage']);
 
 // 從移交到結案、評價畫面
-Route::get('/take_submit', [ClosethecaseController::class,'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)
-Route::get('/publish_recevice', [ClosethecaseController::class,'receviceData']); // 案主接收結果的按鈕 => 發案者、接案者案件狀態轉成已結案
-Route::post('/publicEvaluation', [ClosethecaseController::class,'publishEvaluation']); // 發案者的發送對接案者評價按鈕 => 在已結案發送評價
-Route::post('/takeEvaluation', [ClosethecaseController::class,'takeEvaluation']); // 接案者的評價按鈕
+Route::get('/take_submit', [ClosethecaseController::class, 'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)
+Route::get('/publish_recevice', [ClosethecaseController::class, 'receviceData']); // 案主接收結果的按鈕 => 發案者、接案者案件狀態轉成已結案
+Route::post('/publicEvaluation', [ClosethecaseController::class, 'publishEvaluation']); // 發案者的發送對接案者評價按鈕 => 在已結案發送評價
+Route::post('/takeEvaluation', [ClosethecaseController::class, 'takeEvaluation']); // 接案者的評價按鈕
 
-Route::controller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->group(function () {
     // 註冊
     Route::post('/register', 'register');
     // 登入
@@ -100,16 +100,16 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 // 信箱驗證
 Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
+    ->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
-->middleware(['auth', 'throttle:6,1']);
+    ->middleware(['auth', 'throttle:6,1']);
 // 生成、驗證驗證碼
 // Route::get('/capgeneration', [CaptchaController::class, 'reloadCaptcha']);
 // Route::post('/capvalidation', [CaptchaController::class, 'validateCaptcha']);
 
 // 會員功能
-Route::controller(MemberInfoController::class)->group(function(){
+Route::controller(MemberInfoController::class)->group(function () {
     // 會員儀表板
     Route::get('/dashboard', 'dashboard');
     // 獲取接案方資料
@@ -208,4 +208,3 @@ Route::controller(MemberInfoController::class)->group(function(){
 
 // Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
 // Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面
-

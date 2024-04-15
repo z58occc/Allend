@@ -16,17 +16,22 @@ class GetmemberemailController extends Controller
             $email = DB::table('members')->where('mid', $userid)->value('email');
             $members = DB::table('members')->where('mid', $userid)->value('mid');
             $name = DB::table('members')->where('mid', $userid)->value('name');
-            if ($request->has('receiverId')) {
-                $receivername = DB::table('members')->where('mid', $request->receiverId)->value('name');
-                $receiveremail = DB::table('members')->where('mid', $request->receiverId)->value('email');
-            }
-            return response()->json([
+            $response = [
                 'email' => $email,
                 'mid' => $members,
                 'name' => $name,
-                'receivername' => $receivername,
-                'receiveremail' => $receiveremail,
-            ]);
+
+            ];
+            if ($request->has('receiverId')) {
+                $receiverId = $request->receiverId;
+                $receiver = DB::table('members')->where('mid', $receiverId)->first();
+
+                if ($receiver) {
+                    $response['receivername'] = $receiver->name;
+                    $response['receiveremail'] = $receiver->email;
+                }
+            }
+            return response()->json($response);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

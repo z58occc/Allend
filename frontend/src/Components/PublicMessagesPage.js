@@ -4,17 +4,20 @@ import Echo from "laravel-echo"
 import Pusher from "pusher-js"
 import Messagebox from "./Messagebox"
 import Cookies from "js-cookie"
-import { Link, useParams } from "react-router-dom"
 import "./chatroom.css";
+import { IsLoggedInContext } from "../App";
 export default function PublicMessagesPage(props) {
   
-  
+  const {setShowChat} = useContext(IsLoggedInContext);
 
   const [Sconnect, setSconnect] = useState("")
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState([])
   const [senderId, setsenderId] = useState("")
 
+  const handleCloseChat = () => {
+    setShowChat(false);
+  }
   async function handleSendMessage(e) {
     e.preventDefault()
 
@@ -102,6 +105,7 @@ export default function PublicMessagesPage(props) {
     <div className="chat-window">
           <div className="title-section">
             {senderId.receivername}({senderId.receiveremail})
+            <button className="btn-close btn-close-white position-absolute top-10 end-0 " style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
           </div> 
           <div>
             <div style={{ display: 'flex', height: '400px' }}>
