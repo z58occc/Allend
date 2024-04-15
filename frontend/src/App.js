@@ -34,6 +34,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 export const IsLoggedInContext = createContext()
 
+
 function App() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -238,6 +239,7 @@ function App() {
   const LoginPassword = useRef();
   const [rememberPassword, setRememberPassword] = useState(false);
 
+  // 一般登入
   const handleLogin = async () => {
     try {
       const res = await axios.post(
@@ -264,7 +266,6 @@ function App() {
     }
   };
 
-
   // 取得會員email
   const fetchMemberEmail = async () => {
     try {
@@ -282,6 +283,8 @@ function App() {
 
 
   const projectFormLink = isLoggedIn ? "/ProjectForm" : window.location.href; // 發案按鈕登入判別
+
+  // 忘記密碼
   const toForgotPassword = (event) => {
     event.preventDefault();
     setShowLogin(false);
@@ -337,6 +340,8 @@ function App() {
   const handleChange = (event) => {
     setTogglename(event.target.value);
   };
+
+
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow }}>
       <div
@@ -683,7 +688,7 @@ function App() {
         <Modal.Header closeButton>
           <Modal.Title>已登出</Modal.Title>
         </Modal.Header>
-        <Modal.Body>為確保您的帳戶安全，已將您的帳號自動登出</Modal.Body>
+        <Modal.Body>為確保您的帳戶安全，已將您的帳戶自動登出</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowLogoutMessage(false)}>關閉</Button>
         </Modal.Footer>

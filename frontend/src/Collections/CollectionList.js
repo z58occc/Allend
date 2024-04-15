@@ -153,6 +153,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       }
       break;
     default:
+      filteredData = data
       break;
   }
 

@@ -50,7 +50,7 @@ useEffect(() => {
   
 
   return (
-      <div style={{ width: '100%', }}>
+      <div style={{ width: '100%', height:'100vh'}}>
         <CollectionList visibility='hidden' selectedComponent={'servicecollection'} data={displayData} screen={2} dataUpdate={dataUpdate}></CollectionList>    
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>
