@@ -8,9 +8,7 @@ import CaseDetailsModal3 from "./CaseDetailsModal3";
 import { CaseContext } from "./MainScreen2";
 import GetQuoteModal from "./GetQuoteModal";
 import Cookies from "js-cookie";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaRegCheckSquare } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
+import { FaTrashAlt,FaRegCheckSquare,FaCheck } from "react-icons/fa";
 import styles from './cardlist.module.css';
 
 const CardList = ({ visibility, selectedComponent, data1, screen }) => {
