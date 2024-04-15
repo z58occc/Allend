@@ -112,6 +112,9 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
     .catch((err) => console.log(err))
   }
   
+  useEffect(()=>{
+
+  }, [data])
   // 案件詳情Modal
   // const [showModal1, setShowModal1] = useState(false)
   
@@ -148,7 +151,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       }
       break;
     default:
-      filteredData = data;
+      break;
   }
 
 console.log(selectedItems.filter((item, i) => item))
