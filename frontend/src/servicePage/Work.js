@@ -5,7 +5,9 @@ import Cookies from "js-cookie";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
-
+import styles from './media.module.css';
+import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 export const WorkContext = createContext();
 
@@ -147,15 +149,16 @@ const Work = ({ data2 }) => {
       <>
         <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
         <div style={{ width: '100%', background: '#FFC78E', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px",marginTop: "30px" }}>
+          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <h3>未有作品紀錄，點此按鈕新增</h3>
               <Button
                 variant="success"
                 size="sm"
-                style={{ fontSize: "15px", width: "100px", height: '55px' }}
+                className={`${styles.increasecollectionchecked}`}
                 onClick={() => { handleShow() }}
               >
+                <FaPlus size={16} />
                 新增
               </Button>
               <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
@@ -168,28 +171,39 @@ const Work = ({ data2 }) => {
   return (
     <>
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
-      <div style={{ width: '100%', background: 'lightpink ',height: '100vh', borderRadius: "10px" }}>
+      <div style={{ width: '100%', background: 'lightpink ', height: '100vh', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className="mb-3 d-flex justify-content-around " style={{ width: "100%", height: '50px' }}>
             <Button
               variant="success"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.increasecollectionchecked}`}
               onClick={() => { handleShow() }}
             >
+              <FaPlus size={16} />
               新增
             </Button>
             <Button
               variant="primary"
-              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              className={`${styles.togglecollectionchecked}`}
               onClick={handleToggleAll}
             >
-              {checkedAll ? "取消全選" : "全選"}
+              {checkedAll ? (
+                <>
+                  <FaRegCheckSquare size={20} />
+                  取消
+                </>
+              ) : (
+                <>
+                  <FaCheck size={16} />
+                  全選
+                </>
+              )}
             </Button>
             <Button
               variant="danger"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.deletecollectionchecked}`}
               onClick={() => { handleDeletedModal() }}
-            >
+            ><FaTrashAlt size={16} />
               刪除
             </Button>
           </div>

@@ -6,8 +6,9 @@ import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Footer from '../homepage/Footer';
-import { FaPlus } from "react-icons/fa6";
-
+import styles from './provider.module.css';
+import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 
 export const DataContext = createContext();
@@ -158,10 +159,10 @@ const Provider = ({ data1 }) => {
               <Button
                 variant="success"
                 size="sm"
-                style={{ fontSize: "15px", width: "100px", height: '55px' }}
+                className={`${styles.increasecollectionchecked}`}
                 onClick={() => { handleShow() }}
-                
               >
+                <FaPlus size={16} />
                 新增
               </Button>
               <CaseDetailsModal1 show={show} onHide={handleClose}></CaseDetailsModal1>
@@ -181,23 +182,35 @@ const Provider = ({ data1 }) => {
           <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
             <Button
               variant="success"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.increasecollectionchecked}`}
               onClick={() => { handleShow() }}
             >
+              <FaPlus size={16} />
               新增
             </Button>
             <Button
               variant="primary"
-              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              className={`${styles.togglecollectionchecked}`}
               onClick={handleToggleAll}
             >
-              {checkedAll ? "取消全選" : "全選"}
+              {checkedAll ? (
+                <>
+                  <FaRegCheckSquare size={20} />
+                  取消
+                </>
+              ) : (
+                <>
+                  <FaCheck size={16} />
+                  全選
+                </>
+              )}
             </Button>
             <Button
               variant="danger"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.deletecollectionchecked}`}
+              //style={{ fontSize: "12px", width: "100px", height: '100%' }}
               onClick={() => handleDeletedModal()}
-            >
+            ><FaTrashAlt size={16} />
               刪除
             </Button>
           </div>
@@ -207,7 +220,7 @@ const Provider = ({ data1 }) => {
               {data1.map((item, index) => (
                 <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
-                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} onClick={()=>handleShow1(index)} />
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} onClick={() => handleShow1(index)} />
                     <Card.Body className="d-flex ">
                       <Card.Title>
                         <Form.Check
@@ -215,11 +228,11 @@ const Provider = ({ data1 }) => {
                           checked={selectedItems[index] || false}
                           onChange={() => handleChecked(index)}
                           style={{ margin: "0 10px 3px 10px" }}
-                        /> 
+                        />
                         <span style={{ margin: "0 20px" }}>{item.s_name}</span>
-      
+
                       </Card.Title>
-  
+
                     </Card.Body>
                   </Card>
                 </Col>

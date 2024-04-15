@@ -6,7 +6,9 @@ import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
-
+import styles from './media.module.css';
+import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 
 export const MediaContext = createContext();
@@ -147,7 +149,7 @@ const Media = ({ data3 }) => {
       <>
         <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
         <div style={{
-          width: '100%', background: 'lightpink',height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          width: '100%', background: 'lightpink', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           borderRadius: "0 0 10px 10px"
         }}>
           <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
@@ -156,9 +158,10 @@ const Media = ({ data3 }) => {
               <Button
                 variant="success"
                 size="sm"
-                style={{ fontSize: "15px", width: "100px", height: '55px' }}
+                className={`${styles.increasecollectionchecked}`}
                 onClick={() => { handleShow() }}
               >
+                <FaPlus size={16} />
                 新增
               </Button>
               <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
@@ -176,24 +179,35 @@ const Media = ({ data3 }) => {
           <div className="mb-3 d-flex justify-content-around" style={{ width: "800px", height: '50px' }}>
             <Button
               variant="success"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.increasecollectionchecked}`}
               onClick={() => { handleShow() }}
             >
+              <FaPlus size={16} />
               新增
             </Button>
 
             <Button
               variant="primary"
-              style={{ fontSize: "12px", width: "100px", whiteSpace: "nowrap", height: '100%' }}
+              className={`${styles.togglecollectionchecked}`}
               onClick={handleToggleAll}
             >
-              {checkedAll ? "取消全選" : "全選"}
+              {checkedAll ? (
+                <>
+                  <FaRegCheckSquare size={20} />
+                  取消
+                </>
+              ) : (
+                <>
+                  <FaCheck size={16} />
+                  全選
+                </>
+              )}
             </Button>
             <Button
               variant="danger"
-              style={{ fontSize: "12px", width: "100px", height: '100%' }}
+              className={`${styles.deletecollectionchecked}`}
               onClick={() => { handleDeletedModal() }}
-            >
+            ><FaTrashAlt size={16} />
               刪除
             </Button>
           </div>
