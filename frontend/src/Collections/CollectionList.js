@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from './Collection.module.css';
+import { FaCheck } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 
 const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdate}) => {
@@ -165,6 +167,7 @@ console.log(selectedItems.filter((item, i) => item))
             className={`${styles.togglecollectionchecked}`}
             onClick={handleToggleAll}
           >
+            <FaCheck/>
             {checked ? "取消全選" : "全選"}
           </Button>
           
@@ -174,6 +177,7 @@ console.log(selectedItems.filter((item, i) => item))
             onClick={handleOpenCancelModal}
             disabled={disabledDeleteButton}
           >
+            <FaTrashAlt/>
             刪除收藏
           </Button>
         </div>

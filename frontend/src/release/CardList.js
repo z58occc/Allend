@@ -8,7 +8,10 @@ import CaseDetailsModal3 from "./CaseDetailsModal3";
 import { CaseContext } from "./MainScreen2";
 import GetQuoteModal from "./GetQuoteModal";
 import Cookies from "js-cookie";
-
+import { FaTrashAlt } from "react-icons/fa";
+import { FaRegCheckSquare } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import styles from './cardlist.module.css';
 
 const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   // const {Case} = useContext(CaseContext)
@@ -26,7 +29,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
   const handleClosedDeletedModal = () => {
     setShowDeletedModal(false);
   }
-  
+
   //搜尋選擇case
   const handleSearch = (searchTerm) => {
     switch (screen) {
@@ -232,17 +235,29 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
       >
         <Button
           variant="primary"
-          style={{ fontSize: "12px", width: "110px", whiteSpace: "nowrap", visibility }}
+          // style={{ fontSize: "12px", width: "120px", whiteSpace: "nowrap", visibility,display: "flex",justifyContent: "center", alignItems: "center"}}
+          className={`${styles.togglecollectionchecked}`}
           onClick={handleToggleAll}
         >
-          {checked ? "取消全選" : "全選"}
+          {checked ? (
+            <>
+              <FaRegCheckSquare size={20} />  
+              取消
+            </>
+          ) : (
+            <>
+              <FaCheck size={16} /> 
+              全選
+            </>
+          )}
         </Button>
         <Button
           variant="danger"
-          style={{ fontSize: "12px", width: "100px", visibility }}
+          //style={{ fontSize: "12px", width: "120px", visibility }}
+          className={`${styles.deletecollectionchecked}`}
           onClick={() => handleDeletedModal()}
           disabled={disabledDeleteButton}
-        >
+        ><FaTrashAlt size={16} />
           刪除
         </Button>
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
@@ -257,7 +272,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
-            <Card.Text>{screen === 1 ? (
+              <Card.Text>{screen === 1 ? (
                 <>更新日期：{item.updated_at}</>
               ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : (
                 <>建立日期：{item.created_at}</>
@@ -284,18 +299,18 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
               {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.service_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
                 <span>
-                  { screen === 3
-                  ? <>評論日期：{item.completed_time}</>
-                  : screen === 1 
-                    ? (<>合作期程：{item.d_duration}</>)
-                    : (<>合作期程：{item.c_duration}</>)
+                  {screen === 3
+                    ? <>評論日期：{item.completed_time}</>
+                    : screen === 1
+                      ? (<>合作期程：{item.d_duration}</>)
+                      : (<>合作期程：{item.c_duration}</>)
                   }
                 </span>
                 <span>
                   金額：
                   {screen === 1
-                  ? (<>{item.d_amount} / {item.d_unit}</>)
-                  : (<>{item.c_amount} / {item.c_unit}</>)
+                    ? (<>{item.d_amount} / {item.d_unit}</>)
+                    : (<>{item.c_amount} / {item.c_unit}</>)
                   }
                 </span>
               </div>
