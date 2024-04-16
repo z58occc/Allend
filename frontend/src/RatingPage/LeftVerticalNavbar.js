@@ -5,7 +5,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './LeftVerticalNavbar.css';
+import styles from './LeftVerticalNavbar.module.css';
 import member from './member.png';
 import { FaCamera } from "react-icons/fa";
 
@@ -169,22 +169,29 @@ const LeftVerticalNavbar = () => {
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto flex-column">
+                <Nav className=" flex-column">
                     {navItems.map((item, index) => {
                         if (index === 1 || index === 2) {
                             return (
-                                <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion">
-                                    <Accordion.Item eventKey={`${index}-1`} className='bg-grey'>
-                                        <Accordion.Header>{item.text}</Accordion.Header>
-                                        <Accordion.Body>
+                                <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
+                                    <Accordion.Item eventKey={`${index}`}>
+                                        <Accordion.Header
+                                            className={`${styles.test} bg-light`}
+                                            style={{ backgroundColor: "#D0D0D0" }}
+                                            
+                                        >
+                                            <span style={{fontSize:"32px",margin: 0}}>{item.text}</span>
+                                        </Accordion.Header>
+
+                                        <Accordion.Body style={{ backgroundColor: "#D0D0D0" }}>
                                             {index === 1 ? (
-                                                <div className="links-container">
-                                                    <Link to="/switch" className="nav-link-no-arrow">資料維護</Link>
+                                                <div className={`${styles.linksContainer}`}>
+                                                    <Link to="/switch" className="nav-link-no-arrow" >資料維護</Link>
                                                     <br />
                                                     <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
                                                 </div>
                                             ) : (
-                                                <div className="links-container">
+                                                <div className={`${styles.linksContainer}`}>
                                                     <Link to="/commit" className="nav-link-no-arrow">發案紀錄</Link>
                                                     <br />
                                                     <Link to="/service" className="nav-link-no-arrow">接案紀錄</Link>

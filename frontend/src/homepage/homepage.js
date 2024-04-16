@@ -113,7 +113,7 @@ function Homepage() {
           className="btn btn-primary rounded-circle shadow"
           style={{
             position: "fixed",
-            bottom: "20px",
+            bottom: "30px",
             right: "20px",
             zIndex: "1000" // Set a high z-index to make sure it appears on top
           }}
@@ -222,7 +222,7 @@ function Homepage() {
                 return (
                   <Row key={index} style={{ margin: "30px 32px 30px 32px" }}>
                     <Col>
-                      <Link to={`./casecontext/?${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
+                      <Link to={`./casecontext/${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
                         <div className="toast show ">
                           <div className="toast-header">
                             <strong className="me-auto">

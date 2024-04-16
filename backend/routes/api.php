@@ -76,9 +76,10 @@ Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
 // 取得email
 Route::get('/user/email', GetmemberemailController::class);
 
-// 聊天室
-Route::post('/new-message', [ChatController::class, 'Newmessage']);
-Route::get('/get-message', [ChatController::class, 'Getmessage']);
+//聊天室
+Route::post('new-message', [ChatController::class, 'Newmessage']);
+Route::get('get-mlist', [ChatController::class, 'Getlist']);
+Route::get('get-message', [ChatController::class, 'Getmessage']);
 
 // 從移交到結案、評價畫面
 Route::get('/take_submit', [ClosethecaseController::class, 'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)
