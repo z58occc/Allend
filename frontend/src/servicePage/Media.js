@@ -149,7 +149,7 @@ const Media = ({ data3 }) => {
       <>
         <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
         <div style={{
-          width: '100%', background: 'lightpink', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          width: '100%', background: 'lightgreen', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           borderRadius: "0 0 10px 10px"
         }}>
           <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>

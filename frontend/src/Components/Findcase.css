@@ -3,3 +3,9 @@
     background-color: black;
     color: white;
 }
+#factor span{
+    background-color:peachpuff;
+}
+#clean:hover{
+    cursor: pointer;
+}
