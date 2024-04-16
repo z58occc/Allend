@@ -209,11 +209,8 @@ const Findman = () => {
     };
     fetchService();
   }, [servicesearch, identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
-
-  const [textShow, setTextShow] = useState(service.map((item, i) => ({
-    sid: item.sid,
-    show: false
-  })));
+// console.log(service)
+  const [textShow, setTextShow] = useState(null);
 
   // 加入收藏
   const addServiceCollection = (sid) => {
@@ -227,9 +224,10 @@ const Findman = () => {
         const newData = service.map((item) => item.sid === sid ? { ...item, fid: res.data.fid.fid } : item);
         setService(newData)
         // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:true} : item }))
-        // setTimeout(()=>{
-        //     setTextShow(service.map((item) => {item.sid === sid ? {...item, show:false} : item }))
-        // }, 3000)
+        setTimeout(()=>{
+            // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:false} : item }))
+            setTextShow(null)
+        }, 3000)
 
       })
       .catch((err) => { console.log(err) })
@@ -664,17 +662,19 @@ const Findman = () => {
                         {isLoggedIn === true && item.fid
                           ? <>
                             <FaHeart className={styles.faheart} onClick={() => { cancelServiceCollection(item.fid) }} />
-                            {/* {item.fid && (textShow === index) && <span style={{color: 'red'}}>已收藏！</span>} */}
                           </>
                           : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid); setTextShow(index) } : handleShow} />}
                       </div>
                       <div onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} className='text-center p-2'>
-                        <Chatbutton /></div>
+                        <Chatbutton />
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            {textShow && <span style={{color: 'red'}}>已收藏！</span>}
+
             {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
           </div>
         </div>

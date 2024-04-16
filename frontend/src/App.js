@@ -27,6 +27,7 @@ import MainScreen2 from "./release/MainScreen2";
 import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
+import CallbackHandler from "./homepage/CallbackHandler";
 import "./App.css";
 
 
@@ -229,7 +230,7 @@ function App() {
       axios({
         method: 'get',
         url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => window.location.href = res.data)
+      }).then((res) => window.open(res.data, '_blank'))
     } catch (err) {
       console.log(err)
     }
@@ -471,6 +472,7 @@ function App() {
         <Route path="/commit" element={<MainScreen2></MainScreen2>}></Route>
         <Route path="/manage" element={<MainScreen3></MainScreen3>}></Route>
         <Route path="/collect" element={<CollectionsMain></CollectionsMain>}></Route>
+        <Route path="/auth/google/callback" element={<CallbackHandler></CallbackHandler>} />
         {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}

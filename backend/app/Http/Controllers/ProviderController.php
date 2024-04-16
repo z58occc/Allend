@@ -16,7 +16,6 @@ class ProviderController extends Controller
         return Socialite::driver('google')
         //->setScopes(['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'])
         ->stateless()->redirect()->getTargetUrl();
-        // dd(Socialite::driver('google')->redirect());
     }
 
     public function callback(){
@@ -39,8 +38,12 @@ class ProviderController extends Controller
                     'email_verified_at' => now(),
                     'last_login' => now(),
                 ]);
-                $token = JWTAuth::fromUser($user);
+                // $token = JWTAuth::fromUser($user);
+                $token = auth()->setTTL(120)->attempt($user);
             }
+
+            $user = Auth::user();
+            Member::where('mid', $user->mid)->update(['last_login' => now()]);
 
             return response()->json([
                 'token' => $token,

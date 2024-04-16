@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Response;
 class ECPaymentController extends Controller
 {
     public function Payment(Request $request)
-    {   
+    {
         $factory = new Factory([
-            'hashKey' => 'pwFHCqoQZGmho4w6',
-            'hashIv' => 'EkRm7iFT261dpevs',
-
+            // 'hashKey' => 'pwFHCqoQZGmho4w6',
+            // 'hashIv' => 'EkRm7iFT261dpevs',
+            'hashKey' => env('hashKey'),
+            'hashIv' => env('hashIv'),
         ]);
         $autoSubmitFormService = $factory->create('AutoSubmitFormWithCmvService');
 
@@ -38,39 +39,37 @@ class ECPaymentController extends Controller
             'PaymentInfoURL' => 'https://f5b0-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callbackinfo',
         ];
 
-        
+
         $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
-            // 生成表单数据
-    $formData = $autoSubmitFormService->generate($input, $action);
-    // Extract input fields using regular expression
-    preg_match_all('/<input.*?name=("|\')(.*?)("|\')(?:\s+.*?value=("|\')(.*?)("|\'))?.*?>/', $formData, $matches);
+        // 生成表單數據
+        $formData = $autoSubmitFormService->generate($input, $action);
+        // Extract input fields using regular expression
+        preg_match_all('/<input.*?name=("|\')(.*?)("|\')(?:\s+.*?value=("|\')(.*?)("|\'))?.*?>/', $formData, $matches);
 
-    // Combine matches into key-value pairs
-    $jsonFormData = [];
-    foreach ($matches[2] as $index => $name) {
-        $value = $matches[5][$index] ?? ''; // Set default value to empty string if value attribute doesn't exist
-        $jsonFormData[$name] = $value;
+        // Combine matches into key-value pairs
+        $jsonFormData = [];
+        foreach ($matches[2] as $index => $name) {
+            $value = $matches[5][$index] ?? ''; // Set default value to empty string if value attribute doesn't exist
+            $jsonFormData[$name] = $value;
+        }
+        return Response::json($jsonFormData);
     }
-    return Response::json($jsonFormData);
-    }
-
 
     public function Callback(Request $request)
     {
         // Step 2: Verify the received payment result message from ECPay
         // Perform verification of checksum or any other necessary validation
-    
+
         // For now, let's assume the verification is successful
         $verificationPassed = true;
-    
+
         // Step 3: Respond back to ECPay
         if ($verificationPassed) {
             $cid = $request->input('cid');
             DB::table('established_case')->where('cid', $cid)
             ->update(['c_status' => 2]);
-            return '1|OK'; // Responding with "1|OK" to acknowledge successful receipt
+            return '1|OK';
         } else {
-            // Respond with an error message if verification fails
             return '0|Error';
         }
     }
@@ -79,4 +78,4 @@ class ECPaymentController extends Controller
     {
         dd($request->all());
     }
-}   
+}
