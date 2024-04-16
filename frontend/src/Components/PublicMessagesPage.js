@@ -137,7 +137,7 @@ export default function PublicMessagesPage(props) {
             <div style={{ display: 'flex', height: '400px' }}>
               <div className="chat-menu">
                 {history.map((item,index)=>(
-                  <button key={index} className="chat-list" onClick={()=>handleClick(item.receiver_id)}><FaUser style={{paddingRight:"5px"}}/>{item.name}</button>
+                  <button key={index} className="chat-list" onClick={()=>handleClick(item.receiver_id)}><FaUser style={{paddingRight:"5px"}}/>{item.mrname}</button>
                 ))}
               </div>
                 <div> 

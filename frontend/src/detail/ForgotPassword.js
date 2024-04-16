@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
-import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 import queryString from "query-string";
 
 
 function ForgotPassword() {
+    const navigate = useNavigate();
     const parsed = queryString.parse(window.location.search);
     console.log(parsed);
     const { token } = useParams();
@@ -39,6 +40,15 @@ function ForgotPassword() {
             method: "POST",
             body: formDataToSend
         });
+        console.log(response);
+        if (response.ok) {
+
+            alert('Password reset successfully!');
+            navigate('/');
+        } else {
+
+            alert('Password reset failed. Please try again.');
+        }
     };
 
     // CSS

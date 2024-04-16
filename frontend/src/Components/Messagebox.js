@@ -1,21 +1,27 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import Axios from "axios"
+import React, { useEffect, useState } from 'react';
+import Cookies from "js-cookie";
 
 function Messagebox({message ,userId,receiverId}) {
 
     const [library, setLibrary] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost/Allend/backend/public/api/get-message')
-        .then(response=>{
+        const fetchMessages = async()=>{
+            try{
+                const response = await Axios.get('http://localhost/Allend/backend/public/api/get-message', {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("token")}`,
+            },
+          });
             setLibrary(response.data);
             console.log(response.data);
-        })
-        .catch(error => {
+        }catch(error) {
             console.error('Error fetching messages:', error);
-          });
-      }, [userId,receiverId])
-
+          }
+        }
+        fetchMessages();
+      }, [receiverId])
 
     const formatDate = (value)=>{
         if(!value) return '';
@@ -29,8 +35,8 @@ function Messagebox({message ,userId,receiverId}) {
     const isSentByCurrentUser = message.senderId === userId;
     return (
         <div>
-            {library?.map((msg, index) => (
-            <div key={index} style={{ textAlign: msg.sender_id === userId && msg.receiver_id === receiverId ? 'right' : 'left' }}>
+            {library.map((msg, index) => (
+            <div key={index} style={{ textAlign: msg.sender_id === userId || msg.receiver_id === userId ? 'right' : 'left' }}>
                 <div>
                     <span style={{ backgroundColor: msg.sender_id === userId && msg.receiver_id === receiverId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
                     <p>{formatDate(msg.sending_time)}</p>
