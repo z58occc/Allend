@@ -7,6 +7,8 @@ use App\Models\Member;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
@@ -18,59 +20,42 @@ class ProviderController extends Controller
         ->stateless()->redirect()->getTargetUrl();
     }
 
-    public function callback(){
+    public function callback(Request $request){
         try{
-            $SocialUser = Socialite::driver('google')->stateless()->user();
+            $requestData = $request->only('authuser', 'code', 'prompt', 'scope');
 
-            $user = Member::where('email', $SocialUser->getEmail())
-            ->where('provider', 'google')->orWhere('provider', null)->first();
+            $SocialUser = Socialite::driver('google')
+            ->stateless()->with($requestData)->user();
 
-            if ($user->exists())
-            {
-                $token = JWTAuth::fromUser($user);
+            $user = DB::table('members')->select('mid')
+            ->where('email', $SocialUser->getEmail())
+            ->where('provider', 'google');
+
+            if ($user->exists()){
+                DB::table('members')->where('mid', $user->first()->mid)->update(['last_login' => now()]);
             }else{
-                $user = Member::create([
+                $user = DB::table('members')->insert([
                     'provider' => 'google',
                     'email' => $SocialUser->email,
-                    'password' => "",
+                    'password' => Hash::make('google'),
                     'name' => $SocialUser->name,
                     'avatar' => $SocialUser->avatar,
                     'email_verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                     'last_login' => now(),
                 ]);
-                // $token = JWTAuth::fromUser($user);
-                $token = auth()->setTTL(120)->attempt($user);
             }
 
-            $user = Auth::user();
-            Member::where('mid', $user->mid)->update(['last_login' => now()]);
+            $token = auth()->setTTL(120)->attempt([
+                'email' => $SocialUser->email,
+                'password' => 'google'
+            ]);
 
             return response()->json([
                 'token' => $token,
             ]);
 
-            // $token = auth()->setTTL(120)->attempt([$SocialUser]);
-            // dd($token);
-
-            // $user = Member::where([
-            //     'provider' => $provider,
-            //     'provider_id' => $SocialUser->getId(),
-            // ])->first();
-            // if(!$user){
-            //     $user = Member::create([
-            //         'name' => $SocialUser->getName(),
-            //         'email' => $SocialUser->getEmail(),
-            //         'username' => Member::generateUserName($SocialUser->getNickname()), // google沒有nickname
-            //         'provider' => $provider,
-            //         'provider_id' => $SocialUser->getId(),
-            //         'provider_token' => $SocialUser->token,
-            //         'email_verified_at' => now(),
-            //         // 'provider_refresh_token' => $SocialUser->refreshToken,
-            //     ]);
-            // }
-            // Auth::login($user);
-
-            // return redirect('/dashboard');
         }catch(Exception $error){
             return $error;
         }
