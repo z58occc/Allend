@@ -78,6 +78,7 @@ Route::get('/user/email', GetmemberemailController::class);
 
 //聊天室
 Route::post('new-message', [ChatController::class, 'Newmessage']);
+Route::get('get-mlist', [ChatController::class, 'Getlist']);
 Route::get('get-message', [ChatController::class, 'Getmessage']);
 
 // 從移交到結案、評價畫面

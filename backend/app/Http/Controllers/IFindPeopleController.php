@@ -39,7 +39,7 @@ class IFindPeopleController extends Controller
         // ->get();
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
-        ->join('project as p', 'p.mid', '=', 'm.mid')
+        ->leftJoin('project as p', 'p.mid', '=', 'm.mid')
         ->join('country as c','c.country_id','=','m.active_location')
         ->select('s.s_type','s.image','s.sid','m.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name',
         'identity','seniority','c.country_city','s.created_at','m.last_login',)
@@ -50,7 +50,7 @@ class IFindPeopleController extends Controller
         // 撈服務的image跟他的會員資訊、作品總數、服務成交數
         $member = DB::table('service as s')
         ->join('members as m', 's.mid', '=', 'm.mid')
-        ->join('project as p', 'p.mid', '=', 'm.mid')
+        ->leftJoin('project as p', 'p.mid', '=', 'm.mid')
         ->join('country as c','c.country_id','=','m.active_location')
         ->select('s.s_type','s.image','s.sid', 'm.mid', DB::raw('count(p.pid) as ptotal') ,'m.name','s_name',
         'identity','seniority','c.country_city','s.created_at','m.last_login')

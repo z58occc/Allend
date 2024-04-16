@@ -28,6 +28,7 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
+import Closechat from "./Components/Closechat";
 
 
 export const IsLoggedInContext = createContext()
@@ -454,7 +455,7 @@ function App() {
         </div>
       </nav >
 
-      {showChat && <PublicMessagesPage receiverId={selectedItemMid} />}
+      {showChat ?(<PublicMessagesPage receiverId={selectedItemMid} />):<Closechat/>}
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>

@@ -323,7 +323,7 @@ const Findman = () => {
           className="btn btn-primary rounded-circle shadow"
           style={{
             position: "fixed",
-            bottom: "20px",
+            bottom: "30px",
             right: "20px",
             zIndex: "1000" // Set a high z-index to make sure it appears on top
           }}
