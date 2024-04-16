@@ -35,10 +35,12 @@ class ChatController extends Controller
         $senderId = Auth::id();
         // $receiverId = $request->receiverId;
         $messages = DB::table('chat')
-            ->join('members', 'members.mid', '=', 'chat.receiver_id')
-            ->select('sender_id', 'receiver_id', DB::raw('GROUP_CONCAT(content ORDER BY sending_time SEPARATOR "\n") AS content_list'), 'members.name')
-            ->groupBy('sender_id', 'receiver_id', 'members.name')
+            ->join('members as mr', 'mr.mid', '=', 'chat.receiver_id')
+            ->join('members as ms', 'ms.mid', '=', 'chat.sender_id')
+            ->select('sender_id', 'receiver_id', 'mr.name as mrname','ms.name as msname')
+            ->groupBy('sender_id', 'receiver_id', 'mr.name','ms.name')
             ->orWhere('sender_id', $senderId)
+            ->orWhere('receiver_id', $senderId)
             ->get();
 
 
