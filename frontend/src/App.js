@@ -345,7 +345,7 @@ function App() {
 
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
-      
+
       <div
         className="p-1"
         style={{
@@ -376,11 +376,11 @@ function App() {
               value={togglename}
               onChange={handleChange}
               style={{ fontSize: "29px", width: '150px', height: '70px', border: '1px solid #ccc' }}
-              
+
             >
               {/* 選項 */}
               <option value="找服務" style={{ fontSize: '18px' }}>找服務</option>
-              <option value="找案件" style={{ fontSize: '18px'}}>找案件</option>
+              <option value="找案件" style={{ fontSize: '18px' }}>找案件</option>
             </select>
             {/* 搜索按鈕 */}
             <Link to={togglename === "找案件" ? `./findcase/""/${inputvalue}` : `/findman/""/${inputvalue}`}>
@@ -415,7 +415,7 @@ function App() {
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-sm" style={{background: "linear-gradient(135deg,#EFBC9B 0%, #ffdab9 20%,#ffcab9 100%)"}}>
+      <nav className="navbar navbar-expand-sm" style={{ background: "linear-gradient(135deg,#EFBC9B 0%, #ffdab9 20%,#ffcab9 100%)" }}>
         <div className="container-fluid" >
           <ul className="navbar-nav">
             <li className="nav-item">
@@ -475,7 +475,10 @@ function App() {
         {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
-        <Route path="/passwordreset/:token" element={<ForgotPassword/>}></Route>
+        <Route
+          path="/passwordreset/:token"
+          element={<ForgotPassword/>}
+        />
       </Routes>
 
 
