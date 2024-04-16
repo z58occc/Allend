@@ -61,7 +61,6 @@ export default function PublicMessagesPage(props) {
       })
       .then((response)=>{
         setHistory(response.data)
-        console.log(response.data)
       })
     }catch(error){
       console.error("Failed to fetch:", error)

@@ -9,11 +9,12 @@ function Messagebox({message ,userId,receiverId}) {
         axios.get('http://localhost/Allend/backend/public/api/get-message')
         .then(response=>{
             setLibrary(response.data);
+            console.log(response.data);
         })
         .catch(error => {
             console.error('Error fetching messages:', error);
           });
-      }, [])
+      }, [userId,receiverId])
 
 
     const formatDate = (value)=>{
@@ -27,13 +28,13 @@ function Messagebox({message ,userId,receiverId}) {
 
     const isSentByCurrentUser = message.senderId === userId;
     return (
-        <>
-                {library.map((msg, index) => (
-            <div key={index} style={{ textAlign: msg.sender_id === userId ? 'right' : 'left' }}>
-            <div>
-                <span style={{ backgroundColor: msg.sender_id === userId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
-                <p>{formatDate(msg.sending_time)}</p>
-            </div>
+        <div>
+            {library?.map((msg, index) => (
+            <div key={index} style={{ textAlign: msg.sender_id === userId && msg.receiver_id === receiverId ? 'right' : 'left' }}>
+                <div>
+                    <span style={{ backgroundColor: msg.sender_id === userId && msg.receiver_id === receiverId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
+                    <p>{formatDate(msg.sending_time)}</p>
+                </div>
             </div>
             ))}
         <div style={{ textAlign: isSentByCurrentUser ? 'right' : 'left'}}>
@@ -42,7 +43,7 @@ function Messagebox({message ,userId,receiverId}) {
                 <p >{formatDate(message.created_at)}</p>
             </div>
         </div>
-        </>
+        </div>
     );
 }
 
