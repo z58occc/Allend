@@ -28,7 +28,7 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import "./App.css";
-
+import ForgotPassword from "./detail/ForgotPassword";
 
 export const IsLoggedInContext = createContext()
 
@@ -345,6 +345,7 @@ function App() {
 
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
+      
       <div
         className="p-1"
         style={{
@@ -474,6 +475,7 @@ function App() {
         {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
+        <Route path="/passwordreset/:token" element={<ForgotPassword/>}></Route>
       </Routes>
 
 
