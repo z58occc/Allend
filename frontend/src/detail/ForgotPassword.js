@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import Cookies from "js-cookie";
 import queryString from "query-string";
-import { useParams } from 'react-router-dom';
+
+
 function ForgotPassword() {
     const parsed = queryString.parse(window.location.search);
     console.log(parsed);
@@ -94,6 +96,5 @@ function ForgotPassword() {
     );
 }
 
+
 export default ForgotPassword;
-
-

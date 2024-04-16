@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
 // 回調
 Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
+
+Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+    ->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
+
 require __DIR__.'/auth.php';

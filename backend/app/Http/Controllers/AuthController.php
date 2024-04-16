@@ -31,7 +31,7 @@ class AuthController extends Controller
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
-                'email' => 'required|string|email|unique:members',
+                'email' => 'required|string|email',
                 // 'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
                 'password' => ['required', 'confirmed', 'min:6',],
             ]);

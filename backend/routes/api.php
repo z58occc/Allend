@@ -101,8 +101,8 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 // 重設密碼
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
 // 信箱驗證
-Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
+// Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
+//     ->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
 // 重寄驗證信
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
     ->middleware(['auth', 'throttle:6,1']);

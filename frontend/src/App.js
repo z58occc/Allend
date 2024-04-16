@@ -31,6 +31,7 @@ import CallbackHandler from "./homepage/CallbackHandler";
 import "./App.css";
 import Closechat from "./Components/Closechat";
 import ForgotPassword from "./detail/ForgotPassword";
+import VerifyEmail from "./detail/VerifyEmail";
 
 export const IsLoggedInContext = createContext()
 
@@ -457,7 +458,7 @@ function App() {
         </div>
       </nav >
 
-      {isLoggedIn ?( showChat ?(<PublicMessagesPage receiverId={selectedItemMid} />):<Closechat/>):(handleShow)}
+      {/* {isLoggedIn ? (showChat ? (<PublicMessagesPage receiverId={selectedItemMid} />) : <Closechat/>) : (handleShow)} */}
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
@@ -478,10 +479,8 @@ function App() {
         {/* <Route path="/chat" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="/chat/:receiverId" element={<PublicMessagesPage></PublicMessagesPage>}></Route> */}
         {/* <Route path="*" element={<Findcase></Findcase>}></Route> */}
-        <Route
-          path="/passwordreset/:token"
-          element={<ForgotPassword/>}
-        />
+        <Route path="/passwordreset/:token" element={<ForgotPassword></ForgotPassword>} />
+        <Route path="/verifyemail/:id/:hash" element={<VerifyEmail></VerifyEmail>} />
       </Routes>
 
 

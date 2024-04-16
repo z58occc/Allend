@@ -15,6 +15,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
   //   setSelectedDataKey(index);
   //   console.log(index);
   // }
+
   // 全選
   const [checked, setChecked] = useState(false); // 是否全選
   const [selectedItems, setSelectedItems] = useState(Array.from(data).fill(false)); // 設置selectedItems為空陣列，裡面為被選到的index的true/false
@@ -108,7 +109,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
     .then((res) => {
-      dataUpdate(updateData, screen)
+      dataUpdate(updateData, screen)  
     })
     .catch((err) => console.log(err))
   }
@@ -156,7 +157,7 @@ const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdat
       break;
   }
 
-console.log(selectedItems.filter((item, i) => item))
+console.log("AB", data)
   return (
     <div className="d-flex flex-wrap justify-content-center">
 
