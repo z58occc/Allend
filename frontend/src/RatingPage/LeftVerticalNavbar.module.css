@@ -1,0 +1,56 @@
+/* 移除 Accordion 的箭頭 */
+.no-arrow-accordion .accordion-button::after {
+    display: none !important;
+    text-align: center;
+}
+
+/* 調整 Nav.Link 的顏色 */
+.nav-link-no-arrow {
+    color: black !important;
+}
+
+/* 設定 Accordion 和 Accordion.Header 的背景顏色 */
+.no-arrow-accordion .accordion-item {
+    background-color: 	#D0D0D0;
+}
+
+.linksContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    margin: 10px;
+}
+
+.test{
+    /* border-bottom: 1px solid black; */
+
+}
+
+.test > h2{
+
+}
+
+.test > button{
+    color: #00000080;
+    /* text-align: center; */
+    background-color: #E0E0E0;
+}
+
+.test>button:active,
+.test>button:focus
+{
+    background-color: #E0E0E0;
+    box-shadow: none
+    
+}
+
+.test > button::after{
+    display: none !important;
+    
+}
+
+.accordion-button{
+    background-color: black;
+}
