@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { createContext, useState, useEffect, useRef, useContext } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { VscAccount } from "react-icons/vsc";
@@ -9,6 +9,9 @@ import Cookies from "js-cookie";
 import { IsLoggedInContext } from "../App";
 import Footer from '../homepage/Footer'
 import axios from 'axios';
+import { CiCircleCheck } from "react-icons/ci";
+
+
 
 
 function CaseContext() {
@@ -18,9 +21,13 @@ function CaseContext() {
         setShow(false);
         setMessagewarm(false);
         setAmountwarm(false);
+        setSuccessshow(false);
+
     }
     const [messagewarm, setMessagewarm] = useState(false);
     const [amountwarm, setAmountwarm] = useState(false);
+
+    const [successshow, setSuccessshow] = useState(false);
 
     // Modal下面 送資料回去
     const QuoteAmount = useRef();
@@ -41,7 +48,7 @@ function CaseContext() {
                     q_message: q_message
                 })
             })
-
+            setSuccessshow(true);
         } catch (err) {
             console.log(err);
         }
@@ -262,7 +269,8 @@ function CaseContext() {
                             </div>
                             <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
-                                <Button style={{ marginLeft: "30px" }} onClick={handlePopShow}>我要報價</Button>
+                                <Button style={{ marginLeft: "30px" }} onClick={isLoggedIn ? () => { handlePopShow() } : handleShow}>我要報價</Button>
+                                {/* handlePopShow */}
                             </div>
                         </div>
                     </Col>
@@ -364,6 +372,21 @@ function CaseContext() {
                 {/* 類似案件 */}
 
             </div>
+
+
+
+
+
+            {/*報價成功Modal  */}
+            <Modal show={successshow} onHide={close} style={{ marginTop: "250px", fontSize: "50px", textAlign: "center" }}>
+
+                <Modal.Body>
+                    <CiCircleCheck color="green" size={150} />
+                    <div>報價成功</div>
+                </Modal.Body>
+
+            </Modal>
+            {/*報價成功Modal  */}
             <Footer></Footer>
         </>
     )

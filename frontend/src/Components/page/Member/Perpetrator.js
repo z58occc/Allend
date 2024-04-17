@@ -4,6 +4,7 @@ import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import Footer from "../../../homepage/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Modal } from "react-bootstrap";
 
 // 發案人維護资料
 function ClientForm() {
@@ -86,12 +87,17 @@ function ClientForm() {
       },
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
+  
       .then((res) => {
         console.log(res.data);
+        setShowModal(true); // 显示模态框
       })
+
       .catch((err) => {
         console.log(err);
       });
+
+
 
     // 设置表单提交完成的状态为true
     setIsSubmitted(true);
@@ -106,6 +112,8 @@ function ClientForm() {
     setIsSubmitted(false);
   };
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <Container xxl={12}>
@@ -116,41 +124,39 @@ function ClientForm() {
 
           <Col sm={9} style={{ padding: "20px" }}>
             <h2 className="text-center">發案人資料維護</h2>
-            {isSubmitted ? (
-              <div className="text-center mt-3">提交完成</div>
-            ) : (
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formname">
-                  <Form.Label>真實名字/公司名稱：</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="請輸入真實名字/公司名稱"
-                  />
-                </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formMobile">
-                  <Form.Label>行動電話：</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="請輸入手機號碼"
-                    // 根据手机号格式错误状态设置样式
-                    isInvalid={mobileError}
-                  />
-                  {/* 显示手机号格式错误提示 */}
-                  <Form.Control.Feedback type="invalid">
-                    手機格式不正確 ,以09開頭 ,共10位數字。
-                  </Form.Control.Feedback>
-                </Form.Group>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formname">
+                <Form.Label>真實名字/公司名稱：</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="請輸入真實名字/公司名稱"
+                />
+              </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formEmail">
-                  <Form.Label>Email</Form.Label>
-                  {/* <Form.Control
+              <Form.Group className="mb-3" controlId="formMobile">
+                <Form.Label>行動電話：</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="請輸入手機號碼"
+                  // 根据手机号格式错误状态设置样式
+                  isInvalid={mobileError}
+                />
+                {/* 显示手机号格式错误提示 */}
+                <Form.Control.Feedback type="invalid">
+                  手機格式不正確 ,以09開頭 ,共10位數字。
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                {/* <Form.Control
                     type="email"
                     name="email"
                     value={formData.email}
@@ -158,35 +164,46 @@ function ClientForm() {
                     placeholder="請輸入Email"
                     isInvalid={EmailError}
                   /> */}
-                  <p>{formData.email}</p>
-                </Form.Group>
+                <p>{formData.email}</p>
+              </Form.Group>
 
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "10px",
-                  }}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                <Button
+                  type="submit"
+                  variant="danger"
+                  style={{ width: "50%" }}
+                  disabled={!isFormComplete}
                 >
-                  <Button
-                    type="submit"
-                    variant="danger"
-                    style={{ width: "50%" }}
-                    disabled={!isFormComplete}
-                  >
-                    提交
-                  </Button>
-                  <Button variant="secondary" onClick={handleReset}>
-                    重置
-                  </Button>
-                </div>
-              </Form>
-            )}
+                  提交
+                </Button>
+                <Button variant="secondary" onClick={handleReset}>
+                  重置
+                </Button>
+              </div>
+            </Form>
           </Col>
         </Row>
       </Container>
       <Footer></Footer>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Body className="text-center">
+          <Modal.Title>提交完成</Modal.Title>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <Button variant="primary" onClick={() => setShowModal(false)}>
+            確定
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
+
   );
 }
 
