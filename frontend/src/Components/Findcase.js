@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, {useContext, useState, useEffect, useRef, Fragment } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -18,6 +18,7 @@ import { GoTriangleUp } from "react-icons/go";
 import { CiCircleCheck } from "react-icons/ci";
 import { HiXCircle } from "react-icons/hi2";
 import { GrClearOption } from "react-icons/gr";
+import { IsLoggedInContext } from "../App";
 
 
 
@@ -26,7 +27,7 @@ import { GrClearOption } from "react-icons/gr";
 
 function Findcase() {
 
-
+  const { isLoggedIn, setIsLoggedIn,handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -125,7 +126,7 @@ function Findcase() {
   const [key, setkey] = useState(0);
   const [show, setShow] = useState(false);
 
-  const handleShow = (index) => {
+  const handlequoteShow = (index) => {
     setShow(true);
     setkey(index);
     console.log(index);
@@ -1175,8 +1176,10 @@ function Findcase() {
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
+                      {/* onClick={isLoggedIn ? () => { handlePopShow() } : handleShow} */}
+                      {/* handleShow(index) */}
                     </Col>
                   </Row>
                 </div>
