@@ -295,8 +295,8 @@ function Findcase() {
     const newcityState = { ...checkedState };
     Object.keys(newcityState).forEach((key) => newcityState[key] = false);
     setCheckedState(newcityState);
-    
-    
+
+
     const newbudgetState = { ...budgetstate };
     Object.keys(newbudgetState).forEach((key) => newbudgetState[key] = false);
     setBudgetstate(newbudgetState);
@@ -1102,6 +1102,33 @@ function Findcase() {
 
 
 
+
+
+        {/* type != 0 */}
+
+
+        {/* 目前篩選條件(複選) */}
+        <div id="factor" style={{ display: (type == 0 ? "none" : "") }}>
+          {cityid.length > 0 || budgetid.length > 0 || type != null
+            ? <>
+              <Link onClick={handleChangeall} style={{ textDecoration: "none" }} to="/findcase/" >
+                <button className="mb-3">
+                  清空篩選條件<GrClearOption color="pink" id="clean" size={30} />
+                </button>
+              </Link>
+              <br />
+              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<span >「{typeid}」</span></div>
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<span style={{ wordSpacing: "10px" }}>「{cityid}」</span></Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<span style={{ wordSpacing: "30px" }}>「{budgetid}」</span></Fragment>}
+            </>
+            : null}
+        </div>
+        {/* 目前篩選條件(複選) */}
+
+
+
+
+
         {/* 沒有符合條件的資料 */}
         <div
           className="mt-5"
@@ -1110,22 +1137,10 @@ function Findcase() {
         </div>
         {/* 沒有符合條件的資料 */}
 
-        {/* type != 0 */}
 
 
-        {/* 目前篩選條件(複選) */}
-        <div id="factor" style={{ display: (type == 0 ? "none" : "") }}>
-          {cityid.length > 0 || budgetid.length > 0 || type != null
-            ? <>清空篩選條件&nbsp;&nbsp;&nbsp;<Link to="/findcase/"><GrClearOption id="clean" onClick={handleChangeall} size={30}/></Link>
-              <br />
-              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<span >「{typeid}」</span></div>
-              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<span style={{ wordSpacing: "10px" }}>「{cityid}」</span></Fragment>}<br />
-              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<span style={{ wordSpacing: "30px" }}>「{budgetid}」</span></Fragment>}
-            </>
-            : null}
-        </div>
 
-        {/* <button style={{ fontSize: "10px" }} > 清空篩選條件</button> */}
+
 
 
         <div >
