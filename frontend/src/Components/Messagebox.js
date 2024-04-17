@@ -4,24 +4,7 @@ import Cookies from "js-cookie";
 
 function Messagebox({message ,userId,receiverId}) {
 
-    const [library, setLibrary] = useState([]);
 
-    useEffect(()=>{
-        const fetchMessages = async()=>{
-            try{
-                const response = await Axios.get('http://localhost/Allend/backend/public/api/get-message', {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("token")}`,
-            },
-          });
-            setLibrary(response.data);
-            console.log(receiverId);
-        }catch(error) {
-            console.error('Error fetching messages:', error);
-          }
-        }
-        fetchMessages();
-      }, [receiverId])
 
     const formatDate = (value)=>{
         if(!value) return '';
@@ -32,17 +15,16 @@ function Messagebox({message ,userId,receiverId}) {
         return `${hours}:${minutes}:${seconds}`;
     };
 
-    const isSentByCurrentUser = message.senderId === userId;
+    const isSentByCurrentUser = message.senderId === userId ;
     return (
         <div >
-            {library.map((msg, index) => (
-            <div key={index} style={{ textAlign: msg.sender_id === userId || msg.receiver_id === userId ? 'right' : 'left' }}>
+            <div  style={{ textAlign: message.sender_id === userId || message.receiver_id === userId ? 'right' : 'left' }}>
                 <div>
-                    <span style={{ backgroundColor: msg.sender_id === userId || msg.receiver_id === userId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
-                    <p>{formatDate(msg.sending_time)}</p>
+                    <span style={{ backgroundColor: message.sender_id === userId || message.receiver_id === userId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{message.content}</span>
+                    <p>{formatDate(message.sending_time)}</p>
                 </div>
             </div>
-            ))}
+
         <div style={{ textAlign: isSentByCurrentUser ? 'right' : 'left'}}>
             <div >
                 <span style={{backgroundColor:isSentByCurrentUser ?"#e2f7cb":"#d4d4d4",width:'fit-content'}}>{message.message}</span>
