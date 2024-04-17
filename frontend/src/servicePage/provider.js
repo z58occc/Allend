@@ -150,11 +150,11 @@ const Provider = ({ data1 }) => {
       <>
         <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
         <div style={{
-          width: '100%', background: 'lightblue', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          width: '100%', background: 'lightblue', height: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           borderRadius: "10px 10px 0 0"
         }}>
           <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
-            <div style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <div style={{ justifyContent: 'center', alignItems: 'center', height: '15vh' }}>
               <h3>未有案件紀錄，點此按鈕新增</h3>
               <Button
                 variant="success"
