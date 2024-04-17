@@ -95,35 +95,34 @@ class Pop_QuoteAgreeController extends Controller
                         'd_duration','d_description','d_active_location','q_amount','d_unit','d_contact_name',
                         'd_email', 'd_mobile_phone')
                         ->where('quote.qid', $qid)->where('quote.mid',$quote_mid)
-                        ->get();
-
-                foreach($agree as $row){
-                    DB::table('established_case')->insert([
-                        'mid_demmand' => $row->demmand_mid,
-                        'mid_service' => $row->quote_mid,
-                        'c_status'=>1,
-                        'c_name'=>$row->d_name,
-                        'c_type'=>$row->d_type,
-                        'c_amount'=>$row->q_amount,
-                        'c_unit'=>$row->d_unit,
-                        'c_active_location'=>$row->d_active_location,
-                        'c_duration'=>$row->d_duration,
-                        'c_description'=>$row->d_description,
-                        'c_contact_name'=>$row->d_contact_name,
-                        'c_email'=>$row->d_email,
-                        'c_mobile_phone'=>$row->d_mobile_phone,
-                        'created_at'=>now(),
-                        'updated_at'=>now()
-                    ]);
-                }
-                // 刪除報價紀錄
-                DB::table('quote')->where('mid',$quote_mid)->where('qid', $qid)->delete();
+                        ->first();
+                DB::table('established_case')->insert([
+                    'mid_demmand' => $agree->demmand_mid,
+                    'mid_service' => $agree->quote_mid,
+                    'c_status'=>1,
+                    'c_name'=>$agree->d_name,
+                    'c_type'=>$agree->d_type,
+                    'c_amount'=>$agree->q_amount,
+                    'c_unit'=>$agree->d_unit,
+                    'c_active_location'=>$agree->d_active_location,
+                    'c_duration'=>$agree->d_duration,
+                    'c_description'=>$agree->d_description,
+                    'c_contact_name'=>$agree->d_contact_name,
+                    'c_email'=>$agree->d_email,
+                    'c_mobile_phone'=>$agree->d_mobile_phone,
+                    'created_at'=>now(),
+                    'updated_at'=>now()
+                ]
+            );
+            // 刪除報價紀錄
+            DB::table('quote')->where('mid',$quote_mid)->where('qid', $qid)->delete();
             }catch (Throwable $err){
                 return response()->json([
-                    'error' => '操作失敗'
+                   $err
                 ]);
             }
         }
+        // dd($agree);
         return response()->json(['message'=>'已同意報價']);
     }
 
