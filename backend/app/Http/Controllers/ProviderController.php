@@ -28,11 +28,17 @@ class ProviderController extends Controller
             ->stateless()->with($requestData)->user();
 
             $user = DB::table('members')->select('mid')
-            ->where('email', $SocialUser->getEmail())
-            ->where('provider', 'google');
+            ->where('email', $SocialUser->getEmail());
+
 
             if ($user->exists()){
                 DB::table('members')->where('mid', $user->first()->mid)->update(['last_login' => now()]);
+
+                $token = auth()->setTTL(120)->attempt([
+                    'email' => $SocialUser->email,
+                    'password' => $user->first()
+                ]);
+
             }else{
                 $user = DB::table('members')->insert([
                     'provider' => 'google',
@@ -45,12 +51,12 @@ class ProviderController extends Controller
                     'updated_at' => now(),
                     'last_login' => now(),
                 ]);
+                $token = auth()->setTTL(120)->attempt([
+                    'email' => $SocialUser->email,
+                    'password' => 'google'
+                ]);
             }
 
-            $token = auth()->setTTL(120)->attempt([
-                'email' => $SocialUser->email,
-                'password' => 'google'
-            ]);
 
             return response()->json([
                 'token' => $token,

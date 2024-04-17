@@ -92,8 +92,8 @@ class Pop_QuoteAgreeController extends Controller
                 $agree = DB::table('demmand')
                         ->join('quote','demmand.did','=','quote.did')
                         ->select('demmand.mid as demmand_mid','quote.mid as quote_mid','d_name','d_type',
-                        'd_duration','d_description','d_active_location','q_amount','d_unit','d_contact_name',
-                        'd_email', 'd_mobile_phone')
+                        'd_duration','d_description','d_active_location','q_amount','q_message','d_unit',
+                        'd_contact_name','d_email', 'd_mobile_phone')
                         ->where('quote.qid', $qid)->where('quote.mid',$quote_mid)
                         ->get();
 

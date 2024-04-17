@@ -19,7 +19,7 @@ function CallbackHandler() {
                 const response = await fetch(`http://localhost/Allend/backend/public/auth/google/callback?code=${code}&scope=${scope}&authuser=${authuser}&prompt=${prompt}`);
                 const objData = await response.json();
                 Cookies.set('token', objData.token)
-                navigate('/')
+                // navigate('/')
             } catch (error) {
                 console.error('Error fetching token:', error);
             }
