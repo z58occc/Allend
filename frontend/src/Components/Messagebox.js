@@ -15,7 +15,7 @@ function Messagebox({message ,userId,receiverId}) {
             },
           });
             setLibrary(response.data);
-            console.log(response.data);
+            console.log(receiverId);
         }catch(error) {
             console.error('Error fetching messages:', error);
           }
@@ -34,11 +34,11 @@ function Messagebox({message ,userId,receiverId}) {
 
     const isSentByCurrentUser = message.senderId === userId;
     return (
-        <div>
+        <div >
             {library.map((msg, index) => (
             <div key={index} style={{ textAlign: msg.sender_id === userId || msg.receiver_id === userId ? 'right' : 'left' }}>
                 <div>
-                    <span style={{ backgroundColor: msg.sender_id === userId && msg.receiver_id === receiverId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
+                    <span style={{ backgroundColor: msg.sender_id === userId || msg.receiver_id === userId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{msg.content}</span>
                     <p>{formatDate(msg.sending_time)}</p>
                 </div>
             </div>

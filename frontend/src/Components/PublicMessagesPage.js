@@ -16,10 +16,13 @@ export default function PublicMessagesPage(props) {
   const [messages, setMessages] = useState([])
   const [senderId, setsenderId] = useState("")
   const [receiverId ,setReceiverId] = useState(props.receiverId)
+  const [Library, setLibrary] = useState(false)
 
   const handleClick = (receiverId)=>{
-    setReceiverId(receiverId);
     setMessages([]);
+    setReceiverId(receiverId);
+    setLibrary(true);
+    
   }
   const handleCloseChat = () => {
     setShowChat(false);
