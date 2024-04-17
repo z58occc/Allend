@@ -345,6 +345,14 @@ function App() {
     setTogglename(event.target.value);
   };
 
+  //增加 Enter鍵 效果
+  // const handleKeyPress = (event) => {
+  //   if (event.key === 'Enter') {
+  //     handleLogin(); // 調用登入函數
+  //     handleRegister();
+  //   }
+  // };
+
 
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
@@ -508,6 +516,7 @@ function App() {
                       type="email"
                       placeholder="Enter email"
                       ref={LoginName}
+                      //onKeyPress={handleKeyPress} // 添加事件處理程序
                     />
                   </InputGroup>
                 </div>
@@ -520,6 +529,7 @@ function App() {
                       type="password"
                       placeholder="Password"
                       ref={LoginPassword}
+                      //onKeyPress={handleKeyPress} // 添加事件處理程序
                     />
                   </InputGroup>
 
@@ -621,7 +631,8 @@ function App() {
                 placeholder="Enter email"
                 required
                 ref={RegisterEmail}
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"// Regular expression for email format
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"// Regular expression for email forma
+                //onKeyPress={handleKeyPress} // 添加事件處理程序
               />
               <Form.Control.Feedback type="invalid">
                 請輸入有效的電子郵件
@@ -636,6 +647,7 @@ function App() {
                 placeholder="請輸入超過8位數"
                 required
                 ref={RegisterPassword}
+                //onKeyPress={handleKeyPress} // 添加事件處理程序
               />
             </InputGroup>
 
@@ -646,6 +658,7 @@ function App() {
                 type="password"
                 placeholder="Confirmed Password"
                 ref={RegisterConfPassword}
+                //onKeyPress={handleKeyPress} // 添加事件處理程序
               />
             </InputGroup>
             <br />

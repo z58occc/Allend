@@ -12,6 +12,7 @@ import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
 import Footer from "../../../homepage/Footer";
+import { Modal } from "react-bootstrap";
 
 
 // 發案表單
@@ -27,6 +28,7 @@ function ProjectForm() {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,6 +51,8 @@ function ProjectForm() {
     })
       .then((res) => {
         console.log(res);
+        // 表單提交成功後顯示模態對話框
+        setShowModal(true);
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +81,11 @@ function ProjectForm() {
     } else {
       setEmailError("Invalid email format");
     }
+  };
+
+  // 處理模態對話框關閉事件
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -279,6 +288,23 @@ function ProjectForm() {
 
         </Form>
       </div>
+
+
+      {/* 模態對話框 */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center">發案完成</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-center">
+          您的案件已成功提交。
+        </Modal.Body>
+        <Modal.Footer style={{ justifyContent: 'center' }}>
+          <Button variant="primary" onClick={handleCloseModal}>
+            確認
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Footer></Footer>
     </>
   );
