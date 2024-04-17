@@ -124,7 +124,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       {
         // CaseData.length === 0 ? <h2>未有紀錄</h2>   
         filteredData.map((item, index) => (
-          <Card key={index} className="my-3" style={{ width: '720px', height: '150px', display: 'flex' }}>
+          <Card key={index} className="my-3" style={{ width: '720px', display: 'flex' }}>
             <div className="d-flex bd-highlight">
               <Card.Body style={{ flex: '1' }}>
                 {screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : <></>}
@@ -132,8 +132,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 {(screen === 1 && <Card.Title>{item.d_name}</Card.Title>) || (screen === 2 && <Card.Title>{item.c_name}</Card.Title>) || (screen === 3 && <></>)}
                 {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.demmand_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
                 <div className="d-flex justify-content-between">
-                  <Card.Text>{screen === 3 ? <>評論日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</Card.Text>
-                  <Card.Text> {(screen === 1 && <>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</Card.Text>
+                  <span>{screen === 3 ? <>評論日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</span>
+                  <span> {(screen === 1 && <>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</span>
                 </div>
               </Card.Body>
               {screen === 2

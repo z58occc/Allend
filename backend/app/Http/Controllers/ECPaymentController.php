@@ -13,10 +13,9 @@ class ECPaymentController extends Controller
     public function Payment(Request $request)
     {
         $factory = new Factory([
-            // 'hashKey' => 'pwFHCqoQZGmho4w6',
-            // 'hashIv' => 'EkRm7iFT261dpevs',
-            'hashKey' => env('hashKey'),
-            'hashIv' => env('hashIv'),
+            'hashKey' => 'pwFHCqoQZGmho4w6',
+            'hashIv' => 'EkRm7iFT261dpevs',
+
         ]);
         $autoSubmitFormService = $factory->create('AutoSubmitFormWithCmvService');
 
@@ -35,8 +34,8 @@ class ECPaymentController extends Controller
             'ExpireDate' => 7,
 
             // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-            'ReturnURL' => 'https://f5b0-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callback',
-            'PaymentInfoURL' => 'https://f5b0-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callbackinfo',
+            'ReturnURL' => 'https://e9e9-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callback',
+            'PaymentInfoURL' => 'https://e9e9-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callbackinfo',
         ];
 
 
@@ -62,10 +61,9 @@ class ECPaymentController extends Controller
 
         // For now, let's assume the verification is successful
         $verificationPassed = true;
-
         // Step 3: Respond back to ECPay
         if ($verificationPassed) {
-            $cid = $request->input('cid');
+            $cid = $request->input('MerchantTradeNo');
             DB::table('established_case')->where('cid', $cid)
             ->update(['c_status' => 2]);
             return '1|OK';

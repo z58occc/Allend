@@ -6,8 +6,10 @@ import { CaseContext } from "./MainScreen2";
 
 function GetQuoteModal({ show, onHide, data }) {
   const { fetchData } = useContext(CaseContext);
+  const [datas ,setDatas] = useState(true);
+  const [dataIndex, setDataIndex] = useState("")
   // 同意報價按鈕
-  const handleAgree = (mid, qid) => {
+  const handleAgree = (mid, qid, index) => {
 
     fetch("http://127.0.0.1/Allend/backend/public/api/pop_agree", {
       method: 'POST',
@@ -16,8 +18,8 @@ function GetQuoteModal({ show, onHide, data }) {
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
       body: JSON.stringify({
-        mid: mid,
-        qid: qid,
+        "mid": mid,
+        "qid": qid, 
       })
     })
       .then((res) => {
@@ -26,7 +28,9 @@ function GetQuoteModal({ show, onHide, data }) {
       .then((data) => {
         console.log(data);
         fetchData();
-        onHide();
+        setDatas(false);
+        setDataIndex(index)
+        // onHide();
       })
       .catch((error) => {
         console.error(error);
@@ -79,7 +83,7 @@ function GetQuoteModal({ show, onHide, data }) {
               </thead>
               <tbody>
                 {data.map((item, index) => (
-                  <tr key={index}>
+                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>{item.identity}</td>
@@ -90,7 +94,7 @@ function GetQuoteModal({ show, onHide, data }) {
                         <Button
                           variant="secondary"
                           style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                          onClick={() => { handleAgree(item.mid, item.qid) }}
+                          onClick={() => { handleAgree(item.mid, item.qid, index) }}
                         >
                           接受
                         </Button>

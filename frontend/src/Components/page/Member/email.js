@@ -5,6 +5,7 @@ import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 import Footer from "../../../homepage/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Modal } from "react-bootstrap";
 
 // 接案者維護資料
 function FreelancerForm() {
@@ -60,6 +61,8 @@ function FreelancerForm() {
     };
     fetchData();
   }, []);
+   //提交完成
+  const [showModal, setShowModal] = useState(false);
 
   // 偵測input變化
   const handleChange = (e) => {
@@ -108,11 +111,19 @@ function FreelancerForm() {
         line:formData.line
       },
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
-    });
+    })
 
     // 设置表单提交完成的状态为true
-    setIsSubmitted(true);
-  };
+    .then(() => {
+      // 设置表单提交完成的状态为 true
+      setIsSubmitted(true);
+      // 顯示模態框
+      setShowModal(true);
+    })
+    .catch((error) => {
+      console.error("Error submitting form:", error);
+    });
+};
 
   return (
     <>
@@ -125,9 +136,7 @@ function FreelancerForm() {
           <Col sm={9} style={{ padding: "20px" }}>
             <h2 className="text-center">接案人資料維護</h2>
 
-            {isSubmitted ? (
-              <div className="text-center mt-3">提交完成</div>
-            ) : (
+        
               <Form onSubmit={handleSubmit}>
                 {/* 身分 */}
                 <Form.Group as={Row}>
@@ -454,11 +463,22 @@ function FreelancerForm() {
                   </Button>
                 </div>
               </Form>
-            )}
+           
           </Col>
         </Row>
       </Container>
       <Footer></Footer>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Body className="text-center">
+          <Modal.Title>提交完成</Modal.Title>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <Button variant="primary" onClick={() => setShowModal(false)}>
+            確定
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

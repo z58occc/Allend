@@ -176,7 +176,7 @@ const LeftVerticalNavbar = () => {
                                 <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
                                     <Accordion.Item eventKey={`${index}`}>
                                         <Accordion.Header
-                                            className={`${styles.test} bg-light`}
+                                            className={`${styles.accHeader} bg-light`}
                                             style={{ backgroundColor: "#D0D0D0" }}
                                             
                                         >
@@ -186,7 +186,7 @@ const LeftVerticalNavbar = () => {
                                         <Accordion.Body style={{ backgroundColor: "#D0D0D0" }}>
                                             {index === 1 ? (
                                                 <div className={`${styles.linksContainer}`}>
-                                                    <Link to="/switch" className="nav-link-no-arrow" >資料維護</Link>
+                                                    <Link to="/switch"  className="nav-link-no-arrow " >資料維護</Link>
                                                     <br />
                                                     <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
                                                 </div>
