@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, {useContext, useState, useEffect, useRef, Fragment } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -18,6 +18,7 @@ import { GoTriangleUp } from "react-icons/go";
 import { CiCircleCheck } from "react-icons/ci";
 import { HiXCircle } from "react-icons/hi2";
 import { GrClearOption } from "react-icons/gr";
+import { IsLoggedInContext } from "../App";
 
 
 
@@ -26,7 +27,7 @@ import { GrClearOption } from "react-icons/gr";
 
 function Findcase() {
 
-
+  const { isLoggedIn, setIsLoggedIn,handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -125,7 +126,7 @@ function Findcase() {
   const [key, setkey] = useState(0);
   const [show, setShow] = useState(false);
 
-  const handleShow = (index) => {
+  const handlequoteShow = (index) => {
     setShow(true);
     setkey(index);
     console.log(index);
@@ -295,14 +296,16 @@ function Findcase() {
     const newcityState = { ...checkedState };
     Object.keys(newcityState).forEach((key) => newcityState[key] = false);
     setCheckedState(newcityState);
-    
-    
+
+
     const newbudgetState = { ...budgetstate };
     Object.keys(newbudgetState).forEach((key) => newbudgetState[key] = false);
     setBudgetstate(newbudgetState);
     console.log(newState);
     fetchData();
     setTypeid(null);
+    setDurationQuery("");
+
 
   }
   // 清空篩選條件
@@ -1068,11 +1071,12 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""}  >
-            <Link to={"/findcase/0"} style={{ textDecoration: "none", color: "black" }} onClick={() => fetchData()}>
+
+          <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
+            <button className={changecolor1 == true ? "active" : ""}  >
               全部案件
-            </Link>
-          </button>
+            </button>
+          </Link>
           <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
           <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
@@ -1102,6 +1106,33 @@ function Findcase() {
 
 
 
+
+
+        {/* type != 0 */}
+
+
+        {/* 目前篩選條件(複選) */}
+        <div id="factor" style={{ display: (type == 0 ? "none" : "") }}>
+          {cityid.length > 0 || budgetid.length > 0 || type != null
+            ? <>
+              <Link onClick={handleChangeall} style={{ textDecoration: "none" }} to="/findcase/" >
+                <button className="mb-3">
+                  清空篩選條件<GrClearOption color="pink" id="clean" size={30} />
+                </button>
+              </Link>
+              <br />
+              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<strong >「{typeid}」</strong></div>
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{ wordSpacing: "10px" }}>「{cityid}」</strong></Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{ wordSpacing: "30px" }}>「{budgetid}」</strong></Fragment>}
+            </>
+            : null}
+        </div>
+        {/* 目前篩選條件(複選) */}
+
+
+
+
+
         {/* 沒有符合條件的資料 */}
         <div
           className="mt-5"
@@ -1110,22 +1141,10 @@ function Findcase() {
         </div>
         {/* 沒有符合條件的資料 */}
 
-        {/* type != 0 */}
 
 
-        {/* 目前篩選條件(複選) */}
-        <div id="factor" style={{ display: (type == 0 ? "none" : "") }}>
-          {cityid.length > 0 || budgetid.length > 0 || type != null
-            ? <>清空篩選條件&nbsp;&nbsp;&nbsp;<Link to="/findcase/"><GrClearOption id="clean" onClick={handleChangeall} size={30}/></Link>
-              <br />
-              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<span >「{typeid}」</span></div>
-              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<span style={{ wordSpacing: "10px" }}>「{cityid}」</span></Fragment>}<br />
-              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<span style={{ wordSpacing: "30px" }}>「{budgetid}」</span></Fragment>}
-            </>
-            : null}
-        </div>
 
-        {/* <button style={{ fontSize: "10px" }} > 清空篩選條件</button> */}
+
 
 
         <div >
@@ -1157,8 +1176,10 @@ function Findcase() {
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={() => { handleShow(index); }}>我要報價</Button>
+                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
+                      {/* onClick={isLoggedIn ? () => { handlePopShow() } : handleShow} */}
+                      {/* handleShow(index) */}
                     </Col>
                   </Row>
                 </div>
