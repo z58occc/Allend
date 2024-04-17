@@ -2,11 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
-
+import { CiCircleCheck } from "react-icons/ci";
 
 function GetQuoteModal({ show, onHide, data }) {
+  // 
+  const [successshow, setSuccessshow] = useState(false);
+  const close =  () => {
+    setSuccessshow(false);
+  }
+  // 
   const { fetchData } = useContext(CaseContext);
-  const [datas ,setDatas] = useState(true);
+  const [datas, setDatas] = useState(true);
   const [dataIndex, setDataIndex] = useState("")
   // 同意報價按鈕
   const handleAgree = (mid, qid, index) => {
@@ -19,7 +25,7 @@ function GetQuoteModal({ show, onHide, data }) {
       },
       body: JSON.stringify({
         "mid": mid,
-        "qid": qid, 
+        "qid": qid,
       })
     })
       .then((res) => {
@@ -30,6 +36,11 @@ function GetQuoteModal({ show, onHide, data }) {
         fetchData();
         setDatas(false);
         setDataIndex(index)
+        setSuccessshow(true);
+        setTimeout(() => {
+          close();
+        }, 3000);
+        
         // onHide();
       })
       .catch((error) => {
@@ -62,13 +73,13 @@ function GetQuoteModal({ show, onHide, data }) {
       })
   }
   return (
-    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "lg" :"sm"}>
+    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "lg" : "sm"}>
       <Modal.Header closeButton>
         <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
         {data && data.length !== 0
-        ?
+          ?
           (
             <Table bordered hover>
               <thead>
@@ -83,7 +94,7 @@ function GetQuoteModal({ show, onHide, data }) {
               </thead>
               <tbody>
                 {data.map((item, index) => (
-                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
+                  <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>{item.identity}</td>
@@ -128,6 +139,15 @@ function GetQuoteModal({ show, onHide, data }) {
           關閉
         </Button>
       </Modal.Footer>
+      {/*報價成功Modal  */}
+      <Modal show={successshow} onHide={close} style={{ marginTop: "250px", fontSize: "50px", textAlign: "center" }}>
+
+        <Modal.Body>
+          <CiCircleCheck color="green" size={150} />
+          <div>接受報價成功</div>
+        </Modal.Body>
+
+      </Modal>
     </Modal>
   );
 }
