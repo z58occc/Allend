@@ -288,9 +288,21 @@ function Findcase() {
     changeBottomcolorOff();
 
     const newState = { ...allstate };
-    console.log(newState);
     Object.keys(newState).forEach((key) => newState[key] = false);
     setAllstate(newState);
+
+
+    const newcityState = { ...checkedState };
+    Object.keys(newcityState).forEach((key) => newcityState[key] = false);
+    setCheckedState(newcityState);
+    
+    
+    const newbudgetState = { ...budgetstate };
+    Object.keys(newbudgetState).forEach((key) => newbudgetState[key] = false);
+    setBudgetstate(newbudgetState);
+    console.log(newState);
+    fetchData();
+    setTypeid(null);
 
   }
   // 清空篩選條件
@@ -1104,7 +1116,7 @@ function Findcase() {
         {/* 目前篩選條件(複選) */}
         <div id="factor" style={{ display: (type == 0 ? "none" : "") }}>
           {cityid.length > 0 || budgetid.length > 0 || type != null
-            ? <>清空篩選條件&nbsp;&nbsp;&nbsp;<GrClearOption id="clean" onClick={handleChangeall} size={30}/>
+            ? <>清空篩選條件&nbsp;&nbsp;&nbsp;<Link to="/findcase/"><GrClearOption id="clean" onClick={handleChangeall} size={30}/></Link>
               <br />
               <div style={{ display: (typeid == null ? "none" : "") }}>類別：<span >「{typeid}」</span></div>
               {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<span style={{ wordSpacing: "10px" }}>「{cityid}」</span></Fragment>}<br />
