@@ -18,12 +18,24 @@ export default function PublicMessagesPage(props) {
   const [receiverId ,setReceiverId] = useState(props.receiverId)
   const [Library, setLibrary] = useState(false)
 
-  const handleClick = (receiverId)=>{
+  const handleClick = async (receiverId) => {
     setMessages([]);
-    setReceiverId(receiverId);
-    setLibrary(true);
+
+    try {
+      const response = await Axios.get(`http://localhost/Allend/backend/public/api/get-message`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      setMessages(response.data);
+      setReceiverId(receiverId);
+    } catch (error) {
+      console.error("Failed to fetch messages or member email:", error);
+    }
+  };
+
+
     
-  }
   const handleCloseChat = () => {
     setShowChat(false);
   }
