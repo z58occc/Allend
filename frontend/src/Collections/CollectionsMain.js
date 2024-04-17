@@ -7,7 +7,8 @@ import CaseCollection from "./CaseCollection";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 import Footer from "../homepage/Footer";
 import './Collection.module.css';
-  
+
+
 const CollectionsMain = () => {
 
   const [activeScreen, setActiveScreen] = useState("case"); // 當前顯示的主畫面

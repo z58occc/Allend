@@ -113,19 +113,19 @@ Route::post('/emailverification-notification', [EmailVerificationNotificationCon
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function () {
     // 會員儀表板
-    Route::get('/dashboard', 'dashboard');
+    Route::get('/dashboard', 'dashboard')->withoutMiddleware('verified');
     // 獲取接案方資料
-    Route::get('/mem', 'getMemInfo');
+    Route::get('/mem', 'getMemInfo')->withoutMiddleware('verified');
     // 修改接案方資料
-    Route::post('/updateprofiles', 'updateMemInfo');
+    Route::post('/updateprofiles', 'updateMemInfo');//->withoutMiddleware('verified');
     // 獲取發案方資料
-    Route::get('/demmandmem', 'getDemmandInfo');
+    Route::get('/demmandmem', 'getDemmandInfo')->withoutMiddleware('verified');
     // 修改發案方資料
-    Route::post('/updatedemmand', 'updateDemmandInfo');
+    Route::post('/updatedemmand', 'updateDemmandInfo');//->withoutMiddleware('verified');
     // 修改密碼
-    Route::post('/updatepassword', 'updatePassword');
+    Route::post('/updatepassword', 'updatePassword');//->withoutMiddleware('verified');
     // 獲取頭像、姓名
-    Route::get('/avaname', 'getAvatar');
+    Route::get('/avaname', 'getAvatar')->withoutMiddleware('verified');
     // 修改頭像
     Route::post('/avatar', 'updateAvatar');
 

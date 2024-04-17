@@ -175,9 +175,17 @@ function App() {
 
   const [showLogoutMessage, setShowLogoutMessage] = useState(false); //登出模塊
 
+  const clickOut = () => {
+    axios({
+      method:'post',
+      url: "http://localhost/Allend/backend/public/api/logout",
+      headers:{ Authorization: `Bearer ${Cookies.get('token')}` }
+    })
+  }
   // 自動登出處理
   const handleLogout = () => {
     clearInterval(tokenCheckInterval.current);
+    clickOut();
     Cookies.remove("token");
     setIsLoggedIn(false);
     setMemberEmail('');
@@ -186,6 +194,7 @@ function App() {
   };
   // 手動登出處理
   const handleclickout = () => {
+    clickOut();
     Cookies.remove("token");
     setIsLoggedIn(false);
     setMemberEmail('');
@@ -232,7 +241,7 @@ function App() {
       axios({
         method: 'get',
         url: "http://localhost/Allend/backend/public/auth/google/redirect"
-      }).then((res) => window.open(res.data, '_blank'))
+      }).then((res) => window.open(res.data))
     } catch (err) {
       console.log(err)
     }

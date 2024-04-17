@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Image, Button, Modal, Form } from 'react-bootstrap';
 import Accordion from 'react-bootstrap/Accordion';
+import { FaCamera } from "react-icons/fa";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './LeftVerticalNavbar.module.css';
 import member from './member.png';
-import { FaCamera } from "react-icons/fa";
 
 
 
@@ -23,7 +23,7 @@ const LeftVerticalNavbar = () => {
 
     const [usermember, setUsermember] = useState({
         name: '',
-        image: member // 默认头像
+        image: member
     });
     const [showModal, setShowModal] = useState(false);
     const [imageFile, setImageFile] = useState(null);
@@ -47,12 +47,12 @@ const LeftVerticalNavbar = () => {
                 data: { image: e.target.result },
                 headers: { Authorization: `Bearer ${Cookies.get('token')}`, 'Content-Type': 'multipart/form-data', },
             })
-                .then((res) => {
-                    console.log(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         };
         avatarFile.readAsDataURL(avatar.current.files[0]);
 
@@ -121,15 +121,10 @@ const LeftVerticalNavbar = () => {
 
 
     return (
-
-
-
-
-
         <Navbar bg="light" variant="light" expand="lg" className="flex-column">
             <div variant="link" className='mt-2' onClick={handleEditmember} style={{ position: 'relative' }}>
                 <Image src={usermember.image === "" ? member : usermember.image} roundedCircle width="100" height="100" style={{ cursor: 'pointer' }} />
-                < FaCamera
+                <FaCamera
                     style={{
                         position: 'absolute',
                         bottom: 0,
@@ -143,9 +138,9 @@ const LeftVerticalNavbar = () => {
                     onClick={handleEditmember} // 添加点击事件
                 />{/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
-            <div style={{ fontSize: '20px', fontWeight: '800', marginTop: '10px' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
+            <div style={{ fontSize: '20px', fontWeight: '800', marginTop: '1rem' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
 
-            <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal show={showModal}  onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>修改頭像</Modal.Title>
                 </Modal.Header>
@@ -176,9 +171,7 @@ const LeftVerticalNavbar = () => {
                                 <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
                                     <Accordion.Item eventKey={`${index}`}>
                                         <Accordion.Header
-                                            className={`${styles.accHeader} bg-light`}
-                                            style={{ backgroundColor: "#D0D0D0" }}
-                                            
+                                            className={`${styles.accHeader} bg-light`} 
                                         >
                                             <span style={{fontSize:"32px",margin: 0}}>{item.text}</span>
                                         </Accordion.Header>
@@ -203,7 +196,7 @@ const LeftVerticalNavbar = () => {
                             );
                         } else {
                             return (
-                                <Nav.Link key={index} href={item.link} style={{ fontSize: '24px', textAlign: 'center' }}>{item.text}</Nav.Link>
+                                <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link>
                             );
                         }
                     })}

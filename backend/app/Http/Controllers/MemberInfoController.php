@@ -251,12 +251,6 @@ class MemberInfoController extends Controller
     // 修改頭像
     public function updateAvatar(Request $request)
     {
-        // $request->validate([
-        //     'image' => 'required|mimes:jpeg,png'
-        // ]);
-
-        // $a = base64_encode(file_get_contents($request->file('image')->getRealPath()));
-
         if ($request->image !== null && $mid = Auth::id())
         {
             DB::table('members')->where('mid', $mid)->update(['avatar' => $request->image]);

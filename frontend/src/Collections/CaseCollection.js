@@ -4,7 +4,7 @@ import Pagination from 'react-bootstrap/Pagination';
 
 
 const CaseCollection = ({data, dataUpdate}) => {
-  //頁數控制
+  // 頁數控制
   const [active,setActive] = useState(1);
   const handleSetActive = (number)=>{
     setActive(number)
@@ -13,9 +13,9 @@ const CaseCollection = ({data, dataUpdate}) => {
   const CasePerPage = 2;
   const page = Math.ceil(data.length / CasePerPage);
   data = data.slice(CasePerPage * (active-1) , CasePerPage * active)
-  // if(data.length === 0 && active > 1){
-  //   setActive(()=>active - 1)
-  // }
+  if(data.length === 0 && active > 1){
+    setActive(()=>active - 1)
+  }
   console.log(page);
   console.log(data);
 

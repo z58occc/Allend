@@ -24,42 +24,47 @@ class AuthController extends Controller
     }
 
     // 註冊
-    public function register(Request $request)//:JsonResponse
+    public function register(Request $request)
     {
-//         $email = 'john@example.com';
-// return $maskedEmail = $email[0] . str_repeat('*', strlen(explode('@', $email)[0]) - 1) . '@' . explode('@', $email)[1];
         // 先進行驗證跟錯誤處理
         try{
             $request->validate([
                 'email' => 'required|string|email',
                 // 'password' => ['required', 'confirmed', 'min:6', Rules\Password::defaults()],
-                'password' => ['required', 'confirmed', 'min:6',],
+                'password' => ['required', 'confirmed', 'min:8',],
             ]);
         }
         catch (ValidationException $exception){
             return response()->json([
-                'message' => '輸入資料格式有誤或是電子郵件已被註冊!'
+                'message' => '輸入資料格式有誤!'
             ],422);
         }
+
         // 插入資料庫，若重複會回傳錯誤訊息
-        try{
-            $user = Member::create([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'last_login' => now()
-            ]);
-
-            // 發送信箱驗證信
-            event(new Registered($user));
-
-            return response()->json([
-                'email' => $request->email,
-                'password' => $request->password,
-            ]);
-        }catch(Throwable $err){
+        if (DB::table('members')->where('email', $request->email)->where('provider', null)->exists()){
             return response()->json([
                 'error' => '該信箱已被註冊過'
             ]);
+        }else{
+            try{
+                $user = Member::create([
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'last_login' => now()
+                ]);
+
+                // 發送信箱驗證信
+                event(new Registered($user));
+
+                return response()->json([
+                    'email' => $request->email,
+                    'password' => $request->password,
+                ]);
+            }catch(Throwable $err){
+                return response()->json([
+                    'error' => '該信箱已被註冊過'
+                ]);
+            }
         }
     }
 
@@ -73,25 +78,35 @@ class AuthController extends Controller
         }
         catch (ValidationException $exception){
             return response()->json([
-                'error' =>'查無此帳號'
+                'error' => '缺少電子郵件或是密碼'
             ],422);
         }
 
-        $credentials = $request->only('email', 'password');
+        if(DB::table('members')->where('email', $request->email)->where('provider', null)->exists()){
+            $credentials = [
+                'email' => $request->email,
+                'password' => $request->password,
+                'provider' => null
+            ];
 
-        if(!Auth::attempt($credentials)){
+            if(!Auth::attempt($credentials)){
+                return response()->json([
+                    'error' => '帳號或密碼錯誤'
+                ],401);
+            }
+            $token = auth()->setTTL(120)->attempt($credentials);
+
+            $user = Auth::user();
+            Member::where('mid', $user->mid)->update(['last_login' => now()]);
+
             return response()->json([
-                'error' => '帳號或密碼錯誤'
-            ],401);
+                'token' => $token,
+            ]);
+        }else{
+            return response()->json([
+                'error' => '該帳號尚未註冊',
+            ], 401);
         }
-        $token = auth()->setTTL(120)->attempt($credentials);
-
-        $user = Auth::user();
-        Member::where('mid', $user->mid)->update(['last_login' => now()]);
-
-        return response()->json([
-            'token' => $token,
-        ]);
     }
 
     // 登出

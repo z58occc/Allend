@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Alert, Col, Row, Container } from "react-bootstrap";
+import { Form, Button, Alert, Col, Row, Container, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
@@ -16,6 +16,7 @@ function PasswordForm() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState("");
   
+  const [showModal, setShowModal] = useState(false)
   const [oerr, setOerr] = useState("")
   const [err, setErr] = useState("")
   // 修改密碼
@@ -50,11 +51,8 @@ function PasswordForm() {
       })
       .catch((err) => {
         setMessage(err.response.data.error);
-        console.log((err.response.data.password))
         setOerr(err.response.data.oldpassword)
         setErr(err.response.data.password)
-        // setMessage(err.data.error);
-        // 在這裡處理錯誤
       });
   };
 
@@ -126,6 +124,17 @@ function PasswordForm() {
         </Row>
       </Container>
       <Footer></Footer>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Body className="text-center">
+          <Modal.Title>修改成功</Modal.Title>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <Button variant="primary" onClick={() => setShowModal(false)}>
+            確定
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

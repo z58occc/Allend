@@ -161,8 +161,8 @@ console.log("AB", data)
   return (
     <div className="d-flex flex-wrap justify-content-center">
 
-      <div className="d-flex justify-content-end mt-3 " style={{ width: '100%'}}>
-        <div className='me-auto d-flex align-items-center'>
+      <div className="d-flex justify-content-end mt-3 w-100" >
+        <div className='d-flex align-items-center'>
           <Button
             variant='primary'
             className={`${styles.togglecollectionchecked}`}
@@ -191,9 +191,7 @@ console.log("AB", data)
             刪除收藏
           </Button>
         </div>
-    {/* <div className='row w-100 d-flex justify-content-end'> */}
-        <SearchBox className="ms-5" onSearch={handleSearch} searchTerm={screen === 1 ? searchcase : searchservice}></SearchBox>
-        {/* </div> */}
+        <SearchBox onSearch={handleSearch} searchTerm={screen === 1 ? searchcase : searchservice}></SearchBox>
       </div>
 
       {filteredData.length === 0

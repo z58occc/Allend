@@ -1,60 +1,78 @@
 /* 移除 Accordion 的箭頭 */
 .no-arrow-accordion .accordion-button::after {
-    display: none !important;
-    text-align: center;
+  display: none !important;
+  text-align: center;
 }
 
 /* 調整 Nav.Link 的顏色 */
-.nav-link-no-arrow {
-    color: black !important;
-}
+/* .nav-link-no-arrow {
+  color: black !important;
+} */
 
 /* 設定 Accordion 和 Accordion.Header 的背景顏色 */
 .no-arrow-accordion .accordion-item {
-    background-color: 	#D0D0D0;
+  background-color: #d0d0d0;
 }
 
+.navLink {
+  font-size: 24px;
+  text-align: center;
+}
+
+.navLink:active {
+  /* font-size: 600;
+  color: black;
+  background-color: darksalmon;
+  border-radius: 10%; */
+}
+
+.navLink:hover {
+  color: rgb(47, 114, 237) !important;
+  font-weight: 600;
+}
 .linksContainer {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
-.linksContainer > a:active{
-    color: red;
+.linksContainer > a:active {
+  color: red;
 }
+
 .link {
-    margin: 10px;
+  margin: 10px;
 }
 
-.accHeader{
-    /* border-bottom: 1px solid black; */
-
+.accHeader {
 }
 
-.accHeader > h2{
-
+.accHeader > h2 {
 }
 
-.accHeader > button{
-    color: rgba(0, 0, 0, .5);
-    margin: 0;
-    padding: 5px 0;
-    background-color: #E0E0E0;
+.accHeader > button {
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 0.5rem 0;
+  background-color: #e0e0e0 !important;
 }
 
-.accHeader>button:active,
-.accHeader>button:focus
-{
-    background-color: #E0E0E0;
-    box-shadow: none;    
+.accHeader > button:hover {
+  color: rgb(47, 114, 237) !important;
+  font-weight: 600;
 }
 
-.accHeader > button::after{
-    display: none !important;
-    
+.accHeader > button:active,
+.accHeader > button:focus {
+  background-color: #e0e0e0;
+  /* background-color: #d0d0d0; */
+  box-shadow: none;
 }
 
-.accordion-button{
-    background-color: black;
+.accHeader > button::after {
+  display: none !important;
+}
+
+.accordion-button {
+  background-color: black;
 }

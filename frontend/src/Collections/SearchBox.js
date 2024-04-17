@@ -33,15 +33,16 @@ const SearchBox = ({ onSearch }) => {
   // };
   return (
     <>
-    <MDBCol md="4" className="d-flex">
+    <MDBCol md="5" className="d-flex ms-auto">
       <form className="form-inline d-flex justify-content-center align-items-center" onSubmit={handleSubmit}>
           <MDBIcon icon="search" />
-          <input className="form-control form-control-sm ms-2 w-75" 
+          <input className="rounded-start form-control form-control-sm ms-1 w-75" 
           type="text" 
           placeholder="Search" 
           aria-label="Search"
           value={searchTerm}
           onChange={handleChange}
+          style={{boxShadow:'none'}}
           />
           <button onClick={handleReset} className="rounded-end">
             <FaTrashAlt/>
