@@ -107,7 +107,7 @@ class MemberInfoController extends Controller
                 DB::raw('ifnull(c1.country_city, "") as location'), DB::raw('ifnull(mobile_phone, "") as phone'),
                 DB::raw('ifnull(name, "") as name'), DB::raw('ifnull(id_card, "") as idCard'),
                 DB::raw('ifnull(gender, "") as gender'),DB::raw('ifnull(c2.country_city, "") as area'),
-                DB::raw('ifnull(fb, "") as fb'), DB::raw('ifnull(line, "") as line')])
+                DB::raw('ifnull(fb, "") as fb'), DB::raw('ifnull(line, "") as line'),DB::raw('ifnull(about, "") as about')])
         ->where('mid', $mid)->first();
 
         return response()->json($user_info);
@@ -149,11 +149,12 @@ class MemberInfoController extends Controller
                 'active_location' => $active_location,
                 'mobile_phone' => $request->phone,
                 'name' => $request->name,
-                'id_card' => $request->idCard !== null ? $request->idCard : null,
-                'gender' => $request->gender !== null ? $request->gender : null,
-                'location' => $location !== null ? $location : null,
-                'fb' => $request->fb !== null ? $request->fb : null,
-                'line' => $request->line !== null ? $request->line : null,
+                'id_card' => $request->idCard !== null ? $request->idCard : "",
+                'gender' => $request->gender !== null ? $request->gender : "",
+                'location' => $location !== null ? $location : "",
+                'fb' => $request->fb !== null ? $request->fb : "",
+                'line' => $request->line !== null ? $request->line : "",
+                'about' => $request->input('about') !== null ? $request->input('about') : "",
                 'updated_at' => now(),
             ]);
             return response()->json([

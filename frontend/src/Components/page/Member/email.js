@@ -22,6 +22,7 @@ function FreelancerForm() {
     area: "",
     fb: "",
     line: "",
+    about: "",
   });
 
   const handleReset = () => {
@@ -36,7 +37,8 @@ function FreelancerForm() {
       gender: "",
       area: "",
       fb: "",
-      line: ""
+      line: "",
+      about: "",
     });
     setIsSubmitted(false);
   };
@@ -108,7 +110,8 @@ function FreelancerForm() {
         area: formData.area,
         name: formData.name,
         fb:formData.fb,
-        line:formData.line
+        line:formData.line,
+        about:formData.about
       },
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
@@ -413,6 +416,17 @@ function FreelancerForm() {
                   </Col>
                 </Form.Group>
                 {/* 所在地區 */}
+
+                <Form.Group className="mt-3" as={Row}>
+                  <Form.Label>關於我：</Form.Label>
+                  <Form.Control 
+                    name="about" 
+                    as="textarea" 
+                    rows={5} 
+                    value={formData.about}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
                 <br />
 

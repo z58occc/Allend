@@ -673,7 +673,7 @@ const Findman = () => {
                 </div>
               ))}
             </div>
-            {textShow && <span style={{color: 'red'}}>已收藏！</span>}
+            {/* {textShow && <span style={{color: 'red'}}>已收藏！</span>} */}
 
             {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
           </div>
