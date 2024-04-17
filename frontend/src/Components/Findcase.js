@@ -1121,9 +1121,9 @@ function Findcase() {
                 </button>
               </Link>
               <br />
-              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<span >「{typeid}」</span></div>
-              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<span style={{ wordSpacing: "10px" }}>「{cityid}」</span></Fragment>}<br />
-              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<span style={{ wordSpacing: "30px" }}>「{budgetid}」</span></Fragment>}
+              <div style={{ display: (typeid == null ? "none" : "") }}>類別：<strong >「{typeid}」</strong></div>
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{ wordSpacing: "10px" }}>「{cityid}」</strong></Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{ wordSpacing: "30px" }}>「{budgetid}」</strong></Fragment>}
             </>
             : null}
         </div>
