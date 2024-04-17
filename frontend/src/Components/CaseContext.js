@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {createContext, useState, useEffect, useRef, useContext } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { VscAccount } from "react-icons/vsc";
@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { IsLoggedInContext } from "../App";
 import Footer from '../homepage/Footer'
 import axios from 'axios';
+
 
 
 function CaseContext() {
@@ -262,7 +263,8 @@ function CaseContext() {
                             </div>
                             <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
                             <div className="mt-3">
-                                <Button style={{ marginLeft: "30px" }} onClick={handlePopShow}>我要報價</Button>
+                                <Button style={{ marginLeft: "30px" }} onClick={isLoggedIn ? () => { handlePopShow() } : handleShow}>我要報價</Button>
+                                {/* handlePopShow */}
                             </div>
                         </div>
                     </Col>
