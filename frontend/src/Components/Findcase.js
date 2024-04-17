@@ -303,6 +303,8 @@ function Findcase() {
     console.log(newState);
     fetchData();
     setTypeid(null);
+    setDurationQuery("");
+
 
   }
   // 清空篩選條件
@@ -1068,11 +1070,12 @@ function Findcase() {
 
         {/* 左上4顆按鈕 */}
         <div style={{ borderBottom: "solid" }}>
-          <button className={changecolor1 == true ? "active" : ""}  >
-            <Link to={"/findcase/0"} style={{ textDecoration: "none", color: "black" }} onClick={() => fetchData()}>
+
+          <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
+            <button className={changecolor1 == true ? "active" : ""}  >
               全部案件
-            </Link>
-          </button>
+            </button>
+          </Link>
           <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
           <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
