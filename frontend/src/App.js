@@ -28,10 +28,11 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import CallbackHandler from "./homepage/CallbackHandler";
-import "./App.css";
 import Closechat from "./Components/Closechat";
 import ForgotPassword from "./detail/ForgotPassword";
 import VerifyEmail from "./detail/VerifyEmail";
+import "./App.css";
+
 
 export const IsLoggedInContext = createContext()
 
@@ -41,7 +42,10 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //聊天室窗狀態
+  const [isGoogle, setIsGoogle] = useState(0);
+  const [emailVerified, setEmailVerified] = useState(0);
+  
+  //聊天視窗狀態
   const [showChat, setShowChat] = useState(false);
   const [selectedItemMid, setSelectedItemMid] = useState(null);
 
@@ -281,7 +285,7 @@ function App() {
     }
   };
 
-  // 取得會員email
+  // 取得會員email、provider、verified
   const fetchMemberEmail = async () => {
     try {
       const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
@@ -290,6 +294,8 @@ function App() {
         },
       });
       setMemberEmail(response.data);
+      setIsGoogle(response.data.provider)
+      setEmailVerified(response.data.verified)
     } catch (error) {
       console.error('Failed to fetch member email:', error);
     }
@@ -364,7 +370,7 @@ function App() {
 
 
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown }}>
 
       <div
         className="p-1"
@@ -707,7 +713,7 @@ function App() {
             </div>
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               {countdown > 0 ? (
-                <Button variant="success" disabled>重新發送({countdown})</Button>
+                <Button variant="success" disabled={isButtonDisabled}>重新發送({countdown})</Button>
               ) : (
                 <Button variant="success" onClick={handleResendVerification}>重新發送驗證郵件</Button>
               )}

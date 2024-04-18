@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
+import { FaUser } from "react-icons/fa";
 import Axios from "axios"
+import Cookies from "js-cookie"
 import Echo from "laravel-echo"
 import Pusher from "pusher-js"
 import Messagebox from "./Messagebox"
-import Cookies from "js-cookie"
-import "./chatroom.css";
 import { IsLoggedInContext } from "../App";
-import { FaUser } from "react-icons/fa";
+import "./chatroom.css";
+
+
 export default function PublicMessagesPage(props) {
   
   const {setShowChat} = useContext(IsLoggedInContext);
@@ -141,37 +143,34 @@ export default function PublicMessagesPage(props) {
   }, []);
 
   return (
-
-
     <div className="chat-window">
-          <div className="title-section">
-            {senderId.receivername}({senderId.receiveremail})
-            <button className="btn-close btn-close-white position-absolute top-10 end-0 " style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
-          </div> 
-          <div>
-            <div style={{ display: 'flex', height: '400px' }}>
-              <div className="chat-menu">
-                {history.map((item,index)=>(
-                  <button key={index} className="chat-list" onClick={()=>handleClick(item.receiver_id)}><FaUser style={{paddingRight:"5px"}}/>{item.mrname}</button>
-                ))}
-              </div>
-                <div> 
-                  <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'450px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
-                  {Sconnect && <span>{Sconnect}</span>}
-                    {messages.map((message, index) => (
-                      <Messagebox key={index} message={message} userId={senderId.mid} receiverId={receiverId} />
-                    ))}
-                  </div>
-                  <div style={{marginTop: 'auto'}}>
-                    <form onSubmit={(e) => handleSendMessage(e)}>
-                        <input className="message-input" type="text" placeholder="Type your message..." value={message} onChange={(e) => setMessage(e.target.value)} required />
-                        <button className="send-button" onClick={(e) => handleSendMessage(e)}>Send</button>
-                    </form>
-                  </div>
-                </div>
-                
-              </div>
+      <div className="title-section">
+        {senderId.receivername}({senderId.receiveremail})
+        <button className="btn-close btn-close-white position-absolute top-10 end-0 " style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
+      </div> 
+      <div>
+        <div style={{ display: 'flex', height: '400px' }}>
+          <div className="chat-menu">
+            {history.map((item,index)=>(
+              <button key={index} className="chat-list" onClick={()=>handleClick(item.receiver_id)}><FaUser style={{paddingRight:"5px"}}/>{item.mrname}</button>
+            ))}
           </div>
+          <div> 
+            <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'450px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
+            {Sconnect && <span>{Sconnect}</span>}
+              {messages.map((message, index) => (
+                <Messagebox key={index} message={message} userId={senderId.mid} receiverId={receiverId} />
+              ))}
+            </div>
+            <div style={{marginTop: 'auto'}}>
+              <form onSubmit={(e) => handleSendMessage(e)}>
+                  <input className="message-input" type="text" placeholder="Type your message..." value={message} onChange={(e) => setMessage(e.target.value)} required />
+                  <button className="send-button" onClick={(e) => handleSendMessage(e)}>Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

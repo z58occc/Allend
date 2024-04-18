@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Image, Button, Modal, Form } from 'react-bootstrap';
@@ -8,11 +8,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import styles from './LeftVerticalNavbar.module.css';
 import member from './member.png';
-
+import { IsLoggedInContext } from '../App'
 
 
 
 const LeftVerticalNavbar = () => {
+    const { isGoogle } = useContext(IsLoggedInContext)
+
     const navItems = [
         { link: '/member', text: '會員中心' },
         { link: '/email', text: '會員維護' },
@@ -180,8 +182,10 @@ const LeftVerticalNavbar = () => {
                                             {index === 1 ? (
                                                 <div className={`${styles.linksContainer}`}>
                                                     <Link to="/switch"  className="nav-link-no-arrow " >資料維護</Link>
-                                                    <br />
-                                                    <Link to="/fix" className="nav-link-no-arrow">修改密碼</Link>
+                                                    {!isGoogle
+                                                    ? <><br /><Link to="/fix" className="nav-link-no-arrow">修改密碼</Link></>
+                                                    : <></>
+                                                    }
                                                 </div>
                                             ) : (
                                                 <div className={`${styles.linksContainer}`}>

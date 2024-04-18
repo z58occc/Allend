@@ -7,12 +7,12 @@ const ServiceCollection = ({data, dataUpdate}) => {
   // 頁數控制
   // 初始化active
   const [active,setActive] = useState(1);
-  const CasePerPage = 1; // 每頁幾個card
+  const CasePerPage = 2; // 每頁幾個card
   const [displayData, setDisplayData] = useState([])
-useEffect(() => {
-  setDisplayData(data.slice(CasePerPage * (active-1) , CasePerPage * active))
+  useEffect(() => {
+    setDisplayData(data.slice(CasePerPage * (active-1) , CasePerPage * active))
 
-}, [active, data])
+  }, [active, data])
 
 
   let items = [];
