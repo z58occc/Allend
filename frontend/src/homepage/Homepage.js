@@ -182,7 +182,7 @@ function Homepage() {
                   <Col style={{ flexGrow: 1 }}>
                     <Link
                       to={`./serve/${post.mid}/${post.sid}`}
-                      className="card"
+                      className="card links"
                       style={{ width: "100%", fontSize: "10px" }}
                     >
                       <div className="card-header ">
@@ -222,8 +222,8 @@ function Homepage() {
                 return (
                   <Row key={index} style={{ margin: "30px 32px 30px 32px" }}>
                     <Col>
-                      <Link to={`./casecontext/${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
-                        <div className="toast show ">
+                      <Link className="links" to={`./casecontext/${post.did}`} style={{ width: "30%" }} >
+                        <div className="toast show">
                           <div className="toast-header">
                             <strong className="me-auto">
                               <div>{post.d_name}</div>
@@ -279,7 +279,7 @@ function Homepage() {
                       style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
                     </Col>
                     <Col xs lg="2" className="d-flex justify-content-center align-items-center" style={{ padding: "0px" }}>
-                      <Link to={`./talent/${post.mid}`} style={{ fontSize: "20px", position: "relative", left: "30px" }}>
+                      <Link className="links" to={`./talent/${post.mid}`} style={{ fontSize: "20px", position: "relative", left: "30px" }}>
                         <span >{post.name}</span>
                       </Link>
                     </Col>

@@ -4,17 +4,18 @@ import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import { CiCircleCheck } from "react-icons/ci";
 import { IsLoggedInContext } from "../App";
+import { Link } from "react-router-dom";
 
 function GetQuoteModal({ show, onHide, data }) {
   // 
   const [successshow, setSuccessshow] = useState(false);
-  const close =  () => {
+  const close = () => {
     setSuccessshow(false);
   }
   // 
 
-  
-  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+
+  const { isLoggedIn, setIsLoggedIn, handleShow, showChat, setShowChat, setSelectedItemMid } = useContext(IsLoggedInContext);
 
   const toggleChat = (mid) => {
     setShowChat(!showChat);
@@ -50,7 +51,7 @@ function GetQuoteModal({ show, onHide, data }) {
         setTimeout(() => {
           close();
         }, 3000);
-        
+
         // onHide();
       })
       .catch((error) => {
@@ -83,11 +84,11 @@ function GetQuoteModal({ show, onHide, data }) {
       })
   }
   return (
-    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "lg" : "sm"}>
+    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"}>
       <Modal.Header closeButton>
         <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+      <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: '' }}>
         {data && data.length !== 0
           ?
           (
@@ -103,9 +104,12 @@ function GetQuoteModal({ show, onHide, data }) {
                 </tr>
               </thead>
               <tbody>
+                
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
-                    <td>{item.name}</td>
+                    <td>
+                      <Link to={`/talent/${item.mid}`} style={{color:"blue"}}>{item.name}</Link>
+                    </td>
                     <td>{item.email}</td>
                     <td>{item.identity}</td>
                     <td>{item.q_amount}</td>
@@ -126,7 +130,7 @@ function GetQuoteModal({ show, onHide, data }) {
                         >
                           拒絕
                         </Button>
-                        <Button onClick={isLoggedIn ? ()=>toggleChat(item.mid) : handleShow}variant="secondary"style={{ fontSize: "12px", whiteSpace: "nowrap" }} >
+                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} variant="secondary" style={{ fontSize: "12px", whiteSpace: "nowrap" }} >
                           聊聊
                         </Button>
                       </div>
