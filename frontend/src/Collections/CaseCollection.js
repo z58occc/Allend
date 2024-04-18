@@ -10,14 +10,14 @@ const CaseCollection = ({data, dataUpdate}) => {
     setActive(number)
   }
 
-  const CasePerPage = 2;
+  const CasePerPage = 5;
   const page = Math.ceil(data.length / CasePerPage);
   data = data.slice(CasePerPage * (active-1) , CasePerPage * active)
   if(data.length === 0 && active > 1){
     setActive(()=>active - 1)
   }
-  console.log(page);
-  console.log(data);
+  // console.log(page);
+  // console.log(data);
 
   let items = [];
 

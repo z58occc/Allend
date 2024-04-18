@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/index', IndexController::class);
 // 查看我要接案
 Route::get('/findcase', IFindCaseController::class);
-// 查看我要找人.
+// 查看我要找人
 Route::get('/printservicecardcontent', IFindPeopleController::class);
 // 查看人才頁面
 Route::get('/talent', TalentController::class);
@@ -143,15 +143,15 @@ Route::controller(MemberInfoController::class)->group(function () {
 
     // 獲取服務管理頁面(服務、作品、影音)
     Route::get('/memservice', 'getServicePage');
-    // 新增服務--
+    // 新增服務
     Route::post('/addservice', 'addService');
     // 編輯服務
     Route::post('/updateservice', 'updateService');
     // 刪除服務
     Route::post('/delmemser', 'delService');
-    // 新增作品.
+    // 新增作品
     Route::post('/work', 'addWork');
-    // 編輯作品.
+    // 編輯作品
     Route::post('/upwork', 'updateWork');
     // 刪除作品
     Route::post('/delwork', 'delWork');

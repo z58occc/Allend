@@ -11,6 +11,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { PiSignOutFill } from "react-icons/pi";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
@@ -31,7 +32,6 @@ import CallbackHandler from "./homepage/CallbackHandler";
 import Closechat from "./Components/Closechat";
 import ForgotPassword from "./detail/ForgotPassword";
 import VerifyEmail from "./detail/VerifyEmail";
-import { PiSignOutFill } from "react-icons/pi";
 import "./App.css";
 
 
@@ -280,7 +280,6 @@ function App() {
       if (error.response) {
         setErrorMessage(error.response.data.error);
       } else {
-        console.error('An error occurred while logging in:', error.message);
         setErrorMessage('登入失敗');
       }
     }
@@ -298,7 +297,7 @@ function App() {
       setIsGoogle(response.data.provider)
       setEmailVerified(response.data.verified)
     } catch (error) {
-      console.error('Failed to fetch member email:', error);
+      // console.error('Failed to fetch member email:', error);
     }
   };
 
@@ -351,7 +350,7 @@ function App() {
   const [togglename, setTogglename] = useState("找案件");
 
   const handleInputChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setInputvalue(event.target.value);
   }
   const search = () => {
@@ -413,16 +412,11 @@ function App() {
 
   // 登入註冊 enter 效果
 
-  //增加註冊入返回登入
+  // 增加註冊modal上返回登入
   const handleBackToLogin = () => {
     setShowRegister(false); // 關閉註冊模態視窗
     setShowLogin(true); // 打開登入模態視窗
   };
-
-
-
-
-
 
 
 

@@ -154,8 +154,8 @@ function ProjectForm() {
                   <option value="" disabled>請選擇</option>
                   <option value="次">次</option>
                   <option value="件">件</option>
+                  <option value="份">份</option>
                   <option value="小時">小時</option>
-                  {/* 在這裡添加其他選項 */}
                 </Form.Select>
               </InputGroup>
             </Col>

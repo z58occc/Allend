@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
         catch (ValidationException $exception){
             return response()->json([
-                'error' => '缺少電子郵件或是密碼'
+                'error' => '缺少帳號或是密碼'
             ],422);
         }
 
