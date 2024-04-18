@@ -25,13 +25,14 @@ class NewPasswordController extends Controller
         try{
             $request->validate([
             'token' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'email', 'exists:members,email'],
+            'password' => ['required', 'confirmed', 'min:8'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         }catch(Throwable $err){
             return response()->json([
                 'error' => '請確認密碼是否一致'
-            ]);
+            ], 409);
         }
 
         // Here we will attempt to reset the user's password. If it is successful we
@@ -58,6 +59,6 @@ class NewPasswordController extends Controller
         return response()->json([
             // 'status' => __($status),
             'message' => '密碼修改成功，請重新登入',
-        ]);
+        ], 200);
         }
 }
