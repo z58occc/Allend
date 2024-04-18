@@ -18,9 +18,9 @@ function Messagebox({message ,userId,receiverId}) {
     const isSentByCurrentUser = message.senderId === userId ;
     return (
         <div >
-            <div  style={{ textAlign: message.sender_id === userId || message.receiver_id === userId ? 'right' : 'left' }}>
+            <div  style={{ textAlign: message.sender_id === userId && message.receiver_id === receiverId ? 'right' : 'left' }}>
                 <div>
-                    <span style={{ backgroundColor: message.sender_id === userId || message.receiver_id === userId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{message.content}</span>
+                    <span style={{ backgroundColor: message.sender_id === userId && message.receiver_id === receiverId ? "#e2f7cb" : "#d4d4d4", width: 'fit-content' }}>{message.content}</span>
                     <p>{formatDate(message.sending_time)}</p>
                 </div>
             </div>

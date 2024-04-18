@@ -3,6 +3,7 @@ import { Modal, Button, Table } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import { CiCircleCheck } from "react-icons/ci";
+import { IsLoggedInContext } from "../App";
 
 function GetQuoteModal({ show, onHide, data }) {
   // 
@@ -11,6 +12,15 @@ function GetQuoteModal({ show, onHide, data }) {
     setSuccessshow(false);
   }
   // 
+
+  
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
+
   const { fetchData } = useContext(CaseContext);
   const [datas, setDatas] = useState(true);
   const [dataIndex, setDataIndex] = useState("")
@@ -116,10 +126,7 @@ function GetQuoteModal({ show, onHide, data }) {
                         >
                           拒絕
                         </Button>
-                        <Button
-                          variant="secondary"
-                          style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                        >
+                        <Button onClick={isLoggedIn ? ()=>toggleChat(item.mid) : handleShow}variant="secondary"style={{ fontSize: "12px", whiteSpace: "nowrap" }} >
                           聊聊
                         </Button>
                       </div>

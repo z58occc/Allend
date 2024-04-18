@@ -24,7 +24,7 @@ export default function PublicMessagesPage(props) {
     setMessages([]);
 
     try {
-      const response = await Axios.get(`http://localhost/Allend/backend/public/api/get-message`, {
+      const response = await Axios.get(`http://localhost/Allend/backend/public/api/get-message?receiverId=${receiverId}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },

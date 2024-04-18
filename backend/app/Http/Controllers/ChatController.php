@@ -52,8 +52,8 @@ class ChatController extends Controller
         $receiverId = $request->receiverId;
         $messages = DB::table('chat')
             ->select('sender_id', 'receiver_id', 'content', 'sending_time')
-            ->orWhere('sender_id', [$senderId,$receiverId])
-            ->orWhere('receiver_id',[$senderId,$receiverId])
+            ->whereIn('sender_id', [$senderId,$receiverId])
+            ->WhereIn('receiver_id',[$senderId,$receiverId])
             ->get();
 
         return response()->json($messages);
