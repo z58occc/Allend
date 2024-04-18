@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
@@ -8,6 +8,8 @@ import axios from 'axios';
 import Footer from '../homepage/Footer';
 import Stick from './Stick';
 import "./Serve.css";
+import { IsLoggedInContext } from "../App";
+import ChatButton from './ChatButtom';
 
 
 function Serve() {
@@ -15,6 +17,14 @@ function Serve() {
   const { sid } = useParams();
   const [serve, setServe] = useState([]);
   const navigate = useNavigate()
+
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
+
 
   useEffect(() => {
     const fetchService = async () => {
@@ -66,7 +76,10 @@ function Serve() {
                 <div style={{ height: "35px" }}>服務報價：{serve.service && serve.service[0].s_amount}&nbsp;/&nbsp;{serve.service && serve.service[0].s_unit}</div>
                 <div style={{ height: "35px" }}>評分：{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}</div>
                 <div style={{ height: "35px" }}>服務地點：{serve.service && serve.service[0].country_city}<br></br></div>
-                <div style={{ height: "35px" }}><Button>及時詢問</Button></div>
+                <div style={{ height: "35px" }}>                            
+                <div onClick={isLoggedIn ? ()=>toggleChat(mid) : handleShow} className='text-center p-2'>
+                                        <ChatButton /></div>
+                </div>
               </div>
             </div>
             }

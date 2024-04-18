@@ -143,7 +143,7 @@ function Talent() {
                         </div>
                         <hr></hr>
                         <div className='mt-5 row'>
-                            <div id='price' style={{ paddingBottom: '20px' }}>評價({talent.case_complete && talent.case_complete})</div>
+                            <div id='price' style={{ paddingBottom: '20px' }}>評價</div>
                             {talent.established_case && talent.established_case.map((item, index) => (
                                 <div style={{}}>
                                     <div id='price'>
