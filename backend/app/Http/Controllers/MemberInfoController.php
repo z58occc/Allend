@@ -417,10 +417,11 @@ class MemberInfoController extends Controller
             $demmand_progress_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
+            ->leftJoin('members', 'mid_service', '=', 'mid')
             ->select('cid', 'c_name','type', 'c_status', 'c_amount','c_unit','c_duration','country_city as active_location',
-            'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
+            'c_description','c_contact_name', 'c_email', 'c_mobile_phone',DB::raw('date_format(established_case.created_at, "%Y/%m/%d") as ecreated_at'),'members.name','members.mobile_phone','members.email')
             ->where('mid_demmand',$mid)->whereIn('c_status',[1, 3, 4])
-            ->orderBy('created_at', 'desc')->orderBy('cid', 'desc');
+            ->orderBy('ecreated_at', 'desc')->orderBy('cid', 'desc');
 
             // 發案已結案
             $demmand_completed_query = DB::table('established_case')
