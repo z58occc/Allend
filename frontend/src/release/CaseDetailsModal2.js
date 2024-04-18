@@ -3,15 +3,25 @@ import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import PayButton from "./paybutton"
+import { IsLoggedInContext } from "../App";
+
+
+
 
 
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
   const [selectedCase, setSelectedCase] = useState({
     cid: '',
     c_name: '',
     c_amount: 0
   });
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
 
   const received = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
@@ -92,24 +102,24 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人姓名：{data[number].c_contact_name}</strong>
+              <strong>接案人姓名：{data[number].name}</strong>
             </div>
             <div
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人 Email：{data[number].c_email}</strong>
+              <strong>接案人 Email：{data[number].email}</strong>
             </div>
             <div
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人手機：{data[number].c_mobile_phone}</strong>
+              <strong>接案人手機：{data[number].mobile_phone}</strong>
             </div>
           </div>
         </div>
         <div className="d-grid gap-2">
-          <Button variant="primary" size="lg">
+          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} variant="primary" size="lg">
             聯絡接案人
           </Button>
           {data[number].c_status === 3
