@@ -145,7 +145,7 @@ export default function PublicMessagesPage(props) {
   return (
     <div className="chat-window">
       <div className="title-section">
-        {senderId.receivername}({senderId.receiveremail})
+      {senderId.receivername ? senderId.receivername + "(" + (senderId.receiveremail ? senderId.receiveremail : "") + ")" : ""}
         <button className="btn-close btn-close-white position-absolute top-10 end-0 " style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
       </div> 
       <div>
