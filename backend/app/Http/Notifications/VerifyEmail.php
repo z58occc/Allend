@@ -62,10 +62,10 @@ class VerifyEmail extends NotificationsVerifyEmail
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject(Lang::get('Verify Email Address'))
-            ->line(Lang::get('Please click the button below to verify your email address.'))
-            ->action(Lang::get('Verify Email Address'), $url)
-            ->line(Lang::get('If you did not create an account, no further action is required.'));
+            ->subject(Lang::get('包您滿意外包往 - 驗證電子郵件'))
+            ->line(Lang::get('請點擊以下按鈕以驗證您的電子郵件！'))
+            ->action(Lang::get('驗證電子郵件'), $url)
+            ->line(Lang::get('如果您沒有建立帳號，請無須進一步操作，感謝您的配合。'));
     }
 
     /**

@@ -213,15 +213,29 @@ const Work = ({ data2 }) => {
               {data2.map((item, index) => (
                 <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
-                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} />
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} onClick={()=>handleShow1(index)}/>
                     <Card.Body className="d-flex ">
-                      <Card.Title>
-                        <Form.Check
-                          type="checkbox"
-                          checked={selectedItems[index] || false}
-                          onChange={() => handleChecked(index)}
-                          style={{ margin: "0 10px 3px 10px" }}
-                        /> <span style={{ margin: "0 20px" }}>{item.p_name}</span>
+                    <Card.Title className='w-100 '>
+                        <div
+                          style={{
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            margin:"0 1rem 0.1rem 1rem"
+                          }}
+                        >
+                          <Form.Check
+                            type="checkbox"
+                            checked={selectedItems[index] || false}
+                            onChange={() => handleChecked(index)}
+                            style={{display:'block' ,margin:"0 1rem 0.2rem 0"}}
+                          />
+                          <span style={{marginLeft:"0.5rem"}}>{item.p_name}</span>
+                        </div>
+
+
+
+
                       </Card.Title>
                     </Card.Body>
                   </Card>

@@ -148,6 +148,7 @@ const EditModal1 = ({ show, onHide, data, index }) => {
                 <Form.Label>服務地點：</Form.Label>
                 <Form.Control
                   as="select"
+                  value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   required
                 >

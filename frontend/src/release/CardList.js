@@ -320,10 +320,11 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                   className="my-2"
                   style={{
                     width: "110px",
-                    fontSize: "12px",
+                    fontSize: "18px",
                     whiteSpace: "nowrap",
                     marginTop: "auto",
                     marginBottom: "40px",
+                    padding:"0.8rem 1rem"
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -336,17 +337,19 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             )}
 
             {screen === 3 && (
-              <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
+              <div className="d-flex flex-column justify-content-center">
                 <Button
                   variant="primary"
                   key={index}
                   className="my-2"
                   style={{
                     width: item.demmand_comment ? "120px" : "110px",
-                    fontSize: "12px",
+                    fontSize: "18px",
                     whiteSpace: "nowrap",
                     marginTop: "auto",
                     marginBottom: "40px",
+                    padding:"0.8rem 1rem",
+                    borderRadius: '15px'
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -367,9 +370,9 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                   key={index}
                   className="my-2"
                   style={{
-                    width: "110px",
-                    fontSize: "12px",
+                    fontSize: "18px",
                     whiteSpace: "nowrap",
+                    padding:"0.8rem 1rem"
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -382,10 +385,10 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                   variant="secondary"
                   className="my-2 d-inline-block"
                   style={{
-                    width: "110px",
-                    fontSize: "12px",
+                    fontSize: "18px",
                     whiteSpace: "nowrap",
                     textAlign: "center",
+                    padding:"0.8rem 1rem"
                   }}
                   onClick={() => {
                     handleShowQuoteModal(item.did);

@@ -20,7 +20,8 @@ const EditModal3 = ({ show, onHide, data, index }) => {
     formData.append('v_name', nameOfVideo);
     formData.append('v_description', details);
     formData.append('src', URL);
-
+    formData.append('vid', data[index].vid);
+    
 
     await fetch('http://127.0.0.1/Allend/backend/public/api/upvideo', {
       method: 'POST',

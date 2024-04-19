@@ -652,16 +652,6 @@ class MemberInfoController extends Controller
 
     // 編輯服務
     public function updateService(Request $request){
-        try{
-            $request->validate([
-                'image' => ['required', 'mimes:jpg,png,svg', 'file']
-            ]);
-        }catch (ValidationException $exception){
-            return response()->json([
-                'error' => $exception->errors()
-            ]);
-        }
-
         if(isset($request->image)){
             $data = $request->image ->get();
             $mime_type = $request->image->getMimeType();
@@ -669,7 +659,20 @@ class MemberInfoController extends Controller
             // $src = "data: $mime_type;base64,$imageData";
         }
         try{
-            $update = DB::table('service')->where('sid', $request->sid)->update(['image' => $imageData]);
+            $type = DB::table('category')->where('type', $request->s_type)->value('catid');
+            $locatuon = DB::table('country')->where('country_city', $request->s_location)->value('country_id');
+
+            $update = DB::table('service')
+            ->where('sid', $request->sid)
+            ->update([
+                'image' => $imageData,
+                's_name' => $type,
+                's_description' => $request->s_description,
+                's_amount' => $request->s_amount,
+                's_unit' => $request->s_unit,
+                's_active_location' => $locatuon,
+                's_type' => $type,
+            ]);
 
             return response()->json([
                 'message' => '編輯成功'

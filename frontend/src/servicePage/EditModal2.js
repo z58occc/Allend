@@ -65,7 +65,7 @@ const EditModal2 = ({ show, onHide ,data ,index}) => {
             <Form.Label>作品品項：</Form.Label>
             <Form.Control
               type="text"
-              placeholder="填寫服務名稱"
+              placeholder="填寫作品名稱"
               value={nameOfWork}
               onChange={(e) => setNameOfWork(e.target.value)}
               required
