@@ -111,7 +111,7 @@ const LeftVerticalNavbar = () => {
                 // const blob = new Blob([bytes]);
                 // const fileUrl = URL.createObjectURL(blob);
                 // setImageFile(fileUrl);
-                setUsermember({ name: result[0].name, image: result[0].image });
+                setUsermember({ name: result[0].name, image: result[0].image, mid: result[0].mid});
             } catch (err) {
                 console.log(err);
             }
@@ -140,7 +140,7 @@ const LeftVerticalNavbar = () => {
                     onClick={handleEditmember} // 添加点击事件
                 />{/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
-            <div style={{ fontSize: '20px', fontWeight: '800', marginTop: '1rem' }}>{usermember.name === "" ? "會員" : usermember.name}</div>
+            <Link to={`/talent/${usermember.mid}`} style={{ fontSize: '20px', fontWeight: '800', marginTop: '1rem' }}>{usermember.name === "" ? "會員" : usermember.name}</Link>
 
             <Modal show={showModal}  onHide={handleCloseModal}>
                 <Modal.Header closeButton>

@@ -244,7 +244,7 @@ class MemberInfoController extends Controller
     {
         $mid = Auth::id();
         $result = DB::table('members')->where('mid', $mid)
-        ->select(DB::raw('ifnull(avatar, "") as image'), DB::raw('ifnull(name, "") as name'))->get();
+        ->select(DB::raw('ifnull(avatar, "") as image'), DB::raw('ifnull(name, "") as name'),'mid')->get();
 
         return response()->json($result);
     }
