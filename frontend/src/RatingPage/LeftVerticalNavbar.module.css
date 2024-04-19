@@ -1,7 +1,7 @@
 /* 移除 Accordion 的箭頭 */
 .no-arrow-accordion .accordion-button::after {
-  display: none !important;
-  text-align: center;
+  /* display: none !important; */
+  /* text-align: center; */
 }
 
 /* 調整 Nav.Link 的顏色 */

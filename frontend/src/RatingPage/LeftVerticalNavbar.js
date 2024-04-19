@@ -13,7 +13,7 @@ import { IsLoggedInContext } from '../App'
 
 
 const LeftVerticalNavbar = () => {
-    const { isGoogle } = useContext(IsLoggedInContext)
+    const { isGoogle, infoCompleted } = useContext(IsLoggedInContext)
 
     const navItems = [
         { link: '/member', text: '會員中心' },
@@ -137,7 +137,7 @@ const LeftVerticalNavbar = () => {
                         cursor: 'pointer',
                         fontSize: "24px"
                     }}
-                    onClick={handleEditmember} // 添加点击事件
+                    onClick={handleEditmember}
                 />{/* <Image src={imageFile === "" ? member : imageFile} roundedCircle width="100" height="100" style={{cursor:'pointer'}}/> */}
             </div>
             <Link to={`/talent/${usermember.mid}`} style={{ fontSize: '20px', fontWeight: '800', marginTop: '1rem' }}>{usermember.name === "" ? "會員" : usermember.name}</Link>
@@ -168,7 +168,7 @@ const LeftVerticalNavbar = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className=" flex-column">
                     {navItems.map((item, index) => {
-                        if (index === 1 || index === 2) {
+                        if (index === 1) {
                             return (
                                 <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
                                     <Accordion.Item eventKey={`${index}`}>
@@ -198,10 +198,40 @@ const LeftVerticalNavbar = () => {
                                     </Accordion.Item>
                                 </Accordion>
                             );
-                        } else {
+                        } else if (index === 2){
+                            return (
+                                <>
+                                    {infoCompleted
+                                    ? 
+                                    <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
+                                        <Accordion.Item eventKey={`${index}`}>
+                                            <Accordion.Header
+                                                className={`${styles.accHeader} bg-light`} 
+                                            >
+                                                <span style={{fontSize:"32px",margin: 0}}>{item.text}</span>
+                                            </Accordion.Header>
+    
+                                            <Accordion.Body style={{ backgroundColor: "#D0D0D0" }}>
+                                                <div className={`${styles.linksContainer}`}>
+                                                    <Link to="/commit" className="nav-link-no-arrow">發案紀錄</Link>
+                                                    <br />
+                                                    <Link to="/service" className="nav-link-no-arrow">接案紀錄</Link>
+                                                </div>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </Accordion>
+                                    : <></>
+                                    }
+                                </>
+                            );
+                        } else if (index === 0){
                             return (
                                 <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link>
                             );
+                        } else {
+                            return (
+                                <>{infoCompleted ? <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link> : <></>}</>
+                            )
                         }
                     })}
                 </Nav>

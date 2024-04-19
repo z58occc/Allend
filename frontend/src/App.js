@@ -45,6 +45,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isGoogle, setIsGoogle] = useState(0);
   const [emailVerified, setEmailVerified] = useState(0);
+  const [infoCompleted, setInfoCompleted] = useState(0)
   
   //聊天視窗狀態
   const [showChat, setShowChat] = useState(false);
@@ -296,6 +297,7 @@ function App() {
       setMemberEmail(response.data);
       setIsGoogle(response.data.provider)
       setEmailVerified(response.data.verified)
+      setInfoCompleted(response.data.infocompleted)
     } catch (error) {
       // console.error('Failed to fetch member email:', error);
     }
@@ -421,7 +423,7 @@ function App() {
 
 
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown, infoCompleted, setInfoCompleted }}>
 
       <div
         className="p-1"

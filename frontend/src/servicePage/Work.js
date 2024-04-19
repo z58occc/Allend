@@ -171,7 +171,7 @@ const Work = ({ data2 }) => {
   return (
     <>
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
-      <div style={{ width: '100%', background: 'lightpink ', height: '100vh', borderRadius: "10px" }}>
+      <div style={{ width: '100%', background: '#FFC78E ', height: '100vh', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className="mb-3 d-flex justify-content-around " style={{ width: "100%", height: '50px' }}>
             <Button
