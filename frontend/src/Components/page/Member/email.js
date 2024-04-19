@@ -47,7 +47,6 @@ function FreelancerForm() {
   };
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isFormComplete, setIsFormComplete] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,10 +91,8 @@ function FreelancerForm() {
       ...formData,
       [name]: value,
     }));
-
-    // const isComplete = Object.values(formData).every((value) => value !== "");
-    // setIsFormComplete(isComplete);
   };
+
   // 送出驗證信
   const sendVerificaitonEmail = async() => {
     axios({
@@ -175,7 +172,7 @@ function FreelancerForm() {
                 {/* 身分 */}
                 <Form.Group as={Row}>
                   <Form.Label column sm={5}>
-                    接案人身分：
+                    接案人身分：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                   <Col sm={7}>
                     <Row>
@@ -220,10 +217,10 @@ function FreelancerForm() {
                 {/* 年資、接案地點 */}
                 <Form.Group as={Row}>
                   <Form.Label column sm={6}>
-                    累積年資：
+                    累積年資：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                   <Form.Label column sm={6}>
-                    接案地點：
+                    接案地點：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                 </Form.Group>
 
@@ -292,7 +289,7 @@ function FreelancerForm() {
                 {/* 身分證 */}
                 <Form.Group as={Row}>
                   <Form.Label column sm={6}>
-                    身份證：
+                    身份證：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                   <Form.Label column sm={6}>
                     電子郵件：
@@ -327,10 +324,10 @@ function FreelancerForm() {
 
                 <Form.Group as={Row}>
                   <Form.Label column sm={6}>
-                    真實姓名/公司名稱：
+                    真實姓名/公司名稱：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                   <Form.Label column sm={6}>
-                    電話：
+                    電話：<span style={{color:'red'}}>*</span>
                   </Form.Label>
                 </Form.Group>
 

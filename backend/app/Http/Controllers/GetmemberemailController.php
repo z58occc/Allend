@@ -18,13 +18,17 @@ class GetmemberemailController extends Controller
             $name = DB::table('members')->where('mid', $userid)->value('name');
             $fromGoogle = DB::table('members')->where('mid', $userid)->value('provider');
             $emailVerified = DB::table('members')->where('mid', $userid)->value('email_verified_at');
-
+            $infoCompleted = DB::table('members')->where('mid', $userid)
+                            ->whereNotNull('identity')->whereNotNull('seniority')
+                            ->whereNotNull('active_location')->whereNotNull('id_card')
+                            ->whereNotNull('name')->whereNotNull('mobile_phone')->exists();
             $response = [
                 'email' => $email,
                 'mid' => $members,
                 'name' => $name,
                 'provider' => $fromGoogle !== null ? 1 : 0,
                 'verified' => $emailVerified !== null ? 1 : 0,
+                'infocompleted' => $infoCompleted
             ];
 
             if ($request->has('receiverId')) {
