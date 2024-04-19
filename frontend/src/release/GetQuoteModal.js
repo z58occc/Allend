@@ -5,7 +5,7 @@ import { CaseContext } from "./MainScreen2";
 import { CiCircleCheck } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import './GetQuoteModal.css';
-
+import { IsLoggedInContext } from "../App";
 
 function GetQuoteModal({ show, onHide, data }) {
   // 
