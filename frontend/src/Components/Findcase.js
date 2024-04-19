@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, useRef, Fragment } from "react";
+import React, { useContext, useState, useEffect, useRef, Fragment } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -27,7 +27,7 @@ import { IsLoggedInContext } from "../App";
 
 function Findcase() {
 
-  const { isLoggedIn, setIsLoggedIn,handleShow } = useContext(IsLoggedInContext);
+  const { isLoggedIn, setIsLoggedIn, handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -183,37 +183,6 @@ function Findcase() {
   }
 
 
-
-  const [allstate, setAllstate] = useState(
-    {
-      五千: false,
-      一萬: false,
-      五萬: false,
-      十萬: false,
-      三十萬: false,
-      台北市: false,
-      新北市: false,
-      桃園市: false,
-      基隆市: false,
-      新竹市: false,
-      新竹縣: false,
-      彰化縣: false,
-      南投縣: false,
-      雲林縣: false,
-      高雄市: false,
-      台南市: false,
-      嘉義市: false,
-      嘉義縣: false,
-      屏東縣: false,
-      宜蘭縣: false,
-      花蓮縣: false,
-      臺東縣: false,
-      澎湖縣: false,
-      金門縣: false,
-      連江縣: false,
-    }
-  );
-
   const [budgetstate, setBudgetstate] = useState(
     {
       五千: false,
@@ -261,14 +230,8 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
-    setAllstate((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
-
 
   };
-  console.log(allstate);
 
 
 
@@ -277,9 +240,9 @@ function Findcase() {
   const handleChangeall = () => {
     changeBottomcolorOff();
 
-    const newState = { ...allstate };
-    Object.keys(newState).forEach((key) => newState[key] = false);
-    setAllstate(newState);
+    // const newState = { ...allstate };
+    // Object.keys(newState).forEach((key) => newState[key] = false);
+    // setAllstate(newState);
 
 
     const newcityState = { ...checkedState };
@@ -290,7 +253,6 @@ function Findcase() {
     const newbudgetState = { ...budgetstate };
     Object.keys(newbudgetState).forEach((key) => newbudgetState[key] = false);
     setBudgetstate(newbudgetState);
-    console.log(newState);
     fetchData();
     setTypeid(null);
     setDurationQuery("");
@@ -318,10 +280,7 @@ function Findcase() {
       ...prevState,
       [name]: checked,
     }));
-    setAllstate((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
+
 
   }
   const [durationQuery, setDurationQuery] = useState();
@@ -426,58 +385,58 @@ function Findcase() {
     const fetchDataNew = async () => {
 
       try {
-        const clearcitystate = Object.keys(allstate)
-          .filter((key) => allstate[key])
-          .map((key) => {
-            switch (key) {
-              case "台北市":
-                return "台北市"
-              case "新北市":
-                return "新北市"
-              case "桃園市":
-                return "桃園市"
-              case "基隆市":
-                return "基隆市"
-              case "新竹市":
-                return "新竹市"
-              case "新竹縣":
-                return "新竹縣"
-              case "彰化縣":
-                return "彰化縣"
-              case "南投縣":
-                return "南投縣"
-              case "雲林縣":
-                return "雲林縣"
-              case "高雄市":
-                return "高雄市"
-              case "台南市":
-                return "台南市"
-              case "嘉義市":
-                return "嘉義市"
-              case "嘉義縣":
-                return "嘉義縣"
-              case "屏東縣":
-                return "屏東縣"
-              case "宜蘭縣":
-                return "宜蘭縣"
-              case "花蓮縣":
-                return "花蓮縣"
-              case "臺東縣":
-                return "臺東縣"
-              case "澎湖縣":
-                return "澎湖縣"
-              case "金門縣":
-                return "金門縣"
-              case "連江縣":
-                return "連江縣"
-              default:
-                break;
-            }
-          })
-          .join(" ")
+        // const clearcitystate = Object.keys(checkedState)
+        //   .filter((key) => checkedState[key])
+        //   .map((key) => {
+        //     switch (key) {
+        //       case "台北市":
+        //         return "台北市"
+        //       case "新北市":
+        //         return "新北市"
+        //       case "桃園市":
+        //         return "桃園市"
+        //       case "基隆市":
+        //         return "基隆市"
+        //       case "新竹市":
+        //         return "新竹市"
+        //       case "新竹縣":
+        //         return "新竹縣"
+        //       case "彰化縣":
+        //         return "彰化縣"
+        //       case "南投縣":
+        //         return "南投縣"
+        //       case "雲林縣":
+        //         return "雲林縣"
+        //       case "高雄市":
+        //         return "高雄市"
+        //       case "台南市":
+        //         return "台南市"
+        //       case "嘉義市":
+        //         return "嘉義市"
+        //       case "嘉義縣":
+        //         return "嘉義縣"
+        //       case "屏東縣":
+        //         return "屏東縣"
+        //       case "宜蘭縣":
+        //         return "宜蘭縣"
+        //       case "花蓮縣":
+        //         return "花蓮縣"
+        //       case "臺東縣":
+        //         return "臺東縣"
+        //       case "澎湖縣":
+        //         return "澎湖縣"
+        //       case "金門縣":
+        //         return "金門縣"
+        //       case "連江縣":
+        //         return "連江縣"
+        //       default:
+        //         break;
+        //     }
+        //   })
+        //   .join(" ")
 
-        const clearbudgetstate = Object.keys(allstate)
-          .filter((key) => allstate[key])
+        const clearbudgetstate = Object.keys(budgetstate)
+          .filter((key) => budgetstate[key])
           .map((key) => {
             switch (key) {
               case "五千":
@@ -497,7 +456,6 @@ function Findcase() {
           })
           .join("，");
         setBudgetid(clearbudgetstate);
-        setCityid(clearcitystate);
 
 
 
@@ -629,6 +587,7 @@ function Findcase() {
 
 
 
+        setCityid(countryQuery.replaceAll(","," "));
 
 
 
@@ -638,7 +597,7 @@ function Findcase() {
 
     };
     fetchDataNew();
-  }, [allstate, casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [ casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
   // 
 
@@ -773,7 +732,7 @@ function Findcase() {
                   name="台北市"
                   id="台北市"
                   onChange={handlechangecity}
-                  checked={allstate["台北市"] === true}
+                  checked={checkedState["台北市"] === true}
                 >
                 </input>
                 &nbsp;&nbsp;台北市
@@ -782,7 +741,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["新北市"] === true}
+                  checked={checkedState["新北市"] === true}
                   name="新北市"
                   id="新北市"
                 >
@@ -793,7 +752,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["桃園市"] === true}
+                  checked={checkedState["桃園市"] === true}
                   name="桃園市"
                   id="桃園市"
                 >
@@ -804,7 +763,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["基隆市"] === true}
+                  checked={checkedState["基隆市"] === true}
                   name="基隆市"
                   id="基隆市"
                 >
@@ -815,7 +774,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["新竹市"] === true}
+                  checked={checkedState["新竹市"] === true}
                   name="新竹市"
                   id="新竹市"
                 >
@@ -826,7 +785,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["新竹縣"] === true}
+                  checked={checkedState["新竹縣"] === true}
                   name="新竹縣"
                   id="新竹縣"
                 >
@@ -837,7 +796,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["彰化縣"] === true}
+                  checked={checkedState["彰化縣"] === true}
                   name="彰化縣"
                   id="彰化縣"
                 >
@@ -848,7 +807,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["南投縣"] === true}
+                  checked={checkedState["南投縣"] === true}
                   name="南投縣"
                   id="南投縣"
                 >
@@ -859,7 +818,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["雲林縣"] === true}
+                  checked={checkedState["雲林縣"] === true}
                   name="雲林縣"
                   id="雲林縣"
                 >
@@ -870,7 +829,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["高雄市"] === true}
+                  checked={checkedState["高雄市"] === true}
                   name="高雄市"
                   id="高雄市"
                 >
@@ -881,7 +840,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["台南市"] === true}
+                  checked={checkedState["台南市"] === true}
                   name="台南市"
                   id="台南市"
                 >
@@ -892,7 +851,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["嘉義市"] === true}
+                  checked={checkedState["嘉義市"] === true}
                   name="嘉義市"
                   id="嘉義市"
                 >
@@ -903,7 +862,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["嘉義縣"] === true}
+                  checked={checkedState["嘉義縣"] === true}
                   name="嘉義縣"
                   id="嘉義縣"
                 >
@@ -914,7 +873,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["屏東縣"] === true}
+                  checked={checkedState["屏東縣"] === true}
                   name="屏東縣"
                   id="屏東縣"
                 >
@@ -925,7 +884,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["宜蘭縣"] === true}
+                  checked={checkedState["宜蘭縣"] === true}
                   name="宜蘭縣"
                   id="宜蘭縣"
                 >
@@ -936,7 +895,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["花蓮縣"] === true}
+                  checked={checkedState["花蓮縣"] === true}
                   name="花蓮縣"
                   id="花蓮縣"
                 >
@@ -947,7 +906,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["臺東縣"] === true}
+                  checked={checkedState["臺東縣"] === true}
                   name="臺東縣"
                   id="臺東縣"
                 >
@@ -958,7 +917,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["澎湖縣"] === true}
+                  checked={checkedState["澎湖縣"] === true}
                   name="澎湖縣"
                   id="澎湖縣"
                 >
@@ -969,7 +928,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["金門縣"] === true}
+                  checked={checkedState["金門縣"] === true}
                   name="金門縣"
                   id="金門縣"
                 >
@@ -980,7 +939,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangecity}
-                  checked={allstate["連江縣"] === true}
+                  checked={checkedState["連江縣"] === true}
                   name="連江縣"
                   id="連江縣"
                 >
@@ -1001,7 +960,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
-                  checked={allstate["五千"] === true}
+                  checked={budgetstate["五千"] === true}
                   name="五千"
                   id="五千以下"
                 >
@@ -1012,7 +971,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
-                  checked={allstate["一萬"] === true}
+                  checked={budgetstate["一萬"] === true}
                   name="一萬"
                   id="五千到一萬"
                 >
@@ -1023,7 +982,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
-                  checked={allstate["五萬"] === true}
+                  checked={budgetstate["五萬"] === true}
                   name="五萬"
                   id="一萬到五萬"
                 >
@@ -1034,7 +993,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
-                  checked={allstate["十萬"] === true}
+                  checked={budgetstate["十萬"] === true}
                   name="十萬"
                   id="五萬到十萬"
                 >
@@ -1045,7 +1004,7 @@ function Findcase() {
                 <input
                   type="checkbox"
                   onChange={handlechangebudget}
-                  checked={allstate["三十萬"] === true}
+                  checked={budgetstate["三十萬"] === true}
                   name="三十萬"
                   id="十到三十萬  "
                 >
@@ -1111,8 +1070,8 @@ function Findcase() {
               </Link>
               <br />
               <div style={{ display: (typeid == null ? "none" : "") }}>類別：<strong >「{typeid}」</strong></div>
-              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{  }}>「{cityid}」</strong></Fragment>}<br />
-              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{  }}>「{budgetid}」</strong></Fragment>}
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{}}>「{cityid}」</strong></Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{}}>「{budgetid}」</strong></Fragment>}
             </>
             : null}
         </div>
