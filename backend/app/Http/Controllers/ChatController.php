@@ -43,20 +43,18 @@ class ChatController extends Controller
             ->orWhere('receiver_id', $senderId)
             ->get();
 
-
         return response()->json($messages);
     }
 
     public function Getmessage(Request $request)
     {
         $senderId = Auth::id();
-        // $receiverId = $request->receiverId;
+        $receiverId = $request->receiverId;
         $messages = DB::table('chat')
             ->select('sender_id', 'receiver_id', 'content', 'sending_time')
-            ->orWhere('sender_id', $senderId)
-            ->orWhere('receiver_id',$senderId)
+            ->whereIn('sender_id', [$senderId,$receiverId])
+            ->WhereIn('receiver_id',[$senderId,$receiverId])
             ->get();
-
 
         return response()->json($messages);
     }

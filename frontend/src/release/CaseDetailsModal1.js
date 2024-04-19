@@ -6,7 +6,7 @@ import { CaseContext } from "./MainScreen2";
 
 
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
-  //useContext from Mainscreen
+  // useContext from Mainscreen
   const { fetchData } = useContext(CaseContext);
 
   const [nameOfCase, setNameOfCase] = useState("");
@@ -44,15 +44,13 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       }),
     })
     .then((res) => {
-        console.log(res);
+        // console.log(res);
         onHide();
         fetchData();
     })
     .catch((error) => {
         console.error('There was a problem updating the case:', error);
     });  
-
-
 
     if (!emailError) {
       // setNameOfCase("");
@@ -69,6 +67,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       console.error("Form submission error: Email format is incorrect.");
     }
   };
+
   useEffect(() => {
     if (data && data.length > 0) {
       setNameOfCase(data[number].d_name);
@@ -97,6 +96,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
     return null; // Render nothing if data is empty or undefined
   }
 
+
   return (
     <Modal
       show={show}
@@ -116,7 +116,6 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               placeholder="填寫案件名稱"
               value={nameOfCase}
               onChange={(e) => setNameOfCase(e.target.value)}
-
               required
             />
           </Form.Group>
@@ -298,5 +297,6 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
     </Modal>
   );
 };
+
 
 export default CaseDetailsModal1;

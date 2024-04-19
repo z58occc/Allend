@@ -34,12 +34,14 @@ const Star1 = ({ onRatingChange }) => {
     return stars;
   };
 
+
   return (
     <div className="star-rating">
       <strong>輸入評價：</strong>{renderStars()}
     </div>
   );
 };
+
 
 export default Star1;
 

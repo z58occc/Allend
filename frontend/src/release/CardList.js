@@ -52,7 +52,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
     setSelectedDataKey(index);
   };
   // 全選功能
-  console.log(data1);
+  // console.log(data1);
   const [checked, setChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState(Array.from(data1).fill(false)); //設置selectedItems為空陣列，裡面為被選到的index值
   useEffect(() => {
@@ -62,10 +62,10 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
     const hasSelected = selectedItems.some(item => item === true);
     setDisabledDeleteButton(!hasSelected);
   }, [selectedItems]);
-  //刪除disable
+  // 刪除disable
   const [disabledDeleteButton, setDisabledDeleteButton] = useState(true);
 
-  console.log(selectedItems);
+  // console.log(selectedItems);
   const handleChecked = (index) => {
     const newSelectedItems = [...selectedItems];
     newSelectedItems[index] = !newSelectedItems[index];
@@ -81,7 +81,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
     setSelectedItems(newSelectedItems);
   };
 
-  //刪除
+  // 刪除
   const [deletedIndex, setDeletedIndex] = useState([]);
 
   let deletedData = [];
@@ -115,14 +115,14 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         handleClosedDeletedModal();
         setChecked(false);
       })
-      console.log(updateData);
-      console.log(selectedItems);
+      // console.log(updateData);
+      // console.log(selectedItems);
       if (!response.ok) {
         throw new Error('Failed to delete data');
       }
 
       const responseData = await response.json();
-      console.log('Response data:', responseData);
+      // console.log('Response data:', responseData);
 
     } catch (error) {
       console.error('Error deleting data:', error);
@@ -150,7 +150,6 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
 
     fetch(`http://127.0.0.1/Allend/backend/public/api/pop_quote?did=${did}`, {
       method: "GET",
-      // params:{},
       headers: { Authorization: `Bearer ${Cookies.get("token")}` },
     })
       .then((res) => res.json())
@@ -255,8 +254,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
           className={`${styles.deletecollectionchecked}`}
           onClick={() => handleDeletedModal()}
           disabled={disabledDeleteButton}
-        ><FaTrashAlt size={16} />
-          刪除
+        >
+          <FaTrashAlt size={16} />刪除
         </Button>
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
@@ -323,8 +322,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                     width: "110px",
                     fontSize: "12px",
                     whiteSpace: "nowrap",
-                    marginTop: "auto", // 將上方的 margin 設為 auto
-                    marginBottom: "40px", // 調整下方的 margin
+                    marginTop: "auto",
+                    marginBottom: "40px",
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -346,8 +345,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                     width: item.demmand_comment ? "120px" : "110px",
                     fontSize: "12px",
                     whiteSpace: "nowrap",
-                    marginTop: "auto", // 將上方的 margin 設為 auto
-                    marginBottom: "40px", // 調整下方的 margin
+                    marginTop: "auto",
+                    marginBottom: "40px",
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -406,7 +405,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
 
       <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
         <Modal.Header closeButton>
-          <Modal.Title>{/* 標題內容 */}</Modal.Title>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
           確定刪除所選案件?

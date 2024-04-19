@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
@@ -8,6 +8,8 @@ import axios from 'axios';
 import Footer from '../homepage/Footer';
 import Stick from './Stick';
 import "./Serve.css";
+import { IsLoggedInContext } from "../App";
+import ChatButton from './ChatButtom';
 
 
 function Serve() {
@@ -15,6 +17,14 @@ function Serve() {
   const { sid } = useParams();
   const [serve, setServe] = useState([]);
   const navigate = useNavigate()
+
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
+
 
   useEffect(() => {
     const fetchService = async () => {
@@ -61,31 +71,34 @@ function Serve() {
               <div style={{ width: "440px", height: "300px" }}>
                 <img src={`data:image/jpeg;base64,${serve.service[0].image}`} alt="" style={{ width: "100%", height: "100%" }}></img>
               </div>
-              <div style={{ width: "500px", height: "300px", alignContent: 'start', textAlign: 'left', paddingLeft: '50px' }}>
+              <div style={{ width: "500px", height: "300px", alignContent: 'start', textAlign: 'left', paddingLeft: '50px',fontSize: "25px" }}>
                 <div style={{ height: "35px" }}>服務名稱：{serve.service && serve.service[0].s_name}</div>
                 <div style={{ height: "35px" }}>服務報價：{serve.service && serve.service[0].s_amount}&nbsp;/&nbsp;{serve.service && serve.service[0].s_unit}</div>
                 <div style={{ height: "35px" }}>評分：{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}</div>
                 <div style={{ height: "35px" }}>服務地點：{serve.service && serve.service[0].country_city}<br></br></div>
-                <div style={{ height: "35px" }}><Button>及時詢問</Button></div>
+                <div style={{ height: "35px" }}>                            
+                <div onClick={isLoggedIn ? ()=>toggleChat(mid) : handleShow} className='text-center p-2'>
+                                        <ChatButton /></div>
+                </div>
               </div>
             </div>
             }
 
             <Tabs
-              defaultActiveKey="profile"
+              defaultActiveKey="home"
               id="uncontrolled-tab-example"
               className="mb-3 mt-5"
               style={{ borderBottom:'1px solid black' }}
               variant="red"
             >
 
-              <Tab eventKey="home" title="服務內容" style={{ height: 250, backgroundColor: "#FCFCFC", borderRadius: "5px" }}
+              <Tab eventKey="home" title="服務內容" style={{ height: 250, backgroundColor: "#FCFCFC", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)" }}
                 tabClassName="home-tab">
-                <div style={{ whiteSpace: 'pre-wrap' }}>
+                <div style={{ whiteSpace: 'pre-wrap',fontSize: "30px" ,paddingTop: "15px",paddingLeft:"10px"}}>
                   {serve.service && serve.service[0].s_description}
                 </div>
               </Tab>
-              <Tab eventKey="profile" title="服務評價" style={{ height: 250, backgroundColor: "#FCFCFC", borderRadius: "5px" }}
+              <Tab eventKey="profile" title="服務評價" style={{ height: 250, backgroundColor: "#FCFCFC", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)" }}
                 tabClassName="profile-tab">
                 {serve.service_comments && serve.service_comments.map((item, index) => (
                 <div key={index} style={{ border: 'solid' }} className='mt-5'>

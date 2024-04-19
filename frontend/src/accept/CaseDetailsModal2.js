@@ -2,11 +2,23 @@ import {React, useContext, useState}from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
+import { IsLoggedInContext } from "../App";
+
+
 const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
   const {fetchData} = useContext(CaseContext);
   const [ButtonName,setButtonName] = useState('提交案件');
   const [isDisabled,setIsDisabled] = useState(false);
   const [Color,setColor] = useState("info");
+
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
+
+
   const submit = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/take_submit?cid=${cid}`,{
       method: 'GET',
@@ -71,7 +83,7 @@ const CaseDetailsModal2 = ({ show, onHide ,number,data}) => {
           </div>
         </div>
         <div className="d-grid gap-2">
-          <Button variant="primary" size="lg">
+          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_demmand) : handleShow} variant="primary" size="lg">
             聯絡案主
           </Button>
           {data[number].c_status !== 3 

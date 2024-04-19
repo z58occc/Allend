@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/index', IndexController::class);
 // 查看我要接案
 Route::get('/findcase', IFindCaseController::class);
-// 查看我要找人.
+// 查看我要找人
 Route::get('/printservicecardcontent', IFindPeopleController::class);
 // 查看人才頁面
 Route::get('/talent', TalentController::class);
@@ -100,10 +100,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 // 重設密碼
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
-// 信箱驗證
-// Route::get('/verifyemail/{id}/{hash}', VerifyEmailController::class)
-//     ->middleware(['auth', 'throttle:6,1'])->name('verifyemail');
-// 重寄驗證信
+
+// 重寄驗證信 (信箱驗證在web)
 Route::post('/emailverification-notification', [EmailVerificationNotificationController::class, 'store'])
     ->middleware(['auth', 'throttle:6,1']);
 // 生成、驗證驗證碼
@@ -145,15 +143,15 @@ Route::controller(MemberInfoController::class)->group(function () {
 
     // 獲取服務管理頁面(服務、作品、影音)
     Route::get('/memservice', 'getServicePage');
-    // 新增服務--
+    // 新增服務
     Route::post('/addservice', 'addService');
     // 編輯服務
     Route::post('/updateservice', 'updateService');
     // 刪除服務
     Route::post('/delmemser', 'delService');
-    // 新增作品.
+    // 新增作品
     Route::post('/work', 'addWork');
-    // 編輯作品.
+    // 編輯作品
     Route::post('/upwork', 'updateWork');
     // 刪除作品
     Route::post('/delwork', 'delWork');
@@ -171,42 +169,3 @@ Route::controller(MemberInfoController::class)->group(function () {
     // 取消收藏
     Route::post('/delcollection', 'delCollection');
 });
-
-
-//會員服務管理，刪除
-// Route::get('/memservice',MemberServiceController::class);
-// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
-//會員接案紀錄，刪除
-// Route::get('/memberTakeCase',MemberTakeCaseController::class);
-// Route::post('/memberTakeCaseDelete',MemberTakeCaseDeleteController::class);
-//會員發案紀錄，刪除
-// Route::get('/publishCase',PublishCaseController::class);
-// Route::post('/publishCaseDelete',PublishCaseDeleteController::class);
-// 新增服務
-// Route::post('/service',ServiceController::class);
-// 新增作品
-// Route::post('/work',WorkController::class);
-// 新增影音
-// Route::post('/video',VideoController::class);
-// 會員服務管理、刪除
-// Route::get('/memservice',MemberServiceController::class);
-// Route::post('/memserviceDelete',MemberserviceDeleteController::class);
-// 會員接案紀錄
-// Route::get('/memTakeCase',MemberTakeCaseController::class);
-// Route::post('/updateservice', UpdateServiceController::class);
-// Route::post('/updateproject', UpdateProjectController::class);
-
-// 接發案內容
-// Route::get('/pulish_view', [AcceptanceIssueController::class,'getPublishedData']); //查看發案主的刊登中
-// Route::post('/pulish_save', [AcceptanceIssueController::class,'savePublishedData']); //編輯刊登中案件
-// Route::get('/publish_progress_view', [AcceptanceIssueController::class,'publishprogressData']); //查看發案主的進行中
-// Route::post('/publish_recevice', [AcceptanceIssueController::class,'receviceData']); //提交成果給發案主的按鈕
-// Route::get('/take_view', [AcceptanceIssueController::class,'takegetData']); //接案者的接案紀錄
-// Route::post('/take_save', [AcceptanceIssueController::class,'takesaveData']); //接案者的儲存變更按鈕
-// Route::get('/take_progress_view', [AcceptanceIssueController::class,'takeprogressData']); //接案者的進行中
-// Route::post('/take_submit', [AcceptanceIssueController::class,'submitData']); //接案者的提交按鈕
-// Route::post('/publicEvaluation', [AcceptanceIssueController::class,'publishEvaluation']); //發案者的評價按鈕
-// Route::post('/takeEvaluation', [AcceptanceIssueController::class,'takeEvaluation']); //接案者的評價按鈕
-
-// Route::get('/takeclose_view', [ClosethecaseController::class,'takeClose']); // 接案者看到的結案畫面
-// Route::get('/publishclose_view', [ClosethecaseController::class,'publishClose']); // 案主看到的最終結案畫面

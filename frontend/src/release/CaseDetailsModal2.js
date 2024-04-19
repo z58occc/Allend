@@ -3,15 +3,25 @@ import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import PayButton from "./paybutton"
+import { IsLoggedInContext } from "../App";
+
+
+
 
 
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
+  const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
   const [selectedCase, setSelectedCase] = useState({
     cid: '',
     c_name: '',
     c_amount: 0
   });
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
 
   const received = (cid) =>{
     fetch(`http://127.0.0.1/Allend/backend/public/api/publish_recevice?cid=${cid}`,{
@@ -109,7 +119,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           </div>
         </div>
         <div className="d-grid gap-2">
-          <Button variant="primary" size="lg">
+          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} variant="primary" size="lg">
             聯絡接案人
           </Button>
           {data[number].c_status === 3

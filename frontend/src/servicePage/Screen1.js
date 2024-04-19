@@ -1,13 +1,11 @@
 import React from 'react';
-// import { CaseProvider } from './CaseContext';
 import Provider from './provider';
 import Work from './Work';
 import Media from './Media';
 
 
-
 const Screen1 = ({data}) => {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <div class="d-flex flex-column justify-content-between" style={{ width: '100%', height: '100%',marginBottom:"12px",marginTop:"18px"}}>
@@ -18,7 +16,7 @@ const Screen1 = ({data}) => {
       
       </>
   );
-
 };
+
 
 export default Screen1;

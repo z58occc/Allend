@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
-import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
-import Footer from "../../../homepage/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Modal } from "react-bootstrap";
+import { IsLoggedInContext } from '../../../App'
+import Footer from "../../../homepage/Footer";
+import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
+
 
 // 接案者維護資料
 function FreelancerForm() {
+  const { setIsVerificationSent,setIsButtonDisabled,setCountdown, countdown, emailVerified } = useContext(IsLoggedInContext);
 
   const [formData, setFormData] = useState({
     identity: "",
@@ -93,6 +96,34 @@ function FreelancerForm() {
     // const isComplete = Object.values(formData).every((value) => value !== "");
     // setIsFormComplete(isComplete);
   };
+  // 送出驗證信
+  const sendVerificaitonEmail = async() => {
+    axios({
+      method: 'post',
+      url: "http://localhost/Allend/backend/public/api/emailverification-notification",
+      headers: { Authorization: `Bearer ${Cookies.get("token")}` }
+    })
+      .then((res) => {
+        setIsVerificationSent(true);
+        setCountdown(60);
+        setIsButtonDisabled(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    let timer = null;
+    if (countdown > 0) {
+      timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+        if (countdown === 1) {
+        }
+      }, 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
   // 更新資料
   const handleSubmit = (e) => {
@@ -186,27 +217,6 @@ function FreelancerForm() {
                 </Form.Group>
                 {/* 身分 */}
 
-                {/* 暱稱 */}
-                {/* {isFreelancer && (
-                  <Form.Group as={Row}>
-                    <Form.Label column sm={6}>
-                      暱稱：
-                    </Form.Label>
-                    {isFreelancer && (
-                      <Col sm={6}>
-                        <Form.Control
-                          type="text"
-                          name="nickname"
-                          value={formData.nickname}
-                          onChange={handleChange}
-                          placeholder="請輸入暱稱"
-                        />
-                      </Col>
-                    )}
-                  </Form.Group>
-                )} */}
-                {/* 暱稱 */}
-
                 {/* 年資、接案地點 */}
                 <Form.Group as={Row}>
                   <Form.Label column sm={6}>
@@ -286,6 +296,15 @@ function FreelancerForm() {
                   </Form.Label>
                   <Form.Label column sm={6}>
                     電子郵件：
+                    {!emailVerified
+                    ?
+                      <>{countdown > 0
+                      ? <span style={{backgroundColor: 'whitesmoke', padding: '0.5rem'}}>等待重新發送({countdown})</span>
+                      : <span style={{cursor:'pointer', backgroundColor: 'white', padding: '0.5rem', borderRadius: '10px'}} onClick={sendVerificaitonEmail}>發送驗證信件</span>
+                      }</>
+                    :
+                      <></> 
+                    } 
                   </Form.Label>
                 </Form.Group>
 
@@ -496,5 +515,6 @@ function FreelancerForm() {
     </>
   );
 }
+
 
 export default FreelancerForm;

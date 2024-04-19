@@ -10,10 +10,19 @@ import './GetQuoteModal.css';
 function GetQuoteModal({ show, onHide, data }) {
   // 
   const [successshow, setSuccessshow] = useState(false);
-  const close =  () => {
+  const close = () => {
     setSuccessshow(false);
   }
   // 
+
+
+  const { isLoggedIn, setIsLoggedIn, handleShow, showChat, setShowChat, setSelectedItemMid } = useContext(IsLoggedInContext);
+
+  const toggleChat = (mid) => {
+    setShowChat(!showChat);
+    setSelectedItemMid(mid);
+  };
+
   const { fetchData } = useContext(CaseContext);
   const [datas, setDatas] = useState(true);
   const [dataIndex, setDataIndex] = useState("")
@@ -43,7 +52,7 @@ function GetQuoteModal({ show, onHide, data }) {
         setTimeout(() => {
           close();
         }, 3000);
-        
+
         // onHide();
       })
       .catch((error) => {
@@ -80,7 +89,7 @@ function GetQuoteModal({ show, onHide, data }) {
       <Modal.Header closeButton>
         <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="quotedetail">
+      <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
         {data && data.length !== 0
           ?
           (
@@ -96,10 +105,10 @@ function GetQuoteModal({ show, onHide, data }) {
                 </tr>
               </thead>
               <tbody>
+                
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
-                    <td><Link to={`/talent/${item.mid}`} style={{color:"blue"}}>{item.name}</Link>
-                    </td>
+                    <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>{item.identity}</td>
                     <td>{item.q_amount}</td>
@@ -120,10 +129,7 @@ function GetQuoteModal({ show, onHide, data }) {
                         >
                           拒絕
                         </Button>
-                        <Button
-                          variant="secondary"
-                          style={{ fontSize: "12px", whiteSpace: "nowrap" }}
-                        >
+                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} variant="secondary" style={{ fontSize: "12px", whiteSpace: "nowrap" }} >
                           聊聊
                         </Button>
                       </div>

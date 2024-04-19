@@ -15,3 +15,13 @@
   background-color: white;
   /* 添加任何其他你想要的样式 */
 }
+
+.links {
+  text-decoration: none;
+}
+.toast:hover > .toast-header {
+  color: darkcyan;
+}
+.toast:hover > .toast-body {
+  color: black;
+}

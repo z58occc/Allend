@@ -11,6 +11,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { PiSignOutFill } from "react-icons/pi";
 import ourLogo from "./homepage/ourLogo.jpg";
 import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
@@ -28,10 +29,11 @@ import MainScreen3 from "./servicePage/MainScreen3";
 import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import CallbackHandler from "./homepage/CallbackHandler";
-import "./App.css";
 import Closechat from "./Components/Closechat";
 import ForgotPassword from "./detail/ForgotPassword";
 import VerifyEmail from "./detail/VerifyEmail";
+import "./App.css";
+
 
 export const IsLoggedInContext = createContext()
 
@@ -41,7 +43,10 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //聊天室窗狀態
+  const [isGoogle, setIsGoogle] = useState(0);
+  const [emailVerified, setEmailVerified] = useState(0);
+  
+  //聊天視窗狀態
   const [showChat, setShowChat] = useState(false);
   const [selectedItemMid, setSelectedItemMid] = useState(null);
 
@@ -177,9 +182,9 @@ function App() {
 
   const clickOut = () => {
     axios({
-      method:'post',
+      method: 'post',
       url: "http://localhost/Allend/backend/public/api/logout",
-      headers:{ Authorization: `Bearer ${Cookies.get('token')}` }
+      headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
   }
   // 自動登出處理
@@ -252,7 +257,7 @@ function App() {
   const navigate = useNavigate();
   const LoginName = useRef();
   const LoginPassword = useRef();
-  const [rememberPassword, setRememberPassword] = useState(false);
+
 
   // 一般登入
   const handleLogin = async () => {
@@ -275,13 +280,12 @@ function App() {
       if (error.response) {
         setErrorMessage(error.response.data.error);
       } else {
-        console.error('An error occurred while logging in:', error.message);
         setErrorMessage('登入失敗');
       }
     }
   };
 
-  // 取得會員email
+  // 取得會員email、provider、verified
   const fetchMemberEmail = async () => {
     try {
       const response = await axios.get("http://localhost/Allend/backend/public/api/user/email", {
@@ -290,8 +294,10 @@ function App() {
         },
       });
       setMemberEmail(response.data);
+      setIsGoogle(response.data.provider)
+      setEmailVerified(response.data.verified)
     } catch (error) {
-      console.error('Failed to fetch member email:', error);
+      // console.error('Failed to fetch member email:', error);
     }
   };
 
@@ -344,7 +350,7 @@ function App() {
   const [togglename, setTogglename] = useState("找案件");
 
   const handleInputChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setInputvalue(event.target.value);
   }
   const search = () => {
@@ -354,17 +360,68 @@ function App() {
     setTogglename(event.target.value);
   };
 
-  //增加 Enter鍵 效果
-  // const handleKeyPress = (event) => {
-  //   if (event.key === 'Enter') {
-  //     handleLogin(); // 調用登入函數
-  //     handleRegister();
-  //   }
-  // };
+  // 登入註冊 enter 效果
+  const loginButtonRef = useRef(null);
+  const registerButtonRef = useRef(null);
+
+  useEffect(() => {
+    // 定义键盘事件处理函数
+    const handleKeyDown = (event) => {
+      // 检查是否按下了 Enter 键
+      if (event.key === 'Enter' || event.keyCode === 13) {
+        // 阻止默認行為（例如表單提交）
+        event.preventDefault();
+        // 如果登录按钮存在，则触发其点击事件
+        if (loginButtonRef.current) {
+          loginButtonRef.current.click();
+        }
+      }
+    };
+
+    // 添加键盘事件监听器
+    window.addEventListener('keydown', handleKeyDown);
+
+    // 在组件卸载时清除监听器
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    // 定义键盘事件处理函数
+    const handleKeyDown = (event) => {
+      // 检查是否按下了 Enter 键
+      if (event.key === 'Enter' || event.keyCode === 13) {
+        // 阻止默認行為（例如表單提交）
+        event.preventDefault();
+        // 如果注册按钮存在，则触发其点击事件
+        if (registerButtonRef.current) {
+          registerButtonRef.current.click();
+        }
+      }
+    };
+
+    // 添加键盘事件监听器
+    window.addEventListener('keydown', handleKeyDown);
+
+    // 在组件卸载时清除监听器
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // 登入註冊 enter 效果
+
+  // 增加註冊modal上返回登入
+  const handleBackToLogin = () => {
+    setShowRegister(false); // 關閉註冊模態視窗
+    setShowLogin(true); // 打開登入模態視窗
+  };
+
 
 
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown }}>
 
       <div
         className="p-1"
@@ -475,7 +532,7 @@ function App() {
         </div>
       </nav >
 
-      {isLoggedIn ? (showChat ? (<PublicMessagesPage receiverId={selectedItemMid} />) : <Closechat/>) : (handleShow)}
+      {isLoggedIn ? (showChat ? (<PublicMessagesPage receiverId={selectedItemMid} />) : <Closechat />) : (handleShow)}
       <Routes>
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
@@ -505,7 +562,7 @@ function App() {
 
 
       {/* 登入 */}
-      <Modal show={showLogin} onHide={handleClose} centered className="custom-modal">
+      <Modal show={showLogin} onHide={handleClose} centered className="custom-modal" >
         <Modal.Header closeButton style={{ borderBottom: '1px solid black' }}>
           <div className="row justify-content-center w-100">
             <div className="col text-center" >
@@ -518,57 +575,45 @@ function App() {
             <div className="col-12">
               <div className="row ">
                 <div className="col-sm-12 ">
-                  <Form.Label>帳號{errorMessage && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorMessage}</span>}</Form.Label>
+                  <Form.Label style={{fontSize: "20px"}}>帳號{errorMessage && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorMessage}</span>}</Form.Label>
                   <InputGroup>
                     <InputGroup.Text controlId="formBasicEmail">< FaUser /></InputGroup.Text>
                     <Form.Control
                       type="email"
                       placeholder="Enter email"
                       ref={LoginName}
-                      //onKeyPress={handleKeyPress} // 添加事件處理程序
+
                     />
                   </InputGroup>
                 </div>
 
-                <div className="col-sm-12">
-                  <Form.Label>密碼</Form.Label>
+                <div className="col-sm-12" style={{marginTop: "15px"}}>
+                  <Form.Label style={{fontSize: "20px"}}>密碼</Form.Label >
                   <InputGroup >
                     <InputGroup.Text controlId="formBasicPassword"><RiLockPasswordFill /></InputGroup.Text>
                     <Form.Control
                       type="password"
                       placeholder="Password"
                       ref={LoginPassword}
-                      //onKeyPress={handleKeyPress} // 添加事件處理程序
+
                     />
                   </InputGroup>
-
-                  <Form.Group className="mb-3">
-                    <Form.Check
-                      type="checkbox"
-                      id="rememberPassword"
-                      label="Remember Password"
-                      className="mt-2"
-                      style={{ color: "#FCFCFC" }}
-                      checked={rememberPassword}
-                      onChange={(e) => setRememberPassword(e.target.checked)}
-                    />
-                  </Form.Group>
                 </div>
               </div>
 
-              <div className="col-sm-12 d-flex flex-column align-items-center">
-                <div className="mb-12 " style={{ textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                  <Button variant="primary" onClick={handleLogin} id="login" style={{ borderRadius: '20px', height: "40px", fontSize: "20px", width: "420px" }}>
+              <div className="col-sm-12 d-flex flex-column align-items-center" >
+                <div className="mb-12 " style={{ textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: "18px" }}>
+                  <Button variant="primary" onClick={handleLogin} ref={loginButtonRef} style={{ borderRadius: '20px', height: "40px", fontSize: "20px", width: "420px" }}>
                     登入
                   </Button>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                  <Form.Text style={{ flexGrow: 1 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "15px" }}>
+                  <Form.Text style={{ flexGrow: 1, fontSize: "18px" }}>
                     <a href="/forgot-password" onClick={toForgotPassword}>
                       忘記密碼?
                     </a>
                   </Form.Text>
-                  <Form.Text style={{ flexGrow: 1, textAlign: 'right' }}>
+                  <Form.Text style={{ flexGrow: 1, textAlign: 'right', fontSize: "18px" }}>
                     <a href="/Register" onClick={toRegister}>
                       立即註冊
                     </a>
@@ -607,7 +652,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>Email<span style={{ padding: '20px', color: "red" }}>{Forgetmessage}</span></Form.Label>
+            <Form.Label style={{fontSize: "20px"}}>Email<span style={{ padding: '20px', color: "red" }}>{Forgetmessage}</span></Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
@@ -632,7 +677,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label>帳號 {errorRegister && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorRegister}</span>}</Form.Label>
+            <Form.Label style={{fontSize: "20px",marginTop: "10px"}}>帳號 {errorRegister && <span style={{ color: 'red', paddingLeft: '20px' }}>{errorRegister}</span>}</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formBasicEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
@@ -641,14 +686,14 @@ function App() {
                 required
                 ref={RegisterEmail}
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"// Regular expression for email forma
-                //onKeyPress={handleKeyPress} // 添加事件處理程序
+
               />
               <Form.Control.Feedback type="invalid">
                 請輸入有效的電子郵件
               </Form.Control.Feedback>
             </InputGroup>
 
-            <Form.Label>密碼</Form.Label>
+            <Form.Label style={{fontSize: "20px",marginTop: "10px"}}>密碼</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formBasicPassword"><FaUserLock /></InputGroup.Text>
               <Form.Control
@@ -656,25 +701,31 @@ function App() {
                 placeholder="請輸入超過8位數"
                 required
                 ref={RegisterPassword}
-                //onKeyPress={handleKeyPress} // 添加事件處理程序
+
               />
             </InputGroup>
 
-            <Form.Label>確認密碼</Form.Label>
+            <Form.Label style={{fontSize: "20px",marginTop: "10px"}}>確認密碼</Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formBasicConfirmedPassword"><FaLock /></InputGroup.Text>
               <Form.Control
                 type="password"
                 placeholder="Confirmed Password"
                 ref={RegisterConfPassword}
-                //onKeyPress={handleKeyPress} // 添加事件處理程序
+
               />
             </InputGroup>
             <br />
-            <Button variant="info" onClick={handleRegister}>
-              提交
-            </Button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Button variant="info" onClick={handleRegister} ref={registerButtonRef}>
+                提交
+              </Button>
+              <Button onClick={handleBackToLogin}>
+                返回登入 <PiSignOutFill size={18} />
+              </Button>
+            </div>
           </Form>
+
         </Modal.Body>
       </Modal>
 
@@ -707,7 +758,7 @@ function App() {
             </div>
             <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
               {countdown > 0 ? (
-                <Button variant="success" disabled>重新發送({countdown})</Button>
+                <Button variant="success" disabled={isButtonDisabled}>重新發送({countdown})</Button>
               ) : (
                 <Button variant="success" onClick={handleResendVerification}>重新發送驗證郵件</Button>
               )}
