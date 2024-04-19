@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Button ,Modal} from 'react-bootstrap';
+import { Card, Button, Modal } from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import CaseDetailsModal1 from './CaseDetailsModal1'
 import CaseDetailsModal2 from './CaseDetailsModal2';
@@ -139,7 +139,11 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               {screen === 2
                 &&
                 <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
-                  <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap' }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
+                  <Button variant="primary" key={index} className="my-2" style={{
+                    width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto",
+                    marginBottom: "40px",
+                    padding: "0.8rem 1rem"
+                  }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     查看詳情
                   </Button>
                 </div>
@@ -147,13 +151,13 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               {screen === 1
                 &&
                 <div className="d-flex flex-column justify-content-center" >
-                  <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', marginTop: "auto", marginBottom: "40px" }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
+                  <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto", marginBottom: "40px", padding: "0.8rem 1rem" }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     編輯
                   </Button>
                   <Button
                     variant="secondary"
                     className="my-2 d-inline-block"
-                    style={{ width: '110px', fontSize: '12px', whiteSpace: 'nowrap', textAlign: 'center', visibility }}
+                    style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', textAlign: 'center', visibility, padding: "0.8rem 1rem" }}
                     onClick={() => { handleDeletedModal() }}
                   >
                     棄件
@@ -161,12 +165,17 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 </div>
               }
               {screen === 3 && (
-                <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
+                <div className="d-flex flex-column justify-content-center">
                   <Button
                     variant="primary"
                     key={index}
                     className="my-2"
-                    style={{ width: item.service_comment ? "120px" : "110px", fontSize: '12px', whiteSpace: 'nowrap' }}
+                    style={{
+                      width: item.service_comment ? "120px" : "110px", fontSize: '18px', whiteSpace: 'nowrap', padding: "0.8rem 1rem",
+                      borderRadius: '15px',
+                      marginTop: "auto",
+                      marginBottom: "40px"
+                    }}
 
                     onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }}
                     disabled={item.service_comment ? true : false}
@@ -178,22 +187,22 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
 
             </div>
             {/* 棄件MODAL */}
-      <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
-        <Modal.Header closeButton>
-          <Modal.Title>{/* 標題內容 */}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-          確定捨棄此案件?
-        </Modal.Body>
-        <Modal.Footer className="d-flex justify-content-center">
-          <Button variant="danger" onClick={() => { handleDeleted(item.qid) }}>
-            確定
-          </Button>
-          <Button variant="secondary" onClick={handleClosedDeletedModal}>
-            關閉
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+              <Modal.Header closeButton>
+                <Modal.Title>{/* 標題內容 */}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+                確定捨棄此案件?
+              </Modal.Body>
+              <Modal.Footer className="d-flex justify-content-center">
+                <Button variant="danger" onClick={() => { handleDeleted(item.qid) }}>
+                  確定
+                </Button>
+                <Button variant="secondary" onClick={handleClosedDeletedModal}>
+                  關閉
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Card>
         ))}
 

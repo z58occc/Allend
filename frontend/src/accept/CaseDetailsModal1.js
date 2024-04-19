@@ -49,7 +49,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
       {data.length === 0
         ? " "
         :
-        <Modal show={show} onHide={onHide} style={{ width: '450px', marginInline: '550px' }}>
+        <Modal show={show} onHide={onHide} className="row justify-content-center w-100">
           <Modal.Header closeButton>
             <Modal.Title>案件資訊</Modal.Title>
           </Modal.Header>
@@ -105,7 +105,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
 
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" size="lg" 
+              <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} 
                 onClick={(e) => {
                   e.preventDefault(); // Prevent default form submission
                   handleSubmit(e); // Pass the event object to handleSubmit
@@ -113,7 +113,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
               >
                 儲存變更
               </Button>
-              <Button variant="secondary" size="lg" onClick={onHide}>
+              <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={onHide}>
                 取消
               </Button>
             </div>

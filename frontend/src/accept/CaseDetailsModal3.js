@@ -97,10 +97,10 @@ const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
               </div>
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" size="lg" onClick={()=>handleRating()}>
+              <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={()=>handleRating()}>
                 評價提交
               </Button>
-              <Button variant="secondary" onClick={onHide}>
+              <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={onHide}>
                 關閉
               </Button>
             </div>

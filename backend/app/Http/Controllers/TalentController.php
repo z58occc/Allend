@@ -38,10 +38,8 @@ class TalentController extends Controller
         $establised_query = DB::table('established_case as e')
                                 ->join('members as d','d.mid', '=','e.mid_demmand')
                                 ->join('members as s','s.mid', '=','e.mid_service')
-                                ->select('demmand_star', 'demmand_time', 'demmand_comment', 'c_name', 'completed_time', 'mid_demmand','service_comment','service_time','d.avatar as d_avatar','s.avatar as s_avatar')
-                                // ->joinSub($subquery, 'sub', function ($join) {
-                                //     $join->on('established_case.mid_service', '=', 'sub.mid_service');
-                                // })
+                                ->select('d.name as d_name','demmand_star', 'demmand_time', 'demmand_comment', 'c_name', 'completed_time', 'mid_demmand','service_comment','service_time','d.avatar as d_avatar','s.avatar as s_avatar')
+
                     ->where('e.mid_service', $mid)
                     ->whereNotNull('demmand_star') // 如果 demmand_star 是 NULL，將其排除
                     ->whereNotNull('demmand_time')
@@ -62,7 +60,8 @@ class TalentController extends Controller
                             ->count();
         $case_member = DB::table('established_case as e')
                             ->join('members as m','m.mid', '=','e.mid_service')
-                            ->select('e.c_name','m.name',DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
+                            ->join('members as d','d.mid', '=','e.mid_demmand')
+                            ->select('d.name as d_name','e.c_name','m.name',DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
                             ->where('mid_service', $mid)
                             ->where('c_status',2);
 

@@ -385,55 +385,7 @@ function Findcase() {
     const fetchDataNew = async () => {
 
       try {
-        // const clearcitystate = Object.keys(checkedState)
-        //   .filter((key) => checkedState[key])
-        //   .map((key) => {
-        //     switch (key) {
-        //       case "台北市":
-        //         return "台北市"
-        //       case "新北市":
-        //         return "新北市"
-        //       case "桃園市":
-        //         return "桃園市"
-        //       case "基隆市":
-        //         return "基隆市"
-        //       case "新竹市":
-        //         return "新竹市"
-        //       case "新竹縣":
-        //         return "新竹縣"
-        //       case "彰化縣":
-        //         return "彰化縣"
-        //       case "南投縣":
-        //         return "南投縣"
-        //       case "雲林縣":
-        //         return "雲林縣"
-        //       case "高雄市":
-        //         return "高雄市"
-        //       case "台南市":
-        //         return "台南市"
-        //       case "嘉義市":
-        //         return "嘉義市"
-        //       case "嘉義縣":
-        //         return "嘉義縣"
-        //       case "屏東縣":
-        //         return "屏東縣"
-        //       case "宜蘭縣":
-        //         return "宜蘭縣"
-        //       case "花蓮縣":
-        //         return "花蓮縣"
-        //       case "臺東縣":
-        //         return "臺東縣"
-        //       case "澎湖縣":
-        //         return "澎湖縣"
-        //       case "金門縣":
-        //         return "金門縣"
-        //       case "連江縣":
-        //         return "連江縣"
-        //       default:
-        //         break;
-        //     }
-        //   })
-        //   .join(" ")
+       
 
         const clearbudgetstate = Object.keys(budgetstate)
           .filter((key) => budgetstate[key])
@@ -500,27 +452,7 @@ function Findcase() {
             }
           })
           .join(",");
-        // const budget = Object.keys(budgetstate)
-        //   .filter((key) => budgetstate[key])
-        //   .map((key) => {
-        //     switch (key) {
-        //       case "五千":
-        //         return "5千以下";
-        //       case "一萬":
-        //         return "5千到1萬";
-        //       case "五萬":
-        //         return "1萬到5萬";
-        //       case "十萬":
-        //         return "5萬到10萬";
-        //       case "三十萬":
-        //         return "10萬到30萬";
-
-        //       default:
-        //         break;
-        //     }
-        //   })
-        //   .join(",");
-
+        
         const countryQuery = Object.keys(checkedState)
           .filter((key) => checkedState[key])
           .map((key) => {
@@ -1098,7 +1030,7 @@ function Findcase() {
         <div >
           {currentPosts.map((post, index) => {
             return (
-              <div>
+              <div style={{marginBottom:'1.5rem'}}>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
@@ -1110,24 +1042,20 @@ function Findcase() {
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
                       </Link>
                     </Col>
-                    <Col xs={6} >
-                      <div style={{ marginTop: "10px" }}>{post.d_description}</div>
+                    <Col>
+                      <div className="description">{post.d_description}</div>
                     </Col>
-                    <Col >
-
-                    </Col>
-                    <Col xs={1} style={{ backgroundColor: "white" }}>
-                      <div style={{ textAlign: "start", fontSize: "13px", marginTop: "20px" }}>
+                    <Col xs={1} style={{ backgroundColor: "white", flexDirection:'column', padding:'1.2rem 0 0.5rem 1.2rem'}}>
+                      <div style={{  fontSize: "13px" }}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
+                        <Button style={{ fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
-                      {/* onClick={isLoggedIn ? () => { handlePopShow() } : handleShow} */}
-                      {/* handleShow(index) */}
+
                     </Col>
                   </Row>
                 </div>
