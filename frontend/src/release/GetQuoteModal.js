@@ -3,6 +3,9 @@ import { Modal, Button, Table } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import { CiCircleCheck } from "react-icons/ci";
+import { Link } from "react-router-dom";
+import './GetQuoteModal.css';
+
 
 function GetQuoteModal({ show, onHide, data }) {
   // 
@@ -73,11 +76,11 @@ function GetQuoteModal({ show, onHide, data }) {
       })
   }
   return (
-    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "lg" : "sm"}>
+    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"}>
       <Modal.Header closeButton>
         <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+      <Modal.Body className="quotedetail">
         {data && data.length !== 0
           ?
           (
@@ -95,7 +98,8 @@ function GetQuoteModal({ show, onHide, data }) {
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
-                    <td>{item.name}</td>
+                    <td><Link to={`/talent/${item.mid}`} style={{color:"blue"}}>{item.name}</Link>
+                    </td>
                     <td>{item.email}</td>
                     <td>{item.identity}</td>
                     <td>{item.q_amount}</td>

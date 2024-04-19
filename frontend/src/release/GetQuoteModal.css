@@ -1,0 +1,10 @@
+.quotedetail{
+    max-height: calc(100vh - 200px);
+}
+@media screen and (max-width:1200px) {
+    .quotedetail{
+        overflow-y: auto!important;     
+    }
+}
+    
+    
