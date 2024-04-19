@@ -53,7 +53,7 @@ const CaseDetailsModal2 = ({ show, onHide }) => {
       className="row justify-content-center w-100"
     >
       <Modal.Header closeButton>
-        <Modal.Title>案件資訊</Modal.Title>
+        <Modal.Title>作品資訊</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form >
@@ -61,7 +61,7 @@ const CaseDetailsModal2 = ({ show, onHide }) => {
             <Form.Label>作品品項：</Form.Label>
             <Form.Control
               type="text"
-              placeholder="填寫服務名稱"
+              placeholder="填寫作品名稱"
               value={nameOfWork}
               onChange={(e) => setNameOfWork(e.target.value)}
               required

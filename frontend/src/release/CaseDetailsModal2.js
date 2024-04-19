@@ -119,16 +119,16 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           </div>
         </div>
         <div className="d-grid gap-2">
-          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} variant="primary" size="lg">
+          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} variant="primary" size="" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
             聯絡接案人
           </Button>
           {data[number].c_status === 3
           ?
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={false}>
+          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={false} style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
             已收到案件
           </Button>
           :
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={true} style={data[number].c_status === 4 ? { display: 'none' } : {}} >
+          <Button variant="secondary" size="" onClick={()=>{received(data[number].cid)}} disabled={true} style={data[number].c_status === 4 ? { display: 'none' } : {padding: '0.5rem 2.14rem', fontSize:'22px'}} >
             已收到案件
           </Button>
           }
@@ -137,7 +137,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
           關閉
         </Button>
       </Modal.Footer>
