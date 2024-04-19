@@ -23,7 +23,7 @@ const EditModal1 = ({ show, onHide, data, index }) => {
 
     const formData = new FormData();
     formData.append('s_name', nameOfService);
-    formData.append('s_type', category);
+    formData.append('type', category);
     formData.append('s_description', details);
     formData.append('s_amount', budget);
     formData.append('s_unit', unit);
@@ -62,7 +62,7 @@ const EditModal1 = ({ show, onHide, data, index }) => {
   useEffect(() => {
     if(data[index] && data[index].s_name){
     setNameOfService(data[index].s_name)
-    setCategory(data[index].s_type)
+    setCategory(data[index].type)
     setLocation(data[index].s_active_location)
     setDetails(data[index].s_description)
     setBudget(data[index].s_amount)
