@@ -9,3 +9,12 @@
 #clean:hover{
     cursor: pointer;
 }
+
+.description{
+    text-indent:32px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    padding-top: 20px;
+}

@@ -240,7 +240,8 @@ function CaseContext() {
                                 <li>預算金額：{posts.d_amount}&nbsp;/&nbsp;{posts.d_unit}</li>
                                 <li>地點：{posts.d_active_location}</li>
                                 <li>案件期程：{posts.d_duration}</li>
-                                <li>案件說明：{posts.d_description}</li>
+                                <li >案件說明：</li>
+                                <div style={{textIndent:'32px'}}>{posts.d_description}</div>
                             </ul>
                         </div>
                         <div className='mt-5'>

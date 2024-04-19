@@ -1150,7 +1150,7 @@ function Findcase() {
         <div >
           {currentPosts.map((post, index) => {
             return (
-              <div>
+              <div style={{marginBottom:'1.5rem'}}>
                 <div className="row" key={index}>
                   <Row style={{ border: "solid black", padding: 0 }}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
@@ -1162,21 +1162,18 @@ function Findcase() {
                         <div id={changecolorduration == true ? "active" : ""}>{post.d_duration}期</div>
                       </Link>
                     </Col>
-                    <Col xs={6} >
-                      <div style={{ marginTop: "10px" }}>{post.d_description}</div>
+                    <Col>
+                      <div className="description">{post.d_description}</div>
                     </Col>
-                    <Col >
-
-                    </Col>
-                    <Col xs={1} style={{ backgroundColor: "white" }}>
-                      <div style={{ textAlign: "start", fontSize: "13px", marginTop: "20px" }}>
+                    <Col xs={1} style={{ backgroundColor: "white", flexDirection:'column', padding:'1.2rem 0 0.5rem 1.2rem'}}>
+                      <div style={{  fontSize: "13px" }}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
                       </div>
                       <div >
-                        <Button style={{ width: "70px", height: "30px ", fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
+                        <Button style={{ fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
                       {/* onClick={isLoggedIn ? () => { handlePopShow() } : handleShow} */}
                       {/* handleShow(index) */}
