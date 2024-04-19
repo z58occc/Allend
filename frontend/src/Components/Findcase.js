@@ -184,7 +184,7 @@ function Findcase() {
 
 
 
-  const [allstate, setAllstate] = React.useState(
+  const [allstate, setAllstate] = useState(
     {
       五千: false,
       一萬: false,
@@ -214,8 +214,7 @@ function Findcase() {
     }
   );
 
-
-  const [budgetstate, setBudgetstate] = React.useState(
+  const [budgetstate, setBudgetstate] = useState(
     {
       五千: false,
       一萬: false,
@@ -225,13 +224,7 @@ function Findcase() {
     }
   );
 
-
-
-
-
-
-
-  const [checkedState, setCheckedState] = React.useState(
+  const [checkedState, setCheckedState] = useState(
     {
       台北市: false,
       新北市: false,
@@ -254,10 +247,6 @@ function Findcase() {
       金門縣: false,
       連江縣: false,
     });
-
-
-
-
 
   const [typeid, setTypeid] = useState();
 
@@ -506,7 +495,7 @@ function Findcase() {
 
             }
           })
-          .join(" ");
+          .join("，");
         setBudgetid(clearbudgetstate);
         setCityid(clearcitystate);
 
@@ -1122,8 +1111,8 @@ function Findcase() {
               </Link>
               <br />
               <div style={{ display: (typeid == null ? "none" : "") }}>類別：<strong >「{typeid}」</strong></div>
-              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{ wordSpacing: "10px" }}>「{cityid}」</strong></Fragment>}<br />
-              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{ wordSpacing: "30px" }}>「{budgetid}」</strong></Fragment>}
+              {cityid.length > 0 && <Fragment key={`${cityid}`}>地區：<strong style={{  }}>「{cityid}」</strong></Fragment>}<br />
+              {budgetid.length > 0 && <Fragment key={`${budgetid}`}>金額：<strong style={{  }}>「{budgetid}」</strong></Fragment>}
             </>
             : null}
         </div>
