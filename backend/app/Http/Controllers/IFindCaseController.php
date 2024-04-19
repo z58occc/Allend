@@ -15,7 +15,8 @@ class IFindCaseController extends Controller
         ->leftJoin('category','category.catid','=','demmand.d_type')
         ->leftJoin('quote', 'quote.did', '=', 'demmand.did')
         ->select('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit',
-        DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('count(quote.mid) as quote_total'),'country_city','updated_at')
+        DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('count(quote.mid) as quote_total'),'country_city',
+        DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
         ->groupBy('demmand.did','d_name', 'type', 'd_duration','d_description','d_amount','d_unit', 'country_city','updated_at','created_at');
 
         // 選擇地區、案件金額 (以url方式傳參，複選以,隔開)

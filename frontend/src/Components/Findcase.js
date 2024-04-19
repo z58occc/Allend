@@ -947,10 +947,10 @@ function Findcase() {
           </Dropdown>
         </div>
 
-        <hr></hr>
+
 
         {/* 左上4顆按鈕 */}
-        <div style={{ borderBottom: "solid" }}>
+        <div style={{  }}>
 
           <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
             <button className={changecolor1 == true ? "active" : ""}  >
@@ -1032,10 +1032,10 @@ function Findcase() {
             return (
               <div style={{marginBottom:'1.5rem'}}>
                 <div className="row" key={index}>
-                  <Row style={{ border: "solid black", padding: 0 }}>
-                    <Col id="link" xs={2} style={{ borderRight: "solid black", fontSize: "15px" }}>
+                  <Row style={{border:'solid 1px',borderRadius:'10px', padding: 0 }}>
+                    <Col id="link" xs={2} style={{ borderRight: "solid black 1px", fontSize: "15px" ,margin: "1rem"}}>
                       <Link to={`/casecontext/${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
-                        <div style={{ marginTop: "10px" }}>{post.d_name}</div>
+                        <div style={{ fontSize:'26px' }}>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點：{post.country_city}</div>
@@ -1045,14 +1045,12 @@ function Findcase() {
                     <Col>
                       <div className="description">{post.d_description}</div>
                     </Col>
-                    <Col xs={1} style={{ backgroundColor: "white", flexDirection:'column', padding:'1.2rem 0 0.5rem 1.2rem'}}>
-                      <div style={{  fontSize: "13px" }}>
+                    <Col xs={1} style={{ display:'flex', fontSize:'16px',  justifyContent: 'center', alignItems:"center",borderLeft:"solid 1px", margin:'1rem'}}>
+                      <div style={{padding:'.5rem' , textAlign:'center'}}>
                         <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
-                      </div>
-                      <div >
                         <Button style={{ fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
 
