@@ -11,8 +11,8 @@ import Cookies from "js-cookie";
 import { FaTrashAlt,FaRegCheckSquare,FaCheck } from "react-icons/fa";
 import styles from './cardlist.module.css';
 
+
 const CardList = ({ visibility, selectedComponent, data1, screen }) => {
-  // const {Case} = useContext(CaseContext)
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermProgress, setSearchTermProgress] = useState('');
   const [searchTermCompleted, setSearchTermCompleted] = useState('');
@@ -260,7 +260,6 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
 
-
       {filteredData.map((item, index) => (
         <Card
           key={index}
@@ -317,7 +316,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             {screen === 2 && (
               <div className="d-flex flex-column justify-content-center">
                 <Button
-                  variant="primary"
+                  variant="secondary"
                   key={index}
                   className="my-2"
                   style={{
@@ -368,7 +367,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             {screen === 1 && (
               <div className="d-flex flex-column justify-content-center me-1" >
                 <Button
-                  variant="primary"
+                 variant="success"
                   key={index}
                   style={{
                     fontSize: "18px",

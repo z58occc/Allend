@@ -115,7 +115,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       未有紀錄
     </h1>)
   }
-  //
+
+
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div className="d-flex justify-content-end" style={{ width: '800px' }} >
@@ -124,7 +125,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       {
         // CaseData.length === 0 ? <h2>未有紀錄</h2>   
         filteredData.map((item, index) => (
-          <Card key={index} className="my-3" style={{ width: '720px', display: 'flex' }}>
+          <Card key={index} className="my-3" style={{ width: '720px', display: 'flex', borderRadius: '.5rem' }}>
             <div className="d-flex bd-highlight">
               <Card.Body style={{ flex: '1' }}>
                 {screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : <></>}
@@ -142,7 +143,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                   <Button variant="primary" key={index} className="my-2" style={{
                     width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto",
                     marginBottom: "40px",
-                    padding: "0.8rem 1rem"
+                    padding: "0.8rem 1rem",
+                    borderRadius: "10px"
                   }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     查看詳情
                   </Button>
@@ -151,13 +153,13 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               {screen === 1
                 &&
                 <div className="d-flex flex-column justify-content-center" >
-                  <Button variant="primary" key={index} className="my-2" style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto", marginBottom: "40px", padding: "0.8rem 1rem" }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
+                  <Button variant="success" key={index} className="my-2" style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto", marginBottom: "40px", padding: "0.8rem 1rem", borderRadius: "10px" }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     編輯
                   </Button>
                   <Button
                     variant="secondary"
                     className="my-2 d-inline-block"
-                    style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', textAlign: 'center', visibility, padding: "0.8rem 1rem" }}
+                    style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', textAlign: 'center', visibility, padding: "0.8rem 1rem" ,borderRadius: "10px" }}
                     onClick={() => { handleDeletedModal() }}
                   >
                     棄件

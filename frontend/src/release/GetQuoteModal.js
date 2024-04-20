@@ -86,7 +86,7 @@ function GetQuoteModal({ show, onHide, data }) {
       })
   }
   return (
-    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"}>
+    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"} dialogClassName="custom-background2">
       <Modal.Header closeButton>
         <Modal.Title style={{fontWeight: '550'}}>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>

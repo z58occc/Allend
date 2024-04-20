@@ -3,37 +3,38 @@ import { Modal, Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
+import "./case.css";
 // import CaseContext from './CaseContext.js'
 const CaseDetailsModal = ({ show, onHide, number, data }) => {
-  const {fetchData} = useContext(CaseContext); 
+  const { fetchData } = useContext(CaseContext);
 
   const [Quote, setQuote] = useState("");
   const [messages, setMessages] = useState("");
   const handleSubmit = (e) => {
     console.log(data[number]);
     e.preventDefault();
-    fetch('http://127.0.0.1/Allend/backend/public/api/updatetakecase',{
+    fetch('http://127.0.0.1/Allend/backend/public/api/updatetakecase', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${Cookies.get('token')}`,
       },
       body: JSON.stringify({
-          "did": data[number].did,
-          "qid": data[number].qid,
-          "message": messages,
-          "amount": Quote
+        "did": data[number].did,
+        "qid": data[number].qid,
+        "message": messages,
+        "amount": Quote
       }),
     })
-    .then((res)=>{
-      console.log(res)
-      fetchData();  
-      onHide();
-      return res.json();
-    })
-    .then((mes)=>(
-      console.log(mes)
-    ))
+      .then((res) => {
+        console.log(res)
+        fetchData();
+        onHide();
+        return res.json();
+      })
+      .then((mes) => (
+        console.log(mes)
+      ))
 
   };
   useEffect(() => {
@@ -49,7 +50,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
       {data.length === 0
         ? " "
         :
-        <Modal show={show} onHide={onHide} className="row justify-content-center w-100">
+        <Modal show={show} onHide={onHide} dialogClassName="custom-background1">
           <Modal.Header closeButton>
             <Modal.Title>案件資訊</Modal.Title>
           </Modal.Header>
@@ -105,7 +106,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
 
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} 
+              <Button variant="success" style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }}
                 onClick={(e) => {
                   e.preventDefault(); // Prevent default form submission
                   handleSubmit(e); // Pass the event object to handleSubmit
@@ -113,7 +114,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
               >
                 儲存變更
               </Button>
-              <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={onHide}>
+              <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }} onClick={onHide}>
                 取消
               </Button>
             </div>

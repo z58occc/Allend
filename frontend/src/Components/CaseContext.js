@@ -1,17 +1,13 @@
-import React, { createContext, useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { VscAccount } from "react-icons/vsc";
-import { CiStar } from "react-icons/ci";
+import { CiCircleCheck } from "react-icons/ci";
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
-import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 import Cookies from "js-cookie";
 import { IsLoggedInContext } from "../App";
+import Modal from 'react-bootstrap/Modal';
 import Footer from '../homepage/Footer'
-import axios from 'axios';
-import { CiCircleCheck } from "react-icons/ci";
-
-
 
 
 function CaseContext() {
@@ -22,8 +18,8 @@ function CaseContext() {
         setMessagewarm(false);
         setAmountwarm(false);
         setSuccessshow(false);
-
     }
+
     const [messagewarm, setMessagewarm] = useState(false);
     const [amountwarm, setAmountwarm] = useState(false);
 
@@ -80,15 +76,17 @@ function CaseContext() {
             setMessagewarm(false);
             setAmountwarm(false);
         }
-
     };
+
     // Modal下面 送資料回去
     const [key, setkey] = useState(0);
     const [posts, setPosts] = useState([]);
     const [members, setMembers] = useState([]);
     const [service_star_avg, setServiceStarAvg] = useState([]);
     const url = window.location.href;
-    const [endnumber, setEndnumber] = useState(0);
+
+    // 相同類別案件
+    const [othercase, setOthercase] = useState([]);
 
     const { id } = useParams();
 
@@ -102,6 +100,7 @@ function CaseContext() {
                     setPosts(data.dammand);
                     setMembers(data.members);
                     setServiceStarAvg(data.service_star_avg);
+                    setOthercase(data.sameCase)
                 })
         } else {
             fetch(`http://localhost/Allend/backend/public/api/demmand_content/${id}`)
@@ -111,64 +110,14 @@ function CaseContext() {
                     setPosts(data.dammand);
                     setMembers(data.members);
                     setServiceStarAvg(data.service_star_avg);
+                    setOthercase(data.sameCase)
                 })
         }
     }
-    // 相同類別案件
-    const [othercase, setOthercase] = useState([]);
-    const [type, setType] = useState("");
-    // if (posts.d_type == "網站設計" && type != 1) {
-    //     setType(1);
-    // }
-    console.log(posts.d_type);
-    if (type == "") {
-        switch (posts.d_type) {
-            case "網站設計":
-                setType(1);
-                console.log(1);
-                break;
-            case "軟體程式":
-                setType(2);
-                break;
-            case "平面設計":
-                setType(3);
-                break;
-            case "文字語言":
-                setType(4);
-                break;
-            case "專業諮詢":
-                setType(5);
-                break;
-
-            default:
-                break;
-        }
-    }
-    const fetchDataOther = async () => {
-
-        let url = `http://localhost/Allend/backend/public/api/findcase?type=${type}`;
-        console.log(type);
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-
-                setOthercase(data);
-                console.log(data);
-            });
-
-    };
-
-
-    // 相同類別案件
 
     useEffect(() => {
-        if (Cookies.get('token')) {
-            setIsLoggedIn(true)
-        }
-
         fetchData(id);
-        fetchDataOther();
-    }, [type, id, isLoggedIn]);
+    }, [id, isLoggedIn]);
 
     const [textShow, setTextShow] = useState(false);
     // 加入收藏
@@ -210,9 +159,6 @@ function CaseContext() {
         color: 'red'
     };
     console.log(service_star_avg)
-
-
-
 
 
     return (
@@ -279,7 +225,6 @@ function CaseContext() {
                 <span style={redTextStyle}>提醒：請勿在非公開場所赴約</span>
 
 
-
                 {/* 我要報價頁面 */}
                 <Modal show={show} onHide={close}>
                     <Modal.Header closeButton >
@@ -288,7 +233,6 @@ function CaseContext() {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-
                         <Form>
                             <div>案件名稱：{posts.d_name}</div>
                             <hr></hr>
@@ -337,24 +281,21 @@ function CaseContext() {
                 {/* 我要報價頁面 */}
 
 
-
-
-
                 {/* 類似案件 */}
                 <h4 className="mt-5">相同類別案件：</h4>
-                <div className="row " >
+                <div className="row" >
                     <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
                         <div style={{ display: "flex" }}>
-                            {othercase.slice(0, 3).map((post, index) => {
+                            {othercase.map((post, index) => {
                                 return (
                                     <Row key={index} style={{ margin: "30px 32px 30px 32px" }}>
                                         <Col>
                                             <Link to={`/casecontext/${post.did}`} style={{ width: "30%", textDecoration: "none" }} >
-                                                <div className="toast show ">
+                                                <div className="toast show">
                                                     <div className="toast-header">
                                                         <strong className="me-auto">
                                                             <div>{post.d_name}</div>
-                                                            <div>預算：{post.d_amount}</div>
+                                                            <div>預算：{post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
                                                         </strong>
                                                     </div>
                                                     <div className="toast-body">
@@ -371,21 +312,15 @@ function CaseContext() {
                     </div>
                 </div>
                 {/* 類似案件 */}
-
             </div>
 
 
-
-
-
             {/*報價成功Modal  */}
-            <Modal show={successshow} onHide={close} style={{ marginTop: "250px", fontSize: "50px", textAlign: "center" }}>
-
+            <Modal show={successshow} centered onHide={close} style={{ fontSize: "50px", textAlign: "center" }}>
                 <Modal.Body>
                     <CiCircleCheck color="green" size={150} />
                     <div>報價成功</div>
                 </Modal.Body>
-
             </Modal>
             {/*報價成功Modal  */}
             <Footer></Footer>

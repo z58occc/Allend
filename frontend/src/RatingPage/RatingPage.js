@@ -34,7 +34,7 @@ function RatingPage() {
 
   return (
     <>
-      <Container xxl={12}>
+      <Container xxl={12} style={{minHeight: '100vh'}}>
         <div className="row">
           <div className="col-lg-3" style={{ padding: "20px" }}>
             <LeftVerticalNavbar />

@@ -3,8 +3,10 @@ import { Modal, Button } from 'react-bootstrap';
 import Star2 from './Star2';
 import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
-const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
-  const {fetchData} = useContext(CaseContext);
+import "./case.css";
+
+const CaseDetailsModal3 = ({ show, onHide, number, data, submit }) => {
+  const { fetchData } = useContext(CaseContext);
   //星星數
   const [Star, setStar] = useState(0);
   const handleRatingChange = (rating) => {
@@ -43,7 +45,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
       {data.length === 0
         ? " "
         :
-        <Modal show={show} onHide={onHide}>
+        <Modal show={show} onHide={onHide} dialogClassName="custom-background1">
           <Modal.Header closeButton>
             <Modal.Title>案件資訊</Modal.Title>
           </Modal.Header>
@@ -78,14 +80,14 @@ const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
                   <strong>發案人手機：{data[number].c_mobile_phone}</strong>
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                <Star2 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star2>
+                  <Star2 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star2>
                   <div style={{ margin: '0 40px 0 40px' }}>
                     <textarea
 
                       maxLength={100}
                       rows={5}
                       cols={30}
-                      value={Comment} onChange={(e)=>{setComment(e.target.value)}}
+                      value={Comment} onChange={(e) => { setComment(e.target.value) }}
                     /></div>
                 </div>
 
@@ -97,10 +99,10 @@ const CaseDetailsModal3 = ({ show, onHide, number, data ,submit}) => {
               </div>
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={()=>handleRating()}>
+              <Button variant="primary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={() => handleRating()}>
                 評價提交
               </Button>
-              <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={onHide}>
+              <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={onHide}>
                 關閉
               </Button>
             </div>

@@ -150,7 +150,7 @@ function FreelancerForm() {
 
   return (
     <>
-      <Container xxl={12}>
+      <Container xxl={12} style={{minHeight:'100vh'}}>
         <Row>
           <Col sm={3} style={{ padding: "20px" }}>
             <LeftVerticalNavbar />

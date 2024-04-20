@@ -3,6 +3,8 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
+import "./takecase.css";
+
 
 
 const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
@@ -102,6 +104,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       show={show}
       onHide={onHide}
       centered
+      dialogClassName="custom-background2"
     >
       <Modal.Header closeButton style={{ padding: '1rem 1rem 1rem 1.5rem'}}>
         <Modal.Title style={{fontWeight: '550'}}>{data[number].d_name}</Modal.Title>
@@ -280,18 +283,19 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
         </Form>
         <div className="mb-2 d-flex justify-content-around">
           <Button
-            variant="primary"
+            variant="success"
             size="lg"
             style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', padding: '0.5rem 2.5rem' }}
             onClick={(e) => {
-              e.preventDefault();
-              handleSubmit(e);
+              e.preventDefault(); // Prevent default form submission
+              handleSubmit(e); // Pass the event object to handleSubmit  
             }}
+          
+          
           >
             儲存變更
           </Button>
-          <Button variant="danger" size="lg" 
-          style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', padding: '.8rem 2rem' }} onClick={onHide}>
+          <Button variant="secondary" size="lg" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px' ,borderRadius: "10px"}} >
             取消
           </Button>
         </div>
