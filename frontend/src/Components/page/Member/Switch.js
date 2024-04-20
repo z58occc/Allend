@@ -23,7 +23,8 @@ function FormSwitcher() {
           backgroundColor: "lightblue",
           padding: "5px 10px",
           borderRadius: "5px",
-          cursor: "pointer"
+          cursor: "pointer",
+          fontSize: "20px" 
         }}
       >
         切換表單: {isFreelancerForm ? "發案人表單" : "接案人表單"}
