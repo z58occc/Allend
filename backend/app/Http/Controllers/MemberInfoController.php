@@ -413,6 +413,7 @@ class MemberInfoController extends Controller
             'd_contact_name', 'd_email', 'd_mobile_phone', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),
             DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))
             ->where('mid',$mid)->orderBy('updated_at', 'desc')->orderBy('did', 'desc');
+
             // 發案進行中
             $demmand_progress_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
