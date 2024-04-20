@@ -104,43 +104,50 @@ export default function PublicMessagesPage(props) {
     }
 
     Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
-    const subscribeToPrivateChat = () => {
+        const fetchDataAndSubscribe = async () => {
       if (senderId.mid && receiverId) {
-        const echo = new Echo({
-          authEndpoint: "http://localhost:8000/broadcasting/auth",
-          broadcaster: "pusher",
-          key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
-          wsHost: "realtime-pusher.ably.io",
-          wsPort: 443,
-          disableStats: true,
-          encrypted: true,
-          cluster: "eu",
-          auth: {
+        try {
+          // Fetch messages
+          const response = await Axios.get(`http://localhost/Allend/backend/public/api/get-message?receiverId=${receiverId}`, {
             headers: {
               Authorization: `Bearer ${Cookies.get("token")}`,
             },
-          },
-        })
-        echo
-          .private(`private-chat.${receiverId}.${senderId.mid}`)
-          .subscribed(() => {
-            setSconnect('連線成功')
-          })
-          .listen(".message.new", (data) => {
-            setMessages((oldMessages) => [ data,...oldMessages]);
-            setMessage('');
-          })
-      }
-    }
-    subscribeToPrivateChat()
-  }, [senderId.mid, receiverId])
+          });
+          setMessages(response.data);
+          setReceiverId(receiverId);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSconnect(null);
-    }, 5000);  
-    return () => clearTimeout(timer);
-  }, []);
+          // Subscribe to private chat
+          const echo = new Echo({
+            authEndpoint: "http://localhost:8000/broadcasting/auth",
+            broadcaster: "pusher",
+            key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
+            wsHost: "realtime-pusher.ably.io",
+            wsPort: 443,
+            disableStats: true,
+            encrypted: true,
+            cluster: "eu",
+            auth: {
+              headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`,
+              },
+            },
+          });
+          echo.private(`private-chat.${receiverId}.${senderId.mid}`)
+            .subscribed(() => {
+              setSconnect('連線成功');
+            })
+            .listen(".message.new", (data) => {
+              setMessages((oldMessages) => [data, ...oldMessages]);
+              setMessage('');
+            });
+        } catch (error) {
+          console.error("Failed to fetch messages or member email:", error);
+        }
+      }
+    };
+
+    fetchDataAndSubscribe();
+  }, [senderId.mid, receiverId]);
 
   return (
     <div className="chat-window">
