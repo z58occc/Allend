@@ -52,7 +52,6 @@ class IFindCaseController extends Controller
                 }
             );
             }
-            return $query->get();
         }
 
         // 期程 (短、長)

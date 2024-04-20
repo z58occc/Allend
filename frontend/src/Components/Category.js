@@ -62,8 +62,6 @@ function Category() {
     //         })
     // }
     return (
-
-
         <div style={{ marginLeft: '60px', marginRight: '0' }}>
 
             <div className="container mt-5">
@@ -105,12 +103,10 @@ function Category() {
                         </Link>
                         <hr className="d-sm-none" />
                     </div>
-
-
                 </div>
             </div>
         </div>
     )
 }
 
-export default Category
+export default Category;
