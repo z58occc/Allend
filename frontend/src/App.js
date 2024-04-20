@@ -12,6 +12,7 @@ import { TiTickOutline } from "react-icons/ti";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import ourLogo from "./homepage/ourLogo.jpg";
+import { PiSignOutFill } from "react-icons/pi";
 import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
@@ -31,7 +32,6 @@ import CallbackHandler from "./homepage/CallbackHandler";
 import Closechat from "./Components/Closechat";
 import ForgotPassword from "./detail/ForgotPassword";
 import VerifyEmail from "./detail/VerifyEmail";
-import { PiSignOutFill } from "react-icons/pi";
 import "./App.css";
 
 
@@ -45,6 +45,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isGoogle, setIsGoogle] = useState(0);
   const [emailVerified, setEmailVerified] = useState(0);
+  const [infoCompleted, setInfoCompleted] = useState(0)
   
   //聊天視窗狀態
   const [showChat, setShowChat] = useState(false);
@@ -297,6 +298,7 @@ function App() {
       setMemberEmail(response.data);
       setIsGoogle(response.data.provider)
       setEmailVerified(response.data.verified)
+      setInfoCompleted(response.data.infocompleted)
     } catch (error) {
       console.error('Failed to fetch member email:', error);
     }
@@ -427,7 +429,7 @@ function App() {
 
 
   return (
-    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown }}>
+    <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown , infoCompleted, setInfoCompleted}}>
 
       <div
         className="p-1"
