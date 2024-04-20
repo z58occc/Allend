@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import './GetQuoteModal.css';
 import { IsLoggedInContext } from "../App";
 
+
 function GetQuoteModal({ show, onHide, data }) {
   // 
   const [successshow, setSuccessshow] = useState(false);
@@ -96,23 +97,25 @@ function GetQuoteModal({ show, onHide, data }) {
             <Table bordered hover>
               <thead>
                 <tr>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>接案人姓名</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>Email</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>族群</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>報價金額</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>訊息</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>操作</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>接案人姓名</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>Email</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>族群</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>報價金額</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>訊息</th>
+                  <th style={{ whiteSpace: 'nowrap', fontSize: "24px" }}>操作</th>
                 </tr>
               </thead>
               <tbody>
-                
+
                 {data.map((item, index) => (
-                  <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row'}} >
-                    <td style={{fontSize:"24px"}}>{item.name}</td>
-                    <td style={{fontSize:"24px"}}>{item.email}</td>
-                    <td style={{fontSize:"24px"}}>{item.identity}</td>
-                    <td style={{fontSize:"24px"}}>{item.q_amount}</td>
-                    <td style={{fontSize:"24px"}}>{item.q_message || "無留言"}</td>
+                  <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row' }} >
+                    <td>
+                      <Link to={`/talent/${item.mid}`}>{item.name}</Link>
+                    </td>
+                    <td style={{ fontSize: "24px" }}>{item.email}</td>
+                    <td style={{ fontSize: "24px" }}>{item.identity}</td>
+                    <td style={{ fontSize: "24px" }}>{item.q_amount}</td>
+                    <td style={{ fontSize: "24px" }}>{item.q_message || "無留言"}</td>
                     <td>
                       <div className="d-flex justify-content-start">
                         <Button
