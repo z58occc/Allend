@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import './GetQuoteModal.css';
 import { IsLoggedInContext } from "../App";
 
+
 function GetQuoteModal({ show, onHide, data }) {
   // 
   const [successshow, setSuccessshow] = useState(false);
@@ -107,7 +108,7 @@ function GetQuoteModal({ show, onHide, data }) {
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row'}} >
-                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.name}</td>
+                    <td style={{fontSize:"24px", textAlign:'center'}}><Link to={`/talent/${item.mid}`}>{item.name}</Link></td>
                     <td style={{fontSize:"24px", textAlign:'center'}}>{item.email}</td>
                     <td style={{fontSize:"24px", textAlign:'center'}}>{item.identity === "freelancer"
                                                   ? "個人"
