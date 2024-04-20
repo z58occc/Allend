@@ -1,0 +1,17 @@
+.buttoncontainer {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.7rem 0;
+}
+
+.togglecollectionchecked,
+.deletecollectionchecked,
+.increasecollectionchecked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}

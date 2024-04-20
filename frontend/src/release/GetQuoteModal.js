@@ -98,7 +98,6 @@ function GetQuoteModal({ show, onHide, data }) {
               <thead>
                 <tr className="text-center">
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>接案人姓名</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>Email</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>身分</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>報價金額</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>訊息</th>
@@ -109,7 +108,6 @@ function GetQuoteModal({ show, onHide, data }) {
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row'}} >
                     <td style={{fontSize:"24px", textAlign:'center'}}><Link to={`/talent/${item.mid}`}>{item.name}</Link></td>
-                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.email}</td>
                     <td style={{fontSize:"24px", textAlign:'center'}}>{item.identity === "freelancer"
                                                   ? "個人"
                                                   : (item.identity === "company" ? "公司"

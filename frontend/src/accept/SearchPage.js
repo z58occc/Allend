@@ -5,6 +5,8 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { FaTrashAlt } from "react-icons/fa";
 import "./searchpage.css"
+
+
 const SearchPage = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -34,8 +36,8 @@ const SearchPage = ({ onSearch }) => {
           onChange={handleChange}
         />
 
-        <button onClick={handleReset} className="rounded-end  btn-height">
-          <FaTrashAlt style={{ fontSize: "16px" }} />
+        <button onClick={handleReset} className="rounded-end">
+          <FaTrashAlt />
         </button>
       </form>
 

@@ -6,6 +6,7 @@ import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
 import Footer from '../homepage/Footer';
 
+
 export const CaseContext = createContext();
 
 
@@ -43,7 +44,7 @@ const MainScreen3 = () => {
       }
     ]
   });
-  //
+
   const fetchData = async () => {
     const result = await axios.get(
       "http://127.0.0.1/Allend/backend/public/api/memservice",

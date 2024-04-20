@@ -5,9 +5,10 @@ import Cookies from "js-cookie";
 import CaseDetailsModal2 from './CaseDetailsModal2';
 import { CaseContext } from "./MainScreen3";
 import EditModal2 from './EditModal2';
-import styles from './media.module.css';
+import styles from './servicemanagement.module.css';
 import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
+
 
 export const WorkContext = createContext();
 
@@ -173,7 +174,7 @@ const Work = ({ data2 }) => {
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
       <div style={{ width: '100%', background: '#FFC78E ', height: '100vh', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-          <div className="mb-3 d-flex justify-content-around " style={{ width: "100%", height: '50px' }}>
+          <div className={`${styles.buttoncontainer}`}>
             <Button
               variant="success"
               className={`${styles.increasecollectionchecked}`}

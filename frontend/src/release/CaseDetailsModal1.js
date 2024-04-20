@@ -287,15 +287,13 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
             size="lg"
             style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', padding: '0.5rem 2.5rem' }}
             onClick={(e) => {
-              e.preventDefault(); // Prevent default form submission
-              handleSubmit(e); // Pass the event object to handleSubmit  
+              e.preventDefault();
+              handleSubmit(e);
             }}
-          
-          
           >
             儲存變更
           </Button>
-          <Button variant="secondary" size="lg" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px' ,borderRadius: "10px"}} >
+          <Button variant="secondary" size="lg" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px' ,borderRadius: '.5rem'}} >
             取消
           </Button>
         </div>

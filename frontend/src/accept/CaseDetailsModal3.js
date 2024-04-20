@@ -66,7 +66,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data, submit }) => {
                   <strong>案件類別：{data[number].type}</strong>
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>結案金額：</strong> {data[number].c_amount}/{data[number].c_unit}
+                  <strong>結案金額：</strong> {data[number].c_amount}&nbsp;/&nbsp;{data[number].c_unit}
                 </div>
               </div>
               <div>
@@ -83,15 +83,12 @@ const CaseDetailsModal3 = ({ show, onHide, number, data, submit }) => {
                   <Star2 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star2>
                   <div style={{ margin: '0 40px 0 40px' }}>
                     <textarea
-
                       maxLength={100}
                       rows={5}
                       cols={30}
                       value={Comment} onChange={(e) => { setComment(e.target.value) }}
                     /></div>
                 </div>
-
-
               </div>
               <div>
 

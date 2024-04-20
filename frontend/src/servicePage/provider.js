@@ -6,7 +6,7 @@ import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
 import Footer from '../homepage/Footer';
-import styles from './provider.module.css';
+import styles from './servicemanagement.module.css';
 import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 
@@ -173,19 +173,19 @@ const Provider = ({ data1 }) => {
     )
   }
 
-  return (
 
+  return (
     <>
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
       <div style={{ width: '100%', background: 'lightblue', height: '800px', borderRadius: "10px" }}>
         <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-          <div className="d-flex justify-content-around" style={{ width: "100%", height: '50px', marginBottom: '20px' }}>
+          <div className={`${styles.buttoncontainer}`}>
             <Button
               variant="success"
               className={`${styles.increasecollectionchecked}`}
               onClick={() => { handleShow() }}
             >
-              <FaPlus size={16} />
+              <FaPlus />
               新增
             </Button>
             <Button
@@ -195,12 +195,12 @@ const Provider = ({ data1 }) => {
             >
               {checkedAll ? (
                 <>
-                  <FaRegCheckSquare size={20} />
+                  <FaRegCheckSquare />
                   取消
                 </>
               ) : (
                 <>
-                  <FaCheck size={16} />
+                  <FaCheck />
                   全選
                 </>
               )}
@@ -208,9 +208,8 @@ const Provider = ({ data1 }) => {
             <Button
               variant="danger"
               className={`${styles.deletecollectionchecked}`}
-              //style={{ fontSize: "12px", width: "100px", height: '100%' }}
               onClick={() => handleDeletedModal()}
-            ><FaTrashAlt size={16} />
+            ><FaTrashAlt />
               刪除
             </Button>
           </div>
