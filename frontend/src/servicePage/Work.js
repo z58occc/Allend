@@ -171,8 +171,8 @@ const Work = ({ data2 }) => {
   }
   return (
     <>
-      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>作品</div>
-      <div style={{ width: '100%', background: '#FFC78E ', height: '100vh', borderRadius: "10px" }}>
+      <div className={`${styles.titlestyle}`}>作品</div>
+      <div style={{ width: '100%', background: '#FFC78E ', minHeight: '33vh', borderRadius: "10px",marginBottom: '1.3rem' }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className={`${styles.buttoncontainer}`}>
             <Button
@@ -210,7 +210,7 @@ const Work = ({ data2 }) => {
           </div>
           {/* Generate six Cards */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Row style={{ width: '1000px', marginTop: "10px" }} >
+            <Row style={{ width: '100%', marginTop: "10px" }} >
               {data2.map((item, index) => (
                 <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
@@ -233,10 +233,6 @@ const Work = ({ data2 }) => {
                           />
                           <span style={{marginLeft:"0.5rem"}}>{item.p_name}</span>
                         </div>
-
-
-
-
                       </Card.Title>
                     </Card.Body>
                   </Card>
@@ -251,6 +247,7 @@ const Work = ({ data2 }) => {
         <WorkContext.Provider value={{ setSelectedItems, setCheckedAll }}>
           <CaseDetailsModal2 show={show} onHide={handleClose}></CaseDetailsModal2>
         </WorkContext.Provider>
+
         <EditModal2 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal2>
 
         {/* 刪除 */}
@@ -262,10 +259,10 @@ const Work = ({ data2 }) => {
             確定刪除所選作品?
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="danger" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={() => handleDeleted()}>
+            <Button variant="primary" style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }} onClick={() => handleDeleted()}>
               確定
             </Button>
-            <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={handleClosedDeletedModal}>
+            <Button variant="danger" style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }} onClick={handleClosedDeletedModal}>
               關閉
             </Button>
           </Modal.Footer>

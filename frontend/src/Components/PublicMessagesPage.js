@@ -171,8 +171,8 @@ export default function PublicMessagesPage(props) {
             </div>
             <div style={{marginTop: 'auto'}}>
               <form onSubmit={(e) => handleSendMessage(e)}>
-                  <input className="message-input" type="text" placeholder="Type your message..." value={message} onChange={(e) => setMessage(e.target.value)} required />
-                  <button className="send-button" onClick={(e) => handleSendMessage(e)}>Send</button>
+                  <input className="message-input" type="text" placeholder="輸入你的訊息..." value={message} onChange={(e) => setMessage(e.target.value)} required />
+                  <button className="send-button" onClick={(e) => handleSendMessage(e)}>送出</button>
               </form>
             </div>
           </div>

@@ -3,22 +3,21 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
-import { GoTriangleDown } from "react-icons/go";
+import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoIosSad } from "react-icons/io";
+import { CiCircleCheck } from "react-icons/ci";
+import { HiXCircle } from "react-icons/hi2";
+import { GrClearOption } from "react-icons/gr";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Footer from "../homepage/Footer";
 import Pagination from "./Pagination";
 import Category from "./Category";
+import { IsLoggedInContext } from "../App";
 import "../../src/App.css";
 import "./Pagination.css"
 import "./Findcase.css";
-import { GoTriangleUp } from "react-icons/go";
-import { CiCircleCheck } from "react-icons/ci";
-import { HiXCircle } from "react-icons/hi2";
-import { GrClearOption } from "react-icons/gr";
-import { IsLoggedInContext } from "../App";
 
 
 
@@ -383,10 +382,7 @@ function Findcase() {
 
   useEffect(() => {
     const fetchDataNew = async () => {
-
       try {
-       
-
         const clearbudgetstate = Object.keys(budgetstate)
           .filter((key) => budgetstate[key])
           .map((key) => {
@@ -403,7 +399,6 @@ function Findcase() {
                 return "10萬到30萬";
               default:
                 break;
-
             }
           })
           .join("，");
@@ -428,7 +423,6 @@ function Findcase() {
           case "5":
             setTypeid("專業諮詢");
             break;
-
           default:
             break;
         }
@@ -446,7 +440,6 @@ function Findcase() {
                 return 4;
               case "三十萬":
                 return 5;
-
               default:
                 break;
             }
@@ -497,7 +490,6 @@ function Findcase() {
                 return "金門縣"
               case "連江縣":
                 return "連江縣"
-
               default:
                 return "";
             }
@@ -516,18 +508,12 @@ function Findcase() {
           setPosts(response.data);
 
         }
-
-
-
         setCityid(countryQuery.replaceAll(","," "));
-
-
-
       } catch (err) {
         console.error(err);
       }
-
     };
+
     fetchDataNew();
   }, [ casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
@@ -549,7 +535,7 @@ function Findcase() {
       .then((data) => {
 
         setPosts(data);
-        console.log(data);
+        // console.log(data);
       });
     console.log(type);
     setFactor(false);
@@ -950,8 +936,7 @@ function Findcase() {
 
 
         {/* 左上4顆按鈕 */}
-        <div style={{  }}>
-
+        <div>
           <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
             <button style={{border:'none',boxShadow:'0 0px 1px',backgroundColor:'transparent' }} className={changecolor1 == true ? "active" : ""}  >
               全部案件

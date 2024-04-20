@@ -176,8 +176,8 @@ const Provider = ({ data1 }) => {
 
   return (
     <>
-      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>提供服務</div>
-      <div style={{ width: '100%', background: 'lightblue', height: '800px', borderRadius: "10px" }}>
+      <div className={`${styles.titlestyle}`}>提供服務</div>
+      <div style={{ width: '100%', background: 'lightblue', minHeight: '33vh', borderRadius: "10px", marginBottom: '1.3rem' }}>
         <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className={`${styles.buttoncontainer}`}>
             <Button
@@ -215,12 +215,12 @@ const Provider = ({ data1 }) => {
           </div>
           {/* DATA */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Row style={{ width: '1000px', marginTop: "10px" }} >
+            <Row style={{ width: '100%', marginTop: "10px" }} >
               {data1.map((item, index) => (
-                <Col key={index} style={{}} className='mb-3 col-4 d-flex justify-content-center'>
+                <Col key={index} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${item.image}`} alt={`${index + 1}`} style={{ height: '180px', objectFit: 'cover' }} onClick={() => handleShow1(index)} />
-                    <Card.Body className="">
+                    <Card.Body>
                       <Card.Title className='w-100 '>
                         <div
                           style={{
@@ -238,12 +238,7 @@ const Provider = ({ data1 }) => {
                           />
                           <span style={{marginLeft:"0.5rem"}}>{item.s_name}</span>
                         </div>
-
-
-
-
                       </Card.Title>
-
                     </Card.Body>
                   </Card>
                 </Col>
@@ -252,7 +247,6 @@ const Provider = ({ data1 }) => {
               <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
             </Row>
           </div>
-
         </div>
 
         <DataContext.Provider value={{ setCheckedAll, setSelectedItems }}>
@@ -260,7 +254,6 @@ const Provider = ({ data1 }) => {
         </DataContext.Provider>
 
         <EditModal1 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal1>
-
 
         {/* 刪除 */}
         <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
@@ -271,17 +264,16 @@ const Provider = ({ data1 }) => {
             確定刪除所選服務?
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="danger" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={() => handleDeleted()}>
+            <Button variant="primary" style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }} onClick={() => handleDeleted()}>
               確定
             </Button>
-            <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={handleClosedDeletedModal}>
+            <Button variant="danger" style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }} onClick={handleClosedDeletedModal}>
               關閉
             </Button>
           </Modal.Footer>
         </Modal>
       </div>
     </>
-
   );
 };
 

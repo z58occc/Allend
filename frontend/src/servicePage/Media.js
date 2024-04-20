@@ -1,14 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Button, Card, Form, Col, Row, Modal } from "react-bootstrap";
 import Pagination from 'react-bootstrap/Pagination';
+import { FaTrashAlt, FaRegCheckSquare, FaCheck, FaPlus } from "react-icons/fa";
 import Cookies from "js-cookie";
 import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
 import styles from './servicemanagement.module.css';
-import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa";
 
 
 export const MediaContext = createContext();
@@ -173,8 +172,8 @@ const Media = ({ data3 }) => {
   }
   return (
     <>
-      <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
-      <div style={{ width: '100%', background: 'lightgreen', height: '800px', borderRadius: "10px" }}>
+      <div className={`${styles.titlestyle}`}>影音</div>
+      <div style={{ width: '100%', background: 'lightgreen', minHeight: '33vh', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className={`${styles.buttoncontainer}`}>
             <Button
@@ -213,7 +212,7 @@ const Media = ({ data3 }) => {
           </div>
           {/* Generate six Cards */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Row style={{ width: '1000px', marginTop: "10px" }}>
+            <Row style={{ width: '100%', marginTop: "10px" }}>
               {data3.map((item, index) => (
                 <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
                   <Card style={{ width: "240px" }}>
@@ -236,22 +235,21 @@ const Media = ({ data3 }) => {
                           />
                           <span style={{marginLeft:"0.5rem"}} onClick={() => handleShow1(index)}>{item.v_name}</span>
                         </div>
-
-
-
-
                       </Card.Title>
                     </Card.Body>
                   </Card>
                 </Col>
               ))}
+
               <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
             </Row>
           </div>
         </div>
+
         <MediaContext.Provider value={{ setSelectedItems, setCheckedAll }} >
           <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
         </MediaContext.Provider>
+
         <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
 
         {/* 刪除 */}
@@ -263,10 +261,10 @@ const Media = ({ data3 }) => {
             確定刪除所選影音?
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="danger" onClick={() => handleDeleted()}style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }}>
+            <Button variant="primary" onClick={() => handleDeleted()}style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }}>
               確定
             </Button>
-            <Button variant="secondary" onClick={handleClosedDeletedModal}style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }}>
+            <Button variant="danger" onClick={handleClosedDeletedModal}style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }}>
               關閉
             </Button>
           </Modal.Footer>
