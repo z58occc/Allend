@@ -953,24 +953,24 @@ function Findcase() {
         <div style={{  }}>
 
           <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
-            <button className={changecolor1 == true ? "active" : ""}  >
+            <button style={{border:'none',boxShadow:'0 0px 1px',backgroundColor:'transparent' }} className={changecolor1 == true ? "active" : ""}  >
               全部案件
             </button>
           </Link>
-          <button className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
-          <button className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
+          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
+          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
 
 
         {/* 右下4顆按鈕 */}
-        <div style={{ textAlign: "end" }}>
-          <button className={changecolor5 == true ? "active" : ""} onClick={() => handlechangeOrder(1)}>最新刊登<GoTriangleDown /></button>
-          <button className={changecolor4 == true ? "active" : ""} onClick={() => handlechangeOrder(2)}>最近更新<GoTriangleDown /></button>
-          <button className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額
+        <div style={{ textAlign: "end", marginBottom:'0.5rem'}}>
+          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor5 == true ? "active" : ""} onClick={() => handlechangeOrder(1)}>最新刊登<GoTriangleDown /></button>
+          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor4 == true ? "active" : ""} onClick={() => handlechangeOrder(2)}>最近更新<GoTriangleDown /></button>
+          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額
             <GoTriangleDown style={{ display: (changeorder == false ? "" : "none") }} />
             <GoTriangleUp style={{ display: (changeorder == true ? "" : "none") }} />
           </button>
-          <button className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數
+          <button style={{border:'none',boxShadow:'0 0px 1px',backgroundColor:'transparent'  }} className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數
             <GoTriangleDown style={{ display: (changeorderQuote == false ? "" : "none") }} />
             <GoTriangleUp style={{ display: (changeorderQuote == true ? "" : "none") }} />
           </button>
@@ -1032,7 +1032,7 @@ function Findcase() {
             return (
               <div style={{marginBottom:'1.5rem'}}>
                 <div className="row" key={index}>
-                  <Row style={{border:'solid 1px',borderRadius:'10px', padding: 0 }}>
+                  <Row style={{border:'solid 1px',borderRadius:'10px', padding: 0 ,boxShadow:'0 0 3px', backgroundColor:'white'}}>
                     <Col id="link" xs={2} style={{ borderRight: "solid black 1px", fontSize: "15px" ,margin: "1rem"}}>
                       <Link to={`/casecontext/${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
                         <div style={{ fontSize:'26px' }}>{post.d_name}</div>
@@ -1047,7 +1047,7 @@ function Findcase() {
                     </Col>
                     <Col xs={1} style={{ display:'flex', fontSize:'16px',  justifyContent: 'center', alignItems:"center",borderLeft:"solid 1px", margin:'1rem'}}>
                       <div style={{padding:'.5rem' , textAlign:'center'}}>
-                        <div id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
+                        <div style={{whiteSpace:'nowrap'}} id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
