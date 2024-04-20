@@ -1045,13 +1045,13 @@ function Findcase() {
                     <Col>
                       <div className="description">{post.d_description}</div>
                     </Col>
-                    <Col xs={1} style={{ display:'flex', fontSize:'16px',  justifyContent: 'center', alignItems:"center",borderLeft:"solid 1px", margin:'1rem'}}>
+                    <Col xs={2} style={{ display:'flex',  justifyContent: 'center', alignItems:"center",borderLeft:"solid 1px", margin:'1rem'}}>
                       <div style={{padding:'.5rem' , textAlign:'center'}}>
                         <div style={{whiteSpace:'nowrap'}} id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
-                        <Button style={{ fontSize: "10px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
+                        <Button style={{ fontSize: "16px", }} onClick={isLoggedIn ? () => { handlequoteShow(index) } : handleShow}>我要報價</Button>
                       </div>
 
                     </Col>

@@ -177,12 +177,13 @@ function ClientForm() {
                 <Button
                   type="submit"
                   variant="danger"
-                  style={{ width: "50%" }}
+                  style={{ width: "50%", fontSize: "20px", borderRadius: '.5rem' }}
                   disabled={!isFormComplete}
                 >
                   提交
                 </Button>
-                <Button variant="secondary" onClick={handleReset}>
+                <Button variant="secondary" onClick={handleReset}
+                  style={{fontSize: "20px", borderRadius: '.5rem'}}>
                   重置
                 </Button>
               </div>
