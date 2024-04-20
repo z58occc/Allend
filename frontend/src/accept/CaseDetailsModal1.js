@@ -106,7 +106,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
 
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="success" style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }}
+              <Button variant="success" style={{ padding: '0.5rem 2.14rem', fontSize: '18px', borderRadius: ".5rem" }}
                 onClick={(e) => {
                   e.preventDefault(); // Prevent default form submission
                   handleSubmit(e); // Pass the event object to handleSubmit
@@ -114,7 +114,7 @@ const CaseDetailsModal = ({ show, onHide, number, data }) => {
               >
                 儲存變更
               </Button>
-              <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }} onClick={onHide}>
+              <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '18px', borderRadius: ".5rem" }} onClick={onHide}>
                 取消
               </Button>
             </div>

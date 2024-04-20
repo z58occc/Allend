@@ -68,7 +68,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
               </div>
               <div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
-                  <strong>案件金額：</strong>{data[number].c_amount}/{data[number].c_unit}
+                  <strong>案件金額：</strong>{data[number].c_amount}&nbsp;/&nbsp;{data[number].c_unit}
                 </div>
                 <div className="col" style={{ marginBottom: '10px', fontSize: '20px' }}>
                   <strong>發案人姓名：{data[number].c_contact_name}</strong>
@@ -84,16 +84,17 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
               </div>
             </div>
             <div className="d-grid gap-2">
-              <Button onClick={isLoggedIn ? () => toggleChat(data[number].mid_demmand) : handleShow} variant="primary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }}>
+              <Button onClick={isLoggedIn ? () => toggleChat(data[number].mid_demmand) : handleShow} variant="primary" 
+              style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: '.5rem' }}>
                 聯絡案主
               </Button>
               {data[number].c_status !== 3
                 ?
-                <Button variant={Color} style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={() => { submit(data[number].cid) }} disabled={isDisabled}>
+                <Button variant={Color} style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: '.5rem' }} onClick={() => { submit(data[number].cid) }} disabled={isDisabled}>
                   {ButtonName}
                 </Button>
                 :
-                <Button variant="warning" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={() => { submit(data[number].cid) }} disabled={true}>
+                <Button variant="warning" style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: '.5rem' }} onClick={() => { submit(data[number].cid) }} disabled={true}>
                   等待中
                 </Button>
               }
@@ -101,7 +102,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={onHide} style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }}>
+            <Button variant="secondary" onClick={onHide} style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: ".5rem" }}>
               關閉
             </Button>
           </Modal.Footer>

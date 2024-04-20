@@ -7,7 +7,8 @@ import CaseDetailsModal3 from './CaseDetailsModal3';
 import StarRating from './StarRating';
 import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
-// import CaseContext from './CaseContext';
+
+
 const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
   const { fetchData } = useContext(CaseContext);
   const [searchTerm, setSearchTerm] = useState('');
@@ -123,7 +124,6 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
         <SearchPage onSearch={handleSearch} searchTerm={screen === 2 ? searchTermProgress : screen === 3 ? searchTermCompleted : searchTerm}></SearchPage>
       </div>
       {
-        // CaseData.length === 0 ? <h2>未有紀錄</h2>   
         filteredData.map((item, index) => (
           <Card key={index} className="my-3" style={{ width: '720px', display: 'flex', borderRadius: '.5rem' }}>
             <div className="d-flex bd-highlight">
@@ -134,17 +134,17 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.demmand_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
                 <div className="d-flex justify-content-between">
                   <span>{screen === 3 ? <>評論日期：{item.completed_time}</> : <>合作期程：{item.c_duration || item.d_duration}</>}</span>
-                  <span> {(screen === 1 && <>預算： {item.q_amount}/{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}/{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}/{item.c_unit}</>)}</span>
+                  <span> {(screen === 1 && <>預算： {item.q_amount}&nbsp;/&nbsp;{item.d_unit} </>) || (screen === 2 && <>成交金額：{item.c_amount}&nbsp;/&nbsp;{item.c_unit}</>) || (screen === 3 && <>成交金額：{item.c_amount}&nbsp;/&nbsp;{item.c_unit}</>)}</span>
                 </div>
               </Card.Body>
               {screen === 2
                 &&
-                <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
+                <div className="d-flex flex-column justify-content-center">
                   <Button variant="primary" key={index} className="my-2" style={{
                     width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto",
                     marginBottom: "40px",
                     padding: "0.8rem 1rem",
-                    borderRadius: "10px"
+                    borderRadius: ".5rem"
                   }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     查看詳情
                   </Button>
@@ -152,14 +152,25 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
               }
               {screen === 1
                 &&
-                <div className="d-flex flex-column justify-content-center" >
-                  <Button variant="success" key={index} className="my-2" style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', marginTop: "auto", marginBottom: "40px", padding: "0.8rem 1rem", borderRadius: "10px" }} onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
+                <div className="d-flex flex-column justify-content-center me-1" >
+                  <Button variant="success" key={index} className="my" 
+                  style={{
+                    fontSize: "18px",
+                    whiteSpace: "nowrap",
+                    padding:"0.8rem 1rem",
+                    borderRadius: '.5rem'
+                  }} 
+                  onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }} >
                     編輯
                   </Button>
                   <Button
                     variant="secondary"
-                    className="my-2 d-inline-block"
-                    style={{ width: '110px', fontSize: '18px', whiteSpace: 'nowrap', textAlign: 'center', visibility, padding: "0.8rem 1rem" ,borderRadius: "10px" }}
+                    style={{
+                      fontSize: "18px",
+                      whiteSpace: "nowrap",
+                      padding:"0.8rem 2rem",
+                      borderRadius: '.5rem'
+                    }}
                     onClick={() => { handleDeletedModal() }}
                   >
                     棄件
@@ -171,18 +182,14 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                   <Button
                     variant="primary"
                     key={index}
-                    className="my-2"
                     style={{
-                      width: item.service_comment ? "120px" : "110px", fontSize: '18px', whiteSpace: 'nowrap', padding: "0.8rem 1rem",
-                      borderRadius: '15px',
-                      marginTop: "auto",
-                      marginBottom: "40px"
+                      fontSize: '18px', whiteSpace: 'nowrap', padding: "0.8rem 1rem",
+                      borderRadius: '.5rem',
                     }}
-
                     onClick={() => { handleModalShow1(); handlesetSelectedDataKey(index) }}
                     disabled={item.service_comment ? true : false}
                   >
-                    {item.service_comment ? '已提出評論' : '提出評論'}
+                    {item.service_comment ? '評價完成' : '提出評價'}
                   </Button>
                 </div>
               )}
@@ -197,10 +204,24 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
                 確定捨棄此案件?
               </Modal.Body>
               <Modal.Footer className="d-flex justify-content-center">
-                <Button variant="danger" onClick={() => { handleDeleted(item.qid) }}>
+                <Button variant="danger" 
+                        style={{
+                          fontSize: '18px',
+                          whiteSpace: 'nowrap',
+                          padding: '.8rem 2rem',
+                          borderRadius: '0.5rem'
+                        }}
+                        onClick={() => { handleDeleted(item.qid) }}>
                   確定
                 </Button>
-                <Button variant="secondary" onClick={handleClosedDeletedModal}>
+                <Button variant="secondary" 
+                        style={{
+                          fontSize: '18px',
+                          whiteSpace: 'nowrap',
+                          padding: '.8rem 2rem',
+                          borderRadius: '0.5rem'
+                        }}
+                        onClick={handleClosedDeletedModal}>
                   關閉
                 </Button>
               </Modal.Footer>
@@ -208,12 +229,10 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
           </Card>
         ))}
 
-
-
-
       {ComponentToRender}
     </div>
   );
 };
+
 
 export default CardList;

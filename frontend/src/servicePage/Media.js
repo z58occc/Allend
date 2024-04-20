@@ -6,7 +6,7 @@ import YouTubeEmbed from '../Components/youtube';
 import CaseDetailsModal3 from './CaseDetailsModal3';
 import { CaseContext } from "./MainScreen3";
 import EditModal3 from './EditModal3';
-import styles from './media.module.css';
+import styles from './servicemanagement.module.css';
 import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 
@@ -176,7 +176,7 @@ const Media = ({ data3 }) => {
       <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
       <div style={{ width: '100%', background: 'lightgreen', height: '800px', borderRadius: "10px" }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
-          <div className="mb-3 d-flex justify-content-around" style={{ width: "800px", height: '50px' }}>
+          <div className={`${styles.buttoncontainer}`}>
             <Button
               variant="success"
               className={`${styles.increasecollectionchecked}`}
