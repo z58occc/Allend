@@ -48,7 +48,7 @@ const CollectionsMain = () => {
           </Col>
 
           <Col sm={9} style={{ padding: "20px"}}>
-              <Container fluid style={{}}>
+              {/* <Container fluid style={{}}> */}
                 {/* 上方頁籤 */}
                 <Row className="">
                   <Col>
@@ -84,7 +84,7 @@ const CollectionsMain = () => {
                     )}
                   </Col>
                 </Row>
-              </Container>
+              {/* </Container> */}
           </Col>
 
         </Row>

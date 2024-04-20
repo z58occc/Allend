@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Card, Button, Modal, Form } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Button, Modal } from 'react-bootstrap';
 import SearchBox from './SearchBox';
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -8,7 +8,7 @@ import styles from './Collection.module.css';
 import { FaTrashAlt,FaRegCheckSquare,FaCheck } from "react-icons/fa";
 
 
-const CollectionList = ({visibility,selectedComponent,text,data,screen,dataUpdate}) => {
+const CollectionList = ({data,screen,dataUpdate}) => {
   // 控制key回傳對應Modal
   // const [selectedDataKey, setSelectedDataKey] = useState(0);
   // const handlesetSelectedDataKey = (index)=>{
@@ -202,7 +202,7 @@ console.log("AB", data)
           }
         </div>
       : filteredData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '100%', display: 'flex' }}>
+        <Card key={index} className="my-3" style={{ width: '100%', display: 'flex', borderRadius: '.8rem' }}>
           <div className="d-flex bd-highlight">
             <div className='d-flex align-items-center' style={{ padding: "0 1.25rem" }}>
               <input

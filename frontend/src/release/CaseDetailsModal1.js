@@ -107,7 +107,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
       dialogClassName="custom-background2"
     >
       <Modal.Header closeButton style={{ padding: '1rem 1rem 1rem 1.5rem'}}>
-        <Modal.Title>案件資訊</Modal.Title>
+        <Modal.Title style={{fontWeight: '550'}}>{data[number].d_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ padding: '0 1.5rem 1rem'}}>
         <Form.Label>案件編號：{data[number].did}</Form.Label>
@@ -285,6 +285,7 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
           <Button
             variant="success"
             size="lg"
+            style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', padding: '0.5rem 2.5rem' }}
             onClick={(e) => {
               e.preventDefault(); // Prevent default form submission
               handleSubmit(e); // Pass the event object to handleSubmit  

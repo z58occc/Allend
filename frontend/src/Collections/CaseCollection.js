@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CollectionList from './CollectionList';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -38,7 +38,7 @@ const CaseCollection = ({data, dataUpdate}) => {
   // }, [active])
   
   return (
-      <div style={{ width: '100%', height: '100vh' }}>
+      <div style={{ width: '100%', minHeight: '100vh' }}>
         <CollectionList selectedComponent={'case'} screen={1} data={data} dataUpdate={dataUpdate}></CollectionList>
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>

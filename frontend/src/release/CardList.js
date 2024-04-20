@@ -265,14 +265,14 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
         <Card
           key={index}
           className="my-3"
-          style={{ width: "720px", height: "", display: "flex" }}
+          style={{ width: "720px", display: "flex", borderRadius: '.5rem' }}
         >
           <div className="d-flex bd-highlight">
             <Card.Body style={{ flex: "1" }}>
               <Card.Text>{screen === 1 ? (
                 <>更新日期：{item.updated_at}</>
-              ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : (
-                <>建立日期：{item.created_at}</>
+              ) : screen === 3 ? <Card.Title style={{ marginBottom: "0px", fontWeight: '550', color: 'black' }}>{item.c_name}</Card.Title> : (
+                <>建立日期：{item.ecreated_at}</>
               )}</Card.Text>
               <Form.Check
                 type="checkbox"
@@ -285,14 +285,16 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 &&
                 <Card.Title
                   style={
-                    screen === 1 ? { marginLeft: "25px" } : { marginLeft: "0px" }
+                    screen === 1
+                    ? { marginLeft: "1.5rem", fontWeight: '550' }
+                    : { marginLeft: "0px", fontWeight: '550' }
                   }
                 >
                   {screen === 1 ? item.d_name : item.c_name}
                 </Card.Title>
               }
 
-              {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >案主評分：<StarRating rating={item.service_star} ></StarRating></Card.Text >)}
+              {(screen === 3 && <Card.Text style={{ marginBottom: "0px" }} >接案者評分：<StarRating rating={item.service_star} ></StarRating></Card.Text >)}
               {screen === 3 ? <><hr style={{ background: 'black', margin: '3px auto' }} /><Card.Text style={{ fontSize: '18px' }}>{item.service_comment}</Card.Text> </> : <hr style={{ background: 'black' }} />}
               <div className="d-flex justify-content-between">
                 <span>
@@ -313,7 +315,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
               </div>
             </Card.Body>
             {screen === 2 && (
-              <div className="d-flex flex-column justify-content-center" style={{ height: "150px" }}>
+              <div className="d-flex flex-column justify-content-center">
                 <Button
                   variant="primary"
                   key={index}
@@ -324,7 +326,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                     whiteSpace: "nowrap",
                     marginTop: "auto",
                     marginBottom: "40px",
-                    padding:"0.8rem 1rem"
+                    padding:"0.8rem 1rem",
+                    borderRadius: '.5rem'
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -362,18 +365,16 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
               </div>
             )}
 
-
             {screen === 1 && (
-              <div className="d-flex flex-column justify-content-center" >
+              <div className="d-flex flex-column justify-content-center me-1" >
                 <Button
                  variant="success"
                   key={index}
-                  className="my-2"
                   style={{
                     fontSize: "18px",
                     whiteSpace: "nowrap",
                     padding:"0.8rem 1rem",
-                    borderRadius: "10px",
+                    borderRadius: '.5rem'
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -384,13 +385,12 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                 </Button>
                 <Button
                   variant="secondary"
-                  className="my-2 d-inline-block"
                   style={{
                     fontSize: "18px",
                     whiteSpace: "nowrap",
                     textAlign: "center",
                     padding:"0.8rem 1rem",
-                     borderRadius: "10px"
+                    borderRadius: '.5rem'
                   }}
                   onClick={() => {
                     handleShowQuoteModal(item.did);

@@ -13,7 +13,7 @@ import { IsLoggedInContext } from '../App'
 
 
 const LeftVerticalNavbar = () => {
-    const { isGoogle, infoCompleted } = useContext(IsLoggedInContext)
+    const { isGoogle, infoCompleted, emailVerified } = useContext(IsLoggedInContext)
 
     const navItems = [
         { link: '/member', text: '會員中心' },
@@ -170,18 +170,18 @@ const LeftVerticalNavbar = () => {
                     {navItems.map((item, index) => {
                         if (index === 1) {
                             return (
-                                <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
+                                <Accordion key={index} className="no-arrow-accordion" >
                                     <Accordion.Item eventKey={`${index}`}>
                                         <Accordion.Header
                                             className={`${styles.accHeader} bg-light`} 
                                         >
-                                            <span style={{fontSize:"32px",margin: 0}}>{item.text}</span>
+                                            <span style={{fontSize:"32px", margin: 0}}>{item.text}</span>
                                         </Accordion.Header>
 
                                         <Accordion.Body style={{ backgroundColor: "#D0D0D0" }}>
                                             {index === 1 ? (
                                                 <div className={`${styles.linksContainer}`}>
-                                                    <Link to="/switch"  className="nav-link-no-arrow " >資料維護</Link>
+                                                    <Link to="/switch"  className="nav-link-no-arrow">資料維護</Link>
                                                     {!isGoogle
                                                     ? <><br /><Link to="/fix" className="nav-link-no-arrow">修改密碼</Link></>
                                                     : <></>
@@ -201,7 +201,7 @@ const LeftVerticalNavbar = () => {
                         } else if (index === 2){
                             return (
                                 <>
-                                    {infoCompleted
+                                    {infoCompleted && emailVerified
                                     ? 
                                     <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
                                         <Accordion.Item eventKey={`${index}`}>
@@ -230,7 +230,7 @@ const LeftVerticalNavbar = () => {
                             );
                         } else {
                             return (
-                                <>{infoCompleted ? <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link> : <></>}</>
+                                <>{infoCompleted && emailVerified ? <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link> : <></>}</>
                             )
                         }
                     })}

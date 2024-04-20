@@ -46,10 +46,10 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
   return (
     <Modal show={show} onHide={onHide} dialogClassName="custom-background2">
       <Modal.Header closeButton>
-        <Modal.Title>案件資訊</Modal.Title>
+        <Modal.Title>{data[number].c_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="container" style={{ fontSize: "18px" }}>
+        <div className="row">
           <div>
             <div
               className="col"
@@ -64,6 +64,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               <strong>案件名稱：{data[number].c_name}</strong>
             </div>
           </div>
+          
           <div>
             <div
               className="col"
@@ -75,9 +76,10 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>預算金額：{data[number].c_amount}</strong>
+              <strong>結案金額：{data[number].c_amount}&nbsp;/&nbsp;{data[number].c_unit}</strong>
             </div>
           </div>
+
           <div>
             <div
               className="col"
@@ -101,12 +103,16 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <Star1 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star1>
-              <div style={{ margin: "10px auto" }}>
-                <textarea maxLength={100} rows={5} cols={40} value={Comment} onChange={(e)=>{setComment(e.target.value)}}/>
-              </div>
+            <Star1 style={{ marginBottom: "10px", fontSize: "20px" }} onRatingChange={handleRatingChange}></Star1>
             </div>
-          </div>
+            <div
+              className="col"
+              style={{ marginBottom: "0px", fontSize: "20px" }}
+            >
+              <strong>評價留言：</strong>
+              <textarea maxLength={100} rows={5} cols={40} value={Comment} onChange={(e)=>{setComment(e.target.value)}}/>
+            </div>
+            </div>
         </div>
         <div className="mb-2 d-flex justify-content-around">
           <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}} onClick={()=>{handleRating()}}>

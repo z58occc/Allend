@@ -1,29 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams, } from "react-router-dom";
-import Footer from "../homepage/Footer";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { GoTriangleDown } from "react-icons/go";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { IsLoggedInContext } from "../App";
+import Footer from "../homepage/Footer";
 import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
 import styles from "./Findman.module.css";
-// import "./Findman.css";
 
 
 const Findman = () => {
-  // 是否登入
-  const {isLoggedIn, setIsLoggedIn, handleShow,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
+  // 接context
+  const {isLoggedIn, handleShow, showChat, setShowChat, setSelectedItemMid} = useContext(IsLoggedInContext);
+
   // 儲存撈回來的資料
   const [service, setService] = useState([]);
 
-  
-  
-
-
+  // 開啟聊天室
   const toggleChat = (mid) => {
     setSelectedItemMid(mid);
     setShowChat(!showChat);
@@ -69,7 +66,7 @@ const Findman = () => {
   });
 
   const { s_type, servicesearch } = useParams();
-
+  
   // 儲存排序鈕顏色
   const [act, setAct] = useState();
 
@@ -78,12 +75,6 @@ const Findman = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    if (Cookies.get('token')) {
-      setIsLoggedIn(true)
-    }
-
-
-
     const fetchService = async () => {
       try {
         const identityQuery = Object.keys(identity)
@@ -177,40 +168,28 @@ const Findman = () => {
           .join(",");
 
         const sortQuery = Object.keys(sort);
-        if (servicesearch == undefined) {
-          if (isLoggedIn) {
-            const response = await axios.get(
-              `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`,
-              { headers: { Authorization: `Bearer ${Cookies.get('token')}` } }
-            );
-            setService(response.data.data);
-            setTotalPages(response.data.last_page);
-          } else {
-            const response = await axios.get(
-              `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
-            );
-            setService(response.data.data);
-            setTotalPages(response.data.last_page);
-          }
-        } else {
-          const response = await axios.get(
-            `http://localhost/Allend/backend/public/api/printservicecardcontent?identity=
-            ${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}&servicesearch=${servicesearch}`
-          );
-          setService(response.data.data);
-          setTotalPages(response.data.last_page);
+
+        const baseURL = "http://localhost/Allend/backend/public/api/printservicecardcontent"
+        const queryParams = `?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+        
+        let requestURL = `${baseURL}${queryParams}`
+        if (servicesearch !== undefined){
+          requestURL += `&servicesearch=${servicesearch}`
         }
 
+        let headers = {}
+        if(isLoggedIn){
+          headers = { Authorization: `Bearer ${Cookies.get('token')}` }
+        }
+        const response = await axios.get(requestURL, {headers});
+        setService(response.data.data);
+        setTotalPages(response.data.last_page);
       } catch (err) {
         console.error(err);
       }
     };
     fetchService();
   }, [servicesearch, identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
-// console.log(service)
-  const [textShow, setTextShow] = useState(null);
 
   // 加入收藏
   const addServiceCollection = (sid) => {
@@ -223,12 +202,6 @@ const Findman = () => {
       .then((res) => {
         const newData = service.map((item) => item.sid === sid ? { ...item, fid: res.data.fid.fid } : item);
         setService(newData)
-        // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:true} : item }))
-        setTimeout(()=>{
-            // setTextShow(service.map((item) => {item.sid === sid ? {...item, show:false} : item }))
-            setTextShow(null)
-        }, 3000)
-
       })
       .catch((err) => { console.log(err) })
   }
@@ -241,13 +214,14 @@ const Findman = () => {
       data: { fid: fid },
       headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
-      .then((res) => {
-        const newData = service.map((item) => item.fid === fid ? { ...item, fid: null } : item);
-        setService(newData)
-      })
-      .catch((err) => { console.log(err) })
+    .then((res) => {
+      const newData = service.map((item) => item.fid === fid ? { ...item, fid: null } : item);
+      setService(newData)
+    })
+    .catch((err) => { console.log(err) })
   }
 
+  /* 更新篩選條件值 */
   const handleidentityChange = (event) => {
     const { name, checked } = event.target;
     setIdentity((prevState) => ({
@@ -255,6 +229,7 @@ const Findman = () => {
       [name]: checked,
     }));
   };
+
   const handleseniorityChange = (event) => {
     const { name, checked } = event.target;
     setSeniority((prevState) => ({
@@ -275,8 +250,9 @@ const Findman = () => {
     setSort({ [sorttype]: true });
     setAct(sorttype)
   };
+  /* 更新篩選條件值 */
 
-  {/* 切換上下頁 */ }
+  /* 切換上下頁 */ 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
 
@@ -284,22 +260,18 @@ const Findman = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
-  {/* 切換上下頁 */ }
+  /* 切換上下頁 */ 
 
-  {/* 置頂按鈕 */ }
+  /* 置頂按鈕 */ 
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if user has scrolled down beyond a certain point
-      if (window.scrollY > 400) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
+      window.scrollY > 400 ? setShowScrollButton(true) : setShowScrollButton(false)
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -311,7 +283,7 @@ const Findman = () => {
       behavior: "smooth"
     });
   };
-  {/* 置頂按鈕 */ }
+  /* 置頂按鈕 */ 
 
   return (
     <>
@@ -323,7 +295,7 @@ const Findman = () => {
             position: "fixed",
             bottom: "30px",
             right: "20px",
-            zIndex: "1000" // Set a high z-index to make sure it appears on top
+            zIndex: "1000"
           }}
           onClick={scrollToTop}
         >
@@ -663,7 +635,7 @@ const Findman = () => {
                           ? <>
                             <FaHeart className={styles.faheart} onClick={() => { cancelServiceCollection(item.fid) }} />
                           </>
-                          : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid); setTextShow(index) } : handleShow} />}
+                          : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid);} : handleShow} />}
                       </div>
                       <div onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} className='text-center p-2'>
                         <Chatbutton />
@@ -674,8 +646,6 @@ const Findman = () => {
               ))}
             </div>
             {/* {textShow && <span style={{color: 'red'}}>已收藏！</span>} */}
-
-            {/* {showChat &&  <PublicMessagesPage receiverId={selectedItemMid} />} */}
           </div>
         </div>
 
