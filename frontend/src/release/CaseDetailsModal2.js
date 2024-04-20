@@ -2,11 +2,8 @@ import { React, useContext, useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
-import PayButton from "./paybutton"
 import { IsLoggedInContext } from "../App";
-
-
-
+import PayButton from "./paybutton"
 
 
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
@@ -51,10 +48,10 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>案件資訊</Modal.Title>
+        <Modal.Title>{data[number].c_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="container" style={{ fontSize: "18px" }}>
+        <div className="row">
           <div>
             <div
               className="col"
@@ -80,7 +77,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>預算金額：{data[number].c_amount}</strong>
+              <strong>預算金額：{data[number].c_amount}&nbsp;/&nbsp;{data[number].c_unit}</strong>
             </div>
           </div>
           <div>
@@ -108,7 +105,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人 Email：{data[number].email}</strong>
+              <strong>接案人Email：{data[number].email}</strong>
             </div>
             <div
               className="col"
@@ -119,16 +116,19 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
           </div>
         </div>
         <div className="d-grid gap-2">
-          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} variant="primary" size="" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
+          <Button onClick={isLoggedIn ? ()=>toggleChat(data[number].mid_service) : handleShow} 
+          variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'}}>
             聯絡接案人
           </Button>
           {data[number].c_status === 3
           ?
-          <Button variant="secondary" size="lg" onClick={()=>{received(data[number].cid)}} disabled={false} style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
+          <Button variant="success" size="lg" onClick={()=>{received(data[number].cid)}} 
+          disabled={false} style={{padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'}}>
             已收到案件
           </Button>
           :
-          <Button variant="secondary" size="" onClick={()=>{received(data[number].cid)}} disabled={true} style={data[number].c_status === 4 ? { display: 'none' } : {padding: '0.5rem 2.14rem', fontSize:'22px'}} >
+          <Button variant="success" size="" onClick={()=>{received(data[number].cid)}} 
+          disabled={true} style={data[number].c_status === 4 ? { display: 'none' } : {padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'}} >
             已收到案件
           </Button>
           }
@@ -137,7 +137,8 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
+        <Button variant="danger" onClick={onHide} 
+        style={{padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'}}>
           關閉
         </Button>
       </Modal.Footer>

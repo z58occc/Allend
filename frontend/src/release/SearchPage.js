@@ -27,16 +27,17 @@ const SearchPage = ({ onSearch }) => {
     <MDBCol md="5" className="d-flex">
       <form className="form-inline d-flex justify-content-center align-items-center" onSubmit={handleSubmit}>
         <MDBIcon icon="search" />
-        <input className="form-control form-control-sm ms-2 w-75"
+        <input className="form-control form-control-sm ms-1 w-75"
           type="text"
           placeholder="Search"
           aria-label="Search"
           value={searchTerm}
           onChange={handleChange}
+          style={{boxShadow:'none'}}
         />
 
-        <button onClick={handleReset} className="rounded-end  btn-height">
-          <FaTrashAlt style={{ fontSize: "16px" }} />
+        <button onClick={handleReset} className="rounded-end">
+          <FaTrashAlt />
         </button>
       </form>
 

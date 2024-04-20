@@ -70,7 +70,7 @@ function PasswordForm() {
                   <h2><BsWrenchAdjustable />修改密碼</h2>
 
                   <Form onSubmit={handleSubmit}>
-                    <Form.Label>舊密碼：{oerr && oerr.map((v) => {return <span style={{color:'red'}}>{v}</span>})}</Form.Label>
+                    <Form.Label>舊密碼：<span style={{color:'red'}}>*</span>{oerr && oerr.map((v) => {return <span style={{color:'red'}}>{v}</span>})}</Form.Label>
                     <InputGroup>
                       <InputGroup.Text controlId="formOldPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
@@ -82,7 +82,7 @@ function PasswordForm() {
                       />
                     </InputGroup>
                     <br />
-                    <Form.Label>新密碼：</Form.Label>
+                    <Form.Label>新密碼：<span style={{color:'red'}}>*</span></Form.Label>
                     <InputGroup>
                       <InputGroup.Text controlId="formNewPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
@@ -95,7 +95,7 @@ function PasswordForm() {
                       />
                     </InputGroup>
                     <br />
-                    <Form.Label>確認新密碼：</Form.Label>
+                    <Form.Label>確認新密碼：<span style={{color:'red'}}>*</span></Form.Label>
                     <InputGroup>
                       <InputGroup.Text controlId="formConfirmNewPassword">< FaLock /></InputGroup.Text>
                       <Form.Control
@@ -113,7 +113,11 @@ function PasswordForm() {
                       })
                     }
                     <br />
-                    <Button variant="primary" type="submit">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      style={{fontSize: "20px", borderRadius: '.5rem', padding: '.54rem 1.7rem'}}
+                    >
                       提交
                     </Button>
                   </Form>

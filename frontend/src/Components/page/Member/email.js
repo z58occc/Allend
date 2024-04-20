@@ -111,7 +111,6 @@ function FreelancerForm() {
     if (countdown > 0) {
       timer = setTimeout(() => {
         setCountdown(countdown - 1);
-
       }, 1000);
     }
     return () => clearTimeout(timer);
@@ -476,12 +475,16 @@ function FreelancerForm() {
                 >
                   <Button
                     type="submit"
-                    variant="danger"
-                    style={{ width: "50%", fontSize: "15px" }}
+                    variant="primary"
+                    style={{ width: "50%", fontSize: "20px", borderRadius: '.5rem' }}
                   >
                     提交
                   </Button>
-                  <Button variant="secondary" onClick={handleReset}>
+                  <Button 
+                    variant="danger"
+                    onClick={handleReset}
+                    style={{fontSize: "20px", borderRadius: '.5rem'}}
+                    >
                     重置
                   </Button>
                 </div>

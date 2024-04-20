@@ -77,7 +77,7 @@ function GetQuoteModal({ show, onHide, data }) {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         onHide();
       })
       .catch((error) => {
@@ -87,7 +87,7 @@ function GetQuoteModal({ show, onHide, data }) {
   return (
     <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"}>
       <Modal.Header closeButton>
-        <Modal.Title>{data[0]?.d_name}</Modal.Title>
+        <Modal.Title style={{fontWeight: '550'}}>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
         {data && data.length !== 0
@@ -95,41 +95,50 @@ function GetQuoteModal({ show, onHide, data }) {
           (
             <Table bordered hover>
               <thead>
-                <tr>
+                <tr className="text-center">
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>接案人姓名</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>Email</th>
-                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>族群</th>
+                  <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>身分</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>報價金額</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>訊息</th>
                   <th style={{ whiteSpace: 'nowrap' ,fontSize:"24px"}}>操作</th>
                 </tr>
               </thead>
               <tbody>
-                
                 {data.map((item, index) => (
                   <tr key={index} style={{ display: dataIndex === index ? 'none' : 'table-row'}} >
-                    <td style={{fontSize:"24px"}}>{item.name}</td>
-                    <td style={{fontSize:"24px"}}>{item.email}</td>
-                    <td style={{fontSize:"24px"}}>{item.identity}</td>
-                    <td style={{fontSize:"24px"}}>{item.q_amount}</td>
-                    <td style={{fontSize:"24px"}}>{item.q_message || "無留言"}</td>
+                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.name}</td>
+                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.email}</td>
+                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.identity === "freelancer"
+                                                  ? "個人"
+                                                  : (item.identity === "company" ? "公司"
+                                                    : "工作室")}</td>
+                    <td style={{fontSize:"24px", textAlign:'center'}}>{item.q_amount}</td>
+                    <td style={{fontSize:"24px", }}>
+                      <div style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis',width: '500px'}}>
+                        {item.q_message || "無留言"}
+                      </div>
+                    </td>
                     <td>
-                      <div className="d-flex justify-content-start">
+                      <div className="d-flex justify-content-center align-items-center">
                         <Button
-                          variant="secondary"
-                          style={{ fontSize: "18px", whiteSpace: "nowrap" }}
+                          variant="success"
+                          style={{ fontSize: "18px", whiteSpace: "nowrap",borderRadius: '.5rem', margin: '0 .3rem'}}
                           onClick={() => { handleAgree(item.mid, item.qid, index) }}
                         >
                           接受
                         </Button>
                         <Button
                           variant="danger"
-                          style={{ fontSize: "18px", whiteSpace: "nowrap" }}
+                          style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', margin: '0 .3rem' }}
                           onClick={() => { handleDisagree(item.mid, item.qid) }}
                         >
                           拒絕
                         </Button>
-                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} variant="secondary" style={{ fontSize: "18px", whiteSpace: "nowrap" }} >
+                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} 
+                                variant="primary" 
+                                style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', margin: '0 .3rem' }}
+                        >
                           聊聊
                         </Button>
                       </div>
@@ -145,18 +154,18 @@ function GetQuoteModal({ show, onHide, data }) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="danger" 
+        style={{ fontSize: "18px", whiteSpace: "nowrap", borderRadius: '.5rem', margin: '0 .3rem' }} onClick={onHide}>
           關閉
         </Button>
       </Modal.Footer>
+
       {/*報價成功Modal  */}
       <Modal show={successshow} onHide={close} style={{ marginTop: "250px", fontSize: "50px", textAlign: "center" }}>
-
         <Modal.Body>
           <CiCircleCheck color="green" size={150} />
-          <div>接受報價成功</div>
+            <div>接受報價成功</div>
         </Modal.Body>
-
       </Modal>
     </Modal>
   );

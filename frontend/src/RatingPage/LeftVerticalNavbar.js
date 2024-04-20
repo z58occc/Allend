@@ -170,18 +170,18 @@ const LeftVerticalNavbar = () => {
                     {navItems.map((item, index) => {
                         if (index === 1) {
                             return (
-                                <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
+                                <Accordion key={index} className="no-arrow-accordion" >
                                     <Accordion.Item eventKey={`${index}`}>
                                         <Accordion.Header
                                             className={`${styles.accHeader} bg-light`} 
                                         >
-                                            <span style={{fontSize:"32px",margin: 0}}>{item.text}</span>
+                                            <span style={{fontSize:"32px", margin: 0}}>{item.text}</span>
                                         </Accordion.Header>
 
                                         <Accordion.Body style={{ backgroundColor: "#D0D0D0" }}>
                                             {index === 1 ? (
                                                 <div className={`${styles.linksContainer}`}>
-                                                    <Link to="/switch"  className="nav-link-no-arrow " >資料維護</Link>
+                                                    <Link to="/switch"  className="nav-link-no-arrow">資料維護</Link>
                                                     {!isGoogle
                                                     ? <><br /><Link to="/fix" className="nav-link-no-arrow">修改密碼</Link></>
                                                     : <></>
