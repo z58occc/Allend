@@ -202,7 +202,7 @@ console.log("AB", data)
           }
         </div>
       : filteredData.map((item, index) => (
-        <Card key={index} className="my-3" style={{ width: '100%', display: 'flex' }}>
+        <Card key={index} className="my-3" style={{ width: '100%', display: 'flex', borderRadius: '.8rem' }}>
           <div className="d-flex bd-highlight">
             <div className='d-flex align-items-center' style={{ padding: "0 1.25rem" }}>
               <input

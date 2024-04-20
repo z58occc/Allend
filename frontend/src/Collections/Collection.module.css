@@ -10,7 +10,7 @@
 }
 
 .collectioncheckbox:checked + .collectioncheckbox::after {
-  content: "123";
+  content: "";
   position: absolute;
   top: 4px;
   left: 4px;
@@ -24,7 +24,6 @@
   background-color: seashell;
   padding: 1rem 1.25rem;
   vertical-align: middle;
-  /* border: 1px solid black; */
 }
 
 .togglecollectionchecked,
@@ -33,7 +32,4 @@
   white-space: nowrap;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-}
-
-.deletecollectionchecked {
 }

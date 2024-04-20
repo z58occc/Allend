@@ -13,7 +13,7 @@ import { IsLoggedInContext } from '../App'
 
 
 const LeftVerticalNavbar = () => {
-    const { isGoogle, infoCompleted } = useContext(IsLoggedInContext)
+    const { isGoogle, infoCompleted, emailVerified } = useContext(IsLoggedInContext)
 
     const navItems = [
         { link: '/member', text: '會員中心' },
@@ -201,7 +201,7 @@ const LeftVerticalNavbar = () => {
                         } else if (index === 2){
                             return (
                                 <>
-                                    {infoCompleted
+                                    {infoCompleted && emailVerified
                                     ? 
                                     <Accordion key={index} defaultActiveKey={0} className="no-arrow-accordion" >
                                         <Accordion.Item eventKey={`${index}`}>
@@ -230,7 +230,7 @@ const LeftVerticalNavbar = () => {
                             );
                         } else {
                             return (
-                                <>{infoCompleted ? <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link> : <></>}</>
+                                <>{infoCompleted && emailVerified ? <Nav.Link key={index} href={item.link} className={`${styles.navLink}`}>{item.text}</Nav.Link> : <></>}</>
                             )
                         }
                     })}

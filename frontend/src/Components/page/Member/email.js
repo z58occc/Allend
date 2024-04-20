@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -11,7 +11,7 @@ import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
 
 // 接案者維護資料
 function FreelancerForm() {
-  const { setIsVerificationSent,setIsButtonDisabled,setCountdown, countdown, emailVerified } = useContext(IsLoggedInContext);
+  const { setIsVerificationSent, setCountdown, countdown, emailVerified } = useContext(IsLoggedInContext);
 
   const [formData, setFormData] = useState({
     identity: "",
@@ -43,10 +43,7 @@ function FreelancerForm() {
       line: "",
       about: "",
     });
-    setIsSubmitted(false);
   };
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +62,7 @@ function FreelancerForm() {
     };
     fetchData();
   }, []);
-   //提交完成
+  //提交完成
   const [showModal, setShowModal] = useState(false);
 
   // 偵測input變化
@@ -103,7 +100,6 @@ function FreelancerForm() {
       .then((res) => {
         setIsVerificationSent(true);
         setCountdown(60);
-        setIsButtonDisabled(true);
       })
       .catch((err) => {
         console.log(err);
@@ -115,12 +111,11 @@ function FreelancerForm() {
     if (countdown > 0) {
       timer = setTimeout(() => {
         setCountdown(countdown - 1);
-        if (countdown === 1) {
-        }
+
       }, 1000);
     }
     return () => clearTimeout(timer);
-  }, [countdown]);
+  }, [countdown, setCountdown]);
 
   // 更新資料
   const handleSubmit = (e) => {
@@ -146,8 +141,6 @@ function FreelancerForm() {
 
     // 设置表单提交完成的状态为true
     .then(() => {
-      // 设置表单提交完成的状态为 true
-      setIsSubmitted(true);
       // 顯示模態框
       setShowModal(true);
     })

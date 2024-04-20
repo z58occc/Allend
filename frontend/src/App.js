@@ -421,7 +421,6 @@ function App() {
   };
 
 
-
   return (
     <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleShow, showChat, selectedItemMid, setSelectedItemMid, setShowChat, isGoogle, emailVerified, setIsVerificationSent, setCountdown, countdown, infoCompleted, setInfoCompleted }}>
 

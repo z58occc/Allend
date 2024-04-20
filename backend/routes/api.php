@@ -115,17 +115,17 @@ Route::controller(MemberInfoController::class)->group(function () {
     // 獲取接案方資料
     Route::get('/mem', 'getMemInfo')->withoutMiddleware('verified');
     // 修改接案方資料
-    Route::post('/updateprofiles', 'updateMemInfo');//->withoutMiddleware('verified');
+    Route::post('/updateprofiles', 'updateMemInfo')->withoutMiddleware('verified');
     // 獲取發案方資料
     Route::get('/demmandmem', 'getDemmandInfo')->withoutMiddleware('verified');
     // 修改發案方資料
-    Route::post('/updatedemmand', 'updateDemmandInfo');//->withoutMiddleware('verified');
+    Route::post('/updatedemmand', 'updateDemmandInfo')->withoutMiddleware('verified');
     // 修改密碼
-    Route::post('/updatepassword', 'updatePassword');//->withoutMiddleware('verified');
+    Route::post('/updatepassword', 'updatePassword')->withoutMiddleware('verified');
     // 獲取頭像、姓名
     Route::get('/avaname', 'getAvatar')->withoutMiddleware('verified');
     // 修改頭像
-    Route::post('/avatar', 'updateAvatar');
+    Route::post('/avatar', 'updateAvatar')->withoutMiddleware('verified');
 
     // 獲取接案紀錄
     Route::get('/memtakecase', 'getTakeCase');

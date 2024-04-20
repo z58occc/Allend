@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CollectionList from './CollectionList';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -8,7 +8,6 @@ const ServiceCollection = ({data, dataUpdate}) => {
   // 初始化active
   const [active,setActive] = useState(1);
   const CasePerPage = 5; // 每頁幾個card
-  const [displayData, setDisplayData] = useState([])
   // useEffect(() => {
   //   setDisplayData(data.slice(CasePerPage * (active-1) , CasePerPage * active))
 
@@ -48,7 +47,7 @@ const ServiceCollection = ({data, dataUpdate}) => {
   
 
   return (
-      <div style={{ width: '100%', height:'100vh'}}>
+      <div style={{ width: '100%', minHeight:'100vh'}}>
         <CollectionList visibility='hidden' selectedComponent={'servicecollection'} data={data} screen={2} dataUpdate={dataUpdate}></CollectionList>    
         <Pagination style={{justifyContent:"center"}}>{items}</Pagination>
       </div>
