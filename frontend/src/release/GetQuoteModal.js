@@ -6,6 +6,7 @@ import { CiCircleCheck } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import './GetQuoteModal.css';
 import { IsLoggedInContext } from "../App";
+import "./takecase.css";
 
 function GetQuoteModal({ show, onHide, data }) {
   // 
@@ -85,7 +86,7 @@ function GetQuoteModal({ show, onHide, data }) {
       })
   }
   return (
-    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"}>
+    <Modal show={show} onHide={onHide} size={data && data.length !== 0 ? "xl" : "sm"} dialogClassName="custom-background2">
       <Modal.Header closeButton>
         <Modal.Title>{data[0]?.d_name}</Modal.Title>
       </Modal.Header>
@@ -116,20 +117,20 @@ function GetQuoteModal({ show, onHide, data }) {
                     <td>
                       <div className="d-flex justify-content-start">
                         <Button
-                          variant="secondary"
-                          style={{ fontSize: "18px", whiteSpace: "nowrap" }}
+                          variant="success"
+                          style={{ fontSize: "18px", whiteSpace: "nowrap",borderRadius:"10px" }}
                           onClick={() => { handleAgree(item.mid, item.qid, index) }}
                         >
                           接受
                         </Button>
                         <Button
                           variant="danger"
-                          style={{ fontSize: "18px", whiteSpace: "nowrap" }}
+                          style={{ fontSize: "18px", whiteSpace: "nowrap",borderRadius:"10px" }}
                           onClick={() => { handleDisagree(item.mid, item.qid) }}
                         >
                           拒絕
                         </Button>
-                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} variant="secondary" style={{ fontSize: "18px", whiteSpace: "nowrap" }} >
+                        <Button onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} variant="primary" style={{ fontSize: "18px", whiteSpace: "nowrap",borderRadius:"10px" }} >
                           聊聊
                         </Button>
                       </div>
@@ -145,7 +146,7 @@ function GetQuoteModal({ show, onHide, data }) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}}>
           關閉
         </Button>
       </Modal.Footer>

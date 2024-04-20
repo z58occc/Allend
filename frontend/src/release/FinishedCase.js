@@ -115,7 +115,7 @@ const FinishedCase = ({ data }) => {
             <Button variant="primary" size="lg">
               評價提交
             </Button>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <Button variant="secondary" onClick={handleCloseModal} style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}}>
               關閉
             </Button>
           </div>

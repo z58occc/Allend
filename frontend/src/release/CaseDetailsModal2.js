@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import PayButton from "./paybutton"
 import { IsLoggedInContext } from "../App";
+import "./takecase.css";
 
 
 
@@ -49,7 +50,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   }, [data, number]);
   console.log(selectedCase);
   return (
-    <Modal show={show} onHide={onHide} size="lg">
+    <Modal show={show} onHide={onHide} size="lg" dialogClassName="custom-background2">
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
@@ -137,7 +138,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px'}}>
+        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}}>
           關閉
         </Button>
       </Modal.Footer>

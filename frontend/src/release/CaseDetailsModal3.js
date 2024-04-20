@@ -3,6 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import Star1 from "./Star1";
 import { CaseContext } from "./MainScreen2";
+import "./takecase.css";
+
 
 const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
   const {fetchData} = useContext(CaseContext);
@@ -42,7 +44,7 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
 
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} dialogClassName="custom-background2">
       <Modal.Header closeButton>
         <Modal.Title>案件資訊</Modal.Title>
       </Modal.Header>
@@ -107,10 +109,10 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
           </div>
         </div>
         <div className="mb-2 d-flex justify-content-around">
-          <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={()=>{handleRating()}}>
+          <Button variant="primary" style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}} onClick={()=>{handleRating()}}>
             評價提交
           </Button>
-          <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px'}} onClick={onHide}>
+          <Button variant="secondary" style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}} onClick={onHide}>
             關閉
           </Button>
         </div>

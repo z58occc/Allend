@@ -259,14 +259,14 @@ const Media = ({ data3 }) => {
           <Modal.Header closeButton>
             <Modal.Title>{/* 標題內容 */}</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto',fontSize: "28px" }}>
             確定刪除所選影音?
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="danger" onClick={() => handleDeleted()}>
+            <Button variant="danger" onClick={() => handleDeleted()}style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }}>
               確定
             </Button>
-            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+            <Button variant="secondary" onClick={handleClosedDeletedModal}style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }}>
               關閉
             </Button>
           </Modal.Footer>

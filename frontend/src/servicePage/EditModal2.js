@@ -94,7 +94,7 @@ const EditModal2 = ({ show, onHide ,data ,index}) => {
             onClick={(e) => {
               e.preventDefault(); // Prevent default form submission
               handleSubmit(e); // Pass the event object to handleSubmit
-            }}
+            }}          
           >
             發布
           </Button>

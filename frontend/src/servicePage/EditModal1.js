@@ -208,7 +208,6 @@ const EditModal1 = ({ show, onHide, data, index }) => {
         <div className="mb-2 d-flex justify-content-around">
           <Button
             variant="primary"
-            size="lg"
             onClick={(e) => {
               e.preventDefault(); // Prevent default form submission
               handleSubmit(e); // Pass the event object to handleSubmit
@@ -216,7 +215,7 @@ const EditModal1 = ({ show, onHide, data, index }) => {
           >
             發布
           </Button>
-          <Button variant="secondary" size="lg" onClick={onHide}>
+          <Button variant="secondary" size="lg" onClick={onHide} >
             取消
           </Button>
         </div>

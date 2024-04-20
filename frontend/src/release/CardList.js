@@ -366,13 +366,14 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             {screen === 1 && (
               <div className="d-flex flex-column justify-content-center" >
                 <Button
-                  variant="primary"
+                 variant="success"
                   key={index}
                   className="my-2"
                   style={{
                     fontSize: "18px",
                     whiteSpace: "nowrap",
-                    padding:"0.8rem 1rem"
+                    padding:"0.8rem 1rem",
+                    borderRadius: "10px",
                   }}
                   onClick={() => {
                     handleModalShow1();
@@ -388,7 +389,8 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
                     fontSize: "18px",
                     whiteSpace: "nowrap",
                     textAlign: "center",
-                    padding:"0.8rem 1rem"
+                    padding:"0.8rem 1rem",
+                     borderRadius: "10px"
                   }}
                   onClick={() => {
                     handleShowQuoteModal(item.did);

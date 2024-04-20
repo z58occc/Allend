@@ -257,14 +257,14 @@ const Work = ({ data2 }) => {
           <Modal.Header closeButton>
             <Modal.Title>{/* 標題內容 */}</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto',fontSize: "28px"}}>
             確定刪除所選作品?
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="danger" onClick={() => handleDeleted()}>
+            <Button variant="danger" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={() => handleDeleted()}>
               確定
             </Button>
-            <Button variant="secondary" onClick={handleClosedDeletedModal}>
+            <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '20px', borderRadius: "10px" }} onClick={handleClosedDeletedModal}>
               關閉
             </Button>
           </Modal.Footer>
