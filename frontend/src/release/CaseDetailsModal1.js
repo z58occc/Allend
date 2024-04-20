@@ -290,6 +290,8 @@ const CaseDetailsModal1 = ({ show, onHide, number, data }) => {
               e.preventDefault(); // Prevent default form submission
               handleSubmit(e); // Pass the event object to handleSubmit  
             }}
+          
+          
           >
             儲存變更
           </Button>

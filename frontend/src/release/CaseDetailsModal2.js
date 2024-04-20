@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import { IsLoggedInContext } from "../App";
 import "./takecase.css";
+import PayButton from '../../src/release/paybutton';
 
 
 
