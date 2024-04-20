@@ -31,13 +31,15 @@ nav button {
   background-color: peachpuff;
 }
 
+
 .modal-content {
   background-image: url("../src/Components/img/background.jpg");
   background-size: cover;
   /* 確保背景圖片覆蓋整個視窗 */
-  background-color: rgba(255, 255, 255, 0.4);
+ background-color: rgba(255, 255, 255, 0.4);
   /* 設置不透明度，值介於 0（完全透明）和 1（完全不透明）之間 */
 }
+
 
 #carouselimg img {
   width: 100%;

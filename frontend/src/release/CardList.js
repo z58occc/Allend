@@ -367,7 +367,7 @@ const CardList = ({ visibility, selectedComponent, data1, screen }) => {
             {screen === 1 && (
               <div className="d-flex flex-column justify-content-center me-1" >
                 <Button
-                  variant="primary"
+                 variant="success"
                   key={index}
                   style={{
                     fontSize: "18px",

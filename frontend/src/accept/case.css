@@ -1,0 +1,4 @@
+.custom-background1 .modal-content {
+  background-image: linear-gradient(120deg, rgba(246, 211, 101, 0.7) 0%, rgba(253, 160, 133, 0.7) 100%);
+  background-size: cover;
+}

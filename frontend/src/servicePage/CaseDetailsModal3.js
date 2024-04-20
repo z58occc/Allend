@@ -88,10 +88,11 @@ const CaseDetailsModal3 = ({ show, onHide }) => {
               e.preventDefault(); // Prevent default form submission
               handleSubmit(e); // Pass the event object to handleSubmit
             }}
+            style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }}
           >
             發佈
           </Button>
-          <Button variant="secondary" size="lg" onClick={onHide}>
+          <Button variant="secondary" size="lg" onClick={onHide} style={{ padding: '0.5rem 2.14rem', fontSize: '22px', borderRadius: "10px" }}>
             取消
           </Button>
         </div>

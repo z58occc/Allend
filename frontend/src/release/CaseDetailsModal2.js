@@ -3,7 +3,11 @@ import { Modal, Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import { IsLoggedInContext } from "../App";
-import PayButton from "./paybutton"
+import "./takecase.css";
+import PayButton from '../../src/release/paybutton';
+
+
+
 
 
 const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
@@ -46,7 +50,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
   }, [data, number]);
   console.log(selectedCase);
   return (
-    <Modal show={show} onHide={onHide} size="lg">
+    <Modal show={show} onHide={onHide} size="lg" dialogClassName="custom-background2">
       <Modal.Header closeButton>
         <Modal.Title>{data[number].c_name}</Modal.Title>
       </Modal.Header>
@@ -137,8 +141,7 @@ const CaseDetailsModal2 = ({ show, onHide, number, data }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={onHide} 
-        style={{padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'}}>
+        <Button variant="secondary" onClick={onHide} style={{padding: '0.5rem 2.14rem', fontSize:'22px',borderRadius: "10px"}}>
           關閉
         </Button>
       </Modal.Footer>
