@@ -115,7 +115,8 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       未有紀錄
     </h1>)
   }
-  //
+
+
   return (
     <div className="d-flex flex-wrap justify-content-around">
       <div className="d-flex justify-content-end" style={{ width: '800px' }} >
@@ -124,7 +125,7 @@ const CardList = ({ visibility, selectedComponent, text, data1, screen }) => {
       {
         // CaseData.length === 0 ? <h2>未有紀錄</h2>   
         filteredData.map((item, index) => (
-          <Card key={index} className="my-3" style={{ width: '720px', display: 'flex' }}>
+          <Card key={index} className="my-3" style={{ width: '720px', display: 'flex', borderRadius: '.5rem' }}>
             <div className="d-flex bd-highlight">
               <Card.Body style={{ flex: '1' }}>
                 {screen === 3 ? <Card.Title style={{ marginBottom: "0px" }}>{item.c_name}</Card.Title> : <></>}

@@ -44,6 +44,13 @@ class DemmandContentController extends Controller
         $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
         $interval = $lastAt->diff($now);
 
+        // 相同類型案件
+        $sameTypeCase = DB::table('demmand')
+        ->join('country', 'country_id', '=', 'd_active_location')
+        ->select('did', 'd_name', 'd_amount', 'd_unit', 'country_city', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
+        ->where('d_type', DB::table('demmand')->where('did', $did)->value('d_type'))
+        ->inRandomOrder()->limit(3)->distinct()->get();
+
         if($interval->h < 24 && $interval->d == 0){
             $difference = '今天';
         }elseif($interval->d == 1){
@@ -57,6 +64,7 @@ class DemmandContentController extends Controller
             'dammand' => $query->first(),
             'service_star_avg' => $avg,
             'members' => $lastLoginTime,
+            'sameCase' => $sameTypeCase
         ];
         return response()->json($data_response);
 
