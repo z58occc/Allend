@@ -93,7 +93,7 @@ class TalentController extends Controller
             }elseif($interval->d == 1){
                 $difference = '昨天';
             }else{
-                $difference = $interval->d . '天前';
+                $difference = $interval->days . '天前';
             }
             $value->last_login = $difference;
             // 身分轉中文

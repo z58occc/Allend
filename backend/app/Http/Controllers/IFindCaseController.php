@@ -121,7 +121,6 @@ class IFindCaseController extends Controller
         }
 
         $demands = $query->get();
-
         // 案件更新時間
         foreach($demands as $demand){
             $updateAt = new \DateTime($demand->updated_at);
@@ -132,8 +131,8 @@ class IFindCaseController extends Controller
                 $difference = $interval->i . '分鐘前更新';
             }elseif($interval->d < 1 && $interval->h > 1){
                 $difference = $interval->h . '小時前更新';
-            }elseif($interval->d > 1){
-                $difference = $interval->d . '天前更新';
+            }elseif($interval->days > 1){
+                $difference = $interval->days . '天前更新';
             }
 
             $demand->updated_at = $difference;
