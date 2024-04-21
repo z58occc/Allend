@@ -18,7 +18,7 @@ class IndexController extends Controller
         //最新刊登
         $dammand_query = DB::table('demmand')
                         ->join('country', 'country_id', '=', 'd_active_location')
-                        ->select('d_name','d_amount','country_city as d_active_location','did',
+                        ->select('d_name','d_amount','d_unit','country_city as d_active_location','did',
                         DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'));
 
         //作品

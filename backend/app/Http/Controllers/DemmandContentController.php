@@ -51,9 +51,9 @@ class DemmandContentController extends Controller
         ->where('d_type', DB::table('demmand')->where('did', $did)->value('d_type'))
         ->inRandomOrder()->limit(3)->distinct()->get();
 
-        if($interval->h < 24 && $interval->d == 0){
+        if($interval->h < 24 && $interval->days < 1){
             $difference = '今天';
-        }elseif($interval->d == 1){
+        }elseif($interval->days == 1){
             $difference = '昨天';
         }else{
             $difference ='2天以上';

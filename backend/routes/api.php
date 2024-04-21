@@ -59,42 +59,8 @@ Route::get('/demmand_content/{did}', DemmandContentController::class);
 // 查看服務內容
 Route::get('/service_content', ServiceContentController::class);
 
-// 送出發案表單
-Route::post('/commitcase', CommitController::class)->middleware(['auth', 'verified']);
-
-// 送出、查看、接受、拒絕報價
-Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
-Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
-Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
-Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
-
-// 綠界
-Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
-Route::post('/callback', [ECPaymentController::class, 'Callback']);
-Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
-
 // 取得email
 Route::get('/user/email', GetmemberemailController::class);
-
-//聊天室
-Route::post('new-message', [ChatController::class, 'Newmessage']);
-Route::get('get-mlist', [ChatController::class, 'Getlist']);
-Route::get('get-message', [ChatController::class, 'Getmessage']);
-
-// 從移交到結案、評價畫面
-Route::get('/take_submit', [ClosethecaseController::class, 'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)
-Route::get('/publish_recevice', [ClosethecaseController::class, 'receviceData']); // 案主接收結果的按鈕 => 發案者、接案者案件狀態轉成已結案
-Route::post('/publicEvaluation', [ClosethecaseController::class, 'publishEvaluation']); // 發案者的發送對接案者評價按鈕 => 在已結案發送評價
-Route::post('/takeEvaluation', [ClosethecaseController::class, 'takeEvaluation']); // 接案者的評價按鈕
-
-Route::controller(AuthController::class)->group(function () {
-    // 註冊
-    Route::post('/register', 'register');
-    // 登入
-    Route::post('/login', 'login');
-    // 登出
-    Route::post('/logout', 'logout');
-});
 
 // 忘記密碼(發信)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
@@ -107,6 +73,42 @@ Route::post('/emailverification-notification', [EmailVerificationNotificationCon
 // 生成、驗證驗證碼
 // Route::get('/capgeneration', [CaptchaController::class, 'reloadCaptcha']);
 // Route::post('/capvalidation', [CaptchaController::class, 'validateCaptcha']);
+
+/* verified */
+
+// 送出發案表單
+Route::post('/commitcase', CommitController::class)->middleware(['auth', 'verified']);
+
+// 送出、查看、接受、拒絕報價
+Route::post('/quote', [Pop_QuoteAgreeController::class, 'sendQuote']);
+Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
+Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
+Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
+
+//聊天室
+Route::post('new-message', [ChatController::class, 'Newmessage']);
+Route::get('get-mlist', [ChatController::class, 'Getlist']);
+Route::get('get-message', [ChatController::class, 'Getmessage']);
+
+// 從移交到結案、評價畫面
+Route::get('/take_submit', [ClosethecaseController::class, 'submitData']); // 接案者的提交按鈕 => 接案進行中轉成等待中(狀態3)
+Route::get('/publish_recevice', [ClosethecaseController::class, 'receviceData']); // 案主接收結果的按鈕 => 發案者、接案者案件狀態轉成已結案
+Route::post('/publicEvaluation', [ClosethecaseController::class, 'publishEvaluation']); // 發案者的發送對接案者評價按鈕 => 在已結案發送評價
+Route::post('/takeEvaluation', [ClosethecaseController::class, 'takeEvaluation']); // 接案者的評價按鈕
+
+// 綠界
+Route::post('/ecpay', [ECPaymentController::class, 'Payment']);
+Route::post('/callback', [ECPaymentController::class, 'Callback']);
+Route::post('/callbackinfo', [ECPaymentController::class, 'CallbackInfo']);
+
+Route::controller(AuthController::class)->group(function () {
+    // 註冊
+    Route::post('/register', 'register');
+    // 登入
+    Route::post('/login', 'login');
+    // 登出
+    Route::post('/logout', 'logout');
+});
 
 // 會員功能
 Route::controller(MemberInfoController::class)->group(function () {

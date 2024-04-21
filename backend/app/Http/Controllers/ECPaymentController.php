@@ -65,7 +65,12 @@ class ECPaymentController extends Controller
         if ($verificationPassed) {
             $cid = $request->input('MerchantTradeNo');
             DB::table('established_case')->where('cid', $cid)
-            ->update(['c_status' => 2]);
+            ->update([
+                'c_status' => 2,
+                'updated_at' => now(),
+                'completed_time' => now()
+            ]);
+
             return '1|OK';
         } else {
             return '0|Error';

@@ -40,14 +40,17 @@ function Talent() {
             <div id='price'>
                 <span style={{ borderRadius: '10px', padding: '2px', border: 'solid 1px' }}>
                     案件</span>
-                <span style={{ padding: '20px' }}>
-                    {item.c_name}</span>
+                <span style={{ marginLeft: '1.3rem',backgroundColor: "#E0E0E0" }}>
+                    {item.c_name}
+                </span>
             </div>
             <div>
                 <Row>
-                    <Col xs lg="1"><Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{ cursor: 'pointer' }} /></Col>
+                    <Col xs lg="1">
+                        <Image src={item.d_avatar === "" ? member : item.d_avatar} roundedCircle width="50" height="50" style={{ cursor: 'pointer' }} />
+                    </Col>
                     <Col xs lg="10">
-                        <div style={{ backgroundColor: 'lightblue' }} >
+                        <div style={{ backgroundColor: 'lightblue', borderRadius:'.8rem', padding:'.3rem' }} >
                             發案人評價：{Array.from({ length: item.demmand_star }, (_, i) => (
                                 <CiStar key={i} />
                             ))}
@@ -61,7 +64,7 @@ function Talent() {
                 <Row className='mt-1' style={{ marginLeft: "50px" }}>
                     <Col xs lg="1"><Image src={item.s_avatar === "" ? member : item.s_avatar} roundedCircle width="50" height="50" style={{ cursor: 'pointer' }} /></Col>
                     <Col xs lg="10">
-                        <div style={{ padding: "20px" }} >
+                        <div style={{ backgroundColor: 'seashell', borderRadius:'.8rem', padding:'.4rem' }} >
                             接案人留言：{item.service_comment}
                             <br></br>
                             <div style={{ textAlign: 'right' }}>{item.service_time}</div>
@@ -71,6 +74,7 @@ function Talent() {
             </div>
         </div>
     );
+
 
     return (
         <>
@@ -94,12 +98,12 @@ function Talent() {
                 </div>
                 
                 <div className='row mt-5 p-5'>
-                    <div className='col-sm-2 ' >
+                    <div className='col-sm-2' >
                         <div style={{ position: '-webkit-sticky', top: 0 }}>
-                            <Stick ></Stick>
+                            <Stick />
                         </div>
                     </div>
-                    <div className='col-sm-9' style={{ paddingLeft: '40px' }}>
+                    <div className='col-sm-9' style={{ paddingLeft: '2rem' }}>
                         <Nav defaultActiveKey="/home" as="ul">
                             <Nav.Item as="li">
                                 <Nav.Link href='#about'>關於我</Nav.Link>
@@ -118,12 +122,12 @@ function Talent() {
                             </Nav.Item>
                         </Nav>
                         <hr></hr>
-                        <div style={{ paddingBottom: "20px" }}>關於</div>
-                        <div id='about' style={{ width: 500, height: 250, fontWeight: "700" }}>
+                        <div style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>關於我</div>
+                        <div id='about' style={{ width: 500, height: 250, fontWeight: "600" }}>
                             {talent.member && talent.member[0].about}
                         </div>
                         <hr></hr>
-                        <div id='item' className='mt-5'>作品</div>
+                        <div id='item' style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>作品</div>
                         <div className="row ">
                             {talent.project && talent.project.map((item, index) => (
                                 <div className="col-sm-4 " key={item}>
@@ -133,19 +137,16 @@ function Talent() {
                                         </div>
                                         <div className="card-body">
                                             <span>{item.p_name}</span>
-                                            <div>
-
-                                                <p style={{ fontSize: '12px', float: 'right' }}>發布時間：{item.created_at}</p>
+                                            <div className='text-end'>
+                                                <span style={{ fontSize: '12px' }}>發布時間：{item.created_at}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             ))}
-
                         </div>
                         <hr></hr>
-                        <div id='video' className='mt-5'>影音</div>
-
+                        <div id='video' style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>影音</div>
                         <div className="row">
                             {talent.video && talent.video.map((item, index) => (
                                 <div className="col-sm-4">
@@ -161,12 +162,10 @@ function Talent() {
                             ))}
                         </div>
                         <hr></hr>
-                        <p id='serve' className='mt-5'>服務</p>
+                        <div id='serve' style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>服務</div>
                         <div className='row'>
-
                             {talent.service && talent.service.map((item, index) => (
-
-                                <Link to={`/serve/${mid}/${item.sid}`} className="col-sm-4 ">
+                                <Link to={`/serve/${mid}/${item.sid}`} className="col-sm-4 text-decoration-none">
                                     <div class="card">
                                         <div class="card-header">
                                             <img src={`data:image/jpeg;base64,${item.image}`} alt="" style={{ width: "100%", height: 200 }}></img>
@@ -174,7 +173,7 @@ function Talent() {
                                         <div class="card-body">
                                             {item.s_name}
                                             <br></br>
-                                            {item.s_amount}/{item.s_unit}
+                                            {item.s_amount}&nbsp;/&nbsp;{item.s_unit}
                                         </div>
                                         <div class="card-footer">
                                         </div>
@@ -183,46 +182,41 @@ function Talent() {
                             ))}
                         </div>
                         <hr></hr>
-                        <div className='mt-5 row'>
-                            <div id='price' style={{ paddingBottom: '20px' }}>評價</div>
-                        {talent.established_case && talent.established_case.slice(0, 3).map((item, index) => (
-                            renderEstablishedCase(item)
-                        ))}
-                        {talent.established_case && talent.established_case.length > 3 && (
-                            <div onClick={handleExpand}>
-                                {expanded ? '收起' : '展開'}
-                            </div>
-                        )}
-                        {expanded && talent.established_case && talent.established_case.slice(3).map((item, index) => (
-                            renderEstablishedCase(item)
-                        ))}
-                            <hr></hr>
-
-                            {/* 成交件數 */}
-                            <div className='mt-5 row'>
-                                <div style={{ paddingBottom: "20px" }}>成交件數({talent.case_member_count})</div>
-                                <div style={{ borderRadius: "5px", borderWidth: "1px", backgroundColor: "white", paddingBottom: "20px" }}>
-                                    {talent.case_member && talent.case_member.map((item, index) => (
-                                        <div className='mt-4 d-flex' >
-                                            <Col className='col-2' style={{ borderRadius: "5px", borderWidth: "1px", padding: "0px" }}><span style={{ backgroundColor: "#E0E0E0" ,whiteSpace:'nowrap' }}>{item.c_name}</span></Col>
-
-                                            <Col className='col-3'>發案人：{item.d_name}</Col><span style={{ fontSize: "small", paddingLeft: "10px" }}>{item.completed_time}</span>
-                                        </div>
-                                    ))}
+                        <div id='price' style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>評價</div>
+                        <div className='row'>
+                            {talent.established_case && talent.established_case.slice(0, 3).map((item, index) => (
+                                renderEstablishedCase(item)
+                            ))}
+                            {talent.established_case && talent.established_case.length > 3 && (
+                                <div onClick={handleExpand}>
+                                    {expanded ? '收起' : '展開'}
                                 </div>
-                            </div>
-                            {/* 成交件數 */}
-
-                            <br></br>
-
+                            )}
+                            {expanded && talent.established_case && talent.established_case.slice(3).map((item, index) => (
+                                renderEstablishedCase(item)
+                            ))}
                         </div>
+                        <hr></hr>
+                        {/* 成交件數 */}
+                        <div style={{ fontSize:'1.2rem', padding: "0.5rem 0 1rem 0" }}>成交件數({talent.case_member_count})</div>
+                        <div className='row' style={{ borderRadius: "5px", backgroundColor: "white"}}>
+                            {talent.case_member && talent.case_member.map((item, index) => (
+                            <div style={{display: 'flex', margin: '.5rem 0'}} >
+                                <Col className='col-3' style={{ borderRadius: "5px", borderWidth: "1px" }}>
+                                    <span style={{ backgroundColor: "#E0E0E0" ,whiteSpace:'nowrap' }}>{item.c_name}</span>
+                                </Col>
+                                <Col className='col-6'>發案人：{item.d_name}</Col>
+                                <span style={{fontSize: '20px'}}>{item.completed_time}</span>
+                            </div>
+                            ))}
+                        </div>
+                        {/* 成交件數 */}
                     </div>
                 </div>
             </div>
             <Footer></Footer>
         </>
     )
-
 }
 
-export default Talent
+export default Talent;

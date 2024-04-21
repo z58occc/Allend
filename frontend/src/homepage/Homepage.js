@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import { Container, Row, Col, Modal, Button } from "react-bootstrap";
+import { Row, Col, Modal, Button } from "react-bootstrap";
 import { MdOutlineMoneyOff } from "react-icons/md";
 import { FaWpforms, FaHandshake, FaBriefcase } from "react-icons/fa";
 import { AiOutlineArrowUp } from "react-icons/ai";
@@ -50,7 +50,7 @@ function Homepage() {
 
 
 
-  {/* 置頂按鈕 */ }
+  /* 置頂按鈕 */
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
@@ -79,9 +79,9 @@ function Homepage() {
       behavior: "smooth"
     });
   };
-  {/* 置頂按鈕 */ }
+  /* 置頂按鈕 */
 
-  {/* 控制新手教學彈跳視窗 */ }
+  /* 控制新手教學彈跳視窗 */
   const handleShow = () => setShowNewbie(true);
 
 
@@ -146,7 +146,7 @@ function Homepage() {
         <div><Category></Category></div>
 
         {/* 新手教學 */}
-        <h4 className="mt-5">新手教學</h4>
+        <h4 className="mt-5 fw-bolder">新手教學</h4>
         <section className="adbar-section mt-4">
           <div className="container-lg container-pad">
             <div className="row justify-content-center" style={{ backgroundColor: "#F0F0F0" }}>
@@ -164,8 +164,7 @@ function Homepage() {
               </div>
               <div className="col-12 text-center">
                 <span style={{ color: "#FF9797" }}>找案件，找人才，由我們搞定！</span>
-                <button style={{ border: "none", backgroundColor: "#FF9797", borderRadius: "8px", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
-
+                <button style={{ border: "none", backgroundColor: "#FF9797", borderRadius: ".5rem", letterSpacing: '2px' }} onClick={handleShow}>瞭解更多</button>
               </div>
             </div>
           </div>
@@ -173,7 +172,7 @@ function Homepage() {
 
 
         {/* 最新服務 */}
-        <h4 className="mt-5">最新服務</h4>
+        <h4 className="mt-5 fw-bolder">最新服務</h4>
         <div className="d-flex justify-content-center">
           <div className="posts-container" style={{ display: "flex" }}>
             {newService.map((post, index) => {
@@ -214,20 +213,20 @@ function Homepage() {
 
 
         {/* 最新刊登 */}
-        <h4 className="mt-3">最新刊登</h4>
+        <h4 className="mt-3 fw-bolder">最新刊登</h4>
         <div className="row mt-3" >
-          <div className=" mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
+          <div className="mb-4 container" style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ display: "flex" }}>
               {newPublish.map((post, index) => {
                 return (
-                  <Row key={index} style={{ margin: "30px 32px 30px 32px" }}>
+                  <Row key={index} style={{ margin: "1.5rem" }}>
                     <Col>
                       <Link className="links" to={`./casecontext/${post.did}`} style={{ width: "30%" }} >
                         <div className="toast show">
                           <div className="toast-header">
                             <strong className="me-auto">
                               <div>{post.d_name}</div>
-                              <div>預算：{post.d_amount}</div>
+                              <div>預算：{post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
                             </strong>
                           </div>
                           <div className="toast-body">
@@ -247,7 +246,7 @@ function Homepage() {
 
 
         {/* 輪播圖 */}
-        <h4 style={{ textAlign: "center" }}>精選作品</h4>
+        <h4 className="text-center fw-bolder">精選作品</h4>
         <div className="d-flex justify-content-center mt-4" >
           <Carousel
             activeIndex={carouselpage}
@@ -275,7 +274,7 @@ function Homepage() {
                 <Carousel.Item key={index}>
                   <Row className="justify-content-md-center">
                     <Col xs lg="6" style={{ padding: "0px" }}>
-                      <img src={change == true ? `${activeProduct}` : `data:image/jpeg;base64,${post.image}`} 
+                      <img src={change === true ? `${activeProduct}` : `data:image/jpeg;base64,${post.image}`} alt="" 
                       style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
                     </Col>
                     <Col xs lg="2" className="d-flex justify-content-center align-items-center" style={{ padding: "0px" }}>

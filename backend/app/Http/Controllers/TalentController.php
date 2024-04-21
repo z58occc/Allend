@@ -51,7 +51,9 @@ class TalentController extends Controller
                     ->whereNotNull('service_time')
                     ->whereNotNull('d.avatar')
                     ->whereNotNull('s.avatar');
-        $project_query = DB::table('project')->select('pid', 'image', 'p_name', 'p_description', 'created_at')->where('mid',$mid);
+        $project_query = DB::table('project')
+        ->select('pid', 'image', 'p_name', 'p_description', DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'))
+        ->where('mid',$mid);
         $video_query = DB::table('video')->select('vid', 'v_name', 'v_description', 'src', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
         $service_query = DB::table('service')->select('sid', 's_name', 's_amount', 's_unit', 'image', DB::raw('date_format(updated_at, "%Y/%m/%d") as updated_at'))->where('mid',$mid);
         $case_member_count = DB::table('established_case')
@@ -88,9 +90,9 @@ class TalentController extends Controller
             $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
             $interval = $lastAt->diff($now);
 
-            if($interval->h < 24 && $interval->d < 1){
+            if($interval->h < 24 && $interval->days < 1){
                 $difference = '今天';
-            }elseif($interval->d == 1){
+            }elseif($interval->days === 1){
                 $difference = '昨天';
             }else{
                 $difference = $interval->days . '天前';

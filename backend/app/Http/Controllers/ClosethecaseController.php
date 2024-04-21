@@ -18,7 +18,10 @@ class ClosethecaseController extends Controller
         $cid = $request->input('cid');
         DB::table('established_case')
         ->where('cid',$cid)
-        ->update(['c_status' => 3]);
+        ->update([
+            'c_status' => 3,
+            'updated_at' => now()
+        ]);
 
         return response()->json(['message'=>'提交成功']);
     }
@@ -27,7 +30,10 @@ class ClosethecaseController extends Controller
     public function receviceData(Request $request){
         $cid = $request->input('cid');
         DB::table('established_case')->where('cid', $cid)
-        ->update(['c_status' => 4]);
+        ->update([
+            'c_status' => 4,
+            'updated_at' => now()
+        ]);
 
         return response()->json([
             'message' => '已確認案件結果'

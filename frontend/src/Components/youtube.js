@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function YouTubeEmbed({ url }) {
     const videoIdIndex = url.indexOf('v=');
     let embedUrl = '';
@@ -16,15 +17,14 @@ function YouTubeEmbed({ url }) {
 
     return (
         <div className="video-responsive">
-            <iframe 
-                width="240" 
-                height="200" 
+            <iframe
+                style={{width: '100%', height: 200}}
                 src={embedUrl} 
                 title="YouTube video player" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 referrerPolicy="strict-origin-when-cross-origin" 
                 allowFullScreen
-            ></iframe>
+            />
         </div>
     );
 }

@@ -126,9 +126,9 @@ class IFindCaseController extends Controller
             $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
             $interval = $updateAt->diff($now);
 
-            if($interval->h < 1 && $interval->d < 1){
+            if($interval->h < 1 && $interval->days < 1){
                 $difference = $interval->i . '分鐘前更新';
-            }elseif($interval->d < 1 && $interval->h > 1){
+            }elseif($interval->days < 1 && $interval->h > 1){
                 $difference = $interval->h . '小時前更新';
             }elseif($interval->days > 1){
                 $difference = $interval->days . '天前更新';
