@@ -40,7 +40,6 @@ class ChatController extends Controller
             ->select('sender_id', 'receiver_id', 'mr.name as mrname','ms.name as msname')
             ->groupBy('sender_id', 'receiver_id', 'mr.name','ms.name')
             ->orWhere('sender_id', $senderId)
-            ->orWhere('receiver_id', $senderId)
             ->get();
 
         return response()->json($messages);
@@ -54,6 +53,7 @@ class ChatController extends Controller
             ->select('sender_id', 'receiver_id', 'content', 'sending_time')
             ->whereIn('sender_id', [$senderId,$receiverId])
             ->WhereIn('receiver_id',[$senderId,$receiverId])
+            ->orderBy('sending_time', 'desc')
             ->get();
 
         return response()->json($messages);
