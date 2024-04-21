@@ -316,26 +316,26 @@ class MemberInfoController extends Controller
         $Case_in_progress_results = $Case_in_progress_query->get();
         $Case_completed_results = $Case_completed_query->get();
 
-        if($Quote_results->count()<6){
-            $Quote_paginated_results = $Quote_results;
-        }else{
-            $Quote_paginated_results = $Quote_query->paginate(6);
-        }
+        // if($Quote_results->count()<6){
+        //     $Quote_paginated_results = $Quote_results;
+        // }else{
+        //     $Quote_paginated_results = $Quote_query->paginate(6);
+        // }
 
-        if($Case_in_progress_results->count()<6){
-            $Case_in_progress_paginated_results = $Case_in_progress_results;
-        }else{
-            $Case_in_progress_paginated_results = $Case_in_progress_query->paginate(6);
-        }
-        if($Case_completed_results->count()<6){
-            $Case_completed_paginated_results = $Case_completed_results;
-        }else{
-            $Case_completed_paginated_results = $Case_completed_query->paginate(6);
-        }
+        // if($Case_in_progress_results->count()<6){
+        //     $Case_in_progress_paginated_results = $Case_in_progress_results;
+        // }else{
+        //     $Case_in_progress_paginated_results = $Case_in_progress_query->paginate(6);
+        // }
+        // if($Case_completed_results->count()<6){
+        //     $Case_completed_paginated_results = $Case_completed_results;
+        // }else{
+        //     $Case_completed_paginated_results = $Case_completed_query->paginate(6);
+        // }
         return response()->json([
-            'Quote' => $Quote_paginated_results,
-            'CaseInProgress' => $Case_in_progress_paginated_results,
-            'CaseCompleted' => $Case_completed_paginated_results,
+            'Quote' => $Quote_results,
+            'CaseInProgress' => $Case_in_progress_results,
+            'CaseCompleted' => $Case_completed_results,
         ]);
     }
 
