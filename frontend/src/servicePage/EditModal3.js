@@ -74,7 +74,7 @@ const EditModal3 = ({ show, onHide, data, index }) => {
             <Form.Label>影片描述：</Form.Label>
             <Form.Control
               as="textarea"
-              placeholder="請輸入最少十個字"
+              placeholder=""
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               required
