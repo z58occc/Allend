@@ -59,26 +59,25 @@ function Serve() {
 
 
         <div className='row mt-5 p-5'>
-          <div className='col-sm-3' >
-            <div className='' style={{ position: '-webkit-stick', top: 0 }}>
+          <div className='col-sm-3' style={{display:'flex', justifyContent: 'center'}}>
+            {/* <div className='' style={{ position: '-webkit-stick', top: 0 }}> */}
               <Stick />
-            </div>
+            {/* </div> */}
           </div>
 
           <div className='col-sm-9'>
             {serve.service && serve.service.length > 0 &&
-            <div style={{ display: 'flex', alignItems: 'center', padding: '30px' }}>
+            <div style={{ display: 'flex', padding: '30px', backgroundColor:'aliceblue', borderRadius: '1.5rem', border: 'darkturquoise solid 2px', boxShadow: '0 0 1px 2px skyblue' }}>
               <div style={{ width: "440px", height: "300px" }}>
                 <img src={`data:image/jpeg;base64,${serve.service[0].image}`} alt="" style={{ width: "100%", height: "100%" }}></img>
               </div>
-              <div style={{ width: "500px", height: "300px", alignContent: 'start', textAlign: 'left', paddingLeft: '50px',fontSize: "25px" }}>
+              <div style={{ width: "500px", height: "", alignContent: 'start', textAlign: 'left', paddingLeft: '50px',fontSize: "25px" }}>
                 <div style={{ height: "35px" }}>服務名稱：{serve.service && serve.service[0].s_name}</div>
                 <div style={{ height: "35px" }}>服務報價：{serve.service && serve.service[0].s_amount}&nbsp;/&nbsp;{serve.service && serve.service[0].s_unit}</div>
-                <div style={{ height: "35px" }}>評分：{Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />))}</div>
+                <div style={{ height: "35px" }}>評價：{serve.avg_star !== 0 ?Array.from({ length: serve.avg_star }, (_, i) => (<CiStar key={i} />)) : "尚無評價"}</div>
                 <div style={{ height: "35px" }}>服務地點：{serve.service && serve.service[0].country_city}<br></br></div>
-                <div style={{ height: "35px" }}>                            
                 <div onClick={isLoggedIn ? ()=>toggleChat(mid) : handleShow} className='text-center p-2'>
-                                        <ChatButton /></div>
+                  <ChatButton />
                 </div>
               </div>
             </div>
@@ -101,7 +100,7 @@ function Serve() {
               <Tab eventKey="profile" title="服務評價" style={{ height: 250, backgroundColor: "#FCFCFC", borderRadius: "8px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)" }}
                 tabClassName="profile-tab">
                 {serve.service_comments && serve.service_comments.map((item, index) => (
-                <div key={index} style={{ border: 'solid' }} className='mt-5'>
+                <div key={index} style={{ border: 'solid' }}>
                   案主評價：{Array.from({ length: item.demmand_star }, (_, i) => (<CiStar key={i} />))}
                   <br></br>
                   案主留言：{item.demmand_comment}
@@ -112,12 +111,12 @@ function Serve() {
               </Tab>
             </Tabs>
 
-            <hr style={{ marginTop: "30px" }}></hr>
+            <hr></hr>
 
             <div className="row mt-4">
-              <p>其他服務：</p>
+            <div style={{ fontSize:'1.2rem', padding: "0 0 1.5rem 10px" }}>其他服務</div>
               {serve.other_serve && serve.other_serve.map((item, index) => (
-              <Link key={index} to={`/serve/${mid}/${item.sid}`} className="col-sm-4 ">
+              <Link key={index} to={`/serve/${mid}/${item.sid}`} className="col-sm-4 text-decoration-none">
                 <div className="card" >
                   <div className="card-header">
                     <img src={`data:image/jpeg;base64,${item.image}`} 

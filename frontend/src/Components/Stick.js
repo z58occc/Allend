@@ -4,18 +4,15 @@ import { FaFacebook, FaLine, FaUserAlt, FaBriefcase  } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
-import CopyButton from './CopyButton';
 import axios from 'axios';
 import { IsLoggedInContext } from "../App";
+import CopyButton from './CopyButton';
 import ChatButton from './ChatButtom';
 
 
 export const toggleChatContext = createContext()
 
 function Stick() {
-
-    
-
     const {isLoggedIn, setIsLoggedIn, handleShow ,showChat,setShowChat,setSelectedItemMid} = useContext(IsLoggedInContext);
 
     const toggleChat = (mid) => {
@@ -40,12 +37,11 @@ function Stick() {
 
     return (
         <>
-            <div style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px", width:"188px", height:""}}>
+            <div style={{ position: '-webkit-sticky', top: 0 }}>
+                <div style={{ textAlign: 'start', fontSize: 20, border: 'solid',borderRadius: "5px"}}>
                     <div style={{ textAlign: 'center', borderBottom: 'solid' }} >
-                        <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px',marginTop:"10px"}}/>
-                        {/* <AiFillGitlab style={{ color: '#4EFEB3' }} /> */}
-                        <p>{talent.member && talent.member[0].name}</p>
+                        <img src={talent.member && talent.member[0].avatar} style={{width: '100px', height: '100px',marginTop:".5rem"}}/>
+                        <div>{talent.member && talent.member[0].name}</div>
                         {Array.from({ length: talent.avg_star }, (_, i) => (<CiStar key={i} />))}
                     </div>
                     <div  style={{ marginBottom: '15px',marginTop: '15px' }}>
@@ -62,7 +58,7 @@ function Stick() {
                             成交件數：{talent.case_member_count}
                         </div>
                     </div>
-                    <div style={{ borderTop: 'solid', paddingTop: '20px', paddingBottom: '20px' }}>
+                    <div style={{ borderTop: 'solid', padding: '1rem 0' }}>
                         <a href={talent.member && talent.member[0].fb}>
                             <FaFacebook size={30} />
                         </a>
@@ -73,19 +69,9 @@ function Stick() {
                     </div>
 
                     <div style={{ padding: '12px', borderTop: 'solid' }}>
-                        {/* <div className='row'> */}
-                            {/* <div className='col-sm-6'>
-                                <div ><FaHeart size={20} style={{ color: 'red' }}></FaHeart>收藏</div>
-                            </div> */}
-                            {/* <div className='text-center' > */}
-                                
-                            <div onClick={isLoggedIn ? ()=>toggleChat(talent.member?.[0]?.mid) : handleShow} className='text-center p-2'>
-                                        <ChatButton />
-                                    </div>
-                            {/* {talent.member && (showChat && <PublicMessagesPage receiverId={talent.member?.[0]?.mid} />)} */}
-                            
-                            {/* </div> */}
-                        {/* </div> */}
+                        <div onClick={isLoggedIn ? ()=>toggleChat(talent.member?.[0]?.mid) : handleShow} className='text-center'>
+                            <ChatButton />
+                        </div>
                     </div>
                 </div>
             </div>

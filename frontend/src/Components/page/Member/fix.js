@@ -58,17 +58,16 @@ function PasswordForm() {
 
   return (
     <>
-      <Container xxl={12} style={{minHeight: '100vh'}}>
+      <Container xxl={12} style={{minHeight: '100vh', paddingTop: '1.5rem'}}>
         <Row>
-          <Col sm={3} style={{ padding: "20px" }}>
+          <Col sm={3}>
             <LeftVerticalNavbar />
           </Col>
           <Col sm={9}>
             <Row className="justify-content-center">
-              <Col sm={6} style={{ padding: "20px" }}>
+              <Col sm={6}>
                 <div>
                   <h2><BsWrenchAdjustable />修改密碼</h2>
-
                   <Form onSubmit={handleSubmit}>
                     <Form.Label>舊密碼：<span style={{color:'red'}}>*</span>{oerr && oerr.map((v) => {return <span style={{color:'red'}}>{v}</span>})}</Form.Label>
                     <InputGroup>

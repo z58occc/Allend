@@ -66,9 +66,9 @@ const MainScreen3 = () => {
   return (
     <>
       <CaseContext.Provider value={{ fetchData }}>
-        <Container>
+        <Container style={{paddingTop: '1.5rem'}}>
           <Row>
-            <Col sm={3} style={{ padding: "20px" }}>
+            <Col sm={3}>
               <LeftVerticalNavbar />
             </Col>
 

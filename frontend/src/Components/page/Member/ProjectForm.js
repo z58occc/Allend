@@ -94,7 +94,7 @@ function ProjectForm() {
         <h2>發案表單</h2>
         <Form onSubmit={handleSubmit}>
 
-          <Form.Label className="project-formInput">案件名稱：</Form.Label>
+          <Form.Label className="project-formInput">案件名稱：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="numberOfPeople"> <FaBriefcase /> </InputGroup.Text>
             <Form.Control
@@ -106,7 +106,7 @@ function ProjectForm() {
             />
           </InputGroup>
 
-          <Form.Label className="project-formInput">需求類別：</Form.Label>
+          <Form.Label className="project-formInput">需求類別：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="category"> <IoBriefcaseSharp /> </InputGroup.Text>
             <Form.Control
@@ -126,7 +126,7 @@ function ProjectForm() {
 
           <Row>
             <Col>
-              <Form.Label className="project-formInput">預算金額：</Form.Label>
+              <Form.Label className="project-formInput">預算金額：<span style={{color:'red'}}>*</span></Form.Label>
               <InputGroup className="project-formInput">
                 <InputGroup.Text controlId="budget"> <RiMoneyDollarCircleFill /> </InputGroup.Text>
                 <Form.Control
@@ -143,7 +143,7 @@ function ProjectForm() {
             </Col>
 
             <Col>
-              <Form.Label className="project-formInput">單位：</Form.Label>
+              <Form.Label className="project-formInput">單位：<span style={{color:'red'}}>*</span></Form.Label>
               <InputGroup className="project-formInput">
                 <InputGroup.Text controlId="unit"><SiUnity /></InputGroup.Text>
                 <Form.Select
@@ -161,7 +161,7 @@ function ProjectForm() {
             </Col>
           </Row>
 
-          <Form.Label className="project-formInput">合作期程：</Form.Label>
+          <Form.Label className="project-formInput">合作期程：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="cooperationTime"> <IoIosTime /> </InputGroup.Text>
             <Form.Control
@@ -178,7 +178,7 @@ function ProjectForm() {
 
           <Row>
             <Col>
-              <Form.Label className="project-formInput">地點選擇：</Form.Label>
+              <Form.Label className="project-formInput">地點選擇：<span style={{color:'red'}}>*</span></Form.Label>
               <InputGroup className="project-formInput">
                 <InputGroup.Text controlId="location"> <MdPlace /> </InputGroup.Text>
                 <Form.Control
@@ -225,7 +225,7 @@ function ProjectForm() {
           </Row>
 
           <Form.Group controlId="details">
-            <Form.Label className="project-formInput">需求詳情：</Form.Label>
+            <Form.Label className="project-formInput">需求詳情：<span style={{color:'red'}}>*</span></Form.Label>
             <Form.Control
               className="project-formInput"
               as="textarea"
@@ -236,7 +236,7 @@ function ProjectForm() {
             />
           </Form.Group>
 
-          <Form.Label className="project-formInput">聯絡人名稱：</Form.Label>
+          <Form.Label className="project-formInput">聯絡人名稱：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="userName"> <FaUserAlt /> </InputGroup.Text>
             <Form.Control
@@ -248,7 +248,7 @@ function ProjectForm() {
             />
           </InputGroup>
 
-          <Form.Label className="project-formInput">聯絡人Email：</Form.Label>
+          <Form.Label className="project-formInput">聯絡人Email：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="email"> < HiOutlineMail /> </InputGroup.Text>
             <Form.Control
@@ -264,7 +264,7 @@ function ProjectForm() {
             />
           </InputGroup>
 
-          <Form.Label className="project-formInput">聯絡方式：</Form.Label>
+          <Form.Label className="project-formInput">聯絡方式：<span style={{color:'red'}}>*</span></Form.Label>
           <InputGroup className="project-formInput">
             <InputGroup.Text controlId="contact"> <FaPhoneAlt /> </InputGroup.Text>
             <Form.Control
