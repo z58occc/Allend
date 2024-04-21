@@ -163,7 +163,7 @@ function CaseContext() {
 
     return (
         <>
-            <div className='container vh-100'>
+            <div className='container'>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -177,7 +177,7 @@ function CaseContext() {
                 />
 
                 <Row className="mt-5">
-                    <Col xs={8} style={{ backgroundColor: "#FCFCFC", color: "black", borderRadius: "5px" }}>
+                    <Col xs={9} style={{ backgroundColor: "#FCFCFC", color: "black", borderRadius: "5px", marginRight:'2rem' }}>
                         <div style={{ marginTop: "10px" }}>
                             <div>案件編號：{posts.did}</div>
                             <div>案件名稱：{posts.d_name}</div>
@@ -190,24 +190,24 @@ function CaseContext() {
                                 <div style={{textIndent:'32px'}}>{posts.d_description}</div>
                             </ul>
                         </div>
-                        <div className='mt-5'>
+                        <div className='mt-3 mb-2 d-flex justify-content-between'>
                             {isLoggedIn === true && posts.fid
-                                ? <>
-                                    <FaHeart size={25} style={{ color: 'red', cursor: 'pointer', marginRight: '5px' }} onClick={() => { cancelServiceCollection(posts.fid) }} />
-                                    {textShow && <span style={{ color: 'red' }}>已收藏！</span>}
-                                </>
-                                : <FaRegHeart size={25} style={{ cursor: 'pointer' }} onClick={isLoggedIn ? () => { addServiceCollection(posts.did) } : handleShow} />}
-                            <div style={{ position: "absolute", right: "30px", bottom: "0px" }}>更新時間：{posts.updated_at}</div>
+                            ? <>
+                                <FaHeart size={25} style={{ color: 'red', cursor: 'pointer', marginRight: '5px' }} onClick={() => { cancelServiceCollection(posts.fid) }} />
+                                {textShow && <span style={{ color: 'red' }}>已收藏！</span>}
+                            </>
+                            : <FaRegHeart size={25} style={{ cursor: 'pointer' }} onClick={isLoggedIn ? () => { addServiceCollection(posts.did) } : handleShow} />}
+                            <div>更新時間：{posts.updated_at}</div>
                         </div>
                     </Col>
-                    <Col xs={2}></Col>
+                    {/* <Col xs={2}></Col> */}
                     <Col xs={2} style={{ border: "solid", borderRadius: "5px" }}>
                         <div  >
-                            <div style={{ marginTop: "5px" }}>案主資訊</div>
+                            <div style={{ marginTop: "5px" }}>發案者資訊</div>
                             <hr></hr>
-                            <div>
+                            <div style={{ textAlign: 'center', borderBottom: '2px solid',paddingBottom: '.7rem' }}>
                                 <img style={{ width: "60px" }} src={members.avatar}></img></div>
-                            <div>{members.name}</div>
+                            <div className="fw-bolder mt-2">{members.name}</div>
                             <div >
                                 評價：
                                 {service_star_avg !== 0
@@ -215,9 +215,8 @@ function CaseContext() {
                                     : <>尚無評價</>}
                             </div>
                             <div style={{ marginTop: "5px" }}>最後上線時間：{members.last_login}</div>
-                            <div className="mt-3">
-                                <Button style={{ marginLeft: "30px" }} onClick={isLoggedIn ? () => { handlePopShow() } : handleShow}>我要報價</Button>
-                                {/* handlePopShow */}
+                            <div className="mt-3 text-center">
+                                <Button style={{borderRadius: '.5rem'}} onClick={isLoggedIn ? () => { handlePopShow() } : handleShow}>我要報價</Button>
                             </div>
                         </div>
                     </Col>
@@ -228,8 +227,8 @@ function CaseContext() {
                 {/* 我要報價頁面 */}
                 <Modal show={show} onHide={close}>
                     <Modal.Header closeButton >
-                        <Modal.Title style={{ fontSize: 15 }}>
-                            報價表單：
+                        <Modal.Title style={{ fontSize: '24px' }}>
+                            報價表單
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -242,26 +241,26 @@ function CaseContext() {
                             <hr></hr>
                             <div>案件地點：{posts.d_active_location}</div>
                             <hr></hr>
-                            <Form.Label>報價金額</Form.Label>
+                            <Form.Label>報價金額：<span style={{color:'red'}}>*</span></Form.Label>
                             <Form.Group
                                 className="mb-3 d-flex"
                                 controlId="exampleForm.ControlInput1"
                             >
-                                {/* <input style={{ width: "100px" }}  ref={QuoteAmount}></input> */}
                                 <Form.Control
-                                    style={{ width: "100px" }}
-                                    type=""
+                                    style={{ width: "100px", boxShadow: 'none' }}
+                                    type="text"
                                     autoFocus
                                     defaultValue={posts.d_amount}
                                     ref={QuoteAmount}
                                 ></Form.Control>
                                 <div className="mt-2"> &nbsp;/&nbsp;{posts.d_unit}<span style={{ display: (amountwarm != true ? "none" : ""), color: "red", marginLeft: "15px" }}>請輸入金額</span></div>
                             </Form.Group>
+                            <hr></hr>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>接案人留言</Form.Label>
+                                <Form.Label>接案人留言：</Form.Label>
                                 <div style={{ display: (messagewarm != true ? "none" : ""), color: "red" }}>請輸入至少10個字以上</div>
                                 <Form.Control
                                     as="textarea"

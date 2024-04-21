@@ -63,14 +63,16 @@ const MainScreen = () => {
   return (
     <>
     <CaseContext.Provider value={ {Case, setCase, fetchData} }>
-      <Container xxl={12}>
+      <Container xxl={12} style={{paddingTop: '1.5rem'}}>
         <Row>
-          <Col sm={3} style={{ padding: "20px" }}>
+          <Col sm={3}>
             <LeftVerticalNavbar />
           </Col>
 
           <Col sm={2}>
             <Container fluid style={{ width: "800px" }}>
+            <h2 className="text-center" style={{borderBottom: '2px solid black'}}>接案紀錄</h2>
+
               {/* 上方按鈕區域 */}
               <Row className="mb-3">
                 <Col>

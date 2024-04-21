@@ -40,24 +40,21 @@ const CollectionsMain = () => {
 
   return (
     <>
-      <Container>
+      <Container style={{paddingTop: '1.5rem'}}>
         <Row>
-
-          <Col sm={3} style={{ paddingTop: "62px" }}>
+          <Col sm={3}>
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={9} style={{ padding: "20px"}}>
-              {/* <Container fluid style={{}}> */}
+          <Col sm={9}>
                 {/* 上方頁籤 */}
-                <Row className="">
+                <Row>
                   <Col>
                     <Nav variant="tabs" defaultActiveKey="case">
                       <Nav.Item>
                         <Nav.Link
                           eventKey="case"
                           onClick={() => handleScreenChange("case")}
-                          style={{}}
                         >
                           案件收藏
                         </Nav.Link>
@@ -84,9 +81,7 @@ const CollectionsMain = () => {
                     )}
                   </Col>
                 </Row>
-              {/* </Container> */}
           </Col>
-
         </Row>
       </Container>
     <Footer></Footer>

@@ -98,12 +98,10 @@ function Talent() {
                 </div>
                 
                 <div className='row mt-5 p-5'>
-                    <div className='col-sm-2' >
-                        <div style={{ position: '-webkit-sticky', top: 0 }}>
+                    <div className='col-sm-3' style={{display:'flex', justifyContent: 'center'}}>
                             <Stick />
-                        </div>
                     </div>
-                    <div className='col-sm-9' style={{ paddingLeft: '2rem' }}>
+                    <div className='col-sm-9'>
                         <Nav defaultActiveKey="/home" as="ul">
                             <Nav.Item as="li">
                                 <Nav.Link href='#about'>關於我</Nav.Link>

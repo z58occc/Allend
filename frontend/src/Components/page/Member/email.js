@@ -150,16 +150,14 @@ function FreelancerForm() {
 
   return (
     <>
-      <Container xxl={12} style={{minHeight:'100vh'}}>
+      <Container xxl={12} style={{minHeight:'100vh',paddingTop: '1.5rem'}}>
         <Row>
-          <Col sm={3} style={{ padding: "20px" }}>
+          <Col sm={3} >
             <LeftVerticalNavbar />
           </Col>
 
-          <Col sm={9} style={{ padding: "20px" }}>
+          <Col sm={9}>
             <h2 className="text-center">接案人資料維護</h2>
-
-        
               <Form onSubmit={handleSubmit}>
                 {/* 身分 */}
                 <Form.Group as={Row}>
