@@ -20,7 +20,7 @@ const ServiceCollection = ({data, dataUpdate}) => {
   // let data;
   // console.log(data.length)
   data = data.slice(CasePerPage * (active-1) , CasePerPage * active)
-  if(data?.length === 0 && data % 1 < CasePerPage){
+  if(data?.length === 0 && active > 1){
     setActive(active - 1)
   }
   // console.log(active)
