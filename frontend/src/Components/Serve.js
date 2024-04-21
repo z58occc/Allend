@@ -129,7 +129,6 @@ function Serve() {
                     {item.s_amount}&nbsp;/&nbsp;{item.s_unit}
                   </div>
                   <div className="card-footer " style={{ justifyContent: 'end' }}>
-                    <Button>報價詳情</Button>
                   </div>
                 </div>
               </Link>
