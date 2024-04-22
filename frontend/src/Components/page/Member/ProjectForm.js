@@ -281,7 +281,12 @@ function ProjectForm() {
           </InputGroup>
 
           <div className="text-center">
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" 
+            style={{
+              width: '110px', fontSize: '18px', whiteSpace: 'nowrap',
+              padding: "0.8rem 1rem",
+              borderRadius: ".5rem"
+            }}>
               提交
             </Button>
           </div>
@@ -295,11 +300,17 @@ function ProjectForm() {
         <Modal.Header closeButton>
           <Modal.Title className="text-center">發案完成</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center">
-          您的案件已成功提交。
+        <Modal.Body className="text-center" style={{fontSize: '32px'}}>
+          您的案件已成功提交！
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: 'center' }}>
-          <Button variant="primary" onClick={handleCloseModal}>
+          <Button variant="primary" onClick={handleCloseModal}
+            style={{
+              width: '110px', fontSize: '18px', whiteSpace: 'nowrap',
+              padding: "0.8rem 1rem",
+              borderRadius: ".5rem"
+            }}
+          >
             確認
           </Button>
         </Modal.Footer>

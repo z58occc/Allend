@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { CaseContext } from './MainScreen';
 import "./case.css";
 
+
 const CaseDetailsModal3 = ({ show, onHide, number, data, submit }) => {
   const { fetchData } = useContext(CaseContext);
   //星星數
@@ -96,10 +97,12 @@ const CaseDetailsModal3 = ({ show, onHide, number, data, submit }) => {
               </div>
             </div>
             <div className="mb-2 d-flex justify-content-around">
-              <Button variant="primary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={() => handleRating()}>
+              <Button variant="primary" style={{
+padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'            }} onClick={() => handleRating()}>
                 評價提交
               </Button>
-              <Button variant="secondary" style={{ padding: '0.5rem 2.14rem', fontSize: '22px' }} onClick={onHide}>
+              <Button variant="secondary" style={{
+padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'            }} onClick={onHide}>
                 關閉
               </Button>
             </div>

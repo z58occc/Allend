@@ -1051,13 +1051,13 @@ function Findcase() {
         {/* 我要報價Modal */}
         <Modal show={show} onHide={close} >
           <Modal.Header closeButton>
-            <Modal.Title style={{ fontSize: "19px" }} >
+            <Modal.Title style={{ fontSize: "32px" }} >
               報價表單
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
-            <Form>
+            <Form style={{fontSize:'20px'}}>
               <div>案件名稱：{posts[key]?.d_name}</div>
               <hr></hr>
               <div>案件編號：{posts[key]?.did}</div>
@@ -1066,7 +1066,7 @@ function Findcase() {
               <hr></hr>
               <div>案件地點：{posts[key]?.country_city}</div>
               <hr></hr>
-              <Form.Label>報價金額</Form.Label>
+              <Form.Label>報價金額：</Form.Label>
               <Form.Group
                 className="mb-3 d-flex"
                 controlId="exampleForm.ControlInput1"
@@ -1084,19 +1084,23 @@ function Findcase() {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>接案人留言</Form.Label>
-                <div style={{ display: (messagewarm != true ? "none" : ""), color: "red" }}>請輸入至少10個字以上</div>
+                <Form.Label>接案人留言：</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder=" 請輸入至少10個字以上"
                   ref={QuoteMessage}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="primary" onClick={() => handleClose(posts[key]?.did)}>
+            <Button variant="primary" onClick={() => handleClose(posts[key]?.did)}
+              style={{
+                width: '110px', fontSize: '18px', whiteSpace: 'nowrap',
+                padding: "0.8rem 1rem",
+                borderRadius: ".5rem"
+              }}
+            >
               送出
             </Button>
           </Modal.Footer>

@@ -51,7 +51,9 @@ const ECPayment = ({cName, cId, cAmount}) => {
 
     return (
         <>
-            <Button variant="info" size="lg" onClick={handleSubmit}>前往付款</Button>
+            <Button variant="info" size="lg" onClick={handleSubmit}             style={{
+padding: '0.5rem 2.14rem', fontSize:'20px', borderRadius: '.5rem'            }}
+>前往付款</Button>
         </>
     );
 };
