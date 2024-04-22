@@ -613,7 +613,7 @@ function Findcase() {
         </button>
       )}
 
-      <div className="container ">
+      <div className="container " style={{minHeight: '100vh'}}>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"

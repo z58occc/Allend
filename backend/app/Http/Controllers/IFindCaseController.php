@@ -70,25 +70,28 @@ class IFindCaseController extends Controller
         }
 
         // 指定類別
-        switch($request->type){
-            case '1':
-                $query->where('d_type', $request->type);
-                break;
-            case '2':
-                $query->where('d_type', $request->type);
-                break;
-            case '3':
-                $query->where('d_type', $request->type);
-                break;
-            case '4':
-                $query->where('d_type', $request->type);
-                break;
-            case '5':
-                $query->where('d_type', $request->type);
-                break;
-            default:
-                break;
-        }
+        // if($request->type !== "undefined"){
+            switch($request->type){
+                case '1':
+                    $query->where('d_type', $request->type);
+                    break;
+                case '2':
+                    $query->where('d_type', $request->type);
+                    break;
+                case '3':
+                    $query->where('d_type', $request->type);
+                    break;
+                case '4':
+                    $query->where('d_type', $request->type);
+                    break;
+                case '5':
+                    $query->where('d_type', $request->type);
+                    break;
+                default:
+                    // $query->where('d_type', $request->type);
+                    break;
+            }
+        // }
 
         // 指定排序方式
         $order = $request->input('order');
@@ -112,6 +115,7 @@ class IFindCaseController extends Controller
             // 預設最新刊登
             default:
                 $query->orderBy('created_at', 'desc')->orderBy('did', 'desc');
+                break;
             }
 
         // 案件搜索
@@ -125,12 +129,12 @@ class IFindCaseController extends Controller
             $updateAt = new \DateTime($demand->updated_at);
             $now = new \DateTime('now',new \DateTimeZone('Asia/Taipei'));
             $interval = $updateAt->diff($now);
-
+            // dd($interval);
             if($interval->h < 1 && $interval->days < 1){
                 $difference = $interval->i . '分鐘前更新';
             }elseif($interval->days < 1 && $interval->h > 1){
                 $difference = $interval->h . '小時前更新';
-            }elseif($interval->days > 1){
+            }else{
                 $difference = $interval->days . '天前更新';
             }
 
