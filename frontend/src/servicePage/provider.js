@@ -176,7 +176,7 @@ const Provider = ({ data1 }) => {
 
   return (
     <>
-      <div className={`${styles.titlestyle}`}>提供服務</div>
+      <h2 className={`${styles.titlestyle}`}>提供服務</h2>
       <div style={{ width: '100%', background: 'lightblue', minHeight: '33vh', borderRadius: "10px", marginBottom: '1.3rem' }}>
         <div className=" flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className={`${styles.buttoncontainer}`}>

@@ -38,7 +38,7 @@ const CollectionList = ({data,screen,dataUpdate}) => {
     newSelectedItems[index] = !newSelectedItems[index];
     // 重新儲存被選擇的index
     setSelectedItems(newSelectedItems);
-    console.log(selectedItems);
+    // console.log(selectedItems);
     // 判斷是否全選 (所有item = true)
     const isAllSelected = newSelectedItems.every((item) => item);
     setChecked(isAllSelected);
@@ -157,7 +157,7 @@ const CollectionList = ({data,screen,dataUpdate}) => {
       break;
   }
 
-console.log("AB", data)
+// console.log("AB", data)
   return (
     <div className="d-flex flex-wrap justify-content-center">
 

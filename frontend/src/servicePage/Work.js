@@ -171,7 +171,7 @@ const Work = ({ data2 }) => {
   }
   return (
     <>
-      <div className={`${styles.titlestyle}`}>作品</div>
+      <h2 className={`${styles.titlestyle}`}>作品</h2>
       <div style={{ width: '100%', background: '#FFC78E ', minHeight: '33vh', borderRadius: "10px",marginBottom: '1.3rem' }}>
         <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
           <div className={`${styles.buttoncontainer}`}>

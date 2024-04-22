@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { CaseContext } from "./MainScreen2";
 import "./takecase.css";
