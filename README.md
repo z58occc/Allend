@@ -10,8 +10,6 @@ npm install
 cd Allend/backend
 composer i
 php artisan jwt:secret
-composer require php-open-source-saver/jwt-auth
-php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
 ```
 ## 後端env設定
 ```bash
