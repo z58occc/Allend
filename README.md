@@ -35,8 +35,8 @@ GOOGLE_REDIRECT=http://localhost:3000/auth/google/callback
 
 ## 專案技術
 Frontend : React.js 18.2.0  
-Backend : laravel 10.48
-排版 : Boostrap
+Backend : laravel 10.48  
+排版 : Boostrap  
 DB : MySQL   
 
 ## 第三方服務
