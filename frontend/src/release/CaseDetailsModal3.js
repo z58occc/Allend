@@ -85,19 +85,19 @@ const CaseDetailsModal3 = ({ show, onHide, number, data }) => {
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人姓名：{data[number].c_contact_name}</strong>
+              <strong>接案人姓名：{data[number].name}</strong>
             </div>
             <div
               className="col"
               style={{ marginBottom: "10px", fontSize: "20px" }}
             >
-              <strong>接案人Email：{data[number].c_email}</strong>
+              <strong>接案人Email：{data[number].email}</strong>
             </div>
             <div
               className="col"
               style={{ marginBottom: "0px", fontSize: "20px" }}
             >
-              <strong>接案人手機：{data[number].c_mobile_phone}</strong>
+              <strong>接案人手機：{data[number].mobile_phone}</strong>
             </div>
             <div
               className="col"

@@ -428,10 +428,11 @@ class MemberInfoController extends Controller
             $demmand_completed_query = DB::table('established_case')
             ->join('category', 'catid', '=', 'c_type')
             ->join('country', 'country_id', '=', 'c_active_location')
-            ->select('cid', 'c_name','type','c_amount','c_unit','c_contact_name', 'c_email', 'c_mobile_phone','service_star',DB::raw('ifnull(demmand_star, "") asdemmand_star'),
+            ->leftJoin('members', 'established_case.mid_service', '=', 'mid')
+            ->select('cid', 'c_name','type','c_amount','c_unit','members.name', 'members.email', 'members.mobile_phone','service_star',DB::raw('ifnull(demmand_star, "") asdemmand_star'),
             DB::raw('ifnull(demmand_comment, "") as demmand_comment'),DB::raw('ifnull(date_format(demmand_time, "%Y/%m/%d"), "") as demmand_time'),
             DB::raw('ifnull(service_star, "") as service_star'),DB::raw('ifnull(service_comment, "") as service_comment'),DB::raw('ifnull(date_format(service_time, "%Y/%m/%d"), "") as service_time'),
-            DB::raw('date_format(created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
+            DB::raw('date_format(established_case.created_at, "%Y/%m/%d") as created_at'),DB::raw('date_format(completed_time, "%Y/%m/%d") as completed_time'))
             ->where('mid_demmand',$mid)->where('c_status',2)
             ->orderBy('completed_time', 'desc')->orderBy('cid', 'desc');
 

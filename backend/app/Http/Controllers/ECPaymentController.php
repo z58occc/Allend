@@ -34,8 +34,8 @@ class ECPaymentController extends Controller
             'ExpireDate' => 7,
 
             // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-            'ReturnURL' => 'https://6dfd-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callback',
-            'PaymentInfoURL' => 'https://6dfd-118-163-218-100.ngrok-free.app/Allend/backend/public/api/callbackinfo',
+            'ReturnURL' => 'https://4637-2401-e180-8940-2a3-400d-a5e0-2fb-5c00.ngrok-free.app/Allend/backend/public/api/callback',
+            'PaymentInfoURL' => 'https://4637-2401-e180-8940-2a3-400d-a5e0-2fb-5c00.ngrok-free.app/Allend/backend/public/api/callbackinfo',
         ];
 
 
