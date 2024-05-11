@@ -33,16 +33,21 @@ class ChatController extends Controller
     public function Getlist(Request $request)
     {
         $senderId = Auth::id();
-        // $receiverId = $request->receiverId;
-        $messages = DB::table('chat')
-            ->join('members as mr', 'mr.mid', '=', 'chat.receiver_id')
-            ->join('members as ms', 'ms.mid', '=', 'chat.sender_id')
-            ->select('sender_id', 'receiver_id', 'mr.name as mrname','ms.name as msname')
-            ->groupBy('sender_id', 'receiver_id', 'mr.name','ms.name')
-            ->orWhere('sender_id', $senderId)
-            ->get();
+        $asSender = DB::table('chat')
+                    ->join('members', 'mid', '=', 'receiver_id')
+                    ->select('receiver_id as id', 'name')
+                    ->where('sender_id', $senderId)
+                    ->groupBy('receiver_id', 'name');
 
-        return response()->json($messages);
+        $asReceiver = DB::table('chat')
+                    ->join('members', 'mid', '=', 'sender_id')
+                    ->select('sender_id as id', 'name')
+                    ->where('receiver_id', $senderId)
+                    ->groupBy('sender_id', 'name');
+
+        $union = $asSender->union($asReceiver)->get();
+
+        return response()->json($union);
     }
 
     public function Getmessage(Request $request)

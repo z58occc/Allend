@@ -50,7 +50,7 @@ export default function PublicMessagesPage(props) {
     }
     try {
       await Axios.post(
-        `/new-message?receiverId=${receiverId}`,
+        `http://localhost/Allend/backend/public/api/new-message?receiverId=${receiverId}`,
         {
           message: message,
         },
@@ -79,9 +79,9 @@ export default function PublicMessagesPage(props) {
       .then((response)=>{
         setHistory(response.data)
       })
-    }catch(error){
-      console.error("Failed to fetch:", error)
-    }
+      }catch(error){
+        console.error("Failed to fetch:", error)
+      }
   }
 
     
@@ -104,7 +104,7 @@ export default function PublicMessagesPage(props) {
     }
 
     Axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
-        const fetchDataAndSubscribe = async () => {
+    const fetchDataAndSubscribe = async () => {
       if (senderId.mid && receiverId) {
         try {
           // Fetch messages
@@ -159,7 +159,7 @@ export default function PublicMessagesPage(props) {
         <div style={{ display: 'flex', height: '400px' }}>
           <div className="chat-menu">
             {history.map((item,index)=>(
-              <button key={index} className="chat-list" onClick={()=>handleClick(item.receiver_id)}><FaUser style={{paddingRight:"5px"}}/>{item.mrname}</button>
+              <button key={index} className="chat-list" onClick={()=>handleClick(item.id)}><FaUser style={{paddingRight:"5px"}}/>{item.name}</button>
             ))}
           </div>
           <div> 

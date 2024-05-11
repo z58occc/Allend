@@ -515,7 +515,7 @@ function Findcase() {
     };
 
     fetchDataNew();
-  }, [ casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
+  }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
   // 
 
