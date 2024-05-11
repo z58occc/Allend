@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 
-
-function Messagebox({message ,userId,receiverId}) {
+function Messagebox({message, userId, receiverId}) {
 
     const formatDate = (value)=>{
         if(!value) return '';

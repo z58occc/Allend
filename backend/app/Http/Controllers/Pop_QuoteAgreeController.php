@@ -24,7 +24,6 @@ class Pop_QuoteAgreeController extends Controller
             $this->validate($request,[
                 'did'=>['required'],
                 'q_amount'=>['required'],
-                'q_message'=>['min:10'],
             ]);
         }
         catch(ValidationException $err){

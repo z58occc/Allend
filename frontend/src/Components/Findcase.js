@@ -20,10 +20,6 @@ import "./Pagination.css"
 import "./Findcase.css";
 
 
-
-
-
-
 function Findcase() {
 
   const { isLoggedIn, setIsLoggedIn, handleShow } = useContext(IsLoggedInContext);
@@ -83,25 +79,27 @@ function Findcase() {
 
 
   // 送出報價按鈕
-  const handleClose = async (d) => {
+  const handleClose = async (did) => {
+    console.log(1)
     const q_amount = QuoteAmount.current.value;
     const q_message = QuoteMessage.current.value;
     setShow(false);
-    if (q_amount.length == 0 && q_message.length < 10) {
+    if (q_amount.length === 0 && q_message.length < 10) {
       setShow(true);
       setAmountwarm(true);
       setMessagewarm(true);
     } else if (q_amount.length == 0) {
       setAmountwarm(true);
       setShow(true);
-    } else if (q_message.length < 10) {
-      setShow(true);
-      setMessagewarm(true);
-    } else {
-      const did = d;
+    } 
+    // else if (q_message.length < 10) {
+    //   setShow(true);
+    //   setMessagewarm(true);
+    // } 
+    else {
       try {
         const data = await sendQuote(did, q_amount, q_message);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         console.log(err);
       }

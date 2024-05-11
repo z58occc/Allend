@@ -10,7 +10,6 @@ import "./chatroom.css";
 
 
 export default function PublicMessagesPage(props) {
-  
   const {setShowChat} = useContext(IsLoggedInContext);
 
   const [Sconnect, setSconnect] = useState("")
@@ -18,7 +17,7 @@ export default function PublicMessagesPage(props) {
   const [messages, setMessages] = useState([])
   const [senderId, setsenderId] = useState("")
   const [receiverId ,setReceiverId] = useState(props.receiverId)
-  const [Library, setLibrary] = useState(false)
+  // const [Library, setLibrary] = useState(false)
 
   const handleClick = async (receiverId) => {
     setMessages([]);
@@ -37,7 +36,6 @@ export default function PublicMessagesPage(props) {
   };
 
 
-    
   const handleCloseChat = () => {
     setShowChat(false);
   }
@@ -46,8 +44,9 @@ export default function PublicMessagesPage(props) {
 
     if (!message) {
       alert("Please type your message")
-      return
+      return;
     }
+
     try {
       await Axios.post(
         `http://localhost/Allend/backend/public/api/new-message?receiverId=${receiverId}`,
@@ -68,7 +67,6 @@ export default function PublicMessagesPage(props) {
   const [history, setHistory] = useState([])
 
   useEffect(() => {
-
     const historymessage = async ()=> {
       try{
         const response = Axios.get('http://localhost/Allend/backend/public/api/get-mlist',{
@@ -84,7 +82,6 @@ export default function PublicMessagesPage(props) {
       }
   }
 
-    
     const fetchMember = async () => {
       try {
         const response = await Axios.get(`http://localhost/Allend/backend/public/api/user/email?receiverId=${receiverId}`, {
@@ -153,28 +150,26 @@ export default function PublicMessagesPage(props) {
     <div className="chat-window">
       <div className="title-section">
       {senderId.receivername ? senderId.receivername + "(" + (senderId.receiveremail ? senderId.receiveremail : "") + ")" : ""}
-        <button className="btn-close btn-close-white position-absolute top-10 end-0 " style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
+        <button className="btn-close btn-close-white position-absolute top-10 end-0" style={{paddingRight:'50px'}} onClick={handleCloseChat}></button>
       </div> 
-      <div>
-        <div style={{ display: 'flex', height: '400px' }}>
-          <div className="chat-menu">
-            {history.map((item,index)=>(
-              <button key={index} className="chat-list" onClick={()=>handleClick(item.id)}><FaUser style={{paddingRight:"5px"}}/>{item.name}</button>
+      <div style={{ display: 'flex', height: '400px' }}>
+        <div className="chat-menu">
+          {history.map((item,index)=>(
+            <button key={index} className="chat-list" onClick={()=>handleClick(item.id)}><FaUser style={{paddingRight:"5px"}}/>{item.name}</button>
+          ))}
+        </div>
+        <div> 
+          <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'450px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
+          {Sconnect && <span>{Sconnect}</span>}
+            {messages.map((message, index) => (
+              <Messagebox key={index} message={message} userId={senderId.mid} receiverId={receiverId} />
             ))}
           </div>
-          <div> 
-            <div style={{ marginBottom:'5px',borderBottom:'solid 1px', overflowY: "scroll",width:'450px',height:"298px",display:'flex',flexDirection:'column-reverse',paddingRight:'3px'}}>
-            {Sconnect && <span>{Sconnect}</span>}
-              {messages.map((message, index) => (
-                <Messagebox key={index} message={message} userId={senderId.mid} receiverId={receiverId} />
-              ))}
-            </div>
-            <div style={{marginTop: 'auto'}}>
-              <form onSubmit={(e) => handleSendMessage(e)}>
-                  <input className="message-input" type="text" placeholder="輸入你的訊息..." value={message} onChange={(e) => setMessage(e.target.value)} required />
-                  <button className="send-button" onClick={(e) => handleSendMessage(e)}>送出</button>
-              </form>
-            </div>
+          <div style={{marginTop: 'auto'}}>
+            <form onSubmit={(e) => handleSendMessage(e)}>
+                <input className="message-input" type="text" placeholder="輸入你的訊息..." value={message} onChange={(e) => setMessage(e.target.value)} required />
+                <button className="send-button" onClick={(e) => handleSendMessage(e)}>送出</button>
+            </form>
           </div>
         </div>
       </div>
