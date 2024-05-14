@@ -540,9 +540,10 @@ function App() {
         </div>
       </nav >
 
+
       {isLoggedIn ? (showChat ? (<PublicMessagesPage receiverId={selectedItemMid} />) : <Closechat />) : (handleShow)}
       <Routes>
-        <Route path="/" element={<Homepage></Homepage>}></Route>
+        <Route path="/Allend" element={<Homepage></Homepage>}></Route>
         <Route path="/findcase/:type?/:casesearch?" element={<Findcase></Findcase>}></Route>
         <Route path="/findman/:s_type?/:servicesearch?" element={<Findman></Findman>}></Route>
         <Route path="/ProjectForm" element={<ProjectForm></ProjectForm>}></Route>
