@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Allend/static/css/main.90005690.css",
-    "main.js": "/Allend/static/js/main.94f92bdc.js",
+    "main.js": "/Allend/static/js/main.29c1b424.js",
     "static/js/453.280e63c3.chunk.js": "/Allend/static/js/453.280e63c3.chunk.js",
     "static/media/a4.png": "/Allend/static/media/a4.1d198625d95ab1204d90.png",
     "static/media/a1.png": "/Allend/static/media/a1.449479d1281bac77cd3f.png",
@@ -30,11 +30,11 @@
     "static/media/arrow_left.svg": "/Allend/static/media/arrow_left.db6e2d88c7c35a775ce4.svg",
     "static/media/arrow_right.svg": "/Allend/static/media/arrow_right.f7c6ac6d310d3b82f0a0.svg",
     "main.90005690.css.map": "/Allend/static/css/main.90005690.css.map",
-    "main.94f92bdc.js.map": "/Allend/static/js/main.94f92bdc.js.map",
+    "main.29c1b424.js.map": "/Allend/static/js/main.29c1b424.js.map",
     "453.280e63c3.chunk.js.map": "/Allend/static/js/453.280e63c3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90005690.css",
-    "static/js/main.94f92bdc.js"
+    "static/js/main.29c1b424.js"
   ]
 }
