@@ -437,7 +437,7 @@ function App() {
           display: "flex", alignItems: "center", height: 80, background: "linear-gradient(135deg,#EFBC9B 0%, #ffdab9 20%,#ffcab9 100%)", zIndex: 100
         }}
       >
-        <Link to="/">
+        <Link to="/Allend">
           <img style={{ width: 80, height: 80 }} src={ourLogo} alt="" />
         </Link>
         <span className="slogan-text" style={{ letterSpacing: "2px" }}>包您滿意</span>
