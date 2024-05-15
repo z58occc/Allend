@@ -15,7 +15,7 @@ import Category from "../Components/Category";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../src/App.css";
 import "./Homepage.css";
-
+import { homepagedata } from "./homepagedata";
 
 function Homepage() {
   const [change, setChange] = useState(false);
@@ -31,22 +31,27 @@ function Homepage() {
   const [newPublish, setNewPublish] = useState([])
   const [projects, setProjects] = useState([]);
 
-  const fetchData = () => {
-    fetch("http://127.0.0.1/Allend/backend/public/api/index")
-      .then((response) => response.json())
-      .then((data) => {
-        setNewService(data.service)
-        setNewPublish(data.demmand)
-        setProjects(data.project)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }
+  // const fetchData = () => {
+  //   fetch("http://127.0.0.1/Allend/backend/public/api/index")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setNewService(data.service)
+  //       setNewPublish(data.demmand)
+  //       setProjects(data.project)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // }
 
   useEffect(() => {
-    fetchData()
+    // fetchData()
+    setNewService(homepagedata.service);
+    setNewPublish(homepagedata.demmand);
+    setProjects(homepagedata.project);
+
   }, []);
+
 
 
 
@@ -274,8 +279,8 @@ function Homepage() {
                 <Carousel.Item key={index}>
                   <Row className="justify-content-md-center">
                     <Col xs lg="6" style={{ padding: "0px" }}>
-                      <img src={change === true ? `${activeProduct}` : `data:image/jpeg;base64,${post.image}`} alt="" 
-                      style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
+                      <img src={change === true ? `${activeProduct}` : `data:image/jpeg;base64,${post.image}`} alt=""
+                        style={{ maxWidth: "100%", marginTop: "10px", marginBottom: "10px" }} />
                     </Col>
                     <Col xs lg="2" className="d-flex justify-content-center align-items-center" style={{ padding: "0px" }}>
                       <Link className="links" to={`./talent/${post.mid}`} style={{ fontSize: "20px", position: "relative", left: "30px" }}>
