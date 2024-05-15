@@ -18,7 +18,7 @@ import { IsLoggedInContext } from "../App";
 import "../../src/App.css";
 import "./Pagination.css"
 import "./Findcase.css";
-
+import { findcaseData } from "./findcaseData";
 
 function Findcase() {
 
@@ -379,140 +379,141 @@ function Findcase() {
   const { type, casesearch } = useParams();
 
   useEffect(() => {
-    const fetchDataNew = async () => {
-      try {
-        const clearbudgetstate = Object.keys(budgetstate)
-          .filter((key) => budgetstate[key])
-          .map((key) => {
-            switch (key) {
-              case "五千":
-                return "5千以下";
-              case "一萬":
-                return "5千到1萬";
-              case "五萬":
-                return "1萬到5萬";
-              case "十萬":
-                return "5萬到10萬";
-              case "三十萬":
-                return "10萬到30萬";
-              default:
-                break;
-            }
-          })
-          .join("，");
-        setBudgetid(clearbudgetstate);
+    // const fetchDataNew = async () => {
+    //   try {
+    //     const clearbudgetstate = Object.keys(budgetstate)
+    //       .filter((key) => budgetstate[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "五千":
+    //             return "5千以下";
+    //           case "一萬":
+    //             return "5千到1萬";
+    //           case "五萬":
+    //             return "1萬到5萬";
+    //           case "十萬":
+    //             return "5萬到10萬";
+    //           case "三十萬":
+    //             return "10萬到30萬";
+    //           default:
+    //             break;
+    //         }
+    //       })
+    //       .join("，");
+    //     setBudgetid(clearbudgetstate);
 
 
 
 
-        switch (type) {
-          case "1":
-            setTypeid("網站設計");
-            break;
-          case "2":
-            setTypeid("軟體程式");
-            break;
-          case "3":
-            setTypeid("平面設計");
-            break;
-          case "4":
-            setTypeid("文字語言");
-            break;
-          case "5":
-            setTypeid("專業諮詢");
-            break;
-          default:
-            break;
-        }
-        const budgetQuery = Object.keys(budgetstate)
-          .filter((key) => budgetstate[key])
-          .map((key) => {
-            switch (key) {
-              case "五千":
-                return 1;
-              case "一萬":
-                return 2;
-              case "五萬":
-                return 3;
-              case "十萬":
-                return 4;
-              case "三十萬":
-                return 5;
-              default:
-                break;
-            }
-          })
-          .join(",");
+    //     switch (type) {
+    //       case "1":
+    //         setTypeid("網站設計");
+    //         break;
+    //       case "2":
+    //         setTypeid("軟體程式");
+    //         break;
+    //       case "3":
+    //         setTypeid("平面設計");
+    //         break;
+    //       case "4":
+    //         setTypeid("文字語言");
+    //         break;
+    //       case "5":
+    //         setTypeid("專業諮詢");
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //     const budgetQuery = Object.keys(budgetstate)
+    //       .filter((key) => budgetstate[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "五千":
+    //             return 1;
+    //           case "一萬":
+    //             return 2;
+    //           case "五萬":
+    //             return 3;
+    //           case "十萬":
+    //             return 4;
+    //           case "三十萬":
+    //             return 5;
+    //           default:
+    //             break;
+    //         }
+    //       })
+    //       .join(",");
         
-        const countryQuery = Object.keys(checkedState)
-          .filter((key) => checkedState[key])
-          .map((key) => {
-            switch (key) {
-              case "台北市":
-                return "台北市"
-              case "新北市":
-                return "新北市"
-              case "桃園市":
-                return "桃園市"
-              case "基隆市":
-                return "基隆市"
-              case "新竹市":
-                return "新竹市"
-              case "新竹縣":
-                return "新竹縣"
-              case "彰化縣":
-                return "彰化縣"
-              case "南投縣":
-                return "南投縣"
-              case "雲林縣":
-                return "雲林縣"
-              case "高雄市":
-                return "高雄市"
-              case "台南市":
-                return "台南市"
-              case "嘉義市":
-                return "嘉義市"
-              case "嘉義縣":
-                return "嘉義縣"
-              case "屏東縣":
-                return "屏東縣"
-              case "宜蘭縣":
-                return "宜蘭縣"
-              case "花蓮縣":
-                return "花蓮縣"
-              case "臺東縣":
-                return "臺東縣"
-              case "澎湖縣":
-                return "澎湖縣"
-              case "金門縣":
-                return "金門縣"
-              case "連江縣":
-                return "連江縣"
-              default:
-                return "";
-            }
-          })
-          .join(",");
+    //     const countryQuery = Object.keys(checkedState)
+    //       .filter((key) => checkedState[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "台北市":
+    //             return "台北市"
+    //           case "新北市":
+    //             return "新北市"
+    //           case "桃園市":
+    //             return "桃園市"
+    //           case "基隆市":
+    //             return "基隆市"
+    //           case "新竹市":
+    //             return "新竹市"
+    //           case "新竹縣":
+    //             return "新竹縣"
+    //           case "彰化縣":
+    //             return "彰化縣"
+    //           case "南投縣":
+    //             return "南投縣"
+    //           case "雲林縣":
+    //             return "雲林縣"
+    //           case "高雄市":
+    //             return "高雄市"
+    //           case "台南市":
+    //             return "台南市"
+    //           case "嘉義市":
+    //             return "嘉義市"
+    //           case "嘉義縣":
+    //             return "嘉義縣"
+    //           case "屏東縣":
+    //             return "屏東縣"
+    //           case "宜蘭縣":
+    //             return "宜蘭縣"
+    //           case "花蓮縣":
+    //             return "花蓮縣"
+    //           case "臺東縣":
+    //             return "臺東縣"
+    //           case "澎湖縣":
+    //             return "澎湖縣"
+    //           case "金門縣":
+    //             return "金門縣"
+    //           case "連江縣":
+    //             return "連江縣"
+    //           default:
+    //             return "";
+    //         }
+    //       })
+    //       .join(",");
 
-        if (casesearch == undefined) {
-          const response = await axios.get(
-            `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
-          );
-          setPosts(response.data);
-        } else {
-          const response = await axios.get(
-            `http://localhost/Allend/backend/public/api/findcase?casesearch=${casesearch}`
-          );
-          setPosts(response.data);
+    //     if (casesearch == undefined) {
+    //       const response = await axios.get(
+    //         `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
+    //       );
+    //       setPosts(response.data);
+    //     } else {
+    //       const response = await axios.get(
+    //         `http://localhost/Allend/backend/public/api/findcase?casesearch=${casesearch}`
+    //       );
+    //       setPosts(response.data);
 
-        }
-        setCityid(countryQuery.replaceAll(","," "));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+    //     }
+    //     setCityid(countryQuery.replaceAll(","," "));
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // };
 
-    fetchDataNew();
+    // fetchDataNew();
+    setPosts(findcaseData)
   }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
   // 

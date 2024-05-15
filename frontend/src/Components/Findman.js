@@ -11,7 +11,7 @@ import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
 import styles from "./Findman.module.css";
-
+import { findmanData } from "./findmandata";
 
 const Findman = () => {
   // 接context
@@ -75,120 +75,121 @@ const Findman = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    const fetchService = async () => {
-      try {
-        const identityQuery = Object.keys(identity)
-          .filter((key) => identity[key])
-          .map((key) => {
-            switch (key) {
-              case "personal":
-                return "1";
-              case "company":
-                return "2";
-              case "studio":
-                return "3";
-              default:
-                return "";
-            }
-          })
-          .join(",");
+    // const fetchService = async () => {
+    //   try {
+    //     const identityQuery = Object.keys(identity)
+    //       .filter((key) => identity[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "personal":
+    //             return "1";
+    //           case "company":
+    //             return "2";
+    //           case "studio":
+    //             return "3";
+    //           default:
+    //             return "";
+    //         }
+    //       })
+    //       .join(",");
 
-        const seniorityQuery = Object.keys(seniority)
-          .filter((key) => seniority[key])
-          .map((key) => {
-            switch (key) {
-              case "year1":
-                return "1";
-              case "year2":
-                return "2";
-              case "year3":
-                return "3";
-              case "year4":
-                return "4";
-              case "year5":
-                return "5";
-              default:
-                return "";
-            }
-          })
-          .join(",");
+    //     const seniorityQuery = Object.keys(seniority)
+    //       .filter((key) => seniority[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "year1":
+    //             return "1";
+    //           case "year2":
+    //             return "2";
+    //           case "year3":
+    //             return "3";
+    //           case "year4":
+    //             return "4";
+    //           case "year5":
+    //             return "5";
+    //           default:
+    //             return "";
+    //         }
+    //       })
+    //       .join(",");
 
-        const countryQuery = Object.keys(country)
-          .filter((key) => country[key])
-          .map((key) => {
-            switch (key) {
-              case "taipei":
-                return "1";
-              case "newtaipei":
-                return "2";
-              case "taoyuan":
-                return "3";
-              case "keelung":
-                return "4";
-              case "hsinchu":
-                return "5";
-              case "hsinchucounty":
-                return "6";
-              case "yilan":
-                return "7";
-              case "taichung":
-                return "8";
-              case "miaoli":
-                return "9";
-              case "changhua":
-                return "10";
-              case "nantou":
-                return "11";
-              case "yunlin":
-                return "12";
-              case "kaohsiung":
-                return "13";
-              case "tainan":
-                return "14";
-              case "chiayi":
-                return "15";
-              case "chiayicounty":
-                return "16";
-              case "pingtung":
-                return "17";
-              case "hualien":
-                return "18";
-              case "taitung":
-                return "19";
-              case "penghu":
-                return "20";
-              case "kinmen":
-                return "21";
-              case "lienchang":
-                return "22";
-              default:
-                return "";
-            }
-          })
-          .join(",");
+    //     const countryQuery = Object.keys(country)
+    //       .filter((key) => country[key])
+    //       .map((key) => {
+    //         switch (key) {
+    //           case "taipei":
+    //             return "1";
+    //           case "newtaipei":
+    //             return "2";
+    //           case "taoyuan":
+    //             return "3";
+    //           case "keelung":
+    //             return "4";
+    //           case "hsinchu":
+    //             return "5";
+    //           case "hsinchucounty":
+    //             return "6";
+    //           case "yilan":
+    //             return "7";
+    //           case "taichung":
+    //             return "8";
+    //           case "miaoli":
+    //             return "9";
+    //           case "changhua":
+    //             return "10";
+    //           case "nantou":
+    //             return "11";
+    //           case "yunlin":
+    //             return "12";
+    //           case "kaohsiung":
+    //             return "13";
+    //           case "tainan":
+    //             return "14";
+    //           case "chiayi":
+    //             return "15";
+    //           case "chiayicounty":
+    //             return "16";
+    //           case "pingtung":
+    //             return "17";
+    //           case "hualien":
+    //             return "18";
+    //           case "taitung":
+    //             return "19";
+    //           case "penghu":
+    //             return "20";
+    //           case "kinmen":
+    //             return "21";
+    //           case "lienchang":
+    //             return "22";
+    //           default:
+    //             return "";
+    //         }
+    //       })
+    //       .join(",");
 
-        const sortQuery = Object.keys(sort);
+    //     const sortQuery = Object.keys(sort);
 
-        const baseURL = "http://localhost/Allend/backend/public/api/printservicecardcontent"
-        const queryParams = `?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
+    //     const baseURL = "http://localhost/Allend/backend/public/api/printservicecardcontent"
+    //     const queryParams = `?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
         
-        let requestURL = `${baseURL}${queryParams}`
-        if (servicesearch !== undefined){
-          requestURL += `&servicesearch=${servicesearch}`
-        }
+    //     let requestURL = `${baseURL}${queryParams}`
+    //     if (servicesearch !== undefined){
+    //       requestURL += `&servicesearch=${servicesearch}`
+    //     }
 
-        let headers = {}
-        if(isLoggedIn){
-          headers = { Authorization: `Bearer ${Cookies.get('token')}` }
-        }
-        const response = await axios.get(requestURL, {headers});
-        setService(response.data.data);
-        setTotalPages(response.data.last_page);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchService();
+    //     let headers = {}
+    //     if(isLoggedIn){
+    //       headers = { Authorization: `Bearer ${Cookies.get('token')}` }
+    //     }
+    //     const response = await axios.get(requestURL, {headers});
+    //     setService(response.data.data);
+    //     setTotalPages(response.data.last_page);
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // };
+    // fetchService();
+    setService(findmanData.data)
   }, [servicesearch, identity, seniority, country, sort, currentPage, s_type, isLoggedIn]);
 
   // 加入收藏
