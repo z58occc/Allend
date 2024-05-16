@@ -31,6 +31,13 @@ class Pop_QuoteAgreeController extends Controller
                 'error' => $err->errors()
             ]);
         }
+        $didToMid = DB::table('demmand')->where('did', $request->did)->value('mid');
+
+        if($mid === $didToMid){
+            return response()->json([
+                'error' => '不可對自己案件報價'
+            ]);
+        }
 
         try{
             DB::table('quote')->insert([
