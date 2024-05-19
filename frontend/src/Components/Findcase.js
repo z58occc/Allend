@@ -630,7 +630,9 @@ function Findcase() {
         {/* 分類按鈕最上面那5顆 */}
 
 
-        <Category></Category>
+        <Category
+        type={type}
+        ></Category>
 
 
         {/* 分類按鈕最上面那5顆 */}

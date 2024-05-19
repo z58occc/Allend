@@ -15,7 +15,7 @@ import styles from "./Findman.module.css";
 
 const Findman = () => {
   // 接context
-  const {isLoggedIn, handleShow, showChat, setShowChat, setSelectedItemMid} = useContext(IsLoggedInContext);
+  const { isLoggedIn, handleShow, showChat, setShowChat, setSelectedItemMid } = useContext(IsLoggedInContext);
 
   // 儲存撈回來的資料
   const [service, setService] = useState([]);
@@ -66,7 +66,7 @@ const Findman = () => {
   });
 
   const { s_type, servicesearch } = useParams();
-  
+
   // 儲存排序鈕顏色
   const [act, setAct] = useState();
 
@@ -171,17 +171,17 @@ const Findman = () => {
 
         const baseURL = "http://localhost/Allend/backend/public/api/printservicecardcontent"
         const queryParams = `?identity=${identityQuery}&seniority=${seniorityQuery}&country=${countryQuery}&sort=${sortQuery}&page=${currentPage}&s_type=${s_type}`
-        
+
         let requestURL = `${baseURL}${queryParams}`
-        if (servicesearch !== undefined){
+        if (servicesearch !== undefined) {
           requestURL += `&servicesearch=${servicesearch}`
         }
 
         let headers = {}
-        if(isLoggedIn){
+        if (isLoggedIn) {
           headers = { Authorization: `Bearer ${Cookies.get('token')}` }
         }
-        const response = await axios.get(requestURL, {headers});
+        const response = await axios.get(requestURL, { headers });
         setService(response.data.data);
         setTotalPages(response.data.last_page);
       } catch (err) {
@@ -214,11 +214,11 @@ const Findman = () => {
       data: { fid: fid },
       headers: { Authorization: `Bearer ${Cookies.get('token')}` }
     })
-    .then((res) => {
-      const newData = service.map((item) => item.fid === fid ? { ...item, fid: null } : item);
-      setService(newData)
-    })
-    .catch((err) => { console.log(err) })
+      .then((res) => {
+        const newData = service.map((item) => item.fid === fid ? { ...item, fid: null } : item);
+        setService(newData)
+      })
+      .catch((err) => { console.log(err) })
   }
 
   /* 更新篩選條件值 */
@@ -252,7 +252,7 @@ const Findman = () => {
   };
   /* 更新篩選條件值 */
 
-  /* 切換上下頁 */ 
+  /* 切換上下頁 */
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
 
@@ -260,9 +260,9 @@ const Findman = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
-  /* 切換上下頁 */ 
+  /* 切換上下頁 */
 
-  /* 置頂按鈕 */ 
+  /* 置頂按鈕 */
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
@@ -283,7 +283,7 @@ const Findman = () => {
       behavior: "smooth"
     });
   };
-  /* 置頂按鈕 */ 
+  /* 置頂按鈕 */
 
   return (
     <>
@@ -318,7 +318,9 @@ const Findman = () => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        <Category></Category>
+        <Category
+          type={s_type}
+        ></Category>
         <hr />
         <div className="row">
           {/* 左邊 */}
@@ -635,7 +637,7 @@ const Findman = () => {
                           ? <>
                             <FaHeart className={styles.faheart} onClick={() => { cancelServiceCollection(item.fid) }} />
                           </>
-                          : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid);} : handleShow} />}
+                          : <FaRegHeart className={styles.faregheart} onClick={isLoggedIn ? () => { addServiceCollection(item.sid); } : handleShow} />}
                       </div>
                       <div onClick={isLoggedIn ? () => toggleChat(item.mid) : handleShow} className='text-center p-2'>
                         <Chatbutton />
