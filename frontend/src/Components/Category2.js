@@ -14,8 +14,7 @@ function Category2({type}) {
     const [changecolor3, setChangecolor3] = useState(false);
     const [changecolor4, setChangecolor4] = useState(false);
     const [changecolor5, setChangecolor5] = useState(false);
-    console.log(type);
-    console.log(1);
+    
     const chagecolorOff = async () => {
         setChangecolor1(false);
         setChangecolor2(false);
