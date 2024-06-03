@@ -16,3 +16,6 @@
   background-color: #66B3FF  ;
   border-radius: 15px;
 }
+.categorylink:focus{
+  opacity: 0.4;
+}

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef, Fragment } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, json, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
@@ -19,8 +19,18 @@ import "../../src/App.css";
 import "./Pagination.css"
 import "./Findcase.css";
 import { findcaseData } from "./findcaseData";
+import Buttom2 from "./Buttom2";
+import a1 from "../Components/img/a1.png"
+import a2 from "../Components/img/a2.png"
+import a4 from "../Components/img/a4.png"
+import a5 from "../Components/img/a5.png"
+import a6 from "../Components/img/a6.png"
+import a3 from "../Components/img/a3.png"
+import "./Buttom2.css"
 
 function Findcase() {
+ 
+
 
   const { isLoggedIn, setIsLoggedIn, handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
@@ -543,9 +553,47 @@ function Findcase() {
         />
 
         {/* 分類按鈕最上面那5顆 */}
+        <div style={{ marginLeft: '60px', marginRight: '0' }}>
 
+          <div className="container mt-5 ">
+            <div className="row  justify-content-center text-center" >
 
-        <Category></Category>
+              <Buttom2
+                text="網站設計"
+                src={a1}
+                to="1"
+                
+                >
+              </Buttom2>
+              <Buttom2
+                text="軟體程式"
+                src={a2}
+                to="2"
+              >
+              </Buttom2>
+              <Buttom2
+                text="平面設計"
+                src={a5}
+                to="3"
+              >
+              </Buttom2>
+              <Buttom2
+                text="文字語言"
+                src={a4}
+                to="4"
+              >
+              </Buttom2>
+              <Buttom2
+                text="專業諮詢"
+                src={a6}
+                to="5"
+              >
+              </Buttom2>
+            </div>
+          </div>
+        </div>
+
+        {/* <Category></Category> */}
 
 
         {/* 分類按鈕最上面那5顆 */}
