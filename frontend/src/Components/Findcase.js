@@ -91,7 +91,7 @@ function Findcase() {
     } else if (q_amount.length == 0) {
       setAmountwarm(true);
       setShow(true);
-    } 
+    }
     // else if (q_message.length < 10) {
     //   setShow(true);
     //   setMessagewarm(true);
@@ -250,7 +250,7 @@ function Findcase() {
     const newbudgetState = { ...budgetstate };
     Object.keys(newbudgetState).forEach((key) => newbudgetState[key] = false);
     setBudgetstate(newbudgetState);
-    fetchData();
+    // fetchData();
     setTypeid(null);
     setDurationQuery("");
 
@@ -282,16 +282,28 @@ function Findcase() {
   }
   const [durationQuery, setDurationQuery] = useState();
   const handlechangeduration = (duration) => {
+    const secondArray = [];
     console.log(duration);
     changeBottomcolorOff();
     setChangecolorduration(true);
     switch (duration) {
       case "短":
-        setDurationQuery("短");
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].d_duration == "短") {
+            secondArray.push(findcaseData[i])
+          }
+        }
+        setPosts(secondArray);
         break;
       case "長":
-        setDurationQuery("長");
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].d_duration == "長") {
+            secondArray.push(findcaseData[i])
+          }
+        }
+        setPosts(secondArray);
         break;
+
 
       default:
         break;
@@ -305,13 +317,19 @@ function Findcase() {
         changeBottomcolorOff();
         setChangecolor5(true);
         setChangecolorcreated_at(true);
-        setOrderquery(1);
+        for (let i = 0; i < posts.length; i++) {
+          const x = posts.sort((function (a, b) { return a.created_at - b.created_at }));
+          setPosts(x);
+        }
         break;
       case 2:
         changeBottomcolorOff();
         setChangecolor4(true);
         setChangecolorupdated_at(true);
-        setOrderquery(2);
+        for (let i = 0; i < posts.length; i++) {
+          const x = posts.sort((function (a, b) { return a.updated_at - b.updated_at }));
+          setPosts(x);
+        }
         break;
 
       default:
@@ -379,141 +397,55 @@ function Findcase() {
   const { type, casesearch } = useParams();
 
   useEffect(() => {
-    // const fetchDataNew = async () => {
-    //   try {
-    //     const clearbudgetstate = Object.keys(budgetstate)
-    //       .filter((key) => budgetstate[key])
-    //       .map((key) => {
-    //         switch (key) {
-    //           case "五千":
-    //             return "5千以下";
-    //           case "一萬":
-    //             return "5千到1萬";
-    //           case "五萬":
-    //             return "1萬到5萬";
-    //           case "十萬":
-    //             return "5萬到10萬";
-    //           case "三十萬":
-    //             return "10萬到30萬";
-    //           default:
-    //             break;
-    //         }
-    //       })
-    //       .join("，");
-    //     setBudgetid(clearbudgetstate);
+    const newArray = [];
+    switch (type) {
+      case "1":
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].type == "網站設計") {
+            newArray.push(findcaseData[i]);
+          }
+        }
+        break;
+      case "2":
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].type == "軟體程式") {
+            newArray.push(findcaseData[i]);
+          }
+        }
+        break;
+      case "3":
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].type == "平面設計") {
+            newArray.push(findcaseData[i]);
+          }
+        }
+        break;
+      case "4":
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].type == "文字語言") {
+            newArray.push(findcaseData[i]);
+          }
+        }
+        break;
+      case "5":
+        for (let i = 0; i < findcaseData.length; i++) {
+          if (findcaseData[i].type == "專業諮詢") {
+            newArray.push(findcaseData[i]);
+          }
+        }
+        break;
 
 
-
-
-    //     switch (type) {
-    //       case "1":
-    //         setTypeid("網站設計");
-    //         break;
-    //       case "2":
-    //         setTypeid("軟體程式");
-    //         break;
-    //       case "3":
-    //         setTypeid("平面設計");
-    //         break;
-    //       case "4":
-    //         setTypeid("文字語言");
-    //         break;
-    //       case "5":
-    //         setTypeid("專業諮詢");
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //     const budgetQuery = Object.keys(budgetstate)
-    //       .filter((key) => budgetstate[key])
-    //       .map((key) => {
-    //         switch (key) {
-    //           case "五千":
-    //             return 1;
-    //           case "一萬":
-    //             return 2;
-    //           case "五萬":
-    //             return 3;
-    //           case "十萬":
-    //             return 4;
-    //           case "三十萬":
-    //             return 5;
-    //           default:
-    //             break;
-    //         }
-    //       })
-    //       .join(",");
-        
-    //     const countryQuery = Object.keys(checkedState)
-    //       .filter((key) => checkedState[key])
-    //       .map((key) => {
-    //         switch (key) {
-    //           case "台北市":
-    //             return "台北市"
-    //           case "新北市":
-    //             return "新北市"
-    //           case "桃園市":
-    //             return "桃園市"
-    //           case "基隆市":
-    //             return "基隆市"
-    //           case "新竹市":
-    //             return "新竹市"
-    //           case "新竹縣":
-    //             return "新竹縣"
-    //           case "彰化縣":
-    //             return "彰化縣"
-    //           case "南投縣":
-    //             return "南投縣"
-    //           case "雲林縣":
-    //             return "雲林縣"
-    //           case "高雄市":
-    //             return "高雄市"
-    //           case "台南市":
-    //             return "台南市"
-    //           case "嘉義市":
-    //             return "嘉義市"
-    //           case "嘉義縣":
-    //             return "嘉義縣"
-    //           case "屏東縣":
-    //             return "屏東縣"
-    //           case "宜蘭縣":
-    //             return "宜蘭縣"
-    //           case "花蓮縣":
-    //             return "花蓮縣"
-    //           case "臺東縣":
-    //             return "臺東縣"
-    //           case "澎湖縣":
-    //             return "澎湖縣"
-    //           case "金門縣":
-    //             return "金門縣"
-    //           case "連江縣":
-    //             return "連江縣"
-    //           default:
-    //             return "";
-    //         }
-    //       })
-    //       .join(",");
-
-    //     if (casesearch == undefined) {
-    //       const response = await axios.get(
-    //         `http://localhost/Allend/backend/public/api/findcase?type=${type}&location=${countryQuery}&amount=${budgetQuery}&d_duration=${durationQuery}&order=${orderQuery}`
-    //       );
-    //       setPosts(response.data);
-    //     } else {
-    //       const response = await axios.get(
-    //         `http://localhost/Allend/backend/public/api/findcase?casesearch=${casesearch}`
-    //       );
-    //       setPosts(response.data);
-
-    //     }
-    //     setCityid(countryQuery.replaceAll(","," "));
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
-
-    // fetchDataNew();
-    setPosts(findcaseData)
+      default:
+        for (let i = 0; i < findcaseData.length; i++) {
+          newArray.push(findcaseData[i])
+        }
+        break;
+    }
+    setPosts(newArray);
+    console.log(newArray);
+    console.log(type)
+    console.log(findcaseData);
   }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
 
   // 
@@ -522,25 +454,7 @@ function Findcase() {
 
 
 
-  // 全部案件
-  const [factor, setFactor] = useState();
-  const fetchData = async () => {
-    changeBottomcolorOff();
-    let url = "http://localhost/Allend/backend/public/api/findcase?";
-    setCurrentPage(1);
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-
-        setPosts(data);
-        // console.log(data);
-      });
-    console.log(type);
-    setFactor(false);
-
-  };
-  // 全部案件
 
 
 
@@ -612,7 +526,7 @@ function Findcase() {
         </button>
       )}
 
-      <div className="container " style={{minHeight: '100vh'}}>
+      <div className="container " style={{ minHeight: '100vh' }}>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -937,24 +851,24 @@ function Findcase() {
         {/* 左上4顆按鈕 */}
         <div>
           <Link to={"/findcase/"} style={{ textDecoration: "none", color: "black" }} onClick={handleChangeall}>
-            <button style={{border:'none',boxShadow:'0 0px 1px',backgroundColor:'transparent' }} className={changecolor1 == true ? "active" : ""}  >
+            <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor1 == true ? "active" : ""}  >
               全部案件
             </button>
           </Link>
-          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
-          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
         </div>
 
 
         {/* 右下4顆按鈕 */}
-        <div style={{ textAlign: "end", marginBottom:'0.5rem'}}>
-          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor5 == true ? "active" : ""} onClick={() => handlechangeOrder(1)}>最新刊登<GoTriangleDown /></button>
-          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor4 == true ? "active" : ""} onClick={() => handlechangeOrder(2)}>最近更新<GoTriangleDown /></button>
-          <button style={{border:'none',boxShadow:'0 0px 1px' ,backgroundColor:'transparent' }} className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額
+        <div style={{ textAlign: "end", marginBottom: '0.5rem' }}>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor5 == true ? "active" : ""} onClick={() => handlechangeOrder(1)}>最新刊登<GoTriangleDown /></button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor4 == true ? "active" : ""} onClick={() => handlechangeOrder(2)}>最近更新<GoTriangleDown /></button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor6 == true ? "active" : ""} onClick={() => sortData("d_amount")}>預算金額
             <GoTriangleDown style={{ display: (changeorder == false ? "" : "none") }} />
             <GoTriangleUp style={{ display: (changeorder == true ? "" : "none") }} />
           </button>
-          <button style={{border:'none',boxShadow:'0 0px 1px',backgroundColor:'transparent'  }} className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor7 == true ? "active" : ""} onClick={() => sortData("quote_total")}>提案人數
             <GoTriangleDown style={{ display: (changeorderQuote == false ? "" : "none") }} />
             <GoTriangleUp style={{ display: (changeorderQuote == true ? "" : "none") }} />
           </button>
@@ -965,7 +879,6 @@ function Findcase() {
 
 
 
-        {/* 案件欄位 */}
 
 
 
@@ -1009,17 +922,16 @@ function Findcase() {
 
 
 
-
-
+        {/* 案件欄位 */}
         <div >
           {currentPosts.map((post, index) => {
             return (
-              <div style={{marginBottom:'1.5rem'}}>
+              <div style={{ marginBottom: '1.5rem' }}>
                 <div className="row" key={index}>
-                  <Row style={{border:'solid 1px',borderRadius:'10px', padding: 0 ,boxShadow:'0 0 3px', backgroundColor:'white'}}>
-                    <Col id="link" xs={2} style={{ borderRight: "solid black 1px", fontSize: "15px" ,margin: "1rem"}}>
+                  <Row style={{ border: 'solid 1px', borderRadius: '10px', padding: 0, boxShadow: '0 0 3px', backgroundColor: 'white' }}>
+                    <Col id="link" xs={2} style={{ borderRight: "solid black 1px", fontSize: "15px", margin: "1rem" }}>
                       <Link to={`/casecontext/${post.did}`} style={{ textDecoration: "none", color: "black", textAlign: "start" }}>
-                        <div style={{ fontSize:'26px' }}>{post.d_name}</div>
+                        <div style={{ fontSize: '26px' }}>{post.d_name}</div>
                         <div id={changecolortype == true ? "active" : ""}>案件類別：{post.type}</div>
                         <div id={changecolorbudge == true ? "active" : ""}>預算：${post.d_amount}&nbsp;/&nbsp;{post.d_unit}</div>
                         <div id={changecolorcity == true ? "active" : ""}>地點：{post.country_city}</div>
@@ -1029,9 +941,9 @@ function Findcase() {
                     <Col>
                       <div className="description">{post.d_description}</div>
                     </Col>
-                    <Col xs={2} style={{ display:'flex',  justifyContent: 'center', alignItems:"center",borderLeft:"solid 1px", margin:'1rem'}}>
-                      <div style={{padding:'.5rem' , textAlign:'center'}}>
-                        <div style={{whiteSpace:'nowrap'}} id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
+                    <Col xs={2} style={{ display: 'flex', justifyContent: 'center', alignItems: "center", borderLeft: "solid 1px", margin: '1rem' }}>
+                      <div style={{ padding: '.5rem', textAlign: 'center' }}>
+                        <div style={{ whiteSpace: 'nowrap' }} id={changecolorupdated_at == true ? "active" : ""}>{post.updated_at}</div>
                         <div id={changecolorquote_total == true ? "active" : ""}>{post.quote_total}人報價中</div>
                         <div >刊登時間：</div>
                         <div id={changecolorcreated_at == true ? "active" : ""}>{post.created_at}</div>
@@ -1056,7 +968,7 @@ function Findcase() {
           </Modal.Header>
           <Modal.Body>
 
-            <Form style={{fontSize:'20px'}}>
+            <Form style={{ fontSize: '20px' }}>
               <div>案件名稱：{posts[key]?.d_name}</div>
               <hr></hr>
               <div>案件編號：{posts[key]?.did}</div>
