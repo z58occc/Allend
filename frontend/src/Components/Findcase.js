@@ -26,11 +26,10 @@ import a4 from "../Components/img/a4.png"
 import a5 from "../Components/img/a5.png"
 import a6 from "../Components/img/a6.png"
 import a3 from "../Components/img/a3.png"
-import "./Buttom2.css"
+import fetchData from "./fetchCaseData";
 
 function Findcase() {
- 
-
+  
 
   const { isLoggedIn, setIsLoggedIn, handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
@@ -229,16 +228,16 @@ function Findcase() {
   const [cityid, setCityid] = useState([]);
   const handlechangecity = (event) => {
     changeBottomcolorOff();
-    console.log(event);
     const { name, checked } = event.target;
-    console.log(event.target.checked);
-    console.log(name, checked);
+    // console.log(event.target.checked);
+    // console.log(name, checked);
     setCheckedState((prevState) => ({
       ...prevState,
       [name]: checked,
     }));
-
+    
   };
+  // console.log(checkedState);
 
 
 
@@ -291,35 +290,38 @@ function Findcase() {
 
   }
   const [durationQuery, setDurationQuery] = useState();
-  const handlechangeduration = (duration) => {
-    const secondArray = [];
-    console.log(duration);
-    changeBottomcolorOff();
-    setChangecolorduration(true);
-    switch (duration) {
-      case "短":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].d_duration == "短") {
-            secondArray.push(findcaseData[i])
-          }
-        }
-        setPosts(secondArray);
-        break;
-      case "長":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].d_duration == "長") {
-            secondArray.push(findcaseData[i])
-          }
-        }
-        setPosts(secondArray);
-        break;
 
 
-      default:
-        break;
-    }
+  // const handlechangeduration = (duration) => {
+  //   setPosts(fetchData({duration:duration}));
+    // const secondArray = [];
+    // console.log(duration);
+    // changeBottomcolorOff();
+    // setChangecolorduration(true);
+    // switch (duration) {
+    //   case "短":
+    //     for (let i = 0; i < findcaseData.length; i++) {
+    //       if (findcaseData[i].d_duration == "短") {
+    //         secondArray.push(findcaseData[i])
+    //       }
+    //     }
+    //     setPosts(secondArray);
+    //     break;
+    //   case "長":
+    //     for (let i = 0; i < findcaseData.length; i++) {
+    //       if (findcaseData[i].d_duration == "長") {
+    //         secondArray.push(findcaseData[i])
+    //       }
+    //     }
+    //     setPosts(secondArray);
+    //     break;
 
-  }
+
+    //   default:
+    //     break;
+    // }
+
+  // }
   const [orderQuery, setOrderquery] = useState();
   const handlechangeOrder = (number) => {
     switch (number) {
@@ -403,60 +405,91 @@ function Findcase() {
 
   }
 
+ 
+
 
   const { type, casesearch } = useParams();
 
+  const[duration,setDuration]=useState("");
   useEffect(() => {
-    const newArray = [];
-    switch (type) {
-      case "1":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].type == "網站設計") {
-            newArray.push(findcaseData[i]);
-          }
-        }
-        break;
-      case "2":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].type == "軟體程式") {
-            newArray.push(findcaseData[i]);
-          }
-        }
-        break;
-      case "3":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].type == "平面設計") {
-            newArray.push(findcaseData[i]);
-          }
-        }
-        break;
-      case "4":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].type == "文字語言") {
-            newArray.push(findcaseData[i]);
-          }
-        }
-        break;
-      case "5":
-        for (let i = 0; i < findcaseData.length; i++) {
-          if (findcaseData[i].type == "專業諮詢") {
-            newArray.push(findcaseData[i]);
-          }
-        }
-        break;
+    const result= fetchData({type:type,duration:duration});
+    setPosts(result);
+    // console.log(fetchData({type:type}));
+    
 
+    const countryQuery = Object.keys(checkedState)
+    .filter((key) => checkedState[key])
+    .map((key) => {
+      switch (key) {
+        case "台北市":
+          return "台北市"
+        case "新北市":
+          return "新北市"
+        case "桃園市":
+          return "桃園市"
+        case "基隆市":
+          return "基隆市"
+        case "新竹市":
+          return "新竹市"
+        case "新竹縣":
+          return "新竹縣"
+        case "彰化縣":
+          return "彰化縣"
+        case "南投縣":
+          return "南投縣"
+        case "雲林縣":
+          return "雲林縣"
+        case "高雄市":
+          return "高雄市"
+        case "台南市":
+          return "台南市"
+        case "嘉義市":
+          return "嘉義市"
+        case "嘉義縣":
+          return "嘉義縣"
+        case "屏東縣":
+          return "屏東縣"
+        case "宜蘭縣":
+          return "宜蘭縣"
+        case "花蓮縣":
+          return "花蓮縣"
+        case "臺東縣":
+          return "臺東縣"
+        case "澎湖縣":
+          return "澎湖縣"
+        case "金門縣":
+          return "金門縣"
+        case "連江縣":
+          return "連江縣"
+        default:
+          return "";
+      }
+    })
+    .join(",");
 
-      default:
-        for (let i = 0; i < findcaseData.length; i++) {
-          newArray.push(findcaseData[i])
-        }
-        break;
-    }
-    setPosts(newArray);
-    console.log(newArray);
-    console.log(type)
-    console.log(findcaseData);
-  }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate])
+    const budgetQuery = Object.keys(budgetstate)
+          .filter((key) => budgetstate[key])
+          .map((key) => {
+            switch (key) {
+              case "五千":
+                return 1;
+              case "一萬":
+                return 2;
+              case "五萬":
+                return 3;
+              case "十萬":
+                return 4;
+              case "三十萬":
+                return 5;
+              default:
+                break;
+            }
+          })
+          .join(",");
+
+    
+     
+  }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate,duration])
 
   // 
 
@@ -903,8 +936,8 @@ function Findcase() {
               全部案件
             </button>
           </Link>
-          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor2 == true ? "active" : ""} onClick={() => handlechangeduration("短")}>短期案件</button>
-          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor3 == true ? "active" : ""} onClick={() => handlechangeduration("長")}>長期案件</button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor2 == true ? "active" : ""} onClick={() => setDuration("短")}>短期案件</button>
+          <button style={{ border: 'none', boxShadow: '0 0px 1px', backgroundColor: 'transparent' }} className={changecolor3 == true ? "active" : ""} onClick={() => setDuration("長")}>長期案件</button>
         </div>
 
 
