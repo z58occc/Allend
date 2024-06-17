@@ -4,7 +4,6 @@ function fetchData({ type = "", duration = "", city = "", budget = "" }) {
     // 分類type//
     const newArray = [];
     console.log(type);
-    
     switch (type) {
         case "1":
             for (let i = 0; i < findcaseData.length; i++) {
@@ -50,18 +49,19 @@ function fetchData({ type = "", duration = "", city = "", budget = "" }) {
     // 分類type//
 
     // 分類duration
+    const secondArray=[];
     switch (duration) {
         case "短":
-            for (let i = 0; i < findcaseData.length; i++) {
-                if (findcaseData[i].d_duration == "短") {
-                    newArray.push(findcaseData[i])
+            for (let i = 0; i < newArray.length; i++) {
+                if (newArray[i].d_duration == "短") {
+                    secondArray.push(newArray[i])
                 }
             }
             break;
         case "長":
-            for (let i = 0; i < findcaseData.length; i++) {
-                if (findcaseData[i].d_duration == "長") {
-                    newArray.push(findcaseData[i])
+            for (let i = 0; i < newArray.length; i++) {
+                if (newArray[i].d_duration == "長") {
+                    secondArray.push(newArray[i])
                 }
             }
             break;

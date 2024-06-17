@@ -292,7 +292,7 @@ function Findcase() {
   const [durationQuery, setDurationQuery] = useState();
 
 
-  // const handlechangeduration = (duration) => {
+  
   //   setPosts(fetchData({duration:duration}));
     // const secondArray = [];
     // console.log(duration);
@@ -414,7 +414,6 @@ function Findcase() {
   useEffect(() => {
     const result= fetchData({type:type,duration:duration});
     setPosts(result);
-    // console.log(fetchData({type:type}));
     
 
     const countryQuery = Object.keys(checkedState)
