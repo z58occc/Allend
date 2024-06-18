@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef, Fragment } from "react";
+import React, { useContext, useState, useEffect, useRef, Fragment, Children } from "react";
 import { Link, json, useParams, useSearchParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -27,9 +27,11 @@ import a5 from "../Components/img/a5.png"
 import a6 from "../Components/img/a6.png"
 import a3 from "../Components/img/a3.png"
 import fetchData from "./fetchCaseData";
+import dropdown from './dropCity'
 
 function Findcase() {
-  
+
+  // console.log(findcaseData)
 
   const { isLoggedIn, setIsLoggedIn, handleShow } = useContext(IsLoggedInContext);
   // 上/下一頁
@@ -229,15 +231,13 @@ function Findcase() {
   const handlechangecity = (event) => {
     changeBottomcolorOff();
     const { name, checked } = event.target;
-    // console.log(event.target.checked);
-    // console.log(name, checked);
+
     setCheckedState((prevState) => ({
       ...prevState,
       [name]: checked,
     }));
-    
+
   };
-  // console.log(checkedState);
 
 
 
@@ -281,7 +281,6 @@ function Findcase() {
   const handlechangebudget = (event) => {
     changeBottomcolorOff();
     const { name, checked } = event.target;
-    console.log(event.target)
     setBudgetstate((prevState) => ({
       ...prevState,
       [name]: checked,
@@ -292,36 +291,8 @@ function Findcase() {
   const [durationQuery, setDurationQuery] = useState();
 
 
-  
-  //   setPosts(fetchData({duration:duration}));
-    // const secondArray = [];
-    // console.log(duration);
-    // changeBottomcolorOff();
-    // setChangecolorduration(true);
-    // switch (duration) {
-    //   case "短":
-    //     for (let i = 0; i < findcaseData.length; i++) {
-    //       if (findcaseData[i].d_duration == "短") {
-    //         secondArray.push(findcaseData[i])
-    //       }
-    //     }
-    //     setPosts(secondArray);
-    //     break;
-    //   case "長":
-    //     for (let i = 0; i < findcaseData.length; i++) {
-    //       if (findcaseData[i].d_duration == "長") {
-    //         secondArray.push(findcaseData[i])
-    //       }
-    //     }
-    //     setPosts(secondArray);
-    //     break;
 
 
-    //   default:
-    //     break;
-    // }
-
-  // }
   const [orderQuery, setOrderquery] = useState();
   const handlechangeOrder = (number) => {
     switch (number) {
@@ -405,90 +376,151 @@ function Findcase() {
 
   }
 
- 
 
-
+  let newArray;
   const { type, casesearch } = useParams();
+  const [duration, setDuration] = useState("");
 
-  const[duration,setDuration]=useState("");
+
   useEffect(() => {
-    const result= fetchData({type:type,duration:duration});
-    setPosts(result);
-    
+    switch (type) {
+      case "1":
+        newArray = findcaseData.filter((item) => item.type == "網站設計")
+        break;
+      case "2":
+        newArray = findcaseData.filter((item) => item.type == "軟體程式")
+        break;
+      case "3":
+        newArray = findcaseData.filter((item) => item.type == "平面設計")
+        break;
+      case "4":
+        newArray = findcaseData.filter((item) => item.type == "文字語言")
+        break;
+      case "5":
+        newArray = findcaseData.filter((item) => item.type == "專業諮詢")
+        break;
 
+      default:
+        newArray = findcaseData
+        break;
+    }
+    setPosts(newArray);
+  }, [type])
+
+  let secondArray;
+  useEffect(() => {
     const countryQuery = Object.keys(checkedState)
-    .filter((key) => checkedState[key])
-    .map((key) => {
-      switch (key) {
-        case "台北市":
-          return "台北市"
-        case "新北市":
-          return "新北市"
-        case "桃園市":
-          return "桃園市"
-        case "基隆市":
-          return "基隆市"
-        case "新竹市":
-          return "新竹市"
-        case "新竹縣":
-          return "新竹縣"
-        case "彰化縣":
-          return "彰化縣"
-        case "南投縣":
-          return "南投縣"
-        case "雲林縣":
-          return "雲林縣"
-        case "高雄市":
-          return "高雄市"
-        case "台南市":
-          return "台南市"
-        case "嘉義市":
-          return "嘉義市"
-        case "嘉義縣":
-          return "嘉義縣"
-        case "屏東縣":
-          return "屏東縣"
-        case "宜蘭縣":
-          return "宜蘭縣"
-        case "花蓮縣":
-          return "花蓮縣"
-        case "臺東縣":
-          return "臺東縣"
-        case "澎湖縣":
-          return "澎湖縣"
-        case "金門縣":
-          return "金門縣"
-        case "連江縣":
-          return "連江縣"
-        default:
-          return "";
-      }
-    })
-    .join(",");
+      .filter((key) => checkedState[key])
+      .map((key) => {
+        switch (key) {
+          case "台北市":
+            return "台北市"
+          case "新北市":
+            return "新北市"
+          case "桃園市":
+            return "桃園市"
+          case "基隆市":
+            return "基隆市"
+          case "新竹市":
+            return "新竹市"
+          case "新竹縣":
+            return "新竹縣"
+          case "彰化縣":
+            return "彰化縣"
+          case "南投縣":
+            return "南投縣"
+          case "雲林縣":
+            return "雲林縣"
+          case "高雄市":
+            return "高雄市"
+          case "台南市":
+            return "台南市"
+          case "嘉義市":
+            return "嘉義市"
+          case "嘉義縣":
+            return "嘉義縣"
+          case "屏東縣":
+            return "屏東縣"
+          case "宜蘭縣":
+            return "宜蘭縣"
+          case "花蓮縣":
+            return "花蓮縣"
+          case "臺東縣":
+            return "臺東縣"
+          case "澎湖縣":
+            return "澎湖縣"
+          case "金門縣":
+            return "金門縣"
+          case "連江縣":
+            return "連江縣"
+          default:
+            return "";
+        }
+      })
+      .join(",");
+
+
+    if (countryQuery == false) {
+      setPosts(findcaseData);
+    } else {
+      secondArray = findcaseData.filter(item => countryQuery.includes(item.country_city));
+      setPosts(secondArray);
+    }
+  }, [checkedState])
+
+  let thirdArray;
+  useEffect(() => {
 
     const budgetQuery = Object.keys(budgetstate)
-          .filter((key) => budgetstate[key])
-          .map((key) => {
-            switch (key) {
-              case "五千":
-                return 1;
-              case "一萬":
-                return 2;
-              case "五萬":
-                return 3;
-              case "十萬":
-                return 4;
-              case "三十萬":
-                return 5;
-              default:
-                break;
-            }
-          })
-          .join(",");
+      .filter((key) => budgetstate[key])
+      .map((key) => {
+        switch (key) {
+          case "五千":
+            return {
+              min: 0,
+              max: 5000
+            };
+          case "一萬":
+            return {
+              min: 5001,
+              max: 10000
+            };
+          case "五萬":
+            return {
+              min: 10001,
+              max: 50000
+            };
+          case "十萬":
+            return {
+              min: 50001,
+              max: 100000
+            };
+          case "三十萬":
+            return {
+              min: 100001,
+              max: 300000
+            };
+          default:
+            return null;
+        }
+      })
 
+    console.log(budgetQuery);
     
-     
-  }, [casesearch, budgetid, orderQuery, durationQuery, type, checkedState, budgetstate,duration])
+      if (budgetQuery == false) {
+        setPosts(findcaseData)
+      } else {
+        thirdArray = findcaseData.filter(item => {
+          return budgetQuery.some(range => item.d_amount >= range.min && item.d_amount <= range.max)
+        })
+
+        setPosts(thirdArray); 
+      }
+    
+
+
+
+  }, [budgetstate])
 
   // 
 
@@ -594,8 +626,8 @@ function Findcase() {
                 text="網站設計"
                 src={a1}
                 to="1"
-                
-                >
+
+              >
               </Buttom2>
               <Buttom2
                 text="軟體程式"
@@ -634,6 +666,8 @@ function Findcase() {
 
         {/* 下拉選單 */}
         <div style={{ display: "flex" }} >
+
+
           <Dropdown >
             <Dropdown.Toggle id="dropdown-basic">地區</Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto', minWidth: "130px", padding: "10px" }}>
@@ -859,6 +893,7 @@ function Findcase() {
               </div>
             </Dropdown.Menu>
           </Dropdown>
+
 
 
 
