@@ -3,7 +3,7 @@ import { Container, Row, Col, Nav } from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Screen1 from "./Screen1";
-import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
 import Footer from '../homepage/Footer';
 
 

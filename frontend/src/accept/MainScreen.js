@@ -6,10 +6,13 @@ import SearchPage from './SearchPage';
 import Screen3 from "./Screen3";
 import Screen1 from "./Screen1";
 import Screen2 from "./Screen2";
-import LeftVerticalNavbar from "../RatingPage/LeftVerticalNavbar";
+import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
 import Footer from "../homepage/Footer";
 
+
 export const CaseContext = createContext();
+
+
 const MainScreen = () => {
   const [activeScreen, setActiveScreen] = useState("screen1"); // 當前顯示的主畫面
   const handleScreenChange = (screenName) => {

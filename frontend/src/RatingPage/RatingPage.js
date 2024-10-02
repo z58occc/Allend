@@ -3,12 +3,13 @@ import { Link, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import GridComponent from "./GridComponent";
 import Rating from "./Rating";
-import LeftVerticalNavbar from "./LeftVerticalNavbar";
+import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
 import Footer from "../homepage/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-//會員中心
+
+// 會員中心
 function RatingPage() {
   const [caseNum, setCaseNum] = useState([]);
   useEffect(() => {
@@ -44,17 +45,14 @@ function RatingPage() {
               <div className="col-lg-12">
                 <GridComponent data={caseNum} width="" fontSize="20px" />
               </div>
-
               <div className="col-lg-12">
-                <div style={{ width: "100%" }}>
-                  <Rating ratingData={caseNum} fontSize="20px" />
-                </div>
+                <Rating ratingData={caseNum} fontSize="20px" />
               </div>
             </div>
           </div>
         </div>
       </Container>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

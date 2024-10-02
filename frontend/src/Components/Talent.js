@@ -4,7 +4,7 @@ import { Col, Row, Image } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import { CiStar } from "react-icons/ci";
 import axios from 'axios';
-import member from '../RatingPage/member.png';
+import member from './img/member.png';
 import Footer from '../homepage/Footer';
 import YouTubeEmbed from './youtube';
 import Stick from './Stick';

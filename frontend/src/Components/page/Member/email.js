@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { Modal } from "react-bootstrap";
 import { IsLoggedInContext } from '../../../App'
 import Footer from "../../../homepage/Footer";
-import LeftVerticalNavbar from "../../../RatingPage/LeftVerticalNavbar";
+import LeftVerticalNavbar from "../../../layouts/UserPage/LeftVerticalNavbar";
 
 
 // 接案者維護資料

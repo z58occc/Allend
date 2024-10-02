@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import LeftVerticalNavbar from './LeftVerticalNavbar'; // 導覽列元件
+import LeftVerticalNavbar from '../layouts/UserPage/LeftVerticalNavbar';
 import MainContent from './MainContent'; // 主要內容元件
+
 
 const Layout = ({ navItems, userProfile }) => {
   return (

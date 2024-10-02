@@ -7,9 +7,8 @@ import { FaCamera } from "react-icons/fa";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import styles from './LeftVerticalNavbar.module.css';
-import member from './member.png';
-import { IsLoggedInContext } from '../App'
-
+import member from '../../Components/img/member.png';
+import { IsLoggedInContext } from '../../App';
 
 
 const LeftVerticalNavbar = () => {

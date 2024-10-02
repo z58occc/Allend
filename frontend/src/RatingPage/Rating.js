@@ -20,52 +20,50 @@ const Rating = ({ ratingData, width, fontSize }) => {
   };
 
   return (
-    <>
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-12">
-            <div className="card" style={cardStyle}>
-              <h2 style={{ textAlign: "center" }}>評價等級</h2>
-              <div className="card-body" style={textStyle}>
+    <div className="container mt-4">
+      <div className="row">
+        <div className="col-12">
+          <div className="card" style={cardStyle}>
+            <h2 style={{ textAlign: "center" }}>評價等級</h2>
+            <div className="card-body" style={textStyle}>
+              <div>
                 <div>
-                  <div>
-                    <h5 className="card-title">{number[0].title}</h5>
-                  </div>
-                  <div>
-                    <div className="card-number">
-                      {ratingData[6]?.service_rating}
-                    </div>
-                    <StarRating
-                      rating={ratingData[6]?.service_rating}
-                      width="300px"
-                      fontSize="24px"
-                    />
-                    <div>({ratingData[7]?.service_cmt}則評價)</div>
-                  </div>
+                  <h5 className="card-title">{number[0].title}</h5>
                 </div>
-
                 <div>
-                  <div>
-                    <h5 className="card-title">{number[1].title}</h5>
+                  <div className="card-number">
+                    {ratingData[6]?.service_rating}
                   </div>
-                  <div>
-                    <div className="card-number">
-                      {ratingData[8]?.demmand_rating}
-                    </div>
-                    <StarRating
-                      rating={ratingData[8]?.demmand_rating}
-                      width="300px"
-                      fontSize="24px"
-                    />
-                    <div>({ratingData[9]?.demmand_cmt}則評價)</div>
+                  <StarRating
+                    rating={ratingData[6]?.service_rating}
+                    width="300px"
+                    fontSize="24px"
+                  />
+                  <div>({ratingData[7]?.service_cmt}則評價)</div>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <h5 className="card-title">{number[1].title}</h5>
+                </div>
+                <div>
+                  <div className="card-number">
+                    {ratingData[8]?.demmand_rating}
                   </div>
+                  <StarRating
+                    rating={ratingData[8]?.demmand_rating}
+                    width="300px"
+                    fontSize="24px"
+                  />
+                  <div>({ratingData[9]?.demmand_cmt}則評價)</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

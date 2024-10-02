@@ -313,7 +313,7 @@ function App() {
     setShowForgotPassword(true);
   };
 
-  const [Forgetmessage, setForgetmessage] = useState('');
+  const [forgetmessage, setForgetmessage] = useState('');
   const ForgetName = useRef();
   const sendForgetPWD = () => {
     axios({
@@ -660,7 +660,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Label style={{fontSize: "20px"}}>Email<span style={{ padding: '20px', color: "red" }}>{Forgetmessage}</span></Form.Label>
+            <Form.Label style={{fontSize: "20px"}}>Email<span style={{ padding: '20px', color: "red" }}>{forgetmessage}</span></Form.Label>
             <InputGroup>
               <InputGroup.Text controlId="formForgotPasswordEmail"><MdOutlineMailOutline /></InputGroup.Text>
               <Form.Control
