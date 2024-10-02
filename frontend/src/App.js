@@ -30,8 +30,8 @@ import CollectionsMain from "./Collections/CollectionsMain";
 import PublicMessagesPage from './Components/PublicMessagesPage';
 import CallbackHandler from "./MemberTool/CallbackHandler";
 import Closechat from "./Components/Closechat";
-import ForgotPassword from "./detail/ForgotPassword";
-import VerifyEmail from "./detail/VerifyEmail";
+import ForgotPassword from "./MemberTool/ForgotPassword";
+import VerifyEmail from "./MemberTool/VerifyEmail";
 import { Header } from "./layouts/Header";
 import "./App.css";
 
