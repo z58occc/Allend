@@ -7,7 +7,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { IsLoggedInContext } from "../App";
 import Footer from "../layouts/Footer";
-import NextPage from "../homepage/NextPage";
+import NextPage from "../Homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";
 import styles from "./Findman.module.css";
