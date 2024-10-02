@@ -6,7 +6,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { IsLoggedInContext } from "../App";
-import Footer from "../homepage/Footer";
+import Footer from "../layouts/Footer";
 import NextPage from "../homepage/NextPage";
 import Chatbutton from "./ChatButtom";
 import Category from "./Category2";

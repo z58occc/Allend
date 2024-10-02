@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import { CiStar } from "react-icons/ci";
 import axios from 'axios';
 import member from './img/member.png';
-import Footer from '../homepage/Footer';
+import Footer from '../layouts/Footer';
 import YouTubeEmbed from './youtube';
 import Stick from './Stick';
 

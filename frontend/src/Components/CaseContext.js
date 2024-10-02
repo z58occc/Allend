@@ -7,7 +7,7 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import { IsLoggedInContext } from "../App";
 import Modal from 'react-bootstrap/Modal';
-import Footer from '../homepage/Footer'
+import Footer from '../layouts/Footer'
 
 
 function CaseContext() {

@@ -10,7 +10,7 @@ import { TbBellRinging } from "react-icons/tb";
 import { IoIosPeople } from "react-icons/io";
 import { BsPersonVcard } from "react-icons/bs";
 import { RiDraftLine } from "react-icons/ri";
-import Footer from "./Footer";
+import Footer from "../layouts/Footer";
 import Category from "../Components/Category";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../src/App.css";

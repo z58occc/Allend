@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Screen1 from "./Screen1";
 import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
-import Footer from '../homepage/Footer';
+import Footer from '../layouts/Footer';
 
 
 export const CaseContext = createContext();

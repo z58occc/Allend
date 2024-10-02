@@ -3,7 +3,7 @@ import { Form, Button, Alert, Col, Row, Container, Modal } from "react-bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import LeftVerticalNavbar from "../../../layouts/UserPage/LeftVerticalNavbar";
-import Footer from "../../../homepage/Footer";
+import Footer from "../../../layouts/Footer";
 import Cookies from "js-cookie";
 import { FaLock } from "react-icons/fa";
 import InputGroup from 'react-bootstrap/InputGroup';

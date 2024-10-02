@@ -11,7 +11,7 @@ import { SiUnity } from "react-icons/si";
 import { IoIosTime } from "react-icons/io";
 import { MdPlace } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
-import Footer from "../../../homepage/Footer";
+import Footer from "../../../layouts/Footer";
 import { Modal } from "react-bootstrap";
 
 

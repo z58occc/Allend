@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import CaseDetailsModal1 from './CaseDetailsModal1';
 import { CaseContext } from "./MainScreen3";
 import EditModal1 from './EditModal1';
-import Footer from '../homepage/Footer';
+import Footer from '../layouts/Footer';
 import styles from './servicemanagement.module.css';
 import { FaTrashAlt, FaRegCheckSquare, FaCheck } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";

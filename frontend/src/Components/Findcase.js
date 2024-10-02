@@ -11,7 +11,7 @@ import { HiXCircle } from "react-icons/hi2";
 import { GrClearOption } from "react-icons/gr";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Footer from "../homepage/Footer";
+import Footer from "../layouts/Footer";
 import Pagination from "./Pagination";
 import Category from "./Category";
 import { IsLoggedInContext } from "../App";

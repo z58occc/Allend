@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Modal } from "react-bootstrap";
 import { IsLoggedInContext } from '../../../App'
-import Footer from "../../../homepage/Footer";
+import Footer from "../../../layouts/Footer";
 import LeftVerticalNavbar from "../../../layouts/UserPage/LeftVerticalNavbar";
 
 

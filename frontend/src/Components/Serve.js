@@ -5,7 +5,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { CiStar } from "react-icons/ci";
 import axios from 'axios';
-import Footer from '../homepage/Footer';
+import Footer from '../layouts/Footer';
 import Stick from './Stick';
 import "./Serve.css";
 import { IsLoggedInContext } from "../App";

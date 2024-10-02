@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Dashoboard from "./Dashoboard";
 import Rating from "./Rating";
 import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
-import Footer from "../homepage/Footer";
+import Footer from "../layouts/Footer";
 import axios from "axios";
 import Cookies from "js-cookie";
 
