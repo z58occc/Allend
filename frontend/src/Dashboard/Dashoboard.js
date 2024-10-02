@@ -1,6 +1,6 @@
 import React from "react";
 
-const GridComponent = ({ data, width, fontSize }) => {
+const Dashoboard = ({ data, width, fontSize }) => {
   const goto = [
     { titles: "接案數", path: "/service" },
     { titles: "進行中", path: "/service" },
@@ -77,4 +77,4 @@ const GridComponent = ({ data, width, fontSize }) => {
   );
 };
 
-export default GridComponent;
+export default Dashoboard;

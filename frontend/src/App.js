@@ -16,7 +16,7 @@ import { PiSignOutFill } from "react-icons/pi";
 import Homepage from "./homepage/Homepage";
 import Findcase from "./Components/Findcase";
 import Findman from "./Components/Findman";
-import Member from "../src/RatingPage/RatingPage";
+import MemberCenter from "../src/Dashboard/MemberCenter";
 import ProjectForm from "./Components/page/Member/ProjectForm";
 import Serve from "./Components/Serve";
 import Talent from "./Components/Talent";
@@ -549,7 +549,7 @@ function App() {
         <Route exact path="/serve/:mid?/:sid?" element={<Serve></Serve>}></Route>
         <Route path="/talent/:mid?" element={<Talent></Talent>}></Route>
         <Route path="/switch" element={<Switch></Switch>}></Route>
-        <Route path="/member" element={<Member></Member>}></Route>
+        <Route path="/member" element={<MemberCenter></MemberCenter>}></Route>
         <Route path="/fix" element={<Fix></Fix>}></Route>
         <Route path="/casecontext" element={<CaseContext></CaseContext>}></Route>
         <Route path="/casecontext/:id" element={<CaseContext></CaseContext>}></Route>

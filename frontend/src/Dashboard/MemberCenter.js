@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import GridComponent from "./GridComponent";
+import Dashoboard from "./Dashoboard";
 import Rating from "./Rating";
 import LeftVerticalNavbar from "../layouts/UserPage/LeftVerticalNavbar";
 import Footer from "../homepage/Footer";
@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 
 
 // 會員中心
-function RatingPage() {
+function MemberCenter() {
   const [caseNum, setCaseNum] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +43,7 @@ function RatingPage() {
           <div className="col-lg-9">
             <div className="row">
               <div className="col-lg-12">
-                <GridComponent data={caseNum} width="" fontSize="20px" />
+                <Dashoboard data={caseNum} width="" fontSize="20px" />
               </div>
               <div className="col-lg-12">
                 <Rating ratingData={caseNum} fontSize="20px" />
@@ -57,4 +57,4 @@ function RatingPage() {
   );
 }
 
-export default RatingPage;
+export default MemberCenter;
