@@ -10,12 +10,6 @@ class ServiceController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // $Service_name = $request->Case_name;
-        // $Service_type = $request->Case_type;
-        // $LenghDate =$request->LenghDate;
-        // $Money = $request->Money;
-        // $Place = $request ->Place;
-
         $this->validate($request,[
             's_name'=>['required'], //服務名稱
             's_type'=>['required'], //類別
@@ -50,5 +44,5 @@ class ServiceController extends Controller
             'updated_at'=>now(),
         ]);
         return response($service);
-}
+    }
 }

@@ -28,26 +28,24 @@ class PublishCaseController extends Controller
             ->select('c_name','c_amount','created_at')
             ->where('mid_service',$mid)
             ->where('c_status',2);
-            
+
             if($request->has('demmandSearch')){
                 $demmand_query->where('d_name','like','%'.$request->input('demmandSearch').'%');
             }
-            
+
             if($request->has('demmandProgressSearch')){
                 $demmand_progress_query->where('c_name','like','%'.$request->input('demmandProgressSearch').'%');
             }
-            
+
             if($request->has('demmandCompletedSearch')){
                 $demmand_completed_query->where('c_name','like','%'.$request->input('demmandCompletedSearch').'%');
             }
 
-
             return response()->json([
                 'demmand' => $demmand_query,
                 'demmand_progress' => $demmand_progress_query,
-                'demmand_completed' => $demmand_completed_query 
-            ]);  
-
+                'demmand_completed' => $demmand_completed_query
+            ]);
         }
     }
 }

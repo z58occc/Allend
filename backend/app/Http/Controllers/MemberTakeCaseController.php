@@ -9,7 +9,6 @@ class MemberTakeCaseController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
         $mid = $request->input('mid');
         if($mid){
 
@@ -66,7 +65,6 @@ class MemberTakeCaseController extends Controller
                 'CaseInProgress' => $Case_in_progress_paginated_results,
                 'CaseCompleted' => $Case_completed_paginated_results,
             ]);
-
         }
     }
 }

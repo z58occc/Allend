@@ -71,28 +71,25 @@ class IFindCaseController extends Controller
         }
 
         // 指定類別
-        // if($request->type !== "undefined"){
-            switch($request->type){
-                case '1':
-                    $query->where('d_type', $request->type);
-                    break;
-                case '2':
-                    $query->where('d_type', $request->type);
-                    break;
-                case '3':
-                    $query->where('d_type', $request->type);
-                    break;
-                case '4':
-                    $query->where('d_type', $request->type);
-                    break;
-                case '5':
-                    $query->where('d_type', $request->type);
-                    break;
-                default:
-                    // $query->where('d_type', $request->type);
-                    break;
-            }
-        // }
+        switch($request->type){
+            case '1':
+                $query->where('d_type', $request->type);
+                break;
+            case '2':
+                $query->where('d_type', $request->type);
+                break;
+            case '3':
+                $query->where('d_type', $request->type);
+                break;
+            case '4':
+                $query->where('d_type', $request->type);
+                break;
+            case '5':
+                $query->where('d_type', $request->type);
+                break;
+            default:
+                break;
+        }
 
         // 指定排序方式
         $order = $request->input('order');

@@ -14,7 +14,12 @@ composer i
 php artisan jwt:secret
 ```
 
-## 後端env設定
+## 後端.env設定
+1. 產生APP_KEY 
+```bash
+cd Allend/backend
+php artisan key:generate
+```
 ```bash
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
@@ -34,10 +39,10 @@ GOOGLE_REDIRECT=http://localhost:3000/auth/google/callback
 ```
 
 ## 專案技術
-Frontend : React.js 18.2.0  
-Backend : laravel 10.48  
-排版 : Boostrap  
-DB : MySQL   
+Frontend : React.js 18.2.0
+Backend : laravel 10.48
+排版 : Boostrap 5、React-Bootstrap
+DB : MySQL
 
 ## 第三方服務
 聊天室 : Ably  

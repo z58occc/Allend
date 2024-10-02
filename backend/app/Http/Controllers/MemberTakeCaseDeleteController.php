@@ -10,7 +10,6 @@ class MemberTakeCaseDeleteController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
         $mid = $request->input('mid');
         if($mid){
             $selectQuote = $request->input('qid');
@@ -18,6 +17,5 @@ class MemberTakeCaseDeleteController extends Controller
             ->where('mid',$mid)
             ->whereIn('qid',$selectQuote)->delete();
         }
-
     }
 }

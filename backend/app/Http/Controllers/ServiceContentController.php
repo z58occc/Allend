@@ -20,6 +20,7 @@ class ServiceContentController extends Controller
         }
         $sid = $request->input('sid');
         $mid = $request->input('mid');
+
         // 服務內容
         $query = DB::table('service')
         ->join('members','service.mid','=','members.mid')

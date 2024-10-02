@@ -9,8 +9,7 @@ class VideoController extends Controller
 {
     public function __invoke(Request $request)
     {
-
-        $this->validate($request,[
+        $this->validate($request, [
             'v_name'=>['required'],
             'mid'=>['required'],
             'v_description'=>['required'],

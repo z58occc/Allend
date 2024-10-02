@@ -16,8 +16,9 @@ class TalentController extends Controller
                 'mid' => 'required|exists:members,mid'
             ]);
         }catch (ValidationException $exception){
-            abort(404);
+            abort(409);
         }
+
         // 人才頁面
         $mid = $request->input('mid');
         $sid = $request->input('sid');

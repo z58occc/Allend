@@ -113,6 +113,7 @@ class AcceptanceIssueController extends Controller
                 ['demmand_time'=>now()]);
         return response()->json(['message'=>'Evaluate Success']);
     }
+
     // 接案者給予案主評價
     public function takeEvaluation(Request $request){
         $cid = $request->input('cid');

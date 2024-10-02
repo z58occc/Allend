@@ -9,7 +9,6 @@ class WorkController extends Controller
 {
     public function __invoke(Request $request)
     {
-
         $this->validate($request, [
             'p_name' => ['required'],
             'p_description' => ['required'],

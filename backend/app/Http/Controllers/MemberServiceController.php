@@ -10,7 +10,6 @@ class MemberServiceController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // $mid = Auth::guard('api')->id();
         $mid = $request->input('mid');
         if($mid){
             $service_query = DB::table('service')->select('s_name')->where('mid',$mid);
@@ -40,9 +39,7 @@ class MemberServiceController extends Controller
                 'service' => $service_results,
                 'project' => $project_results,
                 'video' => $video_results,
-
             ]);
         }
-
     }
 }

@@ -128,7 +128,6 @@ class Pop_QuoteAgreeController extends Controller
                 ]);
             }
         }
-        // dd($agree);
         return response()->json(['message'=>'已同意報價']);
     }
 
