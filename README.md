@@ -1,12 +1,28 @@
-# README Template
+# 外包網站 - 包您滿意
+
+---
+
+## 網站展示
 ![image](https://github.com/shritesong/Allend/blob/main/img/img.jpg)
 - [網站內容觀看連結](https://youtu.be/XeKvh7GjDLQ)
 
-## 安裝套件
+## 專案技術
+- Frontend：React.js 18.3.1
+- Backend：Laravel 10.10 
+- DB：MySQL 
+- 排版：Boostrap 5、React-Bootstrap 
+
+## 第三方服務
+- 聊天室：Ably 
+- 金流：綠界金流
+
+## 安裝套件 (需有npm、composer)
+- 前端
 ```bash
 cd Allend/frondend
 npm i
 ```
+- 後端
 ```bash
 cd Allend/backend
 npm i
@@ -15,11 +31,12 @@ php artisan jwt:secret
 ```
 
 ## 後端.env設定
-1. 產生APP_KEY 
+- 產生APP_KEY 
 ```bash
 cd Allend/backend
 php artisan key:generate
 ```
+- 其他功能
 ```bash
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
@@ -38,17 +55,7 @@ GOOGLE_CLIENT_SECRET=
 GOOGLE_REDIRECT=http://localhost:3000/auth/google/callback
 ```
 
-## 專案技術
-Frontend : React.js 18.2.0
-Backend : laravel 10.48
-排版 : Boostrap 5、React-Bootstrap
-DB : MySQL
-
-## 第三方服務
-聊天室 : Ably  
-金流 : 綠界  
-
-## 使用聊天室請啟動
+## 啟動聊天室功能
 ```bash
 cd Allend/backend
 php artisan serve
