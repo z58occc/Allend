@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { IsLoggedInContext } from '../App';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import ourLogo from '../Homepage/ourLogo.jpg';
+import ourLogo from '../Components/img/logo.jpg';
 
 
 export const Header = ({ selectedLink, setSelectedLink, email, clickOut }) => {

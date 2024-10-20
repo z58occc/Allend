@@ -1,27 +1,24 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Button, Card, Form, Col, Row, Modal } from "react-bootstrap";
+import { Button, Card, Form, Col, Row, Modal } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination';
-import { FaTrashAlt, FaRegCheckSquare, FaCheck, FaPlus } from "react-icons/fa";
-import Cookies from "js-cookie";
-import YouTubeEmbed from '../Components/youtube';
+import { FaTrashAlt, FaRegCheckSquare, FaCheck, FaPlus } from 'react-icons/fa';
+import Cookies from 'js-cookie';
+import YouTubeEmbed from '../Components/YoutubeEmbed';
 import CaseDetailsModal3 from './CaseDetailsModal3';
-import { CaseContext } from "./MainScreen3";
+import { CaseContext } from './MainScreen3';
 import EditModal3 from './EditModal3';
 import styles from './servicemanagement.module.css';
 
-
 export const MediaContext = createContext();
 
-
 const Media = ({ data3 }) => {
-
   const { fetchData } = useContext(CaseContext);
   const CaseData = data3;
   const [selectedItems, setSelectedItems] = useState([]);
   //
   useEffect(() => {
     setSelectedItems(Array.from(CaseData).fill(false));
-  }, [data3])
+  }, [data3]);
   const [checkedAll, setCheckedAll] = useState(false);
 
   // Handle select all / deselect all
@@ -41,30 +38,29 @@ const Media = ({ data3 }) => {
   const [showDeletedModal, setShowDeletedModal] = useState(false);
   const handleDeletedModal = () => {
     setShowDeletedModal(true);
-  }
+  };
   const handleClosedDeletedModal = () => {
     setShowDeletedModal(false);
-  }
+  };
   //新增
   const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(true);
-  }
+  };
   const handleClose = () => {
     setShow(false);
-  }
+  };
   //編輯Modal;
   const [index, setIndex] = useState(0);
   const [show1, setShow1] = useState(false);
   const handleShow1 = (index) => {
     setShow1(true);
     setIndex(index);
-  }
+  };
   const handleClose1 = () => {
     setShow1(false);
-  }
+  };
   //刪除
-
 
   const [deletedIndex, setDeletedIndex] = useState([]);
 
@@ -80,27 +76,31 @@ const Media = ({ data3 }) => {
     });
     setDeletedIndex(deletedIndices);
 
-    deletedData = CaseData.filter((item, index) => deletedIndices.includes(index));
+    deletedData = CaseData.filter((item, index) =>
+      deletedIndices.includes(index)
+    );
     // 從CaseData中過濾掉已刪除的項目
-    const updatedCaseData = CaseData.filter((item, index) => !deletedIndices.includes(index));
+    const updatedCaseData = CaseData.filter(
+      (item, index) => !deletedIndices.includes(index)
+    );
 
-    didOfDeletedData = deletedData.map(item => item.vid);
+    didOfDeletedData = deletedData.map((item) => item.vid);
 
     try {
-      const response = await fetch("http://127.0.0.1/Allend/backend/public/api/delvideo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-        body: JSON.stringify
-          (
-            {
-              vid: didOfDeletedData,
-            }
-          ),
-      });
-      console.log(didOfDeletedData)
+      const response = await fetch(
+        'http://127.0.0.1/Allend/backend/public/api/delvideo',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Cookies.get('token')}`,
+          },
+          body: JSON.stringify({
+            vid: didOfDeletedData,
+          }),
+        }
+      );
+      console.log(didOfDeletedData);
 
       fetchData();
       // 根據更新後的CaseData長度更新selectedItems和checkedAll狀態
@@ -115,7 +115,6 @@ const Media = ({ data3 }) => {
       console.log('Response data:', responseData);
 
       // Handle successful response, such as updating the page or other operations
-
     } catch (error) {
       console.error('Error deleting data:', error);
       // Handle error cases, such as displaying error messages or other handling
@@ -129,16 +128,20 @@ const Media = ({ data3 }) => {
   let items = [];
   data3 = data3?.slice(CasePerPage * (active - 1), CasePerPage * active);
   if (data3?.length === 0 && active > 1) {
-    setActive(() => active - 1)
+    setActive(() => active - 1);
   }
   const handleSetActive = (number) => {
-    setActive(number)
-  }
+    setActive(number);
+  };
   //
 
   for (let number = 1; number <= page; number++) {
     items.push(
-      <Pagination.Item key={number} active={number === active} onClick={() => handleSetActive(number)}>
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => handleSetActive(number)}
+      >
         {number}
       </Pagination.Item>
     );
@@ -146,47 +149,80 @@ const Media = ({ data3 }) => {
   if (!CaseData || CaseData.length === 0) {
     return (
       <>
-        <div style={{ fontSize: "30px", background: '#F0F0F0' }}>影音</div>
-        <div style={{
-          width: '100%', background: 'lightgreen', height: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-          borderRadius: "0 0 10px 10px"
-        }}>
-          <div className="mb-3 d-flex justify-content-around align-items-center" style={{ width: "800px", marginTop: "30px" }}>
-            <div style={{ justifyContent: 'center', alignItems: 'center', height: '15vh' }}>
+        <div style={{ fontSize: '30px', background: '#F0F0F0' }}>影音</div>
+        <div
+          style={{
+            width: '100%',
+            background: 'lightgreen',
+            height: '50vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: '0 0 10px 10px',
+          }}
+        >
+          <div
+            className='mb-3 d-flex justify-content-around align-items-center'
+            style={{ width: '800px', marginTop: '30px' }}
+          >
+            <div
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '15vh',
+              }}
+            >
               <h3>未有影音紀錄，點此按鈕新增</h3>
               <Button
-                variant="success"
-                size="sm"
+                variant='success'
+                size='sm'
                 className={`${styles.increasecollectionchecked}`}
-                onClick={() => { handleShow() }}
+                onClick={() => {
+                  handleShow();
+                }}
               >
                 <FaPlus size={16} />
                 新增
               </Button>
-              <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+              <CaseDetailsModal3
+                show={show}
+                onHide={handleClose}
+              ></CaseDetailsModal3>
             </div>
           </div>
         </div>
       </>
-    )
+    );
   }
   return (
     <>
       <div className={`${styles.titlestyle}`}>影音</div>
-      <div style={{ width: '100%', background: 'lightgreen', minHeight: '33vh', borderRadius: "10px" }}>
-        <div className="flex-wrap justify-content-around" style={{ height: '100%', marginTop: "10px" }}>
+      <div
+        style={{
+          width: '100%',
+          background: 'lightgreen',
+          minHeight: '33vh',
+          borderRadius: '10px',
+        }}
+      >
+        <div
+          className='flex-wrap justify-content-around'
+          style={{ height: '100%', marginTop: '10px' }}
+        >
           <div className={`${styles.buttoncontainer}`}>
             <Button
-              variant="success"
+              variant='success'
               className={`${styles.increasecollectionchecked}`}
-              onClick={() => { handleShow() }}
+              onClick={() => {
+                handleShow();
+              }}
             >
               <FaPlus size={16} />
               新增
             </Button>
 
             <Button
-              variant="primary"
+              variant='primary'
               className={`${styles.togglecollectionchecked}`}
               onClick={handleToggleAll}
             >
@@ -203,37 +239,60 @@ const Media = ({ data3 }) => {
               )}
             </Button>
             <Button
-              variant="danger"
+              variant='danger'
               className={`${styles.deletecollectionchecked}`}
-              onClick={() => { handleDeletedModal() }}
-            ><FaTrashAlt size={16} />
+              onClick={() => {
+                handleDeletedModal();
+              }}
+            >
+              <FaTrashAlt size={16} />
               刪除
             </Button>
           </div>
           {/* Generate six Cards */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Row style={{ width: '100%', marginTop: "10px" }}>
+            <Row style={{ width: '100%', marginTop: '10px' }}>
               {data3.map((item, index) => (
-                <Col key={index} style={{ width: '200px', }} className='mb-3 col-4 d-flex justify-content-center'>
-                  <Card style={{ width: "240px" }}>
-                    <YouTubeEmbed variant="top" url={item.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}></YouTubeEmbed>
-                    <Card.Body className="d-flex flex-column">
-                    <Card.Title className='w-100 '>
+                <Col
+                  key={index}
+                  style={{ width: '200px' }}
+                  className='mb-3 col-4 d-flex justify-content-center'
+                >
+                  <Card style={{ width: '240px' }}>
+                    <YouTubeEmbed
+                      variant='top'
+                      url={item.src}
+                      style={{
+                        width: '100%',
+                        height: '180px',
+                        objectFit: 'cover',
+                      }}
+                    ></YouTubeEmbed>
+                    <Card.Body className='d-flex flex-column'>
+                      <Card.Title className='w-100 '>
                         <div
                           style={{
-                            overflow: "hidden",
-                            whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                            margin:"0 1rem 0.1rem 1rem"
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis',
+                            margin: '0 1rem 0.1rem 1rem',
                           }}
                         >
                           <Form.Check
-                            type="checkbox"
+                            type='checkbox'
                             checked={selectedItems[index] || false}
                             onChange={() => handleChecked(index)}
-                            style={{display:'block' ,margin:"0 1rem 0.2rem 0"}}
+                            style={{
+                              display: 'block',
+                              margin: '0 1rem 0.2rem 0',
+                            }}
                           />
-                          <span style={{marginLeft:"0.5rem"}} onClick={() => handleShow1(index)}>{item.v_name}</span>
+                          <span
+                            style={{ marginLeft: '0.5rem' }}
+                            onClick={() => handleShow1(index)}
+                          >
+                            {item.v_name}
+                          </span>
                         </div>
                       </Card.Title>
                     </Card.Body>
@@ -241,40 +300,74 @@ const Media = ({ data3 }) => {
                 </Col>
               ))}
 
-              <Pagination style={{ justifyContent: "center" }}>{items}</Pagination>
+              <Pagination style={{ justifyContent: 'center' }}>
+                {items}
+              </Pagination>
             </Row>
           </div>
         </div>
 
-        <MediaContext.Provider value={{ setSelectedItems, setCheckedAll }} >
-          <CaseDetailsModal3 show={show} onHide={handleClose}></CaseDetailsModal3>
+        <MediaContext.Provider value={{ setSelectedItems, setCheckedAll }}>
+          <CaseDetailsModal3
+            show={show}
+            onHide={handleClose}
+          ></CaseDetailsModal3>
         </MediaContext.Provider>
 
-        <EditModal3 show={show1} onHide={handleClose1} data={CaseData} index={index}></EditModal3>
+        <EditModal3
+          show={show1}
+          onHide={handleClose1}
+          data={CaseData}
+          index={index}
+        ></EditModal3>
 
         {/* 刪除 */}
-        <Modal show={showDeletedModal} onHide={handleClosedDeletedModal} centered size="sm">
+        <Modal
+          show={showDeletedModal}
+          onHide={handleClosedDeletedModal}
+          centered
+          size='sm'
+        >
           <Modal.Header closeButton>
             <Modal.Title>{/* 標題內容 */}</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto',fontSize: "28px" }}>
+          <Modal.Body
+            style={{
+              maxHeight: 'calc(100vh - 200px)',
+              overflowY: 'auto',
+              fontSize: '28px',
+            }}
+          >
             確定刪除所選影音?
           </Modal.Body>
-          <Modal.Footer className="d-flex justify-content-center">
-            <Button variant="primary" onClick={() => handleDeleted()}style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }}>
+          <Modal.Footer className='d-flex justify-content-center'>
+            <Button
+              variant='primary'
+              onClick={() => handleDeleted()}
+              style={{
+                padding: '0.5rem 1.7rem',
+                fontSize: '20px',
+                borderRadius: '10px',
+              }}
+            >
               確定
             </Button>
-            <Button variant="danger" onClick={handleClosedDeletedModal}style={{ padding: '0.5rem 1.7rem', fontSize: '20px', borderRadius: "10px" }}>
+            <Button
+              variant='danger'
+              onClick={handleClosedDeletedModal}
+              style={{
+                padding: '0.5rem 1.7rem',
+                fontSize: '20px',
+                borderRadius: '10px',
+              }}
+            >
               關閉
             </Button>
           </Modal.Footer>
         </Modal>
       </div>
-
     </>
-
   );
 };
 
 export default Media;
-

@@ -9,14 +9,13 @@ const Rating = ({ ratingData, width, fontSize }) => {
     borderRadius: "50px",
     border: "1px solid #ccc",
     padding: "20px",
-    // 如果未提供width prop，則預設為100%
   };
 
   const textStyle = {
-    fontSize: fontSize || "16px", // 如果未提供fontSize prop，則預設為16px
-    display: "flex", // 使用flexbox布局
-    justifyContent: "space-between", // 將內容置於左右兩側
-    textAlign: "center", // 文字置中
+    fontSize: fontSize || "16px",
+    display: "flex",
+    justifyContent: "space-between",
+    textAlign: "center",
   };
 
   return (

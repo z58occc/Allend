@@ -1,13 +1,10 @@
 <?php
 
-// use App\Http\Controllers\AcceptanceIssueController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
-// use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ClosethecaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommitController;
@@ -18,23 +15,9 @@ use App\Http\Controllers\IFindCaseController;
 use App\Http\Controllers\IFindPeopleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MemberInfoController;
-// use App\Http\Controllers\MemberServiceController;
-// use App\Http\Controllers\MemberserviceDeleteController;
-// use App\Http\Controllers\MemberTakeCaseController;
-// use App\Http\Controllers\MemberTakeCaseDeleteController;
 use App\Http\Controllers\Pop_QuoteAgreeController;
-use App\Http\Controllers\ProviderController;
-// use App\Http\Controllers\PublishCaseController;
-// use App\Http\Controllers\PublishCaseDeleteController;
 use App\Http\Controllers\ServiceContentController;
-// use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TalentController;
-use App\Http\Controllers\UpdateProjectController;
-use App\Http\Controllers\UpdateServiceController;
-use Illuminate\Support\Facades\Auth;
-
-// use App\Http\Controllers\VideoController;
-// use App\Http\Controllers\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +68,7 @@ Route::get('/pop_quote', [Pop_QuoteAgreeController::class, 'getQuote']);
 Route::post('/pop_agree', [Pop_QuoteAgreeController::class, 'agreeQuote']);
 Route::post('/pop_disagree', [Pop_QuoteAgreeController::class, 'disagreeQuote']);
 
-//聊天室
+// 聊天室
 Route::post('new-message', [ChatController::class, 'Newmessage']);
 Route::get('get-mlist', [ChatController::class, 'Getlist']);
 Route::get('get-message', [ChatController::class, 'Getmessage']);
