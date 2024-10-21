@@ -27,16 +27,11 @@ class ProviderController extends Controller
             $SocialUser = Socialite::driver('google')
             ->stateless()->with($requestData)->user();
 
-            $user = DB::table('members')->select('mid')
-            ->where('email', $SocialUser->getEmail())->where('provider', 'google');
+            $user = DB::table('members')
+            ->where('email', $SocialUser->getEmail())->where('provider', 'google')->first();
 
-            if ($user->exists()){
-                DB::table('members')->where('mid', $user->first()->mid)->update(['last_login' => now()]);
-
-                $token = auth()->setTTL(120)->attempt([
-                    'email' => $SocialUser->email,
-                    'password' => 'google'
-                ]);
+            if ($user){
+                DB::table('members')->where('mid', $user->mid)->update(['last_login' => now()]);
             }else{
                 $user = DB::table('members')->insert([
                     'provider' => 'google',
@@ -49,10 +44,14 @@ class ProviderController extends Controller
                     'updated_at' => now(),
                     'last_login' => now(),
                 ]);
-                $token = auth()->setTTL(120)->attempt([
-                    'email' => $SocialUser->email,
-                    'password' => 'google'
-                ]);
+            }
+
+            if (!$token = auth()->setTTL(120)->attempt([
+                'email' => $SocialUser->email,
+                'password' => 'google',
+                'provider' => 'google'
+            ])) {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
 
             return response()->json([

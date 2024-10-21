@@ -19,15 +19,15 @@ import { MdOutlineMailOutline } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { PiSignOutFill } from 'react-icons/pi';
 import Homepage from './Homepage/Homepage';
-import Findcase from './Components/Findcase';
-import Findman from './Components/Findman';
+import Findcase from './pages/CasePage/Findcase';
+import Findman from './pages/ServicePage/Findman';
 import MemberCenter from '../src/Dashboard/MemberCenter';
 import ProjectForm from './Components/page/Member/ProjectForm';
-import Serve from './Components/Serve';
+import ServiceDetailPage from './pages/ServiceDetailPage/ServiceDetailPage';
 import Talent from './Components/Talent';
 import Switch from './Components/page/Member/MemberSwitchButton';
 import ChangePasswordForm from './Components/page/Member/ChangePasswordForm';
-import CaseContext from './Components/CaseContext';
+import CaseDetailPage from './pages/CaseDetailPage/CaseDetailPage';
 import MainScreen from './accept/MainScreen';
 import MainScreen2 from './release/MainScreen2';
 import MainScreen3 from './servicePage/MainScreen3';
@@ -440,13 +440,17 @@ function App() {
           element={<Findman />}
         ></Route>
         <Route path='/ProjectForm' element={<ProjectForm />}></Route>
-        <Route exact path='/serve/:mid?/:sid?' element={<Serve />}></Route>
+        <Route
+          exact
+          path='/serve/:mid?/:sid?'
+          element={<ServiceDetailPage />}
+        ></Route>
         <Route path='/talent/:mid?' element={<Talent />}></Route>
         <Route path='/switch' element={<Switch />}></Route>
         <Route path='/member' element={<MemberCenter />}></Route>
         <Route path='/fix' element={<ChangePasswordForm />}></Route>
-        <Route path='/casecontext' element={<CaseContext />}></Route>
-        <Route path='/casecontext/:id' element={<CaseContext />}></Route>
+        <Route path='/casecontext' element={<CaseDetailPage />}></Route>
+        <Route path='/casecontext/:id' element={<CaseDetailPage />}></Route>
         <Route path='/service' element={<MainScreen />}></Route>
         <Route path='/commit' element={<MainScreen2 />}></Route>
         <Route path='/manage' element={<MainScreen3 />}></Route>
