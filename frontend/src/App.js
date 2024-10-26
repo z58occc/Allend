@@ -22,11 +22,10 @@ import Homepage from './Homepage/Homepage';
 import Findcase from './pages/CasePage/Findcase';
 import Findman from './pages/ServicePage/Findman';
 import MemberCenter from '../src/Dashboard/MemberCenter';
-import ProjectForm from './Components/page/Member/ProjectForm';
+import ProjectForm from './Components/Member/ProjectForm';
 import ServiceDetailPage from './pages/ServiceDetailPage/ServiceDetailPage';
 import Talent from './Components/Talent';
-import Switch from './Components/page/Member/MemberSwitchButton';
-import ChangePasswordForm from './Components/page/Member/ChangePasswordForm';
+import MemberSwitchButton from './Components/Member/MemberSwitchButton';
 import CaseDetailPage from './pages/CaseDetailPage/CaseDetailPage';
 import MainScreen from './accept/MainScreen';
 import MainScreen2 from './release/MainScreen2';
@@ -40,6 +39,7 @@ import VerifyEmail from './MemberTool/VerifyEmail';
 import { Header } from './layouts/Header';
 import './App.css';
 import LogoutInformModal from './Components/LogoutInformModal';
+import ChangePasswordForm from './Components/Member/ChangePasswordForm';
 
 export const IsLoggedInContext = createContext();
 
@@ -446,7 +446,7 @@ function App() {
           element={<ServiceDetailPage />}
         ></Route>
         <Route path='/talent/:mid?' element={<Talent />}></Route>
-        <Route path='/switch' element={<Switch />}></Route>
+        <Route path='/switch' element={<MemberSwitchButton />}></Route>
         <Route path='/member' element={<MemberCenter />}></Route>
         <Route path='/fix' element={<ChangePasswordForm />}></Route>
         <Route path='/casecontext' element={<CaseDetailPage />}></Route>

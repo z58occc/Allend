@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
-import LeftVerticalNavbar from '../../../layouts/UserPage/LeftVerticalNavbar';
-import Footer from '../../../layouts/Footer';
+import LeftVerticalNavbar from '../../layouts/UserPage/LeftVerticalNavbar';
+import Footer from '../../layouts/Footer';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Modal } from 'react-bootstrap';

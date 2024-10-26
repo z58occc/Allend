@@ -4,9 +4,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Modal } from 'react-bootstrap';
-import { IsLoggedInContext } from '../../../App';
-import Footer from '../../../layouts/Footer';
-import LeftVerticalNavbar from '../../../layouts/UserPage/LeftVerticalNavbar';
+import { IsLoggedInContext } from '../../App';
+import LeftVerticalNavbar from '../../layouts/UserPage/LeftVerticalNavbar';
+import Footer from '../../layouts/Footer';
 
 // 接案者維護資料
 function FreelancerInfoForm() {

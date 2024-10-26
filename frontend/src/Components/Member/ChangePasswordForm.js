@@ -14,8 +14,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { BsWrenchAdjustable } from 'react-icons/bs';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import LeftVerticalNavbar from '../../../layouts/UserPage/LeftVerticalNavbar';
-import Footer from '../../../layouts/Footer';
+import Footer from '../../layouts/Footer';
+import LeftVerticalNavbar from '../../layouts/UserPage/LeftVerticalNavbar';
 
 function ChangePasswordForm() {
   const [oldPassword, setOldPassword] = useState('');
