@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/Allend/static/css/main.3be421b6.css",
+    "main.js": "/Allend/static/js/main.77b262ab.js",
+    "static/js/453.d855a71b.chunk.js": "/Allend/static/js/453.d855a71b.chunk.js",
+    "static/media/a4.png": "/Allend/static/media/a4.1d198625d95ab1204d90.png",
+    "static/media/a1.png": "/Allend/static/media/a1.449479d1281bac77cd3f.png",
+    "static/media/a6.png": "/Allend/static/media/a6.2ca7a8a1f88e2eb2d571.png",
+    "static/media/a2.png": "/Allend/static/media/a2.f480247149fb63a53053.png",
+    "static/media/fa-solid-900.svg": "/Allend/static/media/fa-solid-900.7a8b4f130182d19a2d7c.svg",
+    "static/media/background.jpg": "/Allend/static/media/background.6c0cdce14fb7ec5a5e5d.jpg",
+    "static/media/a5.png": "/Allend/static/media/a5.5076a7fc156b585ffb88.png",
+    "static/media/fa-brands-400.svg": "/Allend/static/media/fa-brands-400.2f517e09eb2ca6650ff5.svg",
+    "static/media/logo.jpg": "/Allend/static/media/logo.e5bee7e1a657fdb17248.jpg",
+    "static/media/member.png": "/Allend/static/media/member.47065ba4cda48a7882dd.png",
+    "static/media/fa-solid-900.eot": "/Allend/static/media/fa-solid-900.9bbb245e67a133f6e486.eot",
+    "static/media/fa-solid-900.ttf": "/Allend/static/media/fa-solid-900.be9ee23c0c6390141475.ttf",
+    "static/media/fa-regular-400.svg": "/Allend/static/media/fa-regular-400.4689f52cc96215721344.svg",
+    "static/media/fa-brands-400.eot": "/Allend/static/media/fa-brands-400.23f19bb08961f37aaf69.eot",
+    "static/media/fa-brands-400.ttf": "/Allend/static/media/fa-brands-400.527940b104eb2ea366c8.ttf",
+    "static/media/fa-solid-900.woff": "/Allend/static/media/fa-solid-900.eeccf4f66002c6f2ba24.woff",
+    "static/media/fa-brands-400.woff": "/Allend/static/media/fa-brands-400.2285773e6b4b172f07d9.woff",
+    "static/media/fa-solid-900.woff2": "/Allend/static/media/fa-solid-900.1551f4f60c37af51121f.woff2",
+    "static/media/fa-brands-400.woff2": "/Allend/static/media/fa-brands-400.d878b0a6a1144760244f.woff2",
+    "static/media/fa-regular-400.eot": "/Allend/static/media/fa-regular-400.77206a6bb316fa0aded5.eot",
+    "static/media/fa-regular-400.ttf": "/Allend/static/media/fa-regular-400.491974d108fe4002b2aa.ttf",
+    "static/media/fa-regular-400.woff": "/Allend/static/media/fa-regular-400.bb58e57c48a3e911f15f.woff",
+    "static/media/fa-regular-400.woff2": "/Allend/static/media/fa-regular-400.7a3337626410ca2f4071.woff2",
+    "index.html": "/Allend/index.html",
+    "static/media/arrow_left.svg": "/Allend/static/media/arrow_left.db6e2d88c7c35a775ce4.svg",
+    "static/media/arrow_right.svg": "/Allend/static/media/arrow_right.f7c6ac6d310d3b82f0a0.svg",
+    "main.3be421b6.css.map": "/Allend/static/css/main.3be421b6.css.map",
+    "main.77b262ab.js.map": "/Allend/static/js/main.77b262ab.js.map",
+    "453.d855a71b.chunk.js.map": "/Allend/static/js/453.d855a71b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3be421b6.css",
+    "static/js/main.77b262ab.js"
+  ]
+}
