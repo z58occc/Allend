@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Allend/static/css/main.3be421b6.css",
-    "main.js": "/Allend/static/js/main.77b262ab.js",
+    "main.css": "/Allend/static/css/main.621d3920.css",
+    "main.js": "/Allend/static/js/main.d1924cc2.js",
     "static/js/453.d855a71b.chunk.js": "/Allend/static/js/453.d855a71b.chunk.js",
     "static/media/a4.png": "/Allend/static/media/a4.1d198625d95ab1204d90.png",
     "static/media/a1.png": "/Allend/static/media/a1.449479d1281bac77cd3f.png",
@@ -29,12 +29,12 @@
     "index.html": "/Allend/index.html",
     "static/media/arrow_left.svg": "/Allend/static/media/arrow_left.db6e2d88c7c35a775ce4.svg",
     "static/media/arrow_right.svg": "/Allend/static/media/arrow_right.f7c6ac6d310d3b82f0a0.svg",
-    "main.3be421b6.css.map": "/Allend/static/css/main.3be421b6.css.map",
-    "main.77b262ab.js.map": "/Allend/static/js/main.77b262ab.js.map",
+    "main.621d3920.css.map": "/Allend/static/css/main.621d3920.css.map",
+    "main.d1924cc2.js.map": "/Allend/static/js/main.d1924cc2.js.map",
     "453.d855a71b.chunk.js.map": "/Allend/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3be421b6.css",
-    "static/js/main.77b262ab.js"
+    "static/css/main.621d3920.css",
+    "static/js/main.d1924cc2.js"
   ]
 }
